@@ -1,0 +1,221 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            popup通用属性
+        </text>
+
+        <div id="target1"></div>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <popup id="idProp" target="target1">
+        </popup>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <popup id="classProp" target="target1"
+             class="classProp">
+        </popup>
+        <popup id="classPropNone" target="target1"
+             class="">
+        </popup>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <popup id="styleProp" target="target1"
+             style="width:10%;height:20px;background-color:red">
+        </popup>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <popup id="refProp" target="target1"
+             ref="refProp">
+        </popup>
+        <popup id="refPropNone" target="target1"
+             ref="">
+        </popup>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <popup id="disabledPropTrue" target="target1"
+             disabled="true">
+        </popup>
+        <popup id="disabledPropFalse" target="target1"
+             disabled="false">
+        </popup>
+        <popup id="disabledPropNone" target="target1"
+             disabled="">
+        </popup>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <popup id="dataProp" target="target1"
+             data-popup="通用属性 -- data-*">
+        </popup>
+        <popup id="dataPropNone" target="target1"
+             data-popup="">
+        </popup>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <popup id="clickEffectPropSmall" target="target1"
+             click-effect="spring-small">
+        </popup>
+        <popup id="clickEffectPropMedium" target="target1"
+             click-effect="spring-medium">
+        </popup>
+        <popup id="clickEffectPropLarge" target="target1"
+             click-effect="spring-large">
+        </popup>
+        <popup id="clickEffectPropNone" target="target1"
+             click-effect="">
+        </popup>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <popup id="dirPropRtl" target="target1"
+             dir="rtl">
+        </popup>
+        <popup id="dirPropAuto" target="target1"
+             dir="auto">
+        </popup>
+        <popup id="dirPropLtr" target="target1"
+             dir="ltr">
+        </popup>
+        <popup id="dirPropNone" target="target1"
+             dir="">
+        </popup>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <popup id="forPropNull" target="target1"
+             for="">
+        </popup>
+        <popup id="forPropOne" target="target1"
+             for="{{listOne}}">
+        </popup>
+        <popup id="forPropThree" target="target1"
+             for="{{listThree}}">
+        </popup>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <popup id="ifPropTrue" target="target1"
+             if="true">
+        </popup>
+        <popup id="ifPropFalse" target="target1"
+               if="false">
+        </popup>
+        <popup id="elifPropTrue" target="target1"
+               elif="true">
+        </popup>
+        <popup id="elifPropFalse" target="target1"
+               elif="false">
+        </popup>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <popup id="showPropTrue" target="target1"
+             show="true">
+        </popup>
+        <popup id="showPropFalse" target="target1"
+             show="false">
+        </popup>
+        <popup id="showPropNone"  target="target1"
+             show="">
+        </popup>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <popup class="propNewAdd" target="target1"
+                 tid="id">
+        </popup>
+        <popup class="propNewAdd" target="target1"
+                 tid="">
+        </popup>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            popup特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- target
+        </text>
+        <popup id="targetProp"  target="target1">
+        </popup>
+
+        <text class="sub-title">
+            特有属性 -- placement
+        </text>
+        <popup id="placementPropLeft"  target="target1" placement="left">
+        </popup>
+        <popup id="placementPropRight"  target="target1" placement="right">
+        </popup>
+        <popup id="placementPropTop"  target="target1" placement="top">
+        </popup>
+        <popup id="placementPropBottom"  target="target1" placement="bottom">
+        </popup>
+        <popup id="placementPropTopLeft"  target="target1" placement="topLeft">
+        </popup>
+        <popup id="placementPropTopRight"  target="target1" placement="topRight">
+        </popup>
+        <popup id="placementPropBottomLeft"  target="target1" placement="bottomLeft">
+        </popup>
+        <popup id="placementPropBottomRight"  target="target1" placement="bottomRight">
+        </popup>
+
+        <text class="sub-title">
+            特有属性 -- keepalive
+        </text>
+        <popup id="keepAlivePropTrue"  target="target1" keepalive="true">
+        </popup>
+        <popup id="keepAlivePropFalse"  target="target1" keepalive="false">
+        </popup>
+
+        <text class="sub-title">
+            特有属性 -- clickable
+        </text>
+        <popup id="clickablePropTrue"  target="target1" clickable="true">
+        </popup>
+        <popup id="clickablePropFalse"  target="target1" clickable="false">
+        </popup>
+
+        <text class="sub-title">
+            特有属性 -- arrowoffset
+        </text>
+        <popup id="arrowOffsetProp"  target="target1" arrowoffset="10px">
+        </popup>
+    </div>
+</div>

@@ -1,0 +1,562 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/features.gni")
+import("//build/ohos.gni")
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("../../camera.gni")
+
+module_output_path = "hdf/fuzz_test"
+
+ohos_fuzztest("IpcCameraDeviceRemote") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources = [
+    "$camera_path/../interfaces/hdi_ipc/server/camera_device_stub.cpp",
+    "./ipc_camera_device_remote_fuzzer/ipc_camera_device_remote_fuzzer.cpp",
+  ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_camera_device_remote_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+ohos_fuzztest("IpcCameraHostService") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources =
+      [ "./ipc_camera_host_service_fuzzer/ipc_camera_host_service_fuzzer.cpp" ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_camera_host_service_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+ohos_fuzztest("IpcOffline") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources = [ "./ipc_offline_fuzzer/ipc_offline_fuzzer.cpp" ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_offline_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+ohos_fuzztest("IpcStreamOperator") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources = [ "./ipc_stream_operator_fuzzer/ipc_stream_operator_fuzzer.cpp" ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_stream_operator_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+ohos_fuzztest("IpcCameraDeviceCallback") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources = [
+    "./ipc_camera_device_callback_fuzzer/ipc_camera_device_callback_fuzzer.cpp",
+  ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_camera_device_callback_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+ohos_fuzztest("IpcCameraHostCallback") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources = [
+    "./ipc_camera_host_callback_fuzzer/ipc_camera_host_callback_fuzzer.cpp",
+  ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_camera_host_callback_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+ohos_fuzztest("IpcStreamOperatorCallback") {
+  module_out_path = module_output_path
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+  sources = [ "./ipc_stream_operator_callback_fuzzer/ipc_stream_operator_callback_fuzzer.cpp" ]
+
+  include_dirs = [
+    "./include",
+    "$camera_path/test/fuzz/ipc_stream_operator_callback_fuzzer",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/ipp/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "display_device_driver:hdi_display_gralloc",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+group("camera_hal_fuzztest") {
+  testonly = true
+  deps = [
+    ":IpcCameraDeviceCallback",
+    ":IpcCameraDeviceRemote",
+    ":IpcCameraHostCallback",
+    ":IpcCameraHostService",
+    ":IpcOffline",
+    ":IpcStreamOperator",
+    ":IpcStreamOperatorCallback",
+  ]
+}

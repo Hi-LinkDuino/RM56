@@ -1,0 +1,9 @@
+root {
+    module = "test";
+    term1 = 1;
+    term2 = 0x2;
+    term3 = 0b11;
+    term_uint16 = 0xffff;
+    term_uint32 = 0xffffffff;
+    term_uint64 = 0xffffffffff;
+}

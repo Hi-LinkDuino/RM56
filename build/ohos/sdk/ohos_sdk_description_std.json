@@ -1,0 +1,587 @@
+[
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/syscap_codec:syscap_tool_bin",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hdc_standard:hdc_std",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hdc:hdc",
+        "target_os": [
+            "linux"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hdc:hdc_win",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hdc:hdc_darwin",
+        "target_os": [
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hdc:hdc_lib_winapi",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hdc:hdc_lib_winusbapi",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//developtools/hapsigner:lib",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//prebuilts/build-tools/common/restool:restool_linux",
+        "target_os": [
+            "linux"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//prebuilts/build-tools/common/restool:restool_windows",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//prebuilts/build-tools/common/restool:restool_darwin",
+        "target_os": [
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//prebuilts/build-tools/common/restool:restool_systemres",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/api",
+        "module_label": "//interface/sdk-js:ohos_declaration_common",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/api/config",
+        "module_label": "//interface/sdk-js:config",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/form",
+        "module_label": "//interface/sdk-js:form_declaration",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/",
+        "module_label": "//prebuilts/sdk/js-loader:ace_loader",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/ace-loader/bin/",
+        "module_label": "//third_party/quickjs:qjsc",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/ace-loader/bin/",
+        "module_label": "//third_party/jerryscript:jerry",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/ace-loader/bin/",
+        "module_label": "//third_party/jerryscript:jerry-snapshot",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/ace-loader",
+        "module_label": "//developtools/ace-js2bundle:ace_loader",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/ace-loader/lib/",
+        "module_label": "//developtools/ace-js2bundle:ace_loader_library",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+    	"install_dir": "js/build-tools/ace-loader/bin/ark/",
+	    "module_label": "//ark/ts2abc/ts2panda:panda_ts2abc",
+	    "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/bin/ark/",
+        "module_label": "//ark/ts2abc/ts2panda:panda_ts2abc_ets",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/ace-loader/bin/ark/build/",
+        "module_label": "//ark/ts2abc/ts2panda:ts2abc_build",
+        "target_os": [
+            "linux"
+        ]
+    },
+    {
+    	"install_dir": "js/build-tools/ace-loader/bin/ark/build-win/",
+        "module_label": "//ark/ts2abc/ts2panda:ts2abc_build_win",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+    	"install_dir": "js/build-tools/ace-loader/bin/ark/build-mac/",
+        "module_label": "//ark/ts2abc/ts2panda:ts2abc_build_mac",
+        "target_os": [
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/bin/ark/build/",
+        "module_label": "//ark/ts2abc/ts2panda:ts2abc_build_ets",
+        "target_os": [
+            "linux"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/bin/ark/build-win/",
+        "module_label": "//ark/ts2abc/ts2panda:ts2abc_build_win_ets",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/bin/ark/build-mac/",
+        "module_label": "//ark/ts2abc/ts2panda:ts2abc_build_mac_ets",
+        "target_os": [
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/api/@internal/full",
+	    "module_label": "//interface/sdk-js:ets_internal_api",
+	    "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/api",
+        "module_label": "//interface/sdk-js:common_api",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/api",
+        "module_label": "//interface/sdk-js:ohos_declaration_ets",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/api/@internal/full",
+        "module_label": "//interface/sdk-js:internal_full",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/api/@internal/lite",
+        "module_label": "//interface/sdk-js:internal_lite",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/api",
+        "module_label": "//interface/sdk-js:system_api",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/syscapcheck",
+        "module_label": "//interface/sdk-js:syscap_check",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/component",
+        "module_label": "//interface/sdk-js:ets_component",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/component",
+        "module_label": "//developtools/ace-ets2bundle:ets_loader_component_config",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/deps",
+        "module_label": "//developtools/ace-ets2bundle:ets_loader_deps",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader",
+        "module_label": "//developtools/ace-ets2bundle:ets_loader",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/lib",
+        "module_label": "//developtools/ace-ets2bundle:ets_loader_library",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/syntax_parser/dist",
+        "module_label": "//developtools/ace-ets2bundle:ets_loader_syntax",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/components",
+        "module_label": "//developtools/ace-ets2bundle:components",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/server",
+        "module_label": "//developtools/ace-ets2bundle:server",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/codegen",
+        "module_label": "//developtools/ace-ets2bundle:codegen",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/declarations",
+        "module_label": "//developtools/ace-ets2bundle:ets_loader_declaration",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "ets/build-tools/ets-loader/declarations",
+        "module_label": "//interface/sdk-js:bundle_api",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//ark/runtime_core/assembler:ark_asm",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains",
+        "module_label": "//ark/runtime_core/disassembler:ark_disasm",
+        "target_os": [
+            "windows",
+            "linux",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/lib",
+        "module_label": "//developtools/packing_tool/jar:app_packing_tool",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/lib",
+        "module_label": "//developtools/packing_tool/jar:app_unpacking_tool",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer",
+        "module_label": "//developtools/ace-js2bundle:previewer_copy",
+        "target_os": [
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer/common/bin",
+        "module_label": "//foundation/ace/ace_engine/adapter/preview/sdk:copy_napi_shared_library",
+        "target_os": [
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer/common/bin/module",
+        "module_label": "//foundation/ace/ace_engine/adapter/preview/sdk:copy_napi_modules_shared_library",
+        "target_os": [
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer/common/bin",
+        "module_label": "//foundation/ace/ace_engine/adapter/preview/sdk:copy_preview_shared_library",
+        "target_os": [
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer/common/bin",
+        "module_label": "//foundation/ace/ace_engine/adapter/preview/sdk:copy_resource_dynamic_library_standard",
+        "target_os": [
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer/common",
+        "module_label": "//foundation/ace/ace_engine/adapter/preview/sdk:copy_system_resource_standard",
+        "target_os": [
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "previewer/resources",
+        "module_label": "//foundation/ace/ace_engine/adapter/preview/sdk:copy_preview_curl_cacert",
+        "target_os": [
+            "windows"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/binary-tools",
+        "module_label": "//developtools/packing_tool/jar:fastjson_utils_java",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "js/build-tools/binary-tools",
+        "module_label": "//developtools/packing_tool/jar:haptobin_tool",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/configcheck",
+        "module_label": "//developtools/packing_tool/configcheck:configSchema_lite_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/configcheck",
+        "module_label": "//developtools/packing_tool/configcheck:configSchema_rich_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:appSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:commonEventSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:distroFilterSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:formsSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+	{
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:moduleSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:pageSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    },
+    {
+        "install_dir": "toolchains/modulecheck",
+        "module_label": "//developtools/packing_tool/modulecheck:shortcutsSchema_json",
+        "target_os": [
+            "linux",
+            "windows",
+            "darwin"
+        ]
+    }
+]

@@ -1,0 +1,15 @@
+import("//build/test.gni")
+
+group("musl_libc_test") {
+  testonly = true
+
+  deps = [
+    "src/api:main",
+    "src/common:runtest",
+    "src/functional:functional_test",
+    "src/math:math_test",
+    "src/musl:pleval",
+    "src/nativehook:nativehook_test",
+    "src/regression:regression_test",
+  ]
+}

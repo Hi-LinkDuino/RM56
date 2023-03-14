@@ -1,0 +1,20 @@
+#
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+#
+# This file is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+#
+
+import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+
+module_group("platform") {
+  modules = [
+    "gpio",
+    "i2c",
+    "pwm",
+    "spi",
+    "uart",
+    "watchdog",
+  ]
+}

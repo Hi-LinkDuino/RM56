@@ -1,0 +1,83 @@
+{
+  "app": {
+    "bundleName": "com.example.myapplication101",
+    "vendor": "example",
+    "version": {
+      "code": 12,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.myapplication101",
+    "name": ".MyApplication",
+    "mainAbility": "com.example.myapplication101.MainAbility",
+    "deviceType": [
+      "phone",
+      "tablet",
+      "tv",
+      "wearable"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.myapplication101.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard",
+        "visible": true
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        }
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.ACCESS_BIOMETRIC"
+      },
+      {
+        "name": "ohos.permission.USE_USER_IDM"
+      },
+      {
+        "name": "ohos.permission.MANAGE_USER_IDM"
+      },
+      {
+        "name": "ohos.permission.ACCESS_USER_AUTH_INTERNAL"
+      },
+      {
+        "name": "ohos.permission.ACCESS_PIN_AUTH"
+      }
+    ]
+  }
+}

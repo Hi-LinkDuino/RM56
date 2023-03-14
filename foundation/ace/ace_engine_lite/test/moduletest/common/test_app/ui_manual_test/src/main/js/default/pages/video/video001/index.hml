@@ -1,0 +1,33 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div style="width:960px;height:480px;left:0px;top:0px;flex-direction:column;" >
+  <video ref="vid" muted="false" autoplay="true" controls="{{showControls}}" src="{{videoSrc}}"  class="specialVideo"
+   onprepared="preparedfn" onstart="startfunc" onpause="pausefn" onfinish="finishfn"
+   onerror="error" onseeking="seekingfn" onseeked="seekedfn" ontimeupdate="timeupdatefn">
+  </video>
+
+<div style="width:640px;height:80px;left:0px;top:0px;flex-direction:row;">
+  <input type="button" style="margin-left:25px;width:80px;height:60px;" value="播放" onclick="startPlayVideo">
+  </input>
+  <input type="button" style="margin-left:25px;width:80px;height:60px;" value="暂停" onclick="stopPlayVideo">
+  </input>
+  <input type="button" style="margin-left:25px;width:80px;height:60px;" value="跳转" onclick="setCurrentTime(10)">
+  </input>
+  <input type="button" style="margin-left:25px;width:80px;height:60px;" value="下一首" onclick="playNext">
+  </input>
+  <input type="button" style="margin-left:25px;width:80px;height:60px;" value="首页" @click="backMain"/>
+</div>
+</div>

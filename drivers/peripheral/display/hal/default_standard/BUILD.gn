@@ -1,0 +1,133 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+group("display_group") {
+  deps = [
+    ":def_display_device",
+    ":def_display_gralloc",
+    ":higbm",
+  ]
+}
+
+ohos_static_library("higbm") {
+  sources = [ "src/display_gralloc/hi_gbm.c" ]
+  include_dirs = [ "include" ]
+  output_name = "higbm"
+  cflags = [
+    "-DGRALLOC_GBM_SUPPORT",
+    "-Wno-macro-redefined",
+  ]
+  deps = [ "//third_party/libdrm:libdrm" ]
+  external_deps = [
+    "hiviewdfx_hilog_native:libhilog",
+    "utils_base:utils",
+  ]
+  subsystem_name = "hdf"
+  part_name = "display_device_driver"
+}
+
+ohos_shared_library("def_display_gralloc") {
+  sources = [
+    "src/display_gralloc/display_gralloc.c",
+    "src/display_gralloc/display_gralloc_gbm.c",
+    "src/display_gralloc/wayland_drm_auth_client.c",
+  ]
+  include_dirs = [
+    "include",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+    "//foundation/graphic/standard/utils/include",
+    "//foundation/graphic/standard/prebuilts/librarys/drm/include",
+  ]
+  output_name = "display_gralloc"
+  cflags = [
+    "-DGRALLOC_GBM_SUPPORT",
+    "-Wno-macro-redefined",
+  ]
+  deps = [
+    ":higbm",
+    "//third_party/libdrm:libdrm",
+    "//third_party/wayland_standard:libwayland_client",
+    "//third_party/weston:drm_auth_protocol",
+  ]
+
+  external_deps = [
+    "device_driver_framework:libhdf_utils",
+    "hiviewdfx_hilog_native:libhilog",
+    "utils_base:utils",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "display_device_driver"
+}
+
+config("def_display_device_pub_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+    "//drivers/peripheral/display/hal/default_standard/src/display_device",
+    "//drivers/peripheral/display/hal/default_standard/include",
+  ]
+}
+
+ohos_shared_library("def_display_device") {
+  sources = [
+    "src/display_device/drm_connector.cpp",
+    "src/display_device/drm_crtc.cpp",
+    "src/display_device/drm_device.cpp",
+    "src/display_device/drm_display.cpp",
+    "src/display_device/drm_encoder.cpp",
+    "src/display_device/drm_plane.cpp",
+    "src/display_device/drm_vsync_worker.cpp",
+    "src/display_device/hdi_composer.cpp",
+    "src/display_device/hdi_device_interface.cpp",
+    "src/display_device/hdi_display.cpp",
+    "src/display_device/hdi_drm_composition.cpp",
+    "src/display_device/hdi_drm_layer.cpp",
+    "src/display_device/hdi_gfx_composition.cpp",
+    "src/display_device/hdi_layer.cpp",
+    "src/display_device/hdi_session.cpp",
+  ]
+  public_configs = [ ":def_display_device_pub_config" ]
+
+  output_name = "display_device"
+  include_dirs = [
+    "src/display_device",
+    "include",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+    "//foundation/graphic/standard/utils/include",
+    "//foundation/graphic/standard/prebuilts/librarys/drm/include",
+  ]
+  deps = [
+    ":def_display_gralloc",
+    "//third_party/libdrm:libdrm",
+  ]
+  cflags = [ "-Wno-unused-function" ]
+  external_deps = [
+    "device_driver_framework:libhdf_utils",
+    "hiviewdfx_hilog_native:libhilog",
+    "utils_base:utils",
+  ]
+
+  install_enable = true
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "display_device_driver"
+}

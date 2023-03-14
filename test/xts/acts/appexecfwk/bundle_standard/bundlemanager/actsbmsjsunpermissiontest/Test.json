@@ -1,0 +1,38 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "120000",
+        "package": "com.example.actsbmsjsunpermissiontest",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsBmsJsUnPermissionTest.hap",
+                "bmsJstest1.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "remount",
+                "mkdir /data/test"
+            ]
+        },
+        {
+            "type": "PushKit",
+            "push": [
+                "bmsJstest1.hap->/data/test/bmsJstest1.hap"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "chmod 644 /data/test/*.hap"
+            ]
+        }
+    ]
+}

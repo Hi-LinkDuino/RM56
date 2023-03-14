@@ -1,0 +1,69 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                svg通用属性1
+            </text>
+            <svg x="0" y="0" width="400" height="80" viewBox="0 0 230 60" >
+                <rect x="10" y="10" width="50" height="50" fill-opacity="0.5"></rect>
+                <rect x="70" y="10" width="50" height="50" opacity="0.8"></rect>
+                <rect x="130" y="10" width="50" height="50" fill="red" fill-rule="evenodd"></rect>
+                <rect x="190" y="10" width="50" height="50" fill="red" stroke-linejoin="bevel"></rect>
+            </svg>
+
+            <text  class="sub-title">
+                svg通用属性2
+            </text>
+            <svg x="0" y="0" width="400" height="80" viewBox="0 0 230 60" >
+                <rect x="10" y="10" width="50" height="50" stroke="red"  stroke-width="4" fill="white" stroke-miterlimit="10"></rect>
+                <rect x="70" y="10" width="50" height="50" stroke="red"  stroke-width="4" fill="white"></rect>
+                <rect x="130" y="10" width="50" height="50" stroke="red"  stroke-width="4" fill="yellow" stroke-dasharray="5 3" stroke-dashoffset="10"></rect>
+                <rect x="190" y="10" width="50" height="50" stroke="blue"  stroke-width="4" stroke-dashoffset="10" fill="white" stroke-opacity="0.6"></rect>
+            </svg>
+            <text  class="sub-title">
+                svg通用属性3
+            </text>
+            <svg x="0" y="0" width="180" height="200" viewBox="0 0 180 140">
+                <rect x="10" y="10" width="50" height="50" stroke="red"  stroke-width="4" fill="white" transform="rotate(-10)"></rect>
+                <rect x="60" y="10" width="50" height="50" stroke="red"  stroke-width="4" fill="white"  transform="translate(40)"></rect>
+                <rect x="10" y="70" width="50" height="50" stroke="red"  stroke-width="4" fill="white"  transform="skewX(10)"></rect>
+                <rect x="120" y="70" width="50" height="50" stroke="red"  stroke-width="4" fill="white" transform="skewY(5)"></rect>
+            </svg>
+            <text  class="sub-title">
+                svg特有属性4
+            </text>
+            <svg  width="400" height="300">
+                <svg width="400" height="200" viewBox="0 0 100 100">
+                    <rect x="10" y="10" width="80" height="80" fill="#00FF00"></rect>
+                </svg>
+                <svg x="0" y="0" width="400" height="200" viewBox="0 0 200 200">
+                    <rect x="10" y="10" width="80" height="80" fill="red"></rect>
+                </svg>
+                <svg x="0" y="0" width="400" height="200" viewBox="0 0 400 400">
+                    <rect x="10" y="10" width="80" height="80" fill="blue"></rect>
+                </svg>
+            </svg>
+        </div>
+
+
+    </div>
+
+</div>

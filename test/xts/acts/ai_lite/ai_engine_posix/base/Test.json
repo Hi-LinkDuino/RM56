@@ -1,0 +1,25 @@
+{
+    "description": "Config for ai engine test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/ai",
+                    "target": "/test_root/ai/ai_engine"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/ai/ai_engine/ActsAiEngineTest.bin"
+    }
+}

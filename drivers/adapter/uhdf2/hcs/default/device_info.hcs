@@ -1,0 +1,20 @@
+ root {
+    device_info {
+        match_attr = "hdf_manager";
+        template host {
+            hostName = "";
+            priority = 100;
+            template device {
+                template deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    preload = 0;
+                    permission = 0664;
+                    moduleName = "";
+                    serviceName = "";
+                    deviceMatchAttr = "";
+                }
+            }
+        }
+    }
+}

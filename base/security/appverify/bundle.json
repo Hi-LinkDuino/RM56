@@ -1,0 +1,69 @@
+{
+    "name": "@ohos/appverify",
+    "description": "Signature verification for HAP packages",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "base/security/appverify"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "appverify",
+      "subsystem": "security",
+      "syscap": [ "SystemCapability.Security.AppVerify" ],
+      "features": [],
+      "adapted_system_type": [
+        "standard",
+        "small",
+        "mini"
+      ],
+      "rom": "5000kb",
+      "ram": "500kb",
+      "deps": {
+        "components": [
+          "hiviewdfx_hilog_native",
+          "startup_l2"
+        ],
+        "third_party": [
+          "bounds_checking_function",
+          "mbedtls",
+          "cjson"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//base/security/appverify:appverify_components"
+        ],
+        "inner_kits": [
+          {
+            "header": {
+              "header_base": "//base/security/appverify/interfaces/innerkits/appverify/include",
+              "header_files": [
+                "interfaces/hap_verify_result.h",
+                "interfaces/hap_verify.h",
+                "common/hap_byte_buffer.h",
+                "common/export_define.h",
+                "provision/provision_info.h"
+              ]
+            },
+            "name": "//base/security/appverify/interfaces/innerkits/appverify:libhapverify"
+          },
+          {
+            "header": {
+              "header_base": "//base/security/appverify/interfaces/innerkits/appverify_lite/include",
+              "header_files": [
+                "app_verify_pub.h"
+              ]
+            },
+            "name": "//base/security/appverify/interfaces/innerkits/appverify_lite:verify"
+          }
+       ],
+       "test": [
+         "//base/security/appverify:testcase_packages"
+       ]
+     }
+    }
+  }
+  

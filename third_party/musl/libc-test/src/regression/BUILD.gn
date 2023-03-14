@@ -1,0 +1,25 @@
+import("../../test_template.gni")
+import("test_src_regression.gni")
+
+foreach(s, regression_list) {
+  test_unittest(s) {
+    target_dir = "regression"
+  }
+}
+
+group("regression_test") {
+  testonly = true
+  deps = [ ":dso_shared" ]
+
+  foreach(s, regression_list) {
+    deps += [ ":${s}" ]
+  }
+}
+
+test_sharedlib("tls_get_new-dtv_dso") {
+}
+
+group("dso_shared") {
+  testonly = true
+  deps = [ ":tls_get_new-dtv_dso" ]
+}

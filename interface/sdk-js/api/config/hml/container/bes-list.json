@@ -1,0 +1,261 @@
+{
+  "name": "bes-list",
+  "version": [
+    {
+      "name": "v1.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full",
+    "SystemCapability.ArkUI.ArkUI.Lite"
+  ],
+  "description": [
+    {
+      "name": "<bes-list> 组件提供了一个列表容器，它显示了一系列排列在一列中的具有相同宽度的列表项。列表支持以多行和连贯的行样式显示相同的数据，例如图像和文本。此外，组件支持列表滚动条。仅支持 liteWearable 终端。"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "id",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Unique ID of a component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "style",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Style declaration of a component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "class",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Style class of a component, which is used to refer to a style table."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "ref",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Used to register reference information of child elements or child components. The reference information is registered with the parent component on $refs."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "for",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Expands the current element based on the configured data list."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "if",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Whether the element is added or removed."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Whether the element is displayed or hidden."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "列表被点击事件"
+        }
+      ]
+    },
+    {
+      "name": "longpress",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "列表被长按事件"
+        }
+      ]
+    },
+    {
+      "name": "swipe",
+      "version": [
+        {
+          "name": "v5.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A user quickly swipes on a component."
+        }
+      ]
+    },
+    {
+      "name": "scrollend",
+      "description": [
+        {
+          "name": "列表滚动结束时，触发该事件"
+        }
+      ]
+    },
+    {
+      "name": "scrolltop",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "description": [
+        {
+          "name": "列表滚动到顶部时，触发该事件",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scrollbottom",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "description": [
+        {
+          "name": "列表滚动到底部时，触发该事件",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scrollstart",
+      "description": [
+        {
+          "name": "列表开始滚动时，触发该事件"
+        }
+      ]
+    },
+    {
+      "name": "touchstart",
+      "description": [
+        {
+          "name": "列表捕获到用户手指按下（触摸开始）时，触发该事件"
+        }
+      ]
+    },
+    {
+      "name": "touchmove",
+      "description": [
+        {
+          "name": "列表捕获到用户手指在屏幕上移动（划动）时，触发该事件"
+        }
+      ]
+    },
+    {
+      "name": "touchend",
+      "description": [
+        {
+          "name": "列表捕获到用户手指抬起（触摸结束）时，触发该事件"
+        }
+      ]
+    }
+  ],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [
+    {
+      "name": "list-item",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "level": 2
+    }
+  ],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

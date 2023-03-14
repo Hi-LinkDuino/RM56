@@ -1,0 +1,110 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+import("//build/ohos/ace/ace.gni")
+
+ohos_copy("appdatamgr_declaration") {
+  sources = [ "./api" ]
+  outputs = [ target_out_dir + "/$target_name/" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_shared_library("storage") {
+  include_dirs = [
+    "include",
+    "../common/include",
+    "//third_party/node/src",
+    "//utils/native/base/include",
+  ]
+
+  sources = [
+    "src/entry_point_storage.cpp",
+    "src/napi_storage.cpp",
+    "src/napi_storage_helper.cpp",
+  ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "napi:ace_napi",
+    "native_appdatamgr:native_preferences",
+  ]
+
+  subsystem_name = "distributeddatamgr"
+  part_name = "native_appdatamgr"
+  relative_install_dir = "module/data"
+}
+
+ohos_shared_library("storage_napi") {
+  include_dirs = [
+    "include",
+    "../common/include",
+    "//third_party/node/src",
+    "//utils/native/base/include",
+  ]
+
+  sources = [
+    "../common/src/js_ability.cpp",
+    "../common/src/js_utils.cpp",
+    "src/entry_point_system_storage.cpp",
+    "src/napi_system_storage.cpp",
+  ]
+
+  deps = [ "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native" ]
+
+  external_deps = [
+    "ability_runtime:ability_manager",
+    "ability_runtime:napi_base_context",
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "napi:ace_napi",
+    "native_appdatamgr:native_preferences",
+  ]
+
+  subsystem_name = "distributeddatamgr"
+  part_name = "native_appdatamgr"
+  relative_install_dir = "module"
+}
+
+ohos_shared_library("preferences") {
+  include_dirs = [
+    "include",
+    "../common/include",
+    "//third_party/node/src",
+    "//utils/native/base/include",
+  ]
+
+  sources = [
+    "../common/src/js_ability.cpp",
+    "../common/src/js_utils.cpp",
+    "src/entry_point.cpp",
+    "src/napi_preferences.cpp",
+    "src/napi_preferences_helper.cpp",
+  ]
+
+  deps = [ "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native" ]
+
+  external_deps = [
+    "ability_runtime:ability_manager",
+    "ability_runtime:napi_base_context",
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "napi:ace_napi",
+    "native_appdatamgr:native_preferences",
+  ]
+
+  subsystem_name = "distributeddatamgr"
+  part_name = "native_appdatamgr"
+  relative_install_dir = "module/data"
+}

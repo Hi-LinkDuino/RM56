@@ -1,0 +1,89 @@
+{
+  "name": "@ohos/device_driver_framework",
+  "description": "device driver framework",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "device_driver_framework",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "735KB",
+    "ram": "8000KB",
+    "deps": {
+      "components": [
+        "hiviewdfx_hilog_native",
+        "utils_base",
+        "ipc",
+        "samgr_standard"
+      ],
+      "third_part": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/adapter:uhdf_entry"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/adapter/uhdf2/host:libhdf_host",
+            "header": {
+              "header_files": [
+                "devhost_service.h"
+              ],
+              "header_base": "//drivers/framework/core/host/include"
+          }
+        },
+        {
+          "name": "//drivers/adapter/uhdf2/ipc:libhdf_ipc_adapter",
+            "header": {
+              "header_files": [
+                "hdf_remote_adapter.h"
+              ],
+              "header_base": "//drivers/adapter/uhdf2/ipc/include"
+          }
+        },
+        {
+          "name": "//drivers/adapter/uhdf2/hdi:libhdi",
+            "header": {
+              "header_files": [
+                "devmgr_hdi.h"
+              ],
+              "header_base": "//drivers/adapter/uhdf2/include/hdi"
+          }
+        },
+        {
+          "name": "//drivers/adapter/uhdf2/utils:libhdf_utils",
+            "header": {
+              "header_files": [
+                "osal.h"
+              ],
+              "header_base": "//drivers/framework/include"
+          }
+        },
+        {
+          "name": "//drivers/adapter/build/test_common:libhdf_test_common",
+            "header": {
+              "header_files": [
+                "hdf_uhdf_test.h"
+              ],
+              "header_base": "//drivers/framework/test/unittest/include"
+          }
+        },
+        {
+          "name": "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+            "header": {
+              "header_files": [
+                "osal.h"
+              ],
+              "header_base": "//drivers/framework/include"
+          }
+        }
+      ],
+      "test": [
+        "//drivers/adapter:uhdf_test_entry"
+      ]
+    }
+  }
+}

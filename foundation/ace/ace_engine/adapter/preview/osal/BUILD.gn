@@ -1,0 +1,129 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+template("utilsecurec_source") {
+  forward_variables_from(invoker, "*")
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    sources = [ "//utils/native/base/src/securec/vsnprintf_s_p.c" ]
+    if (platform == "windows") {
+      sources += [
+        "//utils/native/base/src/securec/memset_s.c",
+        "//utils/native/base/src/securec/securecutil.c",
+        "//utils/native/base/src/securec/secureinput_w.c",
+        "//utils/native/base/src/securec/secureprintoutput_a.c",
+        "//utils/native/base/src/securec/secureprintoutput_w.c",
+      ]
+      cflags = [ "-Wno-inconsistent-dllimport" ]
+    }
+    configs = [ "//utils/native/base:utils_config" ]
+  }
+}
+
+# build static
+template("ace_osal_preview_source_set") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+
+    sources = [
+      "ace_trace.cpp",
+      "event_report.cpp",
+      "fetch_manager.cpp",
+      "frame_report.cpp",
+      "log_wrapper.cpp",
+      "response_data.cpp",
+      "ressched_report.cpp",
+      "stage_card_parser.cpp",
+      "system_properties.cpp",
+    ]
+
+    cflags_cc = [
+      "-DNAME_MAX=128",
+      "-Wno-inconsistent-dllimport",
+    ]
+
+    deps = [
+      ":utilsecurec_source_$platform",
+      "//third_party/curl:curl",
+    ]
+    if (is_standard_system) {
+      sources += [
+        "resource_adapter_impl_standard.cpp",
+        "resource_convertor.cpp",
+      ]
+      include_dirs = [ "//utils/native/base/include" ]
+      defines += [ "OHOS_STANDARD_SYSTEM" ]
+      if (platform == "windows") {
+        deps += [ "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr_win(${current_toolchain})" ]
+      } else if (platform == "mac") {
+        deps += [ "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr_mac(${current_toolchain})" ]
+      }
+    } else {
+      sources += [ "resource_adapter_impl.cpp" ]
+      include_dirs = [
+        "//utils/native/base/include",
+        "//prebuilts/ace-toolkit/preview/rich/include/resmgr/resourcemanager/include",
+      ]
+      if (platform == "windows") {
+        defines += [ "NOGDI" ]
+        libs = [ "//prebuilts/ace-toolkit/preview/rich/lib/windows/tv/libresourcemanager_win.lib" ]
+      } else if (platform == "mac") {
+        libs = [ "//prebuilts/ace-toolkit/preview/rich/lib/mac/tv/libresourcemanager_mac.dylib" ]
+      }
+    }
+
+    configs = [
+      "$ace_root:ace_config",
+      "//third_party/curl:curl_config",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  if (platform == "windows" || platform == "mac") {
+    utilsecurec_source("utilsecurec_source_" + item.name) {
+      platform = item.name
+      defines = []
+      config = {
+      }
+
+      if (defined(item.config)) {
+        config = item.config
+      }
+      if (defined(config.defines)) {
+        defines = config.defines
+      }
+    }
+    ace_osal_preview_source_set("ace_osal_" + item.name) {
+      platform = item.name
+      defines = []
+      config = {
+      }
+
+      if (defined(item.config)) {
+        config = item.config
+      }
+      if (defined(config.defines)) {
+        defines = config.defines
+      }
+    }
+  }
+}

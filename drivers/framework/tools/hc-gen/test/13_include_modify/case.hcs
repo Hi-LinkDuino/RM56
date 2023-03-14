@@ -1,0 +1,11 @@
+#include "base.hcs"
+
+root {
+    foo {
+        term = [0,1];
+    }
+    bar {
+        term1 = 2;
+        term4 = "world";
+    }
+}

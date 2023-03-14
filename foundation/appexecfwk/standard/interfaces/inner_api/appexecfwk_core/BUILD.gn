@@ -1,0 +1,90 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("../../../appexecfwk.gni")
+
+config("bundlemgr_sdk_config") {
+  include_dirs = [ "include/bundlemgr" ]
+}
+
+config("appexecfwk_core_config") {
+  include_dirs = [
+    "include",
+    "//foundation/multimedia/image_standard/interfaces/innerkits/include",
+  ]
+}
+
+ohos_shared_library("appexecfwk_core") {
+  sources = [
+    "src/bundlemgr/bundle_installer_proxy.cpp",
+    "src/bundlemgr/bundle_mgr_client.cpp",
+    "src/bundlemgr/bundle_mgr_client_impl.cpp",
+    "src/bundlemgr/bundle_mgr_host.cpp",
+    "src/bundlemgr/bundle_mgr_proxy.cpp",
+    "src/bundlemgr/bundle_monitor.cpp",
+    "src/bundlemgr/bundle_status_callback_host.cpp",
+    "src/bundlemgr/bundle_status_callback_proxy.cpp",
+    "src/bundlemgr/bundle_stream_installer_host.cpp",
+    "src/bundlemgr/bundle_stream_installer_proxy.cpp",
+    "src/bundlemgr/bundle_user_mgr_host.cpp",
+    "src/bundlemgr/bundle_user_mgr_proxy.cpp",
+    "src/bundlemgr/clean_cache_callback_host.cpp",
+    "src/bundlemgr/clean_cache_callback_proxy.cpp",
+    "src/bundlemgr/launcher_service.cpp",
+    "src/bundlemgr/status_receiver_host.cpp",
+  ]
+
+  public_configs = [
+    ":appexecfwk_core_config",
+    ":bundlemgr_sdk_config",
+  ]
+
+  defines = [
+    "APP_LOG_TAG = \"BundleMgrService\"",
+    "LOG_DOMAIN = 0xD001120",
+  ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = [
+    "${common_path}:libappexecfwk_common",
+    "//third_party/jsoncpp:jsoncpp",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "common_event_service:cesfwk_core",
+    "common_event_service:cesfwk_innerkits",
+    "hitrace_native:hitrace_meter",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "samgr_standard:samgr_proxy",
+    "utils_base:utils",
+  ]
+
+  if (bundle_framework_graphics) {
+    defines += [ "BUNDLE_FRAMEWORK_GRAPHICS" ]
+    external_deps += [ "multimedia_image_standard:image_native" ]
+  }
+
+  if (global_resmgr_enable) {
+    defines += [ "GLOBAL_RESMGR_ENABLE" ]
+    external_deps += [ "resource_management:global_resmgr" ]
+  }
+
+  subsystem_name = "appexecfwk"
+  part_name = "bundle_framework"
+}

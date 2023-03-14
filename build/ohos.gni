@@ -1,0 +1,31 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/sanitizers/sanitizers.gni")
+import("//build/ohos/ndk/ndk.gni")
+import("//build/ohos/notice/notice.gni")
+import("//build/ohos/sa_profile/sa_profile.gni")
+import("//build/ohos_var.gni")
+import("//build/toolchain/toolchain.gni")
+
+# import cxx base templates
+import("//build/templates/cxx/cxx.gni")
+if (support_jsapi) {
+  import("//build/ohos/ace/ace.gni")
+  import("//build/ohos/app/app.gni")
+}
+
+import("//build/templates/common/ohos_templates.gni")
+
+# import prebuilt templates
+import("//build/templates/cxx/prebuilt.gni")

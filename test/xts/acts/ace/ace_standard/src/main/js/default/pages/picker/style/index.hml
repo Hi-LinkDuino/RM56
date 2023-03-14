@@ -1,0 +1,139 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            picker通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <picker type="text" value="picker" id="styleOne">
+        </picker>
+        <picker type="text" value="picker" id="styleTwo">
+        </picker>
+        <picker type="text" value="picker" id="styleThree">
+        </picker>
+        <picker type="text" value="picker" id="styleFour">
+        </picker>
+        <picker type="text" value="picker" id="styleFive">
+        </picker>
+        <picker type="text" value="picker" id="styleSix">
+        </picker>
+        <picker type="text" value="picker" id="styleSeven">
+        </picker>
+        <picker type="text" value="picker" id="styleEight">
+        </picker>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <picker type="text" value="picker" id="styleTen">
+            </picker>
+            <picker type="text" value="picker" id="styleEleven">
+            </picker>
+            <picker type="text" value="picker" id="styleTwelve">
+            </picker>
+            <picker type="text" value="picker" id="styleThirteen">
+            </picker>
+            <picker type="text" value="picker" id="styleFourteen">
+            </picker>
+            <picker type="text" value="picker" id="styleFifteen">
+            </picker>
+            <picker type="text" value="picker" id="styleSixteen">
+            </picker>
+            <picker type="text" value="picker" id="styleSeventeen">
+            </picker>
+            <picker type="text" value="picker" id="styleEighteen">
+            </picker>
+            <picker type="text" value="picker" id="styleNineteen">
+            </picker>
+            <picker type="text" value="picker" id="styleTwenty">
+            </picker>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <picker type="text" value="picker" id="styleTwentyOne">
+            </picker>
+            <picker type="text" value="picker" id="styleTwentyTwo">
+            </picker>
+            <picker type="text" value="picker" id="styleTwentyThree">
+            </picker>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <picker type="text" value="picker" id="styleTwentyFour">
+        </picker>
+        <picker type="text" value="picker" id="styleTwentyFive">
+        </picker>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <picker type="text" value="picker" id="styleTwentySix">
+        </picker>
+        <picker type="text" value="picker" id="styleTwentySeven">
+        </picker>
+        <picker type="text" value="picker" id="styleTwentyNine">
+        </picker>
+        <picker type="text" value="picker" id="styleThirty">
+        </picker>
+        <picker type="text" value="picker" id="styleThirtyOne">
+        </picker>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <picker type="text" value="picker" id="styleThirtyTwo">
+        </picker>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            picker特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 \n text-color,font-size,letter-spacing,font-weight,line-height,font-family,column-height
+        </text>
+        <picker type="text" value="picker" id="specificOne">picker1</picker>
+        <text class="sub-title">
+            特有样式 -- allow-scale
+        </text>
+        <picker type="text" value="true" id="specificTwo" class="red-item"></picker>
+        <picker type="text" value="false" id="specificThree" class="green-item"></picker>
+        <text class="sub-title">
+            特有样式 -- font-style
+        </text>
+        <picker type="text" value="normal" id="specificFour" class="yellow-item"></picker>
+        <picker type="text" value="italic" id="specificFive" class="red-item"></picker>
+        <text class="sub-title">
+            特有样式 -- text-decoration
+        </text>
+        <picker type="text" value="underline" id="specificSix" class="green-item"></picker>
+        <picker type="text" value="line-through" id="specificSeven" class="yellow-item"></picker>
+        <picker type="text" value="none" id="specificEight" class="blue-item"></picker>
+    </div>
+</div>
+

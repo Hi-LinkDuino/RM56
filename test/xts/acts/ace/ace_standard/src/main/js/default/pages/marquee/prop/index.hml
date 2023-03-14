@@ -1,0 +1,250 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            marquee通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <marquee id="idProp">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <marquee id="classProp"
+             class="classProp">
+        </marquee>
+        <marquee id="classPropNone"
+             class="">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <marquee id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <marquee id="refProp"
+             ref="refProp">
+        </marquee>
+        <marquee id="refPropNone"
+             ref="">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <marquee id="disabledPropTrue"
+             disabled="true">
+        </marquee>
+        <marquee id="disabledPropFalse"
+             disabled="false">
+        </marquee>
+        <marquee id="disabledPropNone"
+             disabled="">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <marquee id="focusablePropTrue"
+             focusable="true">
+        </marquee>
+        <marquee id="focusablePropFalse"
+             focusable="false">
+        </marquee>
+        <marquee id="focusablePropNone"
+             focusable="">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <marquee id="dataProp"
+             data-marquee="通用属性 -- data-*">
+        </marquee>
+        <marquee id="dataPropNone"
+             data-marquee="">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <marquee id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </marquee>
+        <marquee id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </marquee>
+        <marquee id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </marquee>
+        <marquee id="clickEffectPropNone"
+             click-effect="">
+        </marquee>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <marquee id="dirPropRtl"
+             dir="rtl">
+        </marquee>
+        <marquee id="dirPropAuto"
+             dir="auto">
+        </marquee>
+        <marquee id="dirPropLtr"
+             dir="ltr">
+        </marquee>
+        <marquee id="dirPropNone"
+             dir="">
+        </marquee>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <marquee id="forPropNull"
+             for="">
+        </marquee>
+        <marquee id="forPropOne"
+             for="{{listOne}}">
+        </marquee>
+        <marquee id="forPropThree"
+             for="{{listThree}}">
+        </marquee>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <marquee id="ifPropTrue"
+             if="true">
+        </marquee>
+        <marquee id="ifPropFalse"
+             if="false">
+        </marquee>
+        <marquee id="ifPropNone"
+             if="">
+        </marquee>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <marquee id="showPropTrue"
+             show="true">
+        </marquee>
+        <marquee id="showPropFalse"
+             show="false">
+        </marquee>
+        <marquee id="showPropNone"
+             show="false">
+        </marquee>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            marquee特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- scrollamount
+        </text>
+        <marquee id="typeScrollamountNull"
+                 scrollamount="">
+        </marquee>
+        <marquee id="typeScrollamount10"
+               scrollamount="10">
+        </marquee>
+        <marquee id="typeScrollamount20"
+                 scrollamount="20">
+        </marquee>
+        <text class="sub-title">
+            特有属性 -- loop
+        </text>
+        <marquee id="typeLoopNull"
+                 scrollamount="">
+        </marquee>
+        <marquee id="typeLoop1"
+                 loop="-1">
+        </marquee>
+        <marquee id="typeLoop3"
+                 loop="3">
+        </marquee>
+        <text class="sub-title">
+            特有属性 -- direction
+        </text>
+        <marquee id="typeDirectionNull"
+                 direction="">
+        </marquee>
+        <marquee id="typeDirectionLeft"
+                 direction="left">
+        </marquee>
+        <marquee id="typeDirectionRight"
+                 direction="right">
+        </marquee>
+        <text class="sub-title">
+            特有属性 -- marquee
+        </text>
+        <marquee class="propNewAdd"
+                marquee="marquee">
+        </marquee>
+        <marquee class="propNewAdd"
+                marquee="">
+        </marquee>
+
+        <text class="sub-title">
+            特有属性 -- shareid
+        </text>
+        <marquee class="propNewAdd"
+                shareid="shareImage">
+        </marquee>
+        <marquee class="propNewAdd"
+                shareid="">
+        </marquee>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <marquee class="propNewAdd"
+                tid="id">
+        </marquee>
+        <marquee class="propNewAdd"
+                tid="">
+        </marquee>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <marquee class="propNewAdd"
+                if="false">
+        </marquee>
+        <marquee class="propNewAdd"
+                 elif="true">
+        </marquee>
+        <marquee class="propNewAdd"
+                elif="false">
+        </marquee>
+
+    </div>
+</div>

@@ -1,0 +1,199 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <text class="title">
+            通用样式
+        </text>
+        <text class="sub-title">
+            video通用样式1
+        </text>
+        <video src="/common/images/video.mp4" id="style1" class="style1">
+        </video>
+        <text  class="sub-title">
+            video通用样式2
+        </text>
+        <video src="/common/images/video.mp4" id="style2" class="style2">
+        </video>
+        <text class="sub-title">
+            video通用样式3
+        </text>
+        <video src="/common/images/video.mp4" id="style3" class="style3">
+        </video>
+        <text  class="sub-title">
+            video通用样式4
+        </text>
+        <video src="/common/images/video.mp4" id="style4" class="style4">
+        </video>
+        <text  class="sub-title">
+            div通用样式5
+        </text>
+        <div class="contain1" style="height: 300px;">
+            <video src="/common/images/video.mp4" id="style5" class="style5">
+            </video>
+            <video src="/common/images/video.mp4" id="style6" class="style6">
+            </video>
+        </div>
+        <text  class="sub-title">
+            video特有样式
+        </text>
+        <video src="/common/images/video.mp4" id="style7" class="style7">
+        </video>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title title-style-2">
+                通用属性
+            </text>
+            <text class="sub-title sub-title-2">
+                video通用属性1
+            </text>
+            <video id="prop1" class="prop1"
+                   disabled = "true" data-name ="prop1" click-effect="spring-medium">
+            </video>
+            <text  class="sub-title sub-title-2">
+                video通用属性2
+            </text>
+            <video class="prop2" ref ="prop2" id="prop2"
+                   disabled = "false" data-name ="prop2" click-effect="spring-large">
+            </video>
+            <text  class="sub-title sub-title-2">
+                video通用属性3
+            </text>
+            <video style="color: #679855; margin: 5px;" class="prop3" id="prop3">
+            </video>
+            <text  class="sub-title sub-title-2">
+                video特有属性
+            </text>
+            <video src="/common/images/video.mp4" class="prop4" id="prop4"
+                   muted="true" autoplay="true" poster="/common/images/image.png"
+                   controls="true" loop="true" starttime="2" direction="auto"
+                   speed="1.5">
+            </video>
+            <video src="/common/images/video.mp4" class="prop5" id="prop5"
+                   muted="false" autoplay="false" controls="false" loop="false"
+                   starttime="3" direction="vertical" speed="1.0">
+            </video>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title title-style-2">
+                通用事件
+            </text>
+            <text  class="sub-title sub-title-2">
+                video通用事件1
+            </text>
+            <video src="/common/images/video.mp4" class ="event1" ontouchstart="touchStart"
+                   ontouchmove="touchMove" ontouchend="touchEnd" ontouchcancel="touchCancel">
+            </video>
+            <text  class="sub-title sub-title-2">
+                video通用事件2
+            </text>
+            <video src="/common/images/video.mp4" class ="event2" onclick="click"
+                   ondoubleclick="doubleClick" onlongpress="longPress" onfocus="focus"
+                   onblur="blur" onkey="key" onswipe="swipe" onattached="attached"
+                   ondetached="detached">
+            </video>
+            <text  class="sub-title sub-title-2">
+                video通用事件3
+            </text>
+            <video src="/common/images/video.mp4" class ="event3" onpinchstart="pinchStart"
+                   onpinchupdate="pinchUpdate"
+                   onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                   ondragstart="dragStart" ondrag="drag"
+                   ondragend="dragEnd" ondragenter="dragEnter"
+                   ondragover="dragOver" ondragleave="dragLeave"
+                   ondrop="drop"
+                   onaccessibility="onAccessibility">
+            </video>
+            <text  class="sub-title sub-title-2">
+                video特有事件1
+            </text>
+            <video src="/common/images/video.mp4" class ="event4" onprepared="prepared"
+                   onstart="start" onpause="pause" onfinish="finish" onerror="error"
+                   onseeking="seeking" onseeked="seeked" ontimeupdate="timeupdate"
+                   onfullscreenchange="fullscreenchange" onstop="stop">
+            </video>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="atom-container">
+            <text class="title title-style-2">
+                特有方法
+            </text>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video特有方法1
+            </text>
+            <video src="/common/images/video.mp4" id="function4" class="function4" ontouchstart="functionTest4">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video特有方法2
+            </text>
+            <video src="/common/images/video.mp4" id="function5" class="function5" ontouchstart="functionTest5">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video特有方法3
+            </text>
+            <video src="/common/images/video.mp4" id="function6" class="function6" ontouchstart="functionTest6">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video特有方法4
+            </text>
+            <video src="/common/images/video.mp4" id="function7" class="function7" ontouchstart="functionTest7">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video特有方法5
+            </text>
+            <video src="/common/images/video.mp4" id="function8" class="function8" ontouchstart="functionTest8">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video特有方法6
+            </text>
+            <video src="/common/images/video.mp4" id="function9" class="function9" ontouchstart="functionTest9">
+            </video>
+        </div>
+
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+            <text class="title title-style-2">
+                通用方法
+            </text>
+            <text class="sub-title sub-title-2 sub-title-3">
+                video通用方法1
+            </text>
+            <video src="/common/images/video.mp4" id="function1" class="function1" ontouchstart="functionTest1">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                div通用方法2
+            </text>
+            <video src="/common/images/video.mp4" id="function2" class="function2" ontouchstart="functionTest2">
+            </video>
+            <text class="sub-title sub-title-2 sub-title-3">
+                div通用方法3
+            </text>
+            <video src="/common/images/video.mp4" id="function3" class="function3" ontouchstart="functionTest3">
+            </video>
+        </div>
+    </div>
+</div>

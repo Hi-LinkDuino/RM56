@@ -1,0 +1,18 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "120000",
+        "package": "ohos.hichecker.test",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsHicheckerTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+/
+1610612224
+--fs_type=ext4
+--dac_config ../../build/ohos/images/mkimage/dac.txt
+--file_context obj/base/security/selinux/file_contexts.bin

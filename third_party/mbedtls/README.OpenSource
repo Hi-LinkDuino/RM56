@@ -1,0 +1,12 @@
+[
+    {
+    "Name": "mbed TLS",
+    "License": "Apache License V2.0; GPL V2.0",
+    "License File": "LICENSE",
+    "Version Number": "2.16.11",
+    "Owner": "shituanhui@huawei.com",
+    "Upstream URL": "https://tls.mbed.org/",
+    "Description": "An open source, portable, easy to use, readable and flexible SSL library."
+    }
+]
+

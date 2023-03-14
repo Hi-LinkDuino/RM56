@@ -1,0 +1,201 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License..
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+hdf_fwk_path = "//drivers/framework"
+
+template("hdi") {
+  assert(defined(invoker.sources), "sources are must")
+  assert(defined(invoker.language), "language are must")
+  assert(defined(invoker.subsystem_name), "subsystem_name are must")
+  assert(defined(invoker.part_name), "part_name are must")
+
+  root_package_mapping = "ohos.hdi:drivers/interface"
+  get_info_args = [
+    "-i",
+    invoker.language,
+    rebase_path(target_gen_dir),
+    root_package_mapping,
+  ]
+  get_info_args += rebase_path(invoker.sources)
+  files_info = exec_script("$hdf_fwk_path/tools/hdi-gen/build_hdi_files.py",
+                           get_info_args,
+                           "json")
+
+  assert(files_info.package != "",
+         "get invalid package name from there idl files")
+  assert(files_info.version != "",
+         "get invalid version number from there idl files")
+  assert(files_info.out_dir != "",
+         "get invalid generation path from there idl files")
+  assert(files_info.root_package_dir != "",
+         "can not get root_package_dir from there idl files")
+  assert(files_info.version_dir != "",
+         "can not get version_dir from there idl files")
+
+  lib_client = "lib" + target_name + "_proxy" + "_" + files_info.version
+  lib_server = "lib" + target_name + "_stub" + "_" + files_info.version
+
+  config("hdi_public_config") {
+    include_dirs = [
+      "$hdf_uhdf_path/include/hdi",
+      "$hdf_uhdf_path/include/host",
+      "$hdf_uhdf_path/ipc/include",
+      "${files_info.root_package_dir}",
+      "${files_info.version_dir}",
+    ]
+  }
+
+  action("hdi_gen") {
+    deps = [ "$hdf_fwk_path/tools/hdi-gen:build_hdi_gen" ]
+    script = "/usr/bin/env"
+    if (defined(ohos_lite)) {
+      script = "//build/lite/run_shell_cmd.py"
+    }
+
+    sources = invoker.sources
+    language = "--gen-" + invoker.language
+
+    get_files_args = [
+      "-o",
+      invoker.language,
+      target_gen_dir,
+      "-a",
+    ]
+    get_files_args += rebase_path(sources)
+    outputs = exec_script("$hdf_fwk_path/tools/hdi-gen/build_hdi_files.py",
+                          get_files_args,
+                          "list lines")
+
+    args = [
+      rebase_path(get_path_info("$hdf_fwk_path/tools/hdi-gen/", "out_dir") +
+                  "/hdi-gen"),
+      "$language",
+      "-d",
+      "${files_info.out_dir}",
+    ]
+
+    if (defined(invoker.module_name)) {
+      args += [
+        "--module-name",
+        invoker.module_name,
+      ]
+    }
+
+    foreach(idl_file, sources) {
+      args += [ "-c" ]
+      args += [ rebase_path(idl_file) ]
+    }
+    args += [
+      "-r",
+      root_package_mapping,
+    ]
+  }
+
+  ohos_shared_library(lib_client) {
+    if (defined(invoker.sources)) {
+      hdi_gen = ":hdi_gen"
+
+      get_source_args = [
+        "-o",
+        invoker.language,
+        target_gen_dir,
+        "-c",
+      ]
+      get_source_args += rebase_path(invoker.sources)
+      sources = exec_script("$hdf_fwk_path/tools/hdi-gen/build_hdi_files.py",
+                            get_source_args,
+                            "list lines")
+
+      public_configs = [ ":hdi_public_config" ]
+
+      deps = [
+        "$hdf_uhdf_path/hdi:libhdi",
+        "$hdi_gen",
+        "//drivers/adapter/uhdf2/ipc:libhdf_ipc_adapter",
+        "//drivers/adapter/uhdf2/utils:libhdf_utils",
+      ]
+
+      if (is_standard_system) {
+        external_deps = [
+          "hiviewdfx_hilog_native:libhilog",
+          "utils_base:utils",
+        ]
+      } else {
+        external_deps = [ "hilog:libhilog" ]
+      }
+
+      if (invoker.language == "cpp") {
+        external_deps += [ "ipc:ipc_single" ]
+      }
+
+      install_images = [ system_base_dir ]
+      subsystem_name = invoker.subsystem_name
+      part_name = invoker.part_name
+    }
+  }
+
+  ohos_shared_library(lib_server) {
+    if (defined(invoker.sources)) {
+      hdi_gen = ":hdi_gen"
+
+      get_source_args = [
+        "-o",
+        invoker.language,
+        target_gen_dir,
+        "-s",
+      ]
+      get_source_args += rebase_path(invoker.sources)
+      sources = exec_script("$hdf_fwk_path/tools/hdi-gen/build_hdi_files.py",
+                            get_source_args,
+                            "list lines")
+
+      public_configs = [ ":hdi_public_config" ]
+
+      deps = [
+        "$hdf_uhdf_path/hdi:libhdi",
+        "$hdi_gen",
+        "//drivers/adapter/uhdf2/ipc:libhdf_ipc_adapter",
+        "//drivers/adapter/uhdf2/utils:libhdf_utils",
+      ]
+
+      if (is_standard_system) {
+        external_deps = [
+          "hiviewdfx_hilog_native:libhilog",
+          "utils_base:utils",
+        ]
+      } else {
+        external_deps = [ "hilog:libhilog" ]
+      }
+
+      if (invoker.language == "c") {
+        deps += [ "$hdf_uhdf_path/host:libhdf_host" ]
+      } else if (invoker.language == "cpp") {
+        external_deps += [ "ipc:ipc_single" ]
+      }
+
+      install_images = [ chipset_base_dir ]
+      subsystem_name = invoker.subsystem_name
+      part_name = invoker.part_name
+    }
+  }
+
+  group("$target_name") {
+    deps = [
+      ":$lib_client",
+      ":$lib_server",
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_shared_library("wifi_ap_service") {
+  install_enable = true
+  sources = [
+    "../common/handler.cpp",
+    "../common/internal_message.cpp",
+    "../common/message_queue.cpp",
+    "../common/state.cpp",
+    "../common/state_machine.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/dhcpd_interface.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/if_config.cpp",
+    "ap_config_use.cpp",
+    "ap_idle_state.cpp",
+    "ap_interface.cpp",
+    "ap_monitor.cpp",
+    "ap_root_state.cpp",
+    "ap_service.cpp",
+    "ap_started_state.cpp",
+    "ap_state_machine.cpp",
+    "ap_stations_manager.cpp",
+    "wifi_ap_nat_manager.cpp",
+  ]
+
+  include_dirs = [
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/interface",
+    "//utils/native/base/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_ap",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client/idl_interface",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/interfaces",
+    "//foundation/communication/wifi/utils/inc",
+  ]
+
+  cflags_cc = [
+    "-std=c++17",
+    "-Wall",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+
+  deps = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service:dhcp_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//utils/native/base:utils",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

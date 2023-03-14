@@ -1,0 +1,95 @@
+{
+    "name": "@ohos/bundle_framework",
+    "description": "提供OpenHarmony应用和服务安装包的安装、更新、卸载以及信息查询等能力，包含包管理接口和包管理服务",
+    "version": "3.1",
+    "license": "Apache 2.0",
+    "segment": {
+        "destPath": "foundation/bundlemanager/bundle_framework"
+    },
+    "component": {
+        "name": "bundle_framework",
+        "subsystem": "appexecfwk",
+        "syscap": [
+            "SystemCapability.BundleManager.BundleFramework",
+            "SystemCapability.BundleManager.Zlib"
+        ],
+        "features": [
+            "bundle_framework_graphics",
+            "bundle_framework_free_install"
+        ],
+        "hisysevent_config": [
+            "//foundation/bundlemanager/bundle_framework/hisysevent.yaml"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "4000KB",
+        "ram": "4000KB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "appverify",
+                "bytrace",
+                "common_event_service",
+                "config_policy",
+                "device_manager_base",
+                "distributeddatamgr",
+                "eventhandler",
+                "hisysevent_native",
+                "hiviewdfx_hilog_native",
+                "init",
+                "ipc",
+                "napi",
+                "os_account",
+                "safwk",
+                "resource_management",
+                "samgr_standard",
+                "startup_l2",
+                "utils_base"
+            ],
+            "third_party": [
+                "json",
+                "libuv",
+                "node",
+                "zlib"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/bundlemanager/bundle_framework:bms_target"
+            ],
+            "inner_kits": [
+                {
+                    "header": {
+                      "header_base": "//foundation/bundlemanager/bundle_framework/interfaces/inner_api/appexecfwk_base/include",
+                      "header_files": [
+                        "ability_info.h",
+                        "appexecfwk_errors.h",
+                        "application_info.h",
+                        "bundle_info.h"
+                      ]
+                    },
+                    "name": "//foundation/bundlemanager/bundle_framework/interfaces/inner_api/appexecfwk_base:appexecfwk_base"
+                  },
+                  {
+                    "header": {
+                      "header_base": "//foundation/bundlemanager/bundle_framework/interfaces/inner_api/appexecfwk_core/include",
+                      "header_files": [
+                        "bundlemgr/bundle_installer_interface.h",
+                        "bundlemgr/bundle_mgr_interface.h",
+                        "bundlemgr/bundle_status_callback_interface.h",
+                        "bundlemgr/clean_cache_callback_interface.h",
+                        "bundlemgr/status_receiver_interface.h"
+                      ]
+                    },
+                    "name": "//foundation/bundlemanager/bundle_framework/interfaces/inner_api/appexecfwk_core:appexecfwk_core"
+                  }
+            ],
+            "test": [
+                "//foundation/bundlemanager/bundle_framework:test_target"
+            ]
+        }
+    }
+}

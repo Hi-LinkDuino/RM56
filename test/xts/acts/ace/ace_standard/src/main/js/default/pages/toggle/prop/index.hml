@@ -1,0 +1,210 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            toggle通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <toggle id="idProp" value="">
+        </toggle>
+
+        <text class="sub-title" >
+            通用属性 -- class
+        </text>
+        <toggle id="classProp"
+             class="classProp" value="">
+        </toggle>
+        <toggle id="classPropNone" value=""
+             class="">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <toggle id="styleProp" value=""
+             style="width:10%;height:20px;background-color:red">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <toggle id="refProp" value=""
+             ref="refProp">
+        </toggle>
+        <toggle id="refPropNone" value=""
+             ref="">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <toggle id="disabledPropTrue" value=""
+             disabled="true">
+        </toggle>
+        <toggle id="disabledPropFalse" value=""
+             disabled="false">
+        </toggle>
+        <toggle id="disabledPropNone" value=""
+             disabled="">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <toggle id="focusablePropTrue" value=""
+             focusable="true">
+        </toggle>
+        <toggle id="focusablePropFalse" value=""
+             focusable="false">
+        </toggle>
+        <toggle id="focusablePropNone" value=""
+             focusable="">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <toggle id="dataProp" value=""
+             data-toggle="通用属性 -- data-*">
+        </toggle>
+        <toggle id="dataPropNone" value=""
+             data-toggle="">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <toggle id="clickEffectPropSmall" value=""
+             click-effect="spring-small">
+        </toggle>
+        <toggle id="clickEffectPropMedium" value=""
+             click-effect="spring-medium">
+        </toggle>
+        <toggle id="clickEffectPropLarge" value=""
+             click-effect="spring-large">
+        </toggle>
+        <toggle id="clickEffectPropNone" value=""
+             click-effect="">
+        </toggle>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <toggle id="dirPropRtl" value=""
+             dir="rtl">
+        </toggle>
+        <toggle id="dirPropAuto" value=""
+             dir="auto">
+        </toggle>
+        <toggle id="dirPropLtr" value=""
+             dir="ltr">
+        </toggle>
+        <toggle id="dirPropNone" value=""
+             dir="">
+        </toggle>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <toggle id="forPropNull" value=""
+             for="">
+        </toggle>
+        <toggle id="forPropOne" value=""
+             for="{{listOne}}">
+        </toggle>
+        <toggle id="forPropThree" value=""
+             for="{{listThree}}">
+        </toggle>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <toggle id="ifPropTrue" value=""
+             if="true">
+        </toggle>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <toggle id="showPropTrue" value=""
+             show="true">
+        </toggle>
+        <toggle id="showPropFalse" value=""
+             show="false">
+        </toggle>
+        <toggle id="showPropNone" value=""
+             show="">
+        </toggle>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            toggle特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <toggle id="valueNone"
+                value="">
+        </toggle>
+        <toggle id="value"
+                value="please--input">
+        </toggle>
+        <text class="sub-title">
+            特有属性 -- checked
+        </text>
+        <toggle id="checkedNone" value=""
+                checked="">
+        </toggle>
+        <toggle id="checkedTrue" value=""
+                checked="true">
+        </toggle>
+        <toggle id="checkedFalse" value=""
+                checked="false">
+        </toggle>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <toggle class="propNewAdd"
+                  tid="id">
+        </toggle>
+        <toggle class="propNewAdd"
+                  tid="">
+        </toggle>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <toggle class="propNewAdd"
+                if="false">
+        </toggle>
+        <toggle class="propNewAdd"
+                elif="true">
+        </toggle>
+        <toggle class="propNewAdd"
+                elif="false">
+        </toggle>
+        
+    </div>
+</div>

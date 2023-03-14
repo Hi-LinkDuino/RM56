@@ -1,0 +1,60 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+config("huks_config") {
+  include_dirs = [ "include" ]
+}
+
+ohos_shared_library("huks_engine_core_standard") {
+  subsystem_name = "security"
+  part_name = "huks"
+  public_configs = [ ":huks_config" ]
+  defines = [
+    "L2_STANDARD",
+    "_HARDWARE_ROOT_KEY_",
+    "_HUKS_LOG_ENABLE_",
+  ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "//base/security/huks/utils/crypto_adapter",
+    "//base/security/huks/utils/file_operator",
+    "//base/security/huks/utils/list",
+    "//base/security/huks/utils/mutex",
+  ]
+  cflags = [
+    "-Wall",
+    "-Werror",
+  ]
+  sources = [
+    "src/hks_asn1.c",
+    "src/hks_attest.c",
+    "src/hks_attest_utils.c",
+    "src/hks_auth.c",
+    "src/hks_core_interfaces.c",
+    "src/hks_core_service.c",
+    "src/hks_core_service_three_stage.c",
+    "src/hks_keyblob.c",
+    "src/hks_keynode.c",
+  ]
+
+  deps = [
+    "//base/security/huks/frameworks/huks_standard/main:huks_standard_frameworks",
+    "//base/security/huks/utils/crypto_adapter:libhuks_utils_client_service_adapter_static",
+    "//base/security/huks/utils/file_operator:libhuks_utils_file_operator_static",
+    "//base/security/huks/utils/list:libhuks_utils_list_static",
+    "//base/security/huks/utils/mutex:libhuks_utils_mutex_static",
+    "//utils/native/base:utils",
+  ]
+}

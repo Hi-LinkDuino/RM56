@@ -1,0 +1,34 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.java_test.data_test.v1_0;
+
+sequenceable test.java_test.types.v1_0.SequenceData;
+
+interface IDataTest {
+
+    BoolTest([in] boolean param1, [out] boolean param2);
+
+    ByteTest([in] byte param1, [out] byte param2);
+
+    ShortTest([in] short param1, [out] short param2);
+
+    IntTest([in] int param1, [out] int param2);
+
+    LongTest([in] long param1, [out] long param2);
+
+    FloatTest([in] float param1, [out] float param2);
+
+    DoubleTest([in] double param1, [out] double param2);
+
+    StringTest([in] String param1, [out] String param2);
+
+    FdTest([in] FileDescriptor fd);
+
+    SequenceTest([in] SequenceData param1, [out] SequenceData param2);
+}

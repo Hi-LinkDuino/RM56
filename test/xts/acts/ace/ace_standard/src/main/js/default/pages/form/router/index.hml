@@ -1,0 +1,263 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            通用样式
+        </text>
+        <text class="sub-title">
+            form通用样式1
+        </text>
+        <form class="style1">
+        </form>
+        <text  class="sub-title">
+            form通用样式2
+        </text>
+        <form class="style2">
+        </form>
+        <text class="sub-title">
+            form通用样式3
+        </text>
+        <form class="style3">
+        </form>
+        <text  class="sub-title">
+            form通用样式4
+        </text>
+        <form class="style4">
+        </form>
+        <text  class="sub-title">
+            form通用样式5
+        </text>
+        <div class="contain1">
+            <form class="style5">
+            </form>
+            <form class="style6">
+            </form>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                form通用属性1
+            </text>
+            <form id="prop1" class="prop1"
+                 disabled = "true" focusable ="true"
+                 data-name ="prop1" click-effect="spring-medium"
+                 dir ="rtl">
+            </form>
+            <text  class="sub-title">
+                form通用属性2
+            </text>
+            <form class="prop2" ref ="prop2"
+                 disabled = "false" focusable ="false"
+                 data-name ="prop2" click-effect="spring-large"
+                 dir ="ltr">
+            </form>
+            <text  class="sub-title">
+                form通用属性3
+            </text>
+            <form style="color: #679855; margin: 1px;" class="prop3">
+            </form>
+            <text class="title">
+                特有事件 submit & rest
+            </text>
+                <form onsubmit='onSubmit' onreset='onReset' class="form1" style="height: 100px;">
+                    <div style="width: 100%;height: 20px;flex-direction: row;justify-content: space-around;">
+                        <label style="font-size: 16px;">一</label>
+                        <input type='radio' name='radioGroup' value='radio1'></input>
+                        <label style="font-size: 16px;">二</label>
+                        <input type='radio' name='radioGroup' value='radio2'></input>
+                    </div>
+                    <text style="margin-left: 10px;margin-bottom: 5px; font-size: 16px;">输入文本</text>
+                    <input type='text' name='user' style="height: 10px"></input>
+                    <div style="width: 100%;height: 50px;margin-top: 5px;flex-direction: row;justify-content: space-around;">
+                        <input type='submit' style="font-size: 8px; width: 40%; height: 15px;">Submit</input>
+                        <input type='reset' style="font-size: 8px; width: 40%; height: 15px;">Reset</input>
+                    </div>
+                </form>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                form通用事件1
+            </text>
+            <form class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                   ontouchend="touchEnd" ontouchcancel="touchCancel" style="height: 20px;">
+            </form>
+            <text  class="sub-title">
+                form通用事件2
+            </text>
+            <form class ="event2" onclick="click" ondoubleclick="doubleClick"
+                   onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                   onswipe="swipe" onattached="attached" ondetached="detached">
+            </form>
+            <text  class="sub-title">
+                form通用事件3
+            </text>
+            <form class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                   onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                   ondragstart="dragStart" ondrag="drag"
+                   ondragend="dragEnd" ondragenter="dragEnter"
+                   ondragover="dragOver" ondragleave="dragLeave"
+                   ondrop="drop">
+            </form>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                form动画样式1
+            </text>
+            <form class="ani1" >
+            </form>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                form渐变样式1
+            </text>
+            <form class="gradient1">
+            </form>
+            <text  class="sub-title">
+                form渐变样式2
+            </text>
+            <form class="gradient2">
+            </form>
+            <text  class="sub-title">
+                form渐变样式3
+            </text>
+            <form class="gradient3">
+            </form>
+            <text  class="sub-title">
+                form渐变样式4
+            </text>
+            <form class="gradient4">
+            </form>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                form无障碍1
+            </text>
+            <form class="access1" accessibilitygroup ="true"
+                 onaccessibility="onAccessibility"
+                 accessibilitytext="这是form"
+                 accessibilitydescription="this is form"
+                 accessibilityimportance="no-hide-descendants">
+            </form>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                form原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <form style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </form>
+                <form style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </form>
+                <form style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </form>
+                <form style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </form>
+                <form style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </form>
+                <form style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </form>
+            </div>
+            <text class="sub-title">
+                form原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <form style="height:20px;background-color: blue;flex-weight: 1;">
+                </form>
+                <form style="height:20px;background-color: black;flex-weight: 5;">
+                </form>
+                <form style="height:20px;background-color: yellow;flex-weight: 4;">
+                </form>
+                <form style="height:20px;background-color: red;flex-weight: 3;">
+                </form>
+                <form style="height:20px;background-color:pink;flex-weight: 7;">
+                </form>
+                <form style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </form>
+            </div>
+            <text class="sub-title">
+                form原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <form style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </form>
+                <form style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </form>
+                <form style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </form>
+                <form style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </form>
+                <form style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </form>
+                <form style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </form>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multiMode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    form多模输入1
+                </text>
+                <form class="multiMode1" voicelabel = "voice"
+                     subscriptflag="on" subscriptlabel="div" scenelabel="common">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

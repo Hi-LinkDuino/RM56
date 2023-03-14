@@ -1,0 +1,41 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/test.gni")
+
+unittest("update_test") {
+  output_extension = "bin"
+  sources = [ "src/ota_test.cpp" ]
+  include_dirs = [
+    "//base/update/ota_lite/frameworks/source/verify",
+    "//base/update/ota_lite/interfaces/kits",
+    "//base/update/ota_lite/frameworks/include",
+    "//base/update/ota_lite/hals",
+    "//utils/native/liteos/include",
+    "//third_party/bounds_checking_function/include",
+    "//kernel/liteos-a/compat/linux/include",
+    "//kernel/liteos-a/kernel/include/",
+    "//kernel/liteos-a/lib/libsec/include",
+  ]
+  deps = [
+    "$ohos_third_party_dir/mbedtls:mbedtls_static",
+    "//base/update/ota_lite/frameworks/source:hota",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+  if (ohos_kernel_type == "liteos_m") {
+    deps += [ "$ohos_board_adapter_dir/hals/update:hal_update_static" ]
+  } else {
+    ldflags = [ "-lhal_update" ]
+    deps += [ "$ohos_board_adapter_dir/update:hal_update" ]
+  }
+}

@@ -1,0 +1,6 @@
+plugins:5
+EventProcessorExample1[thread:example-2]:5 static
+EventProcessorExample2[thread:example-1]:0 static
+EventProcessorExample3[thread:example-2]:0 static
+EventProcessorExample4[thread:example-1]:0 static
+EventSourceExample[]:0 static

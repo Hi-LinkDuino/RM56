@@ -1,0 +1,8 @@
+{
+    "device_name": "dayu",
+    "device_company": "hihope",
+    "target_os": "ohos",
+    "target_cpu": "arm",
+    "kernel_version": "",
+    "device_build_path": "device/hihope/build"
+}

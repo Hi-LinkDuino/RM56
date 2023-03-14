@@ -1,0 +1,37 @@
+{
+ "1.0.0": {
+  "LastPreviewDevice": {}
+ },
+ "1.0.1": {
+  "profileList": [
+   {
+    "id": "Default",
+    "deviceType": "default",
+    "width": 1080,
+    "height": 2340,
+    "shape": "rect",
+    "dpi": 480,
+    "orientation": "portrait",
+    "language": "zh_CN",
+    "colorMode": "light"
+   },
+   {
+    "id": "MatePadPro",
+    "deviceType": "tablet",
+    "width": 2560,
+    "height": 1600,
+    "shape": "rect",
+    "dpi": 400,
+    "orientation": "landscape",
+    "language": "zh_CN",
+    "colorMode": "light"
+   }
+  ],
+  "runningProfileList": [
+   "Default"
+  ],
+  "availableProfileList": [
+   "MatePadPro"
+  ]
+ }
+}

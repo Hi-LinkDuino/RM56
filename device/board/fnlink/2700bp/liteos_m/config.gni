@@ -1,0 +1,215 @@
+# Copyright (c) 2021 FnLink (hunan) Technologies CO., LIMITED.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Kernel type, e.g. "linux", "liteos_a", "liteos_m".
+kernel_type = "liteos_m"
+
+# Kernel version.
+kernel_version = "3.0.0"
+
+# Board CPU type, e.g. "cortex-a7", "riscv32".
+board_cpu = "cortex-m55"
+
+# Board arch, e.g.  "armv7-a", "rv32imac".
+board_arch = ""
+
+# Toolchain name used for system compiling.
+# E.g. gcc-arm-none-eabi, arm-linux-harmonyeabi-gcc, ohos-clang,  riscv32-unknown-elf.
+# Note: The default toolchain is "ohos-clang". It's not mandatory if you use the default toochain.
+board_toolchain = "arm-none-eabi-gcc"
+
+# The toolchain path instatlled, it's not mandatory if you have added toolchian path to your ~/.bashrc.
+board_toolchain_path = ""
+
+# Compiler prefix.
+board_toolchain_prefix = "arm-none-eabi-"
+
+# Compiler type, "gcc" or "clang".
+board_toolchain_type = "gcc"
+
+# config.json parse
+if (product_path != "") {
+  product_conf = read_file("${product_path}/config.json", "json")
+  product_name = product_conf.product_name
+  flash_partition_dir = product_conf.flash_partition_dir
+  bin_list = product_conf.bin_list
+  fs_list = product_conf.fs_list
+  bsp_bin_list = product_conf.bsp_bin_list
+  pack_burn = product_conf.pack_burn
+  bes_specific_chip = product_conf.bes_specific_chip
+  emmc_fs_support = product_conf.emmc_fs_support
+  lcd_support = product_conf.lcd_support
+  bluetooth_ble_walkie_talkie = product_conf.bluetooth_ble_walkie_talkie
+}
+
+
+# Board related common compile flags.
+if(bes_specific_chip == "best1600")
+{
+board_cflags = [
+  "-DCHIP_HAS_GPU=1",
+  "-mcpu=cortex-m55",
+  "-march=armv8.1-m.main+mve.fp+fp.dp",
+  "-mfpu=fpv5-sp-d16",
+  "-mfloat-abi=hard",
+  "-fdata-sections",
+  "-mthumb",
+  "-mthumb-interwork",
+  "-DPLAYER_TOOL",
+  "-DCHIP_BEST1600",
+  "-DOS_HEAP_SIZE=0x400000",
+  "-DCHIP_HAS_UART=3",
+  "-DRTOS",
+  "-DDEBUG=1",
+  "-DCMSIS_OS_VER=2",
+  "-DOS_HWI_MAX_NUM=96",
+  "-DLFS_MAX_OPEN_DIRS=32",
+  "-DMBEDTLS_CMSIS_FILE=\"rtos/liteos/liteos_m/kal/cmsis/cmsis_os.h\"",
+  "-DLOSCFG_BASE_CORE_HILOG",
+  "-DPTHREAD_KEYS_MAX=128",
+  "-DEMMC_HS_MODE",
+  "-DEMMC_DDR_MODE",
+  "-DOSC_26M_X4_AUD2BB",
+  "-DEMMC_DEBUG",
+  # "-Dasm=__asm__",
+]
+
+if(emmc_fs_support == "true") {
+  board_cflags += [ "-DFS_ROOT=\"/emmc/\"" ]
+}
+else{
+  board_cflags += [ "-DFS_ROOT=\"/data/\"" ]
+}
+
+if(lcd_support == "nt38350") {
+  board_cflags += [ "-DCONFIG_DISPLAY_NT38350", "-DBOARD_NAME=ohos_best1600" ]
+}
+else {
+  board_cflags += [ "-DCONFIG_DISPLAY_RM69330" ]
+}
+
+if(bluetooth_ble_walkie_talkie == "true") {
+  board_cflags += [ "-DBLE_WALKIE_TALKIE" ]
+}
+
+flash_size = 16
+}
+
+if(bes_specific_chip == "best1502x")
+{
+board_cflags = [
+  "-DCHIP_HAS_GPU=1",
+  "-mcpu=cortex-m33",
+  "-mfpu=fpv5-sp-d16",
+  "-mfloat-abi=hard",
+  "-fdata-sections",
+  "-mthumb",
+  "-mthumb-interwork",
+  "-DPLAYER_TOOL",
+  "-DCHIP_BEST1502X",
+  "-DOS_HEAP_SIZE=0x400000",
+  "-DCHIP_HAS_UART=3",
+  "-DRTOS",
+  "-DDEBUG=1",
+  "-DCMSIS_OS_VER=2",
+  "-DOS_HWI_MAX_NUM=96",
+  "-DCONFIG_DISPLAY_RM69330",
+  "-DLFS_MAX_OPEN_DIRS=32",
+  "-DMBEDTLS_CMSIS_FILE=\"rtos/liteos/liteos_m/kal/cmsis/cmsis_os.h\"",
+  "-DLOSCFG_BASE_CORE_HILOG",
+  "-DPTHREAD_KEYS_MAX=128",
+  # "-Dasm=__asm__",
+]
+flash_size = 16
+}
+
+if(bes_specific_chip == "best2003")
+{
+board_cflags = [
+  "-mcpu=cortex-m33",
+  "-mfpu=fpv5-sp-d16",
+  "-mfloat-abi=hard",
+  "-fdata-sections",
+  "-mthumb",
+  "-mthumb-interwork",
+  "-DPLAYER_TOOL",
+  "-DCHIP_BEST2003",
+  "-DOS_HEAP_SIZE=0x400000",
+  "-DCHIP_HAS_UART=3",
+  "-DRTOS",
+  "-DDEBUG=1",
+  "-DCMSIS_OS_VER=2",
+  "-DOS_HWI_MAX_NUM=96",
+  "-DCONFIG_DISPLAY_A064",
+  "-DLFS_MAX_OPEN_DIRS=32",
+  "-DMBEDTLS_CMSIS_FILE=\"rtos/liteos/liteos_m/kal/cmsis/cmsis_os.h\"",
+  "-DLOSCFG_BASE_CORE_HILOG",
+  "-DPTHREAD_KEYS_MAX=128",
+]
+flash_size = 32
+}
+
+board_cxx_flags = board_cflags
+board_ld_flags = [ "-L${ohos_root_path}out/${board_name}/${product_name}/libs" ]
+
+# fs functions support
+wrap_fs_api = "true"
+foreach(fs, fs_list) {
+  if (fs.enable == "true") {
+    wrap_fs_api = "true"
+  }
+}
+
+if (wrap_fs_api == "true") {
+  board_ld_flags += [
+    "-Wl,--wrap=_calloc_r",
+    "-Wl,--wrap=_malloc_r",
+    "-Wl,--wrap=_realloc_r",
+    "-Wl,--wrap=_reallocf_r",
+    "-Wl,--wrap=_free_r",
+    "-Wl,--wrap=_memalign_r",
+    "-Wl,--wrap=_malloc_usable_size_r",
+    "-Wl,--wrap=printf",
+    "-Wl,--wrap=sprintf",
+    "-Wl,--wrap=snprintf",
+    "-Wl,--wrap=vsnprintf",
+    "-Wl,--wrap=vprintf",
+  ]
+}
+
+# Board related headfiles search path.
+if(bes_specific_chip == "best2003"){
+board_include_dirs = [
+  "${ohos_root_path}device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/include/rtos/liteos/liteos_m/kal/cmsis",
+  "${ohos_root_path}utils/native/lite/include",
+]
+}else{
+board_include_dirs = [
+  "${ohos_root_path}device/soc/bestechnic/bes2700/liteos_m/sdk/bsp/include/rtos/liteos/liteos_m/kal/cmsis",
+  "${ohos_root_path}utils/native/lite/include",
+  "${ohos_root_path}kernel/liteos_m/arch/include",
+]
+}
+board_include_dirs += []
+
+# Board adapter dir for OHOS components.
+if(bes_specific_chip == "best2003"){
+board_adapter_dir = "${ohos_root_path}device/soc/bestechnic"
+}else{
+board_adapter_dir = "${ohos_root_path}device/board/fnlink/v200zr"
+}
+# Sysroot path.
+board_configed_sysroot = ""
+
+# Board storage type, it used for file system generation.
+storage_type = ""

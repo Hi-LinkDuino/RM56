@@ -1,0 +1,57 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# Install packages
+group("ace_packages") {
+  deps = []
+
+  # core library for Ability Cross-platform Environment(ACE) JS
+  deps += [
+    "$ace_root/adapter/ohos/services:services_target",
+    "$ace_root/build:libace",
+    "$ace_root/interfaces/innerkits:innerkits_target",
+    "$ace_root/interfaces/innerkits/ace:ace_uicontent",
+    "$ace_root/interfaces/napi/kits:napi_group",
+    "$ace_root/interfaces/native:ace_packages_ndk",
+  ]
+
+  # Engine and debugger
+  deps += [
+    "$ace_root/build:libace_engine_ark",
+    "$ace_root/build:libace_engine_qjs",
+    "$ace_root/build:libace_engine_qjs_debug",
+  ]
+
+  # Declarative engine
+  deps += [
+    "$ace_root/build:libace_engine_declarative",
+    "$ace_root/build:libace_engine_declarative_ark",
+  ]
+
+  # Pa engine
+  deps += [
+    "$ace_root/build:libace_engine_pa_ark",
+    "$ace_root/build:libace_engine_pa_qjs",
+  ]
+
+  # ark debugger
+  deps += [
+    "$ace_root/frameworks/bridge/js_frontend/engine/jsi/debugger:ark_debugger",
+  ]
+
+  # pid Register
+  deps += [ "$ace_root/frameworks/core/common/register:hdc_register" ]
+}

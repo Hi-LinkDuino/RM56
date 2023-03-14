@@ -1,0 +1,188 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+if (is_standard_system) {
+  module_output_path = "ace_engine_standard/graphicalbasicability/image"
+} else {
+  module_output_path = "ace_engine_full/graphicalbasicability/image"
+}
+
+ohos_unittest("ImageCacheTest") {
+  module_out_path = module_output_path
+  sources = [
+    "$ace_root/frameworks/core/accessibility/accessibility_node.cpp",
+    "$ace_root/frameworks/core/common/ace_application_info.cpp",
+    "$ace_root/frameworks/core/common/ace_engine.cpp",
+    "$ace_root/frameworks/core/common/vibrator/vibrator_proxy.cpp",
+    "$ace_root/frameworks/core/common/watch_dog.cpp",
+    "$ace_root/frameworks/core/common/window.cpp",
+    "$ace_root/frameworks/core/components/bubble/bubble_element.cpp",
+    "$ace_root/frameworks/core/components/common/properties/color.cpp",
+    "$ace_root/frameworks/core/components/common/properties/scroll_bar.cpp",
+    "$ace_root/frameworks/core/components/display/display_component.cpp",
+    "$ace_root/frameworks/core/components/display/render_display.cpp",
+    "$ace_root/frameworks/core/components/page/page_element.cpp",
+    "$ace_root/frameworks/core/components/refresh/render_refresh.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_multi_child_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_single_child_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/scroll_bar_controller.cpp",
+    "$ace_root/frameworks/core/components/stack/render_stack.cpp",
+    "$ace_root/frameworks/core/components/stage/render_stage.cpp",
+    "$ace_root/frameworks/core/components/stage/stage_element.cpp",
+    "$ace_root/frameworks/core/components/test/json/json_frontend.cpp",
+    "$ace_root/frameworks/core/components/test/unittest/mock/mock_render_common.cpp",
+    "$ace_root/frameworks/core/components/tween/tween_component.cpp",
+    "$ace_root/frameworks/core/event/back_end_event_manager.cpp",
+    "$ace_root/frameworks/core/event/multimodal/multimodal_manager.cpp",
+    "$ace_root/frameworks/core/event/multimodal/multimodal_scene.cpp",
+    "$ace_root/frameworks/core/focus/focus_node.cpp",
+    "$ace_root/frameworks/core/gestures/drag_recognizer.cpp",
+    "$ace_root/frameworks/core/image/flutter_image_cache.cpp",
+    "$ace_root/frameworks/core/image/image_cache.cpp",
+    "$ace_root/frameworks/core/image/image_loader.cpp",
+    "$ace_root/frameworks/core/image/image_provider.cpp",
+    "$ace_root/frameworks/core/mock/mock_image_loader.cpp",
+    "$ace_root/frameworks/core/pipeline/base/component_group_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/composed_component.cpp",
+    "$ace_root/frameworks/core/pipeline/base/composed_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/render_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/render_node.cpp",
+    "$ace_root/frameworks/core/pipeline/base/sole_child_element.cpp",
+    "$ace_root/frameworks/core/pipeline/pipeline_context.cpp",
+    "image_cache_test.cpp",
+  ]
+
+  configs = [
+    ":config_image_cache_test",
+    "$ace_root:ace_test_config",
+  ]
+
+  deps = [
+    "$ace_flutter_engine_root:third_party_flutter_engine_ohos",
+    "$ace_flutter_engine_root/skia:ace_skia_ohos",
+    "$ace_root/adapter/ohos/osal:ace_osal_ohos",
+    "$ace_root/frameworks/base:ace_base_ohos",
+    "$ace_root/frameworks/base/resource:ace_resource",
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+config("config_image_cache_test") {
+  visibility = [ ":*" ]
+  include_dirs = []
+}
+
+ohos_unittest("ImageProviderTest") {
+  module_out_path = module_output_path
+  sources = [
+    "$ace_root/frameworks/core/accessibility/accessibility_node.cpp",
+    "$ace_root/frameworks/core/common/ace_application_info.cpp",
+    "$ace_root/frameworks/core/common/ace_engine.cpp",
+    "$ace_root/frameworks/core/common/focus_animation_manager.cpp",
+    "$ace_root/frameworks/core/common/vibrator/vibrator_proxy.cpp",
+    "$ace_root/frameworks/core/common/watch_dog.cpp",
+    "$ace_root/frameworks/core/common/window.cpp",
+    "$ace_root/frameworks/core/components/bubble/bubble_element.cpp",
+    "$ace_root/frameworks/core/components/common/properties/color.cpp",
+    "$ace_root/frameworks/core/components/common/properties/scroll_bar.cpp",
+    "$ace_root/frameworks/core/components/display/display_component.cpp",
+    "$ace_root/frameworks/core/components/display/render_display.cpp",
+    "$ace_root/frameworks/core/components/focus_animation/render_focus_animation.cpp",
+    "$ace_root/frameworks/core/components/page/page_element.cpp",
+    "$ace_root/frameworks/core/components/refresh/render_refresh.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_multi_child_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_single_child_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/scroll_bar_controller.cpp",
+    "$ace_root/frameworks/core/components/stack/render_stack.cpp",
+    "$ace_root/frameworks/core/components/stage/render_stage.cpp",
+    "$ace_root/frameworks/core/components/stage/stage_element.cpp",
+    "$ace_root/frameworks/core/components/test/json/json_frontend.cpp",
+    "$ace_root/frameworks/core/components/test/unittest/image/image_test_utils.cpp",
+    "$ace_root/frameworks/core/components/theme/theme_constants.cpp",
+    "$ace_root/frameworks/core/components/tween/tween_component.cpp",
+    "$ace_root/frameworks/core/event/back_end_event_manager.cpp",
+    "$ace_root/frameworks/core/event/multimodal/multimodal_manager.cpp",
+    "$ace_root/frameworks/core/event/multimodal/multimodal_scene.cpp",
+    "$ace_root/frameworks/core/focus/focus_node.cpp",
+    "$ace_root/frameworks/core/gestures/drag_recognizer.cpp",
+    "$ace_root/frameworks/core/image/flutter_image_cache.cpp",
+    "$ace_root/frameworks/core/image/image_cache.cpp",
+    "$ace_root/frameworks/core/image/image_loader.cpp",
+    "$ace_root/frameworks/core/image/image_provider.cpp",
+    "$ace_root/frameworks/core/image/image_source_info.cpp",
+    "$ace_root/frameworks/core/mock/mock_ace_application_info.cpp",
+    "$ace_root/frameworks/core/pipeline/base/component_group_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/composed_component.cpp",
+    "$ace_root/frameworks/core/pipeline/base/composed_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/render_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/render_node.cpp",
+    "$ace_root/frameworks/core/pipeline/base/sole_child_element.cpp",
+    "$ace_root/frameworks/core/pipeline/pipeline_context.cpp",
+
+    # test source
+    "$ace_root/frameworks/core/mock/mock_download_manager.cpp",
+    "image_provider_test.cpp",
+  ]
+
+  configs = [
+    ":config_image_provider_test",
+    "$ace_root:ace_test_config",
+  ]
+
+  deps = [
+    "$ace_flutter_engine_root:third_party_flutter_engine_ohos",
+    "$ace_flutter_engine_root/skia:ace_skia_ohos",
+    "$ace_root/adapter/ohos/osal:ace_osal_ohos",
+    "$ace_root/frameworks/base:ace_base_ohos",
+    "$ace_root/frameworks/base/resource:ace_resource",
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+config("config_image_provider_test") {
+  visibility = [ ":*" ]
+  include_dirs = []
+}
+
+group("unittest") {
+  testonly = true
+  deps = [
+    ":ImageCacheTest",
+    # ":ImageProviderTest",
+  ]
+}

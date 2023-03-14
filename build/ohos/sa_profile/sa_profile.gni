@@ -1,0 +1,226 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos/build_var.gni")
+import("//build/ohos_var.gni")
+
+# sa info config file template
+# support for configuring multiple files.
+template("ohos_sa_profile") {
+  assert(defined(invoker.sources))
+  assert(defined(invoker.subsystem_name) || defined(invoker.part_name))
+
+  if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+  } else {
+    part_name = invoker.subsystem_name
+  }
+
+  inputs_output_dir = "${root_out_dir}/sa_profile/inputs"
+
+  copy("${target_name}_copy") {
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    sources = invoker.sources
+    outputs = [ "${target_out_dir}/profiles/{{source_file_part}}" ]
+  }
+
+  action_with_pydeps(target_name) {
+    deps = [ ":${target_name}_copy" ]
+    _output_dir = "${inputs_output_dir}/${part_name}"
+    _output_info_file = "${_output_dir}/${target_name}_info.json"
+    sources = get_target_outputs(":${target_name}_copy")
+    outputs = [ _output_info_file ]
+    script = "//build/ohos/sa_profile/sa_profile.py"
+    args = [ "--sa-input-files" ]
+    args += rebase_path(sources, root_build_dir)
+    args += [
+      "--target-label",
+      get_label_info(":${target_name}", "label_with_toolchain"),
+      "--output-module-info-file",
+      rebase_path(_output_info_file, root_build_dir),
+      "--part-name",
+      part_name,
+    ]
+    sa_install_info = {
+      label = get_label_info(":$target_name", "label_with_toolchain")
+      install_info_file = rebase_path(_output_info_file, root_build_dir)
+      part_name = part_name
+      toolchain = current_toolchain
+      type = "sa"
+    }
+    metadata = {
+      sa_install_info = [ sa_install_info ]
+    }
+  }
+}
+
+# merge sa profile insall files and generate sa profile install info
+template("ohos_sa_install_info") {
+  assert(defined(invoker.system_install_info_file))
+  assert(defined(invoker.sa_install_info_file))
+  assert(defined(invoker.current_platform))
+  assert(defined(invoker.current_platform_dir))
+
+  forward_variables_from(invoker,
+                         [
+                           "current_platform",
+                           "current_platform_dir",
+                           "system_install_info_file",
+                           "sa_install_info_file",
+                           "merged_sa_profile_dir",
+                           "merged_sa_profile_zipfile",
+                         ])
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+  _sa_info_out_dir = "${current_platform_dir}/sa_profile"
+  binary_output_dir = "${_sa_info_out_dir}/binaries"
+
+  sa_profile_install_dir = "profile"
+
+  archive_info_file_name = "sa_modules_info.json"
+  sa_profile_archive_dir = "//${dist_dir_name}/sa_profiles"
+  sa_profile_archive_info_file =
+      "${sa_profile_archive_dir}/${archive_info_file_name}"
+
+  src_sa_install_info_file = "${_sa_info_out_dir}/src_sa_install_info.json"
+
+  action_with_pydeps("sa_profile_src_${current_platform}") {
+    deps = [ "//build/ohos/sa_profile:src_sa_infos_process" ]
+    deps += _deps
+    script = "//build/ohos/sa_profile/sa_profile_source.py"
+    src_sa_infos_file = "${product_output_dir}/src_sa_infos.json"
+    sources = [
+      src_sa_infos_file,
+      system_install_info_file,
+    ]
+    outputs = [ src_sa_install_info_file ]
+    args = [
+      "--src-sa-info-file",
+      rebase_path(src_sa_infos_file, root_build_dir),
+      "--system-install-info-file",
+      rebase_path(system_install_info_file, root_build_dir),
+      "--src-sa-install-info-file",
+      rebase_path(src_sa_install_info_file, root_build_dir),
+    ]
+  }
+
+  _sa_profile_binary_target = "sa_profile_binary_${current_platform}"
+  _binary_sa_output = "${_sa_info_out_dir}/${_sa_profile_binary_target}.zip"
+  action_with_pydeps(_sa_profile_binary_target) {
+    deps = _deps
+    deps += [ ":sa_profile_src_${current_platform}" ]
+    script = "//build/ohos/sa_profile/sa_profile_binary.py"
+    inputs = [ system_install_info_file ]
+    outputs = [ _binary_sa_output ]
+    depfile = "$target_gen_dir/$target_name.d"
+    args = [
+      "--system-install-info-file",
+      rebase_path(system_install_info_file, root_build_dir),
+      "--sa-output-dir",
+      rebase_path(binary_output_dir, root_build_dir),
+      "--sa-output-zipfile",
+      rebase_path(_binary_sa_output, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+
+    # Check if sa archive info file exists
+    _file_exists_script = "//build/ohos/file_exists.py"
+    _process_args = [
+      "--filename",
+      rebase_path(sa_profile_archive_info_file, root_build_dir),
+    ]
+    _result = exec_script(_file_exists_script, _process_args, "string")
+    if (_result == "True") {
+      inputs += [ sa_profile_archive_info_file ]
+      args += [
+        "--sa-profile-archive-info-file",
+        rebase_path(sa_profile_archive_info_file, root_build_dir),
+      ]
+    }
+  }
+
+  action_with_pydeps(target_name) {
+    deps = [
+      ":sa_profile_binary_${current_platform}",
+      ":sa_profile_src_${current_platform}",
+    ]
+    script = "//build/ohos/sa_profile/sa_profile_merge.py"
+    sources = [
+      _binary_sa_output,
+      src_sa_install_info_file,
+    ]
+    outputs = [
+      sa_install_info_file,
+      merged_sa_profile_zipfile,
+    ]
+    depfile = "$target_gen_dir/$target_name.d"
+    args = [
+      "--src-sa-install-info-file",
+      rebase_path(src_sa_install_info_file, root_build_dir),
+      "--no-src-sa-install-info-file",
+      rebase_path(_binary_sa_output, root_build_dir),
+      "--sa-output-dir",
+      rebase_path(merged_sa_profile_dir, root_build_dir),
+      "--merged-sa-profile",
+      rebase_path(merged_sa_profile_zipfile, root_build_dir),
+      "--sa-install-info-file",
+      rebase_path(sa_install_info_file, root_build_dir),
+      "--sa-info-install-dest-dir",
+      "${system_base_dir}/${sa_profile_install_dir}",
+      "--target-cpu",
+      target_cpu,
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+  }
+}
+
+template("ohos_sa_info_archive") {
+  archive_info_file_name = "sa_modules_info.json"
+  _deps = [ "//build/ohos/sa_profile:src_sa_infos_process" ]
+  sa_profile_src_infos_file = "${product_output_dir}/src_sa_infos.json"
+
+  action_with_pydeps(target_name) {
+    deps = _deps
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    inputs = [ sa_profile_src_infos_file ]
+    depfile = "$target_gen_dir/$target_name.d"
+    sa_archive_output_dir = "${dist_build_out_dir}/sa_profiles"
+    sa_archive_info_file = "${sa_archive_output_dir}/${archive_info_file_name}"
+    outputs = [
+      sa_archive_info_file,
+      sa_archive_output_dir,
+    ]
+    script = "//build/ohos/sa_profile/sa_profile_archive.py"
+    args = [
+      "--src-sa-install-info-file",
+      rebase_path(sa_profile_src_infos_file, root_build_dir),
+      "--sa-archive-output-dir",
+      rebase_path(sa_archive_output_dir, root_build_dir),
+      "--sa-archive-info-file",
+      rebase_path(sa_archive_info_file, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+  }
+}

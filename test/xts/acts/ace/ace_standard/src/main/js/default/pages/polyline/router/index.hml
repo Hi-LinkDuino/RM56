@@ -1,0 +1,93 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                polyline通用属性1
+            </text>
+            <svg width="200" height="50">
+                <polyline id="prop1"  points="70,30 80,10 90,30 100,10" fill="red"
+                         stroke="blue" fill-opacity="0.5"></polyline>>
+            </svg>
+            <text class="sub-title">
+                polyline通用属性2
+            </text>
+            <svg width="200" height="50">
+                <polyline  id="prop2"  points="70,30 80,10 90,30 100,10"
+                          fill="#ad4e2a" stroke="blue" ></polyline>
+            </svg>
+            <text  class="sub-title">
+                polyline通用属性3
+            </text>
+            <svg width="200" height="50">
+                <polyline id="prop3" fill="white" stroke="blue" stroke-width="2"
+                         points="70,30 80,10 90,30 100,10" stroke-dasharray="10 5" stroke-dashoffset="3"></polyline>
+            </svg>
+
+            <text  class="sub-title">
+                polyline通用属性4
+            </text>
+            <svg width="200" height="70">
+                <polyline id="prop4"fill="red" stroke="blue" stroke-width="2"
+                         points="50,70 100,30 90,65 130,25" stroke-dasharray="10 5" stroke-dashoffset="3" transform="rotate(-10)"></polyline>
+            </svg>
+
+            <text  class="sub-title">
+                polyline通用属性5
+            </text>
+            <svg width="200" height="60">
+                <polyline id="prop5" fill="red" stroke="blue" stroke-width="2"
+                         points="50,50 100,10 90,45 130,5" stroke-dasharray="10 5" stroke-dashoffset="3" transform="skewX(20)"></polyline>
+            </svg>
+
+            <text  class="sub-title">
+                polyline通用属性6
+            </text>
+            <svg width="200" height="80">
+                <polyline id="prop6" fill="white" stroke="blue" stroke-width="2"
+                         points="50,50 100,10 90,45 130,5" stroke-dasharray="10 5" stroke-dashoffset="3" transform="skewY(10)"></polyline>
+            </svg>
+
+            <text class="sub-title">
+                polyline通用属性7
+            </text>
+            <svg width="200" height="50" >
+                <polyline id="prop7" points="70,30 80,10 90,30 100,10" fill="red"
+                         stroke="blue" ></polyline>
+            </svg>
+
+            <text class="sub-title">
+                polyline通用属性8
+            </text>
+            <svg  width="200" height="50"  >
+                <polyline id="prop8" points="70,30 80,10 90,30 100,10" fill="red"
+                         stroke="blue"></polyline>
+            </svg>
+
+            <text class="sub-title">
+                polyline通用属性9
+            </text>
+            <svg width="200" height="50"  >
+                <polyline id="prop9" points="70,30 80,10 90,30 100,10" fill="red"
+                         stroke="blue"></polyline>
+            </svg>
+        </div>
+    </div>
+</div>

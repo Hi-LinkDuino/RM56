@@ -1,0 +1,72 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ndk library, ndk header configuration
+_ndk_library_targets = [
+  "//third_party/zlib:libz_ndk",
+  "//third_party/zlib:zlib_header",
+  "//base/global/resmgr_standard/interfaces/native/resource:librawfile_ndk",
+  "//base/global/resmgr_standard/interfaces/native/resource:rawfile_header",
+  "//base/hiviewdfx/hilog/interfaces/native/kits:hilog_header",
+  "//base/hiviewdfx/hilog/interfaces/native/kits:libhilog_ndk",
+  "//base/startup/init_lite/interfaces/kits:libdeviceinfo_ndk",
+  "//base/startup/init_lite/interfaces/kits:deviceinfo_header",
+  "//foundation/ace/ace_engine/interfaces/native:ace_header",
+  "//foundation/ace/ace_engine/interfaces/native:libace_ndk",
+  "//foundation/ace/napi:libnapi_ndk",
+  "//foundation/ace/napi:napi_header",
+  "//third_party/node:node_header",
+  "//foundation/graphic/standard/interfaces/kits/ndk/EGL:libEGL_ndk",
+  "//foundation/graphic/standard/interfaces/kits/ndk/EGL:EGL_header",
+  "//foundation/graphic/standard/interfaces/kits/ndk/GLES3:libGLESv3_ndk",
+  "//foundation/graphic/standard/interfaces/kits/ndk/GLES3:GLES3_header",
+  "//foundation/graphic/standard/interfaces/kits/ndk/KHR:KHR_header",
+  "//foundation/graphic/standard/interfaces/kits/ndk/native_window:libnative_window_ndk",
+  "//foundation/graphic/standard/interfaces/kits/ndk/native_window:native_window_header",
+  "//foundation/graphic/standard/interfaces/kits/ndk/native_drawing:libnative_drawing_ndk",
+  "//foundation/graphic/standard/interfaces/kits/ndk/native_drawing:native_drawing_header",
+  "//third_party/libuv:libuv_ndk",
+  "//third_party/libuv:libuv_header",
+  "//third_party/libuv:libuv_uv_header",
+  "//foundation/multimedia/image_standard/interfaces/kits/native:libpixelmap_ndk",
+  "//third_party/openSLES:sles_header",
+  "//third_party/openSLES:libOpenSLES_ndk",
+]
+
+_ndk_base_libs = [
+  "//third_party/musl/ndk_script/adapter:libc_ndk",
+  "//third_party/musl/ndk_script:musl_ndk_libs_arm32",
+  "//third_party/musl/ndk_script:musl_ndk_libs_aarch64",
+  "//third_party/musl/ndk_script:ndk_toolchain",
+]
+_ndk_sysroot_uapi = [ "//third_party/musl/ndk_script:musl_sysroot" ]
+
+_ndk_cmake = [
+  "//prebuilts/cmake/darwin-x86:darwin_cmake_copy",
+  "//prebuilts/cmake/linux-x86:linux_cmake_copy",
+  "//prebuilts/cmake/windows-x86:windows_cmake_copy",
+  "//build/ohos/ndk:ndk_cmake_files",
+]
+
+_ndk_targets_list =
+    _ndk_library_targets + _ndk_base_libs + _ndk_sysroot_uapi + _ndk_cmake
+
+_parse_script = "//build/ohos/ndk/parse_ndk_targets.py"
+_parse_args = [
+  "--source-root-dir",
+  rebase_path("//", root_build_dir),
+  "--ndk-lib-target-list",
+]
+_parse_args += _ndk_targets_list
+
+all_ndk_targets_list = exec_script(_parse_script, _parse_args, "list lines")

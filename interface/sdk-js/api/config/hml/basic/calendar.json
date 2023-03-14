@@ -1,0 +1,162 @@
+{
+  "name": "calendar",
+  "version": [
+    {
+      "name": "v3.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": "The <calendar> component is used to create a calendar component. "
+    }
+  ],
+  "attributes": [
+    {
+      "name": "date",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar date."
+        }
+      ],
+      "type": "object"
+    },
+    {
+      "name": "dateadapter",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar date."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "vertical",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar swipe direction."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "false"
+        },
+        {
+          "name": "true"
+        }
+      ]
+    },
+    {
+      "name": "showholiday",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar to show holiday."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "showlunar",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar to show lunar."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar type."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "simple"
+        },
+        {
+          "name": "normal"
+        }
+      ]
+    },
+    {
+      "name": "offdays",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar offdays."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "workdays",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar workdays."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "holidays",
+      "required": false,
+      "description": [
+        {
+          "name": "setting calendar holidays."
+        }
+      ],
+      "type": "string"
+    }
+  ],
+  "events": [
+    {
+      "name": "selectedchange",
+      "description": [
+        {
+          "name": "Triggered when the select date."
+        }
+      ]
+    },
+    {
+      "name": "goto",
+      "description": [
+        {
+          "name": "Triggered when the jump to a certain month."
+        }
+      ]
+    }
+  ],
+  "supportedSubComponents": false,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

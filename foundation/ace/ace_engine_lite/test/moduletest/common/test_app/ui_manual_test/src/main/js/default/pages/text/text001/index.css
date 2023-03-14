@@ -1,0 +1,103 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0px;
+  top: 0px;
+  width: 454px;
+  height: 454px;
+  background-color:yellow;
+}
+.title {
+  font-size: 30px;
+  text-align: center;
+  width: 454px;
+  height: 50px;
+  top:0px;
+  border-width: 2px;
+  border-color: greenyellow;
+  color: red;
+}
+
+
+.showBox {
+  width: 454px;
+  top: 40px;
+  left: 0px;
+  height: 170px;
+
+  border-width: 2px;
+  border-radius: 1px;
+  background-color: aliceblue;
+
+}
+
+.showBoxDiv {
+  width: 454px;
+  top: 40px;
+  left: 0px;
+  height: 170px;
+  justify-content: center;
+  align-items: center;
+  border-width: 2px;
+  border-radius: 1px;
+  background-color: aliceblue;
+
+  flex-wrap: wrap;
+}
+
+.outlineBox {
+  width: 454px;
+  top: 215px;
+  left: 0px;
+  height: 240px;
+
+  border-width: 2px;
+  border-radius:1px;
+  background-color: aliceblue;
+
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+.specialBtn {
+  width:200px;
+  height: 36px;
+  font-size: 30px;
+  border-width: 1px;
+  border-color: blueviolet
+
+}
+.outlineBtn {
+  width:135px;
+  height: 36px;
+  font-size: 30px;
+  border-width: 1px;
+  border-color: blueviolet
+}
+
+.BordWidthOne {
+  border-width: 2px;
+}
+
+.BordWidthTwo {
+  border-width: 5px;
+}
+
+.BordWidthThree {
+  border-width: 8px;
+}

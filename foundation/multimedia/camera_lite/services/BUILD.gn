@@ -1,0 +1,74 @@
+# Copyright (c) 2020-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+
+shared_library("camera_server") {
+  sources = [
+    "impl/src/camera_device.cpp",
+    "impl/src/camera_service.cpp",
+    "server/src/camera_server.cpp",
+    "server/src/samgr_camera.cpp",
+  ]
+
+  include_dirs = [
+    "//foundation/multimedia/camera_lite/services/impl/include",
+    "//foundation/multimedia/camera_lite/services/server/include",
+  ]
+
+  public_configs = [ ":external_camera_server_library" ]
+  ldflags = [
+    "-lstdc++",
+    "-lcodec",
+    "-lhdi_camera",
+    "-lhdi_videodisplayer",
+    "-lpthread",
+    "-Wl,-rpath-link=$ohos_root_path/$root_out_dir",
+  ]
+  cflags = [ "-Wall" ]
+  cflags += [ "-fPIC" ]
+  cflags_cc = cflags
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//base/security/permission/services/permission_lite/pms_client:pms_client",
+    "//device/soc/hisilicon/common/hal/media:hardware_media_sdk",
+    "//device/soc/hisilicon/common/hal/middleware:middleware_source_sdk",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+  public_deps = [
+    "//foundation/graphic/surface:lite_surface",
+    "//foundation/multimedia/camera_lite/frameworks:camera_lite",
+    "//foundation/multimedia/utils/lite:media_common",
+  ]
+}
+
+config("external_camera_server_library") {
+  include_dirs = [
+    "//kernel/liteos_a/kernel/include",
+    "//kernel/liteos_a/kernel/common",
+    "//utils/native/lite/include",
+    "//foundation/multimedia/utils/lite/interfaces/kits",
+    "//drivers/peripheral/format/interfaces/include",
+    "//foundation/multimedia/utils/lite/hals",
+    "//base/security/permission/interfaces/kits/permission_lite",
+    "//foundation/multimedia/services/camera_lite/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/communication/broadcast",
+    "//foundation/communication/ipc_lite/interfaces/kits",
+    "//drivers/peripheral/codec/interfaces/include",
+    "//foundation/multimedia/utils/lite/hals",
+    "//foundation/multimedia/camera_lite/frameworks",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+  ]
+}

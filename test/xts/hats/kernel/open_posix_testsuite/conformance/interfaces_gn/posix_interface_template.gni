@@ -1,0 +1,100 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("posix_interface_config.gni")
+
+template("posix_interface_bin") {
+  _output_dir = "${target_out_dir}"
+  _output_extension = "run-test"
+  executable("module_${target_name}") {
+    forward_variables_from(invoker, [ "sources" ])
+    cflags = [ "-D_POSIX_C_SOURCE=200809L" ]
+    include_dirs =
+        [ "//third_party/ltp/testcases/open_posix_testsuite/include" ]
+    output_extension = "${_output_extension}"
+    output_dir = "${_output_dir}"
+  }
+
+  _output_filename = "module_${target_name}.${_output_extension}"
+  _output_file = "${_output_dir}/${_output_filename}"
+  _archive_filename = "$target_name.${_output_extension}"
+  _archive_file = "${posix_interface_output_dir}/${_archive_filename}"
+  _suite_out_dir = "${xts_out_dir}"
+  _project_type = "app"
+  _arguments = [
+    "build_module_with_testbundle",
+    "--build_gen_dir",
+    rebase_path("$root_gen_dir"),
+    "--build_target_name",
+    target_name,
+    "--buildgen_testfile",
+    rebase_path(_output_file),
+    "--project_path",
+    rebase_path("."),
+    "--test_xml",
+    rebase_path(TESTCONFIG_FILENAME),
+    "--project_type",
+    _project_type,
+    "--suite_out_dir",
+    rebase_path("${_suite_out_dir}"),
+    "--archive_testfile",
+    rebase_path("${_archive_file}"),
+  ]
+
+  _deps = [ ":module_${target_name}" ]
+
+  action(target_name) {
+    deps = _deps
+    script = rebase_path("//test/xts/tools/build/suite.py")
+    args = _arguments
+    outputs = [ _archive_file ]
+  }
+}
+
+template("posix_interface_json") {
+  _output_dir = "${target_out_dir}"
+  _output_file = "${_output_dir}/${target_name}.json"
+  copy("json_${target_name}") {
+    sources = invoker.sources
+    outputs = [ "${_output_file}" ]
+  }
+
+  _archive_file = "${posix_interfacejson_output_dir}/${posix_interface_module}"
+  _suite_out_dir = "${xts_out_dir}"
+  _project_type = "operate_json"
+  _arguments = [
+    "build_module_with_testbundle",
+    "--build_gen_dir",
+    rebase_path("$root_gen_dir"),
+    "--build_target_name",
+    target_name,
+    "--buildgen_testfile",
+    rebase_path("${_output_file}"),
+    "--project_path",
+    rebase_path("."),
+    "--test_xml",
+    rebase_path(TESTCONFIG_FILENAME),
+    "--project_type",
+    _project_type,
+    "--suite_out_dir",
+    rebase_path("${_suite_out_dir}"),
+    "--archive_testfile",
+    rebase_path("${_archive_file}"),
+  ]
+  _deps = invoker.deps + [ ":json_${target_name}" ]
+  action(target_name) {
+    deps = _deps
+    script = rebase_path("//test/xts/tools/build/suite.py")
+    args = _arguments
+    outputs = [ _archive_file ]
+  }
+}

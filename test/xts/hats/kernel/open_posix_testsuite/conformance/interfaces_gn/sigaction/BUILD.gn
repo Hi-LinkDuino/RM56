@@ -1,0 +1,671 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import(
+    "//test/xts/hats/kernel/open_posix_testsuite/conformance/interfaces_gn/posix_interface_template.gni")
+
+posix_interface_bin("sigaction_1-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-10.c" ]
+}
+posix_interface_bin("sigaction_1-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-11.c" ]
+}
+posix_interface_bin("sigaction_1-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-12.c" ]
+}
+posix_interface_bin("sigaction_1-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-13.c" ]
+}
+posix_interface_bin("sigaction_1-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-14.c" ]
+}
+posix_interface_bin("sigaction_1-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-15.c" ]
+}
+posix_interface_bin("sigaction_1-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-16.c" ]
+}
+posix_interface_bin("sigaction_1-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-17.c" ]
+}
+posix_interface_bin("sigaction_1-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-18.c" ]
+}
+posix_interface_bin("sigaction_1-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-19.c" ]
+}
+posix_interface_bin("sigaction_1-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-1.c" ]
+}
+posix_interface_bin("sigaction_1-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-20.c" ]
+}
+posix_interface_bin("sigaction_1-22") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-22.c" ]
+}
+posix_interface_bin("sigaction_1-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-23.c" ]
+}
+posix_interface_bin("sigaction_1-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-24.c" ]
+}
+posix_interface_bin("sigaction_1-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-25.c" ]
+}
+posix_interface_bin("sigaction_1-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-26.c" ]
+}
+posix_interface_bin("sigaction_1-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-2.c" ]
+}
+posix_interface_bin("sigaction_1-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-3.c" ]
+}
+posix_interface_bin("sigaction_1-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-4.c" ]
+}
+posix_interface_bin("sigaction_1-6") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-6.c" ]
+}
+posix_interface_bin("sigaction_1-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-7.c" ]
+}
+posix_interface_bin("sigaction_18-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-10.c" ]
+}
+posix_interface_bin("sigaction_18-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-11.c" ]
+}
+posix_interface_bin("sigaction_18-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-12.c" ]
+}
+posix_interface_bin("sigaction_18-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-13.c" ]
+}
+posix_interface_bin("sigaction_18-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-14.c" ]
+}
+posix_interface_bin("sigaction_18-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-15.c" ]
+}
+posix_interface_bin("sigaction_18-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-16.c" ]
+}
+posix_interface_bin("sigaction_18-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-17.c" ]
+}
+posix_interface_bin("sigaction_18-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-18.c" ]
+}
+posix_interface_bin("sigaction_18-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-19.c" ]
+}
+posix_interface_bin("sigaction_18-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-1.c" ]
+}
+posix_interface_bin("sigaction_18-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-20.c" ]
+}
+posix_interface_bin("sigaction_18-22") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-22.c" ]
+}
+posix_interface_bin("sigaction_18-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-23.c" ]
+}
+posix_interface_bin("sigaction_18-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-24.c" ]
+}
+posix_interface_bin("sigaction_18-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-25.c" ]
+}
+posix_interface_bin("sigaction_18-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-26.c" ]
+}
+posix_interface_bin("sigaction_18-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-2.c" ]
+}
+posix_interface_bin("sigaction_18-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-3.c" ]
+}
+posix_interface_bin("sigaction_18-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-4.c" ]
+}
+posix_interface_bin("sigaction_18-6") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-6.c" ]
+}
+posix_interface_bin("sigaction_18-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-7.c" ]
+}
+posix_interface_bin("sigaction_18-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-8.c" ]
+}
+posix_interface_bin("sigaction_18-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/18-9.c" ]
+}
+posix_interface_bin("sigaction_1-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-8.c" ]
+}
+posix_interface_bin("sigaction_1-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/1-9.c" ]
+}
+posix_interface_bin("sigaction_2-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-10.c" ]
+}
+posix_interface_bin("sigaction_2-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-11.c" ]
+}
+posix_interface_bin("sigaction_2-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-12.c" ]
+}
+posix_interface_bin("sigaction_2-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-13.c" ]
+}
+posix_interface_bin("sigaction_2-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-14.c" ]
+}
+posix_interface_bin("sigaction_2-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-15.c" ]
+}
+posix_interface_bin("sigaction_2-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-16.c" ]
+}
+posix_interface_bin("sigaction_2-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-17.c" ]
+}
+posix_interface_bin("sigaction_2-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-18.c" ]
+}
+posix_interface_bin("sigaction_2-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-19.c" ]
+}
+posix_interface_bin("sigaction_2-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-1.c" ]
+}
+posix_interface_bin("sigaction_2-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-20.c" ]
+}
+posix_interface_bin("sigaction_2-22") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-22.c" ]
+}
+posix_interface_bin("sigaction_2-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-23.c" ]
+}
+posix_interface_bin("sigaction_2-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-24.c" ]
+}
+posix_interface_bin("sigaction_2-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-25.c" ]
+}
+posix_interface_bin("sigaction_2-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-26.c" ]
+}
+posix_interface_bin("sigaction_2-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-2.c" ]
+}
+posix_interface_bin("sigaction_2-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-3.c" ]
+}
+posix_interface_bin("sigaction_2-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-4.c" ]
+}
+posix_interface_bin("sigaction_25-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-10.c" ]
+}
+posix_interface_bin("sigaction_25-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-11.c" ]
+}
+posix_interface_bin("sigaction_25-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-12.c" ]
+}
+posix_interface_bin("sigaction_25-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-13.c" ]
+}
+posix_interface_bin("sigaction_25-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-14.c" ]
+}
+posix_interface_bin("sigaction_25-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-15.c" ]
+}
+posix_interface_bin("sigaction_25-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-16.c" ]
+}
+posix_interface_bin("sigaction_25-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-17.c" ]
+}
+posix_interface_bin("sigaction_25-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-18.c" ]
+}
+posix_interface_bin("sigaction_25-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-19.c" ]
+}
+posix_interface_bin("sigaction_25-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-1.c" ]
+}
+posix_interface_bin("sigaction_25-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-20.c" ]
+}
+posix_interface_bin("sigaction_25-22") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-22.c" ]
+}
+
+posix_interface_bin("sigaction_25-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-23.c" ]
+}
+
+posix_interface_bin("sigaction_25-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-24.c" ]
+}
+
+posix_interface_bin("sigaction_25-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-25.c" ]
+}
+
+posix_interface_bin("sigaction_25-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-26.c" ]
+}
+posix_interface_bin("sigaction_25-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-2.c" ]
+}
+posix_interface_bin("sigaction_25-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-3.c" ]
+}
+posix_interface_bin("sigaction_25-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-4.c" ]
+}
+posix_interface_bin("sigaction_25-6") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-6.c" ]
+}
+posix_interface_bin("sigaction_25-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-7.c" ]
+}
+posix_interface_bin("sigaction_25-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-8.c" ]
+}
+posix_interface_bin("sigaction_25-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/25-9.c" ]
+}
+posix_interface_bin("sigaction_2-6") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-6.c" ]
+}
+posix_interface_bin("sigaction_2-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-7.c" ]
+}
+posix_interface_bin("sigaction_28-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-10.c" ]
+}
+posix_interface_bin("sigaction_28-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-11.c" ]
+}
+posix_interface_bin("sigaction_28-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-12.c" ]
+}
+posix_interface_bin("sigaction_28-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-13.c" ]
+}
+posix_interface_bin("sigaction_28-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-14.c" ]
+}
+posix_interface_bin("sigaction_28-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-15.c" ]
+}
+posix_interface_bin("sigaction_28-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-16.c" ]
+}
+posix_interface_bin("sigaction_28-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-17.c" ]
+}
+posix_interface_bin("sigaction_28-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-18.c" ]
+}
+posix_interface_bin("sigaction_28-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-19.c" ]
+}
+posix_interface_bin("sigaction_28-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-1.c" ]
+}
+posix_interface_bin("sigaction_28-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-20.c" ]
+}
+posix_interface_bin("sigaction_28-22") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-22.c" ]
+}
+posix_interface_bin("sigaction_28-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-23.c" ]
+}
+posix_interface_bin("sigaction_28-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-24.c" ]
+}
+posix_interface_bin("sigaction_28-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-25.c" ]
+}
+posix_interface_bin("sigaction_28-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-26.c" ]
+}
+posix_interface_bin("sigaction_28-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-2.c" ]
+}
+posix_interface_bin("sigaction_28-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-3.c" ]
+}
+posix_interface_bin("sigaction_28-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-4.c" ]
+}
+posix_interface_bin("sigaction_28-6") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-6.c" ]
+}
+posix_interface_bin("sigaction_28-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-7.c" ]
+}
+posix_interface_bin("sigaction_28-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-8.c" ]
+}
+posix_interface_bin("sigaction_28-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/28-9.c" ]
+}
+posix_interface_bin("sigaction_2-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-8.c" ]
+}
+posix_interface_bin("sigaction_2-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/2-9.c" ]
+}
+posix_interface_bin("sigaction_30-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/30-1.c" ]
+}
+posix_interface_bin("sigaction_4-100") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-100.c" ]
+}
+posix_interface_bin("sigaction_4-101") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-101.c" ]
+}
+posix_interface_bin("sigaction_4-102") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-102.c" ]
+}
+posix_interface_bin("sigaction_4-103") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-103.c" ]
+}
+posix_interface_bin("sigaction_4-104") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-104.c" ]
+}
+posix_interface_bin("sigaction_4-53") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-53.c" ]
+}
+posix_interface_bin("sigaction_4-54") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-54.c" ]
+}
+posix_interface_bin("sigaction_4-55") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-55.c" ]
+}
+posix_interface_bin("sigaction_4-56") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-56.c" ]
+}
+posix_interface_bin("sigaction_4-58") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-58.c" ]
+}
+posix_interface_bin("sigaction_4-59") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-59.c" ]
+}
+posix_interface_bin("sigaction_4-60") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-60.c" ]
+}
+posix_interface_bin("sigaction_4-61") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-61.c" ]
+}
+posix_interface_bin("sigaction_4-62") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-62.c" ]
+}
+posix_interface_bin("sigaction_4-63") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-63.c" ]
+}
+posix_interface_bin("sigaction_4-64") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-64.c" ]
+}
+posix_interface_bin("sigaction_4-65") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-65.c" ]
+}
+posix_interface_bin("sigaction_4-66") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-66.c" ]
+}
+posix_interface_bin("sigaction_4-67") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-67.c" ]
+}
+posix_interface_bin("sigaction_4-68") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-68.c" ]
+}
+posix_interface_bin("sigaction_4-69") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-69.c" ]
+}
+posix_interface_bin("sigaction_4-70") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-70.c" ]
+}
+posix_interface_bin("sigaction_4-71") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-71.c" ]
+}
+posix_interface_bin("sigaction_4-72") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-72.c" ]
+}
+posix_interface_bin("sigaction_4-73") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-73.c" ]
+}
+posix_interface_bin("sigaction_4-74") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-74.c" ]
+}
+posix_interface_bin("sigaction_4-75") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-75.c" ]
+}
+posix_interface_bin("sigaction_4-76") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-76.c" ]
+}
+posix_interface_bin("sigaction_4-77") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-77.c" ]
+}
+posix_interface_bin("sigaction_4-78") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-78.c" ]
+}
+posix_interface_bin("sigaction_4-79") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-79.c" ]
+}
+posix_interface_bin("sigaction_4-80") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-80.c" ]
+}
+posix_interface_bin("sigaction_4-81") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-81.c" ]
+}
+posix_interface_bin("sigaction_4-82") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-82.c" ]
+}
+posix_interface_bin("sigaction_4-83") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-83.c" ]
+}
+posix_interface_bin("sigaction_4-84") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-84.c" ]
+}
+posix_interface_bin("sigaction_4-85") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-85.c" ]
+}
+posix_interface_bin("sigaction_4-86") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-86.c" ]
+}
+posix_interface_bin("sigaction_4-87") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-87.c" ]
+}
+posix_interface_bin("sigaction_4-88") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-88.c" ]
+}
+posix_interface_bin("sigaction_4-89") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-89.c" ]
+}
+posix_interface_bin("sigaction_4-90") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-90.c" ]
+}
+posix_interface_bin("sigaction_4-91") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-91.c" ]
+}
+posix_interface_bin("sigaction_4-92") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-92.c" ]
+}
+posix_interface_bin("sigaction_4-93") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-93.c" ]
+}
+posix_interface_bin("sigaction_4-94") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-94.c" ]
+}
+posix_interface_bin("sigaction_4-96") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-96.c" ]
+}
+posix_interface_bin("sigaction_4-95") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-95.c" ]
+}
+posix_interface_bin("sigaction_4-97") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-97.c" ]
+}
+posix_interface_bin("sigaction_4-98") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/4-98.c" ]
+}
+
+posix_interface_bin("sigaction_6-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-11.c" ]
+}
+posix_interface_bin("sigaction_6-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-12.c" ]
+}
+posix_interface_bin("sigaction_6-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-13.c" ]
+}
+posix_interface_bin("sigaction_6-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-14.c" ]
+}
+posix_interface_bin("sigaction_6-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-15.c" ]
+}
+posix_interface_bin("sigaction_6-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-16.c" ]
+}
+posix_interface_bin("sigaction_6-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-17.c" ]
+}
+posix_interface_bin("sigaction_6-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-18.c" ]
+}
+posix_interface_bin("sigaction_6-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-19.c" ]
+}
+posix_interface_bin("sigaction_6-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-1.c" ]
+}
+posix_interface_bin("sigaction_6-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-20.c" ]
+}
+posix_interface_bin("sigaction_6-22") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-22.c" ]
+}
+posix_interface_bin("sigaction_6-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-23.c" ]
+}
+posix_interface_bin("sigaction_6-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-24.c" ]
+}
+posix_interface_bin("sigaction_6-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-25.c" ]
+}
+posix_interface_bin("sigaction_6-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-26.c" ]
+}
+posix_interface_bin("sigaction_6-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-2.c" ]
+}
+posix_interface_bin("sigaction_6-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-3.c" ]
+}
+posix_interface_bin("sigaction_6-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-4.c" ]
+}
+posix_interface_bin("sigaction_6-6") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-6.c" ]
+}
+posix_interface_bin("sigaction_6-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-7.c" ]
+}
+posix_interface_bin("sigaction_6-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-8.c" ]
+}
+posix_interface_bin("sigaction_6-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-9.c" ]
+}
+posix_interface_bin("sigaction_6-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/6-10.c" ]
+}
+posix_interface_bin("sigaction_8-10") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-10.c" ]
+}
+posix_interface_bin("sigaction_8-11") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-11.c" ]
+}
+posix_interface_bin("sigaction_8-12") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-12.c" ]
+}
+posix_interface_bin("sigaction_8-13") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-13.c" ]
+}
+posix_interface_bin("sigaction_8-14") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-14.c" ]
+}
+posix_interface_bin("sigaction_8-15") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-15.c" ]
+}
+posix_interface_bin("sigaction_8-16") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-16.c" ]
+}
+posix_interface_bin("sigaction_8-17") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-17.c" ]
+}
+posix_interface_bin("sigaction_8-18") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-18.c" ]
+}
+posix_interface_bin("sigaction_8-19") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-19.c" ]
+}
+posix_interface_bin("sigaction_8-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-1.c" ]
+}
+posix_interface_bin("sigaction_8-20") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-20.c" ]
+}
+posix_interface_bin("sigaction_8-23") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-23.c" ]
+}
+posix_interface_bin("sigaction_8-24") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-24.c" ]
+}
+posix_interface_bin("sigaction_8-25") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-25.c" ]
+}
+posix_interface_bin("sigaction_8-26") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-26.c" ]
+}
+posix_interface_bin("sigaction_8-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-2.c" ]
+}
+posix_interface_bin("sigaction_8-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-3.c" ]
+}
+posix_interface_bin("sigaction_8-4") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-4.c" ]
+}
+posix_interface_bin("sigaction_8-7") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-7.c" ]
+}
+posix_interface_bin("sigaction_8-8") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-8.c" ]
+}
+posix_interface_bin("sigaction_8-9") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigaction/8-9.c" ]
+}

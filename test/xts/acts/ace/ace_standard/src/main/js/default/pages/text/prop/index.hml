@@ -1,0 +1,197 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            text通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <text id="idProp">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <text id="classProp"
+             class="classProp">
+        </text>
+        <text id="classPropNone"
+             class="">
+        </text>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <text id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <text id="refProp"
+             ref="refProp">
+        </text>
+        <text id="refPropNone"
+             ref="">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <text id="disabledPropTrue"
+             disabled="true">
+        </text>
+        <text id="disabledPropFalse"
+             disabled="false">
+        </text>
+        <text id="disabledPropNone"
+             disabled="">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <text id="focusablePropTrue"
+             focusable="true">
+        </text>
+        <text id="focusablePropFalse"
+             focusable="false">
+        </text>
+        <text id="focusablePropNone"
+             focusable="">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <text id="dataProp"
+             data-text="通用属性 -- data-*">
+        </text>
+        <text id="dataPropNone"
+             data-text="">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <text id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </text>
+        <text id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </text>
+        <text id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </text>
+        <text id="clickEffectPropNone"
+             click-effect="">
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <text id="dirPropRtl"
+             dir="rtl">
+        </text>
+        <text id="dirPropAuto"
+             dir="auto">
+        </text>
+        <text id="dirPropLtr"
+             dir="ltr">
+        </text>
+        <text id="dirPropNone"
+             dir="">
+        </text>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <text id="forPropNull"
+             for="">
+        </text>
+        <text id="forPropOne"
+             for="{{listOne}}">
+        </text>
+        <text id="forPropThree"
+             for="{{listThree}}">
+        </text>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <text id="ifPropTrue"
+             if="true">
+        </text>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <text id="showPropTrue"
+             show="true">
+        </text>
+        <text id="showPropFalse"
+             show="false">
+        </text>
+        <text id="showPropNone"
+             show="">
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- shareid
+        </text>
+        <text class="propNewAdd"
+               shareid="shareImage">
+        </text>
+        <text class="propNewAdd"
+               shareid="">
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <text class="propNewAdd"
+               tid="id">
+        </text>
+        <text class="propNewAdd"
+               tid="">
+        </text>
+
+        <div>
+            <text id="ifPropTrue"
+                   if="true">
+            </text>
+            <text class="propNewAdd"
+                   elif="true">
+            </text>
+            <text class="propNewAdd"
+                   elif="false">
+            </text>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            text特有属性
+        </text>
+    </div>
+</div>

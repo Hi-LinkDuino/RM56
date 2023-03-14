@@ -1,0 +1,116 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+MBEDTLSDIR = "//third_party/mbedtls/"
+KERNELDIR = "//kernel/liteos_m/"
+
+defines = []
+declare_args() {
+  # custom compile flag for bestechnic
+  ohos_security_huks_mbedtls_porting_path = ""
+}
+
+LIBRARYFILES = [
+  "$MBEDTLSDIR/library/aes.c",
+  "$MBEDTLSDIR/library/aesni.c",
+  "$MBEDTLSDIR/library/arc4.c",
+  "$MBEDTLSDIR/library/aria.c",
+  "$MBEDTLSDIR/library/asn1parse.c",
+  "$MBEDTLSDIR/library/asn1write.c",
+  "$MBEDTLSDIR/library/base64.c",
+  "$MBEDTLSDIR/library/bignum.c",
+  "$MBEDTLSDIR/library/blowfish.c",
+  "$MBEDTLSDIR/library/camellia.c",
+  "$MBEDTLSDIR/library/ccm.c",
+  "$MBEDTLSDIR/library/certs.c",
+  "$MBEDTLSDIR/library/chacha20.c",
+  "$MBEDTLSDIR/library/chachapoly.c",
+  "$MBEDTLSDIR/library/cipher.c",
+  "$MBEDTLSDIR/library/cipher_wrap.c",
+  "$MBEDTLSDIR/library/cmac.c",
+  "$MBEDTLSDIR/library/ctr_drbg.c",
+  "$MBEDTLSDIR/library/des.c",
+  "$MBEDTLSDIR/library/dhm.c",
+  "$MBEDTLSDIR/library/ecdh.c",
+  "$MBEDTLSDIR/library/ecdsa.c",
+  "$MBEDTLSDIR/library/ecjpake.c",
+  "$MBEDTLSDIR/library/ecp.c",
+  "$MBEDTLSDIR/library/ecp_curves.c",
+  "$MBEDTLSDIR/library/entropy.c",
+  "$MBEDTLSDIR/library/entropy_poll.c",
+  "$MBEDTLSDIR/library/error.c",
+  "$MBEDTLSDIR/library/gcm.c",
+  "$MBEDTLSDIR/library/havege.c",
+  "$MBEDTLSDIR/library/hkdf.c",
+  "$MBEDTLSDIR/library/hmac_drbg.c",
+  "$MBEDTLSDIR/library/md.c",
+  "$MBEDTLSDIR/library/md2.c",
+  "$MBEDTLSDIR/library/md4.c",
+  "$MBEDTLSDIR/library/md5.c",
+  "$MBEDTLSDIR/library/md_wrap.c",
+  "$MBEDTLSDIR/library/memory_buffer_alloc.c",
+  "$MBEDTLSDIR/library/net_sockets.c",
+  "$MBEDTLSDIR/library/nist_kw.c",
+  "$MBEDTLSDIR/library/oid.c",
+  "$MBEDTLSDIR/library/padlock.c",
+  "$MBEDTLSDIR/library/pem.c",
+  "$MBEDTLSDIR/library/pk.c",
+  "$MBEDTLSDIR/library/pk_wrap.c",
+  "$MBEDTLSDIR/library/pkcs12.c",
+  "$MBEDTLSDIR/library/pkcs5.c",
+  "$MBEDTLSDIR/library/pkparse.c",
+  "$MBEDTLSDIR/library/pkwrite.c",
+  "$MBEDTLSDIR/library/platform.c",
+  "$MBEDTLSDIR/library/platform_util.c",
+  "$MBEDTLSDIR/library/poly1305.c",
+  "$MBEDTLSDIR/library/ripemd160.c",
+  "$MBEDTLSDIR/library/rsa.c",
+  "$MBEDTLSDIR/library/rsa_internal.c",
+  "$MBEDTLSDIR/library/sha1.c",
+  "$MBEDTLSDIR/library/sha256.c",
+  "$MBEDTLSDIR/library/sha512.c",
+  "$MBEDTLSDIR/library/ssl_ciphersuites.c",
+  "$MBEDTLSDIR/library/ssl_cli.c",
+  "$MBEDTLSDIR/library/ssl_tls.c",
+  "$MBEDTLSDIR/library/threading.c",
+  "$MBEDTLSDIR/library/timing.c",
+  "$MBEDTLSDIR/library/version.c",
+  "$MBEDTLSDIR/library/version_features.c",
+  "$MBEDTLSDIR/library/x509.c",
+  "$MBEDTLSDIR/library/x509_crl.c",
+  "$MBEDTLSDIR/library/x509_crt.c",
+  "$MBEDTLSDIR/library/xtea.c",
+]
+
+# MBEDTLS_SOURCES: All MBEDTLS files
+MBEDTLS_SOURCES = LIBRARYFILES
+
+MBEDTLS_INLCUDE_DIRS = [
+  "$MBEDTLSDIR/include",
+  "$MBEDTLSDIR/include/mbedtls",
+]

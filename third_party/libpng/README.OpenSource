@@ -1,0 +1,11 @@
+[
+{
+"Name": " libpng ",
+"License": "libpng license",
+"License File": " LICENSE ",
+"Version Number": " 1.6.37 ",
+"Owner": " shangzhi@huawei.com ",
+"Upstream URL": " http://www.libpng.org/pub/png/libpng.html ",
+"Description": " Reference library for supporting the Portable Network Graphics (PNG) format. "
+}
+]

@@ -1,0 +1,79 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "appverify/verify"
+
+config("verify_test_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//base/security/appverify/interfaces/innerkits/appverify/test/unittest/include",
+    "//base/security/appverify/interfaces/innerkits/appverify/include",
+    "//third_party/openssl/include",
+    "//third_party/json/single_include",
+    "//utils/native/base/include",
+  ]
+  cflags = [ "-fvisibility=hidden" ]
+  ldflags = [ "-Wl,--exclude-libs,ALL" ]
+}
+
+ohos_unittest("verify_test") {
+  module_out_path = module_output_path
+
+  sources = [
+    "unittest/src/hap_byte_buffer_test.cpp",
+    "unittest/src/hap_cert_verify_openssl_utils_test.cpp",
+    "unittest/src/hap_crl_manager_test.cpp",
+    "unittest/src/hap_signing_block_utils_test.cpp",
+    "unittest/src/hap_verify_openssl_utils_test.cpp",
+    "unittest/src/hap_verify_result_test.cpp",
+    "unittest/src/hap_verify_test.cpp",
+    "unittest/src/hap_verify_v2_test.cpp",
+    "unittest/src/provision_verify_test.cpp",
+    "unittest/src/random_access_file_test.cpp",
+    "unittest/src/trusted_root_ca_test.cpp",
+    "unittest/src/trusted_ticket_test.cpp",
+  ]
+
+  configs = [ ":verify_test_config" ]
+  deps = [
+    "//base/security/appverify/interfaces/innerkits/appverify:libhapverify",
+    "//third_party/googletest:gtest_main",
+    "//third_party/openssl:libcrypto_static",
+    "//utils/native/base:utils",
+  ]
+
+  if (is_standard_system) {
+    defines = [ "STANDARD_SYSTEM" ]
+
+    external_deps = [
+      "hiviewdfx_hilog_native:libhilog",
+      "startup_l2:syspara",
+    ]
+  } else {
+    external_deps = [
+      "hilog_native:libhilog",
+      "ipc:ipc_core",
+      "os_account:libaccountkits",
+    ]
+  }
+
+  resource_config_file =
+      "//base/security/appverify/test/resource/appverify/ohos_test.xml"
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ ":verify_test" ]
+}

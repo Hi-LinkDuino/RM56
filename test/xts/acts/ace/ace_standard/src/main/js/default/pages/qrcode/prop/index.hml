@@ -1,0 +1,267 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            qrcode通用属性
+        </text>
+
+        <text class="sub-title" value="value">
+            通用属性 -- id
+        </text>
+        <qrcode id="idProp" value="value">
+        </qrcode>
+
+        <text class="sub-title" value="value">
+            通用属性 -- class
+        </text>
+        <div class="div-container">
+            <qrcode id="classProp"
+                 class="classProp"
+                    value="value">
+            </qrcode>
+            <qrcode id="classPropNone"
+                    value="value"
+                 class="">
+            </qrcode>
+        </div>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <qrcode id="styleProp"
+             style="width:30px;background-color:red"
+                value="value">
+        </qrcode>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <div class="div-container">
+            <qrcode id="refProp"
+                 ref="refProp"
+                    value="value">
+            </qrcode>
+            <qrcode id="refPropNone"
+                 ref=""
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <div class="div-container">
+            <qrcode id="disabledPropTrue"
+                 disabled="true"
+                    value="value">
+            </qrcode>
+            <qrcode id="disabledPropFalse"
+                 disabled="false"
+                    value="value">
+            </qrcode>
+            <qrcode id="disabledPropNone"
+                 disabled=""
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <div class="div-container">
+            <qrcode id="focusablePropTrue"
+                 focusable="true"
+                    value="value">
+            </qrcode>
+            <qrcode id="focusablePropFalse"
+                 focusable="false"
+                    value="value">
+            </qrcode>
+            <qrcode id="focusablePropNone"
+                 focusable=""
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <qrcode id="dataPropB"
+               data-input="通用属性 -- data" value="value">
+        </qrcode>
+        <qrcode id="dataPropBNone"
+               data-input="" value="value">
+        </qrcode>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <div class="div-container">
+            <qrcode id="dataProp"
+                 data-qrcode="通用属性 -- data-*"
+                    value="value">
+            </qrcode>
+            <qrcode id="dataPropNone"
+                 data-qrcode=""
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <div class="div-container">
+            <qrcode id="clickEffectPropSmall"
+                 click-effect="spring-small"
+                    value="value">
+            </qrcode>
+            <qrcode id="clickEffectPropMedium"
+                 click-effect="spring-medium"
+                    value="value">
+            </qrcode>
+            <qrcode id="clickEffectPropLarge"
+                 click-effect="spring-large"
+                    value="value">
+            </qrcode>
+            <qrcode id="clickEffectPropNone"
+                 click-effect=""
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <div class="div-container">
+            <qrcode id="dirPropRtl"
+                 dir="rtl"
+                    value="value">
+            </qrcode>
+            <qrcode id="dirPropAuto"
+                 dir="auto"
+                    value="value">
+            </qrcode>
+            <qrcode id="dirPropLtr"
+                 dir="ltr"
+                    value="value">
+            </qrcode>
+            <qrcode id="dirPropNone"
+                 dir=""
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <div class="div-container">
+            <qrcode id="forPropNull"
+                 for=""
+                    value="value">
+            </qrcode>
+            <qrcode id="forPropOne"
+                 for="{{listOne}}"
+                    value="value">
+            </qrcode>
+            <qrcode id="forPropThree"
+                 for="{{listThree}}"
+                    value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <qrcode id="ifPropTrue"
+             if="true"
+                value="value">
+        </qrcode>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <div class="div-container">
+            <qrcode id="showPropTrue"
+                 show="true"
+                    value="value">
+            </qrcode>
+            <qrcode id="showPropFalse"
+                 show="false"
+                    value="value">
+            </qrcode>
+            <qrcode id="showPropNone"
+                 show=""
+                    value="value">
+            </qrcode>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            qrcode特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <qrcode id="qrcodeTypeValue"
+                value="value">
+        </qrcode>
+        <qrcode id="qrcodeTypeValueNone"
+                value="">
+        </qrcode>
+        <text class="sub-title">
+            特有属性 -- type
+        </text>
+        <qrcode id="qrcodeTypeRect"
+                type="rect"
+                value="value">
+        </qrcode>
+        <qrcode id="qrcodeTypeCircle"
+                type="circle"
+                value="value">
+        </qrcode>
+        <qrcode id="qrcodeTypeNone"
+                type=""
+                value="value">
+        </qrcode>
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <qrcode for="{{array}}" tid="id" style="color: #679855; margin: 1px;"
+               id="showFor{{$item.id}}" value="{{$item.name }}"
+                value="value">
+        </qrcode>
+        <text class="sub-title">
+            特有属性 -- if elif
+        </text>
+        <qrcode if="false" id="showIf"
+                value="value">
+        </qrcode>
+        <qrcode elif="false" id="showElseIfTrue"
+                value="value">
+        </qrcode>
+        <qrcode elif="true" id="showElseIfFalse"
+                value="value">
+        </qrcode>
+        <qrcode else id="showElse"
+                value="value">
+        </qrcode>
+    </div>
+</div>

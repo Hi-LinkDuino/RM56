@@ -1,0 +1,100 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+module_output_path = "hdf/wlan"
+
+###########################palTest###########################
+
+ohos_unittest("WlanHdiServiceTest") {
+  module_out_path = module_output_path
+  sources = [ "wlan_hdi_hal_services_test.cpp" ]
+
+  deps = [
+    "//drivers/peripheral/wlan/client:wifi_driver_client",
+    "//drivers/peripheral/wlan/hal:wifi_hal",
+    "//drivers/peripheral/wlan/hdi_service:wifi_hdi_device",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  include_dirs = [
+    "include",
+    "//drivers/peripheral/wlan/interfaces/include",
+    "//drivers/peripheral/wlan/hdi_service/services",
+    "//drivers/peripheral/wlan/client/include",
+    "//drivers/peripheral/wlan/hal/include",
+    "//drivers/peripheral/wlan/hdi_service/include",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+  external_deps += [ "ipc:ipc_single" ]
+}
+
+ohos_unittest("WlanHdiServiceTestC") {
+  module_out_path = module_output_path
+  sources = [ "wlan_hdi_hal_services_c_test.cpp" ]
+
+  deps = [
+    "//drivers/peripheral/wlan/client:wifi_driver_client",
+    "//drivers/peripheral/wlan/hal:wifi_hal",
+    "//drivers/peripheral/wlan/hdi_service:wifi_hdi_c_device",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  include_dirs = [
+    "include",
+    "//drivers/peripheral/wlan/interfaces/include",
+    "//drivers/peripheral/wlan/hdi_service/services",
+    "//drivers/peripheral/wlan/client/include",
+    "//drivers/peripheral/wlan/hal/include",
+    "//drivers/peripheral/wlan/hdi_service/include",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+  external_deps += [ "ipc:ipc_single" ]
+}
+
+###########################end###########################
+group("unittest") {
+  testonly = true
+  deps = [
+    ":WlanHdiServiceTest",
+    ":WlanHdiServiceTestC",
+  ]
+}

@@ -1,0 +1,54 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.container {
+    width: 100%;
+    height: 200%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    width: 200px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.box {
+    background-color: coral;
+    width: 466px;
+    height: 466px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (device-type: liteWearable) {
+    .box {
+        background-color: blue;
+    }
+}
+
+@media screen and (device-type: smartVision) {
+    .box {
+        background-color: green;
+    }
+}
+
+@media screen and (min-width: 454px) {
+    .container {
+        flex-direction: row;
+        height: 100%;
+    }
+}

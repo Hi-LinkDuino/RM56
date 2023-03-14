@@ -1,0 +1,390 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+            <text class="sub-title">
+                input通用样式1
+            </text>
+            <input class="style1" id="style1">
+            </input>
+            <text  class="sub-title">
+                input通用样式2
+            </text>
+            <input class="style2" id="style2">
+            </input>
+            <text class="sub-title">
+                input通用样式3
+            </text>
+            <input class="style3" id="style3">
+            </input>
+            <text  class="sub-title">
+                input通用样式4
+            </text>
+            <input class="style4" id="style4">
+            </input>
+            <text  class="sub-title">
+                input通用样式5
+            </text>
+            <div class="contain1">
+                <input class="style5" id="style5">
+                </input>
+                <input class="style6" id="style6">
+                </input>
+            </div>
+            <text  class="sub-title">
+                input特有样式1
+            </text>
+            <div class="style7" id="style7">
+                <input class="flex-item color-red font-size16" type="button" value="value">
+                </input>
+                <input class="flex-item color-white font-size20" type="button" value="value">
+                </input>
+            </div>
+            <text  class="sub-title">
+                input特有样式2
+            </text>
+            <div class="style8" id="style8">
+                <input class="flex-item color-primary allow-scale">
+                </input>
+                <input class="flex-item color-success placeholder-color" placeholder="placeholder">
+                </input>
+            </div>
+            <text  class="sub-title">
+                input特有样式3
+            </text>
+            <div class="style9" id="style9">
+                <input class="flex-item color-primary font-weight3" type="button" value="buttion"></input>
+                <input class="flex-item color-success font-weight6" type="button" value="buttion"></input>
+            </div>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                input动画样式1
+            </text>
+            <input class="ani1" >
+            </input>
+            <text class="sub-title">
+                input动画样式2
+            </text>
+            <input class="ani2" >
+            </input>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                input通用属性1
+            </text>
+            <input id="prop1" class="prop1"
+                 disabled = "true" focusable ="true"
+                 data-name ="prop1" click-effect="spring-medium"
+                 dir ="rtl">
+            </input>
+            <text  class="sub-title">
+                input通用属性2
+            </text>
+            <input class="prop2" ref ="prop2" id="prop2"
+                   disabled = "false" focusable ="false"
+                   data-name ="prop2" click-effect="spring-large"
+                   dir ="ltr">
+            </input>
+            <text  class="sub-title">
+                input通用属性3
+            </text>
+            <input style="color: #679855; margin: 1px;" class="prop3" id="prop3">
+            </input>
+            <text  class="sub-title">
+                input特有属性1
+            </text>
+            <input class="prop4" id="prop4"
+                    type="button"
+                    value="value"
+                   placeholder="placeholder"
+                   menuoptions="[{icon:'../../../common/images/icon.png',content:'content1'},{icon:'../../../common/images/icon.png',content:'content2'}]"
+                   autofocus="true"
+                   selectedstart="0"
+                   selectedend="10"
+                   softkeyboardenabled="false">
+            </input>
+            <text  class="sub-title">
+                input特有属性2
+            </text>
+            <input class="prop5" id="prop5"
+                    type="text"
+                   value=""
+                    placeholder=""
+                   maxlength="10"
+                   enterkeytype="go"
+                   headericon="../../../common/images/icon.png"
+                   showcounter="true"
+                   menuoptions=""
+                    autofocus="false"
+                   selectedstart=""
+                   selectedend=""
+                   softkeyboardenabled="true"
+                   showpasswordicon="false">
+            </input>
+            <div style="margin: 1px;">
+                <input if="false" class="prop2" ref ="prop2" style="background-color: rebeccapurple;">
+                </input>
+                <input elif="true" class="prop2" ref ="prop2" style="background-color: black;">
+                </input>
+                <input elif="false" class="prop2" ref ="prop2" style="background-color: blue;">
+                </input>
+                <input else class="prop2" ref ="prop2" style="background-color: yellow;">
+                </input>
+            </div>
+
+            <text  class="sub-title">
+                input特有属性3
+            </text>
+            <input class="prop6" id="prop6"
+                   type="password"
+                   showpasswordicon="true">
+            </input>
+            <input for="{{array}}" tid="id" style="color: #679855; margin: 1px;" class="prop3"
+                   value="{{$item.name }}">
+            </input>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                input通用事件1
+            </text>
+            <input class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                 ontouchend="touchEnd" ontouchcancel="touchCancel">
+            </input>
+            <text  class="sub-title">
+                input通用事件2
+            </text>
+            <input class ="event2" onclick="click" ondoubleclick="doubleClick"
+                 onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                 onswipe="swipe" onattached="attached" ondetached="detached">
+            </input>
+            <text  class="sub-title">
+                input通用事件3
+            </text>
+            <input class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                 onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                 ondragstart="dragStart" ondrag="drag"
+                 ondragend="dragEnd" ondragenter="dragEnter"
+                 ondragover="dragOver" ondragleave="dragLeave"
+                 ondrop="drop">
+            </input>
+            <text  class="sub-title">
+                input特有事件1
+            </text>
+            <input class ="event4"
+                   type = "text"
+                   onchange="change"
+                   onenterkeyclick="enterkeyclick"
+                   enterkeytype="go"
+                   ontranslate="translate"
+                    onshare="share"
+                    onsearch="search"
+                    onoptionselect="optionselect"
+                    onselectchange="selectchange">
+            </input>
+            <text  class="sub-title">
+                input特有事件2
+            </text>
+            <input class ="event5" 
+                    type="checkbox"
+                   onchange="checkChange"
+                   onaccessibility="onAccessibility">
+            </input>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                input通用方法1
+            </text>
+            <input id="function1" class="function1" ontouchstart="functionTest1">
+            </input>
+            <text class="sub-title">
+                input通用方法2
+            </text>
+            <input id="function2" class="function2" ontouchstart="functionTest2">
+            </input>
+            <text class="sub-title">
+                input通用方法3
+            </text>
+            <input id="function3" class="function3" ontouchstart="functionTest3">
+            </input>
+            <text class="sub-title">
+                input特有方法
+            </text>
+            <div>
+                <input id="function4"
+                       class="function4"
+                       type="text"
+                       ontouchstart="functionTest4">
+                </input>
+                <input id="function5"
+                       class="function5"
+                       type="email"
+                       ontouchstart="functionTest5">
+                </input>
+                <input id="function6"
+                       class="function6"
+                       type="date"
+                       ontouchstart="functionTest6">
+                </input>
+            </div>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                input渐变样式1
+            </text>
+            <input class="gradient1">
+            </input>
+            <text  class="sub-title">
+                input渐变样式2
+            </text>
+            <input class="gradient2">
+            </input>
+            <text  class="sub-title">
+                input渐变样式3
+            </text>
+            <input class="gradient3">
+            </input>
+            <text  class="sub-title">
+                input渐变样式4
+            </text>
+            <input class="gradient4">
+            </input>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                input无障碍1
+            </text>
+            <input class="access1" accessibilitygroup ="true"
+                 accessibilitytext="这是input"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants">
+            </input>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                input原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <input style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </input>
+                <input style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </input>
+                <input style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </input>
+                <input style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </input>
+                <input style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </input>
+                <input style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </input>
+            </div>
+            <text class="sub-title">
+                input原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <input style="height:20px;background-color: blue;flex-weight: 1;">
+                </input>
+                <input style="height:20px;background-color: black;flex-weight: 5;">
+                </input>
+                <input style="height:20px;background-color: yellow;flex-weight: 4;">
+                </input>
+                <input style="height:20px;background-color: red;flex-weight: 3;">
+                </input>
+                <input style="height:20px;background-color:pink;flex-weight: 7;">
+                </input>
+                <input style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </input>
+            </div>
+            <text class="sub-title">
+                input原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <input style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </input>
+                <input style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </input>
+                <input style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </input>
+                <input style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </input>
+                <input style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </input>
+                <input style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </input>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multiMode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    input多模输入1
+                </text>
+                <input class="multiMode1" voicelabel = "voice"
+                     subscriptflag="on" subscriptlabel="input" scenelabel="common">
+                </input>
+            </div>
+        </div>
+    </div>
+</div>

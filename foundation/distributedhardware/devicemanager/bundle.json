@@ -1,0 +1,72 @@
+{
+    "name": "@ohos/device_manager_base",
+    "description": "device manager service",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/device_manager",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "foundation/distributedhardware/devicemanager"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "device_manager_base",
+        "subsystem": "distributedhardware",
+        "syscap":[ "SystemCapability.DistributedHardware.DeviceManager" ],
+        "features":["device_manager_base_no_interaction_auth"],
+        "adapted_system_type": [ "standard", "small" ],
+        "rom": "2M",
+        "ram": "16M",
+        "deps": {
+            "components": [
+                "appexecfwk_standard",
+                "hiviewdfx_hilog_native",
+                "ipc",
+                "safwk",
+                "startup_l2",
+                "device_profile_core",
+                "samgr_standard",
+                "ces_standard",
+                "dsoftbus_standard",
+                "utils_base",
+                "napi",
+                "deviceauth_standard"
+            ],
+            "third_party": [
+                "json",
+                "node",
+                "googletest",
+                "mbedtls"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/distributedhardware/devicemanager/utils:devicemanagerutils",
+                "//foundation/distributedhardware/devicemanager/interfaces/inner_kits/native_cpp:devicemanagersdk",
+                "//foundation/distributedhardware/devicemanager/interfaces/kits:devicemanager_native_js",
+                "//foundation/distributedhardware/devicemanager/services/devicemanagerservice:devicemanagerservice",
+                "//foundation/distributedhardware/devicemanager/sa_profile:dm_sa_profile",
+                "//foundation/distributedhardware/devicemanager/ext:ext_modules"
+            ],
+            "inner_kits": [
+                {
+                "type": "so",
+                "name": "//foundation/distributedhardware/devicemanager/interfaces/inner_kits/native_cpp:devicemanagersdk",
+                "header": {
+                    "header_files": [
+                        "device_manager.h",
+                        "device_manager_callback.h",
+                        "dm_device_info.h",
+                        "dm_subscribe_info.h"
+                    ],
+                    "header_base": "//foundation/distributedhardware/devicemanager/interfaces/inner_kits/native_cpp/include"
+                }
+                }
+            ],
+            "test": [
+                "//foundation/distributedhardware/devicemanager/test:test"
+            ]
+        }
+    }
+}

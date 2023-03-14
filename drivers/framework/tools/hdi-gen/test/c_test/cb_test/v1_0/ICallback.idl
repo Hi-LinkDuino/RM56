@@ -1,0 +1,16 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.c_test.cb_test.v1_0;
+
+import test.c_test.types.v1_0.Types;
+
+[callback] interface ICallback {
+    Ping([in] String message);
+    Plus([in] int num1, [in] int num2, [out] int result);
+}

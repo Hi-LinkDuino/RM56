@@ -1,0 +1,45 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+  ohos_hiviewdfx_hievent_lite_fault_file_size = 1024
+  ohos_hiviewdfx_hievent_lite_ue_file_size = 1024
+  ohos_hiviewdfx_hievent_lite_stat_file_size = 1024
+  ohos_hiviewdfx_hievent_lite_cache_size = 256
+  ohos_hiviewdfx_hievent_lite_file_buffer_size = 128
+}
+
+static_library("hievent_lite") {
+  sources = [
+    "frameworks/hiview_event.c",
+    "frameworks/hiview_output_event.c",
+  ]
+  cflags = [ "-Wall" ]
+  defines = [
+    "FAULT_EVENT_FILE_SIZE = $ohos_hiviewdfx_hievent_lite_fault_file_size",
+    "UE_EVENT_FILE_SIZE = $ohos_hiviewdfx_hievent_lite_ue_file_size",
+    "STAT_EVENT_FILE_SIZE = $ohos_hiviewdfx_hievent_lite_stat_file_size",
+    "EVENT_CACHE_SIZE = $ohos_hiviewdfx_hievent_lite_cache_size",
+    "HIVIEW_HIEVENT_FILE_BUF_SIZE = $ohos_hiviewdfx_hievent_lite_file_buffer_size",
+  ]
+  include_dirs = [
+    "//base/hiviewdfx/hievent_lite/interfaces/native/innerkits",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//base/hiviewdfx/hiview_lite",
+    "//utils/native/lite/include",
+    "//third_party/bounds_checking_function/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+  ]
+  public_configs = [ "//base/hiviewdfx/hiview_lite:hiview_lite_config" ]
+  deps = [ "//base/hiviewdfx/hiview_lite" ]
+}

@@ -1,0 +1,152 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/acts/security_lite/deviceauth_basic_deps/deviceauth.gni")
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hctest_suite("ActsSecurityHichainBasicDeps") {
+  suite_name = "acts"
+
+  sources = [ "test.c" ]
+
+  sources += DEVICEAUTH_BASIC_DEPS_SOURCE
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//utils/native/lite/include",
+    "//test/xts/tools/lite/hctest/include",
+    "//third_party/unity/src",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+  ]
+
+  include_dirs += DEVICEAUTH_BASIC_DEPS_INC
+
+  deps = []
+
+  cflags = [ "-Werror" ]
+
+  ldflags = [
+    "-lstdc++",
+    "-lm",
+    "-lpthread",
+  ]
+
+  defines = [
+    "MKDIR_IMPLEMENTED=0",
+    "STAT_IMPLEMENTED=0",
+    "ACCESS_IMPLEMENTED=0",
+    "F_API_IMPLEMENTED=0",
+    "FLASH_START_ADDRESS_HICHAIN=0",
+    "UTILS_FILE_IMPLEMENTED=1",
+    "TEST_PTHREAD_CREATE_DETACHED=0",
+    "TEST_HC_FILE_OPEN_SERIES=1",
+  ]
+  defines += DEVICEAUTH_BASIC_DEPS_ALGORITHM_DEFINES
+
+  if (defined(ohos_lite)) {
+    include_dirs += [
+      "//base/security/deviceauth/deps_adapter/os_adapter/interfaces/liteos",
+    ]
+    if (ohos_kernel_type == "liteos_m") {
+      # liteos m
+      include_dirs += [ "//base/startup/syspara_lite/interfaces/kits" ]
+      deps +=
+          [ "//base/startup/syspara_lite/frameworks/parameter/src:sysparam" ]
+      if (board_name == "rtl8720") {
+        cflags +=
+            [ "-isystem${ohos_root_path}/kernel/liteos_m/kal/posix/include" ]
+        defines -= [
+          "FLASH_START_ADDRESS_HICHAIN=0",
+          "TEST_HC_FILE_OPEN_SERIES=1",
+          "TEST_HKDF_WITH_KEY_ALIAS_TRUE=1",
+          "TEST_COMPUTEHMAC_WITH_ISALIAS_TRUE=1",
+          "TEST_HASH_TO_POINT=1",
+          "TEST_GENERATE_KEY_PAIR_WITH_STORAGE=1",
+          "TEST_AGREE_SHARED_SECRET_WITH_STORAGE=1",
+          "TEST_AGREE_SHARED_SECRET=1",
+          "TEST_GENERATE_KEY_PAIR=1",
+          "TEST_EXPORT_PUBLIC_KEY=1",
+          "TEST_ALGORITHM_SIGN=1",
+          "TEST_ALGORITHM_VERIFY=1",
+          "TEST_IMPORT_PUBLIC_KEY=1",
+          "TEST_CHECK_KEY_EXIST=1",
+          "TEST_DELETE_KEY=1",
+          "TEST_AES_GCM_ENCRYPT=1",
+          "TEST_AES_GCM_DECRYPT=1",
+        ]
+        defines += [
+          "FLASH_START_ADDRESS_HICHAIN=0x1F6000",
+          "TEST_HC_FILE_OPEN_SERIES=0",
+          "TEST_HKDF_WITH_KEY_ALIAS_TRUE=0",
+          "TEST_COMPUTEHMAC_WITH_ISALIAS_TRUE=0",
+          "TEST_HASH_TO_POINT=0",
+          "TEST_GENERATE_KEY_PAIR_WITH_STORAGE=0",
+          "TEST_AGREE_SHARED_SECRET_WITH_STORAGE=0",
+          "TEST_AGREE_SHARED_SECRET=0",
+          "TEST_GENERATE_KEY_PAIR=0",
+          "TEST_EXPORT_PUBLIC_KEY=0",
+          "TEST_ALGORITHM_SIGN=0",
+          "TEST_ALGORITHM_VERIFY=0",
+          "TEST_IMPORT_PUBLIC_KEY=0",
+          "TEST_CHECK_KEY_EXIST=0",
+          "TEST_DELETE_KEY=0",
+          "TEST_AES_GCM_ENCRYPT=0",
+          "TEST_AES_GCM_DECRYPT=0",
+        ]
+        defines += [ "DO_NOT_TEST_DEPRECATED_IMPORT_SYMMETRIC_KEY=1" ]
+      }
+      if (board_name == "hispark_pegasus") {
+        # 3861
+        defines -= [
+          "TEST_HKDF_WITH_KEY_ALIAS_TRUE=1",
+          "TEST_HASH_TO_POINT=1",
+          "TEST_GENERATE_KEY_PAIR_WITH_STORAGE=1",
+          "TEST_AGREE_SHARED_SECRET_WITH_STORAGE=1",
+          "TEST_AGREE_SHARED_SECRET=1",
+          "TEST_GENERATE_KEY_PAIR=1",
+          "TEST_EXPORT_PUBLIC_KEY=1",
+          "TEST_ALGORITHM_SIGN=1",
+          "TEST_ALGORITHM_VERIFY=1",
+          "TEST_IMPORT_PUBLIC_KEY=1",
+        ]
+        defines += [
+          "TEST_HKDF_WITH_KEY_ALIAS_TRUE=0",
+          "TEST_HASH_TO_POINT=0",
+          "TEST_GENERATE_KEY_PAIR_WITH_STORAGE=0",
+          "TEST_AGREE_SHARED_SECRET_WITH_STORAGE=0",
+          "TEST_AGREE_SHARED_SECRET=0",
+          "TEST_GENERATE_KEY_PAIR=0",
+          "TEST_EXPORT_PUBLIC_KEY=0",
+          "TEST_ALGORITHM_SIGN=0",
+          "TEST_ALGORITHM_VERIFY=0",
+          "TEST_IMPORT_PUBLIC_KEY=0",
+        ]
+      }
+    } else {
+      #liteos a or L1 linux
+      include_dirs += [ "//base/startup/syspara_lite/interfaces/kits" ]
+      deps +=
+          [ "//base/startup/syspara_lite/frameworks/parameter/src:sysparam" ]
+    }
+  } else {
+    # linux
+    include_dirs += [
+      "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+
+      "//base/security/deviceauth/deps_adapter/os_adapter/interfaces/linux",
+    ]
+    deps += [
+      "//base/startup/syspara_lite/interfaces/innerkits/native/syspara:syspara",
+    ]
+  }
+}

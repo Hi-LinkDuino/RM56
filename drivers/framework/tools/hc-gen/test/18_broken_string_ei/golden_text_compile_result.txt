@@ -1,0 +1,3 @@
+[compile exit status]:1
+[compile console output]:
+[Error] ./18_broken_string_ei/case.hcs:3:20: syntax error, miss ';'

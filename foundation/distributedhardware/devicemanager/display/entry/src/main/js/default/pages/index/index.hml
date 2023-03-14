@@ -1,0 +1,98 @@
+<!--
+/*
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<div class="container">
+    <div if="{{status == 'main-pin'}}" class="main-pin">
+        <text class="title">PIN码连接</text>
+        <text class="title-tip">请输入平板上显示的PIN码</text>
+        <div class="pin-numb" >
+            <text class="pin-numb-item">{{pin[0]}}</text>
+            <text class="pin-numb-item">{{pin[1]}}</text>
+            <text class="pin-numb-item">{{pin[2]}}</text>
+            <text class="pin-numb-item">{{pin[3]}}</text>
+            <text class="pin-numb-item">{{pin[4]}}</text>
+            <text class="pin-numb-item">{{pin[5]}}</text>
+        </div>
+        <div class="input" >
+            <button @click="mainInputPin(1)" type="text" class="numb">1</button>
+            <button @click="mainInputPin(2)" type="text" class="numb">2</button>
+            <button @click="mainInputPin(3)" type="text" class="numb">3</button>
+            <button @click="mainInputPin(4)" type="text" class="numb">4</button>
+        </div>
+        <div class="input" >
+            <button @click="mainInputPin(5)" type="text" class="numb">5</button>
+            <button @click="mainInputPin(6)" type="text" class="numb">6</button>
+            <button @click="mainInputPin(7)" type="text" class="numb">7</button>
+            <button @click="mainInputPin(8)" type="text" class="numb">8</button>
+        </div>
+        <div class="input" >
+            <button @click="mainInputPin(9)" type="text" class="numb">9</button>
+            <button @click="mainInputPin(0)" type="text" class="numb">0</button>
+            <button @click="mainInputPinBack" type="text" class="numb">删除</button>
+            <button @click="mainInputPinCancel" type="text" class="numb">取消</button>
+        </div>
+    </div>
+    <div if="{{status == 'join-authorize'}}" class="join-authorize">
+        <text class="title">是否允许{{statusInfo.deviceName}}连接本机</text>
+        <text class="title-tip">用于资源访问</text>
+        <div class="dialog-foot">
+            <button @click="joinAuthorizeCancel" type="text" class="button-cancel">
+                取消（{{ timeRemaining }}）
+            </button>
+            <button @click="joinAuthorizeOk" class="button-ok" type="capsule">
+                允许
+            </button>
+        </div>
+    </div>
+    <div if="{{status == 'join-auth'}}" class="join-auth">
+        <text class="title-tip">{{ statusInfo.appName }}</text>
+        <text class="title">是否允许打开apply auth?</text>
+        <text class="title-tip">来自{{statusInfo.deviceName}}</text>
+        <div class="dialog-foot">
+            <button @click="joinAuthCancel" type="text" class="button-cancel">
+                取消（{{ timeRemaining }}）
+            </button>
+            <button @click="joinAuthOk" class="button-ok" type="capsule">
+                允许
+            </button>
+        </div>
+    </div>
+    <div if="{{status == 'join-auth-image'}}" class="join-auth-image">
+        <image src="{{ statusInfo.appIcon }}"></image>
+        <text class="title-tip">{{ statusInfo.appName }}</text>
+        <text class="title">是否允许打开apply auth?</text>
+        <text class="title-tip">来自{{statusInfo.deviceName}}</text>
+        <div class="dialog-foot">
+            <button @click="joinAuthImageCancel" type="text" class="button-cancel">
+                取消（{{ timeRemaining }}）
+            </button>
+            <button @click="joinAuthImageOk" class="button-ok" type="capsule">
+                允许
+            </button>
+        </div>
+    </div>
+    <div if="{{status == 'join-pin'}}" class="join-pin">
+        <text class="title">PIN码连接</text>
+        <text class="title-tip">请在主控端输入连接码进行验证</text>
+        <text class="pin">{{statusInfo.pinCode.split('').join(' ')}}</text>
+        <div class="dialog-foot">
+            <button @click="joinPinCancel" type="text" class="button-cancel">
+                取消
+            </button>
+        </div>
+    </div>
+</div>

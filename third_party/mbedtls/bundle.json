@@ -1,0 +1,30 @@
+{
+    "name": "@ohos/mbedtls",
+    "description": "An open source, portable, easy to use, readable and flexible SSL library.",
+    "version": "3.1",
+    "license": "Apache V2,GPL V2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/mbedtls"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "thirdparty_mbedtls",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

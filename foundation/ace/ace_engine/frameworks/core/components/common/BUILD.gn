@@ -1,0 +1,59 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/frameworks/core/components/components.gni")
+
+# build core common sources
+build_component("common") {
+  sources = [
+    # painter
+    "painter/flutter_checkable_painter.cpp",
+    "painter/flutter_decoration_painter.cpp",
+    "painter/flutter_scroll_bar_painter.cpp",
+    "painter/flutter_scroll_fade_painter.cpp",
+    "painter/flutter_svg_painter.cpp",
+    "painter/flutter_universal_painter.cpp",
+
+    # #properties
+    "properties/alignment.cpp",
+    "properties/animatable_path.cpp",
+    "properties/border.cpp",
+    "properties/border_edge.cpp",
+    "properties/border_image_edge.cpp",
+    "properties/clip_path.cpp",
+    "properties/color.cpp",
+    "properties/color_factory.cpp",
+    "properties/decoration.cpp",
+    "properties/edge.cpp",
+    "properties/motion_path_evaluator.cpp",
+    "properties/page_transition_option.cpp",
+    "properties/scroll_bar.cpp",
+    "properties/shadow.cpp",
+    "properties/shadow_config.cpp",
+    "properties/text_style.cpp",
+    "properties/text_style_parser.cpp",
+
+    # layout
+    "layout/grid_column_info.cpp",
+    "layout/grid_container_info.cpp",
+    "layout/grid_system_manager.cpp",
+  ]
+  rosen_sources = [
+    "painter/rosen_checkable_painter.cpp",
+    "painter/rosen_decoration_painter.cpp",
+    "painter/rosen_scroll_bar_painter.cpp",
+    "painter/rosen_scroll_fade_painter.cpp",
+    "painter/rosen_svg_painter.cpp",
+    "painter/rosen_universal_painter.cpp",
+  ]
+}

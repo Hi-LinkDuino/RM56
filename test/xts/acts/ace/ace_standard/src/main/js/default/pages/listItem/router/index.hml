@@ -1,0 +1,199 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            通用样式
+        </text>
+        <text class="sub-title">
+            listItem通用样式1
+        </text>
+        <list-item class="style1" for="{{array}}">
+        </list-item>
+        <text  class="sub-title">
+            list-item通用样式2
+        </text>
+        <list-item class="style2" for="{{array}}" style="height: 20px; margin-top: 5px;">
+        </list-item>
+        <text class="sub-title">
+            list-item通用样式3
+        </text>
+        <list-item class="style3">
+        </list-item>
+        <text  class="sub-title">
+            list-item通用样式4
+        </text>
+        <list-item class="style4">
+        </list-item>
+        <text  class="sub-title">
+            list-item通用样式5
+        </text>
+        <div class="contain1" style="height: 100px;">
+            <list-item class="style5">
+            </list-item>
+            <list-item class="style6">
+            </list-item>
+        </div>
+        <text  class="sub-title">
+            list-item特有样式
+        </text>
+        <list class="list">
+            <list-item class="list-item1" for="{{array2}}">
+            </list-item>
+        </list>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <text class="title">
+            通用&特有属性
+        </text>
+        <list class="prop-container">
+            <list-item id="prop1" class="prop1"
+                       disabled = "true" focusable ="true"
+                       data-name ="prop1" click-effect="spring-medium"
+                       dir ="rtl">
+            </list-item>
+            <list-item class="prop2" ref ="prop2"
+                       disabled = "false" focusable ="false"
+                       data-name ="prop2" click-effect="spring-large"
+                       dir ="ltr">
+            </list-item>
+            <list-item style="color: #679855; margin: 5px;" class="prop3">
+            </list-item>
+            <list-item style="color: deeppink; margin: 5px; background-color: pink" class="prop3"
+                       clickeffect="true">
+            </list-item>
+            <list-item style="color: deeppink; margin: 5px; background-color: pink" class="prop3"
+                       clickeffect="true" sticky="normal">
+            </list-item>
+        </list>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title" style="height: 12%;">
+                通用事件
+            </text>
+            <list>
+                <list-item class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                    ontouchend="touchEnd" ontouchcancel="touchCancel" style="height: 40px;">
+                    <text  class="sub-title" >
+                        list-item通用事件1
+                    </text>
+                </list-item>
+                <list-item class ="event2" onclick="click" ondoubleclick="doubleClick"
+                    onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                    onswipe="swipe" onattached="attached" ondetached="detached" style="height: 40px;">
+                    <text  class="sub-title" >
+                        list-item通用事件2
+                    </text>
+                </list-item>
+                <list-item class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                    onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                    ondragstart="dragStart" ondrag="drag"
+                    ondragend="dragEnd" ondragenter="dragEnter"
+                    ondragover="dragOver" ondragleave="dragLeave"
+                    ondrop="drop" style="height: 40px;">
+                    <text  class="sub-title" >
+                        list-item通用事件3
+                    </text>
+                </list-item>
+                <list-item class ="event2" @sticky="sticky" style="height: 40px;">
+                    <text  class="sub-title" >
+                        list-item特有事件
+                    </text>
+                </list-item>
+            </list>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                list-item动画样式1
+            </text>
+            <div class="ani1" >
+                <list-item for="{{array}}" class="listItem">
+                    <text class="text" style="font-size: 16px;">{{$item.value}}</text>
+                </list-item>
+            </div>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <list style="height: 200px;">
+                <list-item class="gradient1">
+                </list-item>
+                <list-item class="gradient2">
+                </list-item>
+                <list-item class="gradient3">
+                </list-item>
+                <list-item class="gradient4">
+                </list-item>
+            </list>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container" style="height: 200px;">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                list-item无障碍1
+            </text>
+            <list class="access1" accessibilitygroup ="true" style="height: 100%;"
+                 onaccessibility="onAccessibility"
+                 accessibilitytext="这是list"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants">
+                <list-item class="style2" for="{{array}}" style="height: 20px; margin-top: 5px;">
+                    <text class="text" style="font-size: 16px;">{{$item.value}}</text>
+                </list-item>
+            </list>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                list-item原子布局1
+            </text>
+            <list style="flex-direction: row;height: 30px;width: 100%;">
+                <list-item style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </list-item>
+                <list-item style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </list-item>
+                <list-item style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </list-item>
+            </list>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+        </div>
+    </div>
+</div>

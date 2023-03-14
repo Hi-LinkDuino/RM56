@@ -1,0 +1,102 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {
+  group("hdi_display") {
+    public_deps = [ "$ohos_board_adapter_dir/display:hdi_display" ]
+  }
+  group("hdi_display_device") {
+    deps = []
+    public_configs = []
+  }
+  group("hdi_display_gralloc") {
+    deps = []
+    public_configs = []
+  }
+} else {
+  import("//build/ohos.gni")
+
+  if (device_company == "hisilicon") {
+    device_hal = "soc/${device_company}/common/hal"
+  } else if (product_name != "ohos-arm64") {
+    device_hal = "soc/${device_company}/hardware"
+  }
+
+  config("display_hdi_public_config") {
+    visibility = [ ":*" ]
+    include_dirs = [
+      "//drivers/peripheral/base",
+      "//drivers/peripheral/display/interfaces/include",
+      "//third_party/bounds_checking_function/include",
+    ]
+  }
+
+  group("hdi_display") {
+    deps = [
+      ":hdi_display_device",
+      ":hdi_display_gfx",
+      ":hdi_display_gralloc",
+      ":hdi_display_layer",
+      "//drivers/peripheral/display/hdi_service/device:display_device_service",
+      "//drivers/peripheral/display/hdi_service/gralloc/client:hdi_gralloc_client",
+      "//drivers/peripheral/display/hdi_service/gralloc/server:hdi_gralloc_stub",
+      "//drivers/peripheral/display/hdi_service/video_layer/client:video_layer_client",
+    ]
+    if (target_cpu == "arm") {
+      deps += [ "//drivers/peripheral/display/hdi_service/video_layer/server:video_layer_service" ]
+    }
+    public_configs = [ ":display_hdi_public_config" ]
+  }
+
+  if (product_name != "ohos-arm64") {
+    group("hdi_display_device") {
+      deps = [ "//device/${device_hal}/display:display_device" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+
+    group("hdi_display_gralloc") {
+      deps = [ "//device/${device_hal}/display:display_gralloc" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+
+    group("hdi_display_gfx") {
+      deps = [ "//device/${device_hal}/display:display_gfx" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+
+    group("hdi_display_layer") {
+      deps = [ "//device/${device_hal}/display:display_layer" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+  } else {
+    group("hdi_display_device") {
+      deps = [ "//device/soc/hisilicon/common/hal/display:display_device" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+
+    group("hdi_display_gralloc") {
+      deps = [ "//device/soc/hisilicon/common/hal/display:display_gralloc" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+
+    group("hdi_display_gfx") {
+      deps = [ "//device/soc/hisilicon/common/hal/display:display_gfx" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+
+    group("hdi_display_layer") {
+      deps = [ "//device/soc/hisilicon/common/hal/display:display_layer" ]
+      public_configs = [ ":display_hdi_public_config" ]
+    }
+  }
+}

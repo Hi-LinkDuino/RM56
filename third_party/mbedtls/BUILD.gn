@@ -1,0 +1,128 @@
+#
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import("//third_party/mbedtls/mbedtls.gni")
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+  import("//build/lite/ndk/ndk.gni")
+
+  config("mbedtls_config") {
+    include_dirs = MBEDTLS_INLCUDE_DIRS
+    if (ohos_kernel_type == "liteos_m") {
+      defines += [
+        "__unix__",
+        "MBEDTLS_CONFIG_FILE=<../port/config/config_liteos_m.h>",
+      ]
+    }
+    if (ohos_kernel_type == "liteos_a") {
+      defines += [
+        "__unix__",
+        "MBEDTLS_CONFIG_FILE=<../port/config/config_liteos_a.h>",
+      ]
+    }
+  }
+
+  lite_library("mbedtls_shared") {
+    target_type = "shared_library"
+    public_configs = [ ":mbedtls_config" ]
+    output_name = "mbedtls"
+    sources = MBEDTLS_SOURCES
+  }
+
+  lite_library("mbedtls_static") {
+    target_type = "static_library"
+    public_configs = [ ":mbedtls_config" ]
+    output_name = "mbedtls"
+    sources = MBEDTLS_SOURCES
+  }
+
+  group("mbedtls") {
+    if (ohos_kernel_type == "liteos_m") {
+      if (ohos_security_huks_mbedtls_porting_path != "") {
+        public_deps = [ ohos_security_huks_mbedtls_porting_path ]
+      } else {
+        public_deps = [ ":mbedtls_static" ]
+      }
+    } else {
+      public_deps = [ ":mbedtls_shared" ]
+    }
+  }
+
+  ndk_lib("mbedtls_ndk") {
+    if (ohos_kernel_type == "liteos_m") {
+      lib_extension = ".a"
+    } else {
+      lib_extension = ".so"
+    }
+    deps = [ ":mbedtls" ]
+    head_files = [ "include" ]
+  }
+
+  # for test: test profile
+  if (ohos_build_type == "debug" && ohos_kernel_type != "liteos_m") {
+    config("mbedtls_profile_test") {
+      include_dirs = [
+        "./include",
+        "./configs",  # The directory where the custom configuration file is
+                      # located
+      ]
+      defines = [
+        "MBEDTLS_CONFIG_FILE=<config_rsa_aes_cbc.h>",
+        "__unix__",
+      ]
+      ldflags = [
+        "-s",
+        "-w",
+      ]
+    }
+
+    MBEDTLS_SOURCES += [
+      "library/debug.c",
+      "library/pkcs11.c",
+      "library/ssl_cache.c",
+      "library/ssl_cookie.c",
+      "library/ssl_srv.c",
+      "library/ssl_ticket.c",
+      "library/x509_create.c",
+      "library/x509_csr.c",
+      "library/x509write_crt.c",
+      "library/x509write_csr.c",
+    ]
+
+    static_library("mbedtls_gt") {
+      sources = MBEDTLS_SOURCES
+      output_name = "mbedtls_gt"
+      public_configs = [ ":mbedtls_profile_test" ]
+    }
+  }
+} else {
+  import("//build/ohos.gni")
+  config("mbedtls_config") {
+    include_dirs = MBEDTLS_INLCUDE_DIRS
+  }
+
+  ohos_shared_library("mbedtls_shared") {
+    public_configs = [ ":mbedtls_config" ]
+    output_name = "mbedtls"
+    subsystem_name = "common"
+    part_name = "dsoftbus_standard"
+    sources = MBEDTLS_SOURCES
+  }
+
+  group("mbedtls") {
+    public_deps = [ ":mbedtls_shared" ]
+  }
+}

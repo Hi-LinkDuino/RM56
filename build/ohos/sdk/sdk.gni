@@ -1,0 +1,195 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos/build_var.gni")
+import("//build/ohos/notice/notice.gni")
+import("//build/version.gni")
+
+sdk_base_build_gn = "//build/ohos/sdk/BUILD.gn"
+generated_files_dir = get_path_info(sdk_base_build_gn, "gen_dir")
+generated_sdk_module_install_paths =
+    "${generated_files_dir}/ohos_sdk_install_paths.json"
+
+sdk_system_windows = "windows"
+sdk_system_linux = "linux"
+sdk_system_darwin = "darwin"
+
+ohos_sdk_out_dir = "$product_output_dir/ohos-sdk"
+ohos_sdk_copy_dir = "$root_build_dir/ohos-sdk"
+
+sdk_toolchains = {
+  linux = "//build/toolchain/linux:clang_x64"
+  windows = "//build/toolchain/mingw:mingw_x86_64"
+  darwin = "//build/toolchain/mac:clang_x64"
+}
+
+if (host_os == "mac") {
+  sdk_systems = [ sdk_system_darwin ]
+} else {
+  sdk_systems = [
+    sdk_system_windows,
+    sdk_system_linux,
+  ]
+}
+
+template("copy_and_archive") {
+  assert(defined(invoker.dest_dir))
+  assert(defined(invoker.sdk_system))
+  assert(defined(invoker.sdk_type))
+  assert(defined(invoker.sdk_modules_desc_file))
+  forward_variables_from(invoker, [ "testonly" ])
+
+  action_with_pydeps(target_name) {
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+
+    script = "//build/ohos/sdk/copy_sdk_modules.py"
+    depfile = "$target_gen_dir/$target_name.d"
+
+    _sdk_output_archive =
+        "$ohos_sdk_out_dir/${invoker.sdk_system}/${invoker.zipfile_name}"
+    _notice_output_archive = "${sdk_notice_archive_dir}/${invoker.sdk_system}-${invoker.sdk_type}.zip"
+    outputs = [
+      _sdk_output_archive,
+      _notice_output_archive,
+    ]
+
+    args = [
+      "--sdk-modules-desc-file",
+      rebase_path(invoker.sdk_modules_desc_file, root_build_dir),
+      "--sdk-archive-paths-file",
+      rebase_path(generated_sdk_module_install_paths, root_build_dir),
+      "--dest-dir",
+      rebase_path(invoker.dest_dir, root_build_dir),
+      "--sdk-output-archive",
+      rebase_path(_sdk_output_archive, root_build_dir),
+      "--notice-output-archive",
+      rebase_path(_notice_output_archive, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--archive-dir",
+      rebase_path("${invoker.dest_dir}/${invoker.sdk_type}", root_build_dir),
+    ]
+
+    if (defined(invoker.zip_prefix_path)) {
+      args += [
+        "--zip-prefix-path",
+        invoker.zip_prefix_path,
+      ]
+    }
+  }
+}
+
+template("make_sdk_modules") {
+  assert(defined(invoker.zipfile_name))
+  assert(defined(invoker.sdk_modules))
+  assert(defined(invoker.sdk_toolchain))
+  assert(defined(invoker.sdk_type))
+  assert(defined(invoker.sdk_system))
+
+  if (invoker.sdk_modules == []) {
+    not_needed(invoker, [ "sdk_toolchain" ])
+  }
+  copy_and_archive(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "sdk_system",
+                             "sdk_type",
+                             "zipfile_name",
+                           ])
+    _sdk_modules = []
+    _sdk_module_infos = []
+
+    foreach(_label, invoker.sdk_modules) {
+      _target_label = get_label_info(_label, "label_no_toolchain")
+      sources = [ _target_label ]
+      if (sources == []) {
+        _sdk_modules += [ _target_label ]
+      } else {
+        _sdk_modules += [ "${_target_label}(${invoker.sdk_toolchain})" ]
+      }
+      sources = []
+      set_sources_assignment_filter([])
+    }
+    not_needed(invoker, [ "sdk_toolchain" ])
+
+    foreach(_label, _sdk_modules) {
+      _module_info_file = get_label_info(_label, "target_out_dir") + "/" +
+                          get_label_info(_label, "name") + "_module_info.json"
+      _sdk_module_infos += [
+        {
+          label = get_label_info(_label, "label_no_toolchain")
+          module_info_file = rebase_path(_module_info_file, root_build_dir)
+        },
+      ]
+    }
+    sdk_modules_desc_file = "${target_gen_dir}/${target_name}_sdk_modules.json"
+    write_file(sdk_modules_desc_file, _sdk_module_infos, "json")
+
+    deps = _sdk_modules
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    dest_dir = "${ohos_sdk_copy_dir}/${sdk_system}"
+    zip_prefix_path = "${invoker.sdk_type}"
+  }
+}
+
+template("make_linux_sdk_modules") {
+  make_sdk_modules(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "zipfile_name",
+                             "sdk_modules",
+                             "sdk_type",
+                             "deps",
+                           ])
+    sdk_toolchain = sdk_toolchains.linux
+    sdk_system = sdk_system_linux
+  }
+}
+
+template("make_windows_sdk_modules") {
+  make_sdk_modules(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "zipfile_name",
+                             "sdk_modules",
+                             "sdk_type",
+                             "deps",
+                           ])
+    sdk_toolchain = sdk_toolchains.windows
+    sdk_system = sdk_system_windows
+  }
+}
+
+template("make_darwin_sdk_modules") {
+  make_sdk_modules(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "zipfile_name",
+                             "sdk_modules",
+                             "sdk_type",
+                             "deps",
+                           ])
+    sdk_toolchain = sdk_toolchains.darwin
+    sdk_system = sdk_system_darwin
+  }
+}

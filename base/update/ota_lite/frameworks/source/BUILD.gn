@@ -1,0 +1,66 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (ohos_kernel_type == "liteos_m") {
+  static_library("hota") {
+    sources = [
+      "//base/update/ota_lite/frameworks/source/updater/hota_updater.c",
+      "//base/update/ota_lite/frameworks/source/verify/app_rsa.c",
+      "//base/update/ota_lite/frameworks/source/verify/app_sha256.c",
+      "//base/update/ota_lite/frameworks/source/verify/hota_verify.c",
+    ]
+    include_dirs = [
+      "//base/update/ota_lite/interfaces/kits",
+      "//base/update/ota_lite/hals",
+      "//base/update/ota_lite/frameworks/test/dload",
+      "//base/update/ota_lite/frameworks/source/verify",
+      "//utils/native/lite/include",
+      "//kernel/liteos_m/kal/cmsis",
+      "//base/startup/syspara_lite/interfaces/kits",
+      "//third_party/bounds_checking_function/include",
+      "$ohos_third_party_dir/mbedtls/include",
+      "$ohos_third_party_dir/lwip_sack/include",
+    ]
+    cflags = [ "-Wno-unused-variable" ]
+    deps = [ "//base/startup/syspara_lite/frameworks/parameter/src:sysparam" ]
+    deps += [ "$ohos_board_adapter_dir/hals/update:hal_update_static" ]
+  }
+} else {
+  shared_library("hota") {
+    sources = [
+      "//base/update/ota_lite/frameworks/source/updater/hota_updater.c",
+      "//base/update/ota_lite/frameworks/source/verify/app_rsa.c",
+      "//base/update/ota_lite/frameworks/source/verify/app_sha256.c",
+      "//base/update/ota_lite/frameworks/source/verify/hota_verify.c",
+    ]
+    include_dirs = [
+      "//base/update/ota_lite/interfaces/kits",
+      "//base/update/ota_lite/hals",
+      "//base/update/ota_lite/frameworks/test/dload",
+      "//base/update/ota_lite/frameworks/source/verify",
+      "//utils/native/lite/include",
+      "//kernel/liteos_m/kal/cmsis",
+      "//base/startup/syspara_lite/interfaces/kits",
+      "//third_party/bounds_checking_function/include",
+      "$ohos_third_party_dir/mbedtls/include",
+      "$ohos_third_party_dir/lwip_sack/include",
+    ]
+    cflags = [
+      "-Wno-unused-variable",
+      "-DDYNAMIC_LOAD_HAL",
+    ]
+    deps = [ "//base/startup/syspara_lite/frameworks/parameter/src:sysparam" ]
+    ldflags = [ "-lhal_update" ]
+    deps += [ "$ohos_board_adapter_dir/update:hal_update" ]
+  }
+}

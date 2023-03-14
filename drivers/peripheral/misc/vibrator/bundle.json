@@ -1,0 +1,55 @@
+{
+  "name": "vibrator_device_driver",
+  "description": "vibrator device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "vibrator_device_driver",
+    "subsystem": "hdf",
+    "syscap": [""],
+    "adapter_system_type": ["standard"],
+    "rom": "675KB",
+    "ram": "7400KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/misc/vibrator:vibrator_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/misc/vibrator/test:hdf_test_vibrator"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/misc/vibrator/hal:hdi_vibrator",
+          "header": {
+            "header_files": [
+              "vibrator_if.h",
+              "vibrator_type.h"
+            ],
+            "header_base": "//drivers/peripheral/misc/vibrator/interfaces/include"
+          }
+        },
+        {
+          "name": "//drivers/interface/vibrator/v1_0:libvibrator_proxy_1.0",
+          "header": {
+            "header_files": [
+              "vibrator_if.h",
+              "vibrator_type.h"
+            ],
+            "header_base": "//drivers/peripheral/misc/vibrator/interfaces/include"
+          }
+        }
+      ]
+    }
+  }
+}

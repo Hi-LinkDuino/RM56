@@ -1,0 +1,322 @@
+{
+    "zh-CN":{
+        "error_video_000001":"初始化播放器失败。",
+        "error_video_000002":"打开视频文件失败。"
+    },
+    "en-US":{
+        "error_video_000001":"Unable to initialize video player.",
+        "error_video_000002":"Unable to open video file."
+    },
+    "ml":{
+        "error_video_000002":"വീഡിയോ ഫയൽ തുറക്കാനായില്ല.",
+        "error_video_000001":"വീഡിയോ പ്ലെയർ ഇനിഷ്യലൈസ് ചെയ്യാനായില്ല."
+    },
+    "tr":{
+        "error_video_000002":"Video dosyası açılamıyor.",
+        "error_video_000001":"Video oynatıcı başlatılamıyor."
+    },
+    "sl":{
+        "error_video_000002":"Datoteke videoposnetka ni mogoče odpreti.",
+        "error_video_000001":"Predvajalnika videoposnetkov ni mogoče inicializirati."
+    },
+    "nb":{
+        "error_video_000002":"Kunne ikke åpne videofil.",
+        "error_video_000001":"Kan ikke initialisere videospiller."
+    },
+    "bs":{
+        "error_video_000002":"Nije moguće otvoriti datoteku videozapisa.",
+        "error_video_000001":"Nije moguće inicijalizirati video plejer."
+    },
+    "en-GB":{
+        "error_video_000002":"Unable to open video file.",
+        "error_video_000001":"Unable to initialise video player."
+    },
+    "az-AZ":{
+        "error_video_000002":"Video faylını açmaq olmur.",
+        "error_video_000001":"Video pleyeri başlatmaq olmur."
+    },
+    "gu":{
+        "error_video_000002":"વિડિઓ ફાઇલ ખોલવામાં અસમર્થ.",
+        "error_video_000001":"વિડિઓ પ્લેયરને શરૂ કરવામાં અસમર્થ."
+    },
+    "gl-ES":{
+        "error_video_000002":"Non se pode abrir o ficheiro de vídeo.",
+        "error_video_000001":"Non se pode iniciar o reprodutor de vídeo."
+    },
+    "am":{
+        "error_video_000002":"የቪዲዮ ፋይሉን መክፈት አልቻለም።",
+        "error_video_000001":"የቪዲዮ ማጫወቻን ማስነሳት አልተቻለም።"
+    },
+    "bg":{
+        "error_video_000002":"Видео файлът не може да се отвори.",
+        "error_video_000001":"Видео плейърът не може да се инициализира."
+    },
+    "ro":{
+        "error_video_000002":"Fișierul video nu poate fi deschis.",
+        "error_video_000001":"Playerul video nu poate fi inițializat."
+    },
+    "ca":{
+        "error_video_000002":"No s\\'ha pogut obrir l\\'arxiu de vídeo.",
+        "error_video_000001":"No s\\'ha pogut obrir el reproductor de vídeo."
+    },
+    "mi":{
+        "error_video_000002":"Tē taea te huaki kōnae ataata.",
+        "error_video_000001":"Tē taea te arawhiti pūpāpāho ataata."
+    },
+    "uz-UZ":{
+        "error_video_000002":"Video fayli ochilmadi.",
+        "error_video_000001":"Video pleyer ishga tushirilmadi."
+    },
+    "b+sr+Latn":{
+        "error_video_000002":"Nije moguće otvoriti datoteku video zapisa.",
+        "error_video_000001":"Pokretanje video plejera nije moguće."
+    },
+    "ar":{
+        "error_video_000002":"تعذر فتح ملف الفيديو",
+        "error_video_000001":"تعذر تهيئة مشغل الفيديو"
+    },
+    "es-US":{
+        "error_video_000002":"No se pudo abrir el archivo de video.",
+        "error_video_000001":"No se pudo inicializar el reproductor de video."
+    },
+    "my-ZG":{
+        "error_video_000002":"ဗီဒီယိုဖိုင္ကို ဖြင့္၍ မရႏိုင္ပါ။",
+        "error_video_000001":"ဗီဒီယို Player ကို စတင္၍ မရႏိုင္ပါ။"
+    },
+    "eu-ES":{
+        "error_video_000002":"Ezin da ireki bideo-fitxategia.",
+        "error_video_000001":"Ezin da hasieratu bideo-erreproduzigailua."
+    },
+    "km-KH":{
+        "error_video_000002":"មិនអាច​បើក​ឯកសារ​វីដេអូ​បានទេ។",
+        "error_video_000001":"មិនអាចចាប់ផ្ដើម​កម្មវិធីចាក់វីដេអូបានទេ។"
+    },
+    "bo-CN":{
+        "error_video_000002":"བརྙན་ཟློས་ཡིག་ཆ་ཁ་ཕྱེ་མ་ཐུབ།",
+        "error_video_000001":"གཏོང་ཆས་ཐོག་མ་ཅན་དུ་སྒྱུར་མ་ཐུབ།"
+    },
+    "mai":{
+        "error_video_000002":"वीडियो फाइल केँ खोलबा मे अक्षम।",
+        "error_video_000001":"वीडियो प्लेयर केँ प्रारंभ करबा मे अक्षम।"
+    },
+    "lt":{
+        "error_video_000002":"Nepavyksta atverti vaizdo įrašo failo.",
+        "error_video_000001":"Nepavyksta inicijuoti vaizdo leistuvės."
+    },
+    "in":{
+        "error_video_000002":"Tidak dapat membuka file video.",
+        "error_video_000001":"Tidak dapat menginisialisasi pemutar video."
+    },
+    "mr":{
+        "error_video_000002":"व्हिडिओ फाइल उघडू शकत नाही.",
+        "error_video_000001":"व्हिडिओ प्लेयर सुरू करू शकत नाही."
+    },
+    "kn":{
+        "error_video_000002":"ವೀಡಿಯೊ ಫೈಲ್ ತೆರೆಯಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ.",
+        "error_video_000001":"ವೀಡಿಯೊ ಪ್ಲೇಯರ್‌ ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ."
+    },
+    "or":{
+        "error_video_000002":"ଭିଡ଼ିଓ ଫାଇଲ୍‌ ଖୋଲିବାରେ ଅସମର୍ଥ।",
+        "error_video_000001":"ଭିଡ଼ିଓ ପ୍ଲେୟାର୍‌ ଆରମ୍ଭ କରିବାରେ ଅସମର୍ଥ।"
+    },
+    "sv":{
+        "error_video_000002":"Kunde inte öppna videofilen.",
+        "error_video_000001":"Kunde inte initiera videospelaren."
+    },
+    "pt":{
+        "error_video_000002":"Não é possível abrir o arquivo de vídeo.",
+        "error_video_000001":"Não é possível inicializar o player de vídeo."
+    },
+    "mn":{
+        "error_video_000002":"Видео файлыг нээх боломжгүй байна.",
+        "error_video_000001":"Видео тоглуулагчийг эхлүүлэх боломжгүй байна."
+    },
+    "ur":{
+        "error_video_000002":"ویڈیو فائل کھولنے سے قاصر۔",
+        "error_video_000001":"ویڈیو پلیئر کو شروع کرنے سے قاصر۔"
+    },
+    "nl":{
+        "error_video_000002":"Kan videobestand niet openen.",
+        "error_video_000001":"Kan de videospeler niet initialiseren."
+    },
+    "pl":{
+        "error_video_000002":"Nie można otworzyć pliku wideo.",
+        "error_video_000001":"Nie można zainicjować odtwarzacza wideo."
+    },
+    "tl":{
+        "error_video_000002":"Hindi mabuksan ang file ng video.",
+        "error_video_000001":"Hindi masimulan ang video player."
+    },
+    "kk-KZ":{
+        "error_video_000002":"Бейне файлды ашу мүмкін емес.",
+        "error_video_000001":"Бейне ойнатқышы баптандыру мүмкін емес."
+    },
+    "th":{
+        "error_video_000002":"ไม่สามารถเปิดไฟล์วิดีโอได้",
+        "error_video_000001":"ไม่สามารถเตรียมใช้งานเครื่องเล่นวิดีโอได้"
+    },
+    "si-LK":{
+        "error_video_000002":"වීඩියෝ ගොනුව විවෘත කළ නොහැක.",
+        "error_video_000001":"වීඩියෝ ප්ලේයරය ආරම්භ කළ නොහැක."
+    },
+    "as":{
+        "error_video_000002":"ভিডিঅ\\' ফাইল খুলিবলৈ অক্ষম।",
+        "error_video_000001":"ভিডিঅ\\' প্লেয়াৰ আৰম্ভ কৰিবলৈ অক্ষম।"
+    },
+    "cs":{
+        "error_video_000002":"Video soubor nelze otevřít.",
+        "error_video_000001":"Nepodařilo se spustit přehrávač videí."
+    },
+    "hu":{
+        "error_video_000002":"A videofájl nem nyitható meg.",
+        "error_video_000001":"Nem lehet inicializálni a videolejátszót."
+    },
+    "es":{
+        "error_video_000002":"No se ha podido abrir el archivo de vídeo.",
+        "error_video_000001":"No se ha podido inicializar el reproductor de vídeo."
+    },
+    "iw":{
+        "error_video_000002":"לא ניתן לפתוח את קובץ הווידאו.",
+        "error_video_000001":"לא ניתן לאתחל את נגן הווידאו."
+    },
+    "ms":{
+        "error_video_000002":"Tidak dapat membuka fail video.",
+        "error_video_000001":"Tidak dapat memulakan pemain video."
+    },
+    "be":{
+        "error_video_000002":"Немагчыма адкрыць відэафайл.",
+        "error_video_000001":"Немагчыма ініцыялізаваць прайгравальнік відэа."
+    },
+    "fi":{
+        "error_video_000002":"Videotiedostoa ei voi avata.",
+        "error_video_000001":"Videosoitinta ei voi alustaa."
+    },
+    "ru":{
+        "error_video_000002":"Сбой открытия видеофайла.",
+        "error_video_000001":"Сбой запуска видеоплеера."
+    },
+    "ko":{
+        "error_video_000002":"비디오 파일을 열 수 없습니다.",
+        "error_video_000001":"비디오 플레이어를 초기화할 수 없습니다."
+    },
+    "sw":{
+        "error_video_000002":"Haikuweza kufungua faili ya video.",
+        "error_video_000001":"Haikuweza kuanzilisha kichezaji video."
+    },
+    "de":{
+        "error_video_000002":"Öffnen der Videodatei nicht möglich.",
+        "error_video_000001":"Initialisieren des Video-Players nicht möglich."
+    },
+    "hi":{
+        "error_video_000002":"वीडियो फ़ाइल खोलने में असमर्थ।",
+        "error_video_000001":"वीडियो प्लेयर प्रारंभ करने में असमर्थ।"
+    },
+    "my-MM":{
+        "error_video_000002":"ဗီဒီယိုဖိုင်ကို ဖွင့်၍ မရနိုင်ပါ။",
+        "error_video_000001":"ဗီဒီယို Player ကို စတင်၍ မရနိုင်ပါ။"
+    },
+    "da":{
+        "error_video_000002":"Videofilen kan ikke åbnes.",
+        "error_video_000001":"Videoafspilleren kan ikke initialiseres."
+    },
+    "mk":{
+        "error_video_000002":"Датотеката со видео не може да се отвори.",
+        "error_video_000001":"Видеорепродукторот не може да се иницијализира."
+    },
+    "fa":{
+        "error_video_000002":"بازکردن فایل ویدیو امکان‌پذیر نیست.",
+        "error_video_000001":"راه‌اندازی اولیه پخش‌کننده ویدیو امکان‌پذیر نیست."
+    },
+    "ja":{
+        "error_video_000002":"ビデオファイルを開けません。",
+        "error_video_000001":"ビデオプレーヤーを起動できません。"
+    },
+    "ka-GE":{
+        "error_video_000002":"ვიდეოფაილის გახსნა შეუძლებელია.",
+        "error_video_000001":"ვიდეოპლეერის ინიციალიზაცია შეუძლებელია."
+    },
+    "ne":{
+        "error_video_000002":"भिडियो फाइल खोल्न असमर्थ ।",
+        "error_video_000001":"भिडियो प्लेयर प्रारम्भ गर्न असमर्थ ।"
+    },
+    "pt-PT":{
+        "error_video_000002":"Não é possível abrir o ficheiro de vídeo.",
+        "error_video_000001":"Não é possível iniciar o reprodutor de vídeo."
+    },
+    "sk":{
+        "error_video_000002":"Súbor videa nemožno otvoriť.",
+        "error_video_000001":"Prehrávač videa nemožno spustiť."
+    },
+    "uk":{
+        "error_video_000002":"Неможливо відкрити відеофайл.",
+        "error_video_000001":"Неможливо ініціалізувати відеопрогравач."
+    },
+    "vi":{
+        "error_video_000002":"Không mở được tệp tin video.",
+        "error_video_000001":"Không khởi tạo được trình phát video."
+    },
+    "b+jv+Latn":{
+        "error_video_000002":"Ora bisa mbukak file video.",
+        "error_video_000001":"Ora bisa miwiti pamuter video."
+    },
+    "pa":{
+        "error_video_000002":"ਵੀਡੀਓ ਫ਼ਾਈਲ ਖੋਲ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕਦੀ।",
+        "error_video_000001":"ਵੀਡੀਓ ਪਲੇਅਰ ਨੂੰ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।"
+    },
+    "te":{
+        "error_video_000002":"వీడియో ఫైల్‌ను తెరవడం సాధ్యం కాదు.",
+        "error_video_000001":"వీడియో ప్లేయర్‌ను ప్రారంభించడం సాధ్యం కాదు."
+    },
+    "ug":{
+        "error_video_000002":"سىن ئېچىلمىدى.",
+        "error_video_000001":"قويغۇچ دەسلەپلەشمىدى."
+    },
+    "et":{
+        "error_video_000002":"Videofaili ei saa avada.",
+        "error_video_000001":"Videopleierit ei saa lähtestada."
+    },
+    "ta":{
+        "error_video_000002":"வீடியோ கோப்பைத் திறக்க முடியவில்லை.",
+        "error_video_000001":"வீடியோ பிளேயரைத் தொடங்க முடியவில்லை."
+    },
+    "it":{
+        "error_video_000002":"Impossibile aprire il file video.",
+        "error_video_000001":"Impossibile inizializzare il lettore video."
+    },
+    "bn":{
+        "error_video_000002":"ভিডিও ফাইল খোলা যাচ্ছে না।",
+        "error_video_000001":"ভিডিও প্লেয়ার চালু করা যাচ্ছে না।"
+    },
+    "fr":{
+        "error_video_000002":"L\\'ouverture du fichier vidéo a échoué.",
+        "error_video_000001":"L\\'initialisation du lecteur vidéo a échoué."
+    },
+    "zh-HK":{
+        "error_video_000002":"影片檔案無法開啟。",
+        "error_video_000001":"播放器初始化失敗。"
+    },
+    "zh-TW":{
+        "error_video_000002":"開啟影片檔案失敗。",
+        "error_video_000001":"初始化播放器失敗。"
+    },
+    "hr":{
+        "error_video_000002":"Nije moguće otvoriti videodatoteku.",
+        "error_video_000001":"Nije moguće pokrenuti reproduktor videozapisa."
+    },
+    "lv":{
+        "error_video_000002":"Nevar atvērt video failu.",
+        "error_video_000001":"Nevar inicializēt video atskaņotāju."
+    },
+    "el":{
+        "error_video_000002":"Δεν είναι δυνατό το άνοιγμα του αρχείου βίντεο.",
+        "error_video_000001":"Δεν είναι δυνατή η προετοιμασία της συσκευής αναπαραγωγής βίντεο."
+    },
+    "lo-LA":{
+        "error_video_000002":"ບໍ່ສາມາດເປີດ​ໄຟ​ລ໌​ວິ​ດີ​ໂອໄດ້.",
+        "error_video_000001":"​ບໍ່​ສາມາດ​ລິ​ເລີ່​ມ​ໂປຣ​ແກຣມຫຼິ້ນວິ​ດີ​ໂອ​ໄດ້."
+    },
+    "zz-ZX":{
+        "error_video_000002":"[HM_637203]_Unable to open video file.",
+        "error_video_000001":"[HM_637201]_Unable to initialize video player."
+    }
+}

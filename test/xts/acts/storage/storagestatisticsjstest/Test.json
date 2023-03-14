@@ -1,0 +1,18 @@
+{
+    "description": "Configuration for storage statistics Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "60000",
+        "package": "ohos.acts.storage.statistics",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsStorageStatisticsJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

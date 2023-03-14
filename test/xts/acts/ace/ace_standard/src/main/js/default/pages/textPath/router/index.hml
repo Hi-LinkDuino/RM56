@@ -1,0 +1,86 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                textPath通用属性1
+            </text>
+            <svg width="200" height="100">
+                <path d="M20,20 Q60,90 90,80 Q90,40 60,40 Q40,40 40,60 Q40,100 80,100 Q100,100 100,100" stroke="red"
+                      fill="none"></path>
+                <text >
+                    <textpath fill="blue" path="M20,20 Q60,90 90,80 Q90,40 60,40 Q40,40 40,60 Q40,100 80,100 Q100,100 100,100"
+                              font-size="18">
+                        textPath
+                    </textpath>
+                    <textpath fill="red" startOffset="75%" path="M20,20 Q60,90 90,80 Q90,40 60,40 Q40,40 40,60 Q40,100 80,100 Q100,100 100,100"
+                              font-size="15">
+                        textPath
+                    </textpath>
+                </text>
+            </svg>
+            <text  class="sub-title">
+                textPath通用属性2
+            </text>
+            <svg width="200" height="100">
+                <path d="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95" stroke="red"
+                      fill="none"></path>
+                <text>
+                    <textpath fill="blue" path="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95"
+                              font-size="18" opacity="0.5">
+                        textPath
+                    </textpath>
+                    <textpath fill="blue" path="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95"
+                              font-size="16" startOffset="70%" fill-opacity="0.8">
+                        textPath
+                    </textpath>
+                </text>
+            </svg>
+
+            <text  class="sub-title">
+                textPath通用属性3
+            </text>
+            <svg width="200" height="120">
+                <path d="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95" stroke="red"
+                      fill="none"></path>
+                <text>
+                    <textpath fill="#ffffff" path="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95"
+                              font-size="18" stroke="red" stroke-width="2">
+                        textPath
+                    </textpath>
+                    <textpath fill="#ffffff" startOffset="75%" path="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95"
+                              font-size="18" stroke="red" stroke-width="2" stroke-opacity="0.5">
+                        textPath
+                    </textpath>
+                </text>
+            </svg>
+            <svg width="200" height="120">
+                <path d="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95" stroke="red"
+                      fill="none"></path>
+                <text>
+                    <textpath fill="#ffffff" path="M20,20 Q60,90 90,80 Q100,0 20,40 Q00,40 40,80 Q60,95 100,95"
+                              font-size="18" stroke="red">
+                        textPath
+                    </textpath>
+                </text>
+            </svg>
+        </div>
+    </div>
+</div>

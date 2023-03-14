@@ -1,0 +1,45 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/powermgr_lite/powermgr.gni")
+import("//build/lite/config/component/lite_component.gni")
+
+source_set("powermanage_impl") {
+  cflags = [ "-fPIC" ]
+  cflags_cc = cflags
+
+  sources = [ "power_manage.c" ]
+
+  include_dirs = [
+    "${powermgr_frameworks_path}/include",
+    "${powermgr_frameworks_path}/include/${system_type}",
+    "${powermgr_innerkits_path}",
+    "${powermgr_kits_path}",
+  ]
+
+  deps = [ "//foundation/distributedschedule/samgr_lite/samgr:samgr" ]
+}
+
+source_set("screensaver_impl") {
+  cflags = [ "-fPIC" ]
+  cflags_cc = cflags
+
+  sources = [ "power_screen_saver.c" ]
+
+  include_dirs = [
+    "${powermgr_frameworks_path}/include",
+    "${powermgr_frameworks_path}/include/${system_type}",
+  ]
+
+  deps = [ "//foundation/distributedschedule/samgr_lite/samgr:samgr" ]
+}

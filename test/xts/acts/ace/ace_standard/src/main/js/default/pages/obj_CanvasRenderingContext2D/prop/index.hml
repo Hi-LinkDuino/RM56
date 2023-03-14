@@ -1,0 +1,119 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                CanvasRenderingContext2D对象的通用属性
+            </text>
+            <text class="sub-title">
+                通用属性 -- fillStyle
+            </text>
+            <canvas id="fillStyleProp" ref="canvas1" style="width: 100%; height: 30px;margin-top: 5px; ">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- lineWidth
+            </text>
+            <canvas id="lineWidthProp" ref="canvas2" style="width: 100%; height: 30px;margin-top: 5px; ">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- lineCap
+            </text>
+            <canvas id="lineCapProp" ref="canvas3" style="width: 100%; height: 20px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- lineJoin
+            </text>
+            <canvas id="lineJoinProp" ref="canvas4" style="width: 100%; height: 50px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- miterLimit
+            </text>
+            <canvas id="miterLimitProp" ref="canvas5" style="width: 100%; height: 40px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- font
+            </text>
+            <canvas id="fontProp" ref="canvas6" style="width: 100%; height: 30px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- globalAlpha
+            </text>
+            <canvas id="globalAlphaProp" ref="canvas7" style="width: 100%; height: 80px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- lineDashOffset
+            </text>
+            <canvas id="lineDashOffsetProp" ref="canvas8" style="width: 100%; height: 80px; background-color: #ffff00;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- globalCompositeOperation
+            </text>
+            <canvas id="globalCompositeOperationProp" ref="canvas9" style="width: 100%; height: 70px;margin-top: 5px;">
+            </canvas>
+        </div>
+    </div>
+
+    <divider style="color: #000000; stroke-width: 2px;" vertical="true">
+    </divider>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text  class="sub-title">
+                通用属性 -- shadowBlur
+            </text>
+            <canvas id="shadowBlurProp" ref="canvas10" style="width: 100%; height: 70px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- shadowColor
+            </text>
+            <canvas id="shadowColorProp" ref="canvas11" style="width: 100%; height: 70px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- shadowOffsetX
+            </text>
+            <canvas id="shadowOffsetXProp" ref="canvas12" style="width: 100%; height: 50px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- shadowOffsetY
+            </text>
+            <canvas id="shadowOffsetYProp" ref="canvas13" style="width: 100%; height: 60px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- imageSmoothingEnabled
+            </text>
+            <canvas id="imageSmoothingEnabledProp" ref="canvas14" style="width: 100%; height: 30px;margin-bottom: 10px;margin-top: 5px;">
+            </canvas>
+
+            <text  class="sub-title">
+                通用属性 -- strokeStyle
+            </text>
+            <canvas id="strokeStyleProp" ref="canvas15" style="width: 100%; height: 40px;margin-bottom: 10px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- textAlign
+            </text>
+            <canvas id="textAlignProp" ref="canvas16" style="width: 100%; height: 80px;margin-bottom: 10px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                通用属性 -- textBaseline
+            </text>
+            <canvas id="textBaselineProp" ref="canvas17" style="width: 100%; height: 80px;margin-bottom: 10px;margin-top: 5px;">
+            </canvas>
+
+        </div>
+    </div>
+</div>

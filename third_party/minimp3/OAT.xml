@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+    All configurations in this file will be merged to OAT-Default.xml, if you have any questions or concerns, please create issue in OpenHarmony/tools_oat and @jalenchen or chenyaxun.
+
+    licensefile:
+    1.If the project don't have "LICENSE" in root dir, please define all the license files in this project in , OAT will check license files according to this rule.
+
+    policylist:
+    1. policy: If the OAT-Default.xml policies do not meet your requirements, please add policies here.
+    2. policyitem: The fields type, name, path, desc is required, and the fields rule, group, filefilter is optional,the default value is:
+    <policyitem type="" name="" path="" desc="" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter"/>
+    3. policyitem type:
+        "compatibility" is used to check license compatibility in the specified path;
+        "license" is used to check source license header in the specified path;
+        "copyright" is used to check source copyright header in the specified path;
+        "import" is used to check source dependency in the specified path, such as import ... ,include ...
+        "filetype" is used to check file type in the specified path, supported file types: archive, binary
+        "filename" is used to check whether the specified file exists in the specified path(projectroot means the root dir of the project), supported file names: LICENSE, README, README.OpenSource
+    4. policyitem name: This field is used for define the license, copyright, "*" means match all, the "!" prefix means could not match this value. For example, "!GPL" means can not use GPL license.
+    5. policyitem path: This field is used for define the source file scope to apply this policyitem, the "!" prefix means exclude the files. For example, "!.*/lib/.*" means files in lib dir will be exclude while process this policyitem.
+    6. policyitem rule and group: These two fields are used together to merge policy results. "may" policyitems in the same group means any one in this group passed, the result will be passed.
+    7. policyitem filefilter: Used to bind filefilter which define filter rules.
+    7. policyitem desc: Used to describe the reason of this policy item, committers will check this while merging the code.
+    8. filefilter: Filter rules, the type filename is used to filter file name, the type filepath is used to filter file path.
+
+    Note:If the text contains special characters, please escape them according to the following rules:
+    " == &quot;
+    & == &amp;
+    ' == &apos;
+    < == &lt;
+    > == &gt;
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <!--policyitem type="compatibility" name="GPL-2.0+" path=".*" desc="Process that runs independently, invoked by the X process."/-->
+                <!--policyitem type="license" name="LGPL" path=".*" desc="Dynamically linked by module X"/-->
+                <!--policyitem type="copyright" name="xxx" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed by X Company"/-->
+                <policyitem type="compatibility" name="CC0 1.0 Universal" path="LICENSE" desc="compatible with license"/>
+                <policyitem type="license" name="CC0 1.0 Universal" path="LICENSE" desc="compatible with license"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+                <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filepath" name="vectors/*" desc="not to check"/>
+                <filteritem type="filename" name="*.ttf|*.sh" desc="not to check"/>
+            </filefilter>
+                <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">		    
+                <filteritem type="filepath" name="huffopt/.*" desc="no license header"/>
+                <filteritem type="filepath" name="player/.*" desc="no license header"/>
+                <filteritem type="filename" name=".*.c" desc="no license header"/>
+                <filteritem type="filepath" name=".*.h" desc="no license header"/>
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <filteritem type="filepath" name="huffopt/.*" desc="no copyright header"/>
+                <filteritem type="filepath" name="player/.*" desc="no copyright header"/>
+                <filteritem type="filepath" name=".*.c" desc="no copyright header"/>
+                <filteritem type="filepath" name=".*.h" desc="no copyright header"/>
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+            </filefilter>
+        </filefilterlist>
+        <licensematcherlist>
+            <licensematcher name="CC0 1.0 Universal" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                        CC0 1.0 Universal
+
+                        Statement of Purpose
+
+                        The laws of most jurisdictions throughout the world automatically confer
+                        exclusive Copyright and Related Rights (defined below) upon the creator and
+                        subsequent owner(s) (each and all, an &quot;owner&quot;) of an original work of
+                        authorship and/or a database (each, a &quot;Work&quot; ).
+
+                        Certain owners wish to permanently relinquish those rights to a Work for the
+                        purpose of contributing to a commons of creative, cultural and scientific
+                        works (&quot;Commons&quot;) that the public can reliably and without fear of later
+                        claims of infringement build upon, modify, incorporate in other works, reuse
+                        and redistribute as freely as possible in any form whatsoever and for any
+                        purposes, including without limitation commercial purposes. These owners may
+                        contribute to the Commons to promote the ideal of a free culture and the
+                        further production of creative, cultural and scientific works, or to gain
+                        reputation or greater distribution for their Work in part through the use and
+                        efforts of others.
+
+                        For these and/or other purposes and motivations, and without any expectation
+                        of additional consideration or compensation, the person associating CC0 with a
+                        Work (the &quot;Affirmer&quot;), to the extent that he or she is an owner of Copyright
+                        and Related Rights in the Work, voluntarily elects to apply CC0 to the Work
+                        and publicly distribute the Work under its terms, with knowledge of his or her
+                        Copyright and Related Rights in the Work and the meaning and intended legal
+                        effect of CC0 on those rights.
+
+                        1. Copyright and Related Rights. A Work made available under CC0 may be
+                        protected by copyright and related or neighboring rights (&quot;Copyright and
+                        Related Rights&quot;). Copyright and Related Rights include, but are not limited
+                        to, the following:
+
+                        i. the right to reproduce, adapt, distribute, perform, display, communicate,
+                        and translate a Work;
+
+                        ii. moral rights retained by the original author(s) and/or performer(s);
+
+                        iii. publicity and privacy rights pertaining to a person's image or likeness
+                        depicted in a Work;
+
+                        iv. rights protecting against unfair competition in regards to a Work,
+                        subject to the limitations in paragraph 4(a), below;
+
+                        v. rights protecting the extraction, dissemination, use and reuse of data in
+                        a Work;
+
+                        vi. database rights (such as those arising under Directive 96/9/EC of the
+                        European Parliament and of the Council of 11 March 1996 on the legal
+                        protection of databases, and under any national implementation thereof,
+                        including any amended or successor version of such directive); and
+
+                        vii. other similar, equivalent or corresponding rights throughout the world
+                        based on applicable law or treaty, and any national implementations thereof.
+
+                        2. Waiver. To the greatest extent permitted by, but not in contravention of,
+                        applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and
+                        unconditionally waives, abandons, and surrenders all of Affirmer's Copyright
+                        and Related Rights and associated claims and causes of action, whether now
+                        known or unknown (including existing as well as future claims and causes of
+                        action), in the Work (i) in all territories worldwide, (ii) for the maximum
+                        duration provided by applicable law or treaty (including future time
+                        extensions), (iii) in any current or future medium and for any number of
+                        copies, and (iv) for any purpose whatsoever, including without limitation
+                        commercial, advertising or promotional purposes (the &quot;Waiver&quot;). Affirmer makes
+                        the Waiver for the benefit of each member of the public at large and to the
+                        detriment of Affirmer's heirs and successors, fully intending that such Waiver
+                        shall not be subject to revocation, rescission, cancellation, termination, or
+                        any other legal or equitable action to disrupt the quiet enjoyment of the Work
+                        by the public as contemplated by Affirmer's express Statement of Purpose.
+
+                        3. Public License Fallback. Should any part of the Waiver for any reason be
+                        judged legally invalid or ineffective under applicable law, then the Waiver
+                        shall be preserved to the maximum extent permitted taking into account
+                        Affirmer's express Statement of Purpose. In addition, to the extent the Waiver
+                        is so judged Affirmer hereby grants to each affected person a royalty-free,
+                        non transferable, non sublicensable, non exclusive, irrevocable and
+                        unconditional license to exercise Affirmer's Copyright and Related Rights in
+                        the Work (i) in all territories worldwide, (ii) for the maximum duration
+                        provided by applicable law or treaty (including future time extensions), (iii)
+                        in any current or future medium and for any number of copies, and (iv) for any
+                        purpose whatsoever, including without limitation commercial, advertising or
+                        promotional purposes (the &quot;License&quot;). The License shall be deemed effective as
+                        of the date CC0 was applied by Affirmer to the Work. Should any part of the
+                        License for any reason be judged legally invalid or ineffective under
+                        applicable law, such partial invalidity or ineffectiveness shall not
+                        invalidate the remainder of the License, and in such case Affirmer hereby
+                        affirms that he or she will not (i) exercise any of his or her remaining
+                        Copyright and Related Rights in the Work or (ii) assert any associated claims
+                        and causes of action with respect to the Work, in either case contrary to
+                        Affirmer's express Statement of Purpose.
+
+                        4. Limitations and Disclaimers.
+
+                        a. No trademark or patent rights held by Affirmer are waived, abandoned,
+                        surrendered, licensed or otherwise affected by this document.
+
+                        b. Affirmer offers the Work as-is and makes no representations or warranties
+                        of any kind concerning the Work, express, implied, statutory or otherwise,
+                        including without limitation warranties of title, merchantability, fitness
+                        for a particular purpose, non infringement, or the absence of latent or
+                        other defects, accuracy, or the present or absence of errors, whether or not
+                        discoverable, all to the greatest extent permissible under applicable law.
+
+                        c. Affirmer disclaims responsibility for clearing rights of other persons
+                        that may apply to the Work or any use thereof, including without limitation
+                        any person's Copyright and Related Rights in the Work. Further, Affirmer
+                        disclaims responsibility for obtaining any necessary consents, permissions
+                        or other rights required for any use of the Work.
+
+                        d. Affirmer understands and acknowledges that Creative Commons is not a
+                        party to this document and has no duty or obligation with respect to this
+                        CC0 or use of the Work.
+
+                        For more information, please see
+                        &lt;http://creativecommons.org/publicdomain/zero/1.0/&lt;
+                " desc=""/>
+	        </licensematcher>
+       </licensematcherlist>
+    </oatconfig>
+</configuration>

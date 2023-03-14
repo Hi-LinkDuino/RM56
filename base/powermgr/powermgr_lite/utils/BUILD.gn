@@ -1,0 +1,54 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/powermgr_lite/powermgr.gni")
+import("//build/lite/config/component/lite_component.gni")
+
+config("powermgr_utils_public_config") {
+  include_dirs = [ "include" ]
+}
+
+utils_sources = [
+  "src/power_mgr_time_util.c",
+  "src/power_mgr_timer_util.c",
+]
+
+if (is_liteos_m) {
+  static_library("powermgr_utils") {
+    sources = utils_sources
+
+    public_configs = [ ":powermgr_utils_public_config" ]
+
+    include_dirs = [
+      "${powermgr_frameworks_path}/include",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    ]
+
+    deps = [
+      "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+      "//kernel/liteos_m/kal:kal",
+    ]
+  }
+} else {
+  source_set("powermgr_utils") {
+    cflags = [ "-fPIC" ]
+    cflags_cc = cflags
+
+    sources = utils_sources
+
+    public_configs = [ ":powermgr_utils_public_config" ]
+    include_dirs = [ "${powermgr_frameworks_path}/include" ]
+
+    deps = [ "//foundation/distributedschedule/samgr_lite/samgr:samgr" ]
+  }
+}

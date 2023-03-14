@@ -1,0 +1,41 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <!--  通用样式1  -->
+    <search class = "search1" hint="请输入搜索内容" searchbutton="搜索" @search="search">
+    </search>
+    <!--  通用样式2  -->
+    <search class = "search2" hint="请输入搜索内容" searchbutton="搜索" @search="search">
+    </search>
+    <!--  通用样式3  -->
+    <search class = "search3" hint="请输入您需要的东西" searchbutton="search" @search="search" icon="common/images/icon.png">
+    </search>
+    <!--  通用样式4  -->
+    <search class = "search4" hint="请输入您需要的东西" searchbutton="search" @search="search" icon="common/images/icon.png">
+    </search>
+    <!--  通用样式5\6  -->
+    <div class="contain1">
+        <search class = "search5" hint="请输入搜索内容" @search="search" icon="common/images/image.png">
+        </search>
+
+        <search class = "search6" hint="请输入搜索内容" @search="search" icon="common/images/image.png">
+        </search>
+    </div>
+    <!--  特有样式  -->
+    <search class = "search7" hint="请输入搜索内容" searchbutton="搜索" @search="search">
+    </search>
+
+</div>

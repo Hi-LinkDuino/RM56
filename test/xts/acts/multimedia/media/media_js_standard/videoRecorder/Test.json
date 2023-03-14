@@ -1,0 +1,25 @@
+{
+    "description": "Configuration for videoRecorder Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "2000000",
+        "package": "ohos.acts.multimedia.video.videorecorder",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "type": "ShellKit",
+            "run-command": [
+            ],
+            "teardown-command":[
+            ]
+        },
+        {
+            "test-file-name": [
+                "ActsVideoRecorderJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

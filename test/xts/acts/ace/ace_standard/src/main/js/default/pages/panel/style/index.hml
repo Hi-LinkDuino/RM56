@@ -1,0 +1,111 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            panel通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <panel id="styleOne" type="foldable">
+        </panel>
+        <panel id="styleTwo" type="foldable">
+        </panel>
+        <panel id="styleThree" type="foldable">
+        </panel>
+        <panel id="styleFour" type="foldable">
+        </panel>
+        <panel id="styleFive" type="foldable">
+        </panel>
+        <panel id="styleSix" type="foldable">
+        </panel>
+        <panel id="styleSeven"  type="foldable">
+        </panel>
+        <panel id="styleEight" type="foldable">
+        </panel>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <panel id="styleTen" type="foldable">
+            </panel>
+            <panel id="styleEleven" type="foldable">
+            </panel>
+            <panel id="styleTwelve" type="foldable">
+            </panel>
+            <panel id="styleThirteen" type="foldable">
+            </panel>
+            <panel id="styleFourteen" type="foldable">
+            </panel>
+            <panel id="styleFifteen" type="foldable">
+            </panel>
+            <panel id="styleSixteen" type="foldable">
+            </panel>
+            <panel id="styleSeventeen" type="foldable">
+            </panel>
+            <panel id="styleEighteen" type="foldable">
+            </panel>
+            <panel id="styleNineteen" type="foldable">
+            </panel>
+            <panel id="styleTwenty" type="foldable">
+            </panel>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <panel id="styleTwentyOne" type="foldable">
+            </panel>
+            <panel id="styleTwentyTwo" type="foldable">
+            </panel>
+            <panel id="styleTwentyThree" type="foldable">
+            </panel>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <panel id="styleTwentyFour" type="foldable">
+        </panel>
+        <panel id="styleTwentyFive" type="foldable">
+        </panel>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <panel id="styleTwentySix" type="foldable">
+        </panel>
+        <panel id="styleTwentySeven" type="foldable">
+        </panel>
+        <panel id="styleTwentyNine" type="foldable">
+        </panel>
+        <panel id="styleThirty" type="foldable">
+        </panel>
+        <panel id="styleThirtyOne" type="foldable">
+        </panel>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <panel id="styleThirtyTwo" type="foldable">
+        </panel>
+    </div>
+</div>
+

@@ -1,0 +1,54 @@
+{
+  "name": "thermal_device_driver",
+  "description": "thermal device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "thermal_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "610KB",
+    "ram": "7500KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function",
+        "libxml2"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/thermal:thermal_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/thermal/test:hdf_test_thermal"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/interface/thermal/v1_0:libthermal_proxy_1.0",
+          "header": {
+            "header_files": [
+                "thermal_types.h"
+            ],
+            "header_base": "//drivers/peripheral/thermal/interfaces/include"
+          }
+        },
+        {
+            "name": "//drivers/peripheral/thermal/interfaces/hdi_callback:libthermal_callback",
+            "header": {
+              "header_files": [
+                "thermal_callback_impl.h"
+              ],
+              "header_base": "//drivers/peripheral/thermal/interfaces/include"
+            }
+        }
+      ]
+    }
+  }
+}

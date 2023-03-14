@@ -1,0 +1,10 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
+
+PROJECT(NDK-TEST)
+
+ADD_SUBDIRECTORY(src/chello)
+ADD_SUBDIRECTORY(src/cpphello)
+ADD_SUBDIRECTORY(src/headers)
+ADD_SUBDIRECTORY(src/installing)
+ADD_SUBDIRECTORY(src/shared-library)
+ADD_SUBDIRECTORY(src/static-library)

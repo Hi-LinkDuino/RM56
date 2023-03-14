@@ -1,0 +1,80 @@
+{
+    "plugins": {
+        "SysEventSource": {
+            "path": "core",
+            "name": "sysevent_source"
+        },
+        "SysEventService": {
+            "path": "plugins/eventservice",
+            "name": "sys_event_service"
+        },
+        "Faultlogger": {
+            "path": "plugins/faultlogger",
+            "name": "faultlogger"
+        },
+        "EventLogger": {
+            "path": "plugins/eventlogger",
+            "name": "eventlogger"
+        },
+        "FreezeDetectorPlugin": {
+            "path": "plugins/freeze_detector",
+            "name": "freeze_detector"
+        },
+        "HiCollieCollector": {
+            "path": "plugins/hicollie_collector",
+            "name": "hicollie_collector"
+        }
+    },
+    "rules": [
+        {
+            "rule": [
+                {
+                    "rom": "1G",
+                    "ram": "1G"
+                }
+            ],
+            "info": {
+                "loadorder": {
+                    "SysEventSource": {
+                        "loadtime": 0
+                    },
+                    "EventLogger": {
+                        "loadtime": 0
+                    },
+                    "FreezeDetectorPlugin": {
+                        "loadtime": 0
+                    },
+                    "HiCollieCollector": {
+                        "loadtime": 0
+                    },
+                    "SysEventService": {
+                        "loadtime": 0
+                    },
+                    "Faultlogger": {
+                        "loadtime": 0
+                    }
+                },
+                "pipelines": {
+                    "SysEventPipeline": [
+                        "SysEventService",
+                        "Faultlogger",
+                        "EventLogger"
+                    ]
+                },
+                "pipelinegroups": {
+                    "SysEventSource": [
+                        "SysEventPipeline"
+                    ]
+                },
+                "threads": {
+                    "singledthread": {
+                        "SysEventSource": "sysevent_source",
+                        "SysEventService": "sysevent_service",
+                        "EventLogger": "event_logger",
+                        "FreezeDetectorPlugin": "freeze_detector"
+                    }
+                }
+            }
+        }
+    ]
+}

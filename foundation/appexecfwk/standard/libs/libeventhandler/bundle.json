@@ -1,0 +1,67 @@
+{
+    "name": "@ohos/eventhandler",
+    "description": "事件处理服务",
+    "version": "3.1",
+    "license": "Apache 2.0",
+    "segment": {
+        "destPath": "foundation/bundlemanager/bundle_framework/libs/libeventhandler"
+    },
+    "component": {
+        "name": "eventhandler",
+        "subsystem": "appexecfwk",
+        "syscap": [
+            "SystemCapability.Notification.Emitter"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "500KB",
+        "ram": "1000KB",
+        "deps": {
+            "components": [
+                "hitrace_native",
+                "hiviewdfx_hilog_native",
+                "hichecker_native"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/bundlemanager/bundle_framework/interfaces/innerkits:innerkits_target",
+                "//foundation/bundlemanager/bundle_framework/interfaces/innerkits/napi:napi_packages"
+            ],
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//foundation/bundlemanager/bundle_framework/interfaces/innerkits/libeventhandler/include",
+                        "header_files": [
+                            "event_handler_errors.h",
+                            "event_handler.h",
+                            "event_queue.h",
+                            "event_runner.h",
+                            "inner_event.h",
+                            "file_descriptor_listener.h",
+                            "native_implement_eventhandler.h"
+                        ]
+                    },
+                    "name": "//foundation/bundlemanager/bundle_framework/interfaces/innerkits/libeventhandler:libeventhandler"
+                },
+                {
+                    "header": {
+                        "header_base": "//foundation/bundlemanager/bundle_framework/interfaces/innerkits/eventhandler_native/eventhandler",
+                        "header_files": [
+                            "native_interface_eventhandler.h"
+                        ]
+                    },
+                    "name": "//foundation/bundlemanager/bundle_framework/interfaces/innerkits/eventhandler_native:eventhandler_native"
+                }
+            ],
+            "test": [
+                "//foundation/bundlemanager/bundle_framework/libs/libeventhandler/test:unittest",
+                "//foundation/bundlemanager/bundle_framework/libs/test:moduletest",
+                "//foundation/bundlemanager/bundle_framework/test/systemtest/common/ems:systemtest_ems"
+            ]
+        }
+    }
+}

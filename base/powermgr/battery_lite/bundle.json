@@ -1,0 +1,63 @@
+{
+  "name": "@ohos/battery_lite",
+  "version": "3.1",
+  "description": "轻设备电池服务，提供电池和充放电状态查询服务。",
+  "homePage": "https://gitee.com/openharmony",
+  "license": "Apache License 2.0",
+  "repository": "https://gitee.com/openharmony/powermgr_battery_lite",
+  "domain": "os",
+  "language": "",
+  "publishAs": "",
+  "private": false,
+  "scripts": {},
+  "envs": [],
+  "dirs": [
+    "base/powermgr/battery_lite"
+  ],
+  "segment": {
+    "destPath": "base/powermgr/battery_lite"
+  },
+  "component": {
+    "name": "battery_lite",
+    "subsystem": "powermgr",
+    "syscap": [
+      "SystemCapability.PowerManager.BatteryManager.Lite"
+    ],
+    "features": [],
+    "adapted_system_type": [
+      "liteos_a",
+      "liteos_m",
+      "linux"
+    ],
+    "rom": "22KB",
+    "ram": "~10KB",
+    "output": [
+      "libbatterymgr.so",
+      "libbatteryservice.so"
+    ],
+    "deps": {
+      "components": [
+        "utils_base",
+        "samgr_lite",
+        "peripheral_input",
+        "ui",
+        "ipc_lite",
+        "aafwk_lite",
+        "appexecfwk_lite",
+        "hilog",
+        "wms"
+      ],
+      "third_party": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/powermgr/battery_lite:batterymgr_lite",
+        "//base/powermgr/battery_lite/frameworks/js:ace_battery_kits"
+      ],
+      "inner_kits": [],
+      "test": []
+    }
+  }
+}

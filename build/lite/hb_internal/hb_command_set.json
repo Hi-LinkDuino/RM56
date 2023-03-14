@@ -1,0 +1,7 @@
+{
+    "build": "Build source code",
+    "set": "OHOS build settings",
+    "env": "Show OHOS build env",
+    "clean": "Clean output",
+    "get": "Get info by specific key"
+}

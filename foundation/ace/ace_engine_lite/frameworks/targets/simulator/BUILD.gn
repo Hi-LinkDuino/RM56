@@ -1,0 +1,76 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+import("//build/lite/config/subsystem/aafwk/config.gni")
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine_lite/ace_lite.gni")
+
+declare_args() {
+  LOSCFG_TEST_JS_BUILD = false
+}
+
+config("ace_lite_config") {
+  include_dirs = ace_lite_include_dirs_simulator
+  include_dirs += ace_lite_include_dirs
+  include_dirs +=
+      [ "//foundation/ace/ace_engine_lite/frameworks/targets/simulator" ]
+}
+
+ohos_static_library("ace_lite") {
+  public_configs = [ ":ace_lite_config" ]
+  sources = ace_lite_sources
+  sources += [
+    "$ACE_LITE_COMMON_PATH/log/ace_log.cpp",
+    "$ACE_LITE_COMMON_PATH/memory/ace_mem_base.cpp",
+    "$ACE_LITE_COMMON_PATH/memory/cache/cache_manager.cpp",
+    "$ACE_LITE_COMMON_PATH/memory/mem_proc.cpp",
+    "$ACE_LITE_COMMON_PATH/memory/memory_heap.cpp",
+    "$MODULE_MANAGER_PATH/module_manager.cpp",
+    "$NATIVE_ENGINE_PATH/jsi/jsi.cpp",
+    "//foundation/ace/ace_engine_lite/frameworks/src/core/modules/presets/feature_ability_module.cpp",
+  ]
+  sources -= [ "//foundation/ace/ace_engine_lite/frameworks/src/core/context/ace_ability.cpp" ]
+  cflags_cc = [
+    "-Wall",
+    "-D_INC_STRING_S",
+    "-D_INC_WCHAR_S",
+    "-D_SECIMP=//",
+    "-D_STDIO_S_DEFINED",
+    "-D_INC_STDIO_S",
+    "-D_INC_STDLIB_S",
+    "-D_INC_MEMORY_S",
+  ]
+  deps = [
+    "//base/global/resmgr_lite/frameworks/resmgr_lite:global_resmgr_simulator",
+    "//foundation/graphic/ui/huawei_proprietary/tools/ide:graphic_lite",
+    "//third_party/bounds_checking_function:libsec_static",
+    "//third_party/jerryscript:libjerryscript",
+  ]
+  defines = [
+    "TARGET_SIMULATOR=1",
+    "JS_ENGINE_EXTERNAL_CONTEXT=1",
+    "SCREENSIZE_SPECIFIED=1",
+    "MOCK_JS_ASYNC_WORK=1",
+  ]
+  if (is_debug == "debug") {
+    defines += [ "JS_PROFILER=1" ]
+  } else {
+    defines += [ "JS_PROFILER=0" ]
+  }
+  if (LOSCFG_TEST_JS_BUILD) {
+    defines += [ "JSFWK_TEST=1" ]
+  }
+  if (enable_ohos_appexecfwk_feature_ability == true) {
+    defines += [ "ABILITY_WINDOW_SUPPORT" ]
+  }
+}

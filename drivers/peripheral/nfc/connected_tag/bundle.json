@@ -1,0 +1,41 @@
+{
+  "name": "connected_tag_device_driver",
+  "description": "connected tag device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "connected_tag_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard"],
+    "rom": "1000KB",
+    "ram": "1000KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/nfc/connected_tag:connected_tag_hdi"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/nfc/connected_tag:connected_tag_client",
+          "header": {
+            "header_files": [
+              "connected_tag_proxy.h"
+            ],
+            "header_base": "//drivers/peripheral/nfc/connected_tag/v1_0/client"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,154 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            button通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <button id="styleOne">
+        </button>
+        <button id="styleTwo">
+        </button>
+        <button id="styleThree">
+        </button>
+        <button id="styleFour">
+        </button>
+        <button id="styleFive">
+        </button>
+        <button id="styleSix">
+        </button>
+        <button id="styleSeven">
+        </button>
+        <button id="styleEight">
+        </button>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <button id="styleTen">
+            </button>
+            <button id="styleEleven">
+            </button>
+            <button id="styleTwelve">
+            </button>
+            <button id="styleThirteen">
+            </button>
+            <button id="styleFourteen">
+            </button>
+            <button id="styleFifteen">
+            </button>
+            <button id="styleSixteen">
+            </button>
+            <button id="styleSeventeen">
+            </button>
+            <button id="styleEighteen">
+            </button>
+            <button id="styleNineteen">
+            </button>
+            <button id="styleTwenty">
+            </button>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <button id="styleTwentyOne">
+            </button>
+            <button id="styleTwentyTwo">
+            </button>
+            <button id="styleTwentyThree">
+            </button>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <button id="styleTwentyFour">
+        </button>
+        <button id="styleTwentyFive">
+        </button>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <button id="styleTwentySix">
+        </button>
+        <button id="styleTwentySeven">
+        </button>
+        <button id="styleTwentyNine">
+        </button>
+        <button id="styleThirty">
+        </button>
+        <button id="styleThirtyOne">
+        </button>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <button id="styleThirtyTwo">
+        </button>
+
+        <text class="sub-title">
+            通用样式33 filter:blur() backdrop-filter:blur() window-filter:blur()
+        </text>
+        <button id="styleThirtyThree">
+        </button>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            button特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式
+        </text>
+        <div id="specificOne">
+            <button id="addOne">
+            </button>
+            <button id="addTwo">
+            </button>
+            <button id="addThree">
+            </button>
+            <button id="addFour">
+            </button>
+            <button id="addFive">
+            </button>
+            <button id="addSix">
+            </button>
+            <button id="addSeven">
+            </button>
+            <button id="addSeven:disabled">
+            </button>
+            <button id="addSeven:active">
+            </button>
+            <button id="addSeven:focus">
+            </button>
+            <button id="addFive">
+            </button>
+            <button id="addFive">
+            </button>
+        </div>
+    </div>
+</div>
+

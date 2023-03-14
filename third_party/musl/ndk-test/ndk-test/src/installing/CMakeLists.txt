@@ -1,0 +1,5 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
+
+PROJECT(ndk_examples_install)
+
+ADD_SUBDIRECTORY(src)

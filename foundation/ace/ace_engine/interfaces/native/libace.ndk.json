@@ -1,0 +1,22 @@
+[
+    {
+        "first_introduced": "8",
+        "name": "OH_NativeXComponent_GetXComponentId"
+    },
+    {
+        "first_introduced": "8",
+        "name": "OH_NativeXComponent_GetXComponentSize"
+    },
+    {
+        "first_introduced": "8",
+        "name": "OH_NativeXComponent_RegisterCallback"
+    },
+    {
+        "first_introduced": "8",
+        "name": "OH_NativeXComponent_GetTouchEvent"
+    },
+    {
+        "first_introduced": "8",
+        "name": "OH_NativeXComponent_GetXComponentOffset"
+    }
+]

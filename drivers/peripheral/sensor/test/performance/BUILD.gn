@@ -1,0 +1,53 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/test.gni")
+
+unittest("hdf_peripheral_sensor_test_performance") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/hdf"
+  include_dirs = [
+    "//third_party/bounds_checking_function/include",
+    "//drivers/framework/include/platform",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/include/utils",
+    "//drivers/peripheral/sensor/interfaces/include",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/test/unittest/include",
+  ]
+
+  sources = [ "./common/hdf_sensor_performance_test.cpp" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+  if (ohos_build_compiler != "clang") {
+    cflags += [
+      "-Wno-format",
+      "-Wno-format-extra-args",
+    ]
+  }
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+    "//drivers/adapter/uhdf/test/unittest/common:hdf_test_common",
+    "//drivers/peripheral/sensor/hal:hdi_sensor",
+  ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+}

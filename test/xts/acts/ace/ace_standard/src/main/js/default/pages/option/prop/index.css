@@ -1,0 +1,212 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container {
+  flex-direction:row;
+  width:100%;
+  height:100%;
+}
+select {
+  font-size: 14px;
+}
+.option {
+  color: #0d0000;
+  font-size: 14px;
+  allow-scale: true;
+  font-weight: normal;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+.title{
+  width: 100%;
+  font-size: 18px;
+  margin: 2px;
+  padding: 2px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sub-title{
+  width: 100%;
+  font-size: 14px;
+  text-align: left;
+  margin: 2px;
+  padding: 2px;
+}
+
+.prop-container{
+  flex-direction: column;
+  flex-weight: 1;
+}
+
+#idProp {
+  width: 100%;
+}
+
+.classProp {
+  width: 100%;
+}
+
+#classPropNone {
+  width: 100%;
+}
+
+#refProp {
+  width: 100%;
+}
+
+#refPropNone {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#disabledPropTrue {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#disabledPropFalse {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#disabledPropNone {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#focusablePropTrue {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#focusablePropFalse {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#focusablePropNone {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#dataProp {
+  flex-weight: 1;
+  width: 100%;
+}
+
+#dataPropNone {
+  flex-weight: 1;
+  width: 100%;
+  
+}
+
+#clickEffectPropSmall {
+  height: 15px;
+  width: 100%;
+  
+}
+
+#clickEffectPropMedium {
+  height: 15px;
+  width: 100%;
+  
+}
+
+#clickEffectPropLarge {
+  width: 100%;
+  
+}
+
+#clickEffectPropNone{
+  width: 100%;
+  
+}
+
+#dirPropRtl {
+  width: 100%;
+  
+}
+
+#dirPropAuto {
+  width: 100%;
+}
+
+#dirPropLtr {
+  width: 100%;
+}
+
+#dirPropNone {
+  width: 100%;
+}
+
+#forPropNull {
+  width: 100%;
+}
+
+#forPropOne {
+  width: 100%;
+}
+
+#forPropThree {
+  width: 100%;
+}
+
+#ifPropTrue {
+  width: 100%;
+}
+
+#ifPropFalse {
+  width: 100%;
+}
+
+#ifPropNone {
+  width: 100%;
+}
+
+#showPropTrue {
+  width: 100%;
+}
+
+#showPropFalse {
+  width: 100%;
+  
+}
+
+#showPropNone {
+  width: 100%;
+  
+}
+
+.specific-container{
+  flex-direction: column;
+  flex-weight: 1;
+}
+
+#selectedTrue {
+  color: #0d0000;
+  height: 40px;
+  margin: 2px;
+}
+
+#selectedFalse {
+  height: 40px;
+  margin: 2px;
+}
+
+#optionValue {
+  height: 40px;
+  margin: 2px;
+}

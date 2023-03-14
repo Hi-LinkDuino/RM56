@@ -1,0 +1,344 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+import("//foundation/ace/ace_engine/build/ace_gen_obj.gni")
+
+# declarative frontend source
+template("declarative_frontend") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    configs = [ "$ace_root:ace_config" ]
+
+    sources = [
+      "declarative_frontend.cpp",
+      "frontend_delegate_declarative.cpp",
+    ]
+
+    deps = [ "$ace_root/frameworks/core/components/theme:build_theme_code" ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  declarative_frontend("declarative_frontend_" + item.name) {
+    defines = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+  }
+}
+
+# js resources objects
+base_output_path = get_label_info(":gen_js_proxyclass", "target_out_dir")
+jsproxyclass_obj_path = base_output_path + "/js_proxy_class.o"
+jsenumstyle_obj_path = base_output_path + "/js_enum_style.o"
+jsmocksystemplugin_obj_path = base_output_path + "/js_mock_system_plugin.o"
+
+gen_obj("js_proxyclass") {
+  input = "engine/stateMgmt.js"
+  if (use_mac || use_mingw_win) {
+    jsproxyclass_obj_path = base_output_path + "/js_proxy_class.c"
+  }
+  output = jsproxyclass_obj_path
+  snapshot_dep = []
+}
+
+gen_obj("js_enum_style") {
+  input = "engine/jsEnumStyle.js"
+  if (use_mac || use_mingw_win) {
+    jsenumstyle_obj_path = base_output_path + "/js_enum_style.c"
+  }
+  output = jsenumstyle_obj_path
+  snapshot_dep = []
+}
+
+gen_obj("js_mock_system_plugin") {
+  input = "$root_out_dir/obj/third_party/jsframework/dist/jsMockSystemPlugin.js"
+  if (use_mac || use_mingw_win) {
+    jsmocksystemplugin_obj_path = base_output_path + "/js_mock_system_plugin.c"
+  }
+  output = jsmocksystemplugin_obj_path
+  snapshot_dep = [ "//third_party/jsframework:gen_snapshot" ]
+}
+
+# build declarative javascript engine source
+template("declarative_js_engine") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    if (target_cpu == "arm64") {
+      if (!is_mingw) {
+        defines += [ "_ARM64_" ]
+      }
+    }
+
+    deps = []
+    configs = [ "$ace_root:ace_config" ]
+
+    sources = [
+      "engine/bindings_implementation.cpp",
+      "engine/declarative_engine_loader.cpp",
+      "engine/functions/js_animator_function.cpp",
+      "engine/functions/js_click_function.cpp",
+      "engine/functions/js_clipboard_function.cpp",
+      "engine/functions/js_drag_function.cpp",
+      "engine/functions/js_focus_function.cpp",
+      "engine/functions/js_foreach_function.cpp",
+      "engine/functions/js_function.cpp",
+      "engine/functions/js_gesture_function.cpp",
+      "engine/functions/js_hover_function.cpp",
+      "engine/functions/js_key_function.cpp",
+      "engine/functions/js_mouse_function.cpp",
+      "engine/functions/js_on_area_change_function.cpp",
+      "engine/functions/js_page_transition_function.cpp",
+      "engine/functions/js_pan_function.cpp",
+      "engine/functions/js_touch_function.cpp",
+      "engine/functions/js_webview_function.cpp",
+      "engine/js_types.cpp",
+      "interfaces/profiler/js_profiler.cpp",
+      "jsview/action_sheet/js_action_sheet.cpp",
+      "jsview/dialog/js_alert_dialog.cpp",
+      "jsview/dialog/js_custom_dialog_controller.cpp",
+      "jsview/js_ability_component.cpp",
+      "jsview/js_ability_component_controller.cpp",
+      "jsview/js_animator.cpp",
+      "jsview/js_badge.cpp",
+      "jsview/js_blank.cpp",
+      "jsview/js_button.cpp",
+      "jsview/js_calendar.cpp",
+      "jsview/js_calendar_controller.cpp",
+      "jsview/js_canvas.cpp",
+      "jsview/js_canvas_gradient.cpp",
+      "jsview/js_canvas_image_data.cpp",
+      "jsview/js_canvas_path.cpp",
+      "jsview/js_canvas_renderer.cpp",
+      "jsview/js_checkbox.cpp",
+      "jsview/js_checkboxgroup.cpp",
+      "jsview/js_circle.cpp",
+      "jsview/js_clipboard.cpp",
+      "jsview/js_column.cpp",
+      "jsview/js_column_split.cpp",
+      "jsview/js_container_base.cpp",
+      "jsview/js_counter.cpp",
+      "jsview/js_data_panel.cpp",
+      "jsview/js_datepicker.cpp",
+      "jsview/js_divider.cpp",
+      "jsview/js_ellipse.cpp",
+      "jsview/js_environment.cpp",
+      "jsview/js_flex.cpp",
+      "jsview/js_flex_impl.cpp",
+      "jsview/js_foreach.cpp",
+      "jsview/js_gauge.cpp",
+      "jsview/js_gesture.cpp",
+      "jsview/js_grid.cpp",
+      "jsview/js_grid_container.cpp",
+      "jsview/js_grid_item.cpp",
+      "jsview/js_hyperlink.cpp",
+      "jsview/js_if_else.cpp",
+      "jsview/js_image.cpp",
+      "jsview/js_image_animator.cpp",
+      "jsview/js_indexer.cpp",
+      "jsview/js_interactable_view.cpp",
+      "jsview/js_lazy_foreach.cpp",
+      "jsview/js_line.cpp",
+      "jsview/js_list.cpp",
+      "jsview/js_list_item.cpp",
+      "jsview/js_loading_progress.cpp",
+      "jsview/js_local_storage.cpp",
+      "jsview/js_marquee.cpp",
+      "jsview/js_matrix2d.cpp",
+      "jsview/js_navigation.cpp",
+      "jsview/js_navigator.cpp",
+      "jsview/js_offscreen_rendering_context.cpp",
+      "jsview/js_page_transition.cpp",
+      "jsview/js_pan_handler.cpp",
+      "jsview/js_path.cpp",
+      "jsview/js_path2d.cpp",
+      "jsview/js_pattern_lock.cpp",
+      "jsview/js_persistent.cpp",
+      "jsview/js_polygon.cpp",
+      "jsview/js_polyline.cpp",
+      "jsview/js_progress.cpp",
+      "jsview/js_qrcode.cpp",
+      "jsview/js_radio.cpp",
+      "jsview/js_rect.cpp",
+      "jsview/js_refresh.cpp",
+      "jsview/js_render_image.cpp",
+      "jsview/js_rendering_context.cpp",
+      "jsview/js_rendering_context_settings.cpp",
+      "jsview/js_row.cpp",
+      "jsview/js_row_split.cpp",
+      "jsview/js_scroll.cpp",
+      "jsview/js_scroller.cpp",
+      "jsview/js_search.cpp",
+      "jsview/js_select.cpp",
+      "jsview/js_shape.cpp",
+      "jsview/js_shape_abstract.cpp",
+      "jsview/js_sheet.cpp",
+      "jsview/js_side_bar.cpp",
+      "jsview/js_slider.cpp",
+      "jsview/js_sliding_panel.cpp",
+      "jsview/js_span.cpp",
+      "jsview/js_stack.cpp",
+      "jsview/js_stepper.cpp",
+      "jsview/js_stepper_item.cpp",
+      "jsview/js_swiper.cpp",
+      "jsview/js_tab_content.cpp",
+      "jsview/js_tabs.cpp",
+      "jsview/js_tabs_controller.cpp",
+      "jsview/js_text.cpp",
+      "jsview/js_text_clock.cpp",
+      "jsview/js_textarea.cpp",
+      "jsview/js_textinput.cpp",
+      "jsview/js_textpicker.cpp",
+      "jsview/js_texttimer.cpp",
+      "jsview/js_toggle.cpp",
+      "jsview/js_touch_handler.cpp",
+      "jsview/js_utils.cpp",
+      "jsview/js_view.cpp",
+      "jsview/js_view_abstract.cpp",
+      "jsview/js_view_context.cpp",
+      "jsview/js_view_functions.cpp",
+      "jsview/js_view_stack_processor.cpp",
+      "jsview/menu/js_context_menu.cpp",
+      "jsview/scroll_bar/js_scroll_bar.cpp",
+      "sharedata/js_share_data.cpp",
+      "view_stack_processor.cpp",
+    ]
+
+    # rich components needed by phone and TV. wearable like watch do not need them
+    if (defined(config.rich_components_support) &&
+        config.rich_components_support) {
+      sources += [
+        "jsview/js_camera.cpp",
+        "jsview/js_piece.cpp",
+        "jsview/js_rating.cpp",
+        "jsview/js_video.cpp",
+        "jsview/js_video_controller.cpp",
+      ]
+    }
+
+    if (defined(config.xcomponent_components_support) &&
+        config.xcomponent_components_support) {
+      sources += [
+        "jsview/js_xcomponent.cpp",
+        "jsview/js_xcomponent_controller.cpp",
+      ]
+    }
+
+    if (defined(config.web_components_support) &&
+        config.web_components_support) {
+      sources += [
+        "jsview/js_richtext.cpp",
+        "jsview/js_web.cpp",
+        "jsview/js_web_controller.cpp",
+      ]
+    }
+
+    if (defined(config.form_components_support) &&
+        config.form_components_support) {
+      sources += [ "jsview/js_form.cpp" ]
+    }
+
+    if (defined(config.plugin_components_support) &&
+        config.plugin_components_support) {
+      deps +=
+          [ "$ace_flutter_engine_root:third_party_flutter_engine_$platform" ]
+      sources += [ "jsview/js_plugin.cpp" ]
+    }
+
+    if (defined(config.use_build_in_js_engine) &&
+        config.use_build_in_js_engine) {
+      deps += [ "$ace_root/frameworks/bridge:framework_bridge_$platform" ]
+      defines += [ "BUILT_IN_JS_ENGINE" ]
+    } else {
+      sources += [
+        "$ace_root/frameworks/bridge/js_frontend/engine/common/js_engine.cpp",
+      ]
+      deps += [ "$ace_root/build:libace" ]
+      if (defined(config.build_container_scope_lib) &&
+          config.build_container_scope_lib) {
+        deps += [ "$ace_root/frameworks/core:ace_container_scope" ]
+      }
+    }
+
+    deps += [ "engine/$engine_path:declarative_js_engine_bridge_${engine_name}_$platform" ]
+
+    deps += [
+      ":gen_obj_src_js_enum_style",
+      ":gen_obj_src_js_proxyclass",
+    ]
+
+    include_dirs = [ "//foundation/windowmanager/interfaces/innerkits" ]
+
+    if (platform == "windows" || platform == "mac") {
+      deps += [ ":gen_obj_src_js_mock_system_plugin" ]
+    } else {
+      if (defined(config.plugin_components_support) &&
+          config.plugin_components_support) {
+        if (!use_mingw_win && !use_mac) {
+          external_deps = [
+            "multimedia_image_standard:image",
+            "multimedia_image_standard:image_native",
+          ]
+        }
+      } else {
+        external_deps = [
+          "multimedia_image_standard:image",
+          "multimedia_image_standard:image_native",
+        ]
+      }
+    }
+  }
+}
+
+# dynamic generate js_engine targets
+foreach(item, ace_platforms) {
+  platform = item.name
+  engine_config = {
+  }
+  engine_config = item.config
+  support_engines = []
+  support_engines = engine_config.js_engines
+  foreach(engine, support_engines) {
+    declarative_js_engine(
+        "declarative_js_engine_${engine.engine_name}_$platform") {
+      platform = item.name
+      engine_name = engine.engine_name
+      engine_path = engine.engine_path
+      defines = engine.engine_defines
+
+      config = {
+      }
+      if (defined(item.config)) {
+        config = item.config
+      }
+      if (defined(config.defines)) {
+        defines += config.defines
+      }
+    }
+  }
+}

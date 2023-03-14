@@ -1,0 +1,148 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/test.gni")
+
+if (board_name == "hi3516dv300" || board_name == "hispark_taurus") {
+  unittest("hdf_adapter_uhdf_test_platform") {
+    output_extension = "bin"
+    output_dir = "$root_out_dir/test/unittest/hdf"
+    include_dirs = [
+      "//third_party/googletest/googletest/include",
+      "//third_party/bounds_checking_function/include",
+      "//drivers/framework/include/platform",
+      "//drivers/framework/include/core",
+      "//drivers/framework/include/osal",
+      "//drivers/adapter/uhdf/posix/include",
+      "//drivers/framework/include/utils",
+      "//drivers/framework/include",
+      "//drivers/framework/test/unittest/include",
+      "//drivers/framework/test/unittest/platform/common",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+    ]
+
+    defines = [ "__USER__" ]
+    if (ohos_kernel_type == "liteos_a") {
+      defines += [ "HDF_LITEOS_TEST" ]
+    }
+    sources = [
+      "//drivers/framework/support/platform/test/unittest/common/hdf_gpio_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_device_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_event_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_manager_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_queue_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_pwm_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_regulator_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_rtc_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_spi_test.cpp",
+      "//drivers/framework/test/unittest/platform/common/gpio_test.c",
+      "//drivers/framework/test/unittest/platform/common/pwm_test.c",
+      "//drivers/framework/test/unittest/platform/common/rtc_test.c",
+      "//drivers/framework/test/unittest/platform/common/spi_test.c",
+    ]
+    if (ohos_kernel_type == "liteos_a") {
+      sources += [
+        "//drivers/framework/support/platform/test/unittest/common/hdf_adc_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_dac_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_i2s_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_i3c_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_mipi_csi_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_pcie_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_pin_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_timer_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_uart_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_watchdog_test.cpp",
+        "//drivers/framework/test/unittest/platform/common/adc_test.c",
+        "//drivers/framework/test/unittest/platform/common/dac_test.c",
+        "//drivers/framework/test/unittest/platform/common/timer_test.c",
+        "//drivers/framework/test/unittest/platform/common/uart_test.c",
+        "//drivers/framework/test/unittest/platform/common/watchdog_test.c",
+      ]
+    }
+    if (storage_type == "emmc") {
+      sources += [
+        "//drivers/framework/support/platform/test/unittest/common/hdf_emmc_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_i2c_test.cpp",
+        "//drivers/framework/test/unittest/platform/common/i2c_test.c",
+      ]
+    }
+    deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//drivers/adapter/build/test_common:libhdf_test_common",
+      "//drivers/adapter/uhdf/manager:hdf_core",
+      "//drivers/adapter/uhdf/platform:hdf_platform",
+      "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+    ]
+    public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsigned-char",
+      "-fno-common",
+      "-fno-strict-aliasing",
+    ]
+  }
+} else if (board_name == "hi3518ev300" || board_name == "hispark_aries") {
+  unittest("hdf_adapter_uhdf_test_platform") {
+    output_extension = "bin"
+    output_dir = "$root_out_dir/test/unittest/hdf"
+    include_dirs = [
+      "//third_party/googletest/googletest/include",
+      "//third_party/bounds_checking_function/include",
+      "//drivers/framework/include/platform",
+      "//drivers/framework/include/core",
+      "//drivers/framework/include/osal",
+      "//drivers/adapter/uhdf/posix/include",
+      "//drivers/framework/include/utils",
+      "//drivers/framework/include",
+      "//drivers/framework/test/unittest/include",
+      "//drivers/framework/test/unittest/platform/common",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+    ]
+
+    defines = [ "__USER__" ]
+    sources = [
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_device_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_event_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_manager_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_platform_queue_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_spi_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_uart_test.cpp",
+      "//drivers/framework/support/platform/test/unittest/common/hdf_watchdog_test.cpp",
+      "//drivers/framework/test/unittest/platform/common/spi_test.c",
+    ]
+    if (storage_type == "emmc") {
+      sources += [
+        "//drivers/framework/support/platform/test/unittest/common/hdf_gpio_test.cpp",
+        "//drivers/framework/support/platform/test/unittest/common/hdf_sdio_test.cpp",
+      ]
+    }
+    deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//drivers/adapter/build/test_common:libhdf_test_common",
+      "//drivers/adapter/uhdf/manager:hdf_core",
+      "//drivers/adapter/uhdf/platform:hdf_platform",
+      "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+    ]
+    public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsigned-char",
+      "-fno-common",
+      "-fno-strict-aliasing",
+    ]
+  }
+}

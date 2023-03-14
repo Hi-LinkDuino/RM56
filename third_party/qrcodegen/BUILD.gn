@@ -1,0 +1,45 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2020. All rights reserved.
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+} else {
+  import("//build/ohos.gni")
+}
+
+config("libqrcodegen_config") {
+  include_dirs = [ "cpp" ]
+}
+
+config("qrcodegen_config") {
+  cflags = [
+    "-Wall",
+    "-fexceptions",
+  ]
+  cflags_cc = cflags
+}
+
+if (defined(ohos_lite)) {
+  lite_library("qrcodegen") {
+    if (ohos_kernel_type == "liteos_m") {
+      target_type = "static_library"
+    } else {
+      target_type = "shared_library"
+    }
+    sources = [ "cpp/qrcodegen.cpp" ]
+    include_dirs = [ "//third_party/qrcodegen/cpp" ]
+    cflags = [ "-Wall" ]
+    cflags_cc = cflags
+    public_configs = [ ":libqrcodegen_config" ]
+  }
+
+  lite_component("qrcode") {
+    features = [ ":qrcodegen" ]
+  }
+} else {
+  ohos_static_library("qrcodegen_static") {
+    sources = [ "cpp/qrcodegen.cpp" ]
+    include_dirs = [ "//third_party/qrcodegen/cpp" ]
+    configs = [ ":qrcodegen_config" ]
+    public_configs = [ ":libqrcodegen_config" ]
+  }
+}

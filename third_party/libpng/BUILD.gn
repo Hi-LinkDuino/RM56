@@ -1,0 +1,124 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2020. All rights reserved.
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+
+  config("libpng_config") {
+    include_dirs = [ "//third_party/libpng" ]
+  }
+
+  libpng_source = [
+    "//third_party/libpng/png.c",
+    "//third_party/libpng/pngerror.c",
+    "//third_party/libpng/pngget.c",
+    "//third_party/libpng/pngmem.c",
+    "//third_party/libpng/pngpread.c",
+    "//third_party/libpng/pngread.c",
+    "//third_party/libpng/pngrio.c",
+    "//third_party/libpng/pngrtran.c",
+    "//third_party/libpng/pngrutil.c",
+    "//third_party/libpng/pngset.c",
+    "//third_party/libpng/pngtrans.c",
+    "//third_party/libpng/pngwio.c",
+    "//third_party/libpng/pngwrite.c",
+    "//third_party/libpng/pngwtran.c",
+    "//third_party/libpng/pngwutil.c",
+    "//third_party/libpng/arm/arm_init.c",
+    "//third_party/libpng/arm/filter_neon_intrinsics.c",
+    "//third_party/libpng/arm/palette_neon_intrinsics.c",
+  ]
+
+  lite_library("libpng") {
+    if (ohos_kernel_type == "liteos_m") {
+      target_type = "static_library"
+      deps = [ "//build/lite/config/component/zlib:zlib_static" ]
+    } else {
+      target_type = "shared_library"
+      deps = [ "//build/lite/config/component/zlib:zlib_shared" ]
+    }
+
+    sources = libpng_source
+    public_configs = [ ":libpng_config" ]
+  }
+} else {
+  import("//build/ohos.gni")
+
+  config("libpng_config") {
+    include_dirs = [ "//third_party/libpng" ]
+  }
+
+  config("libpng_wno_config") {
+    cflags = [ "-Wno-implicit-fallthrough" ]
+  }
+
+  ohos_source_set("png_static") {
+    sources = [
+      "//third_party/libpng/arm/arm_init.c",
+      "//third_party/libpng/arm/filter_neon_intrinsics.c",
+      "//third_party/libpng/arm/palette_neon_intrinsics.c",
+      "//third_party/libpng/png.c",
+      "//third_party/libpng/pngerror.c",
+      "//third_party/libpng/pngget.c",
+      "//third_party/libpng/pngmem.c",
+      "//third_party/libpng/pngpread.c",
+      "//third_party/libpng/pngread.c",
+      "//third_party/libpng/pngrio.c",
+      "//third_party/libpng/pngrtran.c",
+      "//third_party/libpng/pngrutil.c",
+      "//third_party/libpng/pngset.c",
+      "//third_party/libpng/pngtrans.c",
+      "//third_party/libpng/pngwio.c",
+      "//third_party/libpng/pngwrite.c",
+      "//third_party/libpng/pngwtran.c",
+      "//third_party/libpng/pngwutil.c",
+    ]
+    include_dirs = [
+      "//third_party/libpng",
+      "//third_party/zlib",
+    ]
+  }
+
+  ohos_shared_library("libpng") {
+    deps = [ ":libpng_static" ]
+    public_configs = [ ":libpng_config" ]
+    configs = [ ":libpng_wno_config" ]
+    subsystem_name = "common"
+    install_images = [
+      "system",
+      "updater",
+    ]
+    part_name = "graphic_standard"
+  }
+
+  ohos_static_library("libpng_static") {
+    sources = [
+      "//third_party/libpng/arm/arm_init.c",
+      "//third_party/libpng/arm/filter_neon_intrinsics.c",
+      "//third_party/libpng/arm/palette_neon_intrinsics.c",
+      "//third_party/libpng/png.c",
+      "//third_party/libpng/pngerror.c",
+      "//third_party/libpng/pngget.c",
+      "//third_party/libpng/pngmem.c",
+      "//third_party/libpng/pngpread.c",
+      "//third_party/libpng/pngread.c",
+      "//third_party/libpng/pngrio.c",
+      "//third_party/libpng/pngrtran.c",
+      "//third_party/libpng/pngrutil.c",
+      "//third_party/libpng/pngset.c",
+      "//third_party/libpng/pngtrans.c",
+      "//third_party/libpng/pngwio.c",
+      "//third_party/libpng/pngwrite.c",
+      "//third_party/libpng/pngwtran.c",
+      "//third_party/libpng/pngwutil.c",
+    ]
+
+    include_dirs = [
+      "//third_party/libpng",
+      "//third_party/zlib",
+    ]
+    deps = [ "//third_party/zlib:libz" ]
+    public_configs = [ ":libpng_config" ]
+    configs = [ ":libpng_wno_config" ]
+    subsystem_name = "common"
+  }
+}

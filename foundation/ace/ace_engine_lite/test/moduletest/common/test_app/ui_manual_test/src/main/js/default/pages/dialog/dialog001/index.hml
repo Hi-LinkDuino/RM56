@@ -1,0 +1,31 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack style="width:454px;height:454px">
+  <text style="left:140px;top:0px;width:200px;height:40px">dialog</text>
+  <input type="button" style="left:125px;top:50px;width:200px;height:50px;" value="showDialog"onclick="showDialog">
+  </input>
+  <input type="button" style="left:125px;top:110px;width:200px;height:50px;" value="showDialog01"onclick="showDialog01">
+  </input>
+  <input type="button" style="left:125px;top:170px;width:200px;height:50px;" value="showDialog02"onclick="showDialog02">
+  </input>
+  <input type="button" style="left:125px;top:230px;width:200px;height:50px;" value="showDialog03"onclick="showDialog03">
+  </input>
+  <input type="button" style="left:125px;top:290px;width:200px;height:50px;" value="showDialog04"onclick="showDialog04">
+  </input>
+  <input type="button" style="left:125px;top:350px;width:200px;height:50px;" value="showDialog05"onclick="showDialog05">
+  </input>
+  <input type="button" value="首页" style="width:90px;height:40px;left:180px;top:410px;" onclick="backMain"/>
+</stack>

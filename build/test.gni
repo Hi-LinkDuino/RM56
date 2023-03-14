@@ -1,0 +1,466 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos.gni")
+import("//build/ohos_var.gni")
+import("//build/templates/cxx/cxx.gni")
+
+template("_testcase_resources") {
+  assert(defined(invoker.testcase_target_name))
+  assert(defined(invoker.test_output_dir))
+  assert(defined(invoker.module_out_path))
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+  action_with_pydeps(target_name) {
+    if (defined(invoker.testonly)) {
+      testonly = invoker.testonly
+    }
+    deps = _deps
+    inputs = []
+    script = "//build/ohos/testfwk/testcase_resource_copy.py"
+    output_file = "$target_out_dir/$target_name.json"
+    outputs = [ output_file ]
+    depfile = "$target_gen_dir/$target_name.d"
+    args = []
+    if (defined(invoker.resource_config_file)) {
+      args += [
+        "--resource-config-file",
+        rebase_path(invoker.resource_config_file, root_build_dir),
+      ]
+      inputs += [ invoker.resource_config_file ]
+    }
+    args += [
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--testcase-target-name",
+      invoker.testcase_target_name,
+      "--part-build-out-path",
+      rebase_path(root_out_dir, root_build_dir),
+      "--resource-output-path",
+      rebase_path(invoker.test_output_dir + "/resource", root_build_dir),
+      "--module-out-path",
+      invoker.module_out_path,
+      "--output-file",
+      rebase_path(output_file, root_build_dir),
+    ]
+  }
+}
+
+# ohos test template
+template("_ohos_test") {
+  assert(defined(invoker.test_type), "test_type is required.")
+  assert(defined(invoker.module_out_path))
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+
+  # generate module list file in gn stage
+  _gen_module_list_script = "//build/ohos/testfwk/gen_module_list_files.py"
+  _arguments = [
+    "--target",
+    target_name,
+    "--target_label",
+    get_label_info(":$target_name", "label_with_toolchain"),
+    "--source_dir",
+    rebase_path(get_label_info(":$target_name", "dir"), root_build_dir),
+    "--test_type",
+    invoker.test_type,
+  ]
+
+  test_output_dir =
+      "$root_out_dir/tests/${invoker.test_type}/${invoker.module_out_path}"
+  _module_list_file = "$root_out_dir/module_list_files/${invoker.module_out_path}/$target_name.mlf"
+
+  _arguments += [
+    "--output_dir",
+    rebase_path(test_output_dir, root_build_dir),
+    "--module_list_file",
+    rebase_path(_module_list_file, root_build_dir),
+  ]
+  exec_script(_gen_module_list_script, _arguments)
+
+  # copy testcase resource
+  testcase_target_name = target_name
+  _testcase_resources("${testcase_target_name}_resource_copy") {
+    if (defined(invoker.resource_config_file)) {
+      resource_config_file = invoker.resource_config_file
+    }
+    module_out_path = invoker.module_out_path
+    deps = _deps
+    testonly = true
+  }
+
+  _has_sources = defined(invoker.sources) && invoker.sources != []
+  if (_has_sources) {
+    _c_sources_file = "$target_gen_dir/$target_name.sources"
+    write_file(_c_sources_file, rebase_path(invoker.sources, root_build_dir))
+  }
+
+  ohos_executable(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "test_type",
+                             "module_out_path",
+                             "visibility",
+                           ])
+    forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(deps)) {
+      deps = []
+    }
+    deps += [ ":${testcase_target_name}_resource_copy" ]
+
+    subsystem_name = "tests"
+    part_name = invoker.test_type
+    ohos_test = true
+    testonly = true
+    output_name = "$target_name"
+  }
+}
+
+template("ohos_unittest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "unittest"
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    deps += [ "//third_party/googletest:gtest_main" ]
+  }
+}
+
+template("ohos_moduletest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "moduletest"
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    deps += [ "//third_party/googletest:gtest_main" ]
+  }
+}
+
+template("ohos_systemtest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "systemtest"
+  }
+}
+
+template("ohos_performancetest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "performance"
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    deps += [
+      "//test/developertest/aw/cxx/hwext:performance_test_static",
+      "//third_party/googletest:gtest_main",
+    ]
+  }
+}
+
+template("ohos_securitytest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "security"
+  }
+}
+
+template("ohos_reliabilitytest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "reliability"
+  }
+}
+
+template("ohos_distributedtest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "distributedtest"
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    deps += [ "//test/developertest/aw/cxx/distributed:distributedtest_lib" ]
+  }
+}
+
+template("ohos_fuzztest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "deps",
+                             "cflags",
+                           ])
+    test_type = "fuzztest"
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    cflags = []
+    if (defined(invoker.cflags)) {
+      cflags += invoker.cflags
+    }
+    cflags += [
+      "-fno-sanitize-coverage=trace-pc-guard,edge,trace-cmp,indirect-calls,8bit-counters",
+      "-fsanitize=fuzzer",
+    ]
+    libs = [ "//prebuilts/clang/ohos/linux-x86_64/llvm/lib/clang/10.0.1/lib/arm-linux-ohos/libclang_rt.fuzzer.a" ]
+  }
+}
+
+template("ohos_benchmarktest") {
+  _ohos_test(target_name) {
+    forward_variables_from(invoker, "*", [ "deps" ])
+    test_type = "benchmark"
+
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    deps += [ "//third_party/benchmark:benchmark" ]
+  }
+}
+
+template("_test_py_file_copy") {
+  assert(defined(invoker.sources), "sources is required.")
+  assert(defined(invoker.target_base_dir))
+  assert(defined(invoker.copy_output_dir))
+
+  action_with_pydeps(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "sources",
+                             "testonly",
+                             "visibility",
+                           ])
+    script = "//build/ohos/testfwk/test_py_file_copy.py"
+    deps = []
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+
+    depfile = "$target_gen_dir/$target_name.d"
+    outfile = "$target_out_dir/$target_name.out"
+    outputs = [ outfile ]
+    args = [
+      "--target-base-dir",
+      rebase_path(invoker.target_base_dir, root_build_dir),
+      "--copy-output-dir",
+      rebase_path(invoker.copy_output_dir, root_build_dir),
+      "--outfile",
+      rebase_path(outfile, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--source-files",
+    ]
+    args += rebase_path(sources, root_build_dir)
+  }
+}
+
+# python test template
+template("_ohos_test_py") {
+  assert(defined(invoker.test_type), "test_type is required.")
+  assert(defined(invoker.sources), "sources is required.")
+
+  _gen_module_list_script = "//build/ohos/testfwk/gen_module_list_files.py"
+  _arguments = [
+    "--target",
+    target_name,
+    "--target_label",
+    get_label_info(":$target_name", "label_with_toolchain"),
+    "--source_dir",
+    rebase_path(get_label_info(":$target_name", "dir"), root_build_dir),
+    "--test_type",
+    invoker.test_type,
+  ]
+
+  if (defined(invoker.module_out_path)) {
+    test_output_dir =
+        "$root_out_dir/tests/${invoker.test_type}/${invoker.module_out_path}"
+    _module_list_file = "$root_out_dir/module_list_files/${invoker.module_out_path}/$target_name.mlf"
+  } else {
+    test_output_dir = "$root_out_dir/tests/${invoker.test_type}"
+    _module_list_file = "$root_out_dir/module_list_files/$target_name.mlf"
+  }
+
+  _arguments += [
+    "--output_dir",
+    rebase_path(test_output_dir, root_build_dir),
+    "--module_list_file",
+    rebase_path(_module_list_file, root_build_dir),
+  ]
+  exec_script(_gen_module_list_script, _arguments)
+
+  _test_py_file_copy(target_name) {
+    testonly = true
+    target_base_dir = get_label_info(":$target_name", "dir")
+    copy_output_dir = test_output_dir
+    sources = get_path_info(invoker.sources, "abspath")
+  }
+}
+
+template("ohos_unittest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "unittest"
+  }
+}
+
+template("ohos_moduletest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "moduletest"
+  }
+}
+
+template("ohos_systemtest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "systemtest"
+  }
+}
+
+template("ohos_performancetest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "performance"
+  }
+}
+
+template("ohos_securitytest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "security"
+  }
+}
+
+template("ohos_reliabilitytest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "reliability"
+  }
+}
+
+template("ohos_distributedtest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "distributedtest"
+  }
+}
+
+template("ohos_fuzztest_py") {
+  _ohos_test_py(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "fuzztest"
+  }
+}
+
+#js api test template
+template("ohos_js_test") {
+  assert(defined(invoker.test_type), "test_type must be defined.")
+  assert(defined(invoker.hap_profile), "hap_profile must be defined.")
+  assert(defined(invoker.module_out_path), "module_out_path must be defined.")
+
+  # generate module list file in gn stage
+  _gen_module_list_script = "//build/ohos/testfwk/gen_module_list_files.py"
+  _arguments = [
+    "--target",
+    target_name,
+    "--target_label",
+    get_label_info(":$target_name", "label_with_toolchain"),
+    "--source_dir",
+    rebase_path(get_label_info(":$target_name", "dir"), root_build_dir),
+    "--test_type",
+    invoker.test_type,
+  ]
+
+  _test_output_dir =
+      "$root_out_dir/tests/${invoker.test_type}/${invoker.module_out_path}"
+  _module_list_file = "$root_out_dir/module_list_files/${invoker.module_out_path}/$target_name.mlf"
+
+  _arguments += [
+    "--output_dir",
+    rebase_path(_test_output_dir, root_build_dir),
+    "--module_list_file",
+    rebase_path(_module_list_file, root_build_dir),
+  ]
+  exec_script(_gen_module_list_script, _arguments)
+
+  _suite_path = get_label_info(":$target_name", "dir")
+  _template_path = "//test/developertest/libs/js_template"
+  _target_path = "${_template_path}/$target_name"
+  _target_js_copy = "${target_name}__js_copy"
+  action_with_pydeps(_target_js_copy) {
+    script = "//build/ohos/testfwk/test_js_file_copy.py"
+    outputs = [ "$target_out_dir/$target_name.out" ]
+    args = [
+      "--suite_path",
+      rebase_path(_suite_path, root_build_dir),
+      "--template_path",
+      rebase_path(_template_path, root_build_dir),
+      "--target_path",
+      rebase_path(_target_path, root_build_dir),
+    ]
+  }
+
+  _target_js_assets = "${target_name}__intl_js_assets"
+  ohos_js_assets(_target_js_assets) {
+    source_dir = "${_target_path}/src/main/js/default"
+    deps = [ ":$_target_js_copy" ]
+  }
+  _target_resources = "${target_name}__resources"
+  ohos_resources(_target_resources) {
+    sources = [ "${_target_path}/src/main/resources" ]
+    deps = [ ":$_target_js_assets" ]
+    hap_profile = invoker.hap_profile
+  }
+
+  ohos_hap(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "test_type",
+                             "module_out_path",
+                             "visibility",
+                           ])
+    forward_variables_from(invoker, [ "visibility" ])
+
+    deps = [
+      ":$_target_js_assets",
+      ":$_target_resources",
+    ]
+    final_hap_path = "$_test_output_dir/$target_name.hap"
+    js_build_mode = "debug"
+    testonly = true
+  }
+}
+
+template("ohos_js_unittest") {
+  ohos_js_test(target_name) {
+    forward_variables_from(invoker, "*")
+    test_type = "unittest"
+  }
+}

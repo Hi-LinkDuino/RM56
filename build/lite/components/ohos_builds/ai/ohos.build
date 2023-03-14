@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "ai_engine": {
+      "module_list": [
+        "//foundation/ai/engine/services:ai"
+      ]
+    }
+  },
+  "subsystem_name": "ai"
+}

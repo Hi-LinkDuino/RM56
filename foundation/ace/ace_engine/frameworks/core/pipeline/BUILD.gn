@@ -1,0 +1,109 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# build core sources
+template("ace_core_pipeline_source_set") {
+  forward_variables_from(invoker, "*")
+
+  source_set(target_name) {
+    defines += invoker.defines
+
+    # add common source file needed by all product platform here
+    sources = [
+      # context
+      "pipeline_context.cpp",
+
+      # base component
+      "base/component.cpp",
+      "base/component_group_element.cpp",
+      "base/composed_component.cpp",
+      "base/composed_element.cpp",
+      "base/constants.cpp",
+      "base/element.cpp",
+      "base/flutter_render_context.cpp",
+      "base/multi_composed_component.cpp",
+      "base/multi_composed_element.cpp",
+      "base/related_node.cpp",
+      "base/render_context_creator.cpp",
+      "base/render_element.cpp",
+      "base/render_node.cpp",
+      "base/sole_child_element.cpp",
+
+      # factories
+      "base/factories/render_node_factory.cpp",
+
+      # layer
+      "layers/clip_layer.cpp",
+      "layers/container_layer.cpp",
+      "layers/dropfilter_layer.cpp",
+      "layers/flutter_scene_builder.cpp",
+      "layers/gradient_layer.cpp",
+      "layers/layer.cpp",
+      "layers/offset_layer.cpp",
+      "layers/opacity_layer.cpp",
+      "layers/picture_layer.cpp",
+      "layers/texture_layer.cpp",
+      "layers/transform_layer.cpp",
+    ]
+
+    configs += [ "$ace_root:ace_config" ]
+
+    deps = [
+      "$ace_flutter_engine_root:third_party_flutter_engine_$platform",
+      "$ace_flutter_engine_root/skia:ace_skia_$platform",
+      "$ace_root/frameworks/core/components/theme:build_theme_code",
+    ]
+
+    if (defined(config.enable_rosen_backend) && config.enable_rosen_backend) {
+      sources += [ "base/rosen_render_context.cpp" ]
+      deps += [ "//foundation/graphic/standard/rosen/modules/render_service_client:librender_service_client" ]
+    }
+
+    if (platform == "ohos" && defined(config.enable_native_view) &&
+        config.enable_native_view) {
+      sources += [ "layers/ace_scene_builder.cpp" ]
+      deps += [ "$ace_flutter_engine_root/ohos_layers:flutter_ohos_layers" ]
+    }
+
+    cflags_cc = []
+    cflags_cc += invoker.cflags_cc
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_core_pipeline_source_set("ace_core_pipeline_" + item.name) {
+    platform = item.name
+
+    if (defined(item.config)) {
+      config = item.config
+    } else {
+      config = {
+      }
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    } else {
+      defines = []
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    } else {
+      cflags_cc = []
+    }
+  }
+}

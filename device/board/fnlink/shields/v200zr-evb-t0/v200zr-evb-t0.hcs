@@ -1,0 +1,36 @@
+#include "../../hcs/v200zr.hcs"
+root {
+    platform {
+        gpio_config {
+            match_attr = "gpio_config";
+            pin = [0, 1];
+            // touch_ztw523: TSP_RST - GPIO12, TSP_INT-GPIO27
+            // touch_fts: TSP_RST - GPIO05, TSP_INT-GPIO27
+            realPin = [5, 27];
+            config = [5, 2];
+            pinNum = 2;
+        }
+    }
+    misc {
+        fs_config {
+            littlefs_config {
+                match_attr = "littlefs_config";
+                mount_points = ["/data"];
+                partitions = [10];
+                block_size = [4096];
+                block_count = [1024];
+            }
+        }
+        storage_config {
+            flash_config {
+                match_attr = "flash_config";
+                partitions = [10];
+                owner = [0];
+                description = ["littlefs"];
+                start_addr = [0xB60000];
+                length = [0x400000];
+                options = [3];
+            }
+        }
+    }
+}

@@ -1,0 +1,628 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//foundation/distributedhardware/devicemanager/devicemanager.gni")
+module_out_path = "device_manager_base/component_loader_test"
+
+group("unittest") {
+  testonly = true
+
+  deps = [
+    ":UTTest_auth_message_processor",
+    ":UTTest_auth_request_state",
+    ":UTTest_auth_response_state",
+    ":UTTest_device_manager_impl",
+    ":UTTest_device_manager_notify",
+    ":UTTest_device_manager_service",
+    ":UTTest_device_manager_service_listener",
+    ":UTTest_device_profile_adapter",
+    ":UTTest_dm_adapter_manager",
+    ":UTTest_dm_auth_manager",
+    ":UTTest_dm_device_info_manager",
+    ":UTTest_dm_device_state_manager",
+    ":UTTest_dm_discovery_manager",
+    ":UTTest_dm_timer",
+    ":UTTest_hichain_connector",
+    ":UTTest_ipc_client_manager",
+    ":UTTest_ipc_client_proxy",
+    ":UTTest_ipc_client_server_proxy",
+    ":UTTest_ipc_client_stub",
+    ":UTTest_ipc_cmd_register",
+    ":UTTest_ipc_server_client_proxy",
+    ":UTTest_ipc_server_listener",
+    ":UTTest_ipc_server_stub",
+    ":UTTest_multiple_user_connector",
+    ":UTTest_profile_connector",
+    ":UTTest_softbus_connector",
+    ":UTTest_softbus_session",
+  ]
+}
+
+## UnitTest UTTest_pin_auth {{{
+ohos_unittest("UTTest_pin_auth") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_pin_auth.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_pin_auth }}}
+
+## UnitTest UTTest_pin_auth_ui {{{
+ohos_unittest("UTTest_pin_auth_ui") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_pin_auth_ui.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_pin_auth_ui }}}
+
+## UnitTest UTTest_ipc_cmd_register {{{
+ohos_unittest("UTTest_ipc_cmd_register") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_cmd_register.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_cmd_register }}}
+
+## UnitTest UTTest_dm_common_event_manager {{{
+ohos_unittest("UTTest_dm_common_event_manager") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_dm_common_event_manager.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_dm_common_event_manager }}}
+
+## UnitTest device_manager_impl_test {{{
+ohos_unittest("device_manager_impl_test") {
+  module_out_path = module_out_path
+
+  sources = [ "device_manager_impl_test.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest device_manager_impl_test }}}
+
+## UnitTest UTTest_device_manager_service {{{
+ohos_unittest("UTTest_device_manager_service") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_device_manager_service.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_device_manager_service }}}
+
+## UnitTest UTTest_hichain_connector {{{
+ohos_unittest("UTTest_hichain_connector") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_hichain_connector.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_hichain_connector }}}
+
+## UnitTest UTTest_dm_device_info_manager {{{
+ohos_unittest("UTTest_dm_device_info_manager") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_dm_device_info_manager.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_dm_device_info_manager }}}
+
+## UnitTest UTTest_softbus_connector {{{
+ohos_unittest("UTTest_softbus_connector") {
+  module_out_path = module_out_path
+
+  sources = [
+    "${services_path}/src/adapter/standard/dm_adapter_manager.cpp",
+    "${services_path}/src/config/dm_config_manager.cpp",
+    "${services_path}/src/dependency/hichain/hichain_connector.cpp",
+    "${services_path}/src/dependency/multipleuser/multiple_user_connector.cpp",
+    "${services_path}/src/dependency/softbus/softbus_connector.cpp",
+    "${services_path}/src/dependency/softbus/softbus_session.cpp",
+    "${services_path}/src/dependency/timer/dm_timer.cpp",
+    "${services_path}/src/device_manager_service_listener.cpp",
+    "${services_path}/src/devicestate/dm_device_state_manager.cpp",
+    "${services_path}/src/discovery/dm_discovery_manager.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/ipc_server_listener.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/parameter.cpp",
+    "UTTest_softbus_connector.cpp",
+  ]
+
+  deps = [ ":device_manager_test" ]
+}
+
+## UnitTest UTTest_softbus_connector }}}
+
+## UnitTest UTTest_softbus_session {{{
+ohos_unittest("UTTest_softbus_session") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_softbus_session.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_softbus_session }}}
+
+## UnitTest UTTest_dm_adapter_manager {{{
+ohos_unittest("UTTest_dm_adapter_manager") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_dm_adapter_manager.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_dm_adapter_manager }}}
+
+## UnitTest UTTest_dm_timer {{{
+ohos_unittest("UTTest_dm_timer") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_dm_timer.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_dm_timer }}}
+
+## UnitTest UTTest_ipc_client_manager {{{
+ohos_unittest("UTTest_ipc_client_manager") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_client_manager.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_client_manager }}}
+
+## UnitTest UTTest_ipc_client_proxy {{{
+ohos_unittest("UTTest_ipc_client_proxy") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_client_proxy.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_client_proxy }}}
+
+## UnitTest UTTest_ipc_client_stub {{{
+ohos_unittest("UTTest_ipc_client_stub") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_client_stub.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_client_stub }}}
+
+## UnitTest UTTest_ipc_server_client_proxy {{{
+ohos_unittest("UTTest_ipc_server_client_proxy") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_server_client_proxy.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_server_client_proxy }}}
+
+## UnitTest UTTest_ipc_server_listener {{{
+ohos_unittest("UTTest_ipc_server_listener") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_server_listener.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_server_listener }}}
+
+## UnitTest UTTest_ipc_server_stub {{{
+ohos_unittest("UTTest_ipc_server_stub") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_server_stub.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_server_stub }}}
+
+## UnitTest UTTest_device_manager_impl {{{
+ohos_unittest("UTTest_device_manager_impl") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_device_manager_impl.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_device_manager_impl }}}
+
+## UnitTest UTTest_profile_connector {{{
+ohos_unittest("UTTest_profile_connector") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_profile_connector.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_profile_connector }}}
+
+## UnitTest UTTest_device_profile_adapter {{{
+ohos_unittest("UTTest_device_profile_adapter") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_device_profile_adapter.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_device_profile_adapter }}}
+
+## UnitTest UTTest_multiple_user_connector {{{
+ohos_unittest("UTTest_multiple_user_connector") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_multiple_user_connector.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_multiple_user_connector }}}
+
+## UnitTest UTTest_device_manager_notify {{{
+ohos_unittest("UTTest_device_manager_notify") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_device_manager_notify.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_device_manager_notify }}}
+
+## UnitTest UTTest_ipc_client_server_proxy {{{
+ohos_unittest("UTTest_ipc_client_server_proxy") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_ipc_client_server_proxy.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest UTTest_ipc_client_server_proxy }}}
+
+## UnitTest UTTest_dm_device_state_manager {{{
+ohos_unittest("UTTest_dm_device_state_manager") {
+  module_out_path = module_out_path
+
+  sources = [
+    "${services_path}/src/adapter/standard/dm_adapter_manager.cpp",
+    "${services_path}/src/config/dm_config_manager.cpp",
+    "${services_path}/src/dependency/hichain/hichain_connector.cpp",
+    "${services_path}/src/dependency/multipleuser/multiple_user_connector.cpp",
+    "${services_path}/src/dependency/softbus/softbus_connector.cpp",
+    "${services_path}/src/dependency/softbus/softbus_session.cpp",
+    "${services_path}/src/dependency/timer/dm_timer.cpp",
+    "${services_path}/src/device_manager_service_listener.cpp",
+    "${services_path}/src/devicestate/dm_device_state_manager.cpp",
+    "${services_path}/src/discovery/dm_discovery_manager.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/ipc_server_listener.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/parameter.cpp",
+    "UTTest_dm_device_state_manager.cpp",
+  ]
+
+  deps = [ ":device_manager_test" ]
+}
+
+## UnitTest UTTest_dm_device_state_manager }}}
+
+## UnitTest UTTest_device_manager_service_listener {{{
+ohos_unittest("UTTest_device_manager_service_listener") {
+  module_out_path = module_out_path
+
+  sources = [
+    "${services_path}/src/device_manager_service_listener.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/ipc_server_listener.cpp",
+    "UTTest_device_manager_service_listener.cpp",
+  ]
+
+  deps = [ ":device_manager_test" ]
+}
+
+## UnitTest UTTest_device_manager_service_listener }}}
+
+## UnitTest UTTest_auth_message_processor {{{
+ohos_unittest("UTTest_auth_message_processor") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_auth_message_processor.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UTTest_auth_message_processor }}}
+
+## UnitTest UTTest_auth_response_state {{{
+ohos_unittest("UTTest_auth_response_state") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_auth_response_state.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UTTest_auth_response_state }}}
+
+## UnitTest UTTest_auth_request_state {{{
+ohos_unittest("UTTest_auth_request_state") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_auth_request_state.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UTTest_auth_request_state }}}
+
+## UnitTest ipc_client_manager_test {{{
+ohos_unittest("ipc_client_manager_test") {
+  module_out_path = module_out_path
+
+  sources = [ "ipc_client_manager_test.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UnitTest ipc_client_manager_test }}}
+
+## UnitTest UTTest_dm_auth_manager {{{
+ohos_unittest("UTTest_dm_auth_manager") {
+  module_out_path = module_out_path
+
+  sources = [ "UTTest_dm_auth_manager.cpp" ]
+
+  deps = [ ":device_manager_test_common" ]
+}
+
+## UTTest_dm_auth_manager }}}
+## UnitTest UTTest_dm_discovery_manager {{{
+ohos_unittest("UTTest_dm_discovery_manager") {
+  module_out_path = module_out_path
+
+  sources = [
+    "${services_path}/src/dependency/softbus/softbus_connector.cpp",
+    "${services_path}/src/dependency/softbus/softbus_session.cpp",
+    "${services_path}/src/dependency/timer/dm_timer.cpp",
+    "${services_path}/src/device_manager_service_listener.cpp",
+    "${services_path}/src/discovery/dm_discovery_manager.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/ipc_server_listener.cpp",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/parameter.cpp",
+    "UTTest_dm_discovery_manager.cpp",
+  ]
+
+  deps = [ ":device_manager_test" ]
+}
+
+## UnitTest UTTest_dm_discovery_manager }}}
+
+## Build device_manager_test_common.a {{{
+config("device_manager_test_common_public_config") {
+  include_dirs = [
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/include",
+    "${innerkits_path}/native_cpp/include",
+    "${innerkits_path}/native_cpp/include/ipc/standard",
+    "${innerkits_path}/native_cpp/include/ipc",
+    "${innerkits_path}/native_cpp/include/notify",
+    "//third_party/json/include",
+    "${common_path}/include",
+    "${common_path}/include/ipc",
+    "${common_path}/include/ipc/model",
+    "${utils_path}/include",
+    "${utils_path}/include/ipc/standard",
+    "${services_path}/include",
+    "${services_path}/include/dependency/timer",
+    "${services_path}/include/discovery",
+    "${services_path}/include/dependency/softbus",
+    "${services_path}/include/dependency/softbus",
+    "${services_path}/include/authentication",
+    "${services_path}/include/adapter",
+    "${services_path}/include",
+    "${services_path}/include/ipc/standard",
+    "${services_path}/include/discovery",
+    "${services_path}/include/dependency/hichain",
+    "${services_path}/include/deviceinfo/",
+    "${services_path}/include/devicestate",
+    "//foundation/communication/dsoftbus/interfaces/kits/bus_center",
+    "//foundation/communication/softbus_lite/interfaces/kits/transport",
+    "//foundation/communication/ipc_lite/interfaces/kits",
+    "//foundation/communication/dsoftbus/interfaces/kits/common",
+    "//foundation/communication/dsoftbus/interfaces/kits/discovery",
+    "//foundation/communication/dsoftbus/interfaces/inner_kits/transport",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base/include",
+    "//foundation/distributedhardware/devicemanager/ext/mini/services/devicemanagerservice/include/dispatch",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/include/bundlemgr",
+    "//foundation/distributedhardware/devicemanager/ext/profile/include",
+    "//foundation/deviceprofile/device_profile_core/interfaces/innerkits/core/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
+    "//foundation/distributedhardware/devicemanager/ext/mini/common/include",
+    "//base/security/deviceauth/interfaces/innerkits",
+    "${services_path}/include/ability",
+    "${services_path}/include/config",
+  ]
+
+  cflags = [
+    "-Wall",
+    "-Werror",
+    "-g3",
+    "-Dprivate=public",
+    "-Dprotected=public",
+  ]
+
+  defines = [
+    "HI_LOG_ENABLE",
+    "DH_LOG_TAG=\"device_manager_UTtest\"",
+    "LOG_DOMAIN=0xD004190",
+  ]
+}
+
+ohos_static_library("device_manager_test_common") {
+  testonly = true
+
+  visibility = [ ":*" ]
+
+  public_configs = [ ":device_manager_test_common_public_config" ]
+
+  public_deps = [
+    "${innerkits_path}/native_cpp:devicemanagersdk",
+    "${services_path}:devicemanagerservice",
+    "${utils_path}:devicemanagerutils",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core:ipc_core",
+    "//foundation/distributedhardware/devicemanager/ext/profile:devicemanagerext_profile",
+    "//foundation/distributedhardware/devicemanager/interfaces/kits/js:devicemanager",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+    "//third_party/googletest:gmock",
+    "//third_party/googletest:gtest",
+    "//utils/native/base:utils",
+  ]
+}
+
+## Build device_manager_test_common.a }}}
+
+## Build device_manager_test_common.a {{{
+config("device_manager_test_common_public") {
+  include_dirs = [
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/include",
+    "${innerkits_path}/native_cpp/include",
+    "${innerkits_path}/native_cpp/include/ipc",
+    "${innerkits_path}/native_cpp/include/notify",
+    "//third_party/json/include",
+    "${common_path}/include",
+    "${common_path}/include/ipc",
+    "${common_path}/include/ipc/model",
+    "${utils_path}/include",
+    "${utils_path}/include/ipc/standard",
+    "${services_path}/include",
+    "${services_path}/include/dependency/timer",
+    "${services_path}/include/discovery",
+    "${services_path}/include/dependency/softbus",
+    "${services_path}/include/dependency/hichain",
+    "${services_path}/include/dependency/multipleuser",
+    "${services_path}/include/dependency/softbus",
+    "${services_path}/include/authentication",
+    "${services_path}/include/adapter",
+    "${services_path}/include",
+    "${services_path}/include/discovery",
+    "${services_path}/include/deviceinfo/",
+    "${services_path}/include/devicestate",
+    "//foundation/distributedhardware/devicemanager/test/unittest/mock/",
+    "${services_path}/include/ability",
+    "${services_path}/include/config",
+    "//foundation/communication/dsoftbus/interfaces/kits/bus_center",
+    "//foundation/communication/ipc_lite/interfaces/kits",
+    "//foundation/communication/dsoftbus/interfaces/kits/common",
+    "//foundation/communication/dsoftbus/interfaces/kits/discovery",
+    "//foundation/communication/dsoftbus/interfaces/inner_kits/transport",
+    "//base/security/deviceauth/interfaces/innerkits",
+    "//base/account/os_account/interfaces/innerkits/osaccount/native/include",
+    "//base/account/os_account/frameworks/common/database/include",
+    "//base/account/os_account/frameworks/common/account_error/include",
+    "//foundation/distributedschedule/safwk/services/safwk",
+  ]
+
+  cflags = [
+    "-Wall",
+    "-Werror",
+    "-g3",
+    "-Dprivate=public",
+    "-Dprotected=public",
+  ]
+
+  defines = [
+    "HI_LOG_ENABLE",
+    "DH_LOG_TAG=\"device_manager_UTtest\"",
+    "LOG_DOMAIN=0xD004190",
+  ]
+}
+
+ohos_static_library("device_manager_test") {
+  testonly = true
+
+  visibility = [ ":*" ]
+
+  public_configs = [ ":device_manager_test_common_public" ]
+
+  public_deps = [
+    "${innerkits_path}/native_cpp:devicemanagersdk",
+    "${utils_path}:devicemanagerutils",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core:ipc_core",
+    "//foundation/distributedhardware/devicemanager/interfaces/kits/js:devicemanager",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+    "//third_party/googletest:gmock",
+    "//third_party/googletest:gtest",
+    "//utils/native/base:utils",
+  ]
+
+  deps = [
+    "${innerkits_path}/native_cpp:devicemanagersdk",
+    "${utils_path}:devicemanagerutils",
+    "//base/account/os_account/frameworks/osaccount/native:os_account_innerkits",
+    "//base/security/deviceauth/services:deviceauth_sdk",
+    "//foundation/aafwk/standard/interfaces/innerkits/ability_manager:ability_manager",
+    "//foundation/aafwk/standard/interfaces/innerkits/want:want",
+    "//foundation/aafwk/standard/services/abilitymgr:abilityms",
+  ]
+
+  external_deps = [
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "ces_standard:cesfwk_core",
+    "ces_standard:cesfwk_innerkits",
+    "dsoftbus_standard:softbus_client",
+    "eventhandler:libeventhandler",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+}
+## Build device_manager_test.a }}}

@@ -1,0 +1,100 @@
+{
+  "name": "display_device_driver",
+  "description": "display device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "display_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "1260KB",
+    "ram": "7700KB",
+    "deps": {
+      "components": [
+        "graphic_standard",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function",
+        "libdrm",
+        "wayland_standard",
+        "weston",
+        "googletest"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/display/hal:hdi_display"
+      ],
+      "test": [
+        "//drivers/peripheral/display:display_test_entry"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/display/hal:hdi_display_device",
+            "header": {
+              "header_files": [
+                "display_device.h",
+                "display_gfx.h",
+                "display_gralloc.h",
+                "display_layer.h",
+                "display_type.h",
+                "display_vgu.h"
+              ],
+              "header_base": "//drivers/peripheral/display/interfaces/include"
+          }
+        },
+        {
+          "name": "//drivers/peripheral/display/hal:hdi_display_gralloc",
+            "header": {
+              "header_files": [
+                "display_device.h",
+                "display_gfx.h",
+                "display_gralloc.h",
+                "display_layer.h",
+                "display_type.h",
+                "display_vgu.h"
+              ],
+              "header_base": "//drivers/peripheral/display/interfaces/include"
+          }
+        },
+        {
+          "name": "//drivers/peripheral/display/hal:hdi_display",
+            "header": {
+              "header_files": [
+                "display_device.h",
+                "display_gfx.h",
+                "display_gralloc.h",
+                "display_layer.h",
+                "display_type.h",
+                "display_vgu.h"
+              ],
+              "header_base": "//drivers/peripheral/display/interfaces/include"
+          }
+        },
+        {
+          "name": "//drivers/peripheral/display/hdi_service/video_layer/client:video_layer_client",
+            "header": {
+              "header_files": [
+                "idisplay_layer.h"
+              ],
+              "header_base": "//drivers/peripheral/display/hdi_service/video_layer/client"
+          }
+        },
+        {
+          "name": "//drivers/peripheral/display/hdi_service/gralloc/client:hdi_gralloc_client",
+            "header": {
+              "header_files": [
+                "idisplay_gralloc.h",
+                "parcel_utils.h"
+              ],
+              "header_base": "//drivers/peripheral/display/hdi_service/gralloc/include"
+          }
+        }
+      ]
+    }
+  }
+}

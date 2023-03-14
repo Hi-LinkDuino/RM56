@@ -1,0 +1,82 @@
+# Copyright (C) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/tools/build/suite.gni")
+
+_all_test_packages = [
+  "${DCTS_ROOT}/distributeddatamgr:distributeddatatest",
+  "${DCTS_ROOT}/communication:communication",
+]
+
+_all_test_packages_ivi = [
+  # add dcts for ivi here
+  # "${DCTS_ROOT}/multimedia:multimedia_ivi",
+]
+
+_all_test_packages_intellitv = [
+  # add dcts for intellitv here
+  #"${DCTS_ROOT}/multimedia:multimedia_intellitv",
+]
+
+_all_test_packages_wearable = [
+  # add dcts for wearable here
+  #"${DCTS_ROOT}/multimedia:multimedia_wearable",
+]
+
+selected_packages_wearable = []
+selected_packages_intellitv = []
+selected_packages_ivi = []
+selected_packages = []
+assert(XTS_SUITENAME != "")
+if (build_xts == true && XTS_SUITENAME == "dcts") {
+  _select_script = "//test/xts/tools/build/test_package_select.py"
+  _subsystem_config_path = rebase_path(
+          "$root_build_dir/build_configs/subsystem_info/src_subsystem_info.json")
+  _select_args = [ _subsystem_config_path ] + _all_test_packages
+  _select_args_ivi = [ _subsystem_config_path ] + _all_test_packages_ivi
+  _select_args_intellitv =
+      [ _subsystem_config_path ] + _all_test_packages_intellitv
+  _select_args_wearable =
+      [ _subsystem_config_path ] + _all_test_packages_wearable
+  _target_subsystem = getenv("target_subsystem")
+
+  if (_target_subsystem != "" && _target_subsystem != "all") {
+    print("Build dcts, target_subsystem=" + _target_subsystem)
+    _select_args += [ "selected_subsystem=" + _target_subsystem ]
+    _select_args_ivi += [ "selected_subsystem=" + _target_subsystem ]
+    _select_args_intellitv += [ "selected_subsystem=" + _target_subsystem ]
+    _select_args_wearable += [ "selected_subsystem=" + _target_subsystem ]
+  }
+
+  selected_packages = exec_script(_select_script, _select_args, "list lines")
+
+  selected_packages_ivi =
+      exec_script(_select_script, _select_args_ivi, "list lines")
+
+  selected_packages_intellitv =
+      exec_script(_select_script, _select_args_intellitv, "list lines")
+
+  selected_packages_wearable =
+      exec_script(_select_script, _select_args_wearable, "list lines")
+
+  print("Selected packages:")
+  print(selected_packages)
+
+  # always include testtools
+  selected_packages += [ "testtools:deploy_testtools" ]
+  selected_packages_ivi += [ "testtools:deploy_testtools" ]
+  selected_packages_intellitv += [ "testtools:deploy_testtools" ]
+  selected_packages_wearable += [ "testtools:deploy_testtools" ]
+} else {
+  print("DCTS build is not enabled")
+}

@@ -1,0 +1,65 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            richtext通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <div class="idPropDiv">
+            <richtext id="idProp">{{ content }}
+            </richtext>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <div class="classPropDiv">
+            <richtext id="classProp"
+                 class="classProp">
+                {{ content }}
+            </richtext>
+        </div>
+        <div class="classPropNoneDiv">
+            <richtext id="classPropNone"
+                 class="">
+                {{ content }}
+            </richtext>
+        </div>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <div class="stylePropDiv">
+            <richtext id="styleProp"
+                 style="visibility: visible;">
+                {{ content }}
+            </richtext>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            richtext特有属性
+        </text>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+{
+  "name": "@ohos/ui",
+  "description": "Graphic ui components",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "pubiishAs": "code-segment",
+  "segment": {
+    "destPath": "foundation/graphic/ui"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "ui",
+    "subsystem": "graphic",
+    "syscap": [ "SystemCapability.Graphic.UI" ],
+    "feature": [],
+    "adapted_system_type": [ "mini","small" ],
+    "rom": "900KB",
+    "ram": "~90KB",
+    "deps": {
+      "third_party": [
+        "libjpeg",
+        "cjson",
+        "freetype"
+      ]
+    },
+    "build": {
+      "sub_component": [ 
+        "//foundation/graphic/ui:lite_ui",
+        "//foundation/graphic/ui/test/unittest:lite_graphic_ui_test" 
+      ],
+      "inner_kits": [],
+      "test": []
+    }
+  }
+}

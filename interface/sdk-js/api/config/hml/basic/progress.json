@@ -1,0 +1,1036 @@
+{
+  "name": "progress",
+  "version": [
+    {
+      "name": "v3.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full",
+    "SystemCapability.ArkUI.ArkUI.Lite"
+  ],
+  "description": [
+    {
+      "name": "The <progress> component is used to provide a progress bar that displays the progress of content loading or operation processing."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "type",
+      "required": false,
+      "description": [
+        {
+          "name": "Type of the progress bar, which cannot be changed dynamically. Available values are as follows: horizontal: linear progress bar. circular (Rich): loading progress bar. ring (Rich): ring progress bar. scale-ring (Rich): ring progress bar with a scale. arc: arc progress bar."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "horizontal"
+        },
+        {
+          "name": "circular",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        },
+        {
+          "name": "ring",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        },
+        {
+          "name": "scale-ring",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        },
+        {
+          "name": "arc"
+        },
+        {
+          "name": "eclipse",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ],
+          "version": [
+            {
+              "name": "v5.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "percent",
+      "required": false,
+      "description": [
+        {
+          "name": "Current progress. The value ranges from 0 to 100."
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "secondarypercent",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "description": [
+        {
+          "name": "Secondary progress. The value ranges from 0 to 100.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "clockwise",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "description": [
+        {
+          "name": "Whether the ring progress bar uses clockwise.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "shareid",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "description": [
+        {
+          "name": "Used for the transition of shared elements and takes effect only when it is configured. This attribute cannot be modified after being set. list-item, image, text, button, label components are supported for the transition of shared elements.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Unique ID of a component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "style",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Style declaration of a component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "class",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Style class of a component, which is used to refer to a style table."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "ref",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Used to register reference information of child elements or child components. The reference information is registered with the parent component on $refs."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "disabled",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Whether a component is disabled. If it is disabled, it cannot respond to user interaction.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "focusable",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Whether a component can gain focus. When focusable is set to true, the component can respond to focus events and key events. If a key event or click event is set for the component, this attribute is set to true automatically.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "data-*",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Attribute set for a component to facilitate data storage and reading.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "click-effect",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v5.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Click effect complying with spring physics. Available values are as follows:\nspring-small: The button icon scales down to 90% of its size when it is selected. This is appropriate for small icons.\nspring-medium: The component scales down to 95% of its size when it is selected. This is appropriate for medium-sized components.spring-large: The button icon scales down and up by 95% of its size, which is appropriate to large icons.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "spring-small"
+        },
+        {
+          "name": "spring-medium"
+        },
+        {
+          "name": "spring-large"
+        }
+      ]
+    },
+    {
+      "name": "voicelabel",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Voice label. When a voice label is triggered, the click event of the component is triggered.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "subscriptflag",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Voice subscript switch. Available values are as follows:\nauto: For the <image> and <list-item> components, if subscriptflag is set to auto, the voice subscript is turned on. For other components, if subscriptflag is set to auto, the voice subscript is turned off.\non: Turn on the voice subscript.\noff: Turn off the voice subscript.If no customized subscript is set, the subscript is automatically accumulated from 1.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "auto"
+        },
+        {
+          "name": "on"
+        },
+        {
+          "name": "off"
+        }
+      ]
+    },
+    {
+      "name": "subscriptlabel",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Custom subscript. After it is set, the subscript is displayed in the way you specified. To make this attribute take effect, you need to turn on the voice subscript.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "scenelabel",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Available values are as follows:\nvideo: Video scenario. For example, to watch a video, a user can say the voiceLabel (usually the video name), play voiceLabel, see voiceLabel, or watch voiceLabel, etc.\naudio: Music scenario. For example, to listen to a song, a user can say the voiceLabel (usually the song name), play voiceLabel, or listen voiceLabel, etc.\npage: Page scenario. For example, to go to a page, a user can say the voiceLabel (usually the page name), switch to voiceLabel, go to voiceLabel, or jump to voiceLabel, etc.\nswitch: Switch scenario. For example, to turn on or turn off a switch, a user can say the voiceLabel (usually the switch name), turn on voiceLabel, open voiceLabel, turn off voiceLabel, close voiceLabel, etc.common: Common scenario, which is triggered by the voiceLabel.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "video"
+        },
+        {
+          "name": "audio"
+        },
+        {
+          "name": "page"
+        },
+        {
+          "name": "switch"
+        },
+        {
+          "name": "common"
+        }
+      ]
+    },
+    {
+      "name": "accessibilitygroup",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Accessibility group. If this attribute is set to true, the component and all its child components form an entire selectable component, and the accessibility service will no longer available for the content of its child components.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "accessibilitytext",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Accessibility text. If a component does not contain text information, it will not be read when the component is selected by the screen reader. In this case, the screen reader user cannot know which component is selected. To solve this problem, you can set this attribute for components without text information. When the component is selected by the screen reader, the specified accessibility text will be read, informing the user which component is selected. If a component with this attribute set contains text information, only the accessibility text will be read.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "accessibilitydescription",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Accessibility description. You can specify further explanation of the current component, for example, possible operation consequences, especially those cannot be learned from component attributes and accessibility text. You can set a detailed description text for the attribute of the component to help users understand the operation to be performed. If a component contains both text information and the accessibility description, the text is read first and then the accessibility description, when the component is selected.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "accessibilityimportance",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Accessibility importance, which is used to decide whether a component can be identified by the accessibility service. The value can be auto, yes, no, or no-hide-descendants. The last value forces the screen reader to ignore the current component and all its subcomponents.\nyes: The current component is selectable for the accessibility service.no: The current component is not selectable for the accessibility service.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "for",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Expands the current element based on the configured data list."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "tid",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tid attribute accelerates the for loop and improves the re-rendering efficiency when data in a loop changes.\nThe tid attribute specifies the unique ID of each element in the array. If it is not specified, the index of each element in the array is used as the ID. For example, tid=\"id\" indicates that the id attribute of each element is its unique ID."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "if",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Whether the element is added or removed."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "dir",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v6.0"
+        }
+      ],
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the element layout mode. The rtl, ltr, and auto attributes can be set.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "ltr"
+        },
+        {
+          "name": "rtl"
+        },
+        {
+          "name": "auto"
+        }
+      ]
+    },
+    {
+      "name": "elif",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "else",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [],
+      "type": "string"
+    },
+    {
+      "name": "show",
+      "required": false,
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Whether the element is displayed or hidden."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "touchstart",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping starts",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "touchmove",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping moves.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "touchcancel",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping is interrupted.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "touchend",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping ends.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "click",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component is clicked."
+        }
+      ]
+    },
+    {
+      "name": "longpress",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component is long pressed."
+        }
+      ]
+    },
+    {
+      "name": "doubleclick",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component is double clicked."
+        }
+      ]
+    },
+    {
+      "name": "pinchstart",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch starts."
+        }
+      ]
+    },
+    {
+      "name": "pinchupdate",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch updates."
+        }
+      ]
+    },
+    {
+      "name": "pinchend",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch ends."
+        }
+      ]
+    },
+    {
+      "name": "pinchcancel",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch is interrupted."
+        }
+      ]
+    },
+    {
+      "name": "drag",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The duration of drag."
+        }
+      ]
+    },
+    {
+      "name": "dragstart",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag starts."
+        }
+      ]
+    },
+    {
+      "name": "dragend",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag ends."
+        }
+      ]
+    },
+    {
+      "name": "dragenter",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag enters."
+        }
+      ]
+    },
+    {
+      "name": "dragover",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag overs."
+        }
+      ]
+    },
+    {
+      "name": "dragleave",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag leaves."
+        }
+      ]
+    },
+    {
+      "name": "drop",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag drops."
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component gains focus. The <span> component cannot gain focus.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blur",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component loses focus. The <span> component cannot lose focus.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "key",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A user presses a key on the remote control. Available return values are as follows:\ntrue: returned if the page processes the key event.\nfalse: returned if the default logic is used to process the key event.\nIf no value is returned, false is used as the return value.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "swipe",
+      "version": [
+        {
+          "name": "v5.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A user quickly swipes on a component."
+        }
+      ]
+    },
+    {
+      "name": "attached",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v6.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The current component is mounted to the render tree.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "detached",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v6.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The current component is removed from the render tree.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "accessibility",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Event dispatched by the accessibility service.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full"
+          ]
+        }
+      ]
+    }
+  ],
+  "supportedSubComponents": false,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

@@ -1,0 +1,148 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos_var.gni")
+
+SUBSYSTEM_DIR = "//foundation/communication"
+
+config("btipc_public_config") {
+  include_dirs = [
+    "include",
+    "parcel",
+  ]
+}
+
+ohos_static_library("btipc_static") {
+  sanitize = {
+    cfi = true
+    blocklist = "./ipc_blocklist.txt"
+  }
+  stack_protector_ret = true
+  public_configs = [ ":btipc_public_config" ]
+  include_dirs = [
+    "parcel",
+    "$SUBSYSTEM_DIR/bluetooth/frameworks/inner/common",
+    "$SUBSYSTEM_DIR/bluetooth/frameworks/inner/include",
+  ]
+  sources = [
+    "parcel/bluetooth_a2dp_a2dpCodecInfo.cpp",
+    "parcel/bluetooth_a2dp_a2dpCodecStatus.cpp",
+    "parcel/bluetooth_avrcp_meItem.cpp",
+    "parcel/bluetooth_avrcp_mpItem.cpp",
+    "parcel/bluetooth_ble_advertiser_data.cpp",
+    "parcel/bluetooth_ble_advertiser_settings.cpp",
+    "parcel/bluetooth_ble_scan_filter.cpp",
+    "parcel/bluetooth_ble_scan_result.cpp",
+    "parcel/bluetooth_ble_scan_settings.cpp",
+    "parcel/bluetooth_bt_uuid.cpp",
+    "parcel/bluetooth_gatt_characteristic.cpp",
+    "parcel/bluetooth_gatt_descriptor.cpp",
+    "parcel/bluetooth_gatt_device.cpp",
+    "parcel/bluetooth_gatt_service.cpp",
+    "parcel/bluetooth_hfp_hf_call.cpp",
+    "parcel/bluetooth_map_mce_parameter.cpp",
+    "parcel/bluetooth_opp_transfer_information.cpp",
+    "parcel/bluetooth_pbap_pce_parameter.cpp",
+    "parcel/bluetooth_raw_address.cpp",
+    "parcel/parcel_bt_uuid.cpp",
+    "src/bluetooth_a2dp_sink_observer_proxy.cpp",
+    "src/bluetooth_a2dp_sink_observer_stub.cpp",
+    "src/bluetooth_a2dp_sink_proxy.cpp",
+    "src/bluetooth_a2dp_sink_stub.cpp",
+    "src/bluetooth_a2dp_src_observer_proxy.cpp",
+    "src/bluetooth_a2dp_src_observer_stub.cpp",
+    "src/bluetooth_a2dp_src_proxy.cpp",
+    "src/bluetooth_a2dp_src_stub.cpp",
+    "src/bluetooth_avrcp_ct_observer_proxy.cpp",
+    "src/bluetooth_avrcp_ct_observer_stub.cpp",
+    "src/bluetooth_avrcp_ct_proxy.cpp",
+    "src/bluetooth_avrcp_ct_stub.cpp",
+    "src/bluetooth_avrcp_tg_observer_proxy.cpp",
+    "src/bluetooth_avrcp_tg_observer_stub.cpp",
+    "src/bluetooth_avrcp_tg_proxy.cpp",
+    "src/bluetooth_avrcp_tg_stub.cpp",
+    "src/bluetooth_ble_advertise_callback_proxy.cpp",
+    "src/bluetooth_ble_advertise_callback_stub.cpp",
+    "src/bluetooth_ble_advertiser_proxy.cpp",
+    "src/bluetooth_ble_advertiser_stub.cpp",
+    "src/bluetooth_ble_central_manager_callback_proxy.cpp",
+    "src/bluetooth_ble_central_manager_callback_stub.cpp",
+    "src/bluetooth_ble_central_manager_proxy.cpp",
+    "src/bluetooth_ble_central_manager_stub.cpp",
+    "src/bluetooth_ble_peripheral_observer_proxy.cpp",
+    "src/bluetooth_ble_peripheral_observer_stub.cpp",
+    "src/bluetooth_gatt_client_callback_proxy.cpp",
+    "src/bluetooth_gatt_client_callback_stub.cpp",
+    "src/bluetooth_gatt_client_proxy.cpp",
+    "src/bluetooth_gatt_client_stub.cpp",
+    "src/bluetooth_gatt_server_callback_proxy.cpp",
+    "src/bluetooth_gatt_server_callback_stub.cpp",
+    "src/bluetooth_gatt_server_proxy.cpp",
+    "src/bluetooth_gatt_server_stub.cpp",
+    "src/bluetooth_hfp_ag_observer_proxy.cpp",
+    "src/bluetooth_hfp_ag_observer_stub.cpp",
+    "src/bluetooth_hfp_ag_proxy.cpp",
+    "src/bluetooth_hfp_ag_stub.cpp",
+    "src/bluetooth_hfp_hf_observer_proxy.cpp",
+    "src/bluetooth_hfp_hf_observer_stub.cpp",
+    "src/bluetooth_hfp_hf_proxy.cpp",
+    "src/bluetooth_hfp_hf_stub.cpp",
+    "src/bluetooth_hid_host_observer_proxy.cpp",
+    "src/bluetooth_hid_host_observer_stub.cpp",
+    "src/bluetooth_hid_host_proxy.cpp",
+    "src/bluetooth_hid_host_stub.cpp",
+    "src/bluetooth_host_observer_proxy.cpp",
+    "src/bluetooth_host_observer_stub.cpp",
+    "src/bluetooth_host_proxy.cpp",
+    "src/bluetooth_host_stub.cpp",
+    "src/bluetooth_map_mce_observer_proxy.cpp",
+    "src/bluetooth_map_mce_observer_stub.cpp",
+    "src/bluetooth_map_mce_proxy.cpp",
+    "src/bluetooth_map_mce_stub.cpp",
+    "src/bluetooth_map_mse_observer_proxy.cpp",
+    "src/bluetooth_map_mse_observer_stub.cpp",
+    "src/bluetooth_map_mse_proxy.cpp",
+    "src/bluetooth_map_mse_stub.cpp",
+    "src/bluetooth_opp_observer_proxy.cpp",
+    "src/bluetooth_opp_observer_stub.cpp",
+    "src/bluetooth_opp_proxy.cpp",
+    "src/bluetooth_opp_stub.cpp",
+    "src/bluetooth_pan_observer_proxy.cpp",
+    "src/bluetooth_pan_observer_stub.cpp",
+    "src/bluetooth_pan_proxy.cpp",
+    "src/bluetooth_pan_stub.cpp",
+    "src/bluetooth_pbap_pce_observer_proxy.cpp",
+    "src/bluetooth_pbap_pce_observer_stub.cpp",
+    "src/bluetooth_pbap_pce_proxy.cpp",
+    "src/bluetooth_pbap_pce_stub.cpp",
+    "src/bluetooth_pbap_pse_observer_proxy.cpp",
+    "src/bluetooth_pbap_pse_observer_stub.cpp",
+    "src/bluetooth_pbap_pse_proxy.cpp",
+    "src/bluetooth_pbap_pse_stub.cpp",
+    "src/bluetooth_remote_device_observer_proxy.cpp",
+    "src/bluetooth_remote_device_observer_stub.cpp",
+    "src/bluetooth_socket_proxy.cpp",
+    "src/bluetooth_socket_stub.cpp",
+  ]
+
+  cflags_cc = [ "-fvisibility=hidden" ]
+
+  deps = [ "$SUBSYSTEM_DIR/bluetooth/services/bluetooth/common:btcommon" ]
+
+  external_deps = [
+    "c_utils:utils",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+  ]
+}

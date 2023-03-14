@@ -1,0 +1,18 @@
+/*
+ * HDF decompile hcs file
+ */
+
+root {
+    module = "test";
+    foo {
+        term1 = 0x1;
+        term2 = 0x2;
+        term3 = 0x3;
+    }
+    bar {
+        term1 = 0x2;
+        term4 = "hello";
+        term2 = 0x2;
+        term3 = 0x3;
+    }
+}

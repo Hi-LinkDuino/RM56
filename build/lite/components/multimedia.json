@@ -1,0 +1,195 @@
+{
+  "components": [
+    {
+      "component": "media_service",
+      "description": "Media service.",
+      "optional": "true",
+      "dirs": [
+        "foundation/multimedia/media_lite",
+        "foundation/multimedia/utils/lite"
+      ],
+      "targets": [
+        "//foundation/multimedia/media_lite/services:media_lite",
+        "//foundation/multimedia/camera_lite/test:lite_camera_test",
+        "//foundation/multimedia/media_lite/test/unittest:lite_medialite_test",
+        "//foundation/multimedia/audio_lite/test:lite_audio_test",
+        "//foundation/multimedia/media_lite/services:camera_config",
+        "//foundation/multimedia/media_lite/interfaces/kits/player_lite/js/builtin:audio_lite_api"
+      ],
+      "rom": "622KB",
+      "ram": "",
+      "output": [
+        "media_server"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "iniparser"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hi3516dv300_adapter"
+          ],
+          "hi3518ev300": [
+            "hi3518ev300_adapter"
+          ]
+        },
+        "components": [
+          "hilog_lite",
+          "audio_manager_lite",
+          "camera_lite",
+          "permission",
+          "ipc_lite",
+          "ui",
+          "syspara_lite"
+        ]
+      }
+    },
+    {
+      "component": "camera_lite",
+      "description": "Camera service.",
+      "optional": "true",
+      "dirs": [
+        "foundation/multimedia/camera_lite",
+        "foundation/multimedia/utils/lite/hals"
+      ],
+      "targets": [
+        "//foundation/multimedia/camera_lite/frameworks:camera_lite"
+      ],
+      "rom": "131KB",
+      "ram": "",
+      "output": [ "camera_lite.so" ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hi3516dv300_adapter"
+          ],
+          "hi3518ev300": [
+            "hi3518ev300_adapter"
+          ]
+        },
+        "components": [
+          "hilog_lite",
+          "permission",
+          "surface"
+        ]
+      }
+    },
+    {
+      "component": "histreamer",
+      "description": "Histreamer engine.",
+      "optional": "true",
+      "dirs": [
+        "foundation/multimedia/histreamer"
+      ],
+      "targets": [
+        "//foundation/multimedia/histreamer:histreamer"
+      ],
+      "rom": "622KB",
+      "ram": "",
+      "output": [
+        "libhistreamer.so",
+        "libhistreamer.a"
+      ],
+      "adapted_kernel": [ "liteos_a","liteos_m","linux" ],
+      "features": [ "multimedia_histreamer_enable_plugin_hdi_adapter = true" ],
+      "deps": {
+        "third_party": [
+          "ffmpeg",
+          "minimp3",
+          "minimp4"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hi3516dv300_adapter"
+          ],
+          "hi3518ev300": [
+            "hi3518ev300_adapter"
+          ]
+        },
+        "components": [
+          "hilog_lite"
+        ]
+      }
+    },
+    {
+      "component": "media_lite",
+      "description": "recoder service and player service.",
+      "optional": "true",
+      "dirs": [
+        "foundation/multimedia/media_lite"
+      ],
+      "targets": [
+        "//foundation/multimedia/media_lite/frameworks/recorder_lite:recorder_lite",
+        "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite"
+      ],
+      "rom": "622KB",
+      "ram": "",
+      "output": [ "recorder_lite.so", "player_lite.so" ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "iniparser"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hi3516dv300_adapter"
+          ],
+          "hi3518ev300": [
+            "hi3518ev300_adapter"
+          ]
+        },
+        "components": [
+          "hilog_lite",
+          "audio_manager_lite",
+          "camera_lite",
+          "permission",
+          "ipc_lite",
+          "ui"
+        ]
+      }
+    },
+    {
+      "component": "audio_manager_lite",
+      "description": "Audio encoder and decoder.",
+      "optional": "true",
+      "dirs": [
+        "foundation/multimedia/audio_lite"
+      ],
+      "targets": [
+        "//foundation/multimedia/audio_lite/frameworks:audio_capturer_lite"
+      ],
+      "rom": "59KB",
+      "ram": "",
+      "output": [ "audio_capturer_lite.so" ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "surface"
+        ]
+      }
+    }
+  ]
+}

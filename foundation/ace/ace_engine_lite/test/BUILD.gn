@@ -1,0 +1,67 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+if (ohos_kernel_type != "liteos_m") {
+  import("//build/lite/config/test.gni")
+  import("//foundation/ace/ace_engine_lite/test/ace_test_config.gni")
+
+  cache_manager_unittest_root =
+      "$ACE_LITE_COMMON_PATH/memory/cache/test/unittest"
+  components_unittest_root =
+      "$ace_lite_root/frameworks/src/core/components/test/unittest"
+  context_unittest_root =
+      "$ace_lite_root/frameworks/src/core/context/test/unittest"
+  async_unittest_root = "$NATIVE_ENGINE_PATH/async/test/unittest"
+  jsi_unittest_root = "$NATIVE_ENGINE_PATH/jsi/test/unittest"
+  module_manager_unittest_root = "$MODULE_MANAGER_PATH/test/unittest"
+  modules_unittest_root =
+      "$ace_lite_root/frameworks/src/core/modules/test/unittest"
+  stylemgr_unittest_root =
+      "$ace_lite_root/frameworks/src/core/stylemgr/test/unittest"
+  router_unittest_root =
+      "$ace_lite_root/frameworks/src/core/router/test/unittest"
+  base_unittest_root = "$ace_lite_root/frameworks/src/core/base/test/unittest"
+
+  # common config for all test, append extra in self gn
+  config("test_common_config") {
+    include_dirs = ace_test_includes
+    configs = ace_test_configs
+    defines = ace_test_defines
+  }
+
+  # this is the config for compiling all ace source code with test code together
+  config("test_whole_archive_config") {
+    include_dirs = all_external_includes
+    configs = ace_test_configs
+    defines = all_defines
+  }
+
+  group("unittest") {
+    deps = [
+      "$ace_lite_root/test/moduletest/common:door_unittest",
+      "$async_unittest_root:async_unittest",
+      "$base_unittest_root:base_utils_unittest",
+      "$cache_manager_unittest_root:cache_manager_unittest",
+      "$components_unittest_root:components_unittest",
+      "$context_unittest_root:js_frameworks_unittest",
+      "$jsi_unittest_root:jsi_unittest",
+      "$module_manager_unittest_root:module_manager_unittest",
+      "$modules_unittest_root:modules_unittest",
+      "$router_unittest_root:router_module_unittest",
+      "$stylemgr_unittest_root:stylemgr_unittest",
+    ]
+  }
+} else {
+  group("unittest") {
+  }
+}

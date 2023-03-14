@@ -1,0 +1,2 @@
+#include "../../../soc/bestechnic/bes2700/liteos_m/components/hdf_config/device_info_tma525c.hcs"
+#include "../../../soc/bestechnic/bes2700/liteos_m/components/hdf_config/hdf_tma525c.hcs"

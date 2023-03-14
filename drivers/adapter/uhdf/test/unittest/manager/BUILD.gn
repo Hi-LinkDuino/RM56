@@ -1,0 +1,210 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/test.gni")
+
+unittest("hdf_adapter_uhdf_test_manager") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/hdf"
+  include_dirs = [
+    "//third_party/googletest/googletest/include",
+    "//third_party/bounds_checking_function/include",
+
+    "//drivers/framework/include/platform",
+    "//drivers/framework/include/core",
+    "//drivers/framework/core/common/include/host",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include",
+    "//drivers/framework/test/unittest/include",
+    "//drivers/framework/test/unittest/manager",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  defines = [ "__USER__" ]
+  sources = [ "//drivers/framework/core/manager/test/unittest/common/hdf_lite_manager_test.cpp" ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+}
+
+unittest("hdf_adapter_uhdf_test_ioservice") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/hdf"
+  include_dirs = [
+    "//third_party/googletest/googletest/include",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/framework/include/platform",
+    "//drivers/framework/include/core",
+    "//drivers/framework/core/common/include/host",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include",
+    "//drivers/framework/test/unittest/include",
+    "//drivers/framework/test/unittest/manager",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  defines = [ "__USER__" ]
+  sources = [ "//drivers/framework/core/manager/test/unittest/common/hdf_ioservice_test.cpp" ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+}
+
+unittest("hdf_adapter_uhdf_test_sbuf") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/hdf"
+  include_dirs = [
+    "//third_party/googletest/googletest/include",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/framework/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include",
+    "//drivers/framework/test/unittest/include",
+    "//drivers/framework/test/unittest/manager",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  defines = [ "__USER__" ]
+  sources = [
+    "//drivers/framework/core/manager/test/unittest/common/hdf_sbuf_test.cpp",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+}
+
+unittest("hdf_adapter_uhdf_test_door") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/hdf"
+  include_dirs = [
+    "//third_party/googletest/googletest/include",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/framework/include/platform",
+    "//drivers/framework/include/core",
+    "//drivers/framework/core/common/include/host",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include",
+    "//drivers/framework/test/unittest/include",
+    "//drivers/framework/test/unittest/manager",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  defines = [ "__USER__" ]
+  sources = [
+    "//drivers/framework/core/manager/test/unittest/common/hdf_ioservice_test.cpp",
+    "//drivers/framework/core/manager/test/unittest/common/hdf_lite_manager_test.cpp",
+    "//drivers/framework/core/manager/test/unittest/common/hdf_sbuf_test.cpp",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+}
+
+unittest("hdf_adapter_uhdf_test_pm") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/hdf"
+  include_dirs = [
+    "//third_party/googletest/googletest/include",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/framework/include/platform",
+    "//drivers/framework/include/core",
+    "//drivers/framework/core/common/include/host",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include",
+    "//drivers/framework/test/unittest/include",
+    "//drivers/framework/test/unittest/manager",
+    "//drivers/framework/test/unittest/pm",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  defines = [ "__USER__" ]
+  sources = [
+    "//drivers/framework/core/manager/test/unittest/common/hdf_pm_test.cpp",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+}

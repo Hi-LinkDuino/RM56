@@ -1,0 +1,299 @@
+# Copyright (c) 2020-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/graphic/config.gni")
+import("//build/lite/ndk/ndk.gni")
+
+lite_component("lite_ui") {
+  features = [ ":ui" ]
+  public_deps = features
+}
+
+ndk_lib("lite_ui_ndk") {
+  lib_extension = ".so"
+  deps = [ ":ui" ]
+  head_files = [ "interfaces/kits" ]
+}
+
+config("graphic_define_config") {
+  include_dirs = [
+    "interfaces/kits",
+    "interfaces/innerkits",
+  ]
+  defines = [
+    "GRAPHIC_ENABLE_ELLIPSE_FLAG=1",
+    "GRAPHIC_ENABLE_BEZIER_ARC_FLAG=1",
+    "GRAPHIC_ENABLE_LINECAP_FLAG=1",
+    "GRAPHIC_ENABLE_LINEJOIN_FLAG=1",
+    "GRAPHIC_ENABLE_ARC_FLAG=1",
+    "GRAPHIC_ENABLE_ROUNDEDRECT_FLAG=1",
+    "GRAPHIC_ENABLE_GRADIENT_FILL_FLAG=1",
+    "GRAPHIC_ENABLE_SHADOW_EFFECT_FLAG=1",
+    "GRAPHIC_ENABLE_DRAW_TEXT_FLAG=1",
+  ]
+  if (ohos_kernel_type != "liteos_m") {
+    defines += [
+      "ENABLE_VECTOR_FONT=1",
+      "ENABLE_BITMAP_FONT=0",
+      "ENABLE_SHAPING=0",
+      "ENABLE_ICU=1",
+      "ENABLE_MULTI_FONT=0",
+      "DEFAULT_ANIMATION=1",
+    ]
+    if (ohos_kernel_type == "linux") {
+      defines += [ "RESOURCE_DIR=\"/storage/data/\"" ]
+    } else {
+      defines += [ "RESOURCE_DIR=\"/user/data/\"" ]
+    }
+  }
+
+  if (ohos_kernel_type == "liteos_a") {
+    defines += [
+      "GRAPHIC_ENABLE_DASH_GENERATE_FLAG=1",
+      "GRAPHIC_ENABLE_BLUR_EFFECT_FLAG=1",
+      "GRAPHIC_ENABLE_PATTERN_FILL_FLAG=1",
+      "GRAPHIC_ENABLE_DRAW_IMAGE_FLAG=1",
+    ]
+  } else if (ohos_kernel_type == "liteos_m") {
+    include_dirs += [ "//third_party/freetype/include" ]
+    defines += [
+      "GRAPHIC_ENABLE_DASH_GENERATE_FLAG=1",
+      "GRAPHIC_ENABLE_BLUR_EFFECT_FLAG=1",
+      "GRAPHIC_ENABLE_PATTERN_FILL_FLAG=1",
+      "GRAPHIC_ENABLE_DRAW_IMAGE_FLAG=1",
+    ]
+  } else {
+    defines += [
+      "GRAPHIC_ENABLE_DASH_GENERATE_FLAG=1",
+      "GRAPHIC_ENABLE_BLUR_EFFECT_FLAG=1",
+      "GRAPHIC_ENABLE_PATTERN_FILL_FLAG=1",
+      "GRAPHIC_ENABLE_DRAW_IMAGE_FLAG=1",
+    ]
+  }
+}
+
+if (enable_graphic_font) {
+  copy("utils_config") {
+    sources = [
+      "tools/qt/simulator/font/SourceHanSansSC-Regular.otf",
+      "tools/qt/simulator/font/line_cj.brk",
+    ]
+    outputs = [ "$root_out_dir/data/{{source_file_part}}" ]
+  }
+}
+
+lite_library("ui") {
+  sources = [
+    "frameworks/animator/animator.cpp",
+    "frameworks/animator/animator_manager.cpp",
+    "frameworks/animator/easing_equation.cpp",
+    "frameworks/animator/interpolation.cpp",
+    "frameworks/common/graphic_startup.cpp",
+    "frameworks/common/image.cpp",
+    "frameworks/common/image_decode_ability.cpp",
+    "frameworks/common/input_device_manager.cpp",
+    "frameworks/common/screen.cpp",
+    "frameworks/common/spannable_string.cpp",
+    "frameworks/common/task.cpp",
+    "frameworks/common/text.cpp",
+    "frameworks/common/typed_text.cpp",
+    "frameworks/components/root_view.cpp",
+    "frameworks/components/text_adapter.cpp",
+    "frameworks/components/ui_abstract_clock.cpp",
+    "frameworks/components/ui_abstract_progress.cpp",
+    "frameworks/components/ui_abstract_scroll.cpp",
+    "frameworks/components/ui_abstract_scroll_bar.cpp",
+    "frameworks/components/ui_analog_clock.cpp",
+    "frameworks/components/ui_arc_label.cpp",
+    "frameworks/components/ui_arc_scroll_bar.cpp",
+    "frameworks/components/ui_axis.cpp",
+    "frameworks/components/ui_box_progress.cpp",
+    "frameworks/components/ui_box_scroll_bar.cpp",
+    "frameworks/components/ui_button.cpp",
+    "frameworks/components/ui_bes_menu.cpp",
+    "frameworks/components/ui_bes_drag_view.cpp",
+    "frameworks/components/ui_bes_slide_view.cpp",
+    "frameworks/components/ui_canvas.cpp",
+    "frameworks/components/ui_chart.cpp",
+    "frameworks/components/ui_checkbox.cpp",
+    "frameworks/components/ui_circle_progress.cpp",
+    "frameworks/components/ui_dialog.cpp",
+    "frameworks/components/ui_digital_clock.cpp",
+    "frameworks/components/ui_drawer_layout.cpp",
+    "frameworks/components/ui_extend_image_view.cpp",
+    "frameworks/components/ui_fisheye_menu.cpp",
+    "frameworks/components/ui_image_animator.cpp",
+    "frameworks/components/ui_image_view.cpp",
+    "frameworks/components/ui_label.cpp",
+    "frameworks/components/ui_label_button.cpp",
+    "frameworks/components/ui_list.cpp",
+    "frameworks/components/ui_picker.cpp",
+    "frameworks/components/ui_qrcode.cpp",
+    "frameworks/components/ui_radio_button.cpp",
+    "frameworks/components/ui_repeat_button.cpp",
+    "frameworks/components/ui_scroll_view.cpp",
+    "frameworks/components/ui_slider.cpp",
+    "frameworks/components/ui_surface_view.cpp",
+    "frameworks/components/ui_swipe_view.cpp",
+    "frameworks/components/ui_texture_mapper.cpp",
+    "frameworks/components/ui_time_picker.cpp",
+    "frameworks/components/ui_toggle_button.cpp",
+    "frameworks/components/ui_view.cpp",
+    "frameworks/components/ui_view_group.cpp",
+    "frameworks/core/render_manager.cpp",
+    "frameworks/core/task_manager.cpp",
+    "frameworks/default_resource/check_box_res.cpp",
+    "frameworks/dfx/event_injector.cpp",
+    "frameworks/dfx/key_event_injector.cpp",
+    "frameworks/dfx/performance_task.cpp",
+    "frameworks/dfx/point_event_injector.cpp",
+    "frameworks/dfx/ui_dump_dom_tree.cpp",
+    "frameworks/dfx/ui_screenshot.cpp",
+    "frameworks/dfx/ui_view_bounds.cpp",
+    "frameworks/dock/focus_manager.cpp",
+    "frameworks/dock/input_device.cpp",
+    "frameworks/dock/key_input_device.cpp",
+    "frameworks/dock/ohos/ohos_input_device.cpp",
+    "frameworks/dock/pointer_input_device.cpp",
+    "frameworks/dock/rotate_input_device.cpp",
+    "frameworks/dock/screen_device_proxy.cpp",
+    "frameworks/dock/vibrator_manager.cpp",
+    "frameworks/dock/virtual_input_device.cpp",
+    "frameworks/draw/clip_utils.cpp",
+    "frameworks/draw/draw_arc.cpp",
+    "frameworks/draw/draw_curve.cpp",
+    "frameworks/draw/draw_image.cpp",
+    "frameworks/draw/draw_label.cpp",
+    "frameworks/draw/draw_line.cpp",
+    "frameworks/draw/draw_rect.cpp",
+    "frameworks/draw/draw_triangle.cpp",
+    "frameworks/draw/draw_utils.cpp",
+    "frameworks/engines/gfx/gfx_engine_manager.cpp",
+    "frameworks/engines/gfx/hi3516/hi3516_engine.cpp",
+    "frameworks/events/event.cpp",
+    "frameworks/font/base_font.cpp",
+    "frameworks/font/font_ram_allocator.cpp",
+    "frameworks/font/glyphs_cache.cpp",
+    "frameworks/font/glyphs_file.cpp",
+    "frameworks/font/glyphs_manager.cpp",
+    "frameworks/font/ui_font.cpp",
+    "frameworks/font/ui_font_adaptor.cpp",
+    "frameworks/font/ui_font_allocator.cpp",
+    "frameworks/font/ui_font_bitmap.cpp",
+    "frameworks/font/ui_font_builder.cpp",
+    "frameworks/font/ui_font_cache.cpp",
+    "frameworks/font/ui_font_vector.cpp",
+    "frameworks/font/ui_line_break.cpp",
+    "frameworks/font/ui_multi_font_manager.cpp",
+    "frameworks/font/ui_text_shaping.cpp",
+    "frameworks/imgdecode/cache_manager.cpp",
+    "frameworks/imgdecode/file_img_decoder.cpp",
+    "frameworks/imgdecode/image_load.cpp",
+    "frameworks/layout/flex_layout.cpp",
+    "frameworks/layout/grid_layout.cpp",
+    "frameworks/layout/list_layout.cpp",
+    "frameworks/render/render_base.cpp",
+    "frameworks/render/render_pixfmt_rgba_blend.cpp",
+    "frameworks/render/render_scanline.cpp",
+    "frameworks/themes/theme.cpp",
+    "frameworks/themes/theme_manager.cpp",
+    "frameworks/window/window.cpp",
+    "frameworks/window/window_impl.cpp",
+  ]
+
+  if (ohos_kernel_type == "liteos_m") {
+    target_type = "static_library"
+    include_dirs = [
+      "frameworks",
+      "//third_party/freetype/include",
+    ]
+    sources -= [
+      "frameworks/components/ui_surface_view.cpp",
+      "frameworks/dfx/ui_dump_dom_tree.cpp",
+      "frameworks/dfx/ui_screenshot.cpp",
+      "frameworks/engines/gfx/hi3516/hi3516_engine.cpp",
+      "frameworks/window/window.cpp",
+      "frameworks/window/window_impl.cpp",
+    ]
+    deps = [
+      "//build/lite/config/component/cJSON:cjson_static",
+      "//third_party/bounds_checking_function:libsec_static",
+      "//third_party/freetype:freetype",
+      "//third_party/giflib:libgif",
+      "//third_party/libjpeg:libjpeg",
+      "//third_party/libpng:libpng",
+      "//third_party/qrcodegen:qrcodegen",
+    ]
+  } else {
+    target_type = "shared_library"
+    include_dirs = [ "frameworks" ]
+    deps = [
+      "//build/lite/config/component/cJSON:cjson_shared",
+      "//foundation/graphic/surface:lite_surface",
+      "//foundation/graphic/utils:lite_graphic_hals",
+      "//foundation/graphic/wms:lite_wms",
+      "//third_party/bounds_checking_function:libsec_shared",
+      "//third_party/freetype:freetype",
+      "//third_party/giflib:libgif",
+      "//third_party/icu/icu4c/source/common:icu_font",
+      "//third_party/libjpeg:libjpeg",
+      "//third_party/libpng:libpng",
+      "//third_party/qrcodegen:qrcodegen",
+    ]
+
+    if (enable_video_component) {
+      defines += [ "ENABLE_VIDEO_COMPONENT=1" ]
+      source += [ "frameworks/components/ui_video.cpp" ]
+
+      deps += [
+        "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite",
+      ]
+    }
+
+    if (enable_graphic_font) {
+      deps += [ "//foundation/graphic/ui:utils_config" ]
+    }
+
+    ldflags = [ "-Wl,-rpath-link=$ohos_root_path/$root_out_dir" ]
+  }
+
+  public_deps = [ "//foundation/graphic/utils:lite_graphic_utils" ]
+  public_configs = [ ":graphic_define_config" ]
+  cflags = [
+    "-Wall",
+    "-fno-exceptions",
+  ]
+  cflags_cc = cflags
+
+  #yongxianglai@bestechnic.com: bestechnic
+  sources += [
+    "frameworks/components/bestechnic/ui_bes_arc_scroll_bar.cpp",
+    "frameworks/components/bestechnic/ui_bes_box_scroll_bar.cpp",
+    "frameworks/components/bestechnic/ui_bes_list.cpp",
+  ]
+  if(bfd_dev_mode == "prod"){
+    sources -= [
+      "frameworks/components/root_view.cpp",
+      "frameworks/components/bestechnic/ui_bes_arc_scroll_bar.cpp",
+      "frameworks/components/bestechnic/ui_bes_box_scroll_bar.cpp",
+      "frameworks/components/bestechnic/ui_bes_list.cpp",
+      "frameworks/components/ui_bes_drag_view.cpp",
+      "frameworks/components/ui_bes_menu.cpp",
+      "frameworks/components/ui_bes_slide_view.cpp",
+      "frameworks/components/ui_drawer_layout.cpp",
+      "frameworks/components/ui_fisheye_menu.cpp",
+      "frameworks/components/ui_abstract_progress.cpp",
+      "frameworks/components/ui_box_progress.cpp",
+      "frameworks/components/ui_circle_progress.cpp"
+    ]
+  }
+}

@@ -1,0 +1,179 @@
+root {
+    module="sample";
+    camera_host_config {
+        match_attr = "camera_host_interface";
+        template ability {
+            logicCameraId = "lcam001";
+            physicsCameraIds = [
+                "CAMERA_FIRST",
+                "CAMERA_SECOND"
+            ];
+            metadata {
+                aeAvailableAntiBandingModes = [
+                    "OHOS_CONTROL_AE_ANTIBANDING_MODE_OFF",
+                    "OHOS_CONTROL_AE_ANTIBANDING_MODE_50HZ",
+                    "OHOS_CONTROL_AE_ANTIBANDING_MODE_60HZ",
+                    "OHOS_CONTROL_AE_ANTIBANDING_MODE_AUTO"
+                ];
+                aeAvailableModes = ["OHOS_CONTROL_AE_MODE_ON"];
+                availableAeFpsTargets = [15, 30];
+                aeCompensationRange = [0, 0];
+                aeCompensationSteps = [0, 1];
+                availableAwbModes = [
+                    "OHOS_CONTROL_AWB_MODE_OFF"
+                ];
+                sceneModesOverrides = [
+                    "OHOS_CONTROL_AE_MODE_ON",
+                    "OHOS_CONTROL_AWB_MODE_AUTO"
+                ];
+                aeLockAvailable = "OHOS_CONTROL_AE_LOCK_AVAILABLE_FALSE";
+                awbLockAvailable = "OHOS_CONTROL_AWB_LOCK_AVAILABLE_FALSE";
+                sensitivityRange = [32, 2400];
+                exposureTimeRange = [100000, 200000000];
+                faceDetectMode = "OHOS_STATISTICS_FACE_DETECT_MODE_OFF";
+                maxFaceCount = 0;
+                flashAvailable = "OHOS_FLASH_INFO_AVAILABLE_FALSE";
+                lensFacing = "OHOS_LENS_FACING_FRONT";
+                opticalStabilizations = ["OHOS_LENS_OPTICAL_STABILIZATION_MODE_OFF"];
+                maxDigitalZoom = "1";
+                availableCharacteristicsKeys = [
+                    "OHOS_COLOR_CORRECTION_AVAILABLE_ABERRATION_MODES",
+                    "OHOS_CONTROL_AE_AVAILABLE_ANTIBANDING_MODES",
+                    "OHOS_CONTROL_AE_AVAILABLE_MODES",
+                    "OHOS_CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES",
+                    "OHOS_CONTROL_AE_COMPENSATION_RANGE",
+                    "OHOS_CONTROL_AE_COMPENSATION_STEP",
+                    "OHOS_CONTROL_AVAILABLE_EFFECTS",
+                    "OHOS_CONTROL_AVAILABLE_SCENE_MODES",
+                    "OHOS_CONTROL_AVAILABLE_VIDEO_STABILIZATION_MODES",
+                    "OHOS_CONTROL_AWB_AVAILABLE_MODES",
+                    "OHOS_CONTROL_MAX_REGIONS",
+                    "OHOS_CONTROL_SCENE_MODE_OVERRIDES",
+                    "OHOS_CONTROL_AE_LOCK_AVAILABLE",
+                    "OHOS_CONTROL_AWB_LOCK_AVAILABLE",
+                    "OHOS_CONTROL_AVAILABLE_MODES",
+                    "OHOS_JPEG_AVAILABLE_THUMBNAIL_SIZES",
+                    "OHOS_JPEG_MAX_SIZE",
+                    "OHOS_SENSOR_INFO_PIXEL_ARRAY_SIZE",
+                    "OHOS_SENSOR_INFO_ACTIVE_ARRAY_SIZE",
+                    "OHOS_SENSOR_INFO_SENSITIVITY_RANGE",
+                    "OHOS_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT",
+                    "OHOS_SENSOR_INFO_EXPOSURE_TIME_RANGE",
+                    "OHOS_SENSOR_ORIENTATION",
+                    "OHOS_SENSOR_AVAILABLE_TEST_PATTERN_MODES",
+                    "OHOS_SENSOR_INFO_PHYSICAL_SIZE",
+                    "OHOS_SENSOR_INFO_TIMESTAMP_SOURCE",
+                    "OHOS_STATISTICS_INFO_AVAILABLE_FACE_DETECT_MODES",
+                    "OHOS_STATISTICS_INFO_MAX_FACE_COUNT",
+                    "OHOS_SYNC_MAX_LATENCY",
+                    "OHOS_FLASH_INFO_AVAILABLE",
+                    "OHOS_LENS_INFO_AVAILABLE_APERTURES",
+                    "OHOS_LENS_FACING",
+                    "OHOS_LENS_INFO_AVAILABLE_FOCAL_LENGTHS",
+                    "OHOS_LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION",
+                    "OHOS_LENS_INFO_HYPERFOCAL_DISTANCE",
+                    "OHOS_LENS_INFO_MINIMUM_FOCUS_DISTANCE",
+                    "OHOS_NOISE_REDUCTION_AVAILABLE_NOISE_REDUCTION_MODES",
+                    "OHOS_SCALER_AVAILABLE_MAX_DIGITAL_ZOOM",
+                    "OHOS_SCALER_AVAILABLE_STREAM_CONFIGURATIONS",
+                    "OHOS_SCALER_AVAILABLE_STALL_DURATIONS",
+                    "OHOS_SCALER_AVAILABLE_MIN_FRAME_DURATIONS",
+                    "OHOS_SCALER_CROPPING_TYPE",
+                    "OHOS_INFO_SUPPORTED_HARDWARE_LEVEL",
+                    "OHOS_REQUEST_PARTIAL_RESULT_COUNT",
+                    "OHOS_REQUEST_PIPELINE_MAX_DEPTH",
+                    "OHOS_REQUEST_MAX_NUM_OUTPUT_STREAMS",
+                    "OHOS_REQUEST_MAX_NUM_INPUT_STREAMS",
+                    "OHOS_REQUEST_AVAILABLE_CAPABILITIES"
+                ];
+                availableRequestKeys = [
+                    "OHOS_CONTROL_AE_MODE",
+                    "OHOS_CONTROL_AE_EXPOSURE_COMPENSATION",
+                    "OHOS_CONTROL_AE_PRECAPTURE_TRIGGER",
+                    "OHOS_CONTROL_AE_TARGET_FPS_RANGE",
+                    "OHOS_CONTROL_AE_ANTIBANDING_MODE",
+                    "OHOS_CONTROL_AWB_MODE",
+                    "OHOS_CONTROL_AWB_LOCK",
+                    "OHOS_FLASH_MODE",
+                    "OHOS_STATISTICS_FACE_DETECT_MODE",
+                    "OHOS_NOISE_REDUCTION_MODE",
+                    "OHOS_COLOR_CORRECTION_ABERRATION_MODE",
+                    "OHOS_LENS_APERTURE",
+                    "OHOS_LENS_OPTICAL_STABILIZATION_MODE",
+                    "OHOS_CONTROL_MODE",
+                    "OHOS_CONTROL_CAPTURE_INTENT"
+                ];
+                availableResultKeys = [
+                    "OHOS_CONTROL_AE_STATE",
+                    "OHOS_CONTROL_AE_LOCK",
+                    "OHOS_CONTROL_AWB_STATE",
+                    "OHOS_CONTROL_AWB_LOCK",
+                    "OHOS_LENS_STATE",
+                    "OHOS_REQUEST_PIPELINE_DEPTH",
+                    "OHOS_SCALER_CROP_REGION",
+                    "OHOS_SENSOR_TIMESTAMP",
+                    "OHOS_SENSOR_ROLLING_SHUTTER_SKEW",
+                    "OHOS_SENSOR_EXPOSURE_TIME",
+                    "OHOS_STATISTICS_LENS_SHADING_MAP_MODE",
+                    "OHOS_STATISTICS_SCENE_FLICKER",
+                    "OHOS_JPEG_SIZE",
+                    "OHOS_JPEG_QUALITY",
+                    "OHOS_JPEG_ORIENTATION"
+                ];
+            }
+        }
+        ability_01 :: ability {
+            logicCameraId = "lcam001";
+            physicsCameraIds = [
+                "CAMERA_FIRST",
+                "CAMERA_SECOND"
+            ];
+            metadata {
+                aeAvailableAntiBandingModes = [
+                    "OHOS_CAMERA_AE_ANTIBANDING_MODE_OFF"
+                ];
+                aeAvailableModes = ["OHOS_CAMERA_AE_MODE_OFF"];
+                availableAeFpsTargets = [30, 30];
+                aeCompensationRange = [0, 0];
+                aeCompensationSteps = [0, 0];
+                availableAwbModes = [
+                    "OHOS_CAMERA_AWB_MODE_OFF"
+                ];
+                sensitivityRange = [32, 2400];
+                faceDetectMode = "OHOS_CAMERA_FACE_DETECT_MODE_OFF";
+                availableCharacteristicsKeys = [
+                    "OHOS_CONTROL_AE_AVAILABLE_ANTIBANDING_MODES",
+                    "OHOS_CONTROL_AE_AVAILABLE_MODES",
+                    "OHOS_CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES",
+                    "OHOS_CONTROL_AE_COMPENSATION_RANGE",
+                    "OHOS_CONTROL_AE_COMPENSATION_STEP",
+                    "OHOS_CONTROL_AWB_AVAILABLE_MODES",
+                    "OHOS_JPEG_AVAILABLE_THUMBNAIL_SIZES",
+                    "OHOS_JPEG_MAX_SIZE",
+                    "OHOS_SENSOR_INFO_PIXEL_ARRAY_SIZE",
+                    "OHOS_SENSOR_INFO_ACTIVE_ARRAY_SIZE",
+                    "OHOS_SENSOR_INFO_SENSITIVITY_RANGE",
+                    "OHOS_SENSOR_INFO_PHYSICAL_SIZE",
+                ];
+                availableRequestKeys = [
+                    "OHOS_CONTROL_AE_MODE",
+                    "OHOS_CONTROL_AE_EXPOSURE_COMPENSATION",
+                    "OHOS_CONTROL_AE_TARGET_FPS_RANGE",
+                    "OHOS_CONTROL_AE_ANTIBANDING_MODE",
+                    "OHOS_CONTROL_AWB_MODE",
+                    "OHOS_CONTROL_AWB_LOCK",
+                    "OHOS_STATISTICS_FACE_DETECT_MODE"
+                ];
+                availableResultKeys = [
+                    "OHOS_CONTROL_AE_LOCK",
+                    "OHOS_CONTROL_AWB_LOCK",
+                    "OHOS_SENSOR_EXPOSURE_TIME",
+                    "OHOS_JPEG_SIZE",
+                    "OHOS_JPEG_QUALITY",
+                    "OHOS_JPEG_ORIENTATION"
+                ];
+            }
+        }
+    }
+}
+

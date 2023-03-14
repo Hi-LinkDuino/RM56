@@ -1,0 +1,214 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            refresh通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <refresh id="idProp">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <refresh id="classProp"
+             class="classProp">
+        </refresh>
+        <refresh id="classPropNone"
+             class="">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <refresh id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <refresh id="refProp"
+             ref="refProp">
+        </refresh>
+        <refresh id="refPropNone"
+             ref="">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <refresh id="disabledPropTrue"
+             disabled="true">
+        </refresh>
+        <refresh id="disabledPropFalse"
+             disabled="false">
+        </refresh>
+        <refresh id="disabledPropNone"
+             disabled="">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <refresh id="focusablePropTrue"
+             focusable="true">
+        </refresh>
+        <refresh id="focusablePropFalse"
+             focusable="false">
+        </refresh>
+        <refresh id="focusablePropNone"
+             focusable="">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <refresh id="dataProp"
+             data-refresh="通用属性 -- data-*">
+        </refresh>
+        <refresh id="dataPropNone"
+             data-Refresh="">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <refresh id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </refresh>
+        <refresh id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </refresh>
+        <refresh id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </refresh>
+        <refresh id="clickEffectPropNone"
+             click-effect="">
+        </refresh>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <refresh id="dirPropRtl"
+             dir="rtl">
+        </refresh>
+        <refresh id="dirPropAuto"
+             dir="auto">
+        </refresh>
+        <refresh id="dirPropLtr"
+             dir="ltr">
+        </refresh>
+        <refresh id="dirPropNone"
+             dir="">
+        </refresh>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <refresh id="forPropNull"
+             for="">
+        </refresh>
+        <refresh id="forPropOne"
+             for="{{listOne}}">
+        </refresh>
+        <refresh id="forPropThree"
+             for="{{listThree}}">
+        </refresh>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <refresh id="ifPropTrue"
+             if="true">
+        </refresh>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <div>
+            <refresh id="ifPropTrue"
+                     if="true">
+            </refresh>
+            <refresh class="propNewAdd"
+                     elif="true">
+            </refresh>
+            <refresh class="propNewAdd"
+                     elif="false">
+            </refresh>
+        </div>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <refresh class="propNewAdd"
+                 tid="id">
+        </refresh>
+        <refresh class="propNewAdd"
+                 tid="">
+        </refresh>
+
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <refresh id="showPropTrue"
+             show="true">
+        </refresh>
+        <refresh id="showPropFalse"
+             show="false">
+        </refresh>
+        <refresh id="showPropNone"
+             show="">
+        </refresh>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title" style="height: 100px;">
+            refresh特有属性
+        </text>
+        <refresh id="offsetProp"
+                 offset="10px">
+        </refresh>
+        <refresh id="refreshingPropFalse"
+                 refreshing = "false">
+        </refresh>
+        <refresh id="refreshingPropTrue"
+                 refreshing = "true">
+        </refresh>
+        <refresh id="typePropAuto"
+                type="auto">
+        </refresh>
+        <refresh id="typePropPullDown"
+                 type="pulldown">
+        </refresh>
+        <refresh id="lastTimePropTrue" lasttime="true"
+                type="pulldown">
+        </refresh>
+        <refresh id="lastTimePropFalse" lasttime="false"
+                 type="pulldown">
+        </refresh>
+        <refresh id="frictionProp"
+                 friction="42">
+        </refresh>
+    </div>
+</div>

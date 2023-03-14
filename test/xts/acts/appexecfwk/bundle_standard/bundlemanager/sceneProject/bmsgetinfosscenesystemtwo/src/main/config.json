@@ -1,0 +1,71 @@
+{
+  "app": {
+    "bundleName": "com.example.system2",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {
+    "default":{}
+  },
+  "module": {
+    "package": "com.example.system2",
+    "name": ".BmsSystemBundle1",
+    "mainAbility": "com.example.system2.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.app.music",
+              "entity.app.email",
+              "entity.app.contacts",
+              "entity.app.maps",
+              "entity.app.browser",
+              "entity.app.calendar",
+              "entity.app.messaging",
+              "entity.app.files",
+              "entity.app.gallery"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.system2.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

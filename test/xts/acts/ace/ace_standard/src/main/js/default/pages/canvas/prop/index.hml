@@ -1,0 +1,174 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            canvas通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <canvas id="idProp">
+        </canvas>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <canvas id="classProp"
+             class="classProp">
+        </canvas>
+        <canvas id="classPropNone"
+             class="">
+        </canvas>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <canvas id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </canvas>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <canvas id="refProp"
+             ref="refProp">
+        </canvas>
+        <canvas id="refPropNone"
+             ref="">
+        </canvas>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <canvas id="disabledPropTrue"
+             disabled="true">
+        </canvas>
+        <canvas id="disabledPropFalse"
+             disabled="false">
+        </canvas>
+        <canvas id="disabledPropNone"
+             disabled="">
+        </canvas>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <canvas id="focusablePropTrue"
+             focusable="true">
+        </canvas>
+        <canvas id="focusablePropFalse"
+             focusable="false">
+        </canvas>
+        <canvas id="focusablePropNone"
+             focusable="">
+        </canvas>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <canvas id="dataProp"
+             data-canvas="通用属性 -- data-*">
+        </canvas>
+        <canvas id="dataPropNone"
+             data-canvas="">
+        </canvas>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <canvas id="dirPropRtl"
+             dir="rtl">
+        </canvas>
+        <canvas id="dirPropAuto"
+             dir="auto">
+        </canvas>
+        <canvas id="dirPropLtr"
+             dir="ltr">
+        </canvas>
+        <canvas id="dirPropNone"
+             dir="">
+        </canvas>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <canvas id="forPropNull"
+             for="">
+        </canvas>
+        <canvas id="forPropOne"
+             for="{{listOne}}">
+        </canvas>
+        <canvas id="forPropThree"
+             for="{{listThree}}">
+        </canvas>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <canvas id="ifPropTrue"
+             if="true">
+        </canvas>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <canvas id="showPropTrue"
+             show="true">
+        </canvas>
+        <canvas id="showPropFalse"
+             show="false">
+        </canvas>
+        <canvas id="showPropNone"
+             show="">
+        </canvas>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            canvas特有属性
+        </text>
+        
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <canvas class="propNewAdd"
+                tid="id">
+        </canvas>
+        <canvas class="propNewAdd"
+                tid="">
+        </canvas>
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <canvas class="propNewAdd"
+                if="true">
+        </canvas>
+        <canvas class="propNewAdd"
+                elif="true">
+        </canvas>
+        <canvas class="propNewAdd"
+                elif="false">
+        </canvas>
+        <canvas class="propNewAdd"
+                elif="">
+        </canvas>
+    </div>
+</div>

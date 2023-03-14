@@ -1,0 +1,245 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            picker通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <picker type="text" id="idProp">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <picker type="text" id="classProp"
+             class="classProp">
+        picker</picker>
+        <picker type="text" id="classPropNone"
+             class="">
+        picker</picker>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <picker type="text" id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <picker type="text" id="refProp"
+             ref="refProp">
+        picker</picker>
+        <picker type="text" id="refPropNone"
+             ref="">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <picker type="text" id="disabledPropTrue"
+             disabled="true">
+        picker</picker>
+        <picker type="text" id="disabledPropFalse"
+             disabled="false">
+        picker</picker>
+        <picker type="text" id="disabledPropNone"
+             disabled="">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <picker type="text" id="focusablePropTrue"
+             focusable="true">
+        picker</picker>
+        <picker type="text" id="focusablePropFalse"
+             focusable="false">
+        picker</picker>
+        <picker type="text" id="focusablePropNone"
+             focusable="">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <picker type="text" id="dataProp"
+             data-picker="通用属性 -- data-*">
+        picker</picker>
+        <picker type="text" id="dataPropNone"
+             data-picker="">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <picker type="text" id="clickEffectPropSmall"
+             click-effect="spring-small">
+        picker</picker>
+        <picker type="text" id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        picker</picker>
+        <picker type="text" id="clickEffectPropLarge"
+             click-effect="spring-large">
+        picker</picker>
+        <picker type="text" id="clickEffectPropNone"
+             click-effect="">
+        picker</picker>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <picker type="text" id="dirPropRtl"
+             dir="rtl">
+        picker</picker>
+        <picker type="text" id="dirPropAuto"
+             dir="auto">
+        picker</picker>
+        <picker type="text" id="dirPropLtr"
+             dir="ltr">
+        picker</picker>
+        <picker type="text" id="dirPropNone"
+             dir="">
+        picker</picker>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <picker type="text" id="forPropNull"
+             for="">
+        picker</picker>
+        <picker type="text" id="forPropOne"
+             for="{{listOne}}">
+        picker</picker>
+        <picker type="text" id="forPropThree"
+             for="{{listThree}}">
+        picker</picker>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <picker type="text" id="ifPropTrue"
+             if="true">
+        picker</picker>
+        <picker type="text" class="picker"
+                elif="true">
+            picker</picker>
+        <picker type="text" id="ifPropTrue"
+                elif="false">
+            picker</picker>
+        <picker type="text" id="ifPropTrue"
+                elif="">
+            picker</picker>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <picker type="text" id="showPropTrue"
+             show="true">
+        picker</picker>
+        <picker type="text" id="showPropFalse"
+             show="false">
+        picker</picker>
+        <picker type="text" id="showPropNone"
+             show="">
+        picker</picker>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            picker特有属性
+        </text>
+        <text  class="sub-title">
+            picker特有属性 -- type
+        </text>
+        <picker
+                id="pickerText"
+                type="text"
+                value="{{textvalue}}"
+                selected="0"
+                range="{{rangetext}}"
+                onchange="textonchange"
+        ></picker>
+        <picker
+                id="pickerDate"
+                type="date"
+                value="{{datevalue}}"
+                start="2002-2-5"
+                end="2030-6-5"
+                selected="{{dateselect}}"
+                lunarswitch="true"
+        ></picker>
+        <picker
+                id="pickerTime"
+                type="time"
+                value="{{timevalue}}"
+                containsecond="{{containsecond}}"
+                selected="{{timeselect}}"
+                hours="12"
+        ></picker>
+
+        <picker
+                id="pickerDatetime"
+                type="datetime"
+                value="{{datetimevalue}}"
+                selected="{{datetimeselect}}"
+                hours="24"
+                lunarswitch="true"
+        ></picker>
+
+        <picker
+                id="pickerMultiText"
+                type="multi-text"
+                value="{{multitextvalue}}"
+                columns="3"
+                range="{{multitext}}"
+                selected="{{multitextselect}}"
+        ></picker>
+        <text  class="sub-title">
+            picker特有属性 -- picker
+        </text>
+        <picker
+                class="picker"
+                picker="picker"
+                type="time"
+                value="11:20"
+        ></picker>
+        <picker
+                class="picker"
+                picker=""
+                type="time"
+                value="11:20"
+        ></picker>
+        <!--<text  class="sub-title">
+            picker特有属性 -- shareid
+        </text>
+        <picker class="picker" type="time" value="11:20" shareid="shareid"></picker>
+        <picker class="picker" type="time" value="11:20" shareid=""></picker>-->
+        <text  class="sub-title">
+            picker特有属性 -- tid
+        </text>
+        <picker class="picker" type="time" value="11:20" tid="tid"></picker>
+        <picker class="picker" type="time" value="11:20" tid=""></picker>
+    </div>
+</div>

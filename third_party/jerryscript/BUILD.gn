@@ -1,0 +1,443 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {  # is on lite Os for ipcamera
+  import("//build/lite/config/component/lite_component.gni")
+
+  lite_component("jerry_engine") {
+    features = [
+      "jerry-core",
+      "jerry-libm",
+      "jerry-ext",
+      "jerry-port/default:jerry-port-default",
+    ]
+  }
+} else {
+  import("//build/ohos.gni")
+  config("jerryscript_config") {
+    defines = [
+      "JERRY_SNAPSHOT_SAVE=1",
+      "JERRY_COMMIT_HASH=\"ignored\"",
+      "JERRY_NDEBUG",
+      "JERRY_HEAPDUMP",
+      "JERRY_REF_TRACKER",
+    ]
+    cflags = [
+      "-Wno-unused-function",
+      "-Wno-sign-compare",
+      "-Wno-implicit-fallthrough",
+    ]
+    include_dirs = [ "." ]
+  }
+
+  config("jerryscript_simulator") {
+    defines = [
+      "JERRY_CPOINTER_32_BIT=0",
+      "JERRY_DEBUGGER=1",
+      "JERRY_ES2015=0",
+      "JERRY_EXTERNAL_CONTEXT=1",
+      "JERRY_FUNCTION_BACKTRACE",
+      "JERRY_FUNCTION_NAME",
+      "JERRY_GC_LIMIT=(0)",
+      "JERRY_HEAPDUMP",
+      "JERRY_LINE_INFO=1",
+      "JERRY_MEM_GC_BEFORE_EACH_ALLOC=0",
+      "JERRY_NDEBUG",
+      "JERRY_PARSER=1",
+      "JERRY_PARSER_DUMP_BYTE_CODE=0",
+      "JERRY_REF_TRACKER",
+      "JERRY_REGEXP_DUMP_BYTE_CODE=0",
+      "JERRY_REGEXP_STRICT_MODE=0",
+      "JERRY_STACK_LIMIT=(0)",
+      "JERRY_SYSTEM_ALLOCATOR=0",
+      "JERRY_VALGRIND=0",
+      "JERRY_VM_EXEC_STOP=0",
+    ]
+    cflags = [
+      "-Wno-unused-function",
+      "-Wno-sign-compare",
+      "-Wno-error",  # jerry add
+      "-Wno-implicit-fallthrough",
+    ]
+    include_dirs = [ "." ]
+  }
+
+  jerry_core_sources = [
+    "jerry-core/api/jerry-debugger-transport.c",
+    "jerry-core/api/jerry-debugger.c",
+    "jerry-core/api/jerry-snapshot.c",
+    "jerry-core/api/jerry.c",
+    "jerry-core/debugger/debugger.c",
+    "jerry-core/ecma/base/ecma-alloc.c",
+    "jerry-core/ecma/base/ecma-gc.c",
+    "jerry-core/ecma/base/ecma-helpers-collection.c",
+    "jerry-core/ecma/base/ecma-helpers-conversion.c",
+    "jerry-core/ecma/base/ecma-helpers-errol.c",
+    "jerry-core/ecma/base/ecma-helpers-external-pointers.c",
+    "jerry-core/ecma/base/ecma-helpers-number.c",
+    "jerry-core/ecma/base/ecma-helpers-string.c",
+    "jerry-core/ecma/base/ecma-helpers-value.c",
+    "jerry-core/ecma/base/ecma-helpers.c",
+    "jerry-core/ecma/base/ecma-init-finalize.c",
+    "jerry-core/ecma/base/ecma-lcache.c",
+    "jerry-core/ecma/base/ecma-literal-storage.c",
+    "jerry-core/ecma/base/ecma-module.c",
+    "jerry-core/ecma/base/ecma-property-hashmap.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-array-iterator-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-array-prototype-unscopables.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-array-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-array.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-arraybuffer-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-arraybuffer.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-boolean-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-boolean.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-dataview-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-dataview.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-date-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-date.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-error-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-error.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-evalerror-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-evalerror.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-function-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-function.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-generator-function.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-generator-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-generator.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-global.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-helpers-date.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-helpers-error.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-helpers-json.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-helpers-sort.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-helpers.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-intrinsic.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-iterator-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-json.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-map-iterator-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-map-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-map.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-math.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-number-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-number.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-object-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-object.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-promise-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-promise.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-proxy.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-rangeerror-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-rangeerror.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-referenceerror-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-referenceerror.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-reflect.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-regexp-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-regexp.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-set-iterator-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-set-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-set.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-string-iterator-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-string-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-string.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-symbol-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-symbol.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-syntaxerror-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-syntaxerror.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-type-error-thrower.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-typeerror-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-typeerror.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-urierror-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-urierror.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-weakmap-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-weakmap.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-weakset-prototype.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtin-weakset.c",
+    "jerry-core/ecma/builtin-objects/ecma-builtins.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-float32array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-float32array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-float64array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-float64array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-int16array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-int16array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-int32array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-int32array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-int8array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-int8array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-typedarray-helpers.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-typedarray-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-typedarray.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint16array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint16array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint32array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint32array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint8array-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint8array.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint8clampedarray-prototype.c",
+    "jerry-core/ecma/builtin-objects/typedarray/ecma-builtin-uint8clampedarray.c",
+    "jerry-core/ecma/operations/ecma-array-object.c",
+    "jerry-core/ecma/operations/ecma-arraybuffer-object.c",
+    "jerry-core/ecma/operations/ecma-boolean-object.c",
+    "jerry-core/ecma/operations/ecma-comparison.c",
+    "jerry-core/ecma/operations/ecma-container-object.c",
+    "jerry-core/ecma/operations/ecma-conversion.c",
+    "jerry-core/ecma/operations/ecma-dataview-object.c",
+    "jerry-core/ecma/operations/ecma-eval.c",
+    "jerry-core/ecma/operations/ecma-exceptions.c",
+    "jerry-core/ecma/operations/ecma-function-object.c",
+    "jerry-core/ecma/operations/ecma-get-put-value.c",
+    "jerry-core/ecma/operations/ecma-iterator-object.c",
+    "jerry-core/ecma/operations/ecma-jobqueue.c",
+    "jerry-core/ecma/operations/ecma-lex-env.c",
+    "jerry-core/ecma/operations/ecma-number-arithmetic.c",
+    "jerry-core/ecma/operations/ecma-number-object.c",
+    "jerry-core/ecma/operations/ecma-objects-arguments.c",
+    "jerry-core/ecma/operations/ecma-objects-general.c",
+    "jerry-core/ecma/operations/ecma-objects.c",
+    "jerry-core/ecma/operations/ecma-promise-object.c",
+    "jerry-core/ecma/operations/ecma-proxy-object.c",
+    "jerry-core/ecma/operations/ecma-reference.c",
+    "jerry-core/ecma/operations/ecma-regexp-object.c",
+    "jerry-core/ecma/operations/ecma-string-object.c",
+    "jerry-core/ecma/operations/ecma-symbol-object.c",
+    "jerry-core/ecma/operations/ecma-typedarray-object.c",
+    "jerry-core/ext/ext-utils.c",
+    "jerry-core/ext/heapdump.c",
+    "jerry-core/ext/tracker.c",
+    "jerry-core/jcontext/jcontext.c",
+    "jerry-core/jmem/jmem-allocator.c",
+    "jerry-core/jmem/jmem-heap.c",
+    "jerry-core/jmem/jmem-poolman.c",
+    "jerry-core/jrt/jrt-fatals.c",
+    "jerry-core/lit/lit-char-helpers.c",
+    "jerry-core/lit/lit-magic-strings.c",
+    "jerry-core/lit/lit-strings.c",
+    "jerry-core/parser/js/byte-code.c",
+    "jerry-core/parser/js/common.c",
+    "jerry-core/parser/js/js-lexer.c",
+    "jerry-core/parser/js/js-parser-expr.c",
+    "jerry-core/parser/js/js-parser-mem.c",
+    "jerry-core/parser/js/js-parser-module.c",
+    "jerry-core/parser/js/js-parser-statm.c",
+    "jerry-core/parser/js/js-parser-tagged-template-literal.c",
+    "jerry-core/parser/js/js-parser-util.c",
+    "jerry-core/parser/js/js-parser.c",
+    "jerry-core/parser/js/js-scanner-ops.c",
+    "jerry-core/parser/js/js-scanner-util.c",
+    "jerry-core/parser/js/js-scanner.c",
+    "jerry-core/parser/regexp/re-bytecode.c",
+    "jerry-core/parser/regexp/re-compiler.c",
+    "jerry-core/parser/regexp/re-parser.c",
+    "jerry-core/vm/opcodes-ecma-arithmetics.c",
+    "jerry-core/vm/opcodes-ecma-bitwise.c",
+    "jerry-core/vm/opcodes-ecma-relational-equality.c",
+    "jerry-core/vm/opcodes.c",
+    "jerry-core/vm/vm-stack.c",
+    "jerry-core/vm/vm-utils.c",
+    "jerry-core/vm/vm.c",
+  ]
+
+  jerry_core_include_dirs = [
+    "jerry-core/include",
+    "jerry-core/api",
+    "jerry-core/debugger",
+    "jerry-core/ecma/base",
+    "jerry-core/ecma/builtin-objects",
+    "jerry-core/ecma/builtin-objects/typedarray",
+    "jerry-core/ecma/operations",
+    "jerry-core/ext",
+    "jerry-core/jcontext",
+    "jerry-core/jmem",
+    "jerry-core/jrt",
+    "jerry-core/lit",
+    "jerry-core/parser",
+    "jerry-core/parser/js",
+    "jerry-core/parser/regexp",
+    "jerry-core/vm",
+    "jerry-core",
+  ]
+
+  jerry_ext_sources = [
+    "jerry-ext/arg/arg-js-iterator-helper.c",
+    "jerry-ext/arg/arg-transform-functions.c",
+    "jerry-ext/arg/arg.c",
+    "jerry-ext/debugger/debugger-common.c",
+    "jerry-ext/debugger/debugger-rp.c",
+    "jerry-ext/debugger/debugger-serial.c",
+    "jerry-ext/debugger/debugger-sha1.c",
+    "jerry-ext/debugger/debugger-tcp.c",
+    "jerry-ext/debugger/debugger-ws.c",
+    "jerry-ext/handle-scope/handle-scope-allocator.c",
+    "jerry-ext/handle-scope/handle-scope.c",
+    "jerry-ext/handler/handler-assert.c",
+    "jerry-ext/handler/handler-gc.c",
+    "jerry-ext/handler/handler-print.c",
+    "jerry-ext/handler/handler-register.c",
+    "jerry-ext/handler/handler-resource-name.c",
+    "jerry-ext/module/module.c",
+  ]
+  jerry_ext_include_dirs = [
+    "jerry-ext/include",
+    "jerry-ext/debugger",
+    "jerry-ext/common",
+    "jerry-ext/arg",
+    "jerry-ext/handle-scope",
+    "jerry-core/include",
+  ]
+
+  jerry_port_default_sources = [
+    "jerry-port/default/default-date.c",
+    "jerry-port/default/default-debugger.c",
+    "jerry-port/default/default-external-context.c",
+    "jerry-port/default/default-fatal.c",
+    "jerry-port/default/default-io.c",
+    "jerry-port/default/default-module.c",
+  ]
+  jerry_port_default_include_dirs = [
+    "jerry-port/default/include",
+    "jerry-core/include",
+  ]
+
+  jerry_libm_sources = [
+    "jerry-libm/acos.c",
+    "jerry-libm/acosh.c",
+    "jerry-libm/asin.c",
+    "jerry-libm/asinh.c",
+    "jerry-libm/atan.c",
+    "jerry-libm/atan2.c",
+    "jerry-libm/atanh.c",
+    "jerry-libm/cbrt.c",
+    "jerry-libm/ceil.c",
+    "jerry-libm/copysign.c",
+    "jerry-libm/cosh.c",
+    "jerry-libm/exp.c",
+    "jerry-libm/expm1.c",
+    "jerry-libm/fabs.c",
+    "jerry-libm/finite.c",
+    "jerry-libm/floor.c",
+    "jerry-libm/fmod.c",
+    "jerry-libm/isnan.c",
+    "jerry-libm/log.c",
+    "jerry-libm/log10.c",
+    "jerry-libm/log1p.c",
+    "jerry-libm/log2.c",
+    "jerry-libm/nextafter.c",
+    "jerry-libm/pow.c",
+    "jerry-libm/scalbn.c",
+    "jerry-libm/sinh.c",
+    "jerry-libm/sqrt.c",
+    "jerry-libm/tanh.c",
+    "jerry-libm/trig.c",
+  ]
+  jerry_libm_include_dirs = [ "jerry-libm/include" ]
+
+  jerry_sources = [
+    "jerry-main/cli.c",
+    "jerry-main/main-unix.c",
+  ]
+  jerry_include_dirs = [
+    "jerry-ext",
+    "jerry-ext/common",
+    "jerry-ext/debugger",
+    "jerry-ext/handle-scope",
+    "jerry-ext/include/jerryscript-ext",
+    "jerry-ext/include",
+    "jerry-libm",
+    "jerry-debugger",
+    "jerry-port",
+    "jerry-main",
+    "jerry-core",
+    "jerry-port/default/include",
+    "jerry-core/ecma/base",
+    "jerry-core/ecma/operations",
+    "jerry-core/ecma/builtin-objects",
+    "jerry-core/vm",
+    "jerry-core/jcontext",
+    "jerry-core/jmem",
+    "jerry-core/parser/js",
+    "jerry-core/parser/regexp",
+    "jerry-core/jrt",
+    "jerry-core/lit",
+    "jerry-core/include",
+    "jerry-core/ecma/builtin-objects/",
+  ]
+
+  jerry_snapshot_sources = [
+    "jerry-main/cli.c",
+    "jerry-main/main-unix-snapshot.c",
+  ]
+  jerry_snapshot_include_dirs = [
+    "jerry-ext",
+    "jerry-ext/common",
+    "jerry-ext/debugger",
+    "jerry-ext/handle-scope",
+    "jerry-ext/include/jerryscript-ext",
+    "jerry-ext/include",
+    "jerry-libm",
+    "jerry-debugger",
+    "jerry-port",
+    "jerry-main",
+    "jerry-core",
+    "jerry-port/default/include",
+    "jerry-core/ecma/base",
+    "jerry-core/ecma/operations",
+    "jerry-core/ecma/builtin-objects",
+    "jerry-core/vm",
+    "jerry-core/jcontext",
+    "jerry-core/jmem",
+    "jerry-core/parser/js",
+    "jerry-core/parser/regexp",
+    "jerry-core/jrt",
+    "jerry-core/lit",
+    "jerry-core/include",
+    "jerry-core/ecma/builtin-objects/",
+  ]
+
+  ohos_executable("jerry") {
+    configs = [ ":jerryscript_config" ]
+    sources = jerry_core_sources
+    sources += jerry_ext_sources
+    sources += jerry_libm_sources
+    sources += jerry_port_default_sources
+    sources += jerry_sources
+
+    include_dirs = jerry_core_include_dirs
+    include_dirs += jerry_ext_include_dirs
+    include_dirs += jerry_libm_include_dirs
+    include_dirs += jerry_port_default_include_dirs
+    include_dirs += jerry_include_dirs
+  }
+
+  ohos_executable("jerry-snapshot") {
+    configs = [ ":jerryscript_config" ]
+    sources = jerry_core_sources
+    sources += jerry_libm_sources
+    sources += jerry_port_default_sources
+    sources += jerry_snapshot_sources
+
+    include_dirs = jerry_core_include_dirs
+    include_dirs += jerry_libm_include_dirs
+    include_dirs += jerry_port_default_include_dirs
+    include_dirs += jerry_snapshot_include_dirs
+  }
+
+  ohos_static_library("libjerryscript") {
+    configs = [ ":jerryscript_simulator" ]
+    sources = jerry_core_sources
+    sources += jerry_ext_sources
+    sources += jerry_libm_sources
+    sources += jerry_port_default_sources
+
+    include_dirs = jerry_core_include_dirs
+    include_dirs += jerry_ext_include_dirs
+    include_dirs += jerry_libm_include_dirs
+    include_dirs += jerry_port_default_include_dirs
+  }
+}

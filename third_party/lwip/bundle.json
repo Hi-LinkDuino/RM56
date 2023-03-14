@@ -1,0 +1,34 @@
+{
+    "name": "@ohos/lwip",
+    "description": "lwIP is a small independent implementation of the TCP/IP protocol suite that has been initially developed by Adam Dunkels. The focus of the lwIP TCP/IP implementation is to reduce resource usage while still having a full scale TCP. This makes lwIP suitable for use in embedded systems with tens of kilobytes of free RAM and room for around 40 kilobytes of code ROM.",
+    "version": "3.1",
+    "license": "BSD 3-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/lwip"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "thirdparty_lwip",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

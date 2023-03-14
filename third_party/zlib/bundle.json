@@ -1,0 +1,33 @@
+{
+    "name": "@ohos/zlib",
+    "description": "zlib 1.2.11 is a general purpose data compression library. All the code is thread safe. The data format used by the zlib library is described by RFCs (Request for Comments) 1950 to 1952 in the files",
+    "version": "3.1",
+    "license": "Zlib LICENSE",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/zlib"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "thirdparty_zlib",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

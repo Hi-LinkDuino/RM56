@@ -1,0 +1,88 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+ohos_shared_library("libcodec_client") {
+  include_dirs = [
+    "//drivers/adapter/uhdf2/include/hdi",
+    "//drivers/peripheral/codec/interfaces/include/",
+  ]
+  sources = [
+    "codec_proxy/codec_callback_proxy.c",
+    "codec_proxy/codec_proxy.c",
+    "codec_proxy/proxy_msgproc.c",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "codec_device_driver"
+}
+
+group("codec_client") {
+  deps = [ ":libcodec_client" ]
+}
+
+ohos_shared_library("libcodec_server") {
+  include_dirs = [
+    "//drivers/peripheral/codec/interfaces/include/",
+    "//drivers/peripheral/codec/hdi_service/codec_proxy/",
+  ]
+  sources = [
+    "codec_service_stub/codec_callback_service.c",
+    "codec_service_stub/codec_callback_stub.c",
+    "codec_service_stub/codec_host.c",
+    "codec_service_stub/codec_stub.c",
+    "codec_service_stub/stub_msgproc.c",
+  ]
+  CODEC_LIB_PATH = "//device/soc/hisilicon/common/hal/media/codec/hi3516dv300/linux_standard/libs"
+  CODEC_LIB_REAL_PATH = rebase_path("$CODEC_LIB_PATH")
+  ldflags = [ "-L$CODEC_LIB_REAL_PATH" ]
+  ldflags += [ "-lcodec" ]
+
+  deps = [ "//drivers/peripheral/codec/hdi_service:codec_client" ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "codec_device_driver"
+}
+
+group("codec_service") {
+  if (target_cpu == "arm" && device_company == "hisilicon") {
+    deps = [ ":libcodec_server" ]
+  }
+}

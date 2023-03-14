@@ -1,0 +1,107 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+config("ace_libjpeg_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia/third_party/libjpeg-turbo",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo",
+  ]
+  cflags = [
+    "-w",
+    "-fstrict-aliasing",
+    "-Os",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-gline-tables-only",
+    "-funwind-tables",
+    "-Wno-unused-parameter",
+    "-fvisibility=hidden",
+  ]
+}
+
+ohos_source_set("ace_libjpeg") {
+  part_name = ace_engine_part
+  license_file =
+      "$flutter_root/skia/third_party/externals/libjpeg-turbo/LICENSE.md"
+  configs = [ ":ace_libjpeg_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jaricom.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcapimin.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcapistd.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcarith.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jccoefct.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jccolor.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcdctmgr.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jchuff.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcinit.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcmainct.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcmarker.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcmaster.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcomapi.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcparam.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcphuff.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcprepct.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jcsample.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdapimin.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdapistd.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdarith.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdcoefct.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdcolor.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jddctmgr.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdhuff.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdinput.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdmainct.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdmarker.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdmaster.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdmerge.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdphuff.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdpostct.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jdsample.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jerror.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jfdctflt.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jfdctfst.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jfdctint.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jidctflt.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jidctfst.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jidctint.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jidctred.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jmemmgr.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jmemnobs.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jquant1.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jquant2.c",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo/jutils.c",
+  ]
+
+  if (use_mingw_win || target_cpu == "x86_64" || use_mac) {
+    sources += [
+      "$flutter_root/skia/third_party/externals/libjpeg-turbo/jsimd_none.c",
+    ]
+  } else if (target_cpu == "arm") {
+    sources += [
+      "$flutter_root/skia/third_party/externals/libjpeg-turbo/simd/arm/jsimd.c",
+      "$flutter_root/skia/third_party/externals/libjpeg-turbo/simd/arm/jsimd_neon.S",
+    ]
+  } else {
+    sources += [
+      "$flutter_root/skia/third_party/externals/libjpeg-turbo/simd/arm64/jsimd.c",
+      "$flutter_root/skia/third_party/externals/libjpeg-turbo/simd/arm64/jsimd_neon.S",
+    ]
+  }
+
+  defines = [ "TURBO_FOR_WINDOWS" ]
+}

@@ -1,0 +1,39 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/ohos.gni")
+
+config("log_store_config") {
+  visibility = [ "*:*" ]
+
+  include_dirs = [ "include" ]
+
+  cflags_cc = [ "-D__HIVIEW_OHOS__" ]
+}
+
+ohos_source_set("log_store") {
+  part_name = "hiview"
+  public_configs = [ ":log_store_config" ]
+
+  sources = [
+    "log_file.cpp",
+    "log_store_ex.cpp",
+  ]
+
+  deps = [
+    "$hiview_adapter/system_service:system_service",
+    "$hiview_base:hiview_base",
+  ]
+
+  external_deps = [ "hilog_native:libhilog" ]
+}

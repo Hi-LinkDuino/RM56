@@ -1,0 +1,168 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            divider通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <divider id="idProp">
+        </divider>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <divider id="classProp"
+             class="classProp">
+        </divider>
+        <divider id="classPropNone"
+             class="">
+        </divider>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <divider id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </divider>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <divider id="refProp"
+             ref="refProp">
+        </divider>
+        <divider id="refPropNone"
+             ref="">
+        </divider>
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <divider id="refProp"
+                 data="data">
+        </divider>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <divider id="dataProp"
+             data-divider="通用属性 -- data-*">
+        </divider>
+        <divider id="dataPropNone"
+             data-divider="">
+        </divider>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <divider id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </divider>
+        <divider id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </divider>
+        <divider id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </divider>
+        <divider id="clickEffectPropNone"
+             click-effect="">
+        </divider>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <divider id="dirPropRtl"
+             dir="rtl">
+        </divider>
+        <divider id="dirPropAuto"
+             dir="auto">
+        </divider>
+        <divider id="dirPropLtr"
+             dir="ltr">
+        </divider>
+        <divider id="dirPropNone"
+             dir="">
+        </divider>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <divider id="forPropNull"
+             for="">
+        </divider>
+        <divider id="forPropOne"
+             for="{{listOne}}">
+        </divider>
+        <divider id="forPropThree"
+             for="{{listThree}}">
+        </divider>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <divider id="ifPropTrue"
+             if="true">
+        </divider>
+        <divider class="divider" elif="true"> </divider>
+        <divider class="divider" elif="false"> </divider>
+        <divider class="divider" elif=""> </divider>
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <divider id="showPropTrue"
+             show="true">
+        </divider>
+        <divider id="showPropFalse"
+             show="false">
+        </divider>
+        <divider id="showPropNone"
+             show="">
+        </divider>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            divider特有属性
+        </text>
+        <text  class="sub-title">
+            divider特有属性 -- vertical
+        </text>
+        <divider id="verticalTrue" vertical="true"></divider>
+        <divider id="verticalFalse" vertical="false"></divider>
+        <text  class="sub-title">
+            divider特有属性 -- divider
+        </text>
+        <divider class="divider" divider="divider"></divider>
+        <divider class="divider" divider=""></divider>
+        <!--<text  class="sub-title">
+            divider特有属性 -- shareid
+        </text>
+        <divider class="divider" shareid="shareid"></divider>
+        <divider class="divider" shareid=""></divider>-->
+
+        <text  class="sub-title">
+            divider特有属性 -- tid
+        </text>
+        <divider class="divider" tid="tid"></divider>
+        <divider class="divider" tid=""></divider>
+    </div>
+</div>

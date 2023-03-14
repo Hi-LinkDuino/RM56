@@ -1,0 +1,65 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import(
+    "//foundation/communication/dsoftbus/adapter/common/net/bluetooth/net_bluetooth.gni")
+import("//foundation/communication/dsoftbus/dsoftbus.gni")
+
+br_adapter_src =
+    [ "$dsoftbus_root_path/core/adapter/br/mock/wrapper_br_interface.c" ]
+
+br_adapter_inc = [
+  "$dsoftbus_root_path/core/adapter/br/include",
+  "//foundation/communication/bluetooth/interfaces/innerkits/native_c/include",
+]
+
+declare_args() {
+  dsoftbus_standard_get_devicename = true
+}
+
+if (defined(ohos_lite)) {
+  bus_center_core_adapter_src = [ "$dsoftbus_root_path/core/adapter/bus_center/src/lnn_settingdata_event_monitor_virtual.cpp" ]
+
+  bus_center_core_adapter_inc =
+      [ "$dsoftbus_root_path/core/adapter/bus_center/include" ]
+
+  bus_center_core_adapter_deps = []
+} else {
+  if (dsoftbus_standard_get_devicename == false) {
+    bus_center_core_adapter_src = [ "$dsoftbus_root_path/core/adapter/bus_center/src/lnn_settingdata_event_monitor_virtual.cpp" ]
+
+    bus_center_core_adapter_inc =
+        [ "$dsoftbus_root_path/core/adapter/bus_center/include" ]
+
+    bus_center_core_adapter_deps = []
+  } else {
+    bus_center_core_adapter_src = [ "$dsoftbus_root_path/core/adapter/bus_center/src/lnn_settingdata_event_monitor.cpp" ]
+
+    bus_center_core_adapter_inc = [
+      "$dsoftbus_root_path/adapter/common/bus_center/include",
+      "$dsoftbus_root_path/core/adapter/bus_center/include",
+      "//foundation/aafwk/standard/frameworks/kits/ability/native/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb/include",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/dataobs_manager/include",
+    ]
+
+    bus_center_core_adapter_deps = [
+      "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
+      "//foundation/aafwk/standard/interfaces/innerkits/dataobs_manager:dataobs_manager",
+      "//foundation/aafwk/standard/interfaces/innerkits/uri:zuri",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability:native_dataability",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb:native_rdb",
+    ]
+  }
+}

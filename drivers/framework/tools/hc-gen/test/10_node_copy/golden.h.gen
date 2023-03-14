@@ -1,0 +1,31 @@
+/*
+ * This is an automatically generated HDF config file. Do not modify it manually.
+ */
+
+#ifndef HCS_CONFIG_GOLDEN_HEADER_H
+#define HCS_CONFIG_GOLDEN_HEADER_H
+
+#include <stdint.h>
+
+struct HdfConfigTestFoo {
+    uint8_t term1;
+    uint8_t term2;
+    uint8_t term3;
+};
+
+struct HdfConfigTestBar {
+    uint8_t term1;
+    const char* term4;
+    uint8_t term2;
+    uint8_t term3;
+};
+
+struct HdfConfigTestRoot {
+    const char* module;
+    struct HdfConfigTestFoo foo;
+    struct HdfConfigTestBar bar;
+};
+
+const struct HdfConfigTestRoot* HdfGetTestModuleConfigRoot(void);
+
+#endif // HCS_CONFIG_GOLDEN_HEADER_H

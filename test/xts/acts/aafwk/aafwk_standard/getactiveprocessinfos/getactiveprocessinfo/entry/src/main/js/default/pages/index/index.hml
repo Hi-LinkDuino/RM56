@@ -1,0 +1,6 @@
+<div class="container">
+    <text class="title">
+        测试zlib-1515-test
+        {{ $t('strings.hello') }} {{ title }}
+    </text>
+</div>

@@ -1,0 +1,35 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div id="container">
+  <text id="testTitle">测试ID/Class选择器及内联样式</text>
+  <text
+    class="title"
+    onclick="changeTitle"
+    style="height:50px; color:{{textColor}}"
+  >
+    Hello {{title}}
+  </text>
+  <text
+    class="title2"
+    onclick="changeTitle2"
+    style="height:50px; color:{{text2Color}}"
+  >
+    {{title}} {{title2}}
+  </text>
+  <div id="secDiv">
+    <input class="button" type="button" value="返回首页" onclick="exitPage" />
+  </div>
+</div>

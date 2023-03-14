@@ -1,0 +1,41 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/build/hiview_var.gni")
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/test.gni")
+module_output_path = "hiview/hiview/eventlogger/config"
+config("unittest_config") {
+  include_dirs = [
+    "../",
+    "unittest/common",
+  ]
+
+  cflags_cc = [
+    "-D__UNITTEST__",
+    "-D__HIVIEW_OHOS__",
+  ]
+}
+
+ohos_unittest("EventloggerConfigTest") {
+  module_out_path = module_output_path
+  configs = [ ":unittest_config" ]
+
+  sources = [ "unittest/common/event_logger_config_test.cpp" ]
+
+  deps = [
+    "$hiview_eventlogger/config:eventlogger_config",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  resource_config_file = "$hiview_test/resource/ohos_test.xml"
+}

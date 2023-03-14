@@ -1,0 +1,58 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack id="div" style="width: 454px; height: 454px;">
+  <image-animator
+    ref="animator"
+    class="image-animator"
+    images="{{frames}}"
+    duration="1s"
+    iteration="{{iteration}}"
+    style="height: 220px; width: 220px; left: 117px; top: 24px;"
+  ></image-animator>
+  <text style="width: 200px; height: 40px; left: 50px; top: 250px;"
+    >iteration: {{iteration}}</text
+  >
+  <input
+    type="button"
+    value="+"
+    style="width: 50px; left: 250px; top: 245px;"
+    onclick="increase"
+  />
+  <input
+    type="button"
+    value="-"
+    style="width: 50px; left: 320px; top: 245px;"
+    onclick="decrease"
+  />
+  <input
+    type="button"
+    value="上页"
+    style="width: 90px; height: 40px; left: 80px; top: 340px;"
+    onclick="changePrev"
+  />
+  <input
+    type="button"
+    value="首页"
+    style="width: 90px; height: 40px; left: 180px; top: 340px;"
+    onclick="backMain"
+  />
+  <input
+    type="button"
+    value="下页"
+    style="width: 90px; height: 40px; left: 280px; top: 340px;"
+    onclick="changeNext"
+  />
+</stack>

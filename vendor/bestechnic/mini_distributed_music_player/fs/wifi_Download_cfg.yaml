@@ -1,0 +1,88 @@
+# Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+Common:
+  BAUT_RATE: 3000000
+  BIN_DIR: ota_bin
+  COM: null
+  DLD_TOOLS_EXE: .\tools\dldtool.exe
+  DLD_VERBOSE_LOG: false
+  ERASE_WHOLE_FLASH: false
+  LOG_PRINT_DELAY_IN_MS: 100
+  LOG_SWITCH: true
+  MODE: WiFi 烧录工具
+  PIPE_BUFFER_SIZE: 2000000
+  PROGRAMMER: programmer2003.bin
+  PROGRESSBAR_SWITCH: false
+  REBOOT: false
+  REDIRECT_PIPE: true
+  SEC_BOOT_VER: 4
+  WAIT_PRESS_ENTER: true
+FILE_LIST:
+- BOOT1:
+    ADDR: null
+    FILE_NAME: ota_boot1.bin
+    SIZE: 65536
+    SWITCH: true
+- BOOT2A:
+    ADDR: 738263040
+    FILE_NAME: ota_boot2a.bin
+    REMAP_BOTH_SWITCH: true
+    REMAP_SWITCH: true
+    MAGIC: true
+    SIZE: 65536
+    SWITCH: true
+- TRUSTZONEA:
+    ADDR: 738394112
+    FILE_NAME: trustzone_main.bin
+    MAGIC: true
+    SIZE: 155648
+    SWITCH: true
+- TRUSTZONEB:
+    ADDR: 738549760
+    FILE_NAME: trustzone_mini.bin
+    MAGIC: true
+    SIZE: 155648
+    SWITCH: true
+- RTOS:
+    ADDR: 738721792
+    FILE_NAME: rtos_main.bin
+    MAGIC: true
+    SIZE: 8257536
+    SWITCH: true
+- RTOSMINI:
+    ADDR: 749731840
+    FILE_NAME: rtos_mini.bin
+    MAGIC: true
+    SIZE: 3735552
+    SWITCH: true
+- LITTLEFS:
+    ADDR: 750125056
+    FILE_NAME: littlefs.bin
+    SIZE: 4194304
+    SWITCH: true
+- FACTORY:
+    ADDR: 754905088
+    FILE_NAME: factory.bin
+    SIZE: 4096
+    SWITCH: true
+- FACTORYBK:
+    ADDR: 754970624
+    FILE_NAME: factory.bin
+    SIZE: 4096
+    SWITCH: true
+- PUB_OTP:
+    ADDR: 0
+    FILE_NAME: pub_otp.bin
+    SIZE: 1024
+    SWITCH: true

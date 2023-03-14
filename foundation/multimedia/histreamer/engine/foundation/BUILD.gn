@@ -1,0 +1,59 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import("//foundation/multimedia/histreamer/config.gni")
+
+config("histreamer_foundation_config") {
+  if (hst_is_lite_sys) {
+    include_dirs = [
+      "//foundation/multimedia/utils/lite/interfaces/kits",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+    ]
+  } else {
+    include_dirs =
+        [ "//base/hiviewdfx/hilog/interfaces/native/innerkits/include" ]
+  }
+}
+
+source_set("histreamer_foundation") {
+  sources = [
+    "osal/filesystem/file_system.cpp",
+    "osal/thread/condition_variable.cpp",
+    "osal/thread/mutex.cpp",
+    "osal/thread/scoped_lock.cpp",
+    "osal/thread/task.cpp",
+    "osal/thread/thread.cpp",
+    "osal/utils/util.cpp",
+  ]
+  public_configs = [
+    ":histreamer_foundation_config",
+    "//foundation/multimedia/histreamer:histreamer_presets",
+  ]
+  if (hst_is_lite_sys) {
+    deps = [ "//foundation/multimedia/utils/lite:media_common" ]
+    if (ohos_kernel_type == "liteos_m") {
+      deps += [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static" ]
+    } else {
+      deps += [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared" ]
+    }
+  } else {
+    deps = [ "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog" ]
+  }
+
+  if (defined(config_ohos_multimedia_histreamer_stack_size) &&
+      config_ohos_multimedia_histreamer_stack_size > 0) {
+    defines =
+        [ "THREAD_STACK_SIZE=$config_ohos_multimedia_histreamer_stack_size" ]
+  }
+}

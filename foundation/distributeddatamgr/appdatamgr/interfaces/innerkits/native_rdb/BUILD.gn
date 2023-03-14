@@ -1,0 +1,107 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+import("//foundation/distributeddatamgr/appdatamgr/appdatamgr.gni")
+
+config("native_rdb_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "include",
+    "../../../frameworks/innerkitsimpl/native_rdb/include",
+    "//utils/system/safwk/native/include",
+  ]
+
+  defines = [
+    "RELATIONAL_STORE",
+    "SQLITE_HAS_CODEC",
+    "SQLITE_DISTRIBUTE_RELATIONAL",
+  ]
+
+  if (native_appdatamgr_rdb_support_icu) {
+    include_dirs += [
+      "//third_party/icu/icu4c/source",
+      "//third_party/icu/icu4c/source/i18n",
+      "//third_party/icu/icu4c/source/common",
+    ]
+    defines += [ "RDB_SUPPORT_ICU" ]
+  }
+}
+
+config("native_rdb_public_config") {
+  visibility = [ "//foundation/distributeddatamgr/appdatamgr:*" ]
+
+  include_dirs = [ "include" ]
+
+  defines = [ "SQLITE_HAS_CODEC" ]
+}
+
+ohos_shared_library("native_rdb") {
+  part_name = "native_appdatamgr"
+  sources = [
+    "../../../frameworks/innerkitsimpl/native_rdb/src/abs_predicates.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/abs_rdb_predicates.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/abs_result_set.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/abs_shared_result_set.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/base_transaction.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/base_transaction.h",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/logger.h",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/raw_rdb_predicates.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/rdb_helper.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/rdb_predicates.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/rdb_store_config.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/rdb_store_impl.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/share_block.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/shared_block_serializer_info.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_config.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_connection.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_connection_pool.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_database_utils.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_global_config.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_shared_result_set.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_sql_builder.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_statement.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/sqlite_utils.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/step_result_set.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/store_session.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/string_utils.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/value_object.cpp",
+    "../../../frameworks/innerkitsimpl/native_rdb/src/values_bucket.cpp",
+  ]
+
+  configs = [ ":native_rdb_config" ]
+
+  deps = [
+    "//third_party/icu/icu4c:shared_icui18n",
+    "//third_party/icu/icu4c:shared_icuuc",
+    "//third_party/sqlite:sqlite",
+    "//utils/native/base:utils",
+  ]
+
+  public_deps = [
+    "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_appdatafwk:native_appdatafwk",
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/distributeddata:distributeddata_inner",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/libs/distributeddb:distributeddb",
+  ]
+
+  external_deps = [
+    "bytrace_standard:bytrace_core",
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  public_configs = [ ":native_rdb_public_config" ]
+
+  subsystem_name = "distributeddatamgr"
+}

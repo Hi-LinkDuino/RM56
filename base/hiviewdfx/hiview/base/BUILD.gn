@@ -1,0 +1,81 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/ohos.gni")
+
+config("hiview_base_config") {
+  visibility = [ "*:*" ]
+
+  include_dirs = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//third_party/bounds_checking_function/include",
+    "//utils/native/base/include",
+    "include",
+    "utility/include",
+    "event_store/include",
+    "$hiview_root/include",
+    "$hiview_adapter/utility/include",
+    "logstore/include",
+    "$hiview_adapter/dbstore/include",
+  ]
+
+  cflags_cc = [ "-D__HIVIEW_OHOS__" ]
+  if (is_standard_system) {
+    cflags_cc += [ "-D__OHOS_STANDARD_SYSTEM__" ]
+  }
+}
+
+ohos_source_set("hiview_base") {
+  part_name = "hiview"
+  public_configs = [ ":hiview_base_config" ]
+
+  sources = [
+    "audit.cpp",
+    "audit_log_parser.cpp",
+    "default_logger.cpp",
+    "event.cpp",
+    "event_dispatch_queue.cpp",
+    "event_dispatcher.cpp",
+    "event_loop.cpp",
+    "event_source.cpp",
+    "hi_logger.cpp",
+    "hiview_global.cpp",
+    "logger.cpp",
+    "pipeline.cpp",
+    "plugin.cpp",
+    "plugin_factory.cpp",
+    "plugin_proxy.cpp",
+    "sys_event.cpp",
+  ]
+
+  deps = [
+    "$hiview_adapter/dbstore:db_store_source",
+    "event_store:event_store_source",
+    "utility:hiview_utility",
+  ]
+  external_deps = [ "hilog_native:libhilog" ]
+}
+
+ohos_shared_library("hiviewbase") {
+  public_configs = [ ":hiview_base_config" ]
+
+  deps = [
+    ":hiview_base",
+    "$hiview_adapter/utility:hiview_adapter_utility",
+    "logstore:log_store",
+  ]
+
+  part_name = "hiview"
+  subsystem_name = "hiviewdfx"
+  external_deps = [ "hilog_native:libhilog" ]
+}

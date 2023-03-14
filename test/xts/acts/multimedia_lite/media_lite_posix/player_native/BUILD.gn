@@ -1,0 +1,50 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/subsystem/aafwk/config.gni")
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hcpptest_suite("ActsMediaPlayerTest") {
+  suite_name = "acts"
+  sources = [ "src/ActsMediaPlayerAudioTest.cpp" ]
+  if (ohos_kernel_type == "liteos_a" &&
+      enable_ohos_appexecfwk_feature_ability == true) {
+    sources += [ "src/ActsMediaPlayerVideoTest.cpp" ]
+  }
+
+  ldflags = [ "-lstdc++" ]
+  ldflags += [ "-lm" ]
+  if (ohos_kernel_type == "linux") {
+    ldflags += [ "-lpthread" ]
+  }
+  ldflags += [ "-Wl,-rpath-link=$ohos_root_path/$root_out_dir" ]
+
+  include_dirs = [
+    "src",
+    "//test/xts/acts/multimedia_lite/utils_posix/common/include",
+    "//third_party/bounds_checking_function/include",
+    "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin/base",
+    "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin/async",
+    "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+    "//foundation/multimedia/utils/lite/include",
+    "//foundation/multimedia/media_lite/test/unittest/player_lite",
+  ]
+
+  deps = [
+    "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite",
+    "//foundation/multimedia/utils/lite:media_common",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+
+  cflags = [ "-Wno-error" ]
+}

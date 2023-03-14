@@ -1,0 +1,48 @@
+{
+  "name": "block",
+  "version": [
+    {
+      "name": "v3.0"
+    }
+  ],
+  "description": [
+    {
+      "name": "'Logic control block."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "for",
+      "required": false,
+      "description": [
+        {
+          "name": "Expands the current element based on the configured data list."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "if",
+      "required": false,
+      "description": [
+        {
+          "name": "Whether the element is added or removed."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

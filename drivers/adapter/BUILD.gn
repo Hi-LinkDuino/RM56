@@ -1,0 +1,56 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {
+  group("uhdf_entry") {
+    deps = [
+      "//drivers/adapter/uhdf/manager:hdf_core",
+      "//drivers/adapter/uhdf/platform:hdf_platform",
+      "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+      "//drivers/adapter/uhdf/posix/old:hdf_posix",
+    ]
+  }
+  group("uhdf_test_entry") {
+    deps = [
+      "//drivers/adapter/build/test_common:libhdf_test_common",
+      "//drivers/adapter/uhdf/test:hdf_test_uhdf",
+    ]
+  }
+} else {
+  group("uhdf_entry") {
+    deps = [
+      "//drivers/adapter/uhdf2/hcs:hdf_default.hcb",
+      "//drivers/adapter/uhdf2/hcs:hdf_devhost.cfg",
+      "//drivers/adapter/uhdf2/hdi:libhdi",
+      "//drivers/adapter/uhdf2/host:hdf_devhost",
+      "//drivers/adapter/uhdf2/host:libhdf_host",
+      "//drivers/adapter/uhdf2/host/test/unittest/sample_driver:libsample_driver",
+      "//drivers/adapter/uhdf2/ipc:libhdf_ipc_adapter",
+      "//drivers/adapter/uhdf2/manager:hdf_devmgr",
+      "//drivers/adapter/uhdf2/manager:hdf_devmgr.cfg",
+      "//drivers/adapter/uhdf2/platform:libhdf_platform",
+      "//drivers/adapter/uhdf2/utils:libhdf_utils",
+      "//drivers/peripheral/base:hdf_peripheral.cfg",
+    ]
+  }
+  group("uhdf_test_entry") {
+    testonly = true
+    deps = [
+      "//drivers/adapter/build/test_common:libhdf_test_common",
+      "//drivers/adapter/uhdf2/hdi/test:unittest",
+      "//drivers/adapter/uhdf2/host/test:unittest",
+      "//drivers/adapter/uhdf2/osal/test:unittest",
+      "//drivers/adapter/uhdf2/test:hdf_test_uhdf",
+    ]
+  }
+}

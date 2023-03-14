@@ -1,0 +1,194 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack style="left:0px;top:0px;width:454px;height:454px;">
+  <list style="left:0px;top:0px;width:454px;height:454px;flex-direction:column">
+    <list-item style="width:454px;height:60px;">
+    </list-item>
+    <list-item style="width:454px;height:80px;">
+        <input type="button" style="margin-left:85px;width:130px;height:60px;" value="返回首页" onclick="backMain">
+        </input>
+        <input type="button" style="margin-left:20px;width:130px;height:60px;" value="返回上级" onclick="changePrev">
+        </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item class="titleContainerStyle">
+        <text class="titleTextStyle">
+        canvas绘图接口
+        </text>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas1" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test001" onclick="closePath001Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas2" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test002" onclick="closePath002Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas3" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test003" onclick="closePath003Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas4" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test004" onclick="closePath004Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas5" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test005" onclick="closePath005Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas6" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test006" onclick="closePath006Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas7" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test007" onclick="closePath007Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas8" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test008" onclick="closePath008Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas9" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test009" onclick="closePath009Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas10" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test010" onclick="closePath010Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas11" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test011" onclick="closePath011Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas12" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test012" onclick="closePath012Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas13" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test013" onclick="closePath013Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas14" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test014" onclick="closePath014Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas15" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test015" onclick="closePath015Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas16" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test016" onclick="closePath016Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas17" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test017" onclick="closePath017Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas18" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test018" onclick="closePath018Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas19" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test019" onclick="closePath019Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas ref="canvas20" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:100px;" value="closePath_Test020" onclick="closePath020Func">
+      </input>
+    </list-item>
+  </list>
+</stack>

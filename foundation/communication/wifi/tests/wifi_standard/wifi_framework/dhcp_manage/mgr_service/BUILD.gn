@@ -1,0 +1,107 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//foundation/appexecfwk/standard/appexecfwk.gni")
+
+################################################################################
+
+SUBSYSTEM_DIR = "//foundation/communication"
+module_output_path = "wifi_standard/dhcp_manage_test"
+even_path = "//base/notification/ces_standard"
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "$SUBSYSTEM_DIR/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/test",
+  ]
+}
+
+ohos_unittest("dhcp_manage_unittest") {
+  module_out_path = module_output_path
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_client_service_impl.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_event_subscriber.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_func.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_server_service.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_service.cpp",
+    "dhcp_client_service_test.cpp",
+    "dhcp_func_test.cpp",
+    "dhcp_manage_test.cpp",
+    "dhcp_result_notify.cpp",
+    "dhcp_server_service_test.cpp",
+    "dhcp_service_test.cpp",
+    "global_test.cpp",
+    "mock_system_func.cpp",
+  ]
+
+  include_dirs = [
+    "//third_party/googletest/googlemock/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/test",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//utils/native/base/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include",
+    "${even_path}/cesfwk/kits/native/include",
+    "${even_path}/cesfwk/innerkits/include",
+    "//base/notification/ces_standard/frameworks/core/include",
+  ]
+
+  deps = [
+    "${aafwk_path}/interfaces/innerkits/base:base",
+    "${aafwk_path}/interfaces/innerkits/want:want",
+    "//third_party/googletest:gmock_main",
+    "//utils/native/base:utils",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+    "--coverage",
+    "-Wl,-rpath=/vendor/lib64/hw",
+    "-Wl,--wrap=open",
+    "-Wl,--wrap=close",
+    "-Wl,--wrap=write",
+    "-Wl,--wrap=read",
+    "-Wl,--wrap=socket",
+    "-Wl,--wrap=setsockopt",
+    "-Wl,--wrap=ioctl",
+    "-Wl,--wrap=bind",
+    "-Wl,--wrap=listen",
+    "-Wl,--wrap=connect",
+    "-Wl,--wrap=select",
+    "-Wl,--wrap=sendto",
+    "-Wl,--wrap=vfork",
+    "-Wl,--wrap=execv",
+    "-Wl,--wrap=_exit",
+    "-Wl,--wrap=waitpid",
+    "-Wl,--wrap=kill",
+  ]
+
+  external_deps = [
+    "ces_standard:cesfwk_innerkits",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+  configs = [ ":module_private_config" ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ ":dhcp_manage_unittest" ]
+}

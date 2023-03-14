@@ -1,0 +1,22 @@
+root {
+    module = "test";
+    template foo_base {
+        term3 = [2,2];
+        template attr {
+            term4 = 4;
+        }
+    }
+
+    foo_1 :: foo_base {
+        attr1 :: attr {
+            term4 = 1;
+        }
+        attr2 :: attr {
+            term4 = 2;
+        }
+    }
+
+    foo_2 :: foo_base {
+        term3 = [1, 2, 3, 4];
+    }
+}

@@ -1,0 +1,106 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//drivers/adapter/khdf/liteos/hdf.gni")
+
+module_switch = defined(LOSCFG_DRIVERS_HDF_AUDIO)
+module_name = "hdf_audio_driver"
+hdf_driver(module_name) {
+  PERIPHERAL_ADUIO_ROOT = []
+  FRAMEWORKS_ADUIO_ROOT = "$HDF_FRAMEWORKS_PATH/model/audio"
+  PERIPHERAL_ADUIO_ROOT = "$HDF_PERIPHERAL_PATH/audio"
+
+  sources = [
+    "$FRAMEWORKS_ADUIO_ROOT/common/src/audio_accessory_base.c",
+    "$FRAMEWORKS_ADUIO_ROOT/common/src/audio_codec_base.c",
+    "$FRAMEWORKS_ADUIO_ROOT/common/src/audio_dai_base.c",
+    "$FRAMEWORKS_ADUIO_ROOT/common/src/audio_dma_base.c",
+    "$FRAMEWORKS_ADUIO_ROOT/common/src/audio_dsp_base.c",
+    "$FRAMEWORKS_ADUIO_ROOT/common/src/audio_platform_base.c",
+    "$FRAMEWORKS_ADUIO_ROOT/core/src/audio_core.c",
+    "$FRAMEWORKS_ADUIO_ROOT/core/src/audio_host.c",
+    "$FRAMEWORKS_ADUIO_ROOT/core/src/audio_parse.c",
+    "$FRAMEWORKS_ADUIO_ROOT/dispatch/src/audio_control_dispatch.c",
+    "$FRAMEWORKS_ADUIO_ROOT/dispatch/src/audio_stream_dispatch.c",
+    "$FRAMEWORKS_ADUIO_ROOT/sapm/src/audio_sapm.c",
+  ]
+
+  include_dirs = [
+    "$FRAMEWORKS_ADUIO_ROOT/core/include",
+    "$FRAMEWORKS_ADUIO_ROOT/common/include",
+    "$FRAMEWORKS_ADUIO_ROOT/dispatch/include",
+    "$FRAMEWORKS_ADUIO_ROOT/sapm/include",
+    "$HDF_FRAMEWORKS_PATH/include/audio",
+    "$HDF_FRAMEWORKS_PATH/osal/include",
+    "$HDF_FRAMEWORKS_PATH/include/core",
+    "$HDF_FRAMEWORKS_PATH/include/utils",
+    "$HDF_FRAMEWORKS_PATH/include/osal",
+    "$HDF_FRAMEWORKS_PATH/include/platform",
+    "$HDF_FRAMEWORKS_PATH/include/config",
+    "$HDF_FRAMEWORKS_PATH/include/audio",
+    "$HDF_FRAMEWORKS_PATH/ability/sbuf/include",
+    "$HDF_FRAMEWORKS_PATH/core/common/include/host",
+  ]
+
+  if (defined(LOSCFG_DRIVERS_HDF_AUDIO_CODEC_HI3516)) {
+    sources += [
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/codec/src/hi3516_codec_adapter.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/codec/src/hi3516_codec_impl.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/codec/src/hi3516_codec_ops.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/dsp/src/dsp_adapter.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/dsp/src/dsp_ops.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/soc/src/hi3516_aiao_impl.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/soc/src/hi3516_dai_adapter.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/soc/src/hi3516_dai_ops.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/soc/src/hi3516_dma_adapter.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/soc/src/hi3516_dma_ops.c",
+    ]
+
+    include_dirs += [
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/codec/include",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/soc/include",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/hi3516dv300/dsp/include",
+    ]
+  }
+
+  if (defined(LOSCFG_DRIVERS_HDF_AUDIO_CODEC_TF9879)) {
+    sources += [
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/tfa9879/accessory/src/tfa9879_accessory_adapter.c",
+      "$PERIPHERAL_ADUIO_ROOT/chipsets/tfa9879/accessory/src/tfa9879_accessory_impl.c",
+    ]
+    include_dirs +=
+        [ "$PERIPHERAL_ADUIO_ROOT/chipsets/tfa9879/accessory/include" ]
+  }
+
+  cflags = [
+    "-Wno-error",
+    "-Wno-format",
+    "-Wno-pointer-sign",
+    "-Wno-pointer-arith",
+  ]
+}

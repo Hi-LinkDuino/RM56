@@ -1,0 +1,42 @@
+{
+  "name": "@ohos/hilog_service",
+  "description": "Log service provided for the system framework, services, and applications",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/hiviewdfx/hilog"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "hilog_service",
+    "subsystem": "hiviewdfx",
+    "syscap": [
+      "SystemCapability.HiviewDFX.HiLog"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "460KB",
+    "ram": "14336KB",
+    "deps": {
+      "components": [
+        "init",
+        "utils_base"
+      ],
+      "third_party": [
+        "bounds_checking_function",
+        "zlib"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/hiviewdfx/hilog/services/hilogtool:hilog",
+        "//base/hiviewdfx/hilog/services/hilogd:hilogd"
+      ],
+      "inner_kits": [],
+      "test": [ "//base/hiviewdfx/hilog/test:HiLogNDKTest" ]
+    }
+  }
+}

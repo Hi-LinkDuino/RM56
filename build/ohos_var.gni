@@ -1,0 +1,194 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/version.gni")
+
+declare_args() {
+  # build ohos version
+  build_public_version = true
+}
+
+declare_args() {
+  enable_java = is_large_system
+}
+
+declare_args() {
+  build_version_alpha = true
+}
+
+declare_args() {
+  # Whether build the qemu images, this image is usd to run on emulator device.
+  build_qemu_image = false
+
+  # system package dir
+  system_base_dir = "system"
+
+  # ramdisk package dir
+  ramdisk_base_dir = "ramdisk"
+
+  # vendor package dir
+  vendor_base_dir = "vendor"
+
+  # chipset package dir
+  chipset_base_dir = "vendor"
+
+  # updater package dir
+  updater_base_dir = "updater"
+
+  # check sdk interface
+  sdk_interface_check = true
+
+  # is use sdk
+  is_use_sdk = false
+
+  # build test example
+  build_example = false
+
+  # check intersdk interface
+  check_innersdk_interface = true
+  gen_innersdk_interface_signature = false
+
+  # sdk check
+  check_sdk_interface = true
+  gen_sdk_interface_signature = false
+
+  # Whether to collect the ebpf testcase.
+  ebpf_enable = false
+
+  # Info files of test targets will remove source file paths when setting true.
+  release_test_suite = false
+
+  # Whether to enable scalable build.
+  scalable_build = false
+
+  # Whether to enable pycache or not.
+  pycache_enable = true
+
+  # Whether to build js bundle to ark bytecode
+  build_ark = true
+
+  # Whether to make Code_OpenSource.tar.gz
+  make_osp = false
+}
+
+declare_args() {
+  build_platform = ""
+
+  sparse_image = false
+}
+
+declare_args() {
+  system_kits_package = false
+
+  kits_api_statistics = false
+
+  # ohos sdk
+  build_ohos_sdk = false
+
+  # Build ohos sdk compatibility jar
+  build_bc_sdk = false
+}
+
+declare_args() {
+  # Build ohos NDK
+  build_ohos_ndk = false
+
+  # Which OS the generated NDK works on. possible values: 'win/mac/linux/default'
+  ndk_system = "default"
+
+  # Whether to archive or not, set to false in debug to save ndk build time.
+  archive_ndk = true
+
+  # Check ndk header signature, set false to generate header signature
+  check_ndk_signature = false
+}
+
+declare_args() {
+  archive_component = false
+}
+
+declare_args() {
+  build_asan_clean = false
+}
+
+declare_args() {
+  check_deps = false
+}
+
+declare_args() {
+  enforce_selinux = false
+}
+
+# build target type
+target_type = "${target_os}-${target_cpu}"
+
+parts_src_flag_file = "$root_build_dir/build_configs/parts_src_flag.json"
+
+innersdk_dir_name = "sdk/${target_type}"
+innersdk_base_dir = "//${innersdk_dir_name}"
+
+# Compile and generate output directory
+innersdk_build_out_dir = "innerkits/${target_type}"
+
+dist_dir_name = "component_dist/${target_type}"
+dist_build_out_dir = "${root_build_dir}/component_dist/${target_type}"
+dist_subsystem_info_filename = "dist_parts_info.json"
+
+# install packages archive dir define
+dist_install_packages_dir = "${dist_dir_name}/packages_to_install"
+dist_subsystem_info_file =
+    "//${dist_install_packages_dir}/${dist_subsystem_info_filename}"
+dist_build_install_packages_dir = "${dist_build_out_dir}/packages_to_install"
+dist_subsystem_info_output_file =
+    "${dist_build_install_packages_dir}/${dist_subsystem_info_filename}"
+
+ramdisk_dir_list = []
+
+app_target_allowlist = [
+  "*:*_res",
+  "*:*_resources",
+  "*:*_resource",
+  "*:*_assets",
+  "*:*_asset",
+  "*:*_profile",
+]
+app_target_types = [
+  "hap",
+  "resources",
+  "js_assets",
+  "assets",
+  "app_profile",
+]
+
+if (host_os == "mac") {
+  restool = "//prebuilts/build-tools/common/restool/darwin-x86/restool"
+} else {
+  restool = "//prebuilts/build-tools/common/restool/restool"
+}
+
+hapsigner = "//developtools/hapsigner/dist/hap-sign-tool.jar"
+hap_unpacking_tool = "//developtools/packing_tool/jar/app_unpacking_tool.jar"
+hap_packing_tool = "//developtools/packing_tool/jar/app_packing_tool.jar"
+nodejs_version = "v12.18.4"
+if (host_os == "mac") {
+  nodejs = "//prebuilts/build-tools/common/nodejs/node-${nodejs_version}-darwin-x64/bin/node"
+} else {
+  nodejs = "//prebuilts/build-tools/common/nodejs/node-${nodejs_version}-${host_os}-x64/bin/node"
+}
+default_hap_private_key_path = "OpenHarmony Application Release"
+default_signature_algorithm = "SHA256withECDSA"
+default_key_alias = "123456"
+default_keystore_password = "123456"
+default_keystore_path = "//developtools/hapsigner/dist/OpenHarmony.p12"
+default_hap_certificate_file =
+    "//developtools/hapsigner/dist/OpenHarmonyApplication.pem"

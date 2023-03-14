@@ -1,0 +1,87 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+hdi_input_base_path = "//drivers/peripheral/hidl_adapter/input"
+module_output_path = "hidl_adapter/input_c"
+config("camhdi_impl_utest_config") {
+  visibility = [ ":*" ]
+  cflags_cc = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-error",
+    "-DGST_DISABLE_DEPRECATED",
+    "-DHAVE_CONFIG_H",
+    "-DCOLORSPACE=\"videoconvert\"",
+    "-fno-strict-aliasing",
+    "-Wno-sign-compare",
+    "-Wno-builtin-requires-header",
+    "-Wno-unused-variable",
+    "-Wno-unused-label",
+    "-Wno-implicit-function-declaration",
+    "-Wno-format",
+    "-Wno-int32_t-conversion",
+    "-Wno-unused-function",
+    "-Wno-thread-safety-attributes",
+    "-Wno-inconsistent-missing-override",
+    "-fno-rtti",
+    "-fno-exceptions",
+    "-ffunction-sections",
+    "-fdata-sections",
+  ]
+}
+
+ohos_unittest("hdi_input_unittest_neu") {
+  testonly = true
+  module_out_path = module_output_path
+  install_enable = true
+  sources = [ "./common/hdi_input_test.cpp" ]
+
+  include_dirs = [
+    "$hdi_input_base_path/include",
+    "$hdi_input_base_path/interfaces/include",
+    "$hdi_input_base_path/hal/include",
+    "//third_party/libevdev/include/linux/linux",
+
+    # HCS
+    "//system/core/include/cutils",
+  ]
+
+  deps = [
+    "//drivers/peripheral/hidl_adapter/input/hal:hdi_input",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [ "samgr_L2:samgr_proxy" ]
+  public_configs = [ ":camhdi_impl_utest_config" ]
+}

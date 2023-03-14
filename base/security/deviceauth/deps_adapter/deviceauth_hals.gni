@@ -1,0 +1,55 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/deviceauth/deviceauth_env.gni")
+
+declare_args() {
+  deviceauth_storage_path = ""
+}
+
+if (target_os == "liteos" ||
+    (defined(ohos_lite) && ohos_kernel_type == "liteos_m")) {
+  hals_inc_path = [
+    "${common_lib_path}/interfaces",
+    "${key_management_adapter_path}/interfaces",
+    "${key_management_adapter_path}/impl/inc",
+    "${os_adapter_path}/interfaces",
+    "${os_adapter_path}/interfaces/liteos",
+  ]
+  hal_module_name = "deviceauth_hal_liteos"
+} else {
+  hals_inc_path = [
+    "${common_lib_path}/interfaces",
+    "${key_management_adapter_path}/interfaces",
+    "${key_management_adapter_path}/impl/inc",
+    "${os_adapter_path}/interfaces",
+    "${os_adapter_path}/interfaces/linux",
+  ]
+  hal_module_name = "deviceauth_hal_linux"
+}
+
+hal_common_files = [
+  "${common_lib_path}/impl/src/clib_types.c",
+  "${common_lib_path}/impl/src/hc_parcel.c",
+  "${common_lib_path}/impl/src/hc_string.c",
+  "${common_lib_path}/impl/src/hc_string_vector.c",
+  "${common_lib_path}/impl/src/hc_tlv_parser.c",
+  "${common_lib_path}/impl/src/json_utils.c",
+  "${common_lib_path}/impl/src/string_util.c",
+  "${key_management_adapter_path}/impl/src/alg_loader.c",
+
+  "${os_adapter_path}/impl/src/hc_log.c",
+  "${os_adapter_path}/impl/src/hc_mutex.c",
+  "${os_adapter_path}/impl/src/hc_task_thread.c",
+  "${os_adapter_path}/impl/src/hc_time.c",
+]

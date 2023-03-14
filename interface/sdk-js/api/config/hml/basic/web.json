@@ -1,0 +1,81 @@
+{
+  "name": "web",
+  "version": [
+    {
+      "name": "v6.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": "Component that displays web page content."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "src",
+      "required": false,
+      "description": [
+        {
+          "name": "Set the URL of the web page to be displayed. The domain name of the web page must be HTTPS and archived by the ICP."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "required": false,
+      "description": [
+        {
+          "name": "Unique ID of a component."
+        }
+      ],
+      "type": "string"
+    }
+  ],
+  "events": [
+    {
+      "name": "pagestart",
+      "description": [
+        {
+          "name": "Triggered when a web page is loaded"
+        }
+      ]
+    },
+    {
+      "name": "pagefinish",
+      "description": [
+        {
+          "name": "Triggered when web page loading ends"
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "description": [
+        {
+          "name": "Triggered when an error occurs in loading a web page or when an error occurs in opening a web page"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Triggered when a message sent from a web page is received."
+        }
+      ]
+    }
+  ],
+  "supportedSubComponents": false,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

@@ -1,0 +1,261 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            picker-view通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <picker-view id="idProp">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <picker-view id="classProp"
+             class="classProp">
+        </picker-view>
+        <picker-view id="classPropNone"
+             class="">
+        </picker-view>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <picker-view id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <picker-view id="refProp"
+             ref="refProp">
+        </picker-view>
+        <picker-view id="refPropNone"
+             ref="">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <picker-view id="disabledPropTrue"
+             disabled="true">
+        </picker-view>
+        <picker-view id="disabledPropFalse"
+             disabled="false">
+        </picker-view>
+        <picker-view id="disabledPropNone"
+             disabled="">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <picker-view id="focusablePropTrue"
+             focusable="true">
+        </picker-view>
+        <picker-view id="focusablePropFalse"
+             focusable="false">
+        </picker-view>
+        <picker-view id="focusablePropNone"
+             focusable="">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <picker-view id="dataProp"
+             data-picker-view="通用属性 -- data-*">
+        </picker-view>
+        <picker-view id="dataPropNone"
+             data-picker-view="">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <picker-view id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </picker-view>
+        <picker-view id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </picker-view>
+        <picker-view id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </picker-view>
+        <picker-view id="clickEffectPropNone"
+             click-effect="">
+        </picker-view>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <picker-view id="dirPropRtl"
+             dir="rtl">
+        </picker-view>
+        <picker-view id="dirPropAuto"
+             dir="auto">
+        </picker-view>
+        <picker-view id="dirPropLtr"
+             dir="ltr">
+        </picker-view>
+        <picker-view id="dirPropNone"
+             dir="">
+        </picker-view>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <picker-view id="forPropNull"
+             for="">
+        </picker-view>
+        <picker-view id="forPropOne"
+             for="{{listOne}}">
+        </picker-view>
+        <picker-view id="forPropThree"
+             for="{{listThree}}">
+        </picker-view>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <picker-view id="ifPropTrue"
+             if="true">
+        </picker-view>
+        <picker-view id="ifPropTrue"
+                     elif="true">
+        </picker-view>
+        <picker-view id="ifPropTrue"
+                     elif="false">
+        </picker-view>
+        <picker-view id="ifPropTrue"
+                     elif="">
+        </picker-view>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <picker-view id="showPropTrue"
+             show="true">
+        </picker-view>
+        <picker-view id="showPropFalse"
+             show="false">
+        </picker-view>
+        <picker-view id="showPropNone"
+             show="">
+        </picker-view>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            picker-view特有属性
+        </text>
+        <text  class="sub-title">
+            picker-view特有属性 -- type
+        </text>
+        <picker-view
+                id="pickerViewText"
+                type="text"
+                selected="0"
+                range="{{rangetext}}"
+                indicatorprefix="前缀"
+                indicatorsuffix="后缀"
+        ></picker-view>
+        <picker-view
+                id="pickerViewTime"
+                type="time"
+                containsecond="true"
+                selected="11:22:30"
+                hours="12"
+        ></picker-view>
+        <picker-view
+                id="pickerViewDate"
+                type="date"
+                start="2002-2-5"
+                end="2030-6-5"
+                selected="2022-2-22"
+                lunar="false"
+                lunarswitch="true"
+        ></picker-view>
+        <picker-view
+                id="pickerViewDatetime"
+                type="datetime"
+                selected=""
+                hours="12"
+                lunar="false"
+                lunarswitch="true"
+        ></picker-view>
+        <picker-view
+                id="pickerViewMultiText"
+                type="multi-text"
+                columns="3"
+                range="{{multitext}}"
+                selected="{{multitextselect}}"
+        ></picker-view>
+        <text  class="sub-title">
+            picker-view特有属性 -- picker-view
+        </text>
+        <picker-view
+                class="pickerView"
+                type="text"
+                range="{{rangetext}}"
+                picker-view="picker-view"
+                ></picker-view>
+        <picker-view
+                class="pickerView"
+                type="text"
+                range="{{rangetext}}"
+                picker-view=""
+                ></picker-view>
+        <!--<text  class="sub-title">
+            picker-view特有属性 -- shareid
+        </text>
+        <picker-view
+                class="pickerView"
+                type="text"
+                range="{{rangetext}}"
+                shareid="shareid"
+        ></picker-view>
+        <picker-view
+                class="pickerView"
+                type="text"
+                range="{{rangetext}}"
+                shareid=""
+        ></picker-view>-->
+        <text  class="sub-title">
+            picker-view特有属性 -- tid
+        </text>
+        <picker-view
+                class="pickerView"
+                type="text"
+                range="{{rangetext}}"
+                tid="tid"
+        ></picker-view>
+        <picker-view
+                class="pickerView"
+                type="text"
+                range="{{rangetext}}"
+                tid=""
+        ></picker-view>
+    </div>
+</div>

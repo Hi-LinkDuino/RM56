@@ -1,0 +1,70 @@
+{
+  "template": {
+    "type": "div",
+    "attr": {},
+    "classList": [
+      "container"
+    ],
+    "children": [
+      {
+        "type": "div",
+        "attr": {},
+        "classList": [
+          "row"
+        ],
+        "children": [
+          {
+            "type": "clock",
+            "attr": {
+              "hourswest": "{{timeRegion}}",
+              "clockconfig": "{{clockconfig}}"
+            },
+            "classList": [
+              "clk"
+            ],
+            "style": {
+              "fontFamily": "{{fontFamily}}"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "styles": {
+    ".container": {
+      "flexDirection": "column",
+      "alignItems": "center"
+    },
+    ".clk": {
+      "width": "350px",
+      "height": "350px"
+    },
+    ".row": {
+      "flexDirection": "row",
+      "alignItems": "center",
+      "justifyContent": "space-around",
+      "borderRadius": "40px",
+      "paddingTop": "20px",
+      "paddingBottom": "20px",
+      "backgroundColor": "#4169E1"
+    }
+  },
+  "actions": {},
+  "data": {
+    "timeRegion": "8",
+    "fontFamily": "Courier",
+    "clockconfig": {
+      "digitRadiusRatio": 0.7,
+      "digitSizeRatio": 0.08,
+      "face": "common/clock_widget.png",
+      "hourHand": "common/clock_widget_hour.png",
+      "minuteHand": "common/clock_widget_minute.png",
+      "secondHand": "common/clock_widget_second.png",
+      "faceNight": "common/black_clock_widget.png",
+      "hourHandNight": "common/black_clock_widget_hour.png",
+      "minuteHandNight": "common/black_clock_widget_minute.png",
+      "digitColor": "#000000",
+      "digitColorNight": "#FFFFFF"
+    }
+  }
+}

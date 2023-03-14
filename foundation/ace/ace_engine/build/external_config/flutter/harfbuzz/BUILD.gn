@@ -1,0 +1,145 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+config("libharfbuzz_compile_flags") {
+  cflags_cc = [
+    "-std=c++14",
+    "-fno-exceptions",
+    "-fno-rtti",
+    "-fvisibility-inlines-hidden",
+    "-Os",
+  ]
+
+  cflags = [
+    "-w",
+    "-fstrict-aliasing",
+    "-Os",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-gline-tables-only",
+    "-funwind-tables",
+    "-Wno-unused-parameter",
+    "-fvisibility=hidden",
+  ]
+
+  include_dirs = [
+    "$flutter_root/skia/third_party/harfbuzz",
+    "$flutter_root/skia/third_party/externals/harfbuzz/src",
+  ]
+}
+
+template("ace_libharfbuzz") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    license_file = "$flutter_root/skia/third_party/externals/harfbuzz/COPYING"
+    defines += invoker.defines
+    defines += [
+      "HAVE_ICU",
+      "HAVE_ICU_BUILTIN",
+      "HAVE_INTEL_ATOMIC_PRIMITIVES",
+      "HAVE_OT",
+      "U_USING_ICU_NAMESPACE=0",
+      "SK_USING_THIRD_PARTY_ICU",
+      "UPRV_BLOCK_MACRO_BEGIN=",
+      "UPRV_BLOCK_MACRO_END=",
+    ]
+    cflags_cc += invoker.cflags_cc
+
+    configs = [ ":libharfbuzz_compile_flags" ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-aat-layout.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-aat-map.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-blob.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-buffer-serialize.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-buffer.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-common.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-face.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-font.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-icu.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-map.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-cff1-table.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-cff2-table.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-color.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-face.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-font.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-layout.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-map.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-math.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-name.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-arabic.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-default.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-hangul.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-hebrew.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-indic-table.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-indic.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-khmer.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-myanmar.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-thai.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-use-table.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-use.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-complex-vowel-constraints.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-fallback.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape-normalize.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-shape.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-tag.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ot-var.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-set.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-shape-plan.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-shape.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-shaper.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-static.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-subset-cff-common.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-subset-cff1.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-subset-cff2.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-subset-input.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-subset-plan.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-subset.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-ucd.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-unicode.cc",
+      "$flutter_root/skia/third_party/externals/harfbuzz/src/hb-warning.cc",
+    ]
+
+    deps = [ "$ace_flutter_engine_root/icu:ace_libicu_$platform" ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_libharfbuzz("ace_libharfbuzz_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}

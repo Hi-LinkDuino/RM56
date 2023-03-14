@@ -1,0 +1,90 @@
+{
+    "name": "@ohos/ace_engine_standard",
+    "description": "ArkUI Cross-Platform Engine for UI layout measure and paint",
+    "version": "3.1",
+    "license": "Apache 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "foundation/ace/ace_engine"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "ace_engine_standard",
+        "subsystem": "ace",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "25600KB",
+        "ram": "102400KB",
+        "hisysevent_config":[
+            "//foundation/ace/ace_engine/adapter/ohos/build/hisysevent.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "hiviewdfx_hilog_native",
+                "ability_runtime",
+                "appexecfwk_standard",
+                "ipc",
+                "ipc_js",
+                "samgr_standard",
+                "native_appdatamgr",
+                "hisysevent_native",
+                "napi",
+                "utils_base",
+                "unittest",
+                "resmgr",
+                "graphic",
+                "bytrace_standard",
+                "startup_l2"
+            ],
+            "third_party": [
+                "json",
+                "expat",
+                "flutter",
+                "freetype",
+                "glfw",
+                "libpng",
+                "parse5",
+                "qrcodegen",
+                "css_what",
+                "weex_loader",
+                "quickjs"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/ace/ace_engine/adapter/ohos/build:ace_packages",
+                "//foundation/ace/ace_engine/adapter/ohos/sa_profile:ace_sa_profile",
+                "//foundation/ace/ace_engine/adapter/ohos/services/uiservice:ui_service.cfg"
+            ],
+            "inner_kits": [
+                {
+                    "header": {
+                      "header_base": "//foundation/ace/ace_engine/interfaces/innerkits/ace/",
+                      "header_files": [
+                          "ui_content.h",
+                          "viewport_config.h"
+                      ]
+                    },
+                    "name": "//foundation/ace/ace_engine/interfaces/innerkits/ace:ace_uicontent"
+                  }
+            ],
+            "test": [
+                "//foundation/ace/ace_engine/frameworks/base/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/bridge/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/animation/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/pipeline/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/common/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/components/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/components/common/properties/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/event/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/focus/test:unittest",
+                "//foundation/ace/ace_engine/frameworks/core/gestures/test:unittest"
+            ]
+        }
+    }
+}

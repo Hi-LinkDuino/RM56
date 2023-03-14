@@ -1,0 +1,90 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+
+if (defined(ohos_lite)) {
+  import("//build/ohos.gni")
+  import("//drivers/adapter/uhdf/uhdf.gni")
+  import("//drivers/peripheral/camera/hal/camera.gni")
+  config("utils_config") {
+    visibility = [ ":*" ]
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-error",
+      "-DGST_DISABLE_DEPRECATED",
+      "-DHAVE_CONFIG_H",
+      "-DCOLORSPACE=\"videoconvert\"",
+      "-fno-strict-aliasing",
+      "-Wno-sign-compare",
+      "-Wno-builtin-requires-header",
+      "-Wno-unused-variable",
+      "-Wno-unused-label",
+      "-Wno-implicit-function-declaration",
+      "-Wno-format",
+      "-Wno-int-conversion",
+      "-Wno-unused-function",
+      "-Wno-thread-safety-attributes",
+      "-Wno-inconsistent-missing-override",
+      "-fno-rtti",
+      "-fno-exceptions",
+      "-ffunction-sections",
+      "-fdata-sections",
+    ]
+    cflags_cc = [ "-std=c++17" ]
+  }
+
+  ohos_shared_library("camera_utils") {
+    sources = [ "watchdog/watchdog.cpp" ]
+    include_dirs = [ "watchdog" ]
+    libs = []
+    defines = []
+    deps = []
+    public_configs = [ ":utils_config" ]
+    subsystem_name = "hdf"
+    part_name = "camera_device_driver"
+  }
+} else {
+  import("//build/ohos.gni")
+  import("../camera.gni")
+  config("utils_config") {
+    visibility = [ ":*" ]
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-error",
+      "-DGST_DISABLE_DEPRECATED",
+      "-DHAVE_CONFIG_H",
+      "-DCOLORSPACE=\"videoconvert\"",
+      "-fno-strict-aliasing",
+      "-Wno-sign-compare",
+      "-Wno-builtin-requires-header",
+      "-Wno-unused-variable",
+      "-Wno-unused-label",
+      "-Wno-implicit-function-declaration",
+      "-Wno-format",
+      "-Wno-int-conversion",
+      "-Wno-unused-function",
+      "-Wno-thread-safety-attributes",
+      "-Wno-inconsistent-missing-override",
+      "-fno-rtti",
+      "-fno-exceptions",
+      "-ffunction-sections",
+      "-fdata-sections",
+    ]
+  }
+  ohos_shared_library("camera_utils") {
+    sources = [ "watchdog/watchdog.cpp" ]
+    include_dirs = [ "watchdog" ]
+    libs = []
+    defines = []
+    deps = []
+    if (enable_camera_device_utest) {
+      defines += [ "CAMERA_DEVICE_UTEST" ]
+    }
+    public_configs = [ ":utils_config" ]
+    install_images = [ chipset_base_dir ]
+    subsystem_name = "hdf"
+    part_name = "camera_device_driver"
+  }
+}

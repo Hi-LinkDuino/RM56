@@ -1,0 +1,113 @@
+# Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/lite_subsystem.gni")
+import("//kernel/liteos_a/liteos.gni")
+
+out_product_path = "${ohos_root_path}out/${board_name}/${product_name}"
+
+if (product_path != "") {
+  product_conf = read_file("${product_path}/config.json", "json")
+  romfs_list = product_conf.romfs
+  foreach(romfs_bin, romfs_list) {
+    romfs_src = romfs_bin.romfs_src
+    vol_name = romfs_bin.vol_name
+    romfs_name = romfs_bin.romfs_name
+    romfs_dst = "${out_product_path}/${romfs_name}.bin"
+
+    gen_romfs_name = "gen_romfs_${romfs_name}"
+    build_ext_component(gen_romfs_name) {
+      exec_path = rebase_path(".")
+      print("product_path:",product_path)
+      romfs_dir_path = "${product_path}/${romfs_src}"
+      command = "genromfs -V $vol_name -f $romfs_dst -d $romfs_dir_path"
+    }
+  }
+}
+
+# build sdk into lib
+build_ext_component("build_sdk_into_lib") {
+  exec_path = rebase_path(".")
+  print("product_path:",product_path)
+  # romfs_src = "${product_path}/${romfs_src}"
+  command = "./tools/build_lib_into_hmos_out.sh ${out_product_path} ${romfs_name}"
+  deps = [ ":${gen_romfs_name}" ]
+}
+
+gen_out_libs="gen_out_libs"
+build_ext_component(gen_out_libs) {
+  exec_path = rebase_path(".")
+  out_lib_path = "${out_product_path}/libs/"
+  command = "mkdir -p ${out_lib_path}"
+  deps = [ ":build_sdk_into_lib" ]
+}
+
+# copy lib generate by bsp target to out directory.
+exe_bin="a7_dsp"
+bsp_target_name="${exe_bin}"
+copy_lib_name = "gen_bsp_lib_${exe_bin}"
+print("copy_lib_name:", copy_lib_name)
+build_ext_component(copy_lib_name) {
+  exec_path = rebase_path(".")
+  out_lib_path = "${out_product_path}/libs/"
+  bsp_lib_path = "./../liteos_m/sdk/bsp/out/${bsp_target_name}/lib${bsp_target_name}.a"
+  command = "cp -rf ${bsp_lib_path} ${out_lib_path}"
+  deps = [ ":${gen_out_libs}" ]
+}
+
+module_name = "a7_dsp"
+kernel_module(module_name) {
+  deps = [ ":${copy_lib_name}" ]
+  # deps += [ "components" ]
+}
+
+config("public") {
+  include_dirs = [
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/rtos/liteos/liteos_a/config/board/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/platform/cmsis/inc/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/platform/hal",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/platform/hal/best2003",
+  ]
+  include_dirs += [ "$root_out_dir" ]
+  include_dirs += [ "//kernel/liteos_a/arch/arm" ]
+
+  defines = []
+  defines += [ "CHIP_BEST2003" ]
+  defines += [ "OS_HEAP_SIZE=0x400000" ]
+  defines += [ "CHIP_BEST2003_DSP" ]
+  defines += [ "CHIP_HAS_A7_DSP" ]
+  defines += [ "KERNEL_LITEOS_A" ]
+  defines += [ "RTOS" ]
+  defines += [ "CMSIS_OS_VER=2" ]
+  defines += [ "SIMU" ]
+
+  ldflags = [ "-U__INT32_TYPE__" ]
+  ldflags += [ "-DDSP_RAM_SIZE=0x80000" ]
+  ldflags += [ "-DPSRAM_SIZE=0x800000" ]
+  ldflags += [ "-DUNALIGNED_ACCESS" ]
+
+  cflags = [
+    "-marm",
+    "-mcpu=cortex-a7",
+    "-mfpu=neon-vfpv4",
+    "-mfloat-abi=hard",
+    "-fno-common",
+  ]
+  libs = [
+    "a7_dsp",
+    "m",
+    "stdc++",
+  ]
+}

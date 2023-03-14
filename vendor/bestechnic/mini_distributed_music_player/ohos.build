@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "product_mini_distributed_music_player": {
+      "module_list": [
+        "//vendor/bestechnic/mini_distributed_music_player:mini_distributed_music_player"
+      ]
+    }
+  },
+  "subsystem": "product_mini_distributed_music_player"
+}

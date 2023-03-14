@@ -1,0 +1,6 @@
+import("//build/test.gni")
+import("../../test_template.gni")
+
+test_unittest("pleval") {
+  target_dir = "musl"
+}

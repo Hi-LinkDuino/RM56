@@ -1,0 +1,251 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container {
+    flex-direction:row;
+    width:100%;
+    height:100%;
+}
+
+.title{
+    width: 100%;
+    font-size: 18px;
+    margin: 2px;
+    padding: 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sub-title{
+    width: 100%;
+    font-size: 14px;
+    text-align: left;
+    margin: 2px;
+    padding: 2px;
+}
+
+.prop-container{
+    flex-direction: column;
+    flex-weight: 1;
+}
+
+.toolbar-style{
+    width: 90%;
+    margin-left: 5%;
+    flex-weight: 1;
+    border: 1px solid #000000;
+}
+
+#idProp {
+    color: #fff;
+    font-size: 16px;
+    background-color:#f00000;
+}
+
+
+.classProp {
+    color: #fff;
+    font-size: 16px;
+    background-color:#0f0000;
+}
+
+#classPropNone {
+    color: #fff;
+    font-size: 16px;
+    background-color:#0000e0;
+}
+
+#refProp {
+    color: #fff;
+    font-size: 16px;
+    background-color:#00f000;
+}
+
+#refPropNone {
+    color: #fff;
+    font-size: 16px;
+    background-color:#00000e;
+}
+
+#disabledPropTrue {
+    background-color:#000f00;
+    color: #fff;
+    font-size: 16px;
+}
+
+#disabledPropFalse {
+    background-color:#0000f0;
+    color: #fff;
+    font-size: 16px;
+}
+
+#disabledPropNone {
+    background-color:#d00000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#focusablePropTrue {
+    background-color:#00000f;
+    color: #fff;
+    font-size: 16px;
+}
+
+#focusablePropFalse {
+    background-color:#ff0000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#focusablePropNone {
+    background-color:#0d0000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#dataProp {
+    background-color:#0ff000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#dataPropNone {
+    background-color:#00d000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#clickEffectPropSmall {
+    background-color:#00ff00;
+    color: #fff;
+    font-size: 16px;
+}
+
+#clickEffectPropMedium {
+    background-color:#000ff0;
+    color: #fff;
+    font-size: 16px;
+}
+
+#clickEffectPropLarge {
+    background-color:#fff000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#clickEffectPropNone{
+    background-color:#000d00;
+    color: #fff;
+    font-size: 16px;
+}
+
+#dirPropRtl {
+    background-color:#0fff00;
+    color: #fff;
+    font-size: 16px;
+}
+
+#dirPropAuto {
+    background-color:#00fff0;
+    color: #fff;
+    font-size: 16px;
+}
+
+#dirPropLtr {
+    background-color:#000fff;
+    color: #fff;
+    font-size: 16px;
+}
+
+#dirPropNone {
+    background-color:#0000d0;
+    color: #fff;
+    font-size: 16px;
+}
+
+#forPropNull {
+    background-color:#ffff00;
+    color: #fff;
+    font-size: 16px;
+}
+
+#forPropOne {
+    background-color:#00e000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#forPropThree {
+    background-color:#000e00;
+    color: #fff;
+    font-size: 16px;
+}
+
+#ifPropTrue {
+    background-color:#0ffff0;
+    color: #fff;
+    font-size: 16px;
+}
+
+#ifPropFalse {
+    background-color:#00ffff;
+    color: #fff;
+    font-size: 16px;
+}
+
+#ifPropNone {
+    background-color:#00000d;
+    color: #fff;
+    font-size: 16px;
+}
+
+#showPropTrue {
+    background-color:#e00000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#showPropFalse {
+    background-color:#0e0000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#showPropNone {
+    background-color:#c00000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#valueProp{
+    background-color:#0e0000;
+    color: #fff;
+    font-size: 16px;
+}
+
+#iconProp{
+    background-color:#e00000;
+    color: #fff;
+    font-size: 16px;
+}
+
+.specific-container{
+    flex-direction: column;
+    flex-weight: 1;
+}
+
+.style-2{
+    max-height: 56px;
+}

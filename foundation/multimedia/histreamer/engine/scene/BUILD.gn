@@ -1,0 +1,47 @@
+# Copyright (c) 2022-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+import("//foundation/multimedia/histreamer/config.gni")
+source_set("std_engine_factory") {
+  if (!hst_is_lite_sys) {
+    include_dirs = [
+      "//foundation/multimedia/histreamer/engine",
+      "//foundation/multimedia/media_standard/services/services/engine_intf",
+      "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+    ]
+    public_deps = [
+      "//base/startup/syspara_lite/interfaces/innerkits/native/syspara:syspara",
+      "//foundation/multimedia/histreamer/engine/foundation:histreamer_foundation",
+    ]
+    public_configs = [ "//foundation/multimedia/histreamer:histreamer_presets" ]
+    sources = [ "standard/hst_engine_factory.cpp" ]
+    deps = [ "player:histreamer_player" ]
+    if (multimedia_histreamer_enable_recorder) {
+      deps += [ "recorder:histreamer_recorder" ]
+    }
+  }
+}
+
+source_set("scene_common") {
+  include_dirs = [ "//foundation/multimedia/histreamer/engine" ]
+  public_deps = [
+    "//foundation/multimedia/histreamer/engine/foundation:histreamer_foundation",
+    "//foundation/multimedia/histreamer/engine/pipeline:histreamer_pipeline",
+  ]
+  sources = [
+    "common/data_stream.cpp",
+    "common/data_stream_impl.cpp",
+    "common/media_stat_stub.cpp",
+  ]
+  public_configs = [ "//foundation/multimedia/histreamer:histreamer_presets" ]
+}

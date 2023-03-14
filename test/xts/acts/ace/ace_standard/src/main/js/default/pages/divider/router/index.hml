@@ -1,0 +1,258 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+            <text class="sub-title">
+                仅支持如下样式
+            </text>
+            <divider class="style2" id="style2"></divider>
+        </div>
+
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 动画 -->
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+
+            <text class="sub-title">
+                divider动画样式1
+            </text>
+            <divider id="ani1" class="ani1">
+            </divider>
+
+            <text class="sub-title">
+                divider动画样式2
+            </text>
+            <divider id="ani2" class="ani2">
+            </divider>
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                divider通用属性1
+            </text>
+            <divider  id="prop1"
+                   class="prop1"
+                   disabled = "true"
+                   focusable ="true"
+                   data-name ="prop1"
+                   click-effect="spring-medium"
+                   dir ="rtl">
+            </divider>
+
+            <text  class="sub-title">
+                divider通用属性2
+            </text>
+            <divider class="prop2"
+                   ref ="prop2"
+                   disabled = "false"
+                   focusable ="false"
+                   data-name ="prop2"
+                   click-effect="spring-large"
+                   dir ="ltr">
+            </divider>
+
+            <text  class="sub-title">
+                divider通用属性3
+            </text>
+            <divider id="prop3" style="color: #679855; margin: 5px;width: 100%;height: 40px;" class="prop3" >
+            </divider>
+
+            <text  class="sub-title">
+                divider特有属性4
+            </text>
+            <divider id="prop4" class="prop4" vertical="true">
+            </divider>
+
+            <text  class="sub-title">
+                divider特有属性5
+            </text>
+            <divider id="prop5" class="prop5" vertical="false">
+            </divider>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                divider不支持通用事件
+            </text>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用方法 -->
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text  class="sub-title">
+                divider不支持通用方法
+            </text>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+
+            <text class="sub-title">
+                divider渐变样式1
+            </text>
+            <divider id="gradient1" class="gradient1">
+            </divider>
+
+            <text  class="sub-title">
+                divider渐变样式2
+            </text>
+            <divider id="gradient2" class="gradient2">
+            </divider>
+
+            <text  class="sub-title">
+                divider渐变样式3
+            </text>
+            <divider id="gradient3" class="gradient3">
+            </divider>
+
+            <text  class="sub-title">
+                divider渐变样式4
+            </text>
+            <divider id="gradient4" class="gradient4">
+            </divider>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                divider无障碍1
+            </text>
+            <divider class="access1" accessibilitygroup ="true"
+                      accessibilitytext="这是div"
+                      accessibilitydescription="点击此按键会弹出一个对话框"
+                      accessibilityimportance="no-hide-descendants">
+            </divider>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                divider原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <div style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </div>
+                <div style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </div>
+                <div style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </div>
+                <div style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </div>
+                <div style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </div>
+                <div style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </div>
+            </div>
+            <text class="sub-title">
+                divider原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <divider style="height:20px;background-color: blue;flex-weight: 1;">
+                </divider>
+                <divider style="height:20px;background-color: black;flex-weight: 5;">
+                </divider>
+                <divider style="height:20px;background-color: yellow;flex-weight: 4;">
+                </divider>
+                <divider style="height:20px;background-color: red;flex-weight: 3;">
+                </divider>
+                <divider style="height:20px;background-color:pink;flex-weight: 7;">
+                </divider>
+                <divider style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </divider>
+            </div>
+            <text class="sub-title">
+                divider原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <divider style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </divider>
+                <divider style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </divider>
+                <divider style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </divider>
+                <divider style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </divider>
+                <divider style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </divider>
+                <divider style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </divider>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    divider多模输入1
+                </text>
+                <divider  id="multiMode1"
+                          class="multiMode1"
+                          voicelabel = "voice"
+                          subscriptflag="on"
+                          subscriptlabel="div"
+                          scenelabel="common">
+                </divider>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+import("//build/config/clang/clang.gni")
+import("//build/config/ohos/musl.gni")
+import("//build/ohos.gni")
+
+group("musl_install") {
+  deps = [
+    ":ld-musl-arm.so.1",
+    ":musl-libc.so",
+    ":musl-libcxx.so",
+    ":musl_ld_path_etc_cfg",
+    "updater:updater_ld-musl-arm.so.1",
+    "//third_party/musl:musl_libs",
+  ]
+}
+
+ohos_prebuilt_shared_library("ld-musl-arm.so.1") {
+  deps = [ "//third_party/musl:${musl_target_abi_name}_create_linker" ]
+  if (is_asan) {
+    asan = "-asan"
+  } else {
+    asan = ""
+  }
+  if (musl_target_abi_name == "soft") {
+    _libs_path_prefix = "."
+  } else {
+    _libs_path_prefix = "${musl_target_abi_name}"
+  }
+  if (musl_target_abi_name == "a7_hard_neon-vfpv4") {
+    musl_subarch = "hf"
+  } else {
+    musl_subarch = ""
+  }
+  _muls_linker_so = "${root_out_dir}/common/common/libc/${_libs_path_prefix}/ld-musl-${musl_arch}${musl_subarch}${asan}.so.1"
+  source = _muls_linker_so
+  install_enable = true
+  install_images = [
+    "system",
+    "ramdisk",
+  ]
+  part_name = "common"
+}
+
+ohos_prebuilt_shared_library("musl-libc.so") {
+  deps = [ "//third_party/musl:${musl_target_abi_name}_libc_musl_shared" ]
+  source = "${musl_sysroot}/usr/lib/${musl_target_triple}/libc.so"
+  install_images = [
+    "system",
+    "updater",
+    "ramdisk",
+  ]
+  part_name = "common"
+}
+
+ohos_prebuilt_etc("musl_ld_path_etc_cfg") {
+  if (target_cpu == "arm") {
+    source = "ld-musl-arm.path"
+  } else {
+    source = "ld-musl-aarch64.path"
+  }
+  if (is_asan) {
+    source = string_replace(source, ".path", "-asan.path")
+  }
+  install_images = [
+    "system",
+    "updater",
+  ]
+  part_name = "common"
+}
+
+ohos_prebuilt_shared_library("musl-libcxx.so") {
+  if (target_cpu == "arm") {
+    source = "${clang_base_path}/lib/arm-linux-ohos/c++/libc++.so"
+  } else if (target_cpu == "arm64") {
+    source = "${clang_base_path}/lib/aarch64-linux-ohos/c++/libc++.so"
+  } else {
+    source = ""
+  }
+  install_images = [
+    "system",
+    "updater",
+  ]
+  part_name = "common"
+}

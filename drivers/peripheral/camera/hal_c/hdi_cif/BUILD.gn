@@ -1,0 +1,90 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("../camera.gni")
+
+config("hdi_cif_config") {
+  visibility = [ ":*" ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DGST_DISABLE_DEPRECATED",
+    "-DHAVE_CONFIG_H",
+    "-fno-strict-aliasing",
+    "-Wno-sign-compare",
+    "-Wno-builtin-requires-header",
+    "-Wno-implicit-function-declaration",
+    "-Wno-format",
+    "-Wno-int-conversion",
+    "-Wno-unused-function",
+    "-Wno-thread-safety-attributes",
+    "-Wno-inconsistent-missing-override",
+    "-fno-rtti",
+    "-fno-exceptions",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-Wno-unused-parameter",
+  ]
+
+  ldflags = [ "-Wl" ]
+}
+
+ohos_shared_library("hdi_cif") {
+  sources = [
+    "$camera_path/../interfaces/hdi_cpp/callback/device/src/camera_device_callback_proxy.cpp",
+    "$camera_path/../interfaces/hdi_cpp/callback/host/src/camera_host_callback_proxy.cpp",
+    "$camera_path/../interfaces/hdi_cpp/callback/operator/src/stream_operator_callback_proxy.cpp",
+    "$camera_path/../interfaces/hdi_cpp/server/src/camera_device_stub.cpp",
+    "$camera_path/../interfaces/hdi_cpp/server/src/camera_host_driver.cpp",
+    "$camera_path/../interfaces/hdi_cpp/server/src/camera_host_stub.cpp",
+    "$camera_path/../interfaces/hdi_cpp/server/src/offline_stream_operator_stub.cpp",
+    "$camera_path/../interfaces/hdi_cpp/server/src/stream_operator_stub.cpp",
+    "src/buffer_producer_wrapper.cpp",
+    "src/camera_device.cpp",
+    "src/camera_device_callback_wrapper.cpp",
+    "src/camera_host.cpp",
+    "src/camera_host_callback_wrapper.cpp",
+    "src/offline_stream_operator.cpp",
+    "src/stream_operator.cpp",
+    "src/stream_operator_callback_wrapper.cpp",
+  ]
+
+  include_dirs = [
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_cpp/client/include",
+    "$camera_path/../interfaces/hdi_cpp/server/include",
+    "$camera_path/../interfaces/hdi_cpp/callback/host/include",
+    "$camera_path/../interfaces/hdi_cpp/callback/device/include",
+    "$camera_path/../interfaces/hdi_cpp/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_cif/include",
+    "$camera_path/hdi_cif/src/include",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+  ]
+
+  deps = [ "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata" ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+  external_deps += [ "ipc:ipc_single" ]
+
+  public_configs = [ ":hdi_cif_config" ]
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}

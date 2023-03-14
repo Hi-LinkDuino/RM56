@@ -1,0 +1,198 @@
+{
+  "ace": {
+    "path": "foundation/ace",
+    "name": "ace"
+  },
+  "ai": {
+    "path": "foundation/ai",
+    "name": "ai"
+  },
+  "account": {
+    "path": "base/account",
+    "name": "account"
+  },
+  "distributeddatamgr": {
+    "path": "foundation/distributeddatamgr",
+    "name": "distributeddatamgr"
+  },
+  "security": {
+    "path": "base/security",
+    "name": "security"
+  },
+  "useriam": {
+    "path": "base/user_iam",
+    "name": "useriam"
+  },
+  "startup": {
+    "path": "base/startup",
+    "name": "startup"
+  },
+  "hiviewdfx": {
+    "path": "base/hiviewdfx",
+    "name": "hiviewdfx"
+  },
+  "utils": {
+    "path": "utils",
+    "name": "utils"
+  },
+  "appexecfwk": {
+    "path": "foundation/appexecfwk",
+    "name": "appexecfwk"
+  },
+  "aafwk": {
+    "path": "foundation/aafwk",
+    "name": "aafwk"
+  },
+  "notification": {
+    "path": "base/notification",
+    "name": "notification"
+  },
+  "communication": {
+    "path": "foundation/communication",
+    "name": "communication"
+  },
+  "location": {
+    "path": "base/location",
+    "name": "location"
+  },
+  "distributedschedule": {
+    "path": "foundation/distributedschedule",
+    "name": "distributedschedule"
+  },
+  "hdf": {
+    "path": "drivers",
+    "name": "hdf"
+  },
+  "updater": {
+    "path": "base/update",
+    "name": "updater"
+  },
+  "developtools": {
+    "path": "developtools",
+    "name": "developtools"
+  },
+  "sensors": {
+    "path": "base/sensors",
+    "name": "sensors"
+  },
+  "graphic": {
+    "path": "foundation/graphic",
+    "name": "graphic"
+  },
+  "window": {
+    "path": "foundation/windowmanager",
+    "name": "window"
+  },
+  "miscservices": {
+    "path": "base/miscservices",
+    "name": "miscservices"
+  },
+  "multimedia": {
+    "path": "foundation/multimedia",
+    "name": "multimedia"
+  },
+  "multimodalinput": {
+    "path": "foundation/multimodalinput",
+    "name": "multimodalinput"
+  },
+  "telephony": {
+    "path": "base/telephony",
+    "name": "telephony"
+  },
+  "global": {
+    "path": "base/global",
+    "name": "global"
+  },
+  "powermgr": {
+    "path": "base/powermgr",
+    "name": "powermgr"
+  },
+  "usb": {
+    "path": "base/usb",
+    "name": "usb"
+  },
+  "applications": {
+    "path": "applications/standard/hap",
+    "name": "applications"
+  },
+  "settingsdata": {
+    "path": "applications/standard/settings",
+    "name": "settingsdata"
+  },
+  "contactsdata": {
+    "path": "applications/standard/contactsdata",
+    "name": "contactsdata"
+  },
+  "wpa_supplicant-2.9": {
+    "path": "third_party/wpa_supplicant/wpa_supplicant-2.9_standard",
+    "name": "wpa_supplicant-2.9"
+  },
+  "xts": {
+    "path": "test/xts",
+    "name": "xts"
+  },
+  "wukong": {
+    "path": "test/wukong",
+    "name": "wukong"
+  },
+  "arkXtest": {
+    "path": "test/arkXtest",
+    "name": "arkXtest"
+  },
+  "distributedhardware": {
+    "path": "foundation/distributedhardware",
+    "name": "distributedhardware"
+  },
+  "ark": {
+    "path": "ark",
+    "name": "ark"
+  },
+  "compileruntime": {
+    "path": "base/compileruntime",
+    "name": "compileruntime"
+  },
+  "iot": {
+    "path": "domains/iot",
+    "name": "domains"
+  },
+  "iot_hardware": {
+    "path": "base/iot_hardware",
+    "name": "iot_hardware"
+  },
+  "kernel": {
+    "path": "kernel",
+    "name": "kernel"
+  },
+  "msdp": {
+    "path": "base/msdp",
+    "name": "msdp"
+  },
+  "deviceprofile": {
+    "path": "foundation/deviceprofile",
+    "name": "deviceprofile"
+  },
+  "filemanagement": {
+    "path": "foundation/filemanagement",
+    "name": "filemanagement"
+  },
+  "resourceschedule": {
+    "path": "foundation/resourceschedule",
+    "name": "resourceschedule"
+  },
+  "barrierfree": {
+    "path": "base/accessibility",
+    "name": "accessibility"
+  },
+  "securec": {
+    "path": "third_party/bounds_checking_function",
+    "name": "securec"
+  },
+  "customization": {
+    "path": "base/customization",
+    "name": "customization"
+  },
+    "web": {
+    "path": "base/web",
+    "name": "web"
+  }
+}

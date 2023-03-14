@@ -1,0 +1,91 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# Build libace static library
+template("libace_static") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    deps = [
+      "$ace_root/frameworks/base:ace_base_$platform",
+      "$ace_root/frameworks/bridge:framework_bridge_$platform",
+      "$ace_root/frameworks/core:ace_core_$platform",
+    ]
+
+    if (defined(config.platform_deps)) {
+      deps += config.platform_deps
+    }
+
+    # build-in qjs engine
+    if (defined(config.use_build_in_js_engine) &&
+        config.use_build_in_js_engine && defined(config.qjs_engine)) {
+      if (defined(use_js_debug) && use_js_debug) {
+        deps += [ "$ace_root/frameworks/bridge/js_frontend/engine:js_engine_qjs_debug_$platform" ]
+        if (defined(config.js_pa_support) && config.js_pa_support) {
+          deps += [ "$ace_root/${config.pa_engine_path}/engine:js_pa_engine_qjs_debug_$platform" ]
+        }
+      } else {
+        deps += [
+          "$ace_root/frameworks/bridge/declarative_frontend:declarative_js_engine_qjs_$platform",
+          "$ace_root/frameworks/bridge/js_frontend/engine:js_engine_qjs_$platform",
+        ]
+        if (defined(config.js_pa_support) && config.js_pa_support) {
+          deps += [ "$ace_root/${config.pa_engine_path}/engine:js_pa_engine_qjs_$platform" ]
+        }
+      }
+    }
+
+    # build-in ark js engine for preview
+    if (defined(config.use_build_in_js_engine) &&
+        config.use_build_in_js_engine && defined(config.ark_engine)) {
+      deps += [
+        "$ace_root/frameworks/bridge/declarative_frontend:declarative_js_engine_ark_$platform",
+        "$ace_root/frameworks/bridge/js_frontend/engine:js_engine_ark_$platform",
+      ]
+    }
+    part_name = ace_engine_part
+  }
+}
+
+# build platform engine sources
+template("ace_bridge_engine") {
+  forward_variables_from(invoker, "*")
+
+  ohos_shared_library(target_name) {
+    configs = []
+    deps = []
+
+    assert(defined(platform) && platform == "ohos",
+           "Only ohos need separated engine lib")
+
+    if (build_type == "engine") {
+      if (use_js_debug) {
+        assert(defined(engine_name) && engine_name == "qjs",
+               "Only qjs support build-in debugger")
+        deps += [ "$ace_root/frameworks/bridge/js_frontend/engine:js_engine_${engine_name}_debug_$platform" ]
+      } else {
+        deps += [ "$ace_root/frameworks/bridge/js_frontend/engine:js_engine_${engine_name}_$platform" ]
+      }
+    } else if (build_type == "engine_declarative") {
+      deps += [ "$ace_root/frameworks/bridge/declarative_frontend:declarative_js_engine_${engine_name}_$platform" ]
+    } else if (build_type == "engine_pa") {
+      deps += [ "$ace_root/${pa_engine_path}/engine:js_pa_engine_${engine_name}_$platform" ]
+    }
+
+    subsystem_name = "ace"
+    part_name = ace_engine_part
+  }
+}

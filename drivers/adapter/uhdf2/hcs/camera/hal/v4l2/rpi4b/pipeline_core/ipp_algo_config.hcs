@@ -1,0 +1,11 @@
+root {
+    module="sample";
+    ipp_algo_config {
+        algo1 {
+            name = "example";
+            description = "example algorithm";
+            path = "libcamera_ipp_algo_example.z.so";
+            mode = "IPP_ALGO_MODE_NORMAL";
+        }
+    }
+}

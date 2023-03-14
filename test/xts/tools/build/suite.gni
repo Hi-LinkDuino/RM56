@@ -1,0 +1,475 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/test.gni")
+
+declare_args() {
+  SUITES_OUTPUT_ROOT = "$root_out_dir/suites"
+  SUITE_ARCHIVE_DIR = "$root_out_dir/suites/archives"
+  TESTCONFIG_FILENAME = "Test.xml"
+  XTS_ROOT = "//test/xts"
+  ACTS_ROOT = "//test/xts/acts"
+  HATS_ROOT = "//test/xts/hats"
+  HITS_ROOT = "//test/xts/hits"
+  DCTS_ROOT = "//test/xts/dcts"
+
+  # create testsuite archive is time-consuming, do it only if necessary
+  make_archive = false
+  XTS_SUITENAME = getenv("XTS_SUITENAME")
+}
+
+template("ohos_testsuite_base") {
+  assert(defined(invoker.project_type),
+         "project_type is required in target ${target_name}")
+
+  _project_type = invoker.project_type
+  _subsystem_name = ""
+  if (defined(invoker.subsystem_name)) {
+    _subsystem_name = invoker.subsystem_name
+  }
+
+  _test_files = ""
+  if (defined(invoker.generated_testfiles)) {
+    foreach(file, invoker.generated_testfiles) {
+      _test_files =
+          _test_files + "," + rebase_path("$root_gen_dir") + "/" + file
+    }
+  }
+
+  _is_testbundle = defined(invoker.is_testbundle) && invoker.is_testbundle
+
+  if (defined(invoker.sub_output_dir)) {
+    _output_file_dir =
+        rebase_path("$root_out_dir/tests/moduletest/${invoker.sub_output_dir}")
+  } else if (defined(invoker.module_out_path)) {
+    _output_file_dir =
+        rebase_path("$root_out_dir/tests/moduletest/${invoker.module_out_path}")
+  } else {
+    _output_file_dir = rebase_path("$root_out_dir/tests/moduletest")
+  }
+  _output_file = "${_output_file_dir}/module_${target_name}"
+
+  if (_project_type == "gtest" || _project_type == "ctestbundle") {
+    _output_file = "${_output_file_dir}/${target_name}"
+    _archive_filename = "${target_name}"
+
+    target("ohos_moduletest", "module_${target_name}") {
+      forward_variables_from(invoker, "*")
+      testonly = true
+    }
+  } else if (_project_type == "zunit" || _project_type == "javatestbundle") {
+    _output_file = "${_output_file_dir}/module_${target_name}.dex"
+    _archive_filename = "${target_name}.dex"
+
+    target("ohos_java_moduletest", "module_${target_name}") {
+      forward_variables_from(invoker, "*")
+      testonly = true
+    }
+  } else if (_project_type == "hostjunit") {
+    _output_file = "${_output_file_dir}/module_${target_name}.jar"
+    if (defined(invoker.final_jar_path)) {
+      _output_file = invoker.final_jar_path
+    }
+    _archive_filename = "${target_name}.jar"
+
+    target("java_library", "module_${target_name}") {
+      forward_variables_from(invoker, "*")
+      is_host_library = true
+    }
+  } else if (_project_type == "testhap" || _project_type == "haptestbundle") {
+    assert(defined(invoker.hap_name),
+           "hap_name is required in target ${target_name}")
+    assert(!defined(invoker.final_hap_path),
+           "please use hap_name instead of final_hap_path")
+
+    _hap_name = invoker.hap_name
+    _final_hap_path = "${SUITES_OUTPUT_ROOT}/haps/${_hap_name}.hap"
+    _output_file = _final_hap_path
+    _archive_filename = "${_hap_name}.hap"
+
+    target("ohos_hap", "module_${target_name}") {
+      forward_variables_from(invoker, "*")
+      subsystem_name = XTS_SUITENAME
+      final_hap_path = _final_hap_path
+      testonly = true
+    }
+  } else if (_project_type == "pythontest") {
+    if (defined(invoker.outputs_dir)) {
+      _out_put_dir = invoker.outputs_dir
+      _archive_filename = "${_subsystem_name}/${_out_put_dir}"
+    } else {
+      _archive_filename = "${_subsystem_name}"
+    }
+    _test_files = invoker.output_file
+    _deps = []
+    if (defined(invoker.deps)) {
+      _deps = invoker.deps
+    }
+  } else if (_project_type == "js_test_hap") {
+    _hap_name = invoker.test_hap_name
+    _archive_filename = "${_hap_name}.hap"
+    _output_file = invoker.hap_source_path
+  }
+
+  _apilibrary_deps = ""
+  if (_is_testbundle && defined(invoker.deps)) {
+    foreach(dep, invoker.deps) {
+      _apilibrary_deps = _apilibrary_deps + "," + dep
+    }
+  }
+
+  if (_project_type != "pythontest" && _project_type != "js_test_hap") {
+    _deps = [ ":module_${target_name}" ]
+  } else {
+    _deps = []
+  }
+  _suite_out_dir = "${SUITES_OUTPUT_ROOT}/${XTS_SUITENAME}"
+  _archive_testfile = "${_suite_out_dir}/testcases/${_archive_filename}"
+  _arguments = [
+    "build_module_with_testbundle",
+    "--build_gen_dir",
+    rebase_path("$root_gen_dir"),
+    "--build_target_name",
+    target_name,
+    "--buildgen_testfile",
+    rebase_path(_output_file),
+    "--project_path",
+    rebase_path("."),
+    "--test_xml",
+    rebase_path(TESTCONFIG_FILENAME),
+    "--project_type",
+    _project_type,
+    "--suite_out_dir",
+    rebase_path("${_suite_out_dir}"),
+    "--archive_testfile",
+    rebase_path("${_archive_testfile}"),
+  ]
+
+  if (_subsystem_name != "") {
+    _arguments += [
+      "--subsystem_name",
+      _subsystem_name,
+    ]
+  }
+
+  if (_apilibrary_deps != "") {
+    _arguments += [
+      "--apilibrary_deps",
+      _apilibrary_deps,
+    ]
+  }
+
+  if (_test_files != "") {
+    _arguments += [
+      "--test_files",
+      _test_files,
+    ]
+  }
+
+  action(target_name) {
+    deps = _deps
+    script = rebase_path("//test/xts/tools/build/suite.py")
+    args = _arguments
+    outputs = [ _archive_testfile ]
+    testonly = true
+  }
+}
+
+template("ohos_moduletest_suite") {
+  target("ohos_testsuite_base", "${target_name}") {
+    forward_variables_from(invoker, "*")
+    if (!defined(module_out_path)) {
+      module_out_path = "xts/modules"
+    }
+    project_type = "gtest"
+  }
+}
+
+template("ohos_hap_suite") {
+  target("ohos_testsuite_base", "${target_name}") {
+    forward_variables_from(invoker, "*")
+
+    # auto add HJUnitRunner entry ability and test-framework
+    if (defined(hap_profile)) {
+      # NOTE:: the GN tool disallow source files located in the ${out_dir}
+      # so we put the generated files in the xts dir. remember to REMOVE these.
+      _profile_relative_path = rebase_path(hap_profile, rebase_path(XTS_ROOT))
+      _fixed_profile_path =
+          "${XTS_ROOT}/autogen_apiobjs/${_profile_relative_path}"
+      _fixer_script = rebase_path(
+              "//test/xts/tools/build/adapter/haptest_manifest_fixer.py")
+      exec_script(_fixer_script,
+                  [
+                    "add_entryability",
+                    "--raw_file=" + rebase_path(hap_profile),
+                    "--dest_file=" + rebase_path(_fixed_profile_path),
+                  ])
+      hap_profile = _fixed_profile_path
+    }
+
+    if (defined(deps)) {
+      deps += [ "//test/xts/tools/hjunit:testkit_harmonyjunitrunner_java" ]
+    } else {
+      deps = [ "//test/xts/tools/hjunit:testkit_harmonyjunitrunner_java" ]
+    }
+
+    project_type = "testhap"
+  }
+}
+
+template("ohos_js_hap_suite") {
+  target("ohos_testsuite_base", "${target_name}") {
+    forward_variables_from(invoker, "*")
+    project_type = "testhap"
+    js_build_mode = "debug"
+  }
+}
+
+template("ohos_shell_app_suite") {
+  target("ohos_adapter_shell_app_suite", "${target_name}") {
+    forward_variables_from(invoker, "*")
+  }
+}
+
+template("ohos_prebuilt_suite") {
+  assert(!defined(invoker.source_files) || !defined(invoker.jar_path) ||
+             !defined(invoker.source_dir),
+         "source_files, jar_path or source_dir must be specified one.")
+  assert(!defined(invoker.final_jar_path),
+         "final_jar_path is not allowed in target ${target_name}")
+
+  if (defined(invoker.jar_path)) {
+    _output_name = "${target_name}.jar"
+    if (defined(invoker.output_name)) {
+      _output_name = "${invoker.output_name}.jar"
+    }
+
+    _output_type = "tools"
+    if (defined(invoker.output_type)) {
+      _output_type = invoker.output_type
+    }
+
+    _final_jar_path =
+        "${SUITES_OUTPUT_ROOT}/${XTS_SUITENAME}/${_output_type}/${_output_name}"
+
+    target("java_prebuilt", "${target_name}") {
+      forward_variables_from(invoker, "*")
+      final_jar_path = _final_jar_path
+      is_host_library = true
+    }
+  } else {
+    assert(defined(invoker.output_dir),
+           "output_dir is require in target ${target_name}")
+    _outputs = []
+    _copy_args = [
+      "--method_name",
+      "copy_file",
+    ]
+    _deps = []
+    _output_dir = "${SUITES_OUTPUT_ROOT}/${XTS_SUITENAME}/${invoker.output_dir}"
+    if (defined(invoker.source_dir)) {
+      _copy_args += [
+        "--arguments",
+        "output=" + rebase_path(_output_dir) + "#source_dirs=" +
+            rebase_path(invoker.source_dir) + "#to_dir=True",
+      ]
+      _outputs = [ _output_dir ]
+    } else if (defined(invoker.source_files)) {
+      _sources = ""
+      foreach(src, invoker.source_files) {
+        _sources = _sources + rebase_path(src) + ","
+      }
+      _copy_args += [
+        "--arguments",
+        "output=" + rebase_path(_output_dir) + "#sources=" + _sources +
+            "#to_dir=True",
+      ]
+      _outputs = [ _output_dir ]
+    }
+    if (defined(invoker.deps)) {
+      _deps = invoker.deps
+    }
+    action(target_name) {
+      script = rebase_path("//test/xts/tools/build/utils.py")
+      deps = _deps
+      args = _copy_args
+      outputs = _outputs
+    }
+  }
+}
+
+template("ohos_deploy_xdevice") {
+  _suite_out_dir = "${SUITES_OUTPUT_ROOT}/${XTS_SUITENAME}"
+
+  _args = [
+    "build_xdevice",
+    "--source_dir",
+    rebase_path("//test/xdevice"),
+    "--suite_out_dir",
+    rebase_path(_suite_out_dir),
+  ]
+
+  if (defined(invoker.configs_dir)) {
+    _args += [
+      "--configs_dir",
+      rebase_path(rebase_path(invoker.configs_dir)),
+    ]
+  }
+
+  if (defined(invoker.resources_dir)) {
+    _args += [
+      "--resources_dir",
+      rebase_path(rebase_path(invoker.resources_dir)),
+    ]
+  }
+
+  action(target_name) {
+    testonly = true
+    script = rebase_path("//test/xts/tools/build/suite.py")
+    args = _args
+    outputs = [
+      "${_suite_out_dir}/tools/xdevice-extension-0.0.0.tar.gz",
+      "${_suite_out_dir}/tools/xdevice-0.0.0.tar.gz",
+      "${_suite_out_dir}/tools/run.sh",
+      "${_suite_out_dir}/tools/run.bat",
+    ]
+  }
+}
+
+template("ohos_test_suite") {
+  _output = "${SUITES_OUTPUT_ROOT}/${target_name}.zip"
+  _suite_path = rebase_path("${SUITES_OUTPUT_ROOT}/${XTS_SUITENAME}")
+  _suite_archive_dir = rebase_path("${SUITE_ARCHIVE_DIR}")
+  _prebuilts_files = rebase_path("//xts/resource")
+  _gen_args = [
+    "archive_suite",
+    "--suite_path",
+    _suite_path,
+    "--prebuilts_resource",
+    _prebuilts_files,
+    "--suite_archive_dir",
+    _suite_archive_dir,
+    "--make_archive",
+    "${make_archive}",
+  ]
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+
+  action(target_name) {
+    testonly = true
+    script = rebase_path("//test/xts/tools/build/suite.py")
+    deps = _deps
+    args = _gen_args
+    outputs = [ _output ]
+  }
+}
+
+template("pythontest_suite") {
+  assert(defined(invoker.script), "script is required in target ${target_name}")
+
+  _subsystem_name = ""
+  if (defined(invoker.subsystem_name)) {
+    _subsystem_name = invoker.subsystem_name
+  } else {
+    _local_path = rebase_path(".")
+    _args1 = [
+      "--method_name",
+      "get_subsystem_name",
+      "--arguments",
+      "path=${_local_path}",
+    ]
+    _subsystem_name =
+        exec_script(rebase_path("//test/xts/tools/build/utils.py"),
+                    _args1,
+                    "trim string")
+  }
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps = invoker.deps + _deps
+  }
+  _outputs_dir = ""
+  if (defined(invoker.outputs_dir)) {
+    _outputs_dir = invoker.outputs_dir
+  }
+  _output_file = rebase_path("${invoker.script}")
+
+  target("ohos_testsuite_base", "${target_name}") {
+    project_type = "pythontest"
+    subsystem_name = _subsystem_name
+    output_file = _output_file
+    deps = _deps
+    outputs_dir = _outputs_dir
+  }
+}
+
+template("executable_suite") {
+  assert(defined(invoker.suite_name),
+         "suite_name is required in target ${target_name}")
+  _suite_name = invoker.suite_name
+  _local_path = rebase_path(".")
+  _args1 = [
+    "--method_name",
+    "get_subsystem_name",
+    "--arguments",
+    "path=${_local_path}",
+  ]
+  _subsystem_name = exec_script(rebase_path("//test/xts/tools/build/utils.py"),
+                                _args1,
+                                "trim string")
+
+  _outputs_dir = ""
+  if (defined(invoker.outputs_dir)) {
+    _outputs_dir = "${invoker.outputs_dir}"
+  }
+  ohos_executable(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "test_type",
+                             "module_out_path",
+                             "visibility",
+                           ])
+    forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(deps)) {
+      deps = []
+    }
+
+    subsystem_name = "tests"
+    part_name = "ssts"
+    ohos_test = true
+    testonly = true
+    output_name = "$target_name"
+    test_output_dir = "$SUITES_OUTPUT_ROOT/${_suite_name}/testcases/${_subsystem_name}/${_outputs_dir}"
+    if (defined(invoker.output_extension)) {
+      output_extension = invoker.output_extension
+    }
+  }
+}
+
+template("js_hap_suite") {
+  assert(defined(invoker.hap_source_path),
+         "hap_source_path is required in target ${target_name}")
+  assert(defined(invoker.test_hap_name),
+         "test_hap_name is required in target ${target_name}")
+  if (defined(invoker.deps)) {
+    _deps = invoker.deps
+  }
+  target("ohos_testsuite_base", "${target_name}") {
+    forward_variables_from(invoker, "*")
+    project_type = "js_test_hap"
+  }
+}

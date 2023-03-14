@@ -1,0 +1,127 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+}
+
+.margin {
+    margin-right: 8%;
+    font-size: 15px;
+}
+.margin1 {
+    font-size: 15px;
+    margin-top: 2%;
+}
+.toggle1{
+    text-color:red;
+    font-size:15px;
+    allow-scale:true;
+    letter-spacing:5px;
+    font-style:normal;
+    font-weight:200;
+    font-family:sans-serif;
+    min-width: 25px;
+    min-height: 10px;
+    max-width: 300px;
+    max-height: 50px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-right: 15px;
+    padding-bottom: 1px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-right: 15px;
+    margin-bottom: 2%;
+}
+
+.toggle2{
+    text-color:yellow;
+    font-size:15px;
+    max-height: 50px;
+    allow-scale:false;
+    letter-spacing:5px;
+    font-style:italic;
+    font-weight:300;
+    font-family:sans-serif;
+    margin: 2%;
+}
+
+.toggle3{
+    text-color:beige;
+    font-size:15px;
+    max-height: 50px;
+    allow-scale:true;
+    letter-spacing:5px;
+    font-style:normal;
+    font-weight:200;
+    font-family:sans-serif;
+    margin: 2%;
+}
+
+.toggle4{
+    text-color:aqua;
+    font-size:15px;
+    max-height: 50px;
+    allow-scale:false;
+    letter-spacing:5px;
+    font-style:italic;
+    font-weight:200;
+    font-family:sans-serif;
+    margin: 2%;
+}
+
+.container1{
+    flex-direction: column;
+
+}
+
+.toggle5{
+    text-color:saddlebrown;
+    max-height: 50px;
+    font-size:15px;
+    allow-scale:true;
+    letter-spacing:5px;
+    font-style:normal;
+    font-weight:300;
+    font-family:sans-serif;
+}
+
+.toggle6{
+    text-color:darkcyan;
+    max-height: 50px;
+    font-size:15px;
+    allow-scale:false;
+    letter-spacing:5px;
+    font-style:italic;
+    font-weight:200;
+    font-family:sans-serif;
+    margin-left: 2%;
+}
+
+.toggle7 {
+    text-color:navajowhite;
+    max-height: 50px;
+    font-size:15px;
+    allow-scale:true;
+    letter-spacing:10px;
+    font-style:normal;
+    font-weight:500;
+    font-family:sans-serif;
+    margin: 5px;
+}

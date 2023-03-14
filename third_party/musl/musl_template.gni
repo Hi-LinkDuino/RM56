@@ -1,0 +1,509 @@
+import("//build/ohos.gni")
+import("musl_src.gni")
+
+template("musl_libs") {
+  no_default_deps = true
+
+  forward_variables_from(invoker, [ "target_abi" ])
+  abi_prefix = target_abi
+
+  if (target_abi == "soft") {
+    _libs_path_prefix = "."
+    _libs_out_dir = "usr/lib/${musl_target_triple}"
+  } else {
+    _libs_path_prefix = "${target_abi}"
+    _libs_out_dir = "usr/lib/${musl_target_triple}/${target_abi}"
+  }
+
+  musl_subarch = ""
+  if (target_abi == "a7_hard_neon-vfpv4") {
+    musl_subarch = "hf"
+  }
+
+  porting_deps = [
+    "//third_party/musl:create_alltypes_h",
+    "//third_party/musl:create_porting_src",
+    "//third_party/musl:create_syscall_h",
+    "//third_party/musl:create_version_h",
+  ]
+
+  group(target_name) {
+    deps = [
+      ":${abi_prefix}_create_linker",
+      ":${abi_prefix}_libc_musl_shared",
+      ":${abi_prefix}_libc_musl_static",
+      ":${abi_prefix}_musl_crt_libs",
+    ]
+  }
+
+  group("${abi_prefix}_shared_libs") {
+    deps = [
+      ":${abi_prefix}_libc_musl_shared",
+      ":${abi_prefix}_libcrypt",
+      ":${abi_prefix}_libdl",
+      ":${abi_prefix}_libm",
+      ":${abi_prefix}_libpthread",
+      ":${abi_prefix}_libresolv",
+      ":${abi_prefix}_librt",
+      ":${abi_prefix}_libutil",
+      ":${abi_prefix}_libxnet",
+      ":${abi_prefix}_musl_crt_libs",
+      ":musl_headers",
+    ]
+  }
+
+  group("${abi_prefix}_static_libs") {
+    deps = [
+      ":${abi_prefix}_libc_musl_static",
+      ":${abi_prefix}_libcrypt",
+      ":${abi_prefix}_libdl",
+      ":${abi_prefix}_libm",
+      ":${abi_prefix}_libpthread",
+      ":${abi_prefix}_libresolv",
+      ":${abi_prefix}_librt",
+      ":${abi_prefix}_libutil",
+      ":${abi_prefix}_libxnet",
+      ":${abi_prefix}_musl_crt_libs",
+      ":musl_headers",
+    ]
+  }
+
+  group("${abi_prefix}_musl_crt_libs") {
+    deps = [ ":${abi_prefix}_musl_crt_install_action" ]
+  }
+
+  # part of default_compiler_configs from build/config/BUILDCONFIG.gn
+  musl_inherited_configs = [
+    "//build/config/compiler:afdo",
+    "//build/config/compiler:afdo_optimize_size",
+    "//build/config/compiler:compiler",
+    "//build/config/compiler:compiler_arm_fpu",
+    "//build/config/compiler:compiler_arm_thumb",
+    "//build/config/compiler:chromium_code",
+    "//build/config/compiler:default_include_dirs",
+    "//build/config/compiler:default_optimization",
+    "//build/config/compiler:default_stack_frames",
+    "//build/config/compiler:default_symbols",
+    "//build/config/compiler:export_dynamic",
+    "//build/config/compiler:no_exceptions",
+    "//build/config/compiler:no_rtti",
+    "//build/config/compiler:runtime_library",
+    "//build/config/compiler:thin_archive",
+    "//build/config/sanitizers:default_sanitizer_flags",
+  ]
+
+  config("${abi_prefix}_musl_abi_config") {
+    if (musl_arch == "arm") {
+      if (target_abi == "soft") {
+        cflags = [ "-mfloat-abi=soft" ]
+      } else if (target_abi == "a7_soft") {
+        cflags = [
+          "-mcpu=cortex-a7",
+          "-mfloat-abi=soft",
+        ]
+      } else if (target_abi == "a7_softfp_neon-vfpv4") {
+        cflags = [
+          "-mcpu=cortex-a7",
+          "-mfloat-abi=softfp",
+          "-mfpu=neon-vfpv4",
+        ]
+      } else if (target_abi == "a7_hard_neon-vfpv4") {
+        cflags = [
+          "-mcpu=cortex-a7",
+          "-mfloat-abi=hard",
+          "-mfpu=neon-vfpv4",
+        ]
+      }
+    }
+  }
+
+  config("${abi_prefix}_musl_config") {
+    configs = [ ":${abi_prefix}_musl_abi_config" ]
+
+    include_dirs = [
+      "${target_out_dir}/${musl_ported_dir}/arch/${musl_arch}",
+      "${target_out_dir}/${musl_ported_dir}/arch/generic",
+      "${target_out_dir}/${musl_ported_dir}/src/internal",
+      "${target_out_dir}/${musl_ported_dir}/src/include",
+      "${target_out_dir}/${musl_ported_dir}/include",
+      "${target_out_dir}/${musl_inc_out_dir}",
+    ]
+
+    cflags_basic = [
+      "--target=${musl_target_triple}",
+      "-Wall",
+      "-D_FORTIFY_SOURCE=2",
+      "-Wl,-z,relro,-z,now,-z,noexecstack",
+    ]
+
+    if (musl_arch == "arm") {
+      cflags_basic += [ "-march=armv7-a" ]
+      cflags_basic += [ "-mtp=cp15" ]
+    } else if (musl_arch == "aarch64") {
+      cflags_basic += [ "-march=armv8" ]
+    }
+
+    cflags_auto = [
+      "-D_XOPEN_SOURCE=700",
+      "-g",
+      "-pipe",
+      "-fno-omit-frame-pointer",
+      "-funwind-tables",
+      "-fasynchronous-unwind-tables",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-Werror=implicit-function-declaration",
+      "-Werror=implicit-int",
+      "-Werror=pointer-sign",
+      "-Werror=pointer-arith",
+      "-Qunused-arguments",
+    ]
+
+    if (!is_asan) {
+      cflags_auto += [ "-DHOOK_ENABLE" ]
+    }
+
+    cflags_c99fse = [
+      "-std=c99",
+      "-nostdinc",
+      "-ffreestanding",
+      "-frounding-math",
+      "-Wa,--noexecstack",
+    ]
+
+    cflags_all = cflags_basic + cflags_c99fse + cflags_auto
+
+    cflags = cflags_all
+
+    if ("${target_abi}" != "a7_hard_neon-vfpv4") {
+      defines = [ "BROKEN_VFP_ASM" ]
+    }
+
+    dynamic_list =
+        rebase_path("${target_out_dir}/${musl_ported_dir}/dynamic.list")
+
+    ldflags = cflags_all
+    ldflags += [
+      "--target=${musl_target_triple}",
+      "-fuse-ld=lld",
+      "-Wl,--sort-section,alignment",
+      "-Wl,--sort-common",
+      "-Wl,--gc-sections",
+      "-Wl,--hash-style=both",
+      "-Wl,--no-undefined",
+      "-Wl,--exclude-libs=ALL",
+      "-Wl,--dynamic-list=${dynamic_list}",
+    ]
+    asmflags = cflags
+  }
+
+  config("${abi_prefix}_hook") {
+    defines = []
+    configs = []
+
+    if (is_posix) {
+      configs += [ "//build/config/posix:runtime_library" ]
+    }
+
+    cflags_cc = []
+
+    defines = [
+      "__GNU_SOURCE=1",  # Necessary for clone().
+      "CHROMIUM_CXX_TWEAK_INLINES",  # Saves binary size.
+    ]
+
+    defines += [
+      "__MUSL__",
+      "_LIBCPP_HAS_MUSL_LIBC",
+      "__BUILD_LINUX_WITH_CLANG",
+    ]
+
+    if (!is_asan) {
+      defines += [ "HOOK_ENABLE" ]
+    }
+    ldflags = [ "-nostdlib" ]
+
+    libs = []
+
+    if (is_component_build) {
+      defines += [ "COMPONENT_BUILD" ]
+    }
+  }
+
+  source_set("${abi_prefix}_musl_crt") {
+    sources = [
+      "${target_out_dir}/${musl_ported_dir}/crt/${musl_arch}/crti.s",
+      "${target_out_dir}/${musl_ported_dir}/crt/${musl_arch}/crtn.s",
+      "${target_out_dir}/${musl_ported_dir}/crt/Scrt1.c",
+      "${target_out_dir}/${musl_ported_dir}/crt/crt1.c",
+      "${target_out_dir}/${musl_ported_dir}/crt/rcrt1.c",
+    ]
+
+    defines = [ "CRT" ]
+
+    configs -= musl_inherited_configs
+    configs += [ ":${abi_prefix}_musl_config" ]
+    cflags = [
+      "-fPIC",
+      "-fno-stack-protector",
+    ]
+
+    deps = porting_deps
+
+    asmflags = cflags
+  }
+
+  source_set("${abi_prefix}_musl_src") {
+    sources_orig = []
+    sources = []
+    set_sources_assignment_filter([])
+
+    sources_orig = musl_src_arch_file + musl_src_file
+    sources_orig -= musl_src_filterout
+    sources_orig -= [
+      "src/string/mempcpy.c",
+      "src/string/memset.c",
+      "src/env/__init_tls.c",
+      "src/env/__libc_start_main.c",
+      "src/env/__stack_chk_fail.c",
+    ]
+
+    if (musl_arch == "arm") {
+      sources_orig -= [ "src/thread/${musl_arch}/__set_thread_area.c" ]
+    } else if (musl_arch == "aarch64") {
+      sources_orig -= [ "src/thread/${musl_arch}/__set_thread_area.s" ]
+    }
+
+    if ("${target_abi}" == "a7_hard_neon-vfpv4") {
+      defines = [ "__ARM_PCS_VFP" ]
+    }
+
+    foreach(s, sources_orig) {
+      sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+    }
+
+    cflags = [
+      "-O3",
+      "-fPIC",
+      "-fstack-protector-strong",
+    ]
+
+    configs -= musl_inherited_configs
+    configs += [ ":${abi_prefix}_musl_config" ]
+
+    deps = porting_deps
+  }
+
+  source_set("${abi_prefix}_musl_src_nossp") {
+    sources = []
+    sources_orig = [
+      "src/string/mempcpy.c",
+      "src/string/memset.c",
+      "src/env/__init_tls.c",
+      "src/env/__libc_start_main.c",
+      "src/env/__stack_chk_fail.c",
+    ]
+
+    if (musl_arch == "arm") {
+      sources_orig += [ "src/thread/${musl_arch}/__set_thread_area.c" ]
+    } else if (musl_arch == "aarch64") {
+      sources_orig += [ "src/thread/${musl_arch}/__set_thread_area.s" ]
+    }
+
+    foreach(s, sources_orig) {
+      sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+    }
+
+    configs -= musl_inherited_configs
+    configs += [ ":${abi_prefix}_musl_config" ]
+    cflags = [
+      "-O3",
+      "-fPIC",
+      "-fno-stack-protector",
+    ]
+
+    deps = porting_deps
+  }
+
+  source_set("${abi_prefix}_musl_ldso") {
+    sources = []
+    sources_orig = musl_src_ldso
+
+    foreach(s, sources_orig) {
+      sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+    }
+
+    configs -= musl_inherited_configs
+    configs += [ ":${abi_prefix}_musl_config" ]
+    cflags = [
+      "-fPIC",
+      "-fno-stack-protector",
+    ]
+
+    deps = porting_deps
+  }
+
+  source_set("${abi_prefix}_musl_hook") {
+    sources = [
+      "./porting/linux/user/src/hook/malloc_common.c",
+      "./porting/linux/user/src/hook/musl_preinit.c",
+      "./porting/linux/user/src/hook/musl_preinit_common.c",
+    ]
+
+    deps = [
+      "//third_party/musl:create_alltypes_h",
+      "//third_party/musl:create_porting_src",
+      "//third_party/musl:create_syscall_h",
+      "//third_party/musl:create_version_h",
+      "//third_party/musl:musl_copy_inc_bits",
+      "//third_party/musl:musl_copy_inc_root",
+      "//third_party/musl:musl_copy_inc_sys",
+    ]
+
+    configs -= musl_inherited_configs
+
+    configs += [
+      "//build/config/compiler:compiler",
+      ":${abi_prefix}_hook",
+    ]
+  }
+
+  static_library("${abi_prefix}_libc_musl_static") {
+    output_name = "libc"
+    complete_static_lib = true
+
+    configs -= musl_inherited_configs
+
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+    deps = [
+      ":${abi_prefix}_musl_src",
+      ":${abi_prefix}_musl_src_nossp",
+    ]
+  }
+
+  static_library("${abi_prefix}_libm") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libm"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_librt") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "librt"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_libpthread") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libpthread"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_libcrypt") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libcrypt"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_libutil") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libutil"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_libresolv") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libresolv"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_libxnet") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libxnet"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  static_library("${abi_prefix}_libdl") {
+    complete_static_lib = true
+    configs -= musl_inherited_configs
+    output_name = "libdl"
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+  }
+
+  shared_library("${abi_prefix}_libc_musl_shared") {
+    output_dir = "${target_out_dir}/${_libs_out_dir}"
+    output_name = "libc"
+    output_extension = "so"
+
+    libclang_rt_path = rebase_path(
+            "${runtime_lib_path}/${musl_target_triple}/${_libs_path_prefix}")
+
+    musl_lib_path = rebase_path("${target_out_dir}/${_libs_out_dir}")
+
+    ldflags = [
+      "-nostdlib",
+      "-Wl,-e,_dlstart",
+      "-L${libclang_rt_path}",
+      "-lclang_rt.builtins",
+      "-lunwind",
+      "-L${musl_lib_path}",
+      "-ldl",
+      "-lpthread",
+    ]
+
+    configs -= musl_inherited_configs
+    configs -= [ "//build/config:default_libs" ]
+    configs += [ ":${abi_prefix}_musl_config" ]
+
+    deps = [
+      ":${abi_prefix}_libdl",
+      ":${abi_prefix}_libpthread",
+      ":${abi_prefix}_musl_crt_install_action",
+      ":${abi_prefix}_musl_hook",
+      ":${abi_prefix}_musl_ldso",
+      ":${abi_prefix}_musl_src",
+      ":${abi_prefix}_musl_src_nossp",
+    ]
+  }
+
+  action_foreach("${abi_prefix}_musl_crt_install_action") {
+    redir = "${root_out_dir}/obj"
+    script = "${target_out_dir}/${musl_ported_dir}/scripts/install.py"
+    sources = [
+      "${redir}/${target_out_dir}/${musl_ported_dir}/crt/${abi_prefix}_musl_crt/Scrt1.o",
+      "${redir}/${target_out_dir}/${musl_ported_dir}/crt/${abi_prefix}_musl_crt/crt1.o",
+      "${redir}/${target_out_dir}/${musl_ported_dir}/crt/${abi_prefix}_musl_crt/rcrt1.o",
+      "${redir}/${target_out_dir}/${musl_ported_dir}/crt/${musl_arch}/${abi_prefix}_musl_crt/crti.o",
+      "${redir}/${target_out_dir}/${musl_ported_dir}/crt/${musl_arch}/${abi_prefix}_musl_crt/crtn.o",
+    ]
+    outputs = [ "${target_out_dir}/${_libs_out_dir}/{{source_file_part}}" ]
+    args = [
+      "--input",
+      "{{source}}",
+    ]
+    args += [ "--output" ] + rebase_path(outputs, root_build_dir)
+    deps = [ ":${abi_prefix}_musl_crt" ]
+  }
+
+  copy("${abi_prefix}_create_linker") {
+    deps = [ ":${abi_prefix}_libc_musl_shared" ]
+
+    # _libc_shared_outputs = get_target_outputs(":${abi_prefix}_libc_musl_shared")
+    _libc_shared_so = "${target_out_dir}/${_libs_out_dir}/libc.so"
+    sources = [ _libc_shared_so ]
+    if (is_asan) {
+      asan = "-asan"
+    } else {
+      asan = ""
+    }
+    _muls_linker_so = "${root_out_dir}/common/common/libc/${_libs_path_prefix}/ld-musl-${musl_arch}${musl_subarch}${asan}.so.1"
+    outputs = [ _muls_linker_so ]
+  }
+}

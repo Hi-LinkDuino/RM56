@@ -1,0 +1,38 @@
+{
+  "parts": {
+    "file": {
+      "module_list": [
+        "//utils/native/lite/file"
+      ]
+    },
+    "js_builtin": {
+      "module_list": [
+        "//utils/native/lite/js/builtin:ace_utils_kits"
+      ]
+    },
+    "kal_timer": {
+      "module_list": [
+        "//utils/native/lite/kal/timer:kal_timer"
+      ]
+    },
+    "kv_store": {
+      "module_list": [
+        "//utils/native/lite/kv_store"
+      ]
+    },
+    "os_dump": {
+      "module_list": [
+        "//utils/native/lite/os_dump:utils_os_dump"
+      ]
+    },
+    "timer_task": {
+      "module_list": [
+        "//utils/native/lite/timer_task:ace_kit_timer"
+      ]
+    },
+    "utils_base": {
+      "module_list": []
+    }
+  },
+  "subsystem_name": "utils"
+}

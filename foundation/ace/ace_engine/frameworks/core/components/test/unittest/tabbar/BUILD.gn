@@ -1,0 +1,394 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+if (is_standard_system) {
+  module_output_path = "ace_engine_standard/backenduicomponent/tabbar"
+} else {
+  module_output_path = "ace_engine_full/backenduicomponent/tabbar"
+}
+
+ohos_unittest("RenderTabBarTest") {
+  module_out_path = module_output_path
+
+  sources = [
+    "$ace_root/frameworks/core/components/test/json/json_frontend.cpp",
+    "$ace_root/frameworks/core/components/test/unittest/mock/mock_render_common.cpp",
+    "render_tab_bar_test.cpp",
+    "tabbar_test_utils.cpp",
+  ]
+
+  configs = [ "$ace_root:ace_test_config" ]
+
+  deps = [ "$ace_root/build:ace_ohos_unittest_base" ]
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+ohos_unittest("RenderTabContentTest") {
+  module_out_path = module_output_path
+
+  sources = [
+    #declaration
+    "$ace_root/frameworks/bridge/common/dom/dom_type.cpp",
+    "$ace_root/frameworks/bridge/common/utils/utils.cpp",
+    "$ace_root/frameworks/core/components/declaration/common/declaration_constants.cpp",
+    "$ace_root/frameworks/core/components/declaration/common/declaration_creator_manager.cpp",
+    "$ace_root/frameworks/core/components/declaration/common/event.cpp",
+    "$ace_root/frameworks/core/components/declaration/span/span_declaration.cpp",
+    "$ace_root/frameworks/core/components/declaration/text/text_declaration.cpp",
+    "$ace_root/frameworks/core/components/declaration/textfield/textfield_declaration.cpp",
+    "$ace_root/frameworks/core/components/test/unittest/mock/declaration_mock.cpp",
+
+    # accessibility
+    "$ace_root/frameworks/core/accessibility/accessibility_node.cpp",
+    "$ace_root/frameworks/core/animation/anticipate_curve.cpp",
+    "$ace_root/frameworks/core/animation/cubic_curve.cpp",
+    "$ace_root/frameworks/core/animation/curves.cpp",
+    "$ace_root/frameworks/core/animation/friction_motion.cpp",
+    "$ace_root/frameworks/core/animation/scroll_motion.cpp",
+
+    # animation
+    "$ace_root/frameworks/core/animation/animatable_data.cpp",
+    "$ace_root/frameworks/core/animation/animatable_properties.cpp",
+    "$ace_root/frameworks/core/animation/animator.cpp",
+    "$ace_root/frameworks/core/animation/property_animation.cpp",
+    "$ace_root/frameworks/core/animation/scheduler.cpp",
+    "$ace_root/frameworks/core/animation/spring_model.cpp",
+    "$ace_root/frameworks/core/animation/spring_motion.cpp",
+
+    # common
+    "$ace_root/frameworks/core/common/ace_application_info.cpp",
+    "$ace_root/frameworks/core/common/ace_engine.cpp",
+    "$ace_root/frameworks/core/common/container.cpp",
+    "$ace_root/frameworks/core/common/container_scope.cpp",
+    "$ace_root/frameworks/core/common/event_manager.cpp",
+    "$ace_root/frameworks/core/common/focus_animation_manager.cpp",
+    "$ace_root/frameworks/core/common/font_manager.cpp",
+    "$ace_root/frameworks/core/common/thread_checker.cpp",
+    "$ace_root/frameworks/core/common/window.cpp",
+    "$ace_root/frameworks/core/components/test/json/json_frontend.cpp",
+    "$ace_root/frameworks/core/mock/mock_image_loader.cpp",
+    "$ace_root/frameworks/core/mock/mock_watch_dog.cpp",
+    "$ace_root/frameworks/core/pipeline/pipeline_context.cpp",
+
+    # components
+    "$ace_root/frameworks/core/components/box/box_component.cpp",
+    "$ace_root/frameworks/core/components/display/display_component.cpp",
+    "$ace_root/frameworks/core/components/image/image_component.cpp",
+    "$ace_root/frameworks/core/components/overlay/overlay_component.cpp",
+    "$ace_root/frameworks/core/components/page/page_component.cpp",
+    "$ace_root/frameworks/core/components/root/root_component.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_bar_component.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_bar_indicator_component.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_bar_item_component.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_content_component.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_controller.cpp",
+    "$ace_root/frameworks/core/components/text/text_component.cpp",
+    "$ace_root/frameworks/core/components/text_span/text_span_component.cpp",
+    "$ace_root/frameworks/core/components/transform/transform_component.cpp",
+    "$ace_root/frameworks/core/components/tween/tween_component.cpp",
+    "$ace_root/frameworks/core/pipeline/base/component.cpp",
+    "$ace_root/frameworks/core/pipeline/base/composed_component.cpp",
+
+    # elements
+    "$ace_root/frameworks/core/components/box/box_element.cpp",
+    "$ace_root/frameworks/core/components/bubble/bubble_element.cpp",
+    "$ace_root/frameworks/core/components/display/display_element.cpp",
+    "$ace_root/frameworks/core/components/flex/flex_element.cpp",
+    "$ace_root/frameworks/core/components/page/page_element.cpp",
+    "$ace_root/frameworks/core/components/page_transition/page_transition_component.cpp",
+    "$ace_root/frameworks/core/components/page_transition/page_transition_element.cpp",
+    "$ace_root/frameworks/core/components/root/root_element.cpp",
+    "$ace_root/frameworks/core/components/stack/stack_element.cpp",
+    "$ace_root/frameworks/core/components/stage/stage_element.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_bar_element.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_content_element.cpp",
+    "$ace_root/frameworks/core/components/transition/transition_element.cpp",
+    "$ace_root/frameworks/core/components/tween/tween_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/component_group_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/composed_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/render_element.cpp",
+    "$ace_root/frameworks/core/pipeline/base/sole_child_element.cpp",
+
+    # others
+    "$ace_root/frameworks/core/event/back_end_event_manager.cpp",
+    "$ace_root/frameworks/core/event/multimodal/multimodal_manager.cpp",
+    "$ace_root/frameworks/core/event/multimodal/multimodal_scene.cpp",
+
+    # focus
+    "$ace_root/frameworks/core/focus/focus_node.cpp",
+    "$ace_root/frameworks/core/gestures/click_recognizer.cpp",
+
+    # gestures
+    "$ace_root/frameworks/core/gestures/drag_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/gesture_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/gesture_referee.cpp",
+    "$ace_root/frameworks/core/gestures/long_press_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/multi_fingers_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/pan_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/raw_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/sequenced_recognizer.cpp",
+    "$ace_root/frameworks/core/gestures/velocity_tracker.cpp",
+
+    # image
+    "$ace_root/frameworks/core/image/flutter_image_cache.cpp",
+    "$ace_root/frameworks/core/image/image_cache.cpp",
+
+    # layout
+    "$ace_root/frameworks/core/components/common/layout/grid_column_info.cpp",
+    "$ace_root/frameworks/core/components/common/layout/grid_container_info.cpp",
+    "$ace_root/frameworks/core/components/common/layout/grid_system_manager.cpp",
+
+    # properties
+    "$ace_root/frameworks/core/components/box/render_box.cpp",
+    "$ace_root/frameworks/core/components/common/painter/flutter_svg_painter.cpp",
+    "$ace_root/frameworks/core/components/common/properties/alignment.cpp",
+    "$ace_root/frameworks/core/components/common/properties/border.cpp",
+    "$ace_root/frameworks/core/components/common/properties/border_edge.cpp",
+    "$ace_root/frameworks/core/components/common/properties/color.cpp",
+    "$ace_root/frameworks/core/components/common/properties/decoration.cpp",
+    "$ace_root/frameworks/core/components/common/properties/edge.cpp",
+    "$ace_root/frameworks/core/components/common/properties/motion_path_evaluator.cpp",
+    "$ace_root/frameworks/core/components/common/properties/page_transition_option.cpp",
+    "$ace_root/frameworks/core/components/common/properties/scroll_bar.cpp",
+    "$ace_root/frameworks/core/components/common/properties/shadow.cpp",
+    "$ace_root/frameworks/core/components/common/properties/text_style.cpp",
+
+    # rendering
+    "$ace_root/frameworks/core/common/vibrator/vibrator_proxy.cpp",
+    "$ace_root/frameworks/core/components/box/render_box_base.cpp",
+    "$ace_root/frameworks/core/components/bubble/render_bubble.cpp",
+    "$ace_root/frameworks/core/components/display/render_display.cpp",
+    "$ace_root/frameworks/core/components/flex/render_flex.cpp",
+    "$ace_root/frameworks/core/components/flex/render_flex_item.cpp",
+    "$ace_root/frameworks/core/components/focus_animation/render_focus_animation.cpp",
+    "$ace_root/frameworks/core/components/refresh/render_refresh.cpp",
+    "$ace_root/frameworks/core/components/root/render_root.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_multi_child_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/render_single_child_scroll.cpp",
+    "$ace_root/frameworks/core/components/scroll/scroll_bar_controller.cpp",
+    "$ace_root/frameworks/core/components/scroll/scrollable.cpp",
+    "$ace_root/frameworks/core/components/stack/render_stack.cpp",
+    "$ace_root/frameworks/core/components/stage/render_stage.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/render_tab_bar.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/render_tab_bar_item.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/render_tab_content.cpp",
+    "$ace_root/frameworks/core/components/tab_bar/tab_bar_size_animation.cpp",
+    "$ace_root/frameworks/core/components/test/unittest/mock/mock_flutter_font_manager.cpp",
+    "$ace_root/frameworks/core/components/test/unittest/mock/mock_render_node_factory.cpp",
+    "$ace_root/frameworks/core/components/text/render_text.cpp",
+    "$ace_root/frameworks/core/components/transform/render_transform.cpp",
+    "$ace_root/frameworks/core/pipeline/base/related_node.cpp",
+    "$ace_root/frameworks/core/pipeline/base/render_node.cpp",
+
+    # theme
+    "$ace_root/frameworks/core/components/theme/app_theme.cpp",
+    "$ace_root/frameworks/core/components/theme/theme_attributes.cpp",
+    "$ace_root/frameworks/core/components/theme/theme_constants.cpp",
+    "$ace_root/frameworks/core/components/theme/theme_manager.cpp",
+    "$ace_root/frameworks/core/components/theme/theme_utils.cpp",
+    "$ace_root/frameworks/core/mock/mock_ace_application_info.cpp",
+    "$root_out_dir/ace/framework/core/components/theme/theme_constants_default.cpp",
+    "render_tabcontent_test.cpp",
+  ]
+
+  if (is_standard_system) {
+    sources += [
+      "$ace_root/frameworks/base/geometry/animatable_dimension.cpp",
+      "$ace_root/frameworks/base/geometry/animatable_matrix4.cpp",
+      "$ace_root/frameworks/base/geometry/matrix4.cpp",
+      "$ace_root/frameworks/base/geometry/quaternion.cpp",
+      "$ace_root/frameworks/base/geometry/transform_util.cpp",
+      "$ace_root/frameworks/base/log/dump_log.cpp",
+      "$ace_root/frameworks/base/memory/memory_monitor.cpp",
+      "$ace_root/frameworks/base/thread/background_task_executor.cpp",
+      "$ace_root/frameworks/base/utils/base_id.cpp",
+      "$ace_root/frameworks/core/components/test/unittest/mock/ace_trace_mock.cpp",
+      "$ace_root/frameworks/core/components/test/unittest/mock/event_report_mock.cpp",
+      "$ace_root/frameworks/core/mock/mock_system_properties.cpp",
+    ]
+  } else {
+    sources += [ "$ace_root/frameworks/core/mock/mock_resource_adapter.cpp" ]
+  }
+
+  # add sources only needed by wearable like watch.
+  if (is_wearable_product) {
+    sources += [ "$root_out_dir/ace/framework/core/components/theme/theme_constants_watch.cpp" ]
+  }
+
+  # add sources needed by phone and TV. wearable like watch do not need them
+  if (!is_wearable_product) {
+    sources += [
+      # theme
+      "$root_out_dir/ace/framework/core/components/theme/theme_constants_tv.cpp",
+    ]
+  }
+
+  configs = [
+    ":config_render_tabcontent_test",
+    "$ace_root:ace_test_config",
+    "$ace_flutter_engine_root:flutter_config",
+  ]
+
+  deps = [
+    "$ace_flutter_engine_root/skia:ace_skia_ohos",
+    "$ace_root/adapter/ohos/osal:ace_osal_ohos",
+    "$ace_root/frameworks/core/components/theme:build_theme_code",
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+
+  if (!is_standard_system) {
+    deps += [ "$ace_root/frameworks/base:ace_base_ohos" ]
+    external_deps = [
+      "hilog:libhilog",
+      "resmgr:resourcemanager",
+    ]
+  } else {
+    external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  }
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+config("config_render_tabcontent_test") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "$ace_root",
+  ]
+}
+
+ohos_unittest("TabContentCreatorTest") {
+  module_out_path = module_output_path
+
+  sources = [ "tabcontent_creator_test.cpp" ]
+
+  configs = [
+    ":config_json_creator_test",
+    "$ace_root:ace_test_config",
+  ]
+
+  deps = [
+    "$ace_root/build:ace_ohos_unittest_base",
+    "$ace_root/frameworks/core/components/test:json",
+  ]
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+config("config_json_creator_test") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$ace_root" ]
+}
+
+ohos_unittest("TabBarElementTest") {
+  module_out_path = module_output_path
+
+  sources = [
+    "$ace_root/frameworks/core/components/test/unittest/mock/mock_render_common.cpp",
+    "tab_bar_element_test.cpp",
+    "tab_content_element_test.cpp",
+  ]
+
+  configs = [
+    ":config_tabbar_element_test",
+    "$ace_root:ace_test_config",
+  ]
+
+  deps = [
+    "$ace_root/build:ace_ohos_unittest_base",
+    "$ace_root/frameworks/core/components/test:json",
+  ]
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+config("config_tabbar_element_test") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "$ace_root",
+  ]
+}
+
+ohos_unittest("TabBarCreatorTest") {
+  module_out_path = module_output_path
+
+  sources = [
+    "tabbar_creator_test.cpp",
+    "tabbarindicator_creator_test.cpp",
+  ]
+
+  configs = [
+    ":config_json_creator_test",
+    "$ace_root:ace_test_config",
+  ]
+
+  deps = [
+    "$ace_root/build:ace_ohos_unittest_base",
+    "$ace_root/frameworks/core/components/test:json",
+  ]
+
+  if (!is_standard_system) {
+    subsystem_name = "ace"
+    part_name = "ace_engine_full"
+  } else {
+    subsystem_name = "ace"
+    part_name = "ace_engine_standard"
+  }
+}
+
+group("unittest") {
+  testonly = true
+
+  deps = [
+    #":RenderTabBarTest",
+
+    #":RenderTabContentTest",
+
+    #":TabBarCreatorTest",
+    #":TabBarElementTest",
+
+    #":TabContentCreatorTest",
+  ]
+}

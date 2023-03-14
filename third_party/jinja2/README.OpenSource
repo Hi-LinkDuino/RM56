@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "Jinja2",
+        "License": "BSD 3-clause License",
+        "License File": "LICENSE.rst",
+        "Version Number": "2.11.1",
+        "Owner": "yaoxiaoyu1@huawei.com",
+        "Upstream URL": "https://pypi.org/project/Jinja2/",
+        "Description": "Jinja2 is a template engine written in pure Python. It provides a Django inspired non-XML syntax but supports inline expressions and an optional sandboxed environment."
+    }
+]

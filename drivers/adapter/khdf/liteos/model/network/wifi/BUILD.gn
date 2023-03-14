@@ -1,0 +1,78 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//drivers/adapter/khdf/liteos/hdf.gni")
+
+module_switch = defined(LOSCFG_DRIVERS_HDF_WIFI)
+module_name = "hdf_wifi_model"
+hdf_driver(module_name) {
+  sources = [ "platform/src/hdf_wlan_queue.c" ]
+
+  FRAMEWORKS_WIFI_ROOT = "$HDF_FRAMEWORKS_PATH/model/network/wifi"
+  sources += [
+    "$FRAMEWORKS_WIFI_ROOT/../common/netdevice/net_device.c",
+    "$FRAMEWORKS_WIFI_ROOT/bus/hdf_ibus_intf.c",
+    "$FRAMEWORKS_WIFI_ROOT/bus/hdf_sdio_intf.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/eapol/eapol.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/p2p/p2p.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/softap/ap.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/sta/sta.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/hdf_wifi_core.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/module/wifi_base.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/module/wifi_feature.c",
+    "$FRAMEWORKS_WIFI_ROOT/core/module/wifi_module.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wifi_event.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_chipdriver_manager.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_config_parser.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_power_manager.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_priority_queue.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_product.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_reset_manager.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/hdf_wlan_utils.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/message/message_dispatcher.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/message/message_router.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/message/nodes/local_node.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/message/sidecar.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/qos/flow_control.c",
+    "$FRAMEWORKS_WIFI_ROOT/platform/src/qos/flow_control_task.c",
+  ]
+
+  include_dirs = [
+    "$FRAMEWORKS_WIFI_ROOT/include",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/sta",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/softap",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/eapol",
+    "$FRAMEWORKS_WIFI_ROOT/core/components/p2p",
+    "$FRAMEWORKS_WIFI_ROOT/../common/netdevice",
+    "$FRAMEWORKS_WIFI_ROOT/core/module",
+    "$HDF_FRAMEWORKS_PATH/include/wifi",
+    "$FRAMEWORKS_WIFI_ROOT/bus",
+    "$FRAMEWORKS_WIFI_ROOT/platform/include/message",
+    "$FRAMEWORKS_WIFI_ROOT/platform/include",
+  ]
+}

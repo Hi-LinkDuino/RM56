@@ -1,0 +1,65 @@
+# Copyright (c) 2019-2022 Huawei Device Co., Ltd. All rights reserved.
+
+import("//build/ohos.gni")
+import("//build/ohos/ndk/ndk.gni")
+
+config("zlib_config") {
+  cflags = [
+    "-Wno-incompatible-pointer-types",
+    "-Werror",
+    "-Wimplicit-function-declaration",
+  ]
+}
+
+config("zlib_public_config") {
+  include_dirs = [ "." ]
+}
+
+ohos_static_library("libz") {
+  sources = [
+    "adler32.c",
+    "compress.c",
+    "contrib/minizip/ioapi.c",
+    "contrib/minizip/unzip.c",
+    "contrib/minizip/zip.c",
+    "crc32.c",
+    "crc32.h",
+    "deflate.c",
+    "deflate.h",
+    "gzclose.c",
+    "gzguts.h",
+    "gzlib.c",
+    "gzread.c",
+    "gzwrite.c",
+    "infback.c",
+    "inffast.c",
+    "inffast.h",
+    "inffixed.h",
+    "inflate.c",
+    "inflate.h",
+    "inftrees.c",
+    "inftrees.h",
+    "trees.c",
+    "trees.h",
+    "uncompr.c",
+    "zconf.h",
+    "zlib.h",
+    "zutil.c",
+    "zutil.h",
+  ]
+  configs = [ ":zlib_config" ]
+  public_configs = [ ":zlib_public_config" ]
+}
+
+ohos_ndk_headers("zlib_header") {
+  sources = [
+    "./zconf.h",
+    "./zlib.h",
+  ]
+}
+
+ohos_ndk_library("libz_ndk") {
+  output_name = "z"
+  ndk_description_file = "./zlib.ndk.json"
+  output_extension = "so"
+}

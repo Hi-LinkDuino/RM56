@@ -1,0 +1,11 @@
+include $(LITEOSTOPDIR)/../../drivers/adapter/khdf/liteos/lite.mk
+
+${module_upper_case}_ROOT_DIR = $(LITEOSTOPDIR)/../../drivers/framework/model/${module_lower_case}
+
+ifeq ($(LOSCFG_DRIVERS_HDF_${module_upper_case}), y)
+MODULE_NAME := hdf_${module_lower_case}_driver
+LOCAL_INCLUDE := $(${module_upper_case}_ROOT_DIR)/../../../../../third_party/FreeBSD/sys/dev/evdev
+LOCAL_SRCS += $(${module_upper_case}_ROOT_DIR)/driver/${driver_file_name}
+
+endif
+include $(HDF_DRIVER)

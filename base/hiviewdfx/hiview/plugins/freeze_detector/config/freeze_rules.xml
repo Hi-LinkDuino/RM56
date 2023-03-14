@@ -1,0 +1,54 @@
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<freeze version="1" >
+  <rules resolver="SysResolver">
+    <rule id="1" window="120" domain="KERNEL_VENDOR" stringid="LONG_PRESS">   <!-- LONG_PRESS -->
+      <links type="watchpoint">
+        <event domain="KERNEL_VENDOR" stringid="HUNGTASK">	<!-- HUNGTASK -->
+           <result code="1" scope="sys"/>
+        </event>
+      </links>
+    </rule>
+  </rules>
+  <rules resolver="AppResolver">
+    <rule id="1" window="30" domain="ACE" stringid="UI_BLOCK_6S">	<!-- UI_BLOCK_6S -->
+      <links type="watchpoint">
+        <event domain="ACE" stringid="UI_BLOCK_3S">	<!-- UI_BLOCK_3S -->
+          <result code="0" scope="app"/>
+        </event>
+      </links>
+    </rule>
+    <rule id="2" window="30" domain="APPEXECFWK" stringid="THREAD_BLOCK_6S">	<!-- UI_BLOCK_6S -->
+      <links type="watchpoint">
+        <event domain="APPEXECFWK" stringid="THREAD_BLOCK_3S">	<!-- UI_BLOCK_3S -->
+          <result code="0" scope="app"/>
+        </event>
+      </links>
+    </rule>
+    <rule id="3" window="0" domain="WINDOWMANAGER" stringid="NO_FOCUS_WINDOW">	<!-- UI_BLOCK_6S -->
+      <links type="watchpoint">
+        <event domain="WINDOWMANAGER" stringid="NO_FOCUS_WINDOW">	<!-- UI_BLOCK_3S -->
+          <result code="0" scope="app"/>
+        </event>
+      </links>
+    </rule>
+    <rule id="4" window="30" domain="RELIABILITY" stringid="STACK">	<!-- UI_BLOCK_6S -->
+      <links type="watchpoint">
+        <event domain="MULTIMODALINPUT" stringid="APPLICATION_BLOCK_INPUT">	<!-- UI_BLOCK_3S -->
+          <result code="0" scope="app"/>
+        </event>
+      </links>
+    </rule>
+  </rules>
+</freeze>

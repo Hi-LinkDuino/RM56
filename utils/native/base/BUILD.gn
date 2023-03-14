@@ -1,0 +1,182 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+
+###############################################################################
+config("utils_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "include",
+    "//developtools/liblog",
+  ]
+  cflags = []
+  if (current_os == "mingw") {
+    cflags += [ "-Wno-error=inconsistent-dllimport" ]
+  }
+}
+
+config("private_securec_config") {
+  cflags = [ "-Wno-implicit-fallthrough" ]
+}
+
+config("static_utils_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "include",
+    "//developtools/liblog",
+  ]
+}
+
+sources_utils = [
+  "src/string_ex.cpp",
+  "src/unicode_ex.cpp",
+  "src/directory_ex.cpp",
+  "src/datetime_ex.cpp",
+  "src/refbase.cpp",
+  "src/parcel.cpp",
+  "src/semaphore_ex.cpp",
+  "src/thread_pool.cpp",
+  "src/file_ex.cpp",
+  "src/observer.cpp",
+  "src/thread_ex.cpp",
+  "src/event_demultiplexer.cpp",
+  "src/event_handler.cpp",
+  "src/event_reactor.cpp",
+  "src/timer.cpp",
+  "src/timer_event_handler.cpp",
+  "src/ashmem.cpp",
+  "src/rwlock.cpp",
+]
+
+securec_sources = [
+  "src/securec/fscanf_s.c",
+  "src/securec/fwscanf_s.c",
+  "src/securec/gets_s.c",
+  "src/securec/memcpy_s.c",
+  "src/securec/memmove_s.c",
+  "src/securec/memset_s.c",
+  "src/securec/scanf_s.c",
+  "src/securec/securecutil.c",
+  "src/securec/secureinput_a.c",
+  "src/securec/secureinput_w.c",
+  "src/securec/secureprintoutput_a.c",
+  "src/securec/secureprintoutput_w.c",
+  "src/securec/snprintf_s.c",
+  "src/securec/sprintf_s.c",
+  "src/securec/sscanf_s.c",
+  "src/securec/strcat_s.c",
+  "src/securec/strcpy_s.c",
+  "src/securec/strncat_s.c",
+  "src/securec/strncpy_s.c",
+  "src/securec/strtok_s.c",
+  "src/securec/swprintf_s.c",
+  "src/securec/swscanf_s.c",
+  "src/securec/vfscanf_s.c",
+  "src/securec/vfwscanf_s.c",
+  "src/securec/vscanf_s.c",
+  "src/securec/vsnprintf_s.c",
+  "src/securec/vsnprintf_s_p.c",
+  "src/securec/vsprintf_s.c",
+  "src/securec/vsscanf_s.c",
+  "src/securec/vswprintf_s.c",
+  "src/securec/vswscanf_s.c",
+  "src/securec/vwscanf_s.c",
+  "src/securec/wcscat_s.c",
+  "src/securec/wcscpy_s.c",
+  "src/securec/wcsncat_s.c",
+  "src/securec/wcsncpy_s.c",
+  "src/securec/wcstok_s.c",
+  "src/securec/wmemcpy_s.c",
+  "src/securec/wmemmove_s.c",
+  "src/securec/wscanf_s.c",
+]
+
+ohos_static_library("utilsbase") {
+  sources = sources_utils
+  sources += securec_sources
+  configs = [
+    ":utils_config",
+    ":private_securec_config",
+  ]
+  public_configs = [ ":static_utils_config" ]
+  defines = [ "CONFIG_HILOG" ]
+  external_deps = [ "hilog_native:libhilog_base" ]
+
+  subsystem_name = "utils"
+  part_name = "utils_base"
+}
+
+ohos_shared_library("utils") {
+  sources = sources_utils
+  sources += securec_sources
+  configs = [
+    ":utils_config",
+    ":private_securec_config",
+  ]
+  public_configs = [ ":static_utils_config" ]
+  subsystem_name = "utils"
+  defines = [ "CONFIG_HILOG" ]
+  external_deps = [ "hilog_native:libhilog_base" ]
+  part_name = "utils_base"
+  install_images = [
+    "system",
+    "updater",
+  ]
+}
+
+ohos_static_library("utilsecurec") {
+  sources = securec_sources
+  configs = [
+    ":utils_config",
+    ":private_securec_config",
+  ]
+  public_configs = [ ":static_utils_config" ]
+  subsystem_name = "utils"
+  part_name = "utils_base"
+}
+
+ohos_static_library("utilsecurec_ace_allplatforms") {
+  sources = [ "src/securec/vsnprintf_s_p.c" ]
+  if (current_os == "mingw") {
+    sources += [
+      "src/securec/memset_s.c",
+      "src/securec/securecutil.c",
+      "src/securec/secureinput_w.c",
+      "src/securec/secureprintoutput_a.c",
+      "src/securec/secureprintoutput_w.c",
+    ]
+    cflags = [ "-Wno-inconsistent-dllimport" ]
+  }
+  configs = [
+    ":utils_config",
+    ":private_securec_config",
+  ]
+  public_configs = [ ":static_utils_config" ]
+  subsystem_name = "utils"
+  part_name = "utils_base"
+}
+
+ohos_shared_library("utilsecurec_shared") {
+  sources = securec_sources
+  configs = [
+    ":utils_config",
+    ":private_securec_config",
+  ]
+  public_configs = [ ":utils_config" ]
+  part_name = "utils_base"
+  install_images = [
+    "system",
+    "updater",
+  ]
+}
+###############################################################################

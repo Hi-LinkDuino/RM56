@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "actsfeatureabilitytest"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "permreason_camera",
+      "value": "permreason camera"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+config("ace_libwebp_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia/third_party/externals/libwebp/src",
+    "$flutter_root/skia/third_party/externals/libwebp",
+  ]
+  cflags = [
+    "-w",
+    "-fstrict-aliasing",
+    "-Os",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-gline-tables-only",
+    "-funwind-tables",
+    "-Wno-unused-parameter",
+    "-fvisibility=hidden",
+  ]
+}
+
+ohos_source_set("ace_libwebp") {
+  part_name = ace_engine_part
+  license_file = "$flutter_root/skia/third_party/externals/libwebp/COPYING"
+  configs = [ ":ace_libwebp_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+
+  if ((target_cpu == "x86_64" && !use_mingw_win) || use_mac) {
+    deps = [ ":ace_libwebp_sse41" ]
+  }
+
+  sources = [
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/alpha_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/buffer_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/frame_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/idec_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/io_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/quant_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/tree_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/vp8_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/vp8l_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dec/webp_dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/demux/anim_decode.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/demux/demux.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/alpha_processing.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/alpha_processing_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/alpha_processing_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/alpha_processing_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/cost.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/cost_mips32.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/cost_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/cost_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/cost_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/cpu.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_clip_tables.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_mips32.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc_mips32.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/filters.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/filters_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/filters_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/filters_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/filters_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc_mips32.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/rescaler.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/rescaler_mips32.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/rescaler_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/rescaler_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/rescaler_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/rescaler_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/ssim.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/ssim_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/upsampling.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/upsampling_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/upsampling_msa.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/upsampling_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/upsampling_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/yuv.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/yuv_mips32.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/yuv_mips_dsp_r2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/yuv_neon.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/yuv_sse2.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/alpha_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/analysis_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/backward_references_cost_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/backward_references_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/config_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/cost_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/filter_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/frame_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/histogram_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/iterator_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/near_lossless_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/picture_csp_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/picture_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/picture_psnr_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/picture_rescale_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/picture_tools_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/predictor_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/quant_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/syntax_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/token_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/tree_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/vp8l_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/enc/webp_enc.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/mux/anim_encode.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/mux/muxedit.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/mux/muxinternal.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/mux/muxread.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/bit_reader_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/bit_writer_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/color_cache_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/filters_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/huffman_encode_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/huffman_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/quant_levels_dec_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/quant_levels_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/random_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/rescaler_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/thread_utils.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/utils/utils.c",
+  ]
+
+  defines = [ "WEBP_SWAP_16BIT_CSP" ]
+}
+
+config("ace_libwebp_sse41_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia/third_party/externals/libwebp/src",
+    "$flutter_root/skia/third_party/externals/libwebp",
+  ]
+  cflags = [
+    "-w",
+    "-fstrict-aliasing",
+    "-Os",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-gline-tables-only",
+    "-funwind-tables",
+    "-Wno-unused-parameter",
+    "-fvisibility=hidden",
+  ]
+}
+
+ohos_source_set("ace_libwebp_sse41") {
+  part_name = ace_engine_part
+  configs = [ ":ace_libwebp_sse41_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/alpha_processing_sse41.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/dec_sse41.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/enc_sse41.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/lossless_enc_sse41.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/upsampling_sse41.c",
+    "$flutter_root/skia/third_party/externals/libwebp/src/dsp/yuv_sse41.c",
+  ]
+
+  defines = [ "WEBP_SWAP_16BIT_CSP" ]
+}

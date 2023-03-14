@@ -1,0 +1,62 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2019-2019. All rights reserved.
+
+if (defined(ohos_lite)) {  # is on lite Os for ipcamera
+  import("//build/lite/config/component/lite_component.gni")
+
+  config("libgif_config") {
+    include_dirs = [ "//third_party/giflib" ]
+  }
+
+  libgif_source = [
+    "//third_party/giflib/dgif_lib.c",
+    "//third_party/giflib/egif_lib.c",
+    "//third_party/giflib/gifalloc.c",
+    "//third_party/giflib/gif_err.c",
+    "//third_party/giflib/gif_font.c",
+    "//third_party/giflib/gif_hash.c",
+    "//third_party/giflib/openbsd-reallocarray.c",
+  ]
+
+  lite_library("libgif") {
+    if (ohos_kernel_type == "liteos_m") {
+      target_type = "static_library"
+    } else {
+      target_type = "shared_library"
+    }
+    sources = libgif_source
+
+    public_configs = [ ":libgif_config" ]
+  }
+} else {
+  import("//build/ohos.gni")
+
+  config("build_private_config") {
+    cflags = [
+      "-Werror",
+      "-Wno-format",
+      "-Wno-sign-compare",
+      "-Wno-unused-parameter",
+      "-DHAVE_CONFIG_H",
+    ]
+  }
+
+  ohos_source_set("gif_static") {
+    sources = [
+      "//third_party/giflib/dgif_lib.c",
+      "//third_party/giflib/egif_lib.c",
+      "//third_party/giflib/gif_err.c",
+      "//third_party/giflib/gif_font.c",
+      "//third_party/giflib/gif_hash.c",
+      "//third_party/giflib/gifalloc.c",
+      "//third_party/giflib/openbsd-reallocarray.c",
+      "//third_party/giflib/quantize.c",
+    ]
+    include_dirs = [ "//third_party/giflib" ]
+    configs = [ ":build_private_config" ]
+  }
+
+  ohos_shared_library("libgif") {
+    deps = [ ":gif_static" ]
+    subsystem_name = "common"
+  }
+}

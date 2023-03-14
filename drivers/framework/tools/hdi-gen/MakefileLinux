@@ -1,0 +1,70 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+#
+# HDF is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+
+BOUNDS_CHECK_DIR := $(abspath ../../../../third_party/bounds_checking_function)
+INCLUDES = -I$(PWD) -I$(BOUNDS_CHECK_DIR)/include
+
+CODEGEN_SOURCE_DIR := $(PWD)/codegen
+CODEGEN_SOURCE := $(wildcard $(CODEGEN_SOURCE_DIR)/*.cpp)
+CODEGEN_OBJ_DIR := $(BUILD_DIR)/codegen
+CODEGEN_OBJS := $(addprefix $(CODEGEN_OBJ_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(CODEGEN_SOURCE))))
+
+PARSER_SOURCE_DIR := $(PWD)/parser
+PARSER_SOURCE := $(wildcard $(PARSER_SOURCE_DIR)/*.cpp)
+PARSER_OBJS_DIR := $(BUILD_DIR)/parser
+PARSER_OBJS := $(addprefix $(PARSER_OBJS_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(PARSER_SOURCE))))
+
+AST_SOURCE_DIR := $(PWD)/ast
+AST_SOURCE := $(wildcard $(AST_SOURCE_DIR)/*.cpp)
+AST_OBJS_DIR := $(BUILD_DIR)/ast
+AST_OBJS := $(addprefix $(AST_OBJS_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(AST_SOURCE))))
+
+UTIL_SOURCE_DIR := $(PWD)/util
+UTIL_SOURCE := $(wildcard $(UTIL_SOURCE_DIR)/*.cpp)
+UTIL_OBJS_DIR := $(BUILD_DIR)/util
+UTIL_OBJS := $(addprefix $(UTIL_OBJS_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(UTIL_SOURCE))))
+
+BOUNDS_CHECK_SOURCE_DIR := $(abspath ../../../../third_party/bounds_checking_function/src)
+BOUNDS_CHECK_SOURCE := $(wildcard $(BOUNDS_CHECK_SOURCE_DIR)/*.c)
+BOUNDS_CHECK_OBJS_DIR := $(BUILD_DIR)/bounds_checking_function
+BOUNDS_CHECK_OBJS := $(addprefix $(BOUNDS_CHECK_OBJS_DIR)/, $(patsubst %.c, %.o, $(notdir $(BOUNDS_CHECK_SOURCE))))
+
+MAIN_SOURCE := $(wildcard *.cpp)
+MAIN_OBJS := $(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(MAIN_SOURCE)))
+
+all:$(TARGET)
+$(TARGET) : $(BOUNDS_CHECK_OBJS) $(UTIL_OBJS) $(AST_OBJS) $(PARSER_OBJS) $(CODEGEN_OBJS) $(MAIN_OBJS)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@
+	$(Q) echo $(TARGET):build successful.
+
+$(BUILD_DIR)/%.o : %.cpp
+	$(Q) mkdir -p $(BUILD_DIR)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
+
+$(CODEGEN_OBJ_DIR)/%.o : $(CODEGEN_SOURCE_DIR)/%.cpp
+	$(Q) mkdir -p $(CODEGEN_OBJ_DIR)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
+
+$(PARSER_OBJS_DIR)/%.o : $(PARSER_SOURCE_DIR)/%.cpp
+	$(Q) mkdir -p $(PARSER_OBJS_DIR)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
+
+$(AST_OBJS_DIR)/%.o : $(AST_SOURCE_DIR)/%.cpp
+	$(Q) mkdir -p $(AST_OBJS_DIR)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
+
+$(UTIL_OBJS_DIR)/%.o : $(UTIL_SOURCE_DIR)/%.cpp
+	$(Q) mkdir -p $(UTIL_OBJS_DIR)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
+
+$(BOUNDS_CHECK_OBJS_DIR)/%.o : $(BOUNDS_CHECK_SOURCE_DIR)/%.c
+	$(Q) mkdir -p $(BOUNDS_CHECK_OBJS_DIR)
+	$(Q) $(CXX) $(CXXFLAGS) $(INCLUDES) -c $^ -o $@
+
+clean:
+	$(Q) rm -rf $(TARGET) $(BUILD_DIR)
+
+.PHONY:all clean

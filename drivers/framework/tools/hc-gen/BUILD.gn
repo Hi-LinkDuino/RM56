@@ -1,0 +1,20 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+#
+# HDF is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+
+action("build_hc_gen") {
+  script = "/usr/bin/env"
+  if (defined(ohos_lite)) {
+    script = "//build/lite/run_shell_cmd.py"
+  }
+  outputs = [ "$target_out_dir/hc-gen" ]
+  args = [
+    "make",
+    "-j",
+    "-C",
+    rebase_path("."),
+    "BUILD_DIR=" + rebase_path(target_out_dir),
+  ]
+}

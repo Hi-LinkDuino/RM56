@@ -1,0 +1,86 @@
+#
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+  import("//build/lite/ndk/ndk.gni")
+} else {
+  import("//build/ohos.gni")
+}
+
+import("libsec_src.gni")
+
+config("libsec_public_config") {
+  include_dirs = [ "include" ]
+}
+
+if (defined(ohos_lite)) {
+  lite_library("libsec_static") {
+    target_type = "static_library"
+
+    # When the kernel is liteos_m, use //kernel/liteos_m/kal/libsec/BUILD.gn to compile.
+    if (ohos_kernel_type != "liteos_m") {
+      sources = libsec_sources
+    } else {
+      sources = []
+    }
+    public_configs = [ ":libsec_public_config" ]
+  }
+  lite_library("libsec_shared") {
+    target_type = "shared_library"
+    sources = libsec_sources
+    public_configs = [ ":libsec_public_config" ]
+  }
+  group("sec_shared") {
+    deps = [ ":libsec_shared" ]
+  }
+  ndk_lib("libsec_ndk") {
+    lib_extension = ".so"
+    deps = [ ":sec_shared" ]
+    head_files = [ "include" ]
+  }
+} else {
+  ohos_static_library("libsec_static") {
+    sources = libsec_sources
+    public_configs = [ ":libsec_public_config" ]
+    cflags = [
+      "-D_INC_STRING_S",
+      "-D_INC_WCHAR_S",
+      "-D_SECIMP=//",
+      "-D_STDIO_S_DEFINED",
+      "-D_INC_STDIO_S",
+      "-D_INC_STDLIB_S",
+      "-D_INC_MEMORY_S",
+    ]
+  }
+  ohos_shared_library("libsec_shared") {
+    sources = libsec_sources
+    public_configs = [ ":libsec_public_config" ]
+    subsystem_name = "securec"
+    cflags = [
+      "-D_INC_STRING_S",
+      "-D_INC_WCHAR_S",
+      "-D_SECIMP=//",
+      "-D_STDIO_S_DEFINED",
+      "-D_INC_STDIO_S",
+      "-D_INC_STDLIB_S",
+      "-D_INC_MEMORY_S",
+    ]
+    part_name = "thirdparty_bounds_checking_function"
+    install_images = [
+      "system",
+      "updater",
+    ]
+  }
+}

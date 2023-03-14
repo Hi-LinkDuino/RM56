@@ -1,0 +1,91 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "developertest/distributedb"
+
+###############################################################################
+config("module_private_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/frameworks/innerkitsimpl/distributeddatafwk/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/frameworks/innerkitsimpl/distributeddatafwk/src",
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/app_distributeddata/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/distributeddata/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/app/include",
+    "//test/developertest/aw/distributed",
+  ]
+
+  # link library
+  #ldflags = [ "-llog" ]
+
+  # library path
+  lib_dirs = [ "//foundation/appexecfwk/libs" ]
+}
+
+ohos_distributedtest("DistributeDemo") {
+  module_out_path = module_output_path
+
+  sources = [ "//test/developertest/examples/distributedb/test/distributedtest/common/distribute_demo.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  deps = [
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/app_distributeddata/:app_distributeddata",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter:distributeddata_adapter",
+    "//third_party/googletest:gtest",
+    "//utils/native/base:utils",
+  ]
+}
+
+ohos_distributedtest("DistributeDemoAgent") {
+  module_out_path = module_output_path
+
+  sources = [ "//test/developertest/examples/distributedb/test/distributedtest/common/distribute_demo_agent.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+
+  deps = [
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/app_distributeddata/:app_distributeddata",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter:distributeddata_adapter",
+    "//third_party/googletest:gtest",
+    "//utils/native/base:utils",
+  ]
+}
+
+###############################################################################
+group("distributedtest") {
+  testonly = true
+  deps = [
+    ":DistributeDemo",
+    ":DistributeDemoAgent",
+  ]
+}
+###############################################################################

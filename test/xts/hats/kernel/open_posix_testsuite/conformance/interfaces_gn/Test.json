@@ -1,0 +1,16 @@
+{
+    "kits": [
+        {
+            "push": [
+                "testcases/open_posix_testsuite/${module}->/data/local/tmp/${module}/"
+            ],
+            "type": "PushKit"
+        }
+    ],
+    "driver": {
+        "type": "LtpPosixTest",
+        "module-name": "${module}",
+        "pre_cmd": "su"
+    },
+    "description": "Configuration for ${module} Tests"
+}

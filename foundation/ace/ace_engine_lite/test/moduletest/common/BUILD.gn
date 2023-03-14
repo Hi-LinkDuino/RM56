@@ -1,0 +1,60 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+import("//build/lite/config/test.gni")
+import("//foundation/ace/ace_engine_lite/test/ace_test_config.gni")
+
+ace_lite_src_core = "$ace_lite_root/frameworks/src/core"
+unittest("js_frameworks_tdd_door") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [
+    "$ace_lite_root/test:test_common_config",
+    "$ace_lite_root/test:test_whole_archive_config",
+  ]
+  sources = all_acelite_source_files
+  sources += [
+    "$ACE_LITE_COMMON_PATH/memory/cache/test/unittest/common/cache_manager_tdd_test.cpp",
+    "$MODULE_MANAGER_PATH/test/unittest/common/require_module_tdd_test.cpp",
+    "$NATIVE_ENGINE_PATH/async/test/unittest/common/js_async_work_tdd_test.cpp",
+    "$NATIVE_ENGINE_PATH/jsi/test/unittest/common/jsi_interface_tdd_test.cpp",
+    "$ace_lite_root/frameworks/src/core/components/test/unittest/common/root_component_mock.cpp",
+    "$ace_lite_root/test/moduletest/common/base_test.cpp",
+    "$ace_lite_root/test/moduletest/common/basic_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/arc_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/div_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/horizonprogress_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/image_src_path_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/jsbundle_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/list_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/marquee_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/opacity_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/percent_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/radio_switch_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/slider_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/stack_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/switch_tdd_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/text_tdd_exception_test.cpp",
+    "$ace_lite_src_core/components/test/unittest/common/text_tdd_test.cpp",
+    "$ace_lite_src_core/modules/presets/test/unittest/common/console_module_test.cpp",
+    "$ace_lite_src_core/modules/presets/test/unittest/common/date_time_module_tdd_test.cpp",
+    "$ace_lite_src_core/modules/presets/test/unittest/common/number_format_module_tdd_test.cpp",
+    "$ace_lite_src_core/modules/test/unittest/common/dfx_tdd_test.cpp",
+    "$ace_lite_src_core/stylemgr/test/unittest/common/stylemgr_tdd_test.cpp",
+  ]
+  deps = all_external_deps
+}
+
+group("door_unittest") {
+  deps = [ ":js_frameworks_tdd_door" ]
+}

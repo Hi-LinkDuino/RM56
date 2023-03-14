@@ -1,0 +1,66 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+import("//foundation/multimedia/histreamer/config.gni")
+config("histreamer_player_config") {
+  include_dirs = [ "//foundation/multimedia/histreamer/engine/scene/player" ]
+  if (hst_is_lite_sys) {
+    include_dirs += [
+      "//foundation/multimedia/media_lite/interfaces/innerkits",
+      "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+    ]
+  } else {
+    include_dirs += [
+      "//foundation/multimedia/media_standard/interfaces/inner_api/native",
+      "//foundation/multimedia/image_standard/interfaces/innerkits/include",
+      "//foundation/multimedia/media_standard/services/include",
+      "//foundation/multimedia/media_standard/services/services/engine_intf",
+      "//utils/native/base/include",
+    ]
+  }
+}
+
+source_set("histreamer_player") {
+  sources = [
+    "//foundation/multimedia/histreamer/engine/scene/player/internal/state.cpp",
+    "//foundation/multimedia/histreamer/engine/scene/player/internal/state_machine.cpp",
+  ]
+  public_configs = [
+    ":histreamer_player_config",
+    "//foundation/multimedia/histreamer:histreamer_presets",
+  ]
+  public_deps = [
+    "//foundation/multimedia/histreamer/engine/foundation:histreamer_foundation",
+    "//foundation/multimedia/histreamer/engine/pipeline:histreamer_pipeline",
+    "//foundation/multimedia/histreamer/engine/scene:scene_common",
+    "//foundation/multimedia/histreamer/engine/utils:histreamer_utils",
+  ]
+  if (hst_is_lite_sys) {
+    sources += [
+      "//foundation/multimedia/histreamer/engine/scene/player/lite/hiplayer.cpp",
+      "//foundation/multimedia/histreamer/engine/scene/player/lite/hiplayer_impl.cpp",
+    ]
+    public_deps += [ "//foundation/multimedia/utils/lite:media_common" ]
+  } else {
+    sources += [
+      "//foundation/multimedia/histreamer/engine/scene/player/standard/hiplayer_callback_looper.cpp",
+      "//foundation/multimedia/histreamer/engine/scene/player/standard/hiplayer_impl.cpp",
+      "//foundation/multimedia/histreamer/engine/scene/player/standard/media_utils.cpp",
+    ]
+    public_deps += [
+      "//foundation/communication/ipc/interfaces/innerkits/ipc_core:ipc_core",
+      "//foundation/graphic/graphic_2d/frameworks/surface:surface",
+      "//foundation/multimedia/media_standard/services/utils:media_format",
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+include_directories(${PROJECT_SOURCE_DIR}/include)
+#link_directories(${PROJECT_BINARY_DIR}/lib)
+set(APP_SRC main.c)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/output)
+add_executable(chello ${APP_SRC})
+target_link_libraries(chello libhello)

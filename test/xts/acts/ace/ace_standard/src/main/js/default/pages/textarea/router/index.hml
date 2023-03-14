@@ -1,0 +1,86 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <text>textarea通用样式1</text>
+    <textarea class="textarea1"  extend="false" maxlength="20"
+              headericon="/common/images/icon.png"
+              placeholder="textarea 1"
+              value="textarea通用样式1"
+              showcounter = "false"
+              autofocus="false"
+              onchange="change"
+              selectedstart="2"
+              selectedend="3"
+              menuoptions="{}">
+    </textarea>
+    <text>textarea通用样式2</text>
+    <textarea class="textarea2"  extend="true" maxlength="40"
+              headericon="/common/images/image.png"
+              placeholder="textarea 2"
+              value="textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2"
+              showcounter = "true"
+              autofocus="false"
+              onchange="change"
+              selectedstart="6"
+              selectedend="7"
+              softkeyboardenabled = "false"
+              menuoptions="{}">
+    </textarea>
+    <text>textarea通用样式3</text>
+    <textarea class="textarea3"  extend="false" maxlength="40"
+              headericon="/common/images/icon.png"
+              placeholder="textarea 3">
+    </textarea>
+    <text>textarea通用样式4</text>
+    <textarea class="textarea4"  extend="true" maxlength="40"
+              headericon="/common/images/icon.png"
+              placeholder="textarea 4">
+    </textarea>
+    <text>textarea通用样式5</text>
+    <div class="contain1">
+        <textarea class="textarea5"  extend="false" maxlength="40"
+                  headericon="/common/images/icon.png"
+                  placeholder="textarea 5">
+        </textarea>
+        <textarea class="textarea6"  extend="false" maxlength="40"
+                  headericon="/common/images/icon.png"
+                  placeholder="textarea 6">
+        </textarea>
+    </div>
+    <text>textarea特有样式</text>
+    <textarea class="textarea7"  extend="false" maxlength="20"
+              headericon="/common/images/icon.png"
+              placeholder="textarea 7">
+    </textarea>
+    <textarea class="textarea8"  extend="true" maxlength="40"
+              headericon="/common/images/image.png"
+              placeholder="textarea 2"
+              value="textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2 textarea通用样式2"
+              showcounter = "true"
+              autofocus="false"
+              onchange="change"
+              selectedstart="6"
+              selectedend="7"
+              menuoptions="{}">
+    </textarea>
+    <text  class="sub-title">
+        特有事件1
+    </text>
+    <div class ="event4" onreachstart="reachStart" onreachend="reachEnd">
+        <textarea id="customMarquee" loop="4" change="change" selectchange="selectchange" share="share" translate="translate" style="height: 100%; width: 100%; background-color: red; margin-left: 10px;">
+            特有事件----</textarea>
+    </div>
+</div>

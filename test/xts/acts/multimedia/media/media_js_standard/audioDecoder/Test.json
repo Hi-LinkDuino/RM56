@@ -1,0 +1,41 @@
+{
+    "description": "Configuration for audioDecoder Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "2000000",
+        "package": "ohos.acts.multimedia.audio.audiodecoder",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAudioDecoderJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "PushKit",
+            "pre-push": [
+            ],
+            "push": [
+                "./resource/audio/audioDecode/AAC_48000_32_1.aac ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/",
+                "./resource/audio/audioDecode/AAC_16000_1.aac ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/",
+                "./resource/audio/audioDecode/FLAC_48000_32_1.flac ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/",
+                "./resource/audio/audioDecode/mp3.es ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/",
+                "./resource/audio/audioDecode/vorbis.es ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "rm -R /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/results",
+                "mkdir -p /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/results/",
+                "chmod 777 -R /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder",
+                "chmod 777 /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audiodecoder/*"
+            ],
+            "teardown-command":[
+            ]
+        }
+    ]
+}

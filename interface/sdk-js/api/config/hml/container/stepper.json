@@ -1,0 +1,746 @@
+{
+  "name": "stepper",
+  "version": [
+    {
+      "name": "v4.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": "Step Navigator. When multiple steps are required to complete a task, you can use the Step Navigator to show the current progress."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "index",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the sequence number of the stepper-item subcomponent to be displayed in the step navigator step."
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "voicelabel",
+      "required": false,
+      "description": [
+        {
+          "name": "Voice label. When a voice label is triggered, the click event of the component is triggered. NOTE: The voice label takes effect only when the click event is set."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "subscriptflag",
+      "required": false,
+      "description": [
+        {
+          "name": "Voice subscript switch. Available values are as follows: auto: For the <image> and <list-item> components, if subscriptflag is set to auto, the voice subscript is turned on. For other components, if subscriptflag is set to auto, the voice subscript is turned off. on: Turn on the voice subscript. off: Turn off the voice subscript. If no customized subscript is set, the subscript is automatically accumulated from 1. NOTE The voice subscript takes effect only when the click event is set."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "auto"
+        },
+        {
+          "name": "on"
+        },
+        {
+          "name": "off"
+        }
+      ]
+    },
+    {
+      "name": "subscriptlabel",
+      "required": false,
+      "description": [
+        {
+          "name": "Custom subscript. After it is set, the subscript is displayed in the way you specified. To make this attribute take effect, you need to turn on the voice subscript."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "scenelabel",
+      "required": false,
+      "description": [
+        {
+          "name": "Available values are as follows: video: Video scenario. For example, to watch a video, a user can say the voiceLabel (usually the video name), play voiceLabel, see voiceLabel, or watch voiceLabel, etc. audio: Music scenario. For example, to listen to a song, a user can say the voiceLabel (usually the song name), play voiceLabel, or listen voiceLabel, etc. page: Page scenario. For example, to go to a page, a user can say the voiceLabel (usually the page name), switch to voiceLabel, go to voiceLabel, or jump to voiceLabel, etc. switch: Switch scenario. For example, to turn on or turn off a switch, a user can say the voiceLabel (usually the switch name), turn on voiceLabel, open voiceLabel, turn off voiceLabel, close voiceLabel, etc. common: Common scenario, which is triggered by the voiceLabel."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "video"
+        },
+        {
+          "name": "audio"
+        },
+        {
+          "name": "page"
+        },
+        {
+          "name": "switch"
+        },
+        {
+          "name": "common"
+        }
+      ]
+    },
+    {
+      "name": "accessibilitygroup",
+      "required": false,
+      "description": [
+        {
+          "name": "Accessibility group. If this attribute is set to true, the component and all its child components form an entire selectable component, and the accessibility service will no longer available for the content of its child components."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "accessibilitytext",
+      "required": false,
+      "description": [
+        {
+          "name": "Accessibility text. If a component does not contain text information, it will not be read when the component is selected by the screen reader. In this case, the screen reader user cannot know which component is selected. To solve this problem, you can set this attribute for components without text information. When the component is selected by the screen reader, the specified accessibility text will be read, informing the user which component is selected. If a component with this attribute set contains text information, only the accessibility text will be read."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "accessibilitydescription",
+      "required": false,
+      "description": [
+        {
+          "name": "Accessibility description. You can specify further explanation of the current component, for example, possible operation consequences, especially those cannot be learned from component attributes and accessibility text. You can set a detailed description text for the attribute of the component to help users understand the operation to be performed. If a component contains both text information and the accessibility description, the text is read first and then the accessibility description, when the component is selected."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "accessibilityimportance",
+      "required": false,
+      "description": [
+        {
+          "name": "Accessibility importance, which is used to decide whether a component can be identified by the accessibility service. The value can be auto, yes, no, or no-hide-descendants. The last value forces the screen reader to ignore the current component and all its subcomponents. yes: The current component is selectable for the accessibility service. no: The current component is not selectable for the accessibility service."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "if",
+      "required": false,
+      "description": [
+        {
+          "name": "Whether the element is added or removed."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "dir",
+      "required": false,
+      "description": [
+        {
+          "name": "Specify the text direction of an element."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "ltr"
+        },
+        {
+          "name": "rtl"
+        },
+        {
+          "name": "auto"
+        }
+      ]
+    },
+    {
+      "name": "elif",
+      "required": false,
+      "description": [],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "else",
+      "required": false,
+      "description": [],
+      "type": "string"
+    },
+    {
+      "name": "for",
+      "required": false,
+      "description": [
+        {
+          "name": "Expands the current element based on the configured data list."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "tid",
+      "required": false,
+      "description": [
+        {
+          "name": "The tid attribute is used to accelerate the for loop. It is used to improve the re-rendering efficiency when data in a loop changes. The tid attribute specifies the unique ID of each element in the array. If it is not specified, the index of each element in the array is used as the ID. For example, tid='id' indicates that the id attribute of each element is its unique identifier."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "show",
+      "required": false,
+      "description": [
+        {
+          "name": "Whether the element is displayed or hidden."
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    },
+    {
+      "name": "shareid",
+      "required": false,
+      "description": [
+        {
+          "name": "Used for the transition of shared elements and takes effect only when it is configured. This attribute cannot be modified after being set. list-item, image, text, button, label components are supported for the transition of shared elements."
+        }
+      ],
+      "type": "string"
+    }
+  ],
+  "events": [
+    {
+      "name": "finish",
+      "description": [
+        {
+          "name": "Triggers when the last step of the Step Navigator completes."
+        }
+      ]
+    },
+    {
+      "name": "skip",
+      "description": [
+        {
+          "name": "This event is triggered when the setNextButtonStatus method is used to set the current step navigator to skip, and the skip button is clicked on the right."
+        }
+      ]
+    },
+    {
+      "name": "change",
+      "description": [
+        {
+          "name": "This event is triggered when the step navigator clicks the text button on the left or right to switch steps. prevIndex indicates the sequence number of the old step, and index indicates the sequence number of the new step."
+        }
+      ]
+    },
+    {
+      "name": "next",
+      "description": [
+        {
+          "name": "This event is triggered when a subscriber clicks the Next button. index indicates the sequence number of the current step, and pendingIndex indicates the sequence number to be redirected to. This event has a return value in the format of {pendingIndex:pendingIndex}. You can specify pendingIndex to modify which stepper-item subcomponent is used in the next step."
+        }
+      ]
+    },
+    {
+      "name": "back",
+      "description": [
+        {
+          "name": "This event is triggered when a subscriber clicks the previous button. index indicates the sequence number of the current step, and pendingIndex indicates the sequence number of the jump to. This event has a return value in the Object:{pendingIndex:pendingIndex} format. You can specify pendingIndex to modify which stepper-item subcomponent is used in the previous step."
+        }
+      ]
+    },
+    {
+      "name": "touchstart",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping starts"
+        }
+      ]
+    },
+    {
+      "name": "touchmove",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping moves."
+        }
+      ]
+    },
+    {
+      "name": "touchcancel",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping is interrupted."
+        }
+      ]
+    },
+    {
+      "name": "touchend",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The tapping ends."
+        }
+      ]
+    },
+    {
+      "name": "click",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component is clicked.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "longpress",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component is long pressed.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "doubleclick",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component is double clicked.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pinchstart",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch starts.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pinchupdate",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch updates.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pinchend",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch ends.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pinchcancel",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The pinch is interrupted.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "drag",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The duration of drag.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragstart",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag starts.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragend",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag ends.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragenter",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag enters.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragover",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag overs.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragleave",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag leaves.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "drop",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v7.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The drag drops.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component gains focus. The <span> component cannot gain focus."
+        }
+      ]
+    },
+    {
+      "name": "blur",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A component loses focus. The <span> component cannot lose focus."
+        }
+      ]
+    },
+    {
+      "name": "key",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A user presses a key on the remote control. Available return values are as follows:\ntrue: returned if the page processes the key event.\nfalse: returned if the default logic is used to process the key event.\nIf no value is returned, false is used as the return value."
+        }
+      ]
+    },
+    {
+      "name": "swipe",
+      "syscap": [
+        "SystemCapability.ArkUI.ArkUI.Full",
+        "SystemCapability.ArkUI.ArkUI.Lite"
+      ],
+      "version": [
+        {
+          "name": "v5.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "A user quickly swipes on a component.",
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attached",
+      "version": [
+        {
+          "name": "v6.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The current component is mounted to the render tree."
+        }
+      ]
+    },
+    {
+      "name": "detached",
+      "version": [
+        {
+          "name": "v6.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "The current component is removed from the render tree."
+        }
+      ]
+    },
+    {
+      "name": "accessibility",
+      "version": [
+        {
+          "name": "v4.0"
+        }
+      ],
+      "description": [
+        {
+          "name": "Event dispatched by the accessibility service."
+        }
+      ]
+    }
+  ],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [
+    {
+      "name": "stepper-item"
+    }
+  ],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

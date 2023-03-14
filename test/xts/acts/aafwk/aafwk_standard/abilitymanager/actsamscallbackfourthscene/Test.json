@@ -1,0 +1,22 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "300000",
+        "package": "com.example.actsamscallbackfourthscene",
+        "shell-timeout": "600000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAmsCallBackFourthSceneTest.hap",
+                "simulateFAbilityFir.hap",
+                "verifyAAbility.hap",
+                "verifyIAbility.hap",
+                "simulateEAbility.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

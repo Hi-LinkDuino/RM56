@@ -1,0 +1,99 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# build static
+template("ace_osal_ohos_source_set") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    if (is_standard_system) {
+      external_deps = [
+        "bytrace_standard:bytrace_core",
+        "hiviewdfx_hilog_native:libhilog",
+        "startup_l2:syspara",
+      ]
+      configs = [ "$ace_root:ace_config" ]
+    } else {
+      external_deps = [
+        "bytrace:bytrace_core",
+        "hilog:libhilog",
+        "startup:syspara",
+      ]
+
+      configs = [ "$ace_root:ace_config" ]
+    }
+    include_dirs = [
+      "//utils/native/base/include",
+      "//foundation/windowmanager/interfaces/innerkits",
+    ]
+
+    sources = [
+      "ace_trace.cpp",
+      "event_report.cpp",
+      "frame_report.cpp",
+      "log_wrapper.cpp",
+      "ressched_report.cpp",
+      "system_properties.cpp",
+    ]
+
+    public_deps =
+        [ "//base/startup/init_lite/interfaces/innerkits:libbegetutil" ]
+
+    if (is_standard_system) {
+      sources += [ "resource_adapter_impl.cpp" ]
+      sources += [ "resource_convertor.cpp" ]
+      deps = [ "$ace_flutter_engine_root/icu:ace_libicu_ohos" ]
+      public_deps +=
+          [ "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr" ]
+      external_deps += [ "multimedia_image_standard:image" ]
+      if (defined(config.accessibility_support) &&
+          config.accessibility_support) {
+        sources += [ "js_accessibility_manager.cpp" ]
+        external_deps += [
+          "ability_base:want",
+          "ability_runtime:ability_manager",
+          "accessibility:accessibilityclient",
+        ]
+      } else {
+        sources += [ "fake_accessibility_manager.cpp" ]
+      }
+    } else {
+      external_deps += [ "multimedia_image:image" ]
+    }
+    sources += [ "pixel_map_ohos.cpp" ]
+    external_deps += [ "hisysevent_native:libhisysevent" ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  if (platform == "ohos") {
+    ace_osal_ohos_source_set("ace_osal_ohos") {
+      defines = []
+      config = {
+      }
+
+      if (defined(item.config)) {
+        config = item.config
+      }
+      if (defined(config.defines)) {
+        defines = config.defines
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            list-item-group通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <list-item-group id="styleOne">
+        </list-item-group>
+        <list-item-group id="styleTwo">
+        </list-item-group>
+        <list-item-group id="styleThree">
+        </list-item-group>
+        <list-item-group id="styleFour">
+        </list-item-group>
+        <list-item-group id="styleFive">
+        </list-item-group>
+        <list-item-group id="styleSix">
+        </list-item-group>
+        <list-item-group id="styleSeven">
+        </list-item-group>
+        <list-item-group id="styleEight">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <list-item-group id="styleTen">
+            </list-item-group>
+            <list-item-group id="styleEleven">
+            </list-item-group>
+            <list-item-group id="styleTwelve">
+            </list-item-group>
+            <list-item-group id="styleThirteen">
+            </list-item-group>
+            <list-item-group id="styleFourteen">
+            </list-item-group>
+            <list-item-group id="styleFifteen">
+            </list-item-group>
+            <list-item-group id="styleSixteen">
+            </list-item-group>
+            <list-item-group id="styleSeventeen">
+            </list-item-group>
+            <list-item-group id="styleEighteen">
+            </list-item-group>
+            <list-item-group id="styleNineteen">
+            </list-item-group>
+            <list-item-group id="styleTwenty">
+            </list-item-group>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <list-item-group id="styleTwentyOne">
+            </list-item-group>
+            <list-item-group id="styleTwentyTwo">
+            </list-item-group>
+            <list-item-group id="styleTwentyThree">
+            </list-item-group>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <list-item-group id="styleTwentyFour">
+        </list-item-group>
+        <list-item-group id="styleTwentyFive">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <list-item-group id="styleTwentySix">
+        </list-item-group>
+        <list-item-group id="styleTwentySeven">
+        </list-item-group>
+        <list-item-group id="styleTwentyNine">
+        </list-item-group>
+        <list-item-group id="styleThirty">
+        </list-item-group>
+        <list-item-group id="styleThirtyOne">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <list-item-group id="styleThirtyTwo">
+        </list-item-group>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="style-container">
+        <text class="title">
+            list-item-group特有样式
+        </text>
+
+    </div>
+</div>
+

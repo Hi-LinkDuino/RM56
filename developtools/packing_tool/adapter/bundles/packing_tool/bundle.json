@@ -1,0 +1,23 @@
+{
+  "name": "packing_tool",
+  "version": "1.0.0",
+  "publishAs": "code-segment",
+  "description": "packing_tool for dev",
+  "keywords": [
+    "packing",
+    "unpacking",
+    "linux"
+  ],
+  "component": {
+    "name": "packing_tool",
+    "subsystem": "developtools",
+    "adapted_system_type": [ "mini", "small", "standard" ],
+    "deps": {
+      "components": [],
+      "third_party": [ "fastjson" ]
+    },
+    "build": {
+      "sub_component": []
+    }
+  }
+}

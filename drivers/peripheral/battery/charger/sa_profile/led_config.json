@@ -1,0 +1,18 @@
+{
+    "led":{
+        "comments":"capacity_begin, capacity_end, led_color, led_brightness",
+        "table":[
+            [0, 10, 4, 255],
+            [10, 90, 6, 255],
+            [90, 100, 2, 255]
+        ]
+    },
+    "temperature":{
+        "comments":"temperature_lower, temperature_upper",
+        "table":[-100, 600]
+    },
+    "soc":{
+        "comments":"soc_lower",
+        "table":[3]
+    }
+}

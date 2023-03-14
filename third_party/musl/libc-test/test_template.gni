@@ -1,0 +1,200 @@
+import("//build/test.gni")
+
+musl_dir = "third_party/musl/"
+test_dir = "${musl_dir}/libc-test"
+out_test_dir = "${root_out_dir}/obj/${musl_dir}/libc-test"
+
+if (current_cpu == "arm") {
+  musl_arch = "arm"
+} else if (current_cpu == "arm64") {
+  musl_arch = "aarch64"
+}
+
+musl_include_dir =
+    "${root_out_dir}/obj/${musl_dir}/usr/include/${musl_arch}-linux-ohos"
+musl_lib_dir = "${root_out_dir}/obj/${musl_dir}/usr/lib/${musl_arch}-linux-ohos"
+
+test_lib_dir = "musl/libc-test-lib"
+
+template("test_unittest") {
+  assert(defined(invoker.target_name),
+         "file name is required in target ${target_name}")
+
+  target_name = invoker.target_name
+  target_dir = invoker.target_dir
+
+  target("ohos_unittest", "${target_name}") {
+    module_out_path = "libc-test/src/${target_dir}"
+
+    sources = [ "${target_name}.c" ]
+    include_dirs = [
+      "//${test_dir}/src/common",
+      "//${musl_include_dir}",
+    ]
+
+    cflags = []
+
+    cflags_c = [
+      "-pipe",
+      "-std=c99",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-Wall",
+      "-Wno-unused",
+      "-Wno-unused-function",
+      "-Wno-missing-braces",
+      "-Wno-overflow",
+      "-Wno-unknown-pragmas",
+      "-fno-builtin",
+      "-frounding-math",
+      "-Werror=implicit-function-declaration",
+      "-Werror=implicit-int",
+      "-Werror=pointer-sign",
+      "-Werror=pointer-arith",
+      "-g",
+      "-D_FILE_OFFSET_BITS=64",
+      "-c",
+      "-o",
+    ]
+
+    ldflags = [ "-nostdlib" ]
+
+    libs = [ "//${out_test_dir}/src/common/libtest.a" ]
+
+    if (target_dir == "math") {
+      include_dirs += [
+        "//${test_dir}/src/math/crlibm",
+        "//${test_dir}/src/math/gen",
+        "//${test_dir}/src/math/sanity",
+        "//${test_dir}/src/math/special",
+        "//${test_dir}/src/math/ucb",
+      ]
+
+      cflags += [
+        # math/dremf.c:1:9: error: '_GNU_SOURCE' macro redefined [-Werror,-Wmacro-redefined]
+        # cflags_c无法生效此命令
+        # -Wno-error无法屏蔽错误，改为屏蔽警告
+        "-Wno-macro-redefined",
+      ]
+    }
+
+    if (target_dir == "functional") {
+      cflags_c += [
+        # include/${musl_arch}-linux-ohos/endian.h:26:25: error: '&' within '|' [-Werror,-Wbitwise-op-parentheses]
+        "-Wno-error=bitwise-op-parentheses",
+
+        #functional/sscanf.c:73:9: error: magnitude of floating-point constant too large for type 'double'; maximum is 1.7976931348623157E+308 [-Werror,-Wliteral-range]
+        "-Wno-error=literal-range",
+      ]
+
+      cflags += [
+        # functional/strptime.c:3:9: error: '_GNU_SOURCE' macro redefined [-Werror,-Wmacro-redefined]
+        "-Wno-macro-redefined",
+      ]
+
+      if (target_name == "dlopen") {
+        ldflags += [ "-rdynamic" ]
+        #libs += [ "//${root_out_dir}/${test_lib_dir}/libdlopen_dso.so" ]
+      }
+
+      if (target_name == "dlclose_reset") {
+        ldflags += [ "-rdynamic" ]
+        #libs += [ "//${root_out_dir}/${test_lib_dir}/libdlclose_reset_dso.so" ]
+      }
+
+      if (target_name == "tls_align") {
+        ldflags += [ "-Wl,-rpath=src/functional" ]
+        libs += [ "//${root_out_dir}/${test_lib_dir}/libtls_align_dso.so" ]
+      }
+
+      if (target_name == "tls_init") {
+        ldflags += [ "-Wl,-rpath=src/functional" ]
+        libs += [ "//${root_out_dir}/${test_lib_dir}/libtls_init_dso.so" ]
+      }
+    }
+
+    if (target_dir == "musl") {
+      cflags_c += [ "-w" ]
+
+      libs += [
+        "//${musl_lib_dir}/libc.a",
+        "//${musl_lib_dir}/libm.a",
+        "//${musl_lib_dir}/librt.a",
+        "//${musl_lib_dir}/libcrypt.a",
+        "//${musl_lib_dir}/libdl.a",
+        "//${musl_lib_dir}/libresolv.a",
+        "//${musl_lib_dir}/libutil.a",
+        "//${musl_lib_dir}/libpthread.a",
+      ]
+    }
+
+    if (target_dir == "regression") {
+      cflags_c += [
+        # regression/daemon-failure.c:56:24: error: adding 'int' to a string does not append to the string [-Werror,-Wstring-plus-int]
+        "-Wno-string-plus-int",
+        "-Wno-error=string-plus-int",
+      ]
+
+      cflags += [
+        # regression/syscall-sign-extend.c:3:9: error: '_GNU_SOURCE' macro redefined [-Werror,-Wmacro-redefined]
+        "-Wno-macro-redefined",
+      ]
+
+      if (target_name == "tls_get_new-dtv") {
+        ldflags += [ "-Wl,-rpath=./" ]
+        libs +=
+            [ "//${root_out_dir}/${test_lib_dir}/libtls_get_new-dtv_dso.so" ]
+      }
+    }
+  }
+}
+
+template("test_sharedlib") {
+  assert(defined(invoker.target_name),
+         "shared_lib name is required in target ${target_name}")
+
+  target_name = invoker.target_name
+
+  target("ohos_shared_library", "${target_name}") {
+    include_dirs = [ "//${test_dir}/src/common" ]
+
+    sources = [ "${target_name}.c" ]
+
+    cflags_c = [
+      "-pipe",
+      "-std=c99",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-Wall",
+      "-Wno-unused",
+      "-Wno-unused-function",
+      "-Wno-missing-braces",
+      "-Wno-overflow",
+      "-Wno-unknown-pragmas",
+      "-fno-builtin",
+      "-frounding-math",
+      "-Werror=implicit-function-declaration",
+      "-Werror=implicit-int",
+      "-Werror=pointer-sign",
+      "-Werror=pointer-arith",
+      "-g",
+      "-D_FILE_OFFSET_BITS=64",
+      "-fPIC",
+      "-DSHARED",
+      "-c",
+      "-o",
+    ]
+
+    ldflags = [
+      "-shared",
+      "-nostdlib",
+    ]
+
+    libs = [ "//${out_test_dir}/src/common/libtest.a" ]
+
+    output_name = "${target_name}"
+
+    output_extension = "so"
+
+    subsystem_name = "musl"
+    part_name = "libc-test-lib"
+  }
+}

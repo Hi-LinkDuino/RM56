@@ -1,0 +1,61 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("///build/config/sanitizers/sanitizers.gni")
+
+fuzzing_engine_remove_configs = [
+  "//build/config/coverage:default_coverage",
+  "//build/config/sanitizers:default_sanitizer_flags",
+]
+
+fuzzing_engine_add_configs =
+    [ "//build/config/sanitizers:default_sanitizer_flags_but_coverage" ]
+
+source_set("libfuzzer") {
+  sources = [
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerCrossOver.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerDataFlowTrace.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerDriver.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerExtFunctionsDlsym.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerExtFunctionsWeak.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerExtFunctionsWindows.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerExtraCounters.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerFork.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerIO.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerIOPosix.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerIOWindows.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerLoop.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerMain.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerMerge.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerMutate.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerSHA1.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerTracePC.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerUtil.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerUtilDarwin.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerUtilFuchsia.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerUtilLinux.cpp",
+    "//third_party/llvm-project/compiler-rt/lib/fuzzer/FuzzerUtilPosix.cpp",
+  ]
+
+  configs -= fuzzing_engine_remove_configs
+  configs += fuzzing_engine_add_configs
+}
+
+if (use_afl) {
+  source_set("afl_driver") {
+    sources = [ "src/afl/afl_driver.cpp" ]
+
+    configs -= fuzzing_engine_remove_configs
+    configs += fuzzing_engine_add_configs
+  }
+}

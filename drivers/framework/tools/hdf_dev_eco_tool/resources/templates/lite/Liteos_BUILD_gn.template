@@ -1,0 +1,12 @@
+import("//drivers/adapter/khdf/liteos/hdf.gni")
+module_switch = defined(LOSCFG_DRIVERS_HDF_${module_upper_case})
+module_name = "hdf_${module_lower_case}_driver"
+hdf_driver(module_name) {
+  FRAMEWORKS_${module_upper_case}_ROOT = "$HDF_FRAMEWORKS_PATH/model/${module_lower_case}"
+  sources = ["$FRAMEWORKS_${module_upper_case}_ROOT/driver/${driver_file_name}"]
+
+  include_dirs = [
+    "//third_party/FreeBSD/sys/dev/evdev/"
+  ]
+}
+

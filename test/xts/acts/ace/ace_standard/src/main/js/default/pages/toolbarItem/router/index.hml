@@ -1,0 +1,181 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                特有样式
+            </text>
+            <text class="sub-title">
+                toolbarItem样式1
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class="style1" id="style1">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text  class="sub-title">
+                toolbarItem样式2
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class="style2" id="style2">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text class="sub-title">
+                toolbarItem样式3
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class="style3" id="style3">
+                    title
+                </toolbar-item>
+            </toolbar>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                toolbarItem动画样式1
+            </text>
+            <toolbar class="ani1">
+                <toolbar-item class="style3">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text class="sub-title">
+                toolbarItem动画样式2
+            </text>
+            <toolbar class="ani2">
+                <toolbar-item class="style3">
+                    title
+                </toolbar-item>
+            </toolbar>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                toolbarItem无障碍1
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class="access1" accessibilitygroup ="true"
+                              accessibilitytext="这是div"
+                              accessibilitydescription="点击此按键会弹出一个对话框"
+                              accessibilityimportance="no-hide-descendants">
+                    title
+                </toolbar-item>
+            </toolbar>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                toolbarItem通用属性1
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item id="prop1" class="prop1"
+                              disabled = "true" focusable ="true"
+                              data-name ="prop1" click-effect="spring-medium"
+                              dir ="rtl">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text  class="sub-title">
+                toolbarItem通用属性2
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class="prop2" ref ="prop2" id="prop2"
+                              disabled = "false" focusable ="false"
+                              data-name ="prop2" click-effect="spring-large"
+                              dir ="ltr">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text  class="sub-title">
+                toolbarItem通用属性3
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item style="color: #679855; margin: 5px;" class="prop3" id="prop3">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text  class="sub-title">
+                toolbarItem特有属性
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class="prop4" id="prop4" value="value">
+                </toolbar-item>
+            </toolbar>
+            <toolbar class="toolbar">
+                <toolbar-item class="prop5" id="prop5" icon="common/images/icon.png">
+                </toolbar-item>
+            </toolbar>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                toolbarItem通用事件1
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                              ontouchend="touchEnd" ontouchcancel="touchCancel">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text  class="sub-title">
+                toolbarItem通用事件2
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class ="event2" onclick="click" ondoubleclick="doubleClick"
+                              onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                              onswipe="swipe" onattached="attached" ondetached="detached">
+                    title
+                </toolbar-item>
+            </toolbar>
+            <text  class="sub-title">
+                toolbarItem通用事件3
+            </text>
+            <toolbar class="toolbar">
+                <toolbar-item class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                              onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                              ondragstart="dragStart" ondrag="drag"
+                              ondragend="dragEnd" ondragenter="dragEnter"
+                              ondragover="dragOver" ondragleave="dragLeave"
+                              ondrop="drop"
+                              onaccessibility="onAccessibility">
+                    title
+                </toolbar-item>
+            </toolbar>
+        </div>
+    </div>
+</div>

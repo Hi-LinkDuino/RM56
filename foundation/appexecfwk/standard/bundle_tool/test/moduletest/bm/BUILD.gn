@@ -1,0 +1,182 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("../../../bundletool.gni")
+
+module_output_path = "bundle_tool/tools"
+
+config("tools_bm_config_moduletest") {
+  include_dirs = [
+    "${appexecfwk_path}/services/bundlemgr/include/installd",
+    "${appexecfwk_path}/services/bundlemgr/include",
+    "${appexecfwk_path}/services/bundlemgr/include/sandbox_app",
+    "//foundation/distributedschedule/safwk/services/safwk/include",
+    "//third_party/json/include",
+    "//third_party/zlib",
+    "//third_party/zlib/contrib/minizip",
+  ]
+}
+
+tools_bm_mock_sources = [
+  "${bundletool_test_path}/mock/mock_bundle_installer_host.cpp",
+  "${bundletool_test_path}/mock/mock_bundle_mgr_host.cpp",
+]
+
+ohos_moduletest("bm_command_dump_module_test") {
+  module_out_path = module_output_path
+
+  sources = [
+    "${bundletool_path}/src/bundle_command.cpp",
+    "${bundletool_path}/src/shell_command.cpp",
+    "${bundletool_path}/src/status_receiver_impl.cpp",
+    "${kits_path}/js/bundlemgr/bundle_death_recipient.cpp",
+    "bm_command_dump_module_test.cpp",
+  ]
+  sources += tools_bm_mock_sources
+
+  configs = [
+    "${bundletool_path}:tools_bm_config",
+    "${bundletool_test_path}/unittest/bm:tools_bm_config_mock",
+  ]
+
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+
+  deps = [
+    "${appexecfwk_path}/common:libappexecfwk_common",
+    "${appexecfwk_path}/services/bundlemgr:libbms",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:base",
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "common_event_service:cesfwk_innerkits",
+    "distributeddatamgr:distributeddata_inner",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "os_account:os_account_innerkits",
+    "resource_management:global_resmgr",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+    "utils_base:utils",
+  ]
+}
+
+ohos_moduletest("bm_command_install_module_test") {
+  module_out_path = module_output_path
+
+  sources = [
+    "${bundletool_path}/src/bundle_command.cpp",
+    "${bundletool_path}/src/shell_command.cpp",
+    "${bundletool_path}/src/status_receiver_impl.cpp",
+    "${kits_path}/js/bundlemgr/bundle_death_recipient.cpp",
+    "bm_command_install_module_test.cpp",
+  ]
+  sources += tools_bm_mock_sources
+
+  configs = [
+    "${bundletool_path}:tools_bm_config",
+    "${bundletool_test_path}/unittest/bm:tools_bm_config_mock",
+  ]
+
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+
+  deps = [
+    "${appexecfwk_path}/common:libappexecfwk_common",
+    "${appexecfwk_path}/services/bundlemgr:libbms",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:base",
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "common_event_service:cesfwk_innerkits",
+    "distributeddatamgr:distributeddata_inner",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "os_account:os_account_innerkits",
+    "resource_management:global_resmgr",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+    "utils_base:utils",
+  ]
+}
+
+ohos_moduletest("bm_command_uninstall_module_test") {
+  module_out_path = module_output_path
+
+  sources = [
+    "${bundletool_path}/src/bundle_command.cpp",
+    "${bundletool_path}/src/shell_command.cpp",
+    "${bundletool_path}/src/status_receiver_impl.cpp",
+    "${kits_path}/js/bundlemgr/bundle_death_recipient.cpp",
+    "bm_command_uninstall_module_test.cpp",
+  ]
+  sources += tools_bm_mock_sources
+
+  configs = [
+    "${bundletool_path}:tools_bm_config",
+    "${bundletool_test_path}/unittest/bm:tools_bm_config_mock",
+  ]
+
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+
+  deps = [
+    "${appexecfwk_path}/common:libappexecfwk_common",
+    "${appexecfwk_path}/services/bundlemgr:libbms",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:base",
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "common_event_service:cesfwk_innerkits",
+    "distributeddatamgr:distributeddata_inner",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "os_account:os_account_innerkits",
+    "resource_management:global_resmgr",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+    "utils_base:utils",
+  ]
+}
+
+group("moduletest") {
+  testonly = true
+
+  deps = [
+    ":bm_command_dump_module_test",
+    ":bm_command_install_module_test",
+    ":bm_command_uninstall_module_test",
+  ]
+}

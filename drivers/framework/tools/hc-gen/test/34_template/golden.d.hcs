@@ -1,0 +1,35 @@
+/*
+ * HDF decompile hcs file
+ */
+
+root {
+    module = "test";
+    fooSub {
+        term1 = 0x2;
+        term2 = 0x2;
+        term3 = [0x2, 0x2];
+        attr {
+            term4 = 0x4;
+        }
+    }
+    fooSub1 {
+        term1 = 0x2;
+        term3 = [0x1];
+        attr {
+            term4 = 0x1;
+        }
+        term2 = 0x2;
+    }
+    foo {
+        foo1 {
+            term1 = "world";
+            bar2_2 = ["test3"];
+            foo = &root.foo;
+            bar = &root.bar;
+        }
+        array_oct = [0x1, 0x2, 0x3, 0x4];
+    }
+    bar {
+    }
+    t = 0x1;
+}

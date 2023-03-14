@@ -1,0 +1,4 @@
+[compile exit status]:1
+[compile console output]:
+[Error] ./31_node_duplicate_name/case.hcs:8 duplicate node name at ./31_node_duplicate_name/case.hcs:3 
+To avoid redefining structures, not allow duplicate node name at text config mode

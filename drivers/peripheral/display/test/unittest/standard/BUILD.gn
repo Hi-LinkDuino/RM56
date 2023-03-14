@@ -1,0 +1,124 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+group("hdf_unittest_display") {
+  testonly = true
+  deps = [
+    ":devicetest",
+    ":gfxtest",
+    ":gralloctest",
+  ]
+}
+
+module_output_path = "hdf/display"
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+}
+
+ohos_static_library("disp_hdi_test_common") {
+  sources = [ "common/display_test_utils.cpp" ]
+  include_dirs = [
+    "include",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+  ]
+  output_name = "disp_hdi_test_common"
+  cflags = [
+    "-DGRALLOC_GBM_SUPPORT",
+    "-Wno-macro-redefined",
+  ]
+
+  external_deps = [
+    "hiviewdfx_hilog_native:libhilog",
+    "utils_base:utils",
+  ]
+  subsystem_name = "hdf"
+  part_name = "display_device_driver"
+}
+
+ohos_unittest("gralloctest") {
+  module_out_path = module_output_path
+  sources = [ "display_gralloc/display_gralloc_test.cpp" ]
+  deps = [
+    "//drivers/peripheral/display/hal:hdi_display_gralloc",
+    "//third_party/googletest:gtest_main",
+  ]
+  include_dirs = [
+    "common",
+    "//drivers/peripheral/display/hal/default_standard/include",
+    "//drivers/peripheral/display/hal/default_standard/src/display_gralloc",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+    "//drivers/peripheral/display/interfaces/include",
+    "//foundation/graphic/standard/utils/include",
+  ]
+  external_deps = [
+    "device_driver_framework:libhdf_utils",
+    "utils_base:utils",
+  ]
+}
+
+ohos_unittest("gfxtest") {
+  module_out_path = module_output_path
+  sources = [
+    "display_gfx/display_gfx_test.cpp",
+    "display_gfx/soft_blit.cpp",
+  ]
+  deps = [
+    "//drivers/peripheral/display/hal:hdi_display_gralloc",
+    "//third_party/googletest:gtest_main",
+  ]
+  include_dirs = [
+    "common",
+    "//foundation/graphic/standard/utils/include",
+    "//drivers/hdf/interfaces/display/include",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+  ]
+  external_deps = [
+    "device_driver_framework:libhdf_utils",
+    "utils_base:utils",
+  ]
+}
+
+ohos_unittest("devicetest") {
+  module_out_path = module_output_path
+  sources = [
+    "display_device/hdi_composition_check.cpp",
+    "display_device/hdi_device_test.cpp",
+    "display_device/hdi_test_device.cpp",
+    "display_device/hdi_test_display.cpp",
+    "display_device/hdi_test_layer.cpp",
+  ]
+  deps = [
+    ":disp_hdi_test_common",
+    "//drivers/peripheral/display/hal:hdi_display_device",
+    "//drivers/peripheral/display/hal:hdi_display_gralloc",
+    "//third_party/googletest:gtest_main",
+  ]
+  include_dirs = [
+    "common",
+    "//drivers/peripheral/display/interfaces/include",
+    "//drivers/peripheral/base",
+    ".",
+  ]
+  external_deps = [
+    "device_driver_framework:libhdf_utils",
+    "hiviewdfx_hilog_native:libhilog",
+    "utils_base:utils",
+  ]
+  cflags = [ "-Wno-unused-function" ]
+}

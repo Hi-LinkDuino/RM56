@@ -1,0 +1,252 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            tspan通用属性
+        </text>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            tspan特有属性
+        </text>
+        <text class="sub-title">
+            标识属性 -- id
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="idProp" y="10">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            x坐标属性 -- x
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="xPropLength" x="30" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="xPropPercentage" x="60" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="xPropNone" x="" y="10">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            y坐标属性 -- y
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="yPropLength" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="yPropPercentage" y="100%">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="yPropNone" y="">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            x轴偏移属性 -- dx
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="dxPropLength" dx="30" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="dxPropPercentage" dx="60%" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="dxPropNone" dx="" y="10">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            y轴偏移属性 -- dy
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="dyPropLength" dy="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="dyPropPercentage" dy="100%">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="dyPropNone" dy="0">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            旋转属性 -- rotate
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="rotateProp" rotate="30" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="rotatePropNone" rotate="" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体大小属性 -- font-size
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="fontSizeProp" font-size="20" y="15">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="fontSizePropNone" font-size="" x="60" y="15">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体填充颜色属性 -- fill
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="fillProp" fill="red" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="fillPropNone" fill="" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体填充透明度属性 -- fill-opacity
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="fillOpacityProp" fill-opacity="0.5" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="fillOpacityPropNone" fill-opacity="" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            元素的透明度属性 -- opacity
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="opacityProp" opacity="0.8" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="opacityPropNone" opacity="" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体边框颜色属性 -- stroke
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="strokeProp" stroke="#ff00ff" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="strokePropNone" stroke="" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体边框宽度属性 -- stroke-width
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="strokeWidthProp" stroke="#ff00ff" stroke-width="2" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="strokeWidthPropNone" stroke="#ff00ff" stroke-width="" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体边框透明度属性 -- stroke-opacity
+        </text>
+        <svg class="svg-style">
+            <text>
+                <tspan id="strokeOpacityProp" stroke-opacity="0.4" stroke-width="2" stroke="#ff00ff" y="10">
+                    text
+                </tspan>
+            </text>
+            <text>
+                <tspan id="strokeOpacityPropNone" stroke-opacity="" stroke-width="2" stroke="#ff00ff" y="100%">
+                    text
+                </tspan>
+            </text>
+        </svg>
+    </div>
+</div>

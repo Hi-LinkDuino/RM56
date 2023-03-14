@@ -1,0 +1,29 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.kernel_test.data_test.v1_0;
+
+enum DESample
+{
+    MEM_ONE,
+    MEM_TWO,
+    MEM_THREE,
+};
+
+struct DSSample
+{
+    boolean m1;
+    int m2;
+    String m4;
+};
+
+union DUSample
+{
+    boolean m1;
+    int m2;
+};

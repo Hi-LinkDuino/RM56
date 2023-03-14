@@ -1,0 +1,19 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "160000",
+        "package": "com.example.actsanswantagentoneprotest",
+        "shell-timeout": "160000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAnsWantAgentOneProTest.hap",
+		"test1.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

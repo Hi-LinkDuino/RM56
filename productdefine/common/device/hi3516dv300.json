@@ -1,0 +1,9 @@
+{
+    "device_name": "hi3516dv300",
+    "device_company": "hisilicon",
+    "target_os": "ohos",
+    "target_cpu": "arm",
+    "kernel_version": "",
+    "device_build_path": "device/board/hisilicon/hispark_taurus/linux",
+    "enable_ramdisk": true
+}

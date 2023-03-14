@@ -1,0 +1,99 @@
+{
+  "app": {
+    "bundleName": "com.open.harmony.acetesttwo",
+    "vendor": "open",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 7,
+      "releaseType": "Release",
+      "target": 7
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.open.harmony.acetesttwo",
+    "name": ".MyApplication",
+    "mainAbility": "com.open.harmony.acetesttwo.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index",
+          "pages/animationStatus",
+          "pages/bindMenu",
+          "pages/bindPopup",
+          "pages/configuration",
+          "pages/curves",
+          "pages/direction",
+          "pages/divider",
+          "pages/datePicker",
+          "pages/direction2",
+          "pages/flexDirection",
+          "pages/flexWrap",
+          "pages/gradientDirection",
+          "pages/imageAnimator",
+          "pages/loadingProgress",
+          "pages/listItem",
+          "pages/NavigatorCode",
+          "pages/navigation",
+          "pages/pageTransition",
+          "pages/PieceCode",
+          "pages/placement",
+          "pages/radio",
+          "pages/row",
+          "pages/systemPrompt",
+          "pages/sourceType",
+          "pages/search",
+          "pages/scrollBar",
+          "pages/ohosRouterA",
+          "pages/ohosRouterB"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

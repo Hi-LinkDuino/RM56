@@ -1,0 +1,57 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_shared_library("wifi_utils") {
+  install_enable = true
+  include_dirs = [
+    "//foundation/communication/wifi/utils/inc",
+    "//base/hiviewdfx/hisysevent/interfaces/native/innerkits/hisysevent/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/include/bundlemgr/",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/include/bundlemgr/",
+  ]
+
+  sources = [
+    "wifi_common_util.cpp",
+    "wifi_hisysevent.cpp",
+  ]
+
+  deps = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/aafwk/standard/interfaces/innerkits/want:want",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core:appexecfwk_core",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [
+    "bundle_framework:appexecfwk_base",
+    "hisysevent_native:libhisysevent",
+    "ipc:ipc_core",
+  ]
+
+  cflags_cc = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

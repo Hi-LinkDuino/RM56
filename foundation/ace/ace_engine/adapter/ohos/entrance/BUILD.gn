@@ -1,0 +1,128 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# build static
+template("ace_ohos_standard_source_set") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+
+    sources = [
+      "$ace_root/adapter/ohos/entrance/ace_ability.cpp",
+      "$ace_root/adapter/ohos/entrance/ace_application_info.cpp",
+      "$ace_root/adapter/ohos/entrance/ace_container.cpp",
+      "$ace_root/adapter/ohos/entrance/ace_data_ability.cpp",
+      "$ace_root/adapter/ohos/entrance/ace_form_ability.cpp",
+      "$ace_root/adapter/ohos/entrance/ace_service_ability.cpp",
+      "$ace_root/adapter/ohos/entrance/capability_registry.cpp",
+      "$ace_root/adapter/ohos/entrance/data_ability_helper_standard.cpp",
+      "$ace_root/adapter/ohos/entrance/file_asset_provider.cpp",
+      "$ace_root/adapter/ohos/entrance/flutter_ace_view.cpp",
+      "$ace_root/adapter/ohos/entrance/pa_container.cpp",
+      "$ace_root/adapter/ohos/entrance/plugin_utils_impl.cpp",
+      "$ace_root/adapter/ohos/entrance/subwindow/subwindow_ohos.cpp",
+
+      # innerkits impl
+      "$ace_root/adapter/ohos/entrance/ui_content_impl.cpp",
+
+      # drag window
+      "$ace_root/adapter/ohos/entrance/window/drag_window_ohos.cpp",
+    ]
+
+    if (target_cpu == "arm64") {
+      defines += [ "_ARM64_" ]
+    }
+
+    configs = [ "$ace_root:ace_config" ]
+
+    if (defined(config.enable_rosen_backend) && config.enable_rosen_backend) {
+      configs += [ "//foundation/graphic/standard/rosen/modules/render_service_client:render_service_client_config" ]
+    }
+
+    include_dirs = [
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/featureAbility",
+      "//foundation/aafwk/standard/interfaces/innerkits/runtime/include/",
+      "//foundation/ace/napi/interfaces/kits",
+      "//foundation/ace/napi/native_engine",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability/include",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb/include",
+      "//foundation/windowmanager/interfaces/innerkits",
+      "//third_party/node/src",
+      "//utils/native/base/include",
+    ]
+
+    deps = [
+      "$ace_flutter_engine_root:third_party_flutter_engine_$platform",
+      "$ace_flutter_engine_root/skia:ace_skia_$platform",
+      "$ace_root/adapter/ohos/capability:ace_capability_ohos",
+      "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
+      "//foundation/graphic/standard/rosen/modules/render_service_client:librender_service_client",
+      "//foundation/multimodalinput/input/frameworks/proxy:libmmi-client",
+      "//foundation/multimodalinput/input/frameworks/proxy:libmmi-common",
+      "//foundation/windowmanager/dm:libdm",
+      "//foundation/windowmanager/wm:libwm",
+      "//third_party/zlib:libz",
+    ]
+
+    public_deps =
+        [ "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr" ]
+
+    external_deps = [
+      "ability_base:base",
+      "ability_base:configuration",
+      "ability_base:want",
+      "ability_runtime:ability_context_native",
+      "ability_runtime:ability_manager",
+      "bundle_framework:appexecfwk_base",
+      "bundle_framework:appexecfwk_core",
+      "eventhandler:libeventhandler",
+      "form_runtime:fmskit_native",
+      "form_runtime:form_manager",
+      "ipc:ipc_core",
+      "napi:ace_napi",
+      "native_appdatamgr:native_dataability",
+      "native_appdatamgr:native_rdb",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  if (platform == "ohos") {
+    ace_ohos_standard_source_set("ace_ohos_standard_entrance") {
+      platform = item.name
+      defines = []
+      cflags_cc = []
+      config = {
+      }
+
+      if (defined(item.config)) {
+        config = item.config
+      }
+
+      if (defined(config.defines)) {
+        defines = config.defines
+      }
+
+      if (defined(config.cflags_cc)) {
+        cflags_cc = config.cflags_cc
+      }
+    }
+  }
+}

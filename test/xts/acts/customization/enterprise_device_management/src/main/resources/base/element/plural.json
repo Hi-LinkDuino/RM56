@@ -1,0 +1,33 @@
+{
+    "plural":[
+        {
+            "name":"plural_name",
+            "value":[
+                {
+                    "quantity":"zero",
+                    "value":"%d test zero"
+                },
+                {
+                    "quantity":"one",
+                    "value":"%d test one"
+                },
+                {
+                    "quantity":"two",
+                    "value":"%d test two"
+                },
+                {
+                    "quantity":"few",
+                    "value":"%d test few"
+                },
+                {
+                    "quantity":"many",
+                    "value":"%d test many"
+                },
+                {
+                    "quantity":"other",
+                    "value":"%d test other"
+                }
+            ]
+        }
+    ]
+}

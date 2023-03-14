@@ -1,0 +1,49 @@
+{
+  "name": "input_device_driver",
+  "description": "input device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "input_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "630KB",
+    "ram": "7600KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "graphic_standard",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function",
+        "googletest"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/input:input_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/input/test:hdf_test_input"
+      ],
+      "inner_kits": [
+        {
+          "name":  "//drivers/peripheral/input/hal:hdi_input",
+          "header": {
+            "header_files": [
+              "input_controller.h",
+              "input_manager.h",
+              "input_reporter.h",
+              "input_type.h"
+            ],
+            "header_base": "//drivers/peripheral/input/interfaces/include"
+          }
+        }
+      ]
+    }
+  }
+}

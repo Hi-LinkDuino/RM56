@@ -1,0 +1,31 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//test/xts/tools/build/suite.gni")
+
+group("security_huks") {
+  testonly = true
+  if (is_standard_system) {
+    deps = [
+      "huks_agree_callback_BasicTest:huksagree_callback_basic_js_test",
+      "huks_agree_promise_BasicTest:huksagree_promise_basic_js_test",
+      "huks_cipher_callback_BasicTest:hukscipher_callback_basic_js_test",
+      "huks_cipher_promise_BasicTest:hukscipher_promise_basic_js_test",
+      "huks_derive_callback_BasicTest:huksderive_callback_basic_js_test",
+      "huks_derive_promise_BasicTest:huksderive_promise_basic_js_test",
+      "huks_hmac_callback_BasicTest:hukshmac_callback_basic_js_test",
+      "huks_hmac_promise_BasicTest:hukshmac_promise_basic_js_test",
+      "huks_signverify_callback_BasicTest:hukssignverify_callback_basic_js_test",
+      "huks_signverify_promise_BasicTest:hukssignverify_promise_basic_js_test",
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+    "description": "Config for hcpptest demo test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/sensors",
+                    "target": "/test_root/sensors"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/sensors/ActsSensorInterfacesTest.bin"
+    }
+}

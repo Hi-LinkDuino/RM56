@@ -1,0 +1,35 @@
+{
+    "name": "@ohos/blackbox",
+    "description": "blackbox provides the software blackbox capability.",
+    "optional": "false",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/blackbox"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "blackbox",
+        "subsystem": "hiviewdfx",
+        "adapted_system_type": [
+            "mini",
+            "small"
+        ],
+        "rom": "10KB",
+        "ram": "~5KB",
+        "deps": {
+            "components": [
+                "utils_base",
+                "liteos_m"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/blackbox:blackbox"
+            ]
+        }
+    }
+}

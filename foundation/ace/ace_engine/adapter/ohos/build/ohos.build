@@ -1,0 +1,41 @@
+{
+  "subsystem": "ace",
+  "parts": {
+    "ace_engine_standard": {
+      "version": "1.0.0",
+      "interface-version": {},
+      "variants": [
+        "phone"
+      ],
+      "module_list": [
+        "//foundation/ace/ace_engine/adapter/ohos/build:ace_packages",
+        "//foundation/ace/ace_engine/adapter/ohos/sa_profile:ace_sa_profile",
+        "//foundation/ace/ace_engine/adapter/ohos/services/uiservice:ui_service.cfg"
+      ],
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//foundation/ace/ace_engine/interfaces/innerkits/ace/",
+            "header_files": [
+              "ui_content.h",
+              "viewport_config.h"
+            ]
+          },
+          "name": "//foundation/ace/ace_engine/interfaces/innerkits/ace:ace_uicontent"
+        }
+      ],
+      "test_list": [
+        "//foundation/ace/ace_engine/frameworks/base/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/bridge/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/animation/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/pipeline/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/common/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/components/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/components/common/properties/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/event/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/focus/test:unittest",
+        "//foundation/ace/ace_engine/frameworks/core/gestures/test:unittest"
+      ]
+    }
+  }
+}

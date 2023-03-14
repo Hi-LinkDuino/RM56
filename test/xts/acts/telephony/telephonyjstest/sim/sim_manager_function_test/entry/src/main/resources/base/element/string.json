@@ -1,0 +1,12 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "Sim Test"
+    },
+    {
+      "name": "mainability_description",
+      "value": "Sim Test - sim manager interface test"
+    }
+  ]
+}

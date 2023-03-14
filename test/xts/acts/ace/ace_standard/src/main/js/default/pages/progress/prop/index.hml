@@ -1,0 +1,198 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            progress通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <progress percent="10" id="idProp">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <progress percent="10" id="classProp"
+             class="classProp">
+        </progress>
+        <progress percent="10" id="classPropNone"
+             class="">
+        </progress>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <progress percent="10" id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <progress percent="10" id="refProp"
+             ref="refProp">
+        </progress>
+        <progress percent="10" id="refPropNone"
+             ref="">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <progress percent="10" id="disabledPropTrue"
+             disabled="true">
+        </progress>
+        <progress percent="10" id="disabledPropFalse"
+             disabled="false">
+        </progress>
+        <progress percent="10" id="disabledPropNone"
+             disabled="">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <progress percent="10" id="focusablePropTrue"
+             focusable="true">
+        </progress>
+        <progress percent="10" id="focusablePropFalse"
+             focusable="false">
+        </progress>
+        <progress percent="10" id="focusablePropNone"
+             focusable="">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <progress percent="10" id="dataProp"
+             data-progress="通用属性 -- data-*">
+        </progress>
+        <progress percent="10" id="dataPropNone"
+             data-progress="">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <progress percent="10" id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </progress>
+        <progress percent="10" id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </progress>
+        <progress percent="10" id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </progress>
+        <progress percent="10" id="clickEffectPropNone"
+             click-effect="">
+        </progress>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <progress percent="10" id="dirPropRtl"
+             dir="rtl">
+        </progress>
+        <progress percent="10" id="dirPropAuto"
+             dir="auto">
+        </progress>
+        <progress percent="10" id="dirPropLtr"
+             dir="ltr">
+        </progress>
+        <progress percent="10" id="dirPropNone"
+             dir="">
+        </progress>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <progress percent="10" id="forPropNull"
+             for="">
+        </progress>
+        <progress percent="10" id="forPropOne"
+             for="{{listOne}}">
+        </progress>
+        <progress percent="10" id="forPropThree"
+             for="{{listThree}}">
+        </progress>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <progress percent="10" id="ifPropTrue"
+             if="true">
+        </progress>
+        <progress percent="10" id="ifPropTrue"
+                  elif="true">
+        </progress>
+        <progress percent="10" id="ifPropTrue"
+                  elif="false">
+        </progress>
+        <progress percent="10" id="ifPropTrue"
+                  elif="">
+        </progress>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <progress percent="10" id="showPropTrue"
+             show="true">
+        </progress>
+        <progress percent="10" id="showPropFalse"
+             show="false">
+        </progress>
+        <progress percent="10" id="showPropNone"
+             show="">
+        </progress>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            progress特有属性
+        </text>
+        <text  class="sub-title">
+            progress特有属性 -- type
+        </text>
+        <progress percent="10" secondarypercent="50" id="typeHorizontal" type="horizontal"></progress>
+        <progress percent="10" secondarypercent="50"  id="typeCircular" type="circular"></progress>
+        <progress percent="10" secondarypercent="50" clockwise="false" id="typeRing" type="ring"></progress>
+        <progress percent="10" secondarypercent="50" clockwise="true" id="typeScaleRing" type="scale-ring"></progress>
+        <progress percent="10" id="typeArc" type="arc"></progress>
+        <progress percent="10" id="typeEclipse" type="eclipse"></progress>
+        <text  class="sub-title">
+            progress特有属性 -- progress
+        </text>
+        <progress progress="progress" percent="10" secondarypercent="40" class="progress"></progress>
+        <progress progress="" percent="10" secondarypercent="40" class="progress"></progress>
+        <!--<text  class="sub-title">
+            progress特有属性 -- shareid
+        </text>
+        <progress percent="10" secondarypercent="40" class="progress" shareid="shareid"></progress>
+        <progress percent="10" secondarypercent="40" class="progress" shareid=""></progress>-->
+        <text  class="sub-title">
+            progress特有属性 -- tid
+        </text>
+        <progress percent="10" secondarypercent="40" class="progress" tid="tid"></progress>
+        <progress percent="10" secondarypercent="40" class="progress" tid=""></progress>
+    </div>
+</div>

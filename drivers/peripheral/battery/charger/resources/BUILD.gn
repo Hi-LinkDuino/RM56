@@ -1,0 +1,484 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/battery_manager/batterymgr.gni")
+import("//build/ohos.gni")
+
+## Install resources to /system/etc/resources
+ohos_prebuilt_etc("resources_config") {
+  source = "font.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config1") {
+  source = "icon_error.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config2") {
+  source = "loop00000.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config3") {
+  source = "loop00001.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config4") {
+  source = "loop00002.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config5") {
+  source = "loop00003.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config6") {
+  source = "loop00004.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config7") {
+  source = "loop00005.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config8") {
+  source = "loop00006.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config9") {
+  source = "loop00007.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config10") {
+  source = "loop00008.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config11") {
+  source = "loop00009.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config12") {
+  source = "loop00010.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config13") {
+  source = "loop00011.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config14") {
+  source = "loop00012.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config15") {
+  source = "loop00013.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config16") {
+  source = "loop00014.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config17") {
+  source = "loop00015.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config18") {
+  source = "loop00016.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config19") {
+  source = "loop00017.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config20") {
+  source = "loop00018.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config21") {
+  source = "loop00019.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config22") {
+  source = "loop00020.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config23") {
+  source = "loop00021.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config24") {
+  source = "loop00022.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config25") {
+  source = "loop00023.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config26") {
+  source = "loop00024.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config27") {
+  source = "loop00025.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config28") {
+  source = "loop00026.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config29") {
+  source = "loop00027.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config30") {
+  source = "loop00028.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config31") {
+  source = "loop00029.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config32") {
+  source = "loop00030.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config33") {
+  source = "loop00031.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config34") {
+  source = "loop00032.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config35") {
+  source = "loop00033.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config36") {
+  source = "loop00034.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config37") {
+  source = "loop00035.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config38") {
+  source = "loop00036.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config39") {
+  source = "loop00037.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config40") {
+  source = "loop00038.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config41") {
+  source = "loop00039.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config42") {
+  source = "loop00040.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config43") {
+  source = "loop00041.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config44") {
+  source = "loop00042.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config45") {
+  source = "loop00043.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config46") {
+  source = "loop00044.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config47") {
+  source = "loop00045.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config48") {
+  source = "loop00046.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+ohos_prebuilt_etc("resources_config49") {
+  source = "loop00047.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config50") {
+  source = "loop00048.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config51") {
+  source = "loop00049.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config52") {
+  source = "loop00050.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config53") {
+  source = "loop00051.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config54") {
+  source = "loop00052.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config55") {
+  source = "loop00053.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config56") {
+  source = "loop00054.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config57") {
+  source = "loop00055.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config58") {
+  source = "loop00056.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config59") {
+  source = "loop00057.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config60") {
+  source = "loop00058.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config61") {
+  source = "loop00059.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config62") {
+  source = "loop00060.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config63") {
+  source = "loop00061.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config64") {
+  source = "progress_empty.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config65") {
+  source = "progress_fill.png"
+  relative_install_dir = "resources"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}
+
+ohos_prebuilt_etc("resources_config66") {
+  source = "init.charge.cfg"
+  relative_install_dir = "charge"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}

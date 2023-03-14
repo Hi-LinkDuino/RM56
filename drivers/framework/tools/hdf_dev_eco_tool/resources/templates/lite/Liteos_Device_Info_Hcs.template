@@ -1,0 +1,15 @@
+${driver_name} :: host{
+    hostName = "${driver_name}_host"; // host名称，host节点是用来存放某一类驱动的容器
+    priority = 100; // host启动优先级（0-200），值越大优先级越低，建议默认配100，优先级相同则不保证host的加载顺序
+    device_${driver_name} :: device { // ${driver_name}设备节点
+        device0 :: deviceNode { // ${driver_name}驱动的DeviceNode节点
+            policy = 2; // policy字段是驱动服务发布的策略
+            priority= 100; // 驱动启动优先级（0-200），值越大优先级越低，建议默认配100，优先级相同则不保证device的加载顺序
+            preload = 0; // 驱动按需加载字段
+            permission = 0664; // 驱动创建设备节点权限
+            moduleName = "${driver_name}_driver"; // 驱动名称，该字段的值必须和驱动入口结构的moduleName值一致
+            serviceName = "${driver_name}_service"; // 驱动对外发布服务的名称，必须唯一
+            deviceMatchAttr = ""; // 驱动私有数据匹配的关键字，必须和驱动私有数据配置表中的match_attr值相等
+        }
+    }
+}

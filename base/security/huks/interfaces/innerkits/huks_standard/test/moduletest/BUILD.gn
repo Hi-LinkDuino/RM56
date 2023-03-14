@@ -1,0 +1,90 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/huks/huks.gni")
+import("//build/test.gni")
+
+module_output_path = "huks_standard/huks_standard_test"
+
+ohos_moduletest("huks_mt_test") {
+  module_out_path = module_output_path
+  sources = [
+    "src/hks_aes_cipher_mt.cpp",
+    "src/hks_aes_decrypt_mt.cpp",
+    "src/hks_aes_encrypt_mt.cpp",
+    "src/hks_aes_key_mt.cpp",
+    "src/hks_agree_mt.cpp",
+    "src/hks_dsa_mt.cpp",
+    "src/hks_ecc_key_mt.cpp",
+    "src/hks_ecc_sign_mt.cpp",
+    "src/hks_ecc_verify_mt.cpp",
+    "src/hks_hmac_mt.cpp",
+    "src/hks_rsa_common_mt.cpp",
+    "src/hks_rsa_ecb_nopadding_mt.cpp",
+    "src/hks_rsa_ecb_oaep_padding_mt.cpp",
+    "src/hks_rsa_ecb_oaep_sha1_mt.cpp",
+    "src/hks_rsa_ecb_oaep_sha224_mt.cpp",
+    "src/hks_rsa_ecb_oaep_sha256_mt.cpp",
+    "src/hks_rsa_ecb_oaep_sha384_mt.cpp",
+    "src/hks_rsa_ecb_oaep_sha512_mt.cpp",
+    "src/hks_rsa_ecb_pkcs1_padding_mt.cpp",
+    "src/hks_rsa_md5_with_rsa_mt.cpp",
+    "src/hks_rsa_none_with_rsa_mt.cpp",
+    "src/hks_rsa_sha1_with_rsa_mt.cpp",
+    "src/hks_rsa_sha1_with_rsa_pss_mt.cpp",
+    "src/hks_rsa_sha224_with_rsa_mt.cpp",
+    "src/hks_rsa_sha224_with_rsa_pss_mt.cpp",
+    "src/hks_rsa_sha256_with_rsa_mt.cpp",
+    "src/hks_rsa_sha256_with_rsa_pss_mt.cpp",
+    "src/hks_rsa_sha384_with_rsa_mt.cpp",
+    "src/hks_rsa_sha384_with_rsa_pss_mt.cpp",
+    "src/hks_rsa_sha512_with_rsa_mt.cpp",
+    "src/hks_rsa_sha512_with_rsa_pss_mt.cpp",
+    "src/openssl_aes_helper.c",
+    "src/openssl_dh_helper.c",
+    "src/openssl_dsa_helper.c",
+    "src/openssl_ecc_helper.c",
+    "src/openssl_hmac_helper.c",
+    "src/openssl_rsa_helper.c",
+  ]
+
+  if (use_crypto_lib == "openssl") {
+    defines = [ "_USE_OPENSSL_" ]
+  }
+  if (use_crypto_lib == "mbedtls") {
+    defines = [ "_USE_MBEDTLS_" ]
+  }
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//third_party/bounds_checking_function/include",
+    "//third_party/openssl/include/",
+    "../unittest/include",
+    "//base/security/huks/interfaces/innerkits/huks_standard/main/include",
+    "include",
+  ]
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+  cflags = cflags_cc
+
+  deps = [
+    "//base/security/huks/frameworks/huks_standard/main:huks_standard_frameworks",
+    "//base/security/huks/interfaces/innerkits/huks_standard/main:libhukssdk",
+    "//third_party/bounds_checking_function:libsec_static",
+    "//third_party/googletest:gtest_main",
+    "//third_party/openssl:libcrypto_shared",
+    "//utils/native/base:utils",
+  ]
+}

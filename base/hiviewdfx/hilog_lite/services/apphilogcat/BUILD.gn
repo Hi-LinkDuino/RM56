@@ -1,0 +1,71 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+declare_args() {
+  ohos_hiviewdfx_hilog_file_size = 1024000
+  enable_ohos_hiviewdfx_apphilogcat_init_release = false
+  enable_ohos_hiviewdfx_apphilogcat_init_debug = true
+  ohos_hiviewdfx_apphilogcat_log_level_release = 5
+  ohos_hiviewdfx_apphilogcat_log_level_debug = 3
+  apphilogcat_on = 1
+  apphilogcat_off = 0
+  enable_ohos_hiviewdfx_hilogcat_build = true
+  ohos_hiviewdfx_apphilogcat_log_dir = "/storage/data/log"
+}
+
+config("apphilogcat_config") {
+  defines = [ "HILOG_MAX_FILELEN = $ohos_hiviewdfx_hilog_file_size" ]
+
+  if (enable_ohos_hiviewdfx_apphilogcat_init_release) {
+    defines += [ "APPHILOGCAT_STATUS_RELEASE = $apphilogcat_on" ]
+  } else {
+    defines += [ "APPHILOGCAT_STATUS_RELEASE = $apphilogcat_off" ]
+  }
+
+  if (enable_ohos_hiviewdfx_apphilogcat_init_debug) {
+    defines += [ "APPHILOGCAT_STATUS_DEBUG = $apphilogcat_on" ]
+  } else {
+    defines += [ "APPHILOGCAT_STATUS_DEBUG = $apphilogcat_off" ]
+  }
+
+  defines += [
+    "CONFIG_LOG_LEVEL_RELEASE = $ohos_hiviewdfx_apphilogcat_log_level_release",
+  ]
+
+  defines +=
+      [ "CONFIG_LOG_LEVEL_DEBUG = $ohos_hiviewdfx_apphilogcat_log_level_debug" ]
+
+  defines += [ "HILOG_DIR = \"$ohos_hiviewdfx_apphilogcat_log_dir\"" ]
+}
+
+static_library("apphilogcat_static") {
+  sources = [ "hiview_applogcat.c" ]
+  include_dirs = [ "//third_party/bounds_checking_function/include" ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/command:hilog_command_static",
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+  public_configs = [ ":apphilogcat_config" ]
+
+  if (enable_ohos_hiviewdfx_hilogcat_build) {
+    deps += [ "//base/hiviewdfx/hilog_lite/services/hilogcat:hilogcat" ]
+  }
+}
+
+lite_component("apphilogcat") {
+  target_type = "executable"
+
+  features = [ ":apphilogcat_static" ]
+}

@@ -1,0 +1,134 @@
+{
+  "name": "@ohos/communication_bluetooth",
+  "version": "",
+  "description": "Provides basic Bluetooth and BLE functions for applications",
+  "homePage": "https://gitee.com/openharmony",
+  "license": "Apache License 2.0",
+  "repository": "https://gitee.com/openharmony/communication_bluetooth",
+  "domain": "os",
+  "language": "",
+  "publishAs": "code-segment",
+  "private": false,
+  "scripts": {},
+  "tags": [
+    "foundation"
+  ],
+  "keywords": [
+    "communication",
+    "bluetooth"
+  ],
+  "envs": [],
+  "dirs": [],
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [
+    {
+      "name": "",
+      "email": "",
+      "url": ""
+    }
+  ],
+  "segment": {
+    "destPath": "foundation/communication/bluetooth"
+  },
+  "component": {
+    "name": "bluetooth",
+    "subsystem": "communication",
+    "syscap": [
+      "SystemCapability.Communication.Bluetooth.Core",
+      "SystemCapability.Communication.Bluetooth.Lite"
+    ],
+    "features": [
+      "bluetooth_avrcp_avsession"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "",
+    "ram": "",
+    "hisysevent_config": [
+      "//foundation/communication/bluetooth/hisysevent.yaml"
+    ],
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "base",
+        "bundle_framework",
+        "hilog",
+        "hisysevent_native",
+        "hiviewdfx_hilog_native",
+        "ipc",
+        "samgr_proxy",
+        "samgr"
+      ],
+      "third_party": [
+        "googletest",
+        "libuv",
+        "libxml2",
+        "openssl"
+      ]
+    },
+    "build": {
+      "group_type": {
+        "base_group": [],
+        "fwk_group": [
+          "//foundation/communication/bluetooth/frameworks/inner:btframework",
+          "//foundation/communication/bluetooth/frameworks/js/napi:bluetooth"
+        ],
+        "service_group": [
+          "//foundation/communication/bluetooth/sa_profile:communication_bluetooth_sa_profile",
+          "//foundation/communication/bluetooth/services/bluetooth/server:bluetooth_server",
+          "//foundation/communication/bluetooth/services/bluetooth/service:btsbc"
+        ]
+      },
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//foundation/communication/bluetooth/interfaces/inner_api/include",
+            "header_files": [
+              "bluetooth_a2dp_src.h",
+              "bluetooth_ble_central_manager.h",
+              "bluetooth_def.h",
+              "bluetooth_device_class.h",
+              "bluetooth_gatt_characteristic.h",
+              "bluetooth_gatt_client.h",
+              "bluetooth_gatt_descriptor.h",
+              "bluetooth_gatt_manager.h",
+              "bluetooth_gatt_server.h",
+              "bluetooth_gatt_service.h",
+              "bluetooth_host.h",
+              "bluetooth_proxy_manager.h",
+              "bluetooth_remote_device.h",
+              "bluetooth_socket_inputstream.h",
+              "bluetooth_socket_outputstream.h",
+              "bluetooth_socket.h",
+              "c_header/ohos_bt_def.h",
+              "c_header/ohos_bt_gap.h",
+              "c_header/ohos_bt_gatt.h",
+              "c_header/ohos_bt_gatt_client.h",
+              "c_header/ohos_bt_gatt_server.h",
+              "c_header/ohos_bt_spp.h",
+              "uuid.h"
+            ]
+          },
+          "name": "//foundation/communication/bluetooth/frameworks/inner:btframework"
+        }
+      ],
+      "test": [
+        "//foundation/communication/bluetooth/test/unittest/spp:unittest",
+        "//foundation/communication/bluetooth/test/unittest/host:unittest",
+        "//foundation/communication/bluetooth/test/unittest/ble:unittest",
+        "//foundation/communication/bluetooth/test/unittest/hid:unittest",
+        "//foundation/communication/bluetooth/test/unittest/pan:unittest",
+        "//foundation/communication/bluetooth/test/unittest/opp:unittest",
+        "//foundation/communication/bluetooth/test/unittest/gatt_c:unittest",
+        "//foundation/communication/bluetooth/test/fuzztest/host:fuzztest",
+        "//foundation/communication/bluetooth/test/example/bluetoothtest:bluetoothtest"
+      ]
+    }
+  }
+}

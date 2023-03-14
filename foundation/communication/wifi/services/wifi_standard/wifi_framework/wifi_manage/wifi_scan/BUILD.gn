@@ -1,0 +1,76 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_shared_library("wifi_scan_service") {
+  install_enable = true
+  sources = [
+    "../common/handler.cpp",
+    "../common/internal_message.cpp",
+    "../common/message_queue.cpp",
+    "../common/state.cpp",
+    "../common/state_machine.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log/log_helper.c",
+    "scan_interface.cpp",
+    "scan_monitor.cpp",
+    "scan_service.cpp",
+    "scan_state_machine.cpp",
+  ]
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/interface",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_scan",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client/idl_interface",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/net_conf",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/communication/wifi/services/wifi_standard/depends/include/hardware/libhardware/include",
+    "//foundation/communication/wifi/services/wifi_standard/depends/include/system/core/include",
+    "//foundation/communication/wifi/services/wifi_standard/depends/include/frameworks/native/include",
+    "//foundation/communication/wifi/services/wifi_standard/depends/include/system/core/libutils/include",
+    "//foundation/communication/wifi/services/wifi_standard/depends/include/system/core/base/include",
+    "//foundation/communication/wifi/services/wifi_standard/depends/include/system/libbase/include",
+  ]
+
+  deps = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  cflags_cc = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

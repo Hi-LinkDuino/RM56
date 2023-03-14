@@ -1,0 +1,18 @@
+{
+  "SysCaps": [
+    "SystemCapability.ArkUI.ArkUI.Lite",
+    "SystemCapability.BundleManager.PackingTool",
+    "SystemCapability.Communication.IPC.Core",
+    "SystemCapability.Communication.SoftBus.Core",
+    "SystemCapability.PowerManager.PowerManager.Lite",
+    "SystemCapability.PowerManager.BatteryManager.Lite",
+    "SystemCapability.Customization.ConfigPolicy",
+    "SystemCapability.HiviewDFX.HiLogLite",
+    "SystemCapability.HiviewDFX.HiviewLite",
+    "SystemCapability.Update.UpdateService",
+    "SystemCapability.Security.Cipher",
+    "SystemCapability.FileManagement.File.FileIO",
+    "SystemCapability.FileManagement.File.Environment",
+    "SystemCapability.Startup.SystemInfo"
+  ]
+}

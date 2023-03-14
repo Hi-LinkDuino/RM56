@@ -1,0 +1,57 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+
+config("native_dataability_config") {
+  visibility = [ ":*" ]
+
+  cflags = [ "-Wc99-designator" ]
+  cflags_cc = [ "-Wc99-designator" ]
+  include_dirs = [
+    "include",
+    "../../../frameworks/innerkitsimpl/native_dataability/include",
+    "../../../frameworks/innerkitsimpl/native_dataability/src",
+    "//utils/native/base/include",
+  ]
+}
+
+config("native_dataability_public_config") {
+  visibility = [ "//foundation/distributeddatamgr/appdatamgr:*" ]
+  include_dirs = [ "include" ]
+}
+
+ohos_shared_library("native_dataability") {
+  part_name = "native_appdatamgr"
+  sources = [
+    "../../../frameworks/innerkitsimpl/native_dataability/src/data_ability_predicates.cpp",
+    "../../../frameworks/innerkitsimpl/native_dataability/src/ishared_result_set.cpp",
+    "../../../frameworks/innerkitsimpl/native_dataability/src/ishared_result_set_proxy.cpp",
+    "../../../frameworks/innerkitsimpl/native_dataability/src/ishared_result_set_stub.cpp",
+    "../../../frameworks/innerkitsimpl/native_dataability/src/logger.h",
+    "../../../frameworks/innerkitsimpl/native_dataability/src/predicates_utils.cpp",
+  ]
+
+  configs = [ ":native_dataability_config" ]
+
+  deps = [ "//utils/native/base:utils" ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "native_appdatamgr:native_rdb",
+  ]
+
+  public_configs = [ ":native_dataability_public_config" ]
+
+  subsystem_name = "distributeddatamgr"
+}

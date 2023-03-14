@@ -1,0 +1,44 @@
+{
+    "name": "@openharmony/iot_link",
+    "version": "3.1.0",
+    "description": "iot_link",
+    "publishAs": "code-segment",
+    "scripts": {
+      "install": "DEST_PATH=${DEP_BUNDLE_BASE}/domains/iot/link && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "component": {
+      "name": "iot_link",
+      "subsystem": "iot_link",
+      "adapted_system_type": [
+        "mini"
+      ],
+      "syscap":[],
+      "features": [],
+      "rom": "1MB",
+      "ram": "1MB",
+      "deps": {
+        "components": [],
+        "third_party": []
+      },
+      "build": {
+        "sub_component": [
+          "//domains/iot/link:iot"
+        ],
+        "inner_kits": [
+          {
+            "name": "//domains/iot/link:iot",
+            "header": {
+              "header_files": [
+                "//domains/iot/link/libbuild/demosdk.h"
+              ],
+              "header_base": "//domains/iot/link/libbuild"
+            }
+          }
+        ],
+        "test": []
+      }
+    }
+  }

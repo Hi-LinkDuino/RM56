@@ -1,0 +1,281 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            button通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <button id="idProp">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <button id="classProp"
+             class="classProp">
+        </button>
+        <button id="classPropNone"
+             class="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <button id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <button id="refProp"
+             ref="refProp">
+        </button>
+        <button id="refPropNone"
+             ref="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <button id="disabledPropTrue"
+             disabled="true">
+        </button>
+        <button id="disabledPropFalse"
+             disabled="false">
+        </button>
+        <button id="disabledPropNone"
+             disabled="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <button id="focusablePropTrue"
+             focusable="true">
+        </button>
+        <button id="focusablePropFalse"
+             focusable="false">
+        </button>
+        <button id="focusablePropNone"
+             focusable="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <button id="dataProp"
+             data-button="通用属性 -- data-*">
+        </button>
+        <button id="dataPropNone"
+             data-button="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <button class="propNewAdd"
+                data="通用属性 -- data">
+        </button>
+        <button class="propNewAdd"
+                data="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <button id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </button>
+        <button id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </button>
+        <button id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </button>
+        <button id="clickEffectPropNone"
+             click-effect="">
+        </button>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <button id="dirPropRtl"
+             dir="rtl">
+        </button>
+        <button id="dirPropAuto"
+             dir="auto">
+        </button>
+        <button id="dirPropLtr"
+             dir="ltr">
+        </button>
+        <button id="dirPropNone"
+             dir="">
+        </button>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <button id="forPropNull"
+             for="">
+        </button>
+        <button id="forPropOne"
+             for="{{listOne}}">
+        </button>
+        <button id="forPropThree"
+             for="{{listThree}}">
+        </button>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <button id="ifPropTrue"
+             if="true">
+        </button>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <button id="showPropTrue"
+             show="true">
+        </button>
+        <button id="showPropFalse"
+             show="false">
+        </button>
+        <button id="showPropNone"
+             show="">
+        </button>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            button特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- type
+        </text>
+        <button id="typeArc"
+                type="arc">
+        </button>
+        <button id="typeCapsule"
+                type="capsule">
+        </button>
+        <button id="typeCircle"
+                type="circle">
+        </button>
+        <button id="typeText"
+                type="text">
+        </button>
+        <button id="typeDownload"
+                type="download">
+        </button>
+        <button id="typeNone"
+                type="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <button id="value"
+                value="按钮">
+        </button>
+        <button id="valueNone"
+                value="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- icon
+        </text>
+        <button id="icon"
+                icon="common/images/image.png">
+        </button>
+        <button id="iconNone"
+                icon="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- placement
+        </text>
+        <button id="placementStart"
+                placement="start">
+        </button>
+        <button id="placementEnd"
+                placement="end">
+        </button>
+        <button id="placementTop"
+                placement="top">
+        </button>
+        <button id="placementBottom"
+                placement="bottom">
+        </button>
+        <button id="placementNone"
+                placement="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- waiting
+        </text>
+        <button id="waitingTrue"
+                waiting="true">
+        </button>
+        <button id="waitingFalse"
+                waiting="false">
+        </button>
+        <button id="waitingNone"
+                waiting="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- shareid
+        </text>
+        <button class="propNewAdd"
+                shareid="shareButton">
+        </button>
+        <button class="propNewAdd"
+                shareid="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <button class="propNewAdd"
+                tid="id">
+        </button>
+        <button class="propNewAdd"
+                tid="">
+        </button>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <button class="propNewAdd"
+                if="false">
+        </button>
+        <button class="propNewAdd"
+                elif="true">
+        </button>
+        <button class="propNewAdd"
+                elif="false">
+        </button>
+    </div>
+</div>

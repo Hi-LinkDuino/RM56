@@ -1,0 +1,48 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "180000",
+        "package": "com.example.actsbmsgetinfostest",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "bmsSystemBundleTest1.hap",
+                "bmsVendorBundleTest1.hap",
+                "ActsBmsGetInfosTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "remount",
+                "mkdir /data/test"
+            ]
+        },
+        {
+            "type": "PushKit",
+            "push": [
+                "bmsThirdBundleTest1.hap->/data/test/bmsThirdBundleTest1.hap",
+                "bmsThirdBundleTest2.hap->/data/test/bmsThirdBundleTest2.hap",
+                "bmsThirdBundleTest3.hap->/data/test/bmsThirdBundleTest3.hap",
+                "bmsThirdBundleTest4.hap->/data/test/bmsThirdBundleTest4.hap",
+                "bmsThirdBundleTest5.hap->/data/test/bmsThirdBundleTest5.hap",
+                "bmsThirdBundleTest6.hap->/data/test/bmsThirdBundleTest6.hap",
+                "bmsThirdBundleTestA1.hap->/data/test/bmsThirdBundleTestA1.hap",
+                "bmsSystemBundleTest2.hap->/data/test/bmsSystemBundleTest2.hap",
+                "bmsSystemBundleTest2Feature.hap->/data/test/bmsSystemBundleTest2Feature.hap",
+                "bmsSystemBundleTest2Update.hap->/data/test/bmsSystemBundleTest2Update.hap"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "chmod 644 /data/test/*.hap"
+            ]
+        }
+    ]
+}

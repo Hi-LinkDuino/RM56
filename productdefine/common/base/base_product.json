@@ -1,0 +1,778 @@
+{
+  "product_name": "ohos-arm64",
+  "version": "3.0",
+  "type": "standard",
+  "ohos_version": "OpenHarmony 3.x",
+  "board": "arm64",
+  "kernel_type": "",
+  "kernel_version": "",
+  "device_name": "arm64",
+  "device_company": "openharmony",
+  "target_os": "ohos",
+  "target_cpu": "arm",
+  "subsystems": [
+    {
+      "subsystem": "aafwk",
+      "components": [
+        {
+          "component": "ability_runtime",
+          "features": []
+        },
+        {
+          "component": "ability_tools",
+          "features": []
+        },
+        {
+          "component": "form_runtime",
+          "features": []
+        },
+        {
+          "component": "zidl",
+          "features": []
+        },
+        {
+          "component": "ability_base",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "account",
+      "components": [
+        {
+          "component": "os_account_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "ace",
+      "components": [
+        {
+          "component": "ace_engine_standard",
+          "features": []
+        },
+        {
+          "component": "napi",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "ai",
+      "components": []
+    },
+    {
+      "subsystem": "appexecfwk",
+      "components": [
+        {
+          "component": "bundle_framework",
+          "features": []
+        },
+        {
+          "component": "bundle_tool",
+          "features": []
+        },
+        {
+          "component": "distributed_bundle_framework",
+          "features": []
+        },
+        {
+          "component": "eventhandler",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "applications",
+      "components": [
+        {
+          "component": "prebuilt_hap",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "ark",
+      "components": [
+        {
+          "component": "ark",
+          "features": []
+        },
+        {
+          "component": "ark_frontend_tool",
+          "features": []
+        },
+        {
+          "component": "ark_js_runtime",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "communication",
+      "components": [
+        {
+          "component": "bluetooth_standard",
+          "features": []
+        },
+        {
+          "component": "dsoftbus_standard",
+          "features": []
+        },
+        {
+          "component": "ipc",
+          "features": []
+        },
+        {
+          "component": "ipc_js",
+          "features": []
+        },
+        {
+          "component": "netmanager_base",
+          "features": []
+        },
+        {
+          "component": "netmanager_ext",
+          "features": []
+        },
+        {
+          "component": "netstack",
+          "features": []
+        },
+        {
+          "component": "wifi_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "compileruntime",
+      "components": []
+    },
+    {
+      "subsystem": "developtools",
+      "components": [
+        {
+          "component": "bytrace_standard",
+          "features": []
+        },
+        {
+          "component": "hdc_standard",
+          "features": []
+        },
+        {
+          "component": "hiperf",
+          "features": []
+        },
+        {
+          "component": "packing_tool",
+          "features": []
+        },
+        {
+          "component": "profiler",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "deviceprofile",
+      "components": [
+        {
+          "component": "device_profile_core",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "distributeddatamgr",
+      "components": [
+        {
+          "component": "distributeddatamgr",
+          "features": []
+        },
+        {
+          "component": "distributeddataobject",
+          "features": []
+        },
+        {
+          "component": "distributedfilejs",
+          "features": []
+        },
+        {
+          "component": "e2fsprogs",
+          "features": []
+        },
+        {
+          "component": "native_appdatamgr",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "distributedhardware",
+      "components": [
+        {
+          "component": "device_manager_base",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "distributedschedule",
+      "components": [
+        {
+          "component": "dmsfwk_standard",
+          "features": []
+        },
+        {
+          "component": "safwk",
+          "features": []
+        },
+        {
+          "component": "samgr_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "filemanagement",
+      "components": [
+        {
+          "component": "storage_service",
+          "features": []
+        },
+        {
+          "component": "user_file_service",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "global",
+      "components": [
+        {
+          "component": "i18n_standard",
+          "features": []
+        },
+        {
+          "component": "resmgr_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "graphic",
+      "components": [
+        {
+          "component": "graphic_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "hdf",
+      "components": [
+        {
+          "component": "audio_device_driver",
+          "features": []
+        },
+        {
+          "component": "battery_device_driver",
+          "features": []
+        },
+        {
+          "component": "bluetooth_device_driver",
+          "features": []
+        },
+        {
+          "component": "camera_device_driver",
+          "features": []
+        },
+        {
+          "component": "codec_device_driver",
+          "features": []
+        },
+        {
+          "component": "device_driver_framework",
+          "features": []
+        },
+        {
+          "component": "display_device_driver",
+          "features": []
+        },
+        {
+          "component": "input_device_driver",
+          "features": []
+        },
+        {
+          "component": "light_device_driver",
+          "features": []
+        },
+        {
+          "component": "power_device_driver",
+          "features": []
+        },
+        {
+          "component": "sensor_device_driver",
+          "features": []
+        },
+        {
+          "component": "thermal_device_driver",
+          "features": []
+        },
+        {
+          "component": "usb_device_driver",
+          "features": []
+        },
+        {
+          "component": "vibrator_device_driver",
+          "features": []
+        },
+        {
+          "component": "wlan_device_driver",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "hiviewdfx",
+      "components": [
+        {
+          "component": "faultloggerd",
+          "features": []
+        },
+        {
+          "component": "hiappevent_js",
+          "features": []
+        },
+        {
+          "component": "hiappevent_native",
+          "features": []
+        },
+        {
+          "component": "hichecker_native",
+          "features": []
+        },
+        {
+          "component": "hicollie_native",
+          "features": []
+        },
+        {
+          "component": "hilog",
+          "features": []
+        },
+        {
+          "component": "hilog_native",
+          "features": []
+        },
+        {
+          "component": "hilog_service",
+          "features": []
+        },
+        {
+          "component": "hisysevent_native",
+          "features": []
+        },
+        {
+          "component": "hitrace_native",
+          "features": []
+        },
+        {
+          "component": "hiview",
+          "features": []
+        },
+        {
+          "component": "hiviewdfx_hilog_native",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "iot",
+      "components": []
+    },
+    {
+      "subsystem": "iot_hardware",
+      "components": []
+    },
+    {
+      "subsystem": "kernel",
+      "components": [
+        {
+          "component": "linux",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "miscservices",
+      "components": [
+        {
+          "component": "inputmethod_native",
+          "features": []
+        },
+        {
+          "component": "time_native",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "msdp",
+      "components": []
+    },
+    {
+      "subsystem": "multimedia",
+      "components": [
+        {
+          "component": "multimedia_audio_standard",
+          "features": []
+        },
+        {
+          "component": "multimedia_camera_standard",
+          "features": []
+        },
+        {
+          "component": "multimedia_histreamer",
+          "features": []
+        },
+        {
+          "component": "multimedia_image_standard",
+          "features": []
+        },
+        {
+          "component": "multimedia_media_library_standard",
+          "features": []
+        },
+        {
+          "component": "multimedia_media_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "multimodalinput",
+      "components": [
+        {
+          "component": "input",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "notification",
+      "components": [
+        {
+          "component": "ans_standard",
+          "features": []
+        },
+        {
+          "component": "ces_standard",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "powermgr",
+      "components": [
+        {
+          "component": "battery_manager_native",
+          "features": []
+        },
+        {
+          "component": "battery_statistics_native",
+          "features": []
+        },
+        {
+          "component": "display_manager_native",
+          "features": []
+        },
+        {
+          "component": "power_manager_native",
+          "features": []
+        },
+        {
+          "component": "thermal_manager",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "resourceschedule",
+      "components": [
+        {
+          "component": "background_task_mgr",
+          "features": []
+        },
+        {
+          "component": "device_usage_statistics",
+          "features": []
+        },
+        {
+          "component": "memmgr",
+          "features": []
+        },
+        {
+          "component": "resource_schedule_service",
+          "features": []
+        },
+        {
+          "component": "soc_perf",
+          "features": []
+        },
+        {
+          "component": "work_scheduler",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "security",
+      "components": [
+        {
+          "component": "access_token",
+          "features": []
+        },
+        {
+          "component": "appverify",
+          "features": []
+        },
+        {
+          "component": "dataclassification",
+          "features": []
+        },
+        {
+          "component": "device_security_level",
+          "features": []
+        },
+        {
+          "component": "deviceauth_standard",
+          "features": []
+        },
+        {
+          "component": "huks",
+          "features": []
+        },
+        {
+          "component": "permission_standard",
+          "features": []
+        },
+        {
+          "component": "selinux",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "sensors",
+      "components": [
+        {
+          "component": "miscdevice",
+          "features": []
+        },
+        {
+          "component": "sensor",
+          "features": []
+        },
+        {
+          "component": "start",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "settingsdata",
+      "components": []
+    },
+    {
+      "subsystem": "startup",
+      "components": [
+        {
+          "component": "appspawn",
+          "features": []
+        },
+        {
+          "component": "init",
+          "features": []
+        },
+        {
+          "component": "startup_l2",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "telephony",
+      "components": [
+        {
+          "component": "call_manager",
+          "features": []
+        },
+        {
+          "component": "cellular_call",
+          "features": []
+        },
+        {
+          "component": "cellular_data",
+          "features": []
+        },
+        {
+          "component": "core_service",
+          "features": []
+        },
+        {
+          "component": "data_storage",
+          "features": []
+        },
+        {
+          "component": "ril_adapter",
+          "features": []
+        },
+        {
+          "component": "sms_mms",
+          "features": []
+        },
+        {
+          "component": "state_registry",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "updater",
+      "components": [
+        {
+          "component": "update_service",
+          "features": []
+        },
+        {
+          "component": "updater",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "usb",
+      "components": [
+        {
+          "component": "usb_manager",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "useriam",
+      "components": [
+        {
+          "component": "auth_executor_mgr",
+          "features": []
+        },
+        {
+          "component": "face_auth",
+          "features": []
+        },
+        {
+          "component": "pin_auth",
+          "features": []
+        },
+        {
+          "component": "user_auth",
+          "features": []
+        },
+        {
+          "component": "user_idm",
+          "features": []
+        },
+        {
+          "component": "useriam_common",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "utils",
+      "components": [
+        {
+          "component": "memory",
+          "features": []
+        },
+        {
+          "component": "systemres",
+          "features": []
+        },
+        {
+          "component": "timer_task",
+          "features": []
+        },
+        {
+          "component": "utils_base",
+          "features": []
+        },
+        {
+          "component": "utils_lite",
+          "features": []
+        },
+        {
+          "component": "utils_memory",
+          "features": []
+        },
+        {
+          "component": "jsapi_api",
+          "features": []
+        },
+        {
+          "component": "jsapi_sys",
+          "features": []
+        },
+        {
+          "component": "jsapi_util",
+          "features": []
+        },
+        {
+          "component": "jsapi_worker",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "window",
+      "components": [
+        {
+          "component": "window_manager",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "wpa_supplicant-2.9",
+      "components": [
+        {
+          "component": "wpa_supplicant-2.9",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "xts",
+      "components": [
+        {
+          "component": "intellitv_tests",
+          "features": []
+        },
+        {
+          "component": "ivi_tests",
+          "features": []
+        },
+        {
+          "component": "phone_tests",
+          "features": []
+        },
+        {
+          "component": "wearable_tests",
+          "features": []
+        }
+      ]
+    }
+  ]
+}

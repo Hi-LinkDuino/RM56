@@ -1,0 +1,51 @@
+{
+    "description": "Configuration for filemanager Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "60000",
+        "package": "ohos.acts.storage.filemanager",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+		{
+            "type": "ShellKit",
+            "run-command": [
+                "mkdir -p /storage/media/100/local/files/photo",
+                "mkdir -p /storage/media/100/local/files/document",
+                "mkdir -p /storage/media/100/local/files/video",
+                "mkdir -p /storage/media/100/local/files/audio",
+                "mkdir -p /storage/media/100/local/files/photo/weixin",
+                "touch /storage/media/100/local/files/photo/weixin/1.jpg",
+                "touch /storage/media/100/local/files/photo/weixin/2.jpg",
+                "touch /storage/media/100/local/files/photo/weixin/3.jpg",
+                "touch /storage/media/100/local/files/photo/weixin/1.mp3",
+                "touch /storage/media/100/local/files/photo/weixin/1.mp4",
+                "mkdir -p /storage/media/100/local/files/photo/taobao",
+                "touch /storage/media/100/local/files/photo/taobao/1.mp4",
+                "mkdir -p /storage/media/100/local/files/taobao",
+                "touch /storage/media/100/local/files/taobao/1.jpg",
+                "mkdir -p /storage/media/100/local/files/image",
+                "touch /storage/media/100/local/files/image/1.jpg",
+                "touch /storage/media/100/local/files/image/2.jpg",
+                "mkdir -p /storage/media/100/local/files/alarms",
+                "touch /storage/media/100/local/files/alarms/tree.mp3",
+                "mkdir -p /storage/media/100/local/files/wps",
+                "touch /storage/media/100/local/files/wps/news.pdf",
+                "touch /storage/media/100/local/files/wps/introduce.doc",
+                "killall com.ohos.medialibrary.MediaScannerAbilityA",
+                "aa start  -a MediaScannerAbility -b com.ohos.medialibrary.MediaScannerAbilityA",
+                "sleep 10"
+            ],
+            "teardown-command":[
+                "rm -rf /storage/media/100/local/files/*"
+            ]
+        },
+        {
+            "test-file-name": [
+                "ActsStorageFilemanagerJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

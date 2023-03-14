@@ -1,0 +1,187 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            stepper通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleOne">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleTwo">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleThree">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleFour">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleFive">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleSix">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleSeven">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleEight">
+            </stepper-item>
+        </stepper>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleNine">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleTen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleEleven">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleTwelve">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleThirteen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleFourteen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleFifteen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleSixteen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleSeventeen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleEighteen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleNineteen">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleTwenty">
+            </stepper-item>
+        </stepper>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <stepper class="style-box color-grey">
+                <stepper-item id="styleTwentyOne">
+                </stepper-item>
+            </stepper>
+            <stepper class="style-box color-beige">
+                <stepper-item id="styleTwentyTwo">
+                </stepper-item>
+            </stepper>
+            <stepper class="style-box color-violet">
+                <stepper-item id="styleTwentyThree">
+                </stepper-item>
+            </stepper>
+        </div>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleTwentyFour">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleTwentyFive">
+            </stepper-item>
+        </stepper>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleTwentySix">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleTwentySeven">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-grey">
+            <stepper-item id="styleTwentyNine">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-beige">
+            <stepper-item id="styleThirty">
+            </stepper-item>
+        </stepper>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleThirtyOne">
+            </stepper-item>
+        </stepper>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleThirtyTwo">
+            </stepper-item>
+        </stepper>
+
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <text class="title">
+            stepper特有样式
+        </text>
+
+        <stepper class="style-box color-violet">
+            <stepper-item id="styleThirtyThree">
+            </stepper-item>
+        </stepper>
+    </div>
+</div>
+

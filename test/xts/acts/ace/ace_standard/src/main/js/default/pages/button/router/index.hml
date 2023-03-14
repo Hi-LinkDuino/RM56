@@ -1,0 +1,354 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+    <!-- 通用样式 -->
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+
+            <text class="sub-title">
+                button通用样式1
+            </text>
+            <button id="style1" class="style1">
+            </button>
+
+            <text  class="sub-title">
+                button通用样式2
+            </text>
+            <button id="style2" class="style2">
+            </button>
+
+            <text  class="sub-title">
+                button通用样式3
+            </text>
+            <button id="style3" class="style3">
+            </button>
+
+            <text  class="sub-title">
+                button通用样式4
+            </text>
+            <button id="style4" class="style4" >
+            </button>
+
+            <text  class="sub-title">
+                button通用样式5
+            </text>
+            <div class="contain1">
+                <button id="style5" class="style5">
+                </button>
+                <button id="style6" class="style6">
+                </button>
+            </div>
+
+            <text  class="sub-title">
+                button特有样式
+            </text>
+            <button id="style7" class="style7">
+            </button>
+        </div>
+
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 动画 -->
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+
+            <text class="sub-title">
+                button动画样式1
+            </text>
+            <button id="ani1" class="ani1" >
+            </button>
+
+            <text class="sub-title">
+                button动画样式2
+            </text>
+            <button id="ani2" class="ani2" >
+            </button>
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                button通用属性1
+            </text>
+            <button id="prop1"
+                   class="prop1"
+                   disabled = "true"
+                   focusable ="true"
+                   data-name ="prop1"
+                   click-effect="spring-medium"
+                   dir ="rtl"
+                   placement="end">
+            </button>
+
+            <text  class="sub-title">
+                button通用属性2
+            </text>
+            <button id="prop2"
+                   class="prop2"
+                   ref ="prop2"
+                   disabled = "false"
+                   focusable ="false"
+                   data-name ="prop2"
+                   click-effect="spring-large"
+                   dir ="ltr"
+                   placement="start">
+            </button>
+
+            <text  class="sub-title">
+                button通用属性3
+            </text>
+            <button id="prop3" style="color: #679855; margin: 5px;width: 100%;height: 40px;"
+                    placement="top">
+            </button>
+
+            <text  class="sub-title">
+                arc按钮
+            </text>
+            <button id="prop4" class="prop4"
+                    type="arc" value="1"
+                    icon="common/images/image.png" waiting="false">
+            </button>
+
+            <text  class="sub-title">
+                capsule按钮
+            </text>
+            <button id="prop5" class="prop5" type="capsule"
+                    waiting="true" value="下载中" >
+            </button>
+
+            <text  class="sub-title">
+                circle按钮
+            </text>
+            <button id="prop6" class="prop6" type="circle"
+                    waiting="true" value="球">
+            </button>
+
+            <text  class="sub-title">
+                text按钮
+            </text>
+            <button id="prop7" class="prop7" type="text"
+                    waiting="false" value="嘿嘿嘿">
+            </button>
+
+            <text  class="sub-title">
+                download按钮
+            </text>
+            <button id="prop8" class="prop8" type="download"
+                    onclick="setProgress">{{downloadText}}>
+            </button>
+
+            <text  class="sub-title">
+                普通按钮
+            </text>
+            <button id="prop9" class="prop9" waiting="true"
+                    placement="bottom" value="嘿嘿嘿">
+            </button>
+
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                button通用事件1
+            </text>
+            <button id="event1" class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                   ontouchend="touchEnd" ontouchcancel="touchCancel" >
+            </button>
+
+            <text  class="sub-title">
+                button通用事件2
+            </text>
+            <button id="event2" class="event2" onclick="click" ondoubleclick="doubleClick"
+                   onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                   onswipe="swipe" onattached="attached" ondetached="detached" >
+            </button>
+
+            <text  class="sub-title">
+                button通用事件3
+            </text>
+            <button id="event3" class="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                   onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                   ondragstart="dragStart" ondrag="drag"
+                   ondragend="dragEnd" ondragenter="dragEnter"
+                   ondragover="dragOver" ondragleave="dragLeave"
+                   ondrop="drop" >
+            </button>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用方法 -->
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                button通用方法1
+            </text>
+            <button id="function1" class="function1" ontouchstart="functionTest1" >
+            </button>
+
+            <text class="sub-title">
+                button通用方法2
+            </text>
+            <button id="function2" class="function2" ontouchstart="functionTest2" >
+            </button>
+
+            <text class="sub-title">
+                button通用方法3
+            </text>
+            <button id="function3" class="function3" ontouchstart="functionTest3" >
+            </button>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+
+            <text class="sub-title">
+                button渐变样式1
+            </text>
+            <button id="gradient1" class="gradient1" >
+            </button>
+
+            <text  class="sub-title">
+                button渐变样式2
+            </text>
+            <button id="gradient2" class="gradient2" >
+            </button>
+
+            <text  class="sub-title">
+                button渐变样式3
+            </text>
+            <button id="gradient3" class="gradient3" >
+            </button>
+
+            <text  class="sub-title">
+                button渐变样式4
+            </text>
+            <button id="gradient4" class="gradient4" >
+            </button>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                button无障碍1
+            </text>
+            <button id="access1" class="access1"
+                   onaccessibility="onAccessibility"
+                   accessibilitygroup ="true"
+                   accessibilitytext="这是div"
+                   accessibilitydescription="点击此按键会弹出一个对话框"
+                   accessibilityimportance="no-hide-descendants"
+                   >
+            </button>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 原子布局和多模输入 -->
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                button原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <button id="atomA1" >
+                </button>
+                <button id="atomA2" >
+                </button>
+                <button id="atomA3" >
+                </button>
+            </div>
+            <text class="sub-title">
+                button原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <button id="atomB1" >
+                </button>
+                <button id="atomB2" >
+                </button>
+                <button id="atomB3" >
+                </button>
+            </div>
+            <text class="sub-title">
+                button原子布局3
+            </text>
+            <div style="flex-direction: row;height:40px;width: 100%;">
+                <button id="atomC1" >
+                </button>
+                <button id="atomC2" >
+                </button>
+                <button id="atomC3" >
+                </button>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    button多模输入1
+                </text>
+                <button id="multiMode1"
+                       class="multimode1"
+                       voicelabel = "voice"
+                       subscriptflag="on"
+                       subscriptlabel="div"
+                       scenelabel="common"
+                       >
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

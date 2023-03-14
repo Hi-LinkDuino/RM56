@@ -1,0 +1,57 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+  ohos_hiviewdfx_hiview_lite_output_option = 1
+  ohos_hiviewdfx_hilog_lite_level = 1
+  ohos_hiviewdfx_hilog_lite_level_release = 3
+  ohos_hiviewdfx_hilog_lite_log_switch = 1
+  ohos_hiviewdfx_dump_lite_dump_switch = 0
+  ohos_hiviewdfx_hievent_lite_event_switch = 1
+  ohos_hiviewdfx_hiview_lite_output_module = -1
+  ohos_hiviewdfx_hiview_lite_dir = ""
+}
+
+config("hiview_lite_config") {
+  defines = [ "HIVIEW_FILE_DIR = \"$ohos_hiviewdfx_hiview_lite_dir\"" ]
+  include_dirs = [
+    "//base/hiviewdfx/hiview_lite",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//base/hiviewdfx/hievent_lite/interfaces/native/innerkits",
+  ]
+}
+
+static_library("hiview_lite") {
+  sources = [
+    "hiview_cache.c",
+    "hiview_config.c",
+    "hiview_file.c",
+    "hiview_service.c",
+    "hiview_util.c",
+  ]
+  cflags = [ "-Wall" ]
+  defines = [
+    "OUTPUT_OPTION = $ohos_hiviewdfx_hiview_lite_output_option",
+    "HILOG_LITE_SWITCH = $ohos_hiviewdfx_hilog_lite_log_switch",
+    "DUMP_LITE_SWITCH = $ohos_hiviewdfx_dump_lite_dump_switch",
+    "HIEVENT_LITE_SWITCH = $ohos_hiviewdfx_hievent_lite_event_switch",
+    "LOG_OUTPUT_MODULE = $ohos_hiviewdfx_hiview_lite_output_module",
+  ]
+  if (ohos_build_type == "debug") {
+    defines += [ "OUTPUT_LEVEL = $ohos_hiviewdfx_hilog_lite_level" ]
+  } else {
+    defines += [ "OUTPUT_LEVEL = $ohos_hiviewdfx_hilog_lite_level_release" ]
+  }
+  public_configs = [ ":hiview_lite_config" ]
+}

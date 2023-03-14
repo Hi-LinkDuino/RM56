@@ -1,0 +1,57 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/frameworks/core/components/components.gni")
+
+build_component("plugin") {
+  sources = [
+    "file_asset_provider.cpp",
+    "flutter_render_plugin.cpp",
+    "plugin_component.cpp",
+    "plugin_component_manager.cpp",
+    "plugin_element.cpp",
+    "plugin_sub_container.cpp",
+    "plugin_window.cpp",
+    "render_plugin.cpp",
+    "render_plugin_creator.cpp",
+    "resource/plugin_manager_delegate.cpp",
+    "resource/plugin_manager_resource.cpp",
+  ]
+  rosen_sources = [ "rosen_render_plugin.cpp" ]
+
+  if (is_standard_system && !use_mingw_win && !use_mac) {
+    include_dirs = [
+      "//foundation/ace/ace_engine/interfaces/innerkits/ui_service_manager/include",
+      "//foundation/multimodalinput/input/interfaces/native/innerkits/event/include",
+    ]
+
+    deps = [
+      "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
+      "//foundation/aafwk/standard/interfaces/innerkits/ability_manager:ability_manager",
+      "//foundation/aafwk/standard/services/abilitymgr:abilityms",
+      "//foundation/ace/ace_engine/interfaces/innerkits/ui_service_manager:ui_service_mgr",
+      "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+      "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+      "//foundation/multimodalinput/input/frameworks/proxy:libmmi-client",
+      "//foundation/multimodalinput/input/frameworks/proxy:libmmi-common",
+      "//foundation/windowmanager/wm:libwm",
+    ]
+
+    external_deps = [
+      "ability_base:want",
+      "bundle_framework:appexecfwk_base",
+      "bundle_framework:appexecfwk_core",
+      "ipc:ipc_core",
+    ]
+  }
+}

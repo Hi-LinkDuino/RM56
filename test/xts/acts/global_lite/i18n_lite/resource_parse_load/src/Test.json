@@ -1,0 +1,21 @@
+{
+    "kits": [
+        {
+            "push": [
+                "ResourceParseLoadtest->/data/local/tmp/ResourceParseLoadtest"
+            ],
+            "type": "PushKit",
+            "post-push": [
+                "chmod -R 777 /data/local/tmp/*"
+            ]
+        }
+    ],
+    "driver": {
+        "native-test-timeout": "120000",
+        "type": "CppTest",
+        "module-name": "ResourceParseLoadtest",
+        "runtime-hint": "1s",
+        "native-test-device-path": "/data/local/tmp"
+    },
+    "description": "ResourceParseLoadtest Tests"
+}

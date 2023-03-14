@@ -1,0 +1,64 @@
+{
+  "app": {
+    "bundleName": "com.example.huksderivebasicpromise",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 6,
+      "target": 6,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.huksderivebasicpromise",
+    "name": ".MyApplication",
+    "mainAbility": "com.example.huksderivebasicpromise.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": true
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.huksderivebasicpromise.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard",
+        "visible": true,
+        "isVisible": "true"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        }
+      }
+    ]
+  }
+}

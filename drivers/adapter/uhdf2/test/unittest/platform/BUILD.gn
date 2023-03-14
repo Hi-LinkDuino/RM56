@@ -1,0 +1,72 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "hdf/platform"
+ohos_unittest("hdf_adapter_uhdf_test_platform") {
+  module_out_path = module_output_path
+  include_dirs = [
+    "//drivers/framework/include/platform",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include",
+    "//drivers/framework/test/unittest/include",
+    "//drivers/framework/test/unittest/platform/common",
+  ]
+
+  sources = [
+    "//drivers/framework/support/platform/test/unittest/common/hdf_adc_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_emmc_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_gpio_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_i2c_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_pwm_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_rtc_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_spi_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_timer_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_uart_test.cpp",
+    "//drivers/framework/support/platform/test/unittest/common/hdf_watchdog_test.cpp",
+    "//drivers/framework/test/unittest/platform/common/adc_test.c",
+    "//drivers/framework/test/unittest/platform/common/gpio_test.c",
+    "//drivers/framework/test/unittest/platform/common/i2c_test.c",
+    "//drivers/framework/test/unittest/platform/common/rtc_test.c",
+    "//drivers/framework/test/unittest/platform/common/spi_test.c",
+    "//drivers/framework/test/unittest/platform/common/timer_test.c",
+    "//drivers/framework/test/unittest/platform/common/uart_test.c",
+  ]
+
+  deps = [
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+    "//drivers/adapter/uhdf2/utils:libhdf_utils",
+  ]
+  resource_config_file =
+      "//drivers/adapter/uhdf2/test/resource/platform/ohos_test.xml"
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+  if (is_standard_system) {
+    external_deps = [
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+}

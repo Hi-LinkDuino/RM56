@@ -1,0 +1,30 @@
+{
+    "name": "@ohos/jerryscript",
+    "description": "JerryScript is the lightweight JavaScript engine intended to run on a very constrained devices such as microcontrollers.",
+    "version": "3.1",
+    "license": "Apache V2",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/jerryscript"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "thirdparty_jerryscript",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

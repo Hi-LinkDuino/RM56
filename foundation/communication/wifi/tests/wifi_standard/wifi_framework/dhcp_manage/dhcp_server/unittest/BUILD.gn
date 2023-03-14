@@ -1,0 +1,96 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+SUBSYSTEM_DIR = "//foundation/communication/wifi"
+module_output_path = "wifi_standard/dhcp_server_test"
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/include",
+  ]
+}
+
+ohos_unittest("dhcp_server_unittest") {
+  module_out_path = module_output_path
+  dhcp_hilog_enable = true
+  sources = [
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/address_utils.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/common_util.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/dhcp_address_pool.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/dhcp_argument.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/dhcp_binding.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/dhcp_config.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/dhcp_option.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/dhcp_server.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/src/hash_table.c",
+    "address_utils_test.cpp",
+    "common_util_test.cpp",
+    "dhcp_address_pool_test.cpp",
+    "dhcp_argument_test.cpp",
+    "dhcp_binding_test.cpp",
+    "dhcp_config_test.cpp",
+    "dhcp_message_sim.cpp",
+    "dhcp_option_test.cpp",
+    "dhcp_server_test.cpp",
+    "hash_table_test.cpp",
+    "system_func_mock.cpp",
+  ]
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//third_party/googletest/googlemock/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server/include",
+  ]
+
+  defines = [ "__OHOS__" ]
+
+  cflags = []
+
+  deps = [
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+    "-Wl,--wrap=socket",
+    "-Wl,--wrap=setsockopt",
+    "-Wl,--wrap=select",
+    "-Wl,--wrap=bind",
+    "-Wl,--wrap=close",
+    "--coverage",
+  ]
+
+  configs = [ ":module_private_config" ]
+
+  if (dhcp_hilog_enable) {
+    external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+    defines += [ "DHCP_HILOG_ENABLE" ]
+  }
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+  testonly = true
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ ":dhcp_server_unittest" ]
+}

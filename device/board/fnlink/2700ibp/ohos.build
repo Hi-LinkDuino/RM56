@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "device_2700ibp": {
+      "module_list": [
+        "//device/soc/bestechnic/bes2700:pack_flash_gui"
+      ]
+    }
+  },
+  "subsystem": "device_2700ibp"
+}

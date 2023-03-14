@@ -1,0 +1,56 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_executable("usb_dev_test") {
+  include_dirs = [
+    "//third_party/bounds_checking_function/include",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  sources = [
+    "acm_speed_read.c",
+    "acm_speed_write.c",
+    "acm_test.c",
+    "prop_test.c",
+    "usb_dev_test.c",
+  ]
+
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+  external_deps = [ "device_driver_framework:libhdf_utils" ]
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  defines = [ "__USER__" ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Wno-format",
+    "-Wno-format-extra-args",
+  ]
+
+  ldflags = [
+    "-L$ohos_root_path/sysroot/usr/lib",
+    "-Wl,-rpath-link=$ohos_root_path/sysroot/usr/lib",
+    "-lstdc++",
+    "-lpthread",
+  ]
+
+  install_enable = false
+  subsystem_name = "hdf"
+  part_name = "usb_device_driver"
+}

@@ -1,0 +1,37 @@
+
+root {
+    module = "test";
+    template FooBase {
+        term1 = 1;
+        term2 = 2;
+        term3 = [2,2];
+        attr {
+            term4 = 4;
+        }
+    }
+    fooSub :: FooBase {
+        term1 = 2;
+    }
+    fooSub1 :: FooBase {
+        term1 = 2;
+        term3 = [1];
+        attr {
+            term4 = 1;
+        }
+    }
+    foo {
+        foo1 {
+            term1 = "world";
+            bar2_2 = ["test3"];
+            foo = &root.foo;
+            bar = &root.bar;
+
+        }
+
+        array_oct = [1, 2, 3, 4];
+    }
+    bar {
+        //foo {}
+    }
+    t = 1;
+}

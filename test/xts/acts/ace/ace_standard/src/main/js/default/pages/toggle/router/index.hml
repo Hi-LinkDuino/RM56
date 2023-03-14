@@ -1,0 +1,58 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container" style="flex-direction: column;">
+
+    <text class="margin">1. Multiple choice example</text>
+    <div style="flex-wrap: wrap">
+        <toggle class="margin toggle1" for="{{toggles}}">{{$item}}</toggle>
+    </div>
+
+    <text class="margin">2. Single choice example</text>
+    <div style="flex-wrap: wrap">
+        <toggle class="margin toggle2"  for="{{toggleList}}" id="{{$item.id}}" checked="{{$item.checked}}"
+                value="{{$item.name}}" @change="allchange" @click="allclick({{$item.id}})"></toggle>
+    </div>
+
+    <text class="margin">3. Multiple choice example</text>
+    <div style="flex-wrap: wrap">
+        <toggle class="margin toggle3" for="{{toggles}}">{{$item}}</toggle>
+    </div>
+
+    <text class="margin">4. Single choice example</text>
+    <div style="flex-wrap: wrap">
+        <toggle class="margin toggle4" for="{{toggleList}}" id="{{$item.id}}" checked="{{$item.checked}}"
+                value="{{$item.name}}" @change="allchange" @click="allclick({{$item.id}})"></toggle>
+    </div>
+
+    <div class="container1">
+        <text class="margin margin5">5. Multiple</text>
+        <div style="flex-wrap: wrap">
+            <toggle class="margin toggle5" for="{{toggles}}">{{$item}}</toggle>
+        </div>
+
+        <text class="margin margin5">6. Single</text>
+        <div style="flex-wrap: wrap">
+            <toggle class="margin toggle6" for="{{toggleList}}" id="{{$item.id}}" checked="{{$item.checked}}"
+                    value="{{$item.name}}" @change="allchange" @click="allclick({{$item.id}})"></toggle>
+        </div>
+    </div>
+
+    <text class="margin1">7. Multiple choice example</text>
+    <div style="flex-wrap: wrap">
+        <toggle class="margin toggle7" for="{{toggles}}">{{$item}}</toggle>
+    </div>
+
+</div>

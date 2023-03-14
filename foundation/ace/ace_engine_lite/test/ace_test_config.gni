@@ -1,0 +1,126 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/aafwk/config.gni")
+import("//build/lite/config/test.gni")
+import("//foundation/ace/ace_engine_lite/ace_lite.gni")
+
+ace_lite_root = "//foundation/ace/ace_engine_lite"
+ace_lite_builtin_root =
+    "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin"
+graphic_ui_root = "//foundation/graphic/ui"
+test_output_root = "$root_out_dir/test/unittest/jsfwk"
+
+ace_test_includes = [
+  "${aafwk_lite_path}/interfaces/kits/ability_lite",
+  "${aafwk_lite_path}/interfaces/kits/want_lite",
+  "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+  "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+  "${appexecfwk_lite_path}/utils/bundle_lite",
+  "$graphic_ui_root/frameworks",
+  "$graphic_ui_root/interfaces/kits/animator",
+  "$graphic_ui_root/interfaces/kits/components",
+  "$graphic_ui_root/interfaces/kits/dfx",
+  "$graphic_ui_root/interfaces/kits/events",
+  "$graphic_ui_root/interfaces/kits/layout",
+  "$graphic_ui_root/interfaces/kits/themes",
+  "$graphic_ui_root/interfaces/kits/font",
+  "//foundation/multimedia/services/media_lite/camera",
+  "//foundation/multimedia/services/media_lite/camera/hal",
+  "//third_party/bounds_checking_function/include",
+  "//third_party/jerryscript/jerry-core/include",
+  "//third_party/jerryscript/jerry-ext/include/jerryscript-ext",
+  "//third_party/jerryscript/jerry-port/default/include",
+  "//third_party/cJSON",
+  "//utils/native/lite/include",
+  "$ace_lite_builtin_root/async",
+  "$ace_lite_builtin_root/base",
+  "$ace_lite_builtin_root/jsi",
+  "$ace_lite_root/frameworks/include/context",
+  "$ace_lite_root/frameworks/src/core",
+  "$ace_lite_root/frameworks/src/core/animation",
+  "$ace_lite_root/frameworks/src/core/base",
+  "$ace_lite_root/frameworks/src/core/components",
+  "$ace_lite_root/frameworks/src/core/components/test/unittest/common",
+  "$ace_lite_root/frameworks/src/core/context",
+  "$ace_lite_root/frameworks/src/core/directive",
+  "$ace_lite_root/frameworks/src/core/router",
+  "$ace_lite_root/frameworks/src/core/modules",
+  "$ace_lite_root/frameworks/src/core/modules/presets",
+  "$ace_lite_root/frameworks/src/core/router",
+  "$ace_lite_root/frameworks/src/core/stylemgr",
+  "$ace_lite_root/frameworks/src/core/wrapper",
+  "$ace_lite_root/test/moduletest/common",
+]
+
+ace_test_configs = [ "$ace_lite_root/frameworks:ace_lite_config" ]
+
+ace_test_defines = [
+  "TDD_ASSERTIONS",
+  "__LITEOS__",
+  "FEATURE_TERMINATE_ABILITY=1",
+]
+
+ace_test_deps = [
+  "$ACE_LITE_COMMON_PATH:ace_common_lite",
+  "$MODULE_MANAGER_PATH:ace_module_manager_lite",
+  "$NATIVE_ENGINE_PATH:ace_native_engine_lite",
+  "${aafwk_lite_path}/frameworks/ability_lite:aafwk_abilitykit_lite",
+  "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+  "//base/powermgr/battery_lite/frameworks/js:ace_battery_kits",
+  "//foundation/ace/ace_engine_lite/frameworks:ace_lite",
+  "//foundation/ace/ace_engine_lite/frameworks/targets",
+  "//foundation/communication/ipc_lite:liteipc_adapter",
+  "//foundation/distributedschedule/samgr_lite/communication/broadcast",
+  "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+  "//foundation/distributedschedule/samgr_lite/samgr_client:client",
+  "//foundation/graphic/surface",
+  "//foundation/graphic/ui:lite_ui",
+  "//foundation/graphic/utils:lite_graphic_utils",
+  "//foundation/graphic/wms:lite_wms",
+  "//utils/native/lite/js/builtin:ace_utils_kits",
+  "//utils/native/lite/kv_store/src:utils_kv_store",
+]
+
+# all other extra deps when compiling the whole ace source code with test case together
+extra_deps = [
+  "${appexecfwk_lite_path}/interfaces/kits/bundle_lite/js/builtin:capability_api",
+  "//base/global/i18n_lite/frameworks/i18n:global_i18n",
+  "//base/global/resmgr_lite/frameworks/resmgr_lite:global_resmgr",
+  "//base/security/huks/frameworks/crypto_lite/js/builtin:ace_kit_cipher",
+  "//build/lite/config/component/cJSON:cjson_shared",
+  "//foundation/aafwk/aafwk_lite/frameworks/ability_lite:ability",
+  "//foundation/multimedia/camera_lite/frameworks:camera_lite",
+  "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite",
+  "//foundation/multimedia/media_lite/interfaces/kits/player_lite/js/builtin:audio_lite_api",
+  "//third_party/bounds_checking_function:libsec_shared",
+  "//third_party/giflib:libgif",
+  "//third_party/jerryscript/jerry-core:jerry-core_shared",
+  "//third_party/jerryscript/jerry-ext:jerry-ext_shared",
+  "//third_party/jerryscript/jerry-libm:jerry-libm_shared",
+  "//third_party/jerryscript/jerry-port/default:jerry-port-default_shared",
+  "//utils/native/lite/timer_task:ace_kit_timer",
+]
+
+all_external_deps = ace_test_deps + extra_deps
+all_external_deps -= [ "//foundation/ace/ace_engine_lite/frameworks:ace_lite" ]
+all_external_includes = ace_lite_include_dirs + ace_test_includes
+
+# add specific defines for test case only here
+all_defines = ace_test_defines
+if (enable_ohos_appexecfwk_feature_ability == true) {
+  all_defines += [ "ABILITY_WINDOW_SUPPORT" ]
+  all_defines += [ "OHOS_APPEXECFWK_BMS_BUNDLEMANAGER" ]
+}
+all_acelite_source_files = ace_lite_sources

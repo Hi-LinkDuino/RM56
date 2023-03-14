@@ -1,0 +1,35 @@
+{
+  "name": "audio_device_driver",
+  "description": "audio device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "audio_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "1035KB",
+    "ram": "8600KB",
+    "deps": {
+      "components": [
+        "hiviewdfx_hilog_native",
+        "device_driver_framework",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function",
+        "googletest",
+        "tinyalsa"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/audio:hdi_audio"
+      ],
+      "test": [
+        "//drivers/peripheral/audio:audio_test_entry",
+        "//drivers/peripheral/audio:audio_sample_client"
+      ]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/frameworks/core/components/components.gni")
+config("standard_camera_config") {
+  cflags_cc = [ "-Wno-user-defined-warnings" ]
+
+  include_dirs = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include/",
+    "//drivers/adapter/uhdf2/include/hdi",
+    "//drivers/adapter/uhdf2/osal/include/",
+    "//drivers/framework/include/utils",
+    "//drivers/peripheral/camera/interfaces/include/",
+    "//drivers/peripheral/camera/interfaces/include/callback/device/",
+    "//drivers/peripheral/camera/interfaces/include/callback/host/",
+    "//drivers/peripheral/camera/interfaces/include/callback/operator/",
+    "//drivers/peripheral/camera/interfaces/include/server/",
+    "//drivers/peripheral/codec/interfaces/include",
+    "//drivers/peripheral/display/interfaces/include",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+    "//foundation/multimedia/camera_standard/interfaces/inner_api/native/camera/include",
+    "//foundation/multimedia/camera_standard/services/camera_service/binder/base/include",
+    "//foundation/multimedia/camera_standard/services/camera_service/binder/client/include",
+    "//foundation/multimedia/camera_standard/services/camera_service/binder/server/include",
+    "//foundation/multimedia/camera_standard/services/camera_service/include",
+    "//foundation/multimedia/media_standard/interfaces/innerkits/native/media/include",
+    "//foundation/multimedia/media_standard/interfaces/kits/native/include",
+    "//utils/native/base/include",
+  ]
+}
+
+build_component("camera") {
+  sources = [
+    "camera_component.cpp",
+    "camera_element.cpp",
+  ]
+
+  if (is_standard_system && !use_mingw_win && !use_mac) {
+    configs = [ ":standard_camera_config" ]
+
+    sources += [ "standard_system/camera.cpp" ]
+
+    deps = [
+      "//foundation/graphic/standard:libwmclient",
+      "//foundation/multimedia/camera_standard/frameworks/native/camera:camera_framework",
+      "//utils/native/base:utils",
+    ]
+
+    external_deps = [
+      "ipc:ipc_core",
+      "multimedia_media_standard:media_client",
+    ]
+  } else {
+    sources += [ "large_system/camera.cpp" ]
+  }
+}

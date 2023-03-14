@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<framework_config>
+  <productform>
+    <option name="ipcamera_hispark_aries" />
+    <option name="ipcamera_hispark_taurus" />
+    <option name="wifiiot_hispark_pegasus" />
+  </productform>
+  <test_category>
+    <option name="UT"
+            desc="unittest"
+            timeout="300" />
+    <option name="MST"
+            desc="moduletest"
+            timeout="300" />
+    <option name="ST"
+            desc="systemtest"
+            timeout="300" />
+    <option name="PERF"
+            desc="performance"
+            timeout="900" />
+    <option name="SEC"
+            desc="security"
+            timeout="900" />
+    <option name="FUZZ"
+            desc="fuzztest"
+            timeout="900" />
+    <option name="RELI"
+            desc="reliability"
+            timeout="900" />
+    <option name="DST"
+            desc="distributedtest"
+            timeout="900" />
+    <option name="BENCHMARK"
+            desc="benchmark"
+            timeout="300" />
+    <option name="ALL"
+            desc="ALL" />
+  </test_category>
+  <all_category>
+    <option name="unittest" />
+    <option name="moduletest" />
+    <option name="systemtest" />
+    <option name="performance" />
+    <option name="security" />
+    <option name="reliability" />
+    <option name="benchmark" />
+  </all_category>
+</framework_config>

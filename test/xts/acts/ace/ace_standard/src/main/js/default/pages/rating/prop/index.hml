@@ -1,0 +1,224 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            rating通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <rating id="idProp">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <rating id="classProp"
+             class="classProp">
+        </rating>
+        <rating id="classPropNone"
+             class="">
+        </rating>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <rating id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <rating id="refProp"
+             ref="refProp">
+        </rating>
+        <rating id="refPropNone"
+             ref="">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <rating id="disabledPropTrue"
+             disabled="true">
+        </rating>
+        <rating id="disabledPropFalse"
+             disabled="false">
+        </rating>
+        <rating id="disabledPropNone"
+             disabled="">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <rating id="focusablePropTrue"
+             focusable="true">
+        </rating>
+        <rating id="focusablePropFalse"
+             focusable="false">
+        </rating>
+        <rating id="focusablePropNone"
+             focusable="">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <rating id="dataPropB"
+               data-input="通用属性 -- data">
+        </rating>
+        <rating id="dataPropBNone"
+               data-input="">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <rating id="dataProp"
+             data-rating="通用属性 -- data-*">
+        </rating>
+        <rating id="dataPropNone"
+             data-rating="">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <rating id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </rating>
+        <rating id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </rating>
+        <rating id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </rating>
+        <rating id="clickEffectPropNone"
+             click-effect="">
+        </rating>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <rating id="dirPropRtl"
+             dir="rtl">
+        </rating>
+        <rating id="dirPropAuto"
+             dir="auto">
+        </rating>
+        <rating id="dirPropLtr"
+             dir="ltr">
+        </rating>
+        <rating id="dirPropNone"
+             dir="">
+        </rating>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <rating id="forPropNull"
+             for="">
+        </rating>
+        <rating id="forPropOne"
+             for="{{listOne}}">
+        </rating>
+        <rating id="forPropThree"
+             for="{{listThree}}">
+        </rating>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <rating id="ifPropTrue"
+             if="true">
+        </rating>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <rating id="showPropTrue"
+             show="true">
+        </rating>
+        <rating id="showPropFalse"
+             show="false">
+        </rating>
+        <rating id="showPropNone"
+             show="">
+        </rating>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            rating特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- numstars
+        </text>
+        <rating id="numstars"
+                numstars="5">
+        </rating>
+
+        <text class="sub-title">
+            特有属性 -- rating
+        </text>
+        <rating id="rating"
+                rating="2">
+        </rating>
+        <text class="sub-title">
+            特有属性 -- stepsize
+        </text>
+        <rating id="stepsize"
+                stepsize="1">
+        </rating>
+        <text class="sub-title">
+            特有属性 -- indicator
+        </text>
+        <rating id="indicatorFalse"
+                indicator="false">
+        </rating>
+        <rating id="indicatorTrue"
+                indicator="true">
+        </rating>
+        <rating id="indicatorNone"
+                indicator="">
+        </rating>
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <rating for="{{array}}" tid="id" style="color: #679855; margin: 1px;"
+               id="showFor{{$item.id}}">
+        </rating>
+        <text class="sub-title">
+            特有属性 -- if elif
+        </text>
+        <rating if="false" id="showIf">
+        </rating>
+        <rating elif="false" id="showElseIfTrue">
+        </rating>
+        <rating elif="true" id="showElseIfFalse">
+        </rating>
+        <rating else id="showElse">
+        </rating>
+    </div>
+    </div>
+</div>

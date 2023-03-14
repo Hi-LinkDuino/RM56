@@ -1,0 +1,54 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            richtext通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式1 display
+        </text>
+        <div id="styleOneDiv">
+            <richtext id="styleOne">
+            </richtext>
+        </div>
+        <div id="styleTwoDiv">
+            <richtext id="styleTwo">
+            </richtext>
+        </div>
+
+        <text class="sub-title">
+            通用样式2 visibility
+        </text>
+        <div id="styleThreeDiv">
+            <richtext id="styleThree">
+            </richtext>
+        </div>
+        <div id="styleFourDiv">
+            <richtext id="styleFour">
+            </richtext>
+        </div>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            richtext特有样式
+        </text>
+    </div>
+</div>
+

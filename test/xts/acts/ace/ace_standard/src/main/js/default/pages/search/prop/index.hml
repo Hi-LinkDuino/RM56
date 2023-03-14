@@ -1,0 +1,234 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            search通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <search id="idProp">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <search id="classProp"
+             class="classProp">
+        </search>
+        <search id="classPropNone"
+             class="">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <search id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <search id="refProp"
+             ref="refProp">
+        </search>
+        <search id="refPropNone"
+             ref="">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <search id="disabledPropTrue"
+             disabled="true">
+        </search>
+        <search id="disabledPropFalse"
+             disabled="false">
+        </search>
+        <search id="disabledPropNone"
+             disabled="">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <search id="focusablePropTrue"
+             focusable="true">
+        </search>
+        <search id="focusablePropFalse"
+             focusable="false">
+        </search>
+        <search id="focusablePropNone"
+             focusable="">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <search id="dataProp"
+             data-search="通用属性 -- data-*">
+        </search>
+        <search id="dataPropNone"
+             data-search="">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <search id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </search>
+        <search id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </search>
+        <search id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </search>
+        <search id="clickEffectPropNone"
+             click-effect="">
+        </search>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <search id="dirPropRtl"
+             dir="rtl">
+        </search>
+        <search id="dirPropAuto"
+             dir="auto">
+        </search>
+        <search id="dirPropLtr"
+             dir="ltr">
+        </search>
+        <search id="dirPropNone"
+             dir="">
+        </search>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <search id="forPropNull"
+             for="">
+        </search>
+        <search id="forPropOne"
+             for="{{listOne}}">
+        </search>
+        <search id="forPropThree"
+             for="{{listThree}}">
+        </search>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <search id="ifPropTrue"
+             if="true">
+        </search>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <search id="showPropTrue"
+             show="true">
+        </search>
+        <search id="showPropFalse"
+             show="false">
+        </search>
+        <search id="showPropNone"
+             show="">
+        </search>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            search特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <search id="value"
+                value="text">
+        </search>
+        <search id="valueNone"
+                value="">
+        </search>
+
+        <text class="sub-title">
+            特有属性 -- icon
+        </text>
+        <search id="icon"
+                icon="common/images/image.png">
+        </search>
+        <search id="iconNone"
+                icon="">
+        </search>
+
+        <text class="sub-title">
+            特有属性 -- hint
+        </text>
+        <search id="hintNone"
+                hint="">
+        </search>
+        <search id="hint"
+                hint="提示">
+        </search>
+        <text class="sub-title">
+            特有属性 -- searchbutton
+        </text>
+        <search id="searchbuttonNone"
+                searchbutton="">
+        </search>
+        <search id="searchbutton"
+                searchbutton="按钮">
+        </search>
+        <text class="sub-title">
+            特有属性 -- menuoptions
+        </text>
+        <search id="menuoptionsNone"
+                  menuoptions="">
+        </search>
+        <search id="menuoptions"
+                  menuoptions="{{OptionArray}}">
+        </search>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <search class="propNewAdd"
+                        tid="id">
+        </search>
+        <search class="propNewAdd"
+                        tid="">
+        </search>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <search class="propNewAdd"
+                 if="false">
+        </search>
+        <search class="propNewAdd"
+                 elif="true">
+        </search>
+        <search class="propNewAdd"
+                 elif="false">
+        </search>
+    </div>
+</div>

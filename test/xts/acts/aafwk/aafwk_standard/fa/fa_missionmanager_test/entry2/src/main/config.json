@@ -1,0 +1,83 @@
+{
+  "app": {
+    "bundleName": "com.example.missionmanager",
+    "vendor": "example",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.entry2",
+    "name": ".MyApplication",
+    "mainAbility": ".MainAbility",
+    "srcPath": "",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry2",
+      "moduleType": "feature",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry2_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility2",
+        "name": ".MainAbility2",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability2",
+        "formsEnabled": false,
+        "label": "$string:entry2_MainAbility2",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".MainAbility2",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],"reqPermissions": [
+      {"name":"ohos.permission.MANAGE_LOCAL_ACCOUNTS"},
+      {"name":"ohos.permission.INTERACT_ACROSS_LOCAL_ACCOUNTS_EXTENSION"},
+      {"name":"ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"},
+      {"name":"ohos.permission.MANAGE_MISSIONS"}
+      ]
+  }
+}

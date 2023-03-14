@@ -1,0 +1,129 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+config("wifi_fw_common_header") {
+  include_dirs = [
+    "idl_interface",
+    "//utils/native/base/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/sdk/include",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/interface",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client",
+  ]
+}
+
+config("wifi_idl_cxx_config") {
+  visibility = [ "//:*" ]
+  include_dirs = [ ":wifi_fw_common_header" ]
+
+  cflags = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+}
+
+ohos_source_set("wifi_utils") {
+  part_name = "wifi_standard"
+  sources = [ "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils/wifi_global_func.cpp" ]
+
+  configs = [
+    ":wifi_idl_cxx_config",
+    ":wifi_fw_common_header",
+  ]
+}
+
+ohos_source_set("net_helper") {
+  part_name = "wifi_standard"
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/base_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/http_request.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ip_tools.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ipv4_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ipv6_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/mac_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/network_interface.cpp",
+  ]
+
+  configs = [
+    ":wifi_idl_cxx_config",
+    ":wifi_fw_common_header",
+  ]
+}
+
+ohos_source_set("log_helper") {
+  part_name = "wifi_standard"
+  sources = [ "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log/log_helper.c" ]
+
+  configs = [ ":wifi_fw_common_header" ]
+}
+
+ohos_shared_library("wifi_idl_client") {
+  install_enable = true
+  sources = [
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/src/wifi_hid2d_msg.cpp",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/src/wifi_p2p_msg.cpp",
+    "idl_interface/i_wifi.c",
+    "idl_interface/i_wifi_chip.c",
+    "idl_interface/i_wifi_hotspot_iface.c",
+    "idl_interface/i_wifi_iface.c",
+    "idl_interface/i_wifi_p2p_iface.c",
+    "idl_interface/i_wifi_public_func.c",
+    "idl_interface/i_wifi_sta_iface.c",
+    "idl_interface/i_wifi_supplicant_iface.c",
+    "wifi_ap_hal_interface.cpp",
+    "wifi_base_hal_interface.cpp",
+    "wifi_chip_hal_interface.cpp",
+    "wifi_idl_client.cpp",
+    "wifi_idl_inner_interface.cpp",
+    "wifi_p2p_hal_interface.cpp",
+    "wifi_sta_hal_interface.cpp",
+    "wifi_supplicant_hal_interface.cpp",
+  ]
+
+  configs = [ ":wifi_fw_common_header" ]
+
+  deps = [
+    ":log_helper",
+    ":net_helper",
+    ":wifi_utils",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC:crpc_client",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  cflags_cc = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

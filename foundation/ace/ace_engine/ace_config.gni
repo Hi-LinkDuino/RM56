@@ -1,0 +1,145 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/clang/clang.gni")
+import("//build/ohos.gni")
+import("//build/test.gni")
+
+# Config args
+declare_args() {
+  # ace debug flag, enable debug features: like dcheck, thread-checker, mem-monitor...
+  enable_ace_debug = false
+
+  # only available when 'enable_ace_debug' set to 'true', show the LOGD infos.
+  enable_ace_debug_log = true
+
+  # only available when 'enable_ace_debug' set to 'true', show the private logs.
+  enable_ace_private_log = true
+
+  # show the instance id in logs.
+  enable_ace_instance_log = true
+
+  # Disable glfw window to build for PC preview scenario.
+  enable_glfw_window = false
+
+  # Enable when build for cross platform
+  is_cross_platform_build = false
+}
+
+use_external_v8_snapshot = false
+use_shared_v8 = true
+enable_dump_drawcmd = false
+use_mingw_win = "${current_os}_${current_cpu}" == "mingw_x86_64"
+use_mac = "${current_os}_${current_cpu}" == "mac_x64"
+
+# Config path
+ace_root = "//foundation/ace/ace_engine"
+ace_napi = "//foundation/ace/napi"
+
+if (!defined(aosp_libs_dir)) {
+  aosp_libs_dir = "//prebuilts/aosp_prebuilt_libs/asdk_libs"
+}
+libs_root = "${aosp_libs_dir}/sdk"
+
+ace_flutter_engine_root = "$ace_root/build/external_config/flutter"
+flutter_root = "//third_party/flutter"
+v8_root = "//third_party/v8"
+ark_tools_root = "//prebuilts/ace-toolkit/ace-loader/panda"
+node_js_path = "//prebuilts/ace-toolkit/nodejs/node-v12.18.4-linux-x64/bin/"
+
+# Config toolchain
+windows_buildtool = "//build/toolchain/mingw:mingw_x86_64"
+if (!defined(default_aosp_source_dir)) {
+  default_aosp_source_dir = "/"
+}
+objcopy_default = "${default_aosp_source_dir}/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/aarch64-linux-android/bin/objcopy"
+objcopy_mingw = "${default_aosp_source_dir}/prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/bin/objcopy"
+objcopy_x86_64 = "${default_aosp_source_dir}/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/x86_64-linux-android/bin/objcopy"
+mac_buildtool = "//build/toolchain/mac:clang_x64"
+objcopy_clang = "$clang_base_path/bin/llvm-objcopy"
+
+if (is_standard_system) {
+  objcopy_default = "//prebuilts/clang/ohos/linux-x86_64/llvm/bin/llvm-objcopy"
+  node_js_path =
+      "//prebuilts/build-tools/common/nodejs/node-v12.18.4-linux-x64/bin/"
+} else if (is_cross_platform_build && defined(aosp_objcopy)) {
+  objcopy_default = aosp_objcopy
+}
+
+# Config part name
+if (is_standard_system) {
+  ace_engine_part = "ace_engine_standard"
+  hilog_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  ark_runtime_path = "//ark/runtime_core"
+} else {
+  if (is_cross_platform_build) {
+    ace_engine_part = "ace_engine_cross"
+  } else {
+    ace_engine_part = "ace_engine_full"
+  }
+  hilog_deps = [ "hilog:libhilog" ]
+  ark_runtime_path = "//ark/runtime"
+}
+
+# Config defines
+ace_wearable_defines = [ "WEARABLE_PRODUCT" ]
+ace_ivi_defines = [ "IVI_PRODUCT" ]
+ace_common_defines = [ "ACE_LOG_TAG=\"Ace\"" ]
+
+if (enable_glfw_window) {
+  ace_common_defines += [ "USE_GLFW_WINDOW" ]
+}
+
+if (use_clang_coverage) {
+  ace_common_defines += [ "USE_CLANG_COVERAGE" ]
+}
+
+if (enable_ace_debug) {
+  ace_common_defines += [ "ACE_DEBUG" ]
+  if (enable_ace_debug_log) {
+    ace_common_defines += [ "ACE_DEBUG_LOG" ]
+  }
+  if (enable_ace_private_log) {
+    ace_common_defines += [ "ACE_PRIVATE_LOG" ]
+  }
+}
+
+if (enable_ace_instance_log) {
+  ace_common_defines += [ "ACE_INSTANCE_LOG" ]
+}
+
+if (enable_dump_drawcmd) {
+  ace_common_defines += [ "DUMP_DRAW_CMD" ]
+}
+
+ace_platforms = []
+
+_ace_adapter_dir = rebase_path("$ace_root/adapter", root_build_dir)
+_adapters = exec_script("build/search.py", [ _ace_adapter_dir ], "list lines")
+foreach(item, _adapters) {
+  import_var = {
+  }
+  import_var = {
+    import("$ace_root/adapter/$item/build/platform.gni")
+  }
+
+  if (defined(import_var.platforms)) {
+    foreach(platform, import_var.platforms) {
+      if (defined(platform.name)) {
+        ace_platforms += [ platform ]
+      }
+    }
+  }
+}
+
+print(ace_platforms)

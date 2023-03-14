@@ -1,0 +1,176 @@
+{
+  "app": {
+    "bundleName": "com.example.third1",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {
+    "default":{}
+  },
+  "module": {
+    "package": "com.example.third1.entry",
+    "name": "com.example.third1.BmsThirdBundle1",
+    "colorMode": "light",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.third1.MainAbility",
+        "icon": "$media:icon",
+        "form": {
+          "formEntity": [
+            "homeScreen",
+            "searchbox"
+          ],
+          "defaultHeight": 100,
+          "defaultWidth": 200,
+          "minHeight": 50,
+          "minWidth": 100
+        },
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "forms": [
+          {
+            "colorMode": "light",
+            "description": " JS1 Form",
+            "supportDimensions": [
+              "1*2",
+              "2*2",
+              "2*4"
+            ],
+            "type": "JS",
+            "jsComponentName": "JS_name1",
+            "metaData": {
+              "customizeData": [
+                {
+                  "name": "originWidgetName1",
+                  "value": "com.openharmony.weather.testWidget1"
+                }
+              ]
+            },
+            "isDefault": true,
+            "deepLink": "ability://com.example.myapplication.fa/.MainAbility",
+            "defaultDimension": "1*2",
+            "name": "Form_JS1",
+            "scheduledUpateTime": "21:55",
+            "updateEnabled": true,
+            "updateDuration": 1
+          }
+        ],
+        "launchType": "standard",
+        "visible": true,
+        "metaData": {
+          "customizeData": [
+            {
+              "name": "Data1",
+              "value": "float",
+              "extra": "$string:mainability_description"
+            }
+          ]
+        }
+      },
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "backgroundModes": [
+          "dataTransfer",
+          "audioPlayback",
+          "audioRecording",
+          "location",
+          "bluetoothInteraction",
+          "multiDeviceConnection",
+          "wifiInteraction",
+          "voip",
+          "taskKeeping"
+        ],
+        "name": "com.example.third1.MainAbilityA",
+        "icon": "$media:icon",
+        "form": {
+          "formEntity": [
+            "homeScreen",
+            "searchbox"
+          ],
+          "defaultHeight": 100,
+          "defaultWidth": 200,
+          "minHeight": 50,
+          "minWidth": 100
+        },
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "service",
+        "launchType": "standard",
+        "visible": true
+      }
+    ],
+    "shortcuts": [
+      {
+        "icon": "$media:icon",
+        "shortcutId": "id.third1",
+        "label": "$string:app_name",
+        "intents": [
+          {
+            "targetClass": "com.example.third1.MainAbility",
+            "targetBundle": "com.example.third1"
+          }
+        ]
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],
+    "defPermissions": [
+      {
+        "name": "com.permission.PERMISSION_THIRD1",
+        "grantMode": "user_grant",
+        "availableScope": ["signature"]
+      },
+      {
+        "name": "com.permission.PERMISSION_B",
+        "grantMode": "system_grant",
+        "availableScope": ["signature"]
+      }
+    ]
+  }
+}

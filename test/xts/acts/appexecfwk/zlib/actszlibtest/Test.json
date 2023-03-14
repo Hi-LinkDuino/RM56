@@ -1,0 +1,28 @@
+{
+    "description": "Config for zlib test cases",
+    "driver": {
+        "module-name": "ActsZlibTest",
+        "native-test-timeout": "120000",
+        "native-test-device-path": "/data/local/tmp",
+        "runtime-hint": "1s",
+        "type": "CppTest"
+    },
+    "kits": [
+        {
+            "post-push" : [
+                "chmod -R 777 /data/local/tmp/*"
+            ],
+            "push": [
+                "ActsZlibTest->/data/local/tmp/ActsZlibTest"
+            ],
+            "type": "PushKit"
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "remount",
+                "mkdir /data/test"
+            ]
+        }
+    ]
+}

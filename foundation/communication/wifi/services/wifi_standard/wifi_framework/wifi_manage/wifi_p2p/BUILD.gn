@@ -1,0 +1,117 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_shared_library("wifi_p2p_service") {
+  install_enable = true
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/dhcpd_interface.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/if_config.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/mac_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/handler.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/internal_message.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/message_queue.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/state.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/state_machine.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/wifi_broadcast_helper.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_hid2d_service_utils.cpp",
+    "authorizing_negotiation_request_state.cpp",
+    "group_formed_state.cpp",
+    "group_negotiation_state.cpp",
+    "invitation_received_state.cpp",
+    "invitation_request_state.cpp",
+    "p2p_default_state.cpp",
+    "p2p_disabled_state.cpp",
+    "p2p_disabling_state.cpp",
+    "p2p_enabled_state.cpp",
+    "p2p_enabling_state.cpp",
+    "p2p_group_formation_state.cpp",
+    "p2p_group_join_state.cpp",
+    "p2p_group_operating_state.cpp",
+    "p2p_idle_state.cpp",
+    "p2p_interface.cpp",
+    "p2p_inviting_state.cpp",
+    "p2p_monitor.cpp",
+    "p2p_state_machine.cpp",
+    "provision_discovery_state.cpp",
+    "wifi_p2p_device_manager.cpp",
+    "wifi_p2p_dns_sd_service_info.cpp",
+    "wifi_p2p_dns_sd_service_request.cpp",
+    "wifi_p2p_dns_sd_service_response.cpp",
+    "wifi_p2p_dns_txt_record.cpp",
+    "wifi_p2p_group_info_proxy.cpp",
+    "wifi_p2p_group_manager.cpp",
+    "wifi_p2p_service.cpp",
+    "wifi_p2p_service_manager.cpp",
+    "wifi_p2p_service_request_list.cpp",
+    "wifi_p2p_service_response_list.cpp",
+    "wifi_p2p_temp_disc_event.cpp",
+    "wifi_p2p_upnp_service_info.cpp",
+    "wifi_p2p_upnp_service_request.cpp",
+    "wifi_p2p_upnp_service_response.cpp",
+  ]
+
+  include_dirs = [
+    "./",
+    "//utils/native/base/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_ap",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client/idl_interface",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta",
+  ]
+
+  cflags_cc = [
+    "-std=c++17",
+    "-Wall",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  defines = [ "AP_NOT_DIRECT_USE_DHCP" ]
+  if (product_name == "rk3568") {
+    defines += [ "PRODUCT_RK" ]
+  }
+
+  external_deps = [
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "netmanager_base:net_conn_manager_if",
+  ]
+
+  deps = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service:dhcp_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//utils/native/base:utils",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

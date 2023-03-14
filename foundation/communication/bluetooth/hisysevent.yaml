@@ -1,0 +1,92 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#    http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: BLUETOOTH
+
+BR_SWITCH_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth br state message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  STATE: {type: INT32, desc: br state}
+
+BLE_SWITCH_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth ble state message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  STATE: {type: INT32, desc: ble state}
+
+DISCOVERY_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth discovery state message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  STATE: {type: INT32, desc: br discovery state}
+
+A2DP_CONNECTED_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth a2dp profile connected state message}
+  STATE: {type: INT32, desc: a2dp profile connected state}
+
+HFP_CONNECTED_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth hfp profile state message}
+  STATE: {type: INT32, desc: hfp profile connected state}
+
+GATT_SERVER_CONN_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth gatt server profile state message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  STATE: {type: INT32, desc: gatt profile connected state}
+
+GATT_CLIENT_CONN_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth gatt clinet profile state message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  STATE: {type: INT32, desc: gatt profile connected state}
+
+BLE_SCAN_START:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth scan start message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  TYPE: {type: INT32, desc: 1 is batch 0 is not}
+
+BLE_SCAN_STOP:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth scan stop message}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+
+BLE_SCAN_DUTY_CYCLE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: bluetooth scan duly cycle message}
+  WINDOW: {type: INT32, desc: scan duration time}
+  INTERVAL: {type: INT32, desc: Total time, scan time + rest time}
+  TYPE: {type: INT32, desc: scan type}
+
+SPP_CONNECT_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, desc: bluetooth spp connect message}
+  ACTION: {type: STRING, desc: connect or close}
+  ID: {type: INT32, desc: socket number}
+  ADDRESS: {type: STRING, desc: bt device address}
+  PID: {type: INT32, desc: PID value}
+  UID: {type: INT32, desc: UID value}
+
+GATT_CONNECT_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, desc: bluetooth gatt connect message}
+  ADDRESS: {type: STRING, desc: ble device address}
+  STATE: {type: INT32, desc: connect state}
+  ROLE: {type: INT32, desc: device role}
+
+GATT_APP_REGISTER:
+  __BASE: {type: STATISTIC, level: MINOR, desc: bluetooth gatt app register message}
+  ACTION: {type: STRING, desc: register or deregister}
+  SIDE: {type: STRING, desc: client or server}
+  ADDRESS: {type: STRING, desc: remote ble device address}
+  PID: {type: INT32, desc: PID value}
+  UID: {type: INT32, desc: UID value}
+  APPID: {type: INT32, desc: gatt app id}

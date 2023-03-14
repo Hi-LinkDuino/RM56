@@ -1,0 +1,242 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            option通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <select>
+            <option value="选项1" id="idProp">选项1
+            </option>
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <select>
+            <option value="选项1" id="classProp"
+                    class="classProp">选项1
+            </option>
+            <option value="选项1" id="classPropNone"
+                    class="">选项2
+            </option>
+        </select>
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <select>
+            <option value="选项1" id="styleProp"
+                    style="width:10%;height:20px;background-color:red">选项1
+            </option>
+        </select>
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <select>
+            <option value="选项1" id="refProp"
+                    ref="refProp">选项1
+            </option>
+            <option value="选项2" id="refPropNone"
+                    ref="">选项2
+            </option>
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+
+        <select>
+            <option value="选项1" id="disabledPropTrue"
+                    disabled="true">选项1
+            </option>
+            <option value="选项2" id="disabledPropFalse"
+                    disabled="false">选项2
+            </option>
+            <option value="选项3" id="disabledPropNone"
+                    disabled="">选项3
+            </option>
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <select>
+            <option value="选项1" id="focusablePropTrue"
+                    focusable="true">选项1
+            </option>
+            <option value="选项2" id="focusablePropFalse"
+                    focusable="false">选项2
+            </option>
+            <option value="选项3" id="focusablePropNone"
+                    focusable="">选项3
+            </option>
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <select>
+            <option value="选项1" id="dataProp"
+                    data-option="通用属性 -- data-*">选项1
+            </option>
+            <option value="选项2" id="dataPropNone"
+                    data-option="">选项2
+            </option>
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <select>
+            <option value="选项1" id="clickEffectPropSmall"
+                    click-effect="spring-small">选项1
+            </option>
+            <option value="选项2" id="clickEffectPropMedium"
+                    click-effect="spring-medium">选项2
+            </option>
+            <option value="选项3" id="clickEffectPropLarge"
+                    click-effect="spring-large">选项3
+            </option>
+            <option value="选项4" id="clickEffectPropNone"
+                    click-effect="">选项4
+            </option>
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <select>
+            <option value="选项1" id="dirPropRtl"
+                    dir="rtl">选项1
+            </option>
+            <option value="选项2" id="dirPropAuto"
+                    dir="auto">选项2
+            </option>
+            <option value="选项3" id="dirPropLtr"
+                    dir="ltr">选项3
+            </option>
+            <option value="选项4" id="dirPropNone"
+                    dir="">选项4
+            </option>
+        </select>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <select>
+            <option value="选项1" id="forPropNull"
+                    for="">选项1
+            </option>
+            <option value="选项1" id="forPropOne"
+                    for="{{listOne}}">选项1
+            </option>
+            <option value="选项1" id="forPropThree"
+                    for="{{listThree}}">选项1
+            </option>
+        </select>
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <select>
+            <option value="选项1" id="ifPropTrue"
+                    if="true">选项1
+            </option>
+            <option value="选项1" class="option"
+                    elif="true">选项2
+            </option>
+            <option value="选项1" class="option"
+                    elif="false">选项3
+            </option>
+            <option value="选项1" class="option"
+                    elif="">选项4
+            </option>
+        </select>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <select>
+            <option value="选项1" id="showPropTrue"
+                    show="true">选项1
+            </option>
+            <option value="选项2" id="showPropFalse"
+                    show="false">选项2
+            </option>
+            <option value="选项3" id="showPropNone"
+                    show="">选项3
+            </option>
+        </select>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            option特有属性
+        </text>
+        <text  class="sub-title">
+            option特有属性 -- option
+        </text>
+        <select>
+            <option value="选项1" id="selectedTrue" option="option">optionVal1</option>
+            <option value="选项2" id="selectedTrue" option="">optionVal2</option>
+        </select>
+        <text  class="sub-title">
+            option特有属性 -- selected
+        </text>
+        <select>
+            <option value="选项1" id="selectedTrue" selected="true">optionVal1</option>
+            <option value="选项1" id="selectedFalse" selected="false">optionVal2</option>
+        </select>
+        <text  class="sub-title">
+            option特有属性 -- value
+        </text>
+        <select>
+            <option value="optionValue" id="optionValue">optionVal</option>
+        </select>
+        <text  class="sub-title">
+            option特有属性 -- icon
+        </text>
+        <select>
+            <option value="optionIcon" icon="common/images/icon.png" id="optionIcon">optionVal</option>
+        </select>
+        <text  class="sub-title">
+            option特有属性 -- action
+        </text>
+        <select>
+            <option value="optionIcon" action="popup" class="option">optionVal</option>
+            <option value="optionIcon" action="show" class="option">optionVal</option>
+        </select>
+        <text  class="sub-title">
+            option特有属性 -- tid
+        </text>
+        <select>
+            <option value="option" tid="tid" class="option">option</option>
+            <option value="option" tid="" class="option">option2</option>
+        </select>
+        <!--<text  class="sub-title">
+            option特有属性 -- shareid
+        </text>
+        <select>
+            <option value="optionIcon" shareid="shareid" class="option">optionVal1</option>
+            <option value="optionIcon" shareid="" class="option">optionVal2</option>
+        </select>-->
+    </div>
+</div>

@@ -1,0 +1,61 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//drivers/adapter/khdf/liteos/hdf.gni")
+
+FRAMEWORKS_INPUT_ROOT = "$HDF_FRAMEWORKS_PATH/model/input/driver"
+
+module_switch = defined(LOSCFG_DRIVERS_HDF_INPUT)
+module_name = "hdf_input_driver"
+hdf_driver(module_name) {
+  sources = [
+    "$FRAMEWORKS_INPUT_ROOT/event_hub.c",
+    "$FRAMEWORKS_INPUT_ROOT/hdf_hid_adapter.c",
+    "$FRAMEWORKS_INPUT_ROOT/hdf_input_device_manager.c",
+    "$FRAMEWORKS_INPUT_ROOT/hdf_key.c",
+    "$FRAMEWORKS_INPUT_ROOT/hdf_touch.c",
+    "$FRAMEWORKS_INPUT_ROOT/input_bus_ops/input_i2c_ops.c",
+    "$FRAMEWORKS_INPUT_ROOT/input_config_parser.c",
+  ]
+
+  if (defined(LOSCFG_DRIVERS_HDF_TP_5P5_GT911)) {
+    sources += [ "$FRAMEWORKS_INPUT_ROOT/touchscreen/touch_gt911.c" ]
+  }
+
+  if (defined(LOSCFG_DRIVERS_HDF_TP_2P35_FT6236)) {
+    sources += [ "$FRAMEWORKS_INPUT_ROOT/touchscreen/touch_ft6336.c" ]
+  }
+}
+
+config("public") {
+  include_dirs = [
+    "$FRAMEWORKS_INPUT_ROOT",
+    "$FRAMEWORKS_INPUT_ROOT/input_bus_ops",
+    "//third_party/FreeBSD/sys/dev/evdev/",
+  ]
+}

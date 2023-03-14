@@ -1,0 +1,93 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+if (os_level == "standard") {
+  config("libhapverify_config") {
+    visibility = [ ":*" ]
+    include_dirs = [
+      "//base/security/appverify/interfaces/innerkits/appverify/include",
+      "//third_party/openssl/include",
+      "//third_party/json/include",
+      "//third_party/json/single_include",
+      "//utils/native/base/include",
+    ]
+  }
+
+  ohos_shared_library("libhapverify") {
+    sources = [
+      "src/common/hap_byte_buffer.cpp",
+      "src/common/hap_byte_buffer_data_source.cpp",
+      "src/common/hap_file_data_source.cpp",
+      "src/common/random_access_file.cpp",
+      "src/init/device_type_manager.cpp",
+      "src/init/hap_crl_manager.cpp",
+      "src/init/json_parser_utils.cpp",
+      "src/init/trusted_root_ca.cpp",
+      "src/init/trusted_source_manager.cpp",
+      "src/init/trusted_ticket_manager.cpp",
+      "src/interfaces/hap_verify.cpp",
+      "src/interfaces/hap_verify_result.cpp",
+      "src/provision/provision_verify.cpp",
+      "src/ticket/ticket_verify.cpp",
+      "src/util/digest_parameter.cpp",
+      "src/util/hap_cert_verify_openssl_utils.cpp",
+      "src/util/hap_profile_verify_utils.cpp",
+      "src/util/hap_signing_block_utils.cpp",
+      "src/util/hap_verify_openssl_utils.cpp",
+      "src/verify/hap_verify_v2.cpp",
+    ]
+
+    public_configs = [ ":libhapverify_config" ]
+
+    cflags_cc = [
+      "-DHILOG_ENABLE",
+      "-fvisibility=hidden",
+    ]
+
+    ldflags = [ "-Wl,--exclude-libs=libcrypto_static.a" ]
+
+    deps = [
+      "//third_party/openssl:libcrypto_static",
+      "//utils/native/base:utils",
+    ]
+
+    if (is_standard_system) {
+      defines = [ "STANDARD_SYSTEM" ]
+
+      external_deps = [
+        "hiviewdfx_hilog_native:libhilog",
+        "startup_l2:syspara",
+      ]
+    } else {
+      external_deps = [
+        "ipc:ipc_core",
+        "os_account:libaccountkits",
+        "shared_library:libhilog",
+      ]
+
+      if (!build_public_version) {
+        deps += [ "//base/security/securityadapter/interfaces/innerkits/securitydiagnose:libsecuritydiagnose_static" ]
+        defines = [ "SUPPORT_GET_DEVICE_TYPES" ]
+      }
+    }
+
+    part_name = "appverify"
+
+    subsystem_name = "security"
+  }
+} else {
+  group("libhapverify") {
+  }
+}

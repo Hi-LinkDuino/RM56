@@ -1,0 +1,88 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+HDF_FRAMEWORKS = "//drivers/framework"
+
+import("//build/ohos.gni")
+config("hdf_platform_pub_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "$HDF_FRAMEWORKS/include/core",
+    "$HDF_FRAMEWORKS/include/utils",
+    "$HDF_FRAMEWORKS/utils/include",
+    "$HDF_FRAMEWORKS/include/osal",
+    "$HDF_FRAMEWORKS/include/platform",
+    "$HDF_FRAMEWORKS/support/platform/include",
+    "$HDF_FRAMEWORKS/support/platform/include/fwk",
+    "$HDF_FRAMEWORKS/support/platform/include/gpio",
+    "$HDF_FRAMEWORKS/support/platform/include/hdmi",
+    "$HDF_FRAMEWORKS/support/platform/include/i2c",
+    "$HDF_FRAMEWORKS/support/platform/include/pwm",
+    "$HDF_FRAMEWORKS/support/platform/include/spi",
+    "$HDF_FRAMEWORKS/support/platform/include/uart",
+    "$HDF_FRAMEWORKS/support/platform/include/adc",
+    "$HDF_FRAMEWORKS/support/platform/include/dac",
+    "$HDF_FRAMEWORKS/support/platform/include/regulator",
+    "$HDF_FRAMEWORKS/support/platform/include/rtc",
+    "$HDF_FRAMEWORKS/support/platform/include/timer",
+    "$HDF_FRAMEWORKS/support/platform/include/watchdog",
+    "$HDF_FRAMEWORKS/../adapter/uhdf/posix/include",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+}
+
+ohos_shared_library("hdf_platform") {
+  include_dirs = []
+
+  public_configs = [ ":hdf_platform_pub_config" ]
+
+  sources = [
+    "$HDF_FRAMEWORKS/model/storage/src/mmc/emmc_if.c",
+    "$HDF_FRAMEWORKS/model/storage/src/mmc/mmc_if.c",
+    "$HDF_FRAMEWORKS/support/platform/src/adc/adc_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/dac/dac_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/gpio/gpio_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/hdmi/hdmi_if.c",
+    "$HDF_FRAMEWORKS/support/platform/src/i2c/i2c_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/pcie/pcie_if.c",
+    "$HDF_FRAMEWORKS/support/platform/src/pwm/pwm_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/rtc/rtc_base.c",
+    "$HDF_FRAMEWORKS/support/platform/src/rtc/rtc_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/spi/spi_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/timer/timer_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/uart/uart_if_u.c",
+    "$HDF_FRAMEWORKS/support/platform/src/watchdog/watchdog_if_u.c",
+  ]
+
+  deps = [
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+
+  defines = [ "__USER__" ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+
+  # install_images = [ "vendor" ]
+  subsystem_name = "hdf"
+  part_name = "device_driver_framework"
+}

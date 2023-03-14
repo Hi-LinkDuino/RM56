@@ -1,0 +1,5 @@
+<div class="container">
+    <text class="title">
+        {{ $t('finishWithResultTest1') }} {{ title }}
+    </text>
+</div>

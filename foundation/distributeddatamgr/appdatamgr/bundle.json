@@ -1,0 +1,152 @@
+{
+    "name": "@ohos/distributeddatamgr_appdatamgr",
+    "version": "3.1.0",
+    "description": "Local Data Management",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache V2",
+    "repository": "https://gitee.com/openharmony/distributeddatamgr_appdatamgr",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "foundation"
+    ],
+    "keywords": [
+        "distributeddatamgr",
+        "appdatamgr"
+    ],
+    "envs": [],
+    "dirs": {},
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "foundation/distributeddatamgr/appdatamgr"
+    },
+    "component": {
+        "name": "native_appdatamgr",
+        "subsystem": "distributeddatamgr",
+        "syscap": [
+            "SystemCapability.DistributedDataManager.DataShare.Core",
+            "SystemCapability.DistributedDataManager.DataShare.Consumer",
+            "SystemCapability.DistributedDataManager.DataShare.Provider",
+            "SystemCapability.DistributedDataManager.RelationalStore.Core",
+            "SystemCapability.DistributedDataManager.Preferences.Core"
+        ],
+        "features": ["native_appdatamgr_rdb_support_icu"],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "want",
+                "libhilog",
+                "ipc_core",
+                "ace_napi",
+                "samgr_proxy"
+            ],
+            "third_party": [
+                "sqlite",
+                "shared_icuuc",
+                "shared_icui18n",
+                "libxml2",
+                "libsec_shared",
+                "gtest_main"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_appdatafwk:native_appdatafwk",
+                "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_preferences:native_preferences",
+                "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability:native_dataability",
+                "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb:native_rdb",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_dataability:dataability",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_preferences:preferences",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_preferences:storage",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_preferences:storage_napi",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_rdb:rdb"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb:native_rdb",
+                    "header": {
+                        "header_files": [
+                            "abs_rdb_predicates.h",
+                            "abs_result_set.h",
+                            "abs_shared_result_set.h",
+                            "raw_rdb_predicates.h",
+                            "rdb_errno.h",
+                            "rdb_helper.h",
+                            "rdb_open_callback.h",
+                            "rdb_predicates.h",
+                            "rdb_store.h",
+                            "rdb_store_config.h",
+                            "result_set.h",
+                            "shared_result_set.h",
+                            "transaction_observer.h",
+                            "value_object.h",
+                            "values_bucket.h"
+                        ],
+                        "header_base": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb/include"
+                    }
+                },
+                {
+                    "name": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_preferences:native_preferences",
+                    "header": {
+                        "header_files": [
+                            "preferences.h",
+                            "preferences_observer.h",
+                            "preferences_helper.h",
+                            "preferences_errno.h",
+                            "preferences_xml_utils.h",
+                            "preferences_value.h"
+                        ],
+                        "header_base": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_preferences/include"
+                    }
+                },
+                {
+                    "name": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_appdatafwk:native_appdatafwk",
+                    "header": {
+                        "header_files": [
+                            "shared_block.h"
+                        ],
+                        "header_base": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_appdatafwk/include"
+                    }
+                },
+                {
+                    "name": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability:native_dataability",
+                    "header": {
+                        "header_files": [
+                            "data_ability_predicates.h",
+                            "predicates_utils.h"
+                        ],
+                        "header_base": "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability/include"
+                    }
+                }
+            ],
+            "test": [
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/innerkitsimpl/native_preferences/test:unittest",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/innerkitsimpl/native_dataability/test:unittest",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/innerkitsimpl/native_rdb/test:unittest",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_rdb/test:unittest",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_preferences/test:unittest",
+                "//foundation/distributeddatamgr/appdatamgr/frameworks/jskitsimpl/napi_dataability/test:unittest"
+            ]
+        }
+    }
+}

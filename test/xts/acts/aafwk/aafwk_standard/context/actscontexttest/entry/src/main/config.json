@@ -1,0 +1,105 @@
+{
+  "app": {
+    "bundleName": "com.example.actscontext",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.actscontext",
+    "name": ".MyApplication",
+    "deviceType": [
+      "phone"
+    ],
+    "reqPermissions": [
+      {
+        "name": "com.example.permission",
+        "reason": "$string:permreason_example",
+        "usedScene": {
+          "ability": [
+            "com.example.Ability",
+            "com.example.AbilityBackground"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "com.example.permission.user",
+        "reason": "$string:permreason_example",
+        "usedScene": {
+          "ability": [
+            "com.example.Ability",
+            "com.example.AbilityBackground"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.INSTALL_BUNDLE",
+        "reason": "need use ohos.permission.INSTALL_BUNDLE"
+      },
+      {
+        "name":"ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
+        "reason":"need use ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
+      },
+      {
+        "name":"ohos.permission.CHANGE_ABILITY_ENABLED_STATE",
+        "reason":"need use ohos.permission.CHANGE_ABILITY_ENABLED_STATE"
+      },
+      {
+        "name":"ohos.permission.REMOVE_CACHE_FILES",
+        "reason":"need use ohos.permission.REMOVE_CACHE_FILES"
+      },
+      {
+        "name":"ohos.permission.LISTEN_BUNDLE_CHANGE",
+        "reason":"need use ohos.permission.LISTEN_BUNDLE_CHANGE"
+      }
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "visible": true,
+        "name": "com.example.actscontext.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

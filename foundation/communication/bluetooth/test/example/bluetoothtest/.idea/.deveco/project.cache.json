@@ -1,0 +1,12 @@
+{
+	"BuildOptions":{
+		"BUNDLE_NAME":"com.ohos.bttest",
+		"BUILD_PATH":{
+			"OUTPUT_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\build\\outputs\\default"
+		},
+		"SELECT_BUILD_PRODUCT":"default"
+	},
+	"CommonInfo":{
+		"project.ide.version":"3.0.0.993"
+	}
+}

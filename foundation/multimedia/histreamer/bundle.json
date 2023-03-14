@@ -1,0 +1,57 @@
+{
+    "name": "@ohos/histreamer",
+    "description": "Histreamer engine.",
+    "optional": "true",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "foundation/multimedia/histreamer"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "multimedia_histreamer",
+        "subsystem": "multimedia",
+        "syscap": [],
+        "features": [
+          "multimedia_histreamer_enable_plugin_ffmpeg_adapter",
+          "multimedia_histreamer_enable_plugin_hdi_adapter",
+          "multimedia_histreamer_enable_plugin_file_source",
+          "multimedia_histreamer_enable_plugin_file_fd_source",
+          "multimedia_histreamer_enable_plugin_http_source",
+          "multimedia_histreamer_enable_plugin_stream_source",
+          "multimedia_histreamer_enable_plugin_minimp3_adapter",
+          "multimedia_histreamer_enable_plugin_minimp4_demuxer",
+          "multimedia_histreamer_enable_plugin_aac_demuxer",
+          "multimedia_histreamer_enable_plugin_std_audio_capture",
+          "multimedia_histreamer_enable_plugin_file_sink",
+          "multimedia_histreamer_enable_plugin_audio_server_sink",
+          "multimedia_histreamer_enable_recorder"
+        ],
+        "adapted_system_type": [
+            "mini",
+            "small",
+            "standard"
+        ],
+        "rom": "622KB",
+        "ram": "",
+        "deps": {
+            "third_party": [
+                "ffmpeg",
+                "minimp3",
+                "minimp4"
+            ],
+            "components": [
+                "hilog_lite"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/multimedia/histreamer:histreamer"
+            ],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

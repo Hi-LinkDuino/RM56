@@ -1,0 +1,47 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/ohos.gni")
+
+config("hiview_adapter_utils_config") {
+  visibility = [ "*:*" ]
+
+  include_dirs = [
+    ".",
+    "include",
+    "$hiview_adapter/system_service/include",
+  ]
+}
+
+ohos_source_set("hiview_adapter_utility") {
+  public_configs = [ ":hiview_adapter_utils_config" ]
+
+  sources = [
+    "dynamic_module.cpp",
+    "platform/ohos/common_utils.cpp",
+    "platform/ohos/file_util.cpp",
+    "platform/ohos/socket_util.cpp",
+    "platform/ohos/thread_util.cpp",
+    "platform/ohos/time_util.cpp",
+    "time_util.cpp",
+  ]
+
+  deps = [
+    "$hiview_adapter/system_service:system_service",
+    "//utils/native/base:utils",
+  ]
+
+  part_name = "hiview"
+  subsystem_name = "hiviewdfx"
+  external_deps = [ "hilog_native:libhilog" ]
+}

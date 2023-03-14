@@ -1,0 +1,109 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos.gni")
+import("//build/ohos/build_var.gni")
+
+# import target_platform_list
+import("${build_configs_path}/platforms_list.gni")
+group("make_images") {
+  deps = []
+  foreach(_platform, target_platform_list) {
+    deps += [
+      ":${_platform}_system_image",
+      ":${_platform}_userdata_image",
+      ":${_platform}_vendor_image",
+    ]
+    if (!is_asan) {
+      deps += [ ":${_platform}_updater_image" ]
+    }
+    if (enable_ramdisk) {
+      deps += [ ":${_platform}_ramdisk_image" ]
+    }
+  }
+}
+
+build_image_tools_path = [
+  "//out/${device_name}/clang_x64/distributeddatamgr/e2fsprogs",
+  "//out/${device_name}/clang_x64/filemanagement/storage_service",
+  "//third_party/e2fsprogs/prebuilt/host/bin",
+  "//build/ohos/images/mkimage",
+]
+
+foreach(_platform, target_platform_list) {
+  current_platform = _platform
+  current_platform_dir = "${product_output_dir}/$current_platform"
+
+  system_module_info_list = "${current_platform_dir}/system_module_info.json"
+  system_modules_list = "${current_platform_dir}/system_modules_list.txt"
+
+  image_list = [
+    "system",
+    "vendor",
+    "userdata",
+    "updater",
+  ]
+  if (enable_ramdisk) {
+    image_list += [ "ramdisk" ]
+  }
+  foreach(_image_name, image_list) {
+    action_with_pydeps("${_platform}_${_image_name}_image") {
+      script = "//build/ohos/images/build_image.py"
+      depfile = "$target_gen_dir/$target_name.d"
+      deps = [ "//build/ohos/packages:${_platform}_install_modules" ]
+
+      image_config_file =
+          "//build/ohos/images/mkimage/${_image_name}_image_conf.txt"
+      device_image_config_file =
+          "${product_output_dir}/imagesconf/${_image_name}_image_conf.txt"
+      if (_image_name == "ramdisk") {
+        output_image_file = "$root_build_dir/${_image_name}.img"
+      } else {
+        output_image_file = "$current_platform_dir/images/${_image_name}.img"
+      }
+      image_input_path = "$current_platform_dir/${_image_name}"
+      if (_image_name == "userdata") {
+        image_input_path = "$current_platform_dir/data"
+      }
+
+      sources = [
+        image_config_file,
+        system_module_info_list,
+        system_modules_list,
+      ]
+      outputs = [ output_image_file ]
+      args = [
+        "--depfile",
+        rebase_path(depfile, root_build_dir),
+        "--image-name",
+        _image_name,
+        "--input-path",
+        rebase_path(image_input_path, root_build_dir),
+        "--image-config-file",
+        rebase_path(image_config_file, root_build_dir),
+        "--device-image-config-file",
+        rebase_path(device_image_config_file, root_build_dir),
+        "--output-image",
+        rebase_path(output_image_file, root_build_dir),
+        "--target-cpu",
+        target_cpu,
+        "--build-image-tools-path",
+      ]
+      args += rebase_path(build_image_tools_path, root_build_dir)
+      if (sparse_image) {
+        args += [ "--sparse-image" ]
+      }
+    }
+  }
+}

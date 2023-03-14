@@ -1,0 +1,298 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            textarea通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <textarea id="idProp">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <textarea id="classProp"
+             class="classProp">
+        </textarea>
+        <textarea id="classPropNone"
+             class="">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <textarea id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <textarea id="refProp"
+             ref="refProp">
+        </textarea>
+        <textarea id="refPropNone"
+             ref="">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <textarea id="disabledPropTrue"
+             disabled="true">
+        </textarea>
+        <textarea id="disabledPropFalse"
+             disabled="false">
+        </textarea>
+        <textarea id="disabledPropNone"
+             disabled="">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <textarea id="focusablePropTrue"
+             focusable="true">
+        </textarea>
+        <textarea id="focusablePropFalse"
+             focusable="false">
+        </textarea>
+        <textarea id="focusablePropNone"
+             focusable="">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <textarea id="dataProp"
+             data-textarea="通用属性 -- data-*">
+        </textarea>
+        <textarea id="dataPropNone"
+             data-textarea="">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <textarea id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </textarea>
+        <textarea id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </textarea>
+        <textarea id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </textarea>
+        <textarea id="clickEffectPropNone"
+             click-effect="">
+        </textarea>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <textarea id="dirPropRtl"
+             dir="rtl">
+        </textarea>
+        <textarea id="dirPropAuto"
+             dir="auto">
+        </textarea>
+        <textarea id="dirPropLtr"
+             dir="ltr">
+        </textarea>
+        <textarea id="dirPropNone"
+             dir="">
+        </textarea>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <textarea id="forPropNull"
+             for="">
+        </textarea>
+        <textarea id="forPropOne"
+             for="{{listOne}}">
+        </textarea>
+        <textarea id="forPropThree"
+             for="{{listThree}}">
+        </textarea>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <textarea id="ifPropTrue"
+             if="true">
+        </textarea>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <textarea id="showPropTrue"
+             show="true">
+        </textarea>
+        <textarea id="showPropFalse"
+             show="false">
+        </textarea>
+        <textarea id="showPropNone"
+             show="">
+        </textarea>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            textarea特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- placeholder
+        </text>
+        <textarea id="placeholderNone"
+                  placeholder="">
+        </textarea>
+        <textarea id="placeholder"
+                  placeholder="please--input">
+        </textarea>
+
+        <text class="sub-title">
+            特有属性 -- maxlength
+        </text>
+        <textarea id="maxlength20"
+                  maxlength="20">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- headericon
+        </text>
+        <textarea id="headericon"
+                  headericon="common/images/icon.png">
+        </textarea>
+        <textarea id="headericonNone"
+                  headericon="">
+        </textarea>
+
+        <text class="sub-title">
+            特有属性 -- extend
+        </text>
+        <textarea id="extendNone"
+                  extend="">
+        </textarea>
+        <textarea id="extendFalse"
+                  extend="false">
+        </textarea>
+        <textarea id="extendTrue"
+                  extend="true">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <textarea id="valueNone"
+                  value="">
+        </textarea>
+        <textarea id="value"
+                  value="text">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- showcounter
+        </text>
+        <textarea id="showcounterNone"
+                  showcounter="">
+        </textarea>
+        <textarea id="showcounterFalse"
+                  showcounter="false">
+        </textarea>
+        <textarea id="showcounterTrue"
+                  showcounter="true">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- menuoptions
+        </text>
+        <textarea id="menuoptionsNone"
+                  menuoptions="">
+        </textarea>
+        <textarea id="menuoptions"
+                  menuoptions="{{OptionArray}}">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- autofocus
+        </text>
+        <textarea id="autofocusNone"
+                  autofocus="">
+        </textarea>
+        <textarea id="autofocusFalse"
+                  autofocus="false">
+        </textarea>
+        <textarea id="autofocusTrue"
+                  autofocus="true">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- selectedstart
+        </text>
+        <textarea id="selectedstartNone"
+                  selectedstart="">
+        </textarea>
+        <textarea id="selectedstart5"
+                  selectedstart="5">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- selectedend
+        </text>
+        <textarea id="selectedendNone"
+                  selectedend="">
+        </textarea>
+        <textarea id="selectedend5"
+                  selectedend="5">
+        </textarea>
+        <text class="sub-title">
+            特有属性 -- softkeyboardenabled
+        </text>
+        <textarea id="softkeyboardenabledNone"
+                  softkeyboardenabled="">
+        </textarea>
+        <textarea id="softkeyboardenabledFalse"
+                  softkeyboardenabled="false">
+        </textarea>
+        <textarea id="softkeyboardenabledTrue"
+                  softkeyboardenabled="true">
+        </textarea>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <textarea class="propNewAdd"
+                tid="id">
+        </textarea>
+        <textarea class="propNewAdd"
+                tid="">
+        </textarea>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <textarea class="propNewAdd"
+                if="false">
+        </textarea>
+        <textarea class="propNewAdd"
+                elif="true">
+        </textarea>
+        <textarea class="propNewAdd"
+                elif="false">
+        </textarea>
+    </div>
+</div>

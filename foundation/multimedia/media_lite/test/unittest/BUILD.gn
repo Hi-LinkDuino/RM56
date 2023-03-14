@@ -1,0 +1,73 @@
+# Copyright (C) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/test.gni")
+import("//foundation/multimedia/utils/lite/config.gni")
+
+group("lite_medialite_test") {
+  if (ohos_build_type == "debug") {
+    deps = [
+      ":lite_player_unittest",
+      ":lite_recorder_unittest",
+    ]
+  }
+}
+
+if (ohos_build_type == "debug") {
+  unittest("lite_player_unittest") {
+    output_extension = "bin"
+    output_dir = "$root_out_dir/test/unittest/playerlite"
+    sources = [ "player_lite/player_lite_test.cpp" ]
+    cflags = [ "-Wno-error" ]
+    ldflags = [ "-lpthread" ]
+    ldflags += [ "-Wl,-rpath-link=$ohos_root_path/$root_out_dir" ]
+    include_dirs = [
+      "//third_party/bounds_checking_function/include",
+      "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin/base",
+      "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin/async",
+      "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+      "//foundation/multimedia/utils/lite/include",
+      "//foundation/multimedia/media_lite/test/unittest/player_lite",
+    ]
+
+    if (enable_media_passthrough_mode == true) {
+      defines = [ "ENABLE_PASSTHROUGH_MODE" ]
+    }
+
+    deps = [
+      "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite",
+      "//foundation/multimedia/utils/lite:media_common",
+      "//third_party/bounds_checking_function:libsec_shared",
+    ]
+  }
+
+  unittest("lite_recorder_unittest") {
+    output_extension = "bin"
+    output_dir = "$root_out_dir/test/unittest/recorder"
+    sources = [ "recorder_lite/recorder_lite_test.cpp" ]
+    cflags = [ "-Wno-error" ]
+    include_dirs = [
+      "//third_party/bounds_checking_function/include",
+      "//drivers/peripheral/codec/interfaces/include",
+      "//foundation/multimedia/utils/lite/hals",
+      "//foundation/multimedia/media_lite/test/unittest/recorder_lite",
+      "//foundation/multimedia/media_lite/interfaces/kits/recorder_lite",
+      "//foundation/multimedia/media_lite/frameworks/recorder_lite",
+      "//foundation/multimedia/media_lite/frameworks/recorder_lite/recoder_sink/include",
+      "//foundation/multimedia/media_lite/frameworks/recorder_lite/recoder_source/include",
+    ]
+
+    deps = [
+      "//foundation/multimedia/camera_lite/frameworks:camera_lite",
+      "//foundation/multimedia/media_lite/frameworks/recorder_lite:recorder_lite",
+    ]
+  }
+}

@@ -1,0 +1,265 @@
+root {
+    module = "pipeline_specs";
+    template pipeline_spec {
+        name = "";
+        template node_spec {
+            name = "";
+            status = "";
+            stream_type = "";
+            template port_spec {
+                name = "";
+                peer_port_name = "";
+                peer_port_node_name = "";
+                direction = 0;
+                width = 0;
+                height = 0;
+                format = 0;
+                usage = 0x10000000000000;
+                need_allocation = 0;
+                buffer_count = 0;
+            }
+        }
+    }
+    normal_privew :: pipeline_spec {
+        name = "normal_preview";
+        source :: node_spec {
+            name = "source#0";
+            status = "new";
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#0";
+                direction = 1;
+                width = 0;
+                height = 0;
+                format = 0;
+            }
+        }
+        sink :: node_spec {
+            name = "sink#0";
+            status = "new";
+            stream_type = "preview";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "source#0";
+                direction = 0;
+            }
+        }
+    }
+    normal_snapshot :: pipeline_spec {
+        name = "normal_snapshot";
+        source :: node_spec {
+            name = "source#0";
+            status = "new";
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#0";
+                direction = 1;
+            }
+        }
+        sink :: node_spec {
+            name = "sink#0";
+            status = "new";
+            stream_type = "snapshot";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "source#0";
+                direction = 0;
+            }
+        }
+    }
+    normal_preview_snapshot :: pipeline_spec {
+        name = "normal_preview_snapshot";
+        source :: node_spec {
+            name = "source#0";
+            status = "new";
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "fork#0";
+                direction = 1;
+            }
+        }
+        fork :: node_spec {
+            name = "fork#0";
+            status = "new";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "source#0";
+                direction = 0;
+            }
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#0";
+                direction = 1;
+            }
+            out_port_1 :: port_spec {
+                name = "out1";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#1";
+                direction = 1;
+            }
+        }
+        sink_1 :: node_spec {
+            name = "sink#0";
+            status = "new";
+            stream_type = "preview";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "fork#0";
+                direction = 0;
+            }
+        }
+        sink_2 :: node_spec {
+            name = "sink#1";
+            status = "new";
+            stream_type = "snapshot";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out1";
+                peer_port_node_name = "fork#0";
+                direction = 0;
+            }
+        }
+    }
+    normal_preview_video :: pipeline_spec {
+        name = "normal_preview_video";
+        source :: node_spec {
+            name = "source#0";
+            status = "new";
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "fork#0";
+                direction = 1;
+            }
+        }
+        fork :: node_spec {
+            name = "fork#0";
+            status = "new";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "source#0";
+                direction = 0;
+            }
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#0";
+                direction = 1;
+            }
+            out_port_1 :: port_spec {
+                name = "out1";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#1";
+                direction = 1;
+            }
+        }
+        sink_1 :: node_spec {
+            name = "sink#0";
+            status = "new";
+            stream_type = "preview";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "fork#0";
+                direction = 0;
+            }
+        }
+        sink_2 :: node_spec {
+            name = "sink#1";
+            status = "new";
+            stream_type = "video";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out1";
+                peer_port_node_name = "fork#0";
+                direction = 0;
+            }
+        }
+    }
+    dual_privew :: pipeline_spec {
+        name = "dual_preview";
+        uvc :: node_spec {
+            name = "uvc#0";
+            status = "new";
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in1";
+                peer_port_node_name = "merge#0";
+                direction = 1;
+                width = 0;
+                height = 0;
+                format = 0;
+                need_allocation = 1;
+                buffer_count = 8;
+            }
+        }
+        source :: node_spec {
+            name = "source#0";
+            status = "new";
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "merge#0";
+                direction = 1;
+            }
+        }
+        merge :: node_spec {
+            name = "merge#0";
+            status = "new";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "source#0";
+                direction = 0;
+            }
+            in_port_1 :: port_spec {
+                name = "in1";
+                peer_port_name = "out0";
+                peer_port_node_name = "uvc#0";
+                direction = 0;
+            }
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "ipp#0";
+                direction = 1;
+            }
+        }
+        ipp :: node_spec {
+            name = "ipp#0";
+            status = "new";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "merge#0";
+                direction = 0;
+            }
+            out_port_0 :: port_spec {
+                name = "out0";
+                peer_port_name = "in0";
+                peer_port_node_name = "sink#0";
+                direction = 1;
+            }
+        }
+        sink :: node_spec {
+            name = "sink#0";
+            status = "new";
+            stream_type = "preview";
+            in_port_0 :: port_spec {
+                name = "in0";
+                peer_port_name = "out0";
+                peer_port_node_name = "ipp#0";
+                direction = 0;
+            }
+        }
+    }
+}

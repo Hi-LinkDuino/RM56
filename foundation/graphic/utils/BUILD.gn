@@ -1,0 +1,150 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/graphic/config.gni")
+import("//build/lite/ndk/ndk.gni")
+
+defines = []
+
+declare_args() {
+  enable_ohos_graphic_utils_product_config = false
+}
+
+if (enable_ohos_graphic_utils_product_config) {
+  defines += [ "ENABLE_OHOS_GRAPHIC_UTILS_PRODUCT_CONFIG=1" ]
+}
+
+lite_component("lite_graphic_utils") {
+  features = [ ":graphic_utils" ]
+  public_deps = features
+}
+
+ndk_lib("lite_graphic_utils_ndk") {
+  lib_extension = ".so"
+  deps = [ ":graphic_utils" ]
+  head_files = [ "interfaces/kits" ]
+}
+
+lite_library("graphic_utils") {
+  if (ohos_kernel_type == "liteos_m") {
+    target_type = "static_library"
+  } else {
+    target_type = "shared_library"
+  }
+
+  if (enable_graphic_dualcore == true) {
+    defines += [ "HAL_CPU_NUM = 2" ]
+  }
+
+  sources = [
+    "frameworks/color.cpp",
+    "frameworks/diagram/depiction/depict_curve.cpp",
+    "frameworks/diagram/rasterizer/rasterizer_cells_antialias.cpp",
+    "frameworks/diagram/rasterizer/rasterizer_scanline_antialias.cpp",
+    "frameworks/diagram/rasterizer/rasterizer_scanline_clip.cpp",
+    "frameworks/diagram/vertexgenerate/vertex_generate_dash.cpp",
+    "frameworks/diagram/vertexgenerate/vertex_generate_stroke.cpp",
+    "frameworks/diagram/vertexprimitive/geometry_arc.cpp",
+    "frameworks/diagram/vertexprimitive/geometry_bezier_arc.cpp",
+    "frameworks/diagram/vertexprimitive/geometry_curves.cpp",
+    "frameworks/diagram/vertexprimitive/geometry_shorten_path.cpp",
+    "frameworks/geometry2d.cpp",
+    "frameworks/graphic_math.cpp",
+    "frameworks/graphic_performance.cpp",
+    "frameworks/graphic_timer.cpp",
+    "frameworks/hal_cpu.cpp",
+    "frameworks/hal_tick.cpp",
+    "frameworks/mem_api.cpp",
+    "frameworks/pixel_format_utils.cpp",
+    "frameworks/queue.c",
+    "frameworks/style.cpp",
+    "frameworks/trans_affine.cpp",
+    "frameworks/transform.cpp",
+    "frameworks/version.cpp",
+  ]
+  include_dirs = [ "frameworks" ]
+  public_configs = [ ":graphic_utils_public_config" ]
+  if (ohos_kernel_type == "liteos_m") {
+    deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    public_deps =
+        [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static" ]
+  } else {
+    deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+    public_deps =
+        [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared" ]
+  }
+  cflags = [ "-Wall" ]
+  cflags_cc = cflags
+}
+
+config("graphic_utils_public_config") {
+  include_dirs = [
+    "interfaces/innerkits",
+    "interfaces/kits",
+    "$product_path/graphic_config",
+  ]
+  defines += [
+    "GRAPHIC_ENABLE_LINECAP_FLAG=1",
+    "GRAPHIC_ENABLE_LINEJOIN_FLAG=1",
+    "GRAPHIC_ENABLE_ELLIPSE_FLAG=1",
+    "GRAPHIC_ENABLE_BEZIER_ARC_FLAG=1",
+    "GRAPHIC_ENABLE_ARC_FLAG=1",
+    "GRAPHIC_ENABLE_ROUNDEDRECT_FLAG=1",
+    "GRAPHIC_ENABLE_DASH_GENERATE_FLAG=1",
+    "GRAPHIC_ENABLE_BLUR_EFFECT_FLAG=1",
+    "GRAPHIC_ENABLE_SHADOW_EFFECT_FLAG=1",
+    "GRAPHIC_ENABLE_GRADIENT_FILL_FLAG=1",
+    "GRAPHIC_ENABLE_PATTERN_FILL_FLAG=1",
+    "GRAPHIC_ENABLE_DRAW_IMAGE_FLAG=1",
+    "GRAPHIC_ENABLE_DRAW_TEXT_FLAG=1",
+  ]
+}
+
+if (ohos_kernel_type != "liteos_m") {
+  lite_component("lite_graphic_hals") {
+    features = [ ":graphic_hals" ]
+    public_deps = features
+  }
+
+  ndk_lib("lite_graphic_hals_ndk") {
+    lib_extension = ".so"
+    deps = [ ":graphic_hals" ]
+    head_files = []
+  }
+
+  shared_library("graphic_hals") {
+    sources = [
+      "frameworks/hals/gfx_engines.cpp",
+      "frameworks/hals/hi_fbdev.cpp",
+    ]
+    include_dirs = [ "//foundation/graphic/wms/interfaces/innerkits" ]
+    deps = [
+      ":lite_graphic_utils",
+      "//drivers/peripheral/display/hal:hdi_display",
+    ]
+    public_configs = [ ":graphic_hals_public_config" ]
+    ldflags = [
+      "-ldisplay_gfx",
+      "-ldisplay_gralloc",
+      "-ldisplay_layer",
+    ]
+  }
+}
+
+config("graphic_hals_public_config") {
+  include_dirs = [
+    "interfaces/innerkits",
+    "//drivers/peripheral/base",
+    "//drivers/peripheral/display/interfaces/include",
+    "$product_path/graphic_config",
+  ]
+}

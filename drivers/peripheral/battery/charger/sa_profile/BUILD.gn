@@ -1,0 +1,23 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/battery_manager/batterymgr.gni")
+import("//build/ohos.gni")
+
+## Install led_config.json to /system/etc/ledconfig/led_config.json
+ohos_prebuilt_etc("led_config") {
+  source = "led_config.json"
+  relative_install_dir = "ledconfig"
+  part_name = "battery_device_driver"
+  subsystem_name = "hdf"
+}

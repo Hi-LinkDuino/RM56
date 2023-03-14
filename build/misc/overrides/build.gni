@@ -1,0 +1,19 @@
+# Copyright 2016 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# Variable that can be used to support multiple build scenarios, like having
+# Chromium specific targets in a client project's GN file etc.
+build_with_chromium = false
+
+# Some non-Chromium builds don't support building java targets.
+enable_java_templates = true
+
+# Some non-Chromium builds don't use Chromium's third_party/binutils.
+linux_use_bundled_binutils_override = true
+
+# Skip assertions about 4GiB file size limit.
+ignore_elf32_limitations = true
+
+# Use the system install of Xcode for tools like ibtool, libtool, etc.
+use_system_xcode = true

@@ -1,0 +1,58 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("../../../appexecfwk.gni")
+import("../../../libs/libeventhandler/lib_event_handler_sources.gni")
+
+config("private_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "${libs_path}/libeventhandler/src",
+    "//utils/native/base/include",
+  ]
+
+  defines = event_handler_log_domain_defines
+}
+
+ohos_shared_library("eventhandler_native") {
+  sources = [ "eventhandler/native_interface_eventhandler.cpp" ]
+
+  include_dirs = [
+    "${libs_path}/libeventhandler/src",
+    "//utils/native/base/include",
+    "//base/hiviewdfx/interfaces/innerkits/libhilog/include",
+    "//base/hiviewdfx/interfaces/innerkits/libhitrace/include",
+  ]
+
+  cflags = [ "-Wno-error=inconsistent-missing-override" ]
+
+  deps = [
+    "${appexecfwk_path}/interfaces/innerkits/libeventhandler:libeventhandler",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+
+  subsystem_name = "appexecfwk"
+  part_name = "eventhandler"
+}
+
+group("eventhandler_native_target") {
+  deps = [ ":eventhandler_native" ]
+}
+
+group("eventhandler_native_test") {
+  testonly = true
+  deps = []
+}

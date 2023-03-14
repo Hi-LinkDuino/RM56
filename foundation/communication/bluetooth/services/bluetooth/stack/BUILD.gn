@@ -1,0 +1,237 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos_var.gni")
+
+SUBSYSTEM_DIR = "//foundation/communication"
+PART_DIR = "$SUBSYSTEM_DIR/bluetooth/services/bluetooth"
+
+PlatformSrc = [
+  "platform/src/alarm.c",
+  "platform/src/allocator.c",
+  "platform/src/buffer.c",
+  "platform/src/event.c",
+  "platform/src/list.c",
+  "platform/src/module.c",
+  "platform/src/mutex.c",
+  "platform/src/packet.c",
+  "platform/src/queue.c",
+  "platform/src/random.c",
+  "platform/src/reactor.c",
+  "platform/src/semaphore.c",
+  "platform/src/thread.c",
+]
+
+StackAttSrc = [
+  "src/att/att_common.c",
+  "src/att/att_connect.c",
+  "src/att/att_init.c",
+  "src/att/att_receive.c",
+  "src/att/att_send_request.c",
+  "src/att/att_send_response.c",
+]
+
+StackAvctpSrc = [
+  "src/avctp/avctp_api.c",
+  "src/avctp/avctp_br_act.c",
+  "src/avctp/avctp_br_l2cap.c",
+  "src/avctp/avctp_br.c",
+  "src/avctp/avctp_conn.c",
+  "src/avctp/avctp_ctrl_act.c",
+  "src/avctp/avctp_ctrl_l2cap.c",
+  "src/avctp/avctp_ctrl.c",
+  "src/avctp/avctp_dev.c",
+  "src/avctp/avctp_gap.c",
+  "src/avctp/avctp_st.c",
+  "src/avctp/avctp.c",
+]
+
+StackAvdtpSrc = [
+  "src/avdtp/avdtp_api.c",
+  "src/avdtp/avdtp_ctrl.c",
+  "src/avdtp/avdtp_impl.c",
+  "src/avdtp/avdtp_l2cap.c",
+  "src/avdtp/avdtp_message.c",
+  "src/avdtp/avdtp.c",
+]
+
+StackBtmSrc = [
+  "src/btm/btm_acl.c",
+  "src/btm/btm_controller.c",
+  "src/btm/btm_inq_db.c",
+  "src/btm/btm_interop.c",
+  "src/btm/btm_le_sec.c",
+  "src/btm/btm_pm.c",
+  "src/btm/btm_sco_def.c",
+  "src/btm/btm_sco.c",
+  "src/btm/btm_snoop_filter_acl.c",
+  "src/btm/btm_snoop_filter_cmd.c",
+  "src/btm/btm_snoop_filter_evt.c",
+  "src/btm/btm_snoop_filter.c",
+  "src/btm/btm_snoop.c",
+  "src/btm/btm_thread.c",
+  "src/btm/btm_wl.c",
+  "src/btm/btm.c",
+]
+
+StackGapSrc = [
+  "src/gap/gap.c",
+  "src/gap/gap_br_discover.c",
+  "src/gap/gap_br_sec.c",
+  "src/gap/gap_le_adv.c",
+  "src/gap/gap_le_scan.c",
+  "src/gap/gap_le_conn.c",
+  "src/gap/gap_le_sec.c",
+  "src/gap/gap_btm_receive.c",
+  "src/gap/gap_hci_receive.c",
+  "src/gap/gap_if.c",
+  "src/gap/gap_l2cap_receive.c",
+  "src/gap/gap_le_if.c",
+  "src/gap/gap_sm_receive.c",
+  "src/gap/gap_task_common.c",
+]
+
+StackHciSrc = [
+  "src/hci/hdi_wrapper.c",
+  "src/hci/acl/hci_acl.c",
+  "src/hci/hci.c",
+  "src/hci/cmd/hci_cmd.c",
+  "src/hci/cmd/hci_cmd_controller_baseband.c",
+  "src/hci/cmd/hci_cmd_failure.c",
+  "src/hci/cmd/hci_cmd_failure_controller_baseband.c",
+  "src/hci/cmd/hci_cmd_failure_info_params.c",
+  "src/hci/cmd/hci_cmd_failure_le_controller.c",
+  "src/hci/cmd/hci_cmd_failure_link_ctrl.c",
+  "src/hci/cmd/hci_cmd_failure_link_policy.c",
+  "src/hci/cmd/hci_cmd_failure_status_params.c",
+  "src/hci/cmd/hci_cmd_info_params.c",
+  "src/hci/cmd/hci_cmd_le_controller.c",
+  "src/hci/cmd/hci_cmd_link_ctrl.c",
+  "src/hci/cmd/hci_cmd_link_policy.c",
+  "src/hci/cmd/hci_cmd_status_params.c",
+  "src/hci/evt/hci_evt.c",
+  "src/hci/evt/hci_evt_cmd_complete.c",
+  "src/hci/evt/hci_evt_controller_baseband_cmd_complete.c",
+  "src/hci/evt/hci_evt_info_params_cmd_complete.c",
+  "src/hci/evt/hci_evt_link_ctrl_cmd_complete.c",
+  "src/hci/evt/hci_evt_link_policy_cmd_complete.c",
+  "src/hci/evt/hci_evt_status_params_cmd_complete.c",
+  "src/hci/evt/hci_evt_le.c",
+  "src/hci/evt/hci_evt_le_cmd_complete.c",
+  "src/hci/hci_failure.c",
+  "src/hci/hci_vendor_if.c",
+]
+
+StackL2capSrc = [
+  "src/l2cap/l2cap_cmn.c",
+  "src/l2cap/l2cap_crc.c",
+  "src/l2cap/l2cap_le.c",
+  "src/l2cap/l2cap_inst.c",
+  "src/l2cap/l2cap_core.c",
+  "src/l2cap/l2cap.c",
+  "src/l2cap/l2cap_if.c",
+  "src/l2cap/l2cap_le_if.c",
+]
+
+StackRfcommSrc = [
+  "src/rfcomm/rfcomm_api.c",
+  "src/rfcomm/rfcomm_channel_fsm.c",
+  "src/rfcomm/rfcomm_channel.c",
+  "src/rfcomm/rfcomm_frames.c",
+  "src/rfcomm/rfcomm_gap_if.c",
+  "src/rfcomm/rfcomm_gap.c",
+  "src/rfcomm/rfcomm_l2cap_if.c",
+  "src/rfcomm/rfcomm_l2cap.c",
+  "src/rfcomm/rfcomm_server.c",
+  "src/rfcomm/rfcomm_session_fsm.c",
+  "src/rfcomm/rfcomm_session.c",
+  "src/rfcomm/rfcomm.c",
+]
+
+StackSdpSrc = [
+  "src/sdp/sdp_client_parse.c",
+  "src/sdp/sdp_client.c",
+  "src/sdp/sdp_connect.c",
+  "src/sdp/sdp_server.c",
+  "src/sdp/sdp_util.c",
+  "src/sdp/sdp.c",
+]
+
+StackSmpSrc = [
+  "src/smp/smp_aes_encryption.c",
+  "src/smp/smp_cmd.c",
+  "src/smp/smp_hci_event.c",
+  "src/smp/smp_legacy.c",
+  "src/smp/smp_oob.c",
+  "src/smp/smp_privacy.c",
+  "src/smp/smp_receive.c",
+  "src/smp/smp_sc_accepter.c",
+  "src/smp/smp_sc_initiator.c",
+  "src/smp/smp_send.c",
+  "src/smp/smp_tool.c",
+  "src/smp/smp.c",
+]
+
+config("btstack_public_config") {
+  include_dirs = [
+    "include",
+    "//third_party/openssl/include",
+    "//third_party/bounds_checking_function/include",
+  ]
+}
+
+config("btstack_config") {
+  include_dirs = [
+    "./",
+    "src",
+    "platform/include",
+    "$PART_DIR/hardware/include",
+  ]
+
+  cflags = [
+    "-fPIC",
+    "-Wno-unused-parameter",
+    "-Wpointer-arith",
+    "-Wmissing-field-initializers",
+    "-Wno-missing-braces",  #wait-for-fix
+    "-Wno-pragma-pack",
+  ]
+}
+
+ohos_shared_library("btstack") {
+  sanitize = {
+    cfi = true
+    blocklist = "./btstack_blocklist.txt"
+  }
+  stack_protector_ret = true
+  configs = [ ":btstack_config" ]
+  public_configs = [ ":btstack_public_config" ]
+
+  sources = PlatformSrc + StackAttSrc + StackAvctpSrc + StackAvdtpSrc +
+            StackBtmSrc + StackGapSrc + StackHciSrc + StackL2capSrc +
+            StackRfcommSrc + StackSdpSrc + StackSmpSrc
+
+  deps = [
+    "$PART_DIR/external:btdummy",
+    "$PART_DIR/hardware:bluetooth_hdi_adapter",
+    "$SUBSYSTEM_DIR/bluetooth/services/bluetooth/common:btcommon",
+    "//third_party/bounds_checking_function:libsec_shared",
+    "//third_party/openssl:libcrypto_shared",
+  ]
+
+  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+
+  subsystem_name = "communication"
+  part_name = "bluetooth"
+}

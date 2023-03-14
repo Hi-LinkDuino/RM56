@@ -1,0 +1,12 @@
+${model_name} :: host {
+	hostName = "${model_name}_user_host";	// Host name. The host node is used to store a certain type of drivers.
+	priority = 50;					//Host startup priority (0-200). A larger value indicates a lower priority.
+	device_${model_name} :: device {		// Device node of sample
+		device0 :: deviceNode {		// DeviceNode of the sample driver
+			policy = 2;				// Driver service release policy. For details, see section Driver Service Management.
+			priority = 150;			// Driver startup priority (0-200). A larger value indicates a lower priority. The default value 100 is recommended. If the priorities are the same, the device loading sequence is random.
+			moduleName = "libhdf_${model_name}_hotplug.z.so";		// Driver name. The value of this field must be the same as the value of moduleName in the driver entry structure.
+			serviceName = "${model_name}_service";					// Name of the service released by the driver. The name must be unique.
+		}
+	}
+}

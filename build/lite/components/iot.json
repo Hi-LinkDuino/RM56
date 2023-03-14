@@ -1,0 +1,26 @@
+{
+  "components": [
+    {
+      "component": "iot_link",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "domains/iot/link"
+      ],
+      "targets": [
+        "//domains/iot/link"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "components": []
+      }
+    }
+  ]
+}

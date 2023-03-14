@@ -1,0 +1,247 @@
+{
+    "calendar-gregorian-monthNames-format-abbreviated" : {
+        "index": 0,
+        "method": "getFormatAbbrMonthNames"
+    },
+    "calendar-gregorian-dayNames-format-abbreviated" : {
+        "index": 1,
+        "method": "getFormatAbbrDayNames"
+    },
+    "time-patterns" : {
+        "index": 2,
+        "method": "getPatterns",
+        "elements": [
+            {   
+                "availableFormat" : "HOUR12_MINUTE",
+                "enumIndex" : 3,
+                "index" : 0,
+                "skeleton" : "hm"
+            },
+            {   
+                "availableFormat" : "HOUR24_MINUTE",
+                "enumIndex" : 4,
+                "index" : 1,
+                "skeleton" : "Hm"
+            },
+            {   
+                "availableFormat" : "HOUR_MINUTE",
+                "enumIndex" : 5,
+                "index" : 2,
+                "skeleton" : "jm"
+            }
+        ],
+        "pointer": "timePatterns",
+        "type": "TIME_PATTERN",
+        "pub": "true"
+    },
+    "date-patterns" : {
+        "index": 3,
+        "method": "getPatterns",
+        "elements": [
+            {   
+                "availableFormat" : "ABBR_MONTH_WEEKDAY_DAY",
+                "enumIndex" : 5,
+                "index" : 0,
+                "skeleton" : "MMMEd"
+            },
+            {   
+                "availableFormat" : "ABBR_MONTH_DAY",
+                "enumIndex" : 6,
+                "index" : 1,
+                "skeleton" : "MMMd"
+            },
+            {   
+                "availableFormat" : "YEAR_ABBR_MONTH_ABBR_WEEKDAY_DAY",
+                "enumIndex" : 10,
+                "index" : 2,
+                "skeleton" : "yMMMEEEd"
+            },
+            {   
+                "availableFormat" : "YEAR_WIDE_MONTH_ABBR_WEEKDAY_DAY",
+                "enumIndex" : 11,
+                "index" : 3,
+                "skeleton" : "yMMMMEEEd"
+            },
+            {   
+                "availableFormat" : "YEAR_SHORT_MONTH_WIDE_WEEKDAY_DAY",
+                "enumIndex" : 12,
+                "index" : 4,
+                "skeleton" : "EEEEyMd"
+            },
+            {   
+                "availableFormat" : "YEAR_SHORT_MONTH_ABBR_WEEKDAY_DAY",
+                "enumIndex" : 13,
+                "index" : 5,
+                "skeleton" : "EEEyMd"
+            },
+            {   
+                "availableFormat" : "YEAR_ABBR_MONTH_WIDE_WEEKDAY_DAY",
+                "enumIndex" : 14,
+                "index" : 6,
+                "skeleton" : "yMMMEEEEd"
+            },
+            {   
+                "availableFormat" : "YEAR_WIDE_MONTH_DAY",
+                "enumIndex" : 15,
+                "index" : 7,
+                "skeleton" : "yMMMMd"
+            },
+            {   
+                "availableFormat" : "WEEK_DAY",
+                "enumIndex" : 16,
+                "index" : 8,
+                "skeleton" : "Ed"
+            },
+            {   
+                "availableFormat" : "NUMBER_MONTH_ABBR_WEEK_DAY",
+                "enumIndex" : 17,
+                "index" : 9,
+                "skeleton" : "MEd"
+            },
+            {   
+                "availableFormat" : "NUMBER_MONTH_ABBR_WEEK_DAY",
+                "enumIndex" : 18,
+                "index" : 10,
+                "skeleton" : "Md"
+            }
+        ],
+        "pointer": "datePatterns",
+        "type": "DATE_PATTERN",
+        "pub": "true"
+    },
+    "am-pm-markers" : {
+        "index": 4,
+        "method": "getAmPmMarkers"
+    },
+    "plural" : {
+        "index": 5,
+        "method": "getPluralRules"
+    },
+    "number-format" : {
+        "index": 6,
+        "method": "getNumberFormat"
+    },
+    "number-digit" : {
+        "index": 7,
+        "method": "getNumberDigits"
+    },
+    "Time-separator" : {
+        "index": 8,
+        "method": "getTimeSeparator"
+    },
+    "default-hour" : {
+        "index": 9,
+        "method": "getDefaultHour"
+    },
+    "stand-alone-abbr-month-names" : {
+        "index": 10,
+        "method": "getStandAloneAbbrMonthNames"
+    },
+    "standalone-abbr-weekday-names" : {
+        "index": 11,
+        "method": "getStandAloneAbbrWeekDayNames"
+    },
+    "format-wide-month-names" : {
+        "index": 12,
+        "method": "getFormatWideMonthNames"
+    },
+    "hour-minute-secons-pattern" : {
+        "index": 13,
+        "method": "getPatterns",
+        "elements": [
+            {   
+                "availableFormat" : "HOUR12_MINUTE_SECOND",
+                "enumIndex" : 0,
+                "index" : 0,
+                "skeleton" : "hms"
+            },
+            {   
+                "availableFormat" : "HOUR24_MINUTE_SECOND",
+                "enumIndex" : 1,
+                "index" : 1,
+                "skeleton" : "Hms"
+            },
+            {   
+                "availableFormat" : "HOUR_MINUTE_SECOND",
+                "enumIndex" : 2,
+                "index" : 2,
+                "skeleton" : "jms"
+            }
+        ],
+        "pointer": "hourMinuteSecondPatterns",
+        "type": "HOUR_MINUTE_SECOND_PATTERN",
+        "pub": "true"
+    },
+    "full-medium-short-pattern" : {
+        "index": 14,
+        "method": "getPatterns",
+        "elements": [
+            {   
+                "availableFormat" : "FULL",
+                "enumIndex" : 8,
+                "index" : 0,
+                "skeleton" : "FULL"
+            },
+            {   
+                "availableFormat" : "MEDIUM",
+                "enumIndex" : 9,
+                "index" : 1,
+                "skeleton" : "MEDIUM"
+            },
+            {   
+                "availableFormat" : "SHORT",
+                "enumIndex" : 10,
+                "index" : 2,
+                "skeleton" : "SHORT"
+            }
+        ],
+        "pointer": "fullMediumShortPatterns",
+        "type": "FULL_MEDIUM_SHORT_PATTERN",
+        "pub": "true"
+    },
+    "format-wide-weeday-names" : {
+        "index": 15,
+        "method": "getFormatWideWeekDayNames"
+    },
+    "standalone-wide-weekday-names" : {
+        "index": 16,
+        "method": "getStandAloneWideWeekDayNames"
+    },
+    "standalone-wide-month-names" : {
+        "index": 17,
+        "method": "getStandAloneWideMonthNames"
+    },
+    "elapsed-patterns" : {
+        "index": 18,
+        "method": "getPatterns",
+        "elements": [
+            {   
+                "availableFormat" : "MINUTE_SECOND",
+                "enumIndex" : -1,
+                "index" : 0,
+                "skeleton" : "ms"
+            },
+            {   
+                "availableFormat" : "MINUTE_SECOND_MILLISECOND",
+                "enumIndex" : -1,
+                "index" : 1,
+                "skeleton" : "msSS"
+            }
+        ],
+        "pointer": "elapsedPatterns",
+        "type": "ELAPSED_PATTERN",
+        "pub": "false"
+    },
+    "week_data": {
+        "index": 19,
+        "method": "getWeekdata"
+    },
+    "decimal_plural" : {
+        "index": 20,
+        "method": "getDecimalPluralRules"
+    },
+    "minus-sign" : {
+        "index": 21,
+        "method": "getMinusSign"
+    }
+}

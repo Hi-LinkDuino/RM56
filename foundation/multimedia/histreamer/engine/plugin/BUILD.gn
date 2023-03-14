@@ -1,0 +1,162 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+import("//foundation/multimedia/histreamer/config.gni")
+if (!hst_is_lite_sys) {
+  ohos_kernel_type = ""
+}
+
+declare_args() {
+  if (ohos_kernel_type == "liteos_m") {
+    plugin_dynamic_register = false
+  } else {
+    plugin_dynamic_register = true
+  }
+}
+
+group("histreamer_plugin") {
+  deps = [
+    ":histreamer_plugin_core",
+    ":histreamer_plugin_intf",
+    "plugins:histreamer_plugin_store",
+  ]
+}
+
+# build plugin interface
+config("hst_plugin_intf_config") {
+  include_dirs = [ "//foundation/multimedia/histreamer/engine/plugin" ]
+  if (hst_is_lite_sys) {
+    include_dirs += [ "//foundation/multimedia/utils/lite/interfaces/kits" ]
+  } else {
+    include_dirs +=
+        [ "//foundation/multimedia/histreamer/engine/scene/standard" ]
+    if (multimedia_histreamer_enable_video) {
+      include_dirs += [
+        "//utils/native/base/include",
+        "//foundation/graphic/graphic_2d/frameworks/surface/include",
+        "//foundation/graphic/graphic_2d/interfaces/inner_api/",
+        "//drivers/peripheral/display/interfaces/include",
+        "//foundation/graphic/graphic_2d/utils/sync_fence/export",
+      ]
+    }
+  }
+}
+
+source_set("histreamer_plugin_intf") {
+  sources = [
+    "common/media_sink.cpp",
+    "common/media_source.cpp",
+    "common/plugin_buffer.cpp",
+  ]
+  if (!hst_is_lite_sys && multimedia_histreamer_enable_video) {
+    sources += [
+      "common/surface_allocator.cpp",
+      "common/surface_memory.cpp",
+    ]
+  }
+  public_configs = [
+    ":hst_plugin_intf_config",
+    "//foundation/multimedia/histreamer:histreamer_presets",
+  ]
+  if (hst_is_lite_sys) {
+    if (ohos_kernel_type == "liteos_m") {
+      public_deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    } else {
+      public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+    }
+  } else {
+    public_deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    if (multimedia_histreamer_enable_video) {
+      public_deps += [
+        "//foundation/graphic/graphic_2d/frameworks/surface:surface",
+        "//foundation/graphic/graphic_2d/utils:sync_fence",
+      ]
+    }
+  }
+}
+
+config("hst_plugin_core_config") {
+  include_dirs = [
+    "//foundation/multimedia/histreamer/engine/",
+    "//foundation/multimedia/histreamer/engine/plugin",
+  ]
+  if (hst_is_lite_sys) {
+    include_dirs += [ "//foundation/multimedia/utils/lite/interfaces/kits" ]
+  } else {
+    include_dirs += [
+      "//utils/native/base/include",
+      "//foundation/graphic/graphic_2d/frameworks/surface/include",
+      "//foundation/graphic/graphic_2d/interfaces/inner_api/",
+      "//drivers/peripheral/display/interfaces/include",
+    ]
+  }
+}
+
+source_set("histreamer_plugin_core") {
+  sources = [
+    "core/audio_sink.cpp",
+    "core/base.cpp",
+    "core/codec.cpp",
+    "core/demuxer.cpp",
+    "core/muxer.cpp",
+    "core/output_sink.cpp",
+    "core/plugin_core_utils.cpp",
+    "core/plugin_manager.cpp",
+    "core/plugin_meta.cpp",
+    "core/plugin_register.cpp",
+    "core/plugin_wrapper.cpp",
+    "core/source.cpp",
+    "core/video_sink.cpp",
+  ]
+  defines = []
+  if (plugin_dynamic_register) {
+    sources += [ "core/plugin_loader.cpp" ]
+    defines += [ "DYNAMIC_PLUGINS" ]
+  }
+  if (hst_is_lite_sys) {
+    defines += [
+      "HST_PLUGIN_PATH=\"/usr/lib\"",
+      "HST_PLUGIN_FILE_TAIL=\".so\"",
+    ]
+  } else {
+    if (target_cpu == "arm64") {
+      hst_plugin_path = "\"/system/lib64/media/histreamer_plugins\""
+    } else {
+      hst_plugin_path = "\"/system/lib/media/histreamer_plugins\""
+    }
+    defines += [
+      "HST_PLUGIN_PATH=${hst_plugin_path}",
+      "HST_PLUGIN_FILE_TAIL=\".z.so\"",
+    ]
+  }
+  public_configs = [
+    ":hst_plugin_core_config",
+    "//foundation/multimedia/histreamer:histreamer_presets",
+  ]
+  public_deps = [
+    ":histreamer_plugin_intf",
+    "//foundation/multimedia/histreamer/engine/foundation:histreamer_foundation",
+    "//foundation/multimedia/histreamer/engine/utils:histreamer_utils",
+  ]
+
+  if (hst_is_lite_sys) {
+    if (ohos_kernel_type == "liteos_m") {
+      public_deps += [ "//third_party/bounds_checking_function:libsec_static" ]
+    } else {
+      public_deps += [ "//third_party/bounds_checking_function:libsec_shared" ]
+    }
+  } else {
+    public_deps += [ "//third_party/bounds_checking_function:libsec_static" ]
+  }
+  public_deps += [ "plugins:gen_plugin_static_header" ]
+}

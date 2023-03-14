@@ -1,0 +1,72 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hcpptest_suite("ActsAiEngineTest") {
+  suite_name = "acts"
+  sources = [
+    # Utils files
+    "src/utils/aie_client_common.cpp",
+    "src/utils/utils.cpp",
+
+    # AieClient Function Test Cases
+    "src/aie_client/AieClientAsyncProcessFunctionTest.cpp",
+    "src/aie_client/AieClientDestroyFunctionTest.cpp",
+    "src/aie_client/AieClientInitFunctionTest.cpp",
+    "src/aie_client/AieClientPrepareFunctionTest.cpp",
+    "src/aie_client/AieClientReleaseFunctionTest.cpp",
+    "src/aie_client/AieClientSetOptionFunctionTest.cpp",
+    "src/aie_client/AieClientSyncProcessFunctionTest.cpp",
+    "src/aie_client/AieClientSyncProcessShareMemoryFunctionTest.cpp",
+
+    # pluginManager Function Test Cases
+    "src/plugin_manager/PluginManagerFunctionTest.cpp",
+  ]
+
+  include_dirs = [
+    "src",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog",
+    "//foundation/ai/engine/interfaces",
+    "//foundation/ai/engine/services/common",
+    "//foundation/ai/engine/services/client",
+    "//foundation/ai/engine/services/server",
+    "//foundation/ai/engine/services/algorithmsdk",
+    "//foundation/ai/engine/services/server/plugin",
+    "//third_party/bounds_checking_function/include",
+    "//utils/native/lite/include",
+    "//kernel/liteos-a/kernel/include",
+    "//kernel/liteos-a/kernel/common",
+    "//foundation/communication/ipc_lite/interfaces/kits",
+    "//foundation/communication/ipc_lite/frameworks/liteipc/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/innerkits/registry",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+    "//foundation/distributedschedule/samgr_lite/interfaces/innerkits/samgr",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//foundation/ai/engine/services/client:client",
+    "//foundation/ai/engine/services/common/platform/dl_operation:dlOperation",
+    "//foundation/ai/engine/services/server/plugin_manager:plugin_manager",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//test/xts/acts/ai_lite/ai_engine_posix/base/src/sample:sample_plugin_1_sync",
+    "//test/xts/acts/ai_lite/ai_engine_posix/base/src/sample:sample_plugin_2_async",
+  ]
+  cflags = [ "-Wno-error" ]
+  ldflags = [
+    "-lstdc++",
+    "-ldl",
+    "-lpthread",
+  ]
+}

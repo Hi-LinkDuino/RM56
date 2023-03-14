@@ -1,0 +1,119 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+install_path = "SADialog"
+template("gen_sa_dialog_js") {
+  forward_variables_from(invoker, "*")
+
+  action("build_dialog_js") {
+    if (use_mac) {
+      nodejs_path =
+          "//prebuilts/build-tools/common/nodejs/node-v12.18.4-darwin-x64/bin"
+    } else {
+      nodejs_path =
+          "//prebuilts/build-tools/common/nodejs/node-v12.18.4-linux-x64/bin"
+    }
+    project_path = invoker.project_path
+    script = "//foundation/ace/ace_engine/build/tools/build_js.py"
+    outputs = [
+      target_out_dir + "/default/app.js",
+      target_out_dir + "/default/pages/index/index.js",
+      target_out_dir + "/default/manifest.json",
+    ]
+
+    if (defined(i18n_files)) {
+      foreach(i18n_file, i18n_files) {
+        outputs += [ target_out_dir + "/default/" + i18n_file ]
+      }
+    }
+
+    if (defined(common_files)) {
+      foreach(common_file, common_files) {
+        outputs += [ target_out_dir + "/default/" + common_file ]
+      }
+    }
+
+    args = [
+      rebase_path(project_path, root_build_dir),
+      rebase_path(target_out_dir, root_build_dir),
+      rebase_path(nodejs_path, root_build_dir),
+      rebase_path("//developtools/ace-js2bundle", root_build_dir),
+      rebase_path("//interface", root_build_dir),
+      rebase_path("//third_party/parse5", root_build_dir),
+      rebase_path("//third_party/weex-loader", root_build_dir),
+    ]
+  }
+
+  ohos_prebuilt_etc("dialog_js_files_app") {
+    deps = [ ":build_dialog_js" ]
+    relative_install_dir = "$install_path/$dialog_name"
+    source = target_out_dir + "/default/app.js"
+  }
+
+  ohos_prebuilt_etc("dialog_js_files_index") {
+    deps = [ ":build_dialog_js" ]
+    relative_install_dir = "$install_path/$dialog_name/pages/index"
+    source = target_out_dir + "/default/pages/index/index.js"
+  }
+
+  if (defined(i18n_files)) {
+    foreach(i18n_file, i18n_files) {
+      name = string_replace(i18n_file, "/", "_")
+      ohos_prebuilt_etc("dialog_js_files_$name") {
+        deps = [ ":build_dialog_js" ]
+        relative_install_dir = "$install_path/$dialog_name/i18n"
+        source = target_out_dir + "/default/$i18n_file"
+      }
+    }
+  }
+
+  if (defined(common_files)) {
+    foreach(common_file, common_files) {
+      name = string_replace(common_file, "/", "_")
+      ohos_prebuilt_etc("dialog_js_files_$name") {
+        deps = [ ":build_dialog_js" ]
+        relative_install_dir = "$install_path/$dialog_name/common"
+        source = target_out_dir + "/default/$common_file"
+      }
+    }
+  }
+
+  ohos_prebuilt_etc("dialog_js_files_manifest") {
+    deps = [ ":build_dialog_js" ]
+    relative_install_dir = "$install_path/$dialog_name"
+    source = target_out_dir + "/default/manifest.json"
+  }
+
+  group(target_name) {
+    deps = [
+      ":dialog_js_files_app",
+      ":dialog_js_files_index",
+      ":dialog_js_files_manifest",
+    ]
+    if (defined(i18n_files)) {
+      foreach(i18n_file, i18n_files) {
+        name = string_replace(i18n_file, "/", "_")
+        deps += [ ":dialog_js_files_$name" ]
+      }
+    }
+    if (defined(common_files)) {
+      foreach(common_file, common_files) {
+        name = string_replace(common_file, "/", "_")
+        deps += [ ":dialog_js_files_$name" ]
+      }
+    }
+  }
+}

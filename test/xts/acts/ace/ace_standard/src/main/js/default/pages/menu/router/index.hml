@@ -1,0 +1,306 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+    <!-- 通用样式 -->
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+
+            <text class="sub-title">
+                menu通用样式1
+            </text>
+            <menu id="style1" class="style1">
+            </menu>
+
+            <text  class="sub-title">
+                menu通用样式2
+            </text>
+            <menu id="style2" class="style2">
+            </menu>
+
+            <text  class="sub-title">
+                menu通用样式3
+            </text>
+            <menu id="style3" class="style3">
+            </menu>
+
+            <text  class="sub-title">
+                menu通用样式4
+            </text>
+            <menu id="style4" class="style4">
+            </menu>
+
+            <text  class="sub-title">
+                menu通用样式5
+            </text>
+            <div class="contain1">
+                <menu id="style5" class="style5">
+                </menu>
+                <menu id="style6" class="style6">
+                </menu>
+            </div>
+
+            <text  class="sub-title">
+                menu特有样式
+            </text>
+            <menu id="style7" class="style7">
+            </menu>
+
+            <text  class="sub-title">
+                menu特有样式
+            </text>
+            <menu id="style8" class="style8">
+            </menu>
+
+        </div>
+
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 动画 -->
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+
+            <text class="sub-title">
+                menu动画样式1
+            </text>
+            <menu id="ani1" class="ani1">
+            </menu>
+
+            <text class="sub-title">
+                menu动画样式2
+            </text>
+            <menu id="ani2" class="ani2">
+            </menu>
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                menu通用属性1
+            </text>
+            <menu  id="prop1"
+                   class="prop1"
+                   disabled = "true"
+                   focusable ="true"
+                   data-name ="prop1"
+                   click-effect="spring-medium"
+                   dir ="rtl">
+            </menu>
+
+            <text  class="sub-title">
+                menu通用属性2
+            </text>
+            <menu  id="prop2"
+                   class="prop2"
+                   ref ="prop2"
+                   disabled = "false"
+                   focusable ="false"
+                   data-name ="prop2"
+                   click-effect="spring-large"
+                   dir ="ltr">
+            </menu>
+
+            <text  class="sub-title">
+                menu通用属性3
+            </text>
+            <menu id="prop3" style="color: #679855; margin: 5px;width: 100%;height: 40px;">
+            </menu>
+
+            <text  class="sub-title">
+                menu特有属性4
+            </text>
+            <menu id="prop4" class="prop4"
+                  onselected="onMenuSelected" type="click" title="menu1">
+            </menu>
+
+            <text  class="sub-title">
+                menu特有属性5
+            </text>
+            <menu id="prop5" class="prop5"
+                  onselected="onMenuSelected" type="longpress" title="menu2">
+            </menu>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title" onclick="onTextClick1">
+                menu特有事件1
+            </text>
+            <menu id="event1" class="event1" onselected="onMenuSelected">
+                <option value="Item 1">Item 1</option>
+                <option value="Item 2">Item 2</option>
+            </menu>
+
+            <text  class="sub-title" onclick="onTextClick2">
+                menu特有事件2
+            </text>
+            <menu id="event2" class="event2" onselected="onMenuSelected" on:cancel="click">
+                <option value="Item 1">Item 1</option>
+                <option value="Item 2">Item 2</option>
+            </menu>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用方法 -->
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title" onclick="onTextClick3">
+                menu特有方法1
+            </text>
+            <menu id="function1" onselected="onMenuSelected" on:cancel="click">
+                <option value="Item 1">Item 1</option>
+                <option value="Item 2">Item 2</option>
+            </menu>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+
+            <text class="sub-title">
+                menu渐变样式1
+            </text>
+            <menu id="gradient1" class="gradient1">
+            </menu>
+
+            <text  class="sub-title">
+                menu渐变样式2
+            </text>
+            <menu id="gradient2" class="gradient2">
+            </menu>
+
+            <text  class="sub-title">
+                menu渐变样式3
+            </text>
+            <menu id="gradient3" class="gradient3">
+            </menu>
+
+            <text  class="sub-title">
+                menu渐变样式4
+            </text>
+            <menu id="gradient4" class="gradient4">
+            </menu>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                menu无障碍1
+            </text>
+            <menu id="access1" class="access1"
+                   accessibilitygroup ="true"
+                   accessibilitytext="这是div"
+                   accessibilitydescription="点击此按键会弹出一个对话框"
+                   accessibilityimportance="no-hide-descendants"
+                   >
+            </menu>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 原子布局和多模输入 -->
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                menu原子布局1
+            </text>
+            <div style="flex-direction: row;height: 40px;width: 100%;">
+                <menu id="atomA1" class="atom1">
+                </menu>
+                <menu id="atomA2" class="atom2">
+                </menu>
+                <menu id="atomA3" class="atom3">
+                </menu>
+            </div>
+            <text class="sub-title">
+                menu原子布局2
+            </text>
+            <div style="flex-direction: row;height: 40px;width: 100%;">
+                <menu id="atomB1" class="atom1">
+                </menu>
+                <menu id="atomB2" class="atom2">
+                </menu>
+                <menu id="atomB3" class="atom3">
+                </menu>
+            </div>
+            <text class="sub-title">
+                menu原子布局3
+            </text>
+            <div style="flex-direction: row;height:40px;width: 100%;">
+                <menu id="atomC1" class="atom1">
+                </menu>
+                <menu id="atomC2" class="atom2">
+                </menu>
+                <menu id="atomC3" class="atom3">
+                </menu>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    menu多模输入1
+                </text>
+                <menu id="multiMode1"
+                       class="multimode1"
+                       voicelabel = "voice"
+                       subscriptflag="on"
+                       subscriptlabel="div"
+                       scenelabel="common">
+                </menu>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,243 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            switch通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <switch id="idProp">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <switch id="classProp"
+             class="classProp">
+        </switch>
+        <switch id="classPropNone"
+             class="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <switch id="styleProp"
+             style="width:80%;height:20px;background-color:red">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <switch id="refProp"
+             ref="refProp">
+        </switch>
+        <switch id="refPropNone"
+             ref="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <switch id="disabledPropTrue"
+             disabled="true">
+        </switch>
+        <switch id="disabledPropFalse"
+             disabled="false">
+        </switch>
+        <switch id="disabledPropNone"
+             disabled="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <switch id="focusablePropTrue"
+             focusable="true">
+        </switch>
+        <switch id="focusablePropFalse"
+             focusable="false">
+        </switch>
+        <switch id="focusablePropNone"
+             focusable="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <switch id="dataProp"
+             data-switch="通用属性 -- data-switch">
+        </switch>
+        <switch id="dataPropNone"
+             data-switch="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <switch id="dataPropOne"
+                data="通用属性 -- data-switch">
+        </switch>
+        <switch id="dataPropOneNone"
+                data="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <switch id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </switch>
+        <switch id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </switch>
+        <switch id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </switch>
+        <switch id="clickEffectPropNone"
+             click-effect="">
+        </switch>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <switch id="dirPropRtl"
+             dir="rtl">
+        </switch>
+        <switch id="dirPropAuto"
+             dir="auto">
+        </switch>
+        <switch id="dirPropLtr"
+             dir="ltr">
+        </switch>
+        <switch id="dirPropNone"
+             dir="">
+        </switch>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <switch id="forPropNull"
+             for="">
+        </switch>
+        <switch id="forPropOne"
+             for="{{listOne}}">
+        </switch>
+        <switch id="forPropThree"
+             for="{{listThree}}">
+        </switch>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <switch id="ifPropTrue"
+             if="true">
+        </switch>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <switch id="showPropTrue"
+             show="true">
+        </switch>
+        <switch id="showPropFalse"
+             show="false">
+        </switch>
+        <switch id="showPropNone"
+             show="">
+        </switch>
+
+        <text class="sub-title">
+            属性 -- tid
+        </text>
+        <switch id="tidProp"
+             tid="tidProp">
+        </switch>
+        <switch id="tidPropNone"
+             tid="">
+        </switch>
+
+        <text class="sub-title">
+            属性 -- elif
+        </text>
+        <switch style="width: 20px;height: 20px;"
+             if="false">
+        </switch>
+        <switch id="elifPropTrue"
+             elif="true">
+        </switch>
+        <switch id="elifPropFalse"
+             elif="false">
+        </switch>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            switch特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- checked
+        </text>
+        <switch id="checkedTrue"
+                checked="true">
+        </switch>
+        <switch id="checkedFalse"
+                checked="false">
+        </switch>
+        <switch id="checkedNone"
+                checked="">
+        </switch>
+
+        <text class="sub-title">
+            特有属性 -- showtext
+        </text>
+        <switch id="showTextTrue"
+                showtext="true">
+        </switch>
+        <switch id="showTextFalse"
+                showtext="false">
+        </switch>
+        <switch id="showTextNone"
+                showtext="">
+        </switch>
+
+        <text class="sub-title">
+            特有属性 -- texton
+        </text>
+        <switch id="textOn"
+                texton="开">
+        </switch>
+        <switch id="textOnNone"
+                texton="">
+        </switch>
+
+        <text class="sub-title">
+            特有属性 -- textoff
+        </text>
+        <switch id="textOff"
+                textoff="关">
+        </switch>
+        <switch id="textOffNone"
+                textoff="">
+        </switch>
+    </div>
+</div>

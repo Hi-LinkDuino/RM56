@@ -1,0 +1,15 @@
+root {
+    platform {
+        uart_sample {
+            num = 5;
+            base = 0x120a0000;  // UART base register address
+            irqNum = 38;
+            baudrate = 115200;
+            uartClk = 24000000; // 24 M
+            wlen = 0x60;        // 8 bit width
+            parity = 0;
+            stopBit = 0;
+            match_attr = "sample_uart_5";
+        }
+    }
+}

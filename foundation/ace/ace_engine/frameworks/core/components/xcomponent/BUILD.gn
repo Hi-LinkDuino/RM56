@@ -1,0 +1,50 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/frameworks/core/components/components.gni")
+
+build_component("xcomponent") {
+  sources = [
+    "flutter_render_xcomponent.cpp",
+    "native_interface_xcomponent_impl.cpp",
+    "render_xcomponent.cpp",
+    "render_xcomponent_creator.cpp",
+    "resource/native_texture.cpp",
+    "resource/xcomponent_delegate.cpp",
+    "resource/xcomponent_resource.cpp",
+    "xcomponent_component.cpp",
+    "xcomponent_element.cpp",
+  ]
+
+  rosen_sources = [ "rosen_render_xcomponent.cpp" ]
+
+  if (is_standard_system && !use_mingw_win && !use_mac) {
+    include_dirs = [
+      "//drivers/peripheral/display/interfaces/include",
+      "//foundation/multimedia/media_standard/interfaces/innerkits/native/include",
+      "//foundation/graphic/standard/interfaces/innerkits/wmclient",
+      "//foundation/graphic/standard/interfaces/innerkits/wm",
+      "//foundation/graphic/standard/interfaces/innerkits/surface",
+    ]
+
+    deps = [
+      "//foundation/graphic/standard:libsurface",
+      "//foundation/graphic/standard:libwmclient",
+      "//foundation/graphic/standard/rosen/modules/render_service_client:librender_service_client",
+      "//foundation/windowmanager/utils:libwmutil",
+      "//foundation/windowmanager/wm:libwm",
+    ]
+
+    external_deps = [ "ipc:ipc_core" ]
+  }
+}

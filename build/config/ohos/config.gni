@@ -1,0 +1,41 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+if (is_ohos) {
+  import("//build/config/clang/clang.gni")
+  import("//build/misc/overrides/build.gni")
+  import("abi.gni")
+
+  import("//build/config/ohos/musl.gni")
+
+  default_base_libs_root = ""
+
+  declare_args() {
+    base_libs_root = default_base_libs_root
+  }
+
+  # Defines the name the ohos build gives to the current host CPU
+  # architecture, which is different than the names GN uses.
+  if (host_os == "linux") {
+    ohos_host_os = "linux"
+  } else if (host_os == "mac") {
+    ohos_host_os = "darwin"
+  } else {
+    assert(false, "Need toolchain support for your build OS.")
+  }
+
+  if (current_cpu == "arm") {
+    abi_target = "arm-linux-ohos"
+  } else if (current_cpu == "x86") {
+    abi_target = ""
+  } else if (current_cpu == "arm64") {
+    abi_target = "aarch64-linux-ohos"
+  } else if (current_cpu == "x86_64") {
+    abi_target = ""
+  } else {
+    assert(false, "Architecture not supported")
+  }
+
+  libclang_rt_file = "${clang_base_path}/lib/clang/10.0.1/lib/${abi_target}/libclang_rt.builtins.a"
+}

@@ -1,0 +1,61 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#################### default ####################
+# Server identifier.
+#serverId=192.168.150.200
+
+# Default subnet mask.
+#netmask=255.255.255.0
+
+# Default gateway.
+#gateway=192.168.150.254
+
+# Lease time value.
+leaseTime=43200
+# Renewal time value.
+#renewalTime=21600
+# Rebinding time value.
+#rebindingTime=34560
+
+# Address Range: {beginIp},{endIp}
+#pool=192.168.150.100,192.168.150.200
+
+# Domain name server IP address: <dns1> [,<dns2>] [,<dns3>] ...
+#dns=223.5.5.5,8.8.8.8
+
+#################### interface1 ####################
+# Network interface name, if this parameter is specified, the item is mandatory.(interface config)
+interface=wlan1
+# Server identifier, if this parameter is specified, the item is mandatory.
+server=192.168.150.200
+# Subnet mask, if this parameter is specified, the item is mandatory.
+netmask=255.255.255.0
+gateway=192.168.150.255
+
+#leaseTime=6000
+pool=192.168.150.100,192.168.150.200
+#dns=223.5.5.5,8.8.8.8
+
+#################### interface2 ####################
+# Network interface name, if this parameter is specified, the item is mandatory.
+#interface=wlan2
+# Server identifier, if this parameter is specified, the item is mandatory.
+#server=192.168.255.200
+# Subnet mask, if this parameter is specified, the item is mandatory.
+#netmask=255.255.255.0
+
+#gateway=192.168.255.255
+#leaseTime=8000
+#pool=192.168.255.2,192.168.255.254
+#dns=223.5.5.5,8.8.8.8

@@ -1,0 +1,242 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//drivers/peripheral/camera/hal/camera.gni")
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/test.gni")
+  import("//drivers/adapter/uhdf/uhdf.gni")
+
+  config("pipe_config") {
+    visibility = [ ":*" ]
+    cflags_cc = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-error",
+      "-DGST_DISABLE_DEPRECATED",
+      "-DHAVE_CONFIG_H",
+      "-DCOLORSPACE=\"videoconvert\"",
+      "-fno-strict-aliasing",
+      "-Wno-sign-compare",
+      "-Wno-builtin-requires-header",
+      "-Wno-unused-variable",
+      "-Wno-unused-label",
+      "-Wno-implicit-function-declaration",
+      "-Wno-format",
+      "-Wno-int-conversion",
+      "-Wno-unused-function",
+      "-Wno-thread-safety-attributes",
+      "-Wno-inconsistent-missing-override",
+      "-fno-rtti",
+      "-fno-exceptions",
+      "-ffunction-sections",
+      "-fdata-sections",
+    ]
+    cflags_cc += [ "-std=c++17" ]
+  }
+
+  unittest("camera_hal_pipeline_core_unittest") {
+    output_extension = "bin"
+    output_dir = "$root_out_dir/test/unittest/hdf"
+    sources = [
+      "unittest/pipeline_core_test.cpp",
+      "unittest/stream_pipeline_builder_test.cpp",
+      "unittest/stream_pipeline_dispatcher_test.cpp",
+      "unittest/stream_pipeline_strategy_test.cpp",
+    ]
+
+    include_dirs = [
+      "//utils/native/base/include",
+      "//base/hiviewdfx/interfaces/innerkits/libhilog/include",
+      "$camera_path/../interfaces/include",
+      "$camera_path/../interfaces/hdi_passthrough",
+      "$camera_path/include",
+      "$camera_path/hdi_impl",
+      "$camera_path/hdi_impl/camera_host/include",
+      "$camera_path/hdi_impl/camera_device/include",
+      "$camera_path/hdi_impl/stream_operator/include",
+      "$camera_path/hdi_impl/include",
+      "$camera_path/device_manager/include",
+      "$camera_path/pipeline_core",
+      "$camera_path/pipeline_core/host_stream/include",
+      "$camera_path/pipeline_core/utils",
+      "$camera_path/pipeline_core/nodes/include",
+      "$camera_path/pipeline_core/nodes/src/node_base",
+      "$camera_path/pipeline_core/nodes/src/sink_node",
+      "$camera_path/pipeline_core/nodes/src/sensor_node",
+      "$camera_path/pipeline_core/nodes/src/merge_node",
+      "$camera_path/pipeline_core/nodes/src/dummy_node",
+      "$camera_path/pipeline_core/pipeline_impl/include",
+      "$camera_path/pipeline_core/pipeline_impl/src",
+      "$camera_path/pipeline_core/include",
+      "$camera_path/pipeline_core/pipeline_impl/src/builder",
+      "$camera_path/pipeline_core/pipeline_impl/src/dispatcher",
+      "$camera_path/pipeline_core/pipeline_impl/src/parser",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy/config",
+      "$camera_path/pipeline_core/ipp/include",
+      "$camera_path/interfaces/hdi",
+      "$camera_path/utils/event",
+      "$camera_path/utils/metadata/include",
+      "//foundation/graphic/surface/interfaces/kits",
+      "//foundation/graphic/surface/interfaces/innerkits",
+
+      # hcs parser
+      "//drivers/framework/include/osal",
+      "//drivers/framework/include/utils",
+      "//system/core/include/cutils",
+      "//drivers/framework/utils/include",
+      "//drivers/adapter/uhdf2/osal/include",
+    ]
+    if (is_support_mpi) {
+      include_dirs += [
+        "$camera_path/adapter/chipset/hispark_taurus/include/device_manager",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/mpi_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/vi_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/vo_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/venc_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/vpss_node",
+        "$camera_path/adapter/chipset/hispark_taurus/config/pipeline_core",
+      ]
+    }
+
+    deps = [
+      "$camera_path/buffer_manager:camera_buffer_manager",
+      "$camera_path/device_manager:camera_device_manager",
+      "$camera_path/pipeline_core:camera_pipeline_core",
+      "$camera_path/utils/metadata:metadata_lite",
+
+      # hcs parser
+      "$hdf_uhdf_path/utils:libhdf_utils",
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//foundation/graphic/surface:surface",
+    ]
+  }
+} else {
+  import("//build/test.gni")
+  import("//drivers/adapter/uhdf2/uhdf.gni")
+  module_output_path = "hdf/pipeline_core_test"
+  config("pipe_config") {
+    visibility = [ ":*" ]
+    cflags_cc = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-error",
+      "-DGST_DISABLE_DEPRECATED",
+      "-DHAVE_CONFIG_H",
+      "-DCOLORSPACE=\"videoconvert\"",
+      "-fno-strict-aliasing",
+      "-Wno-sign-compare",
+      "-Wno-builtin-requires-header",
+      "-Wno-unused-variable",
+      "-Wno-unused-label",
+      "-Wno-implicit-function-declaration",
+      "-Wno-format",
+      "-Wno-int-conversion",
+      "-Wno-unused-function",
+      "-Wno-thread-safety-attributes",
+      "-Wno-inconsistent-missing-override",
+      "-fno-rtti",
+      "-fno-exceptions",
+      "-ffunction-sections",
+      "-fdata-sections",
+    ]
+  }
+  ohos_unittest("camera_hal_pipeline_core_unittest") {
+    testonly = true
+    module_out_path = module_output_path
+    sources = [
+      "unittest/pipeline_core_test.cpp",
+      "unittest/stream_pipeline_builder_test.cpp",
+      "unittest/stream_pipeline_dispatcher_test.cpp",
+      "unittest/stream_pipeline_strategy_test.cpp",
+    ]
+
+    include_dirs = [
+      "$camera_path/../interfaces/include",
+      "$camera_path/../interfaces/hdi_ipc",
+      "$camera_path/include",
+      "$camera_path/hdi_impl",
+      "$camera_path/hdi_impl/camera_host/include",
+      "$camera_path/hdi_impl/camera_device/include",
+      "$camera_path/hdi_impl/stream_operator/include",
+      "$camera_path/hdi_impl/include",
+      "$camera_path/device_manager/include",
+      "$camera_path/pipeline_core",
+      "$camera_path/pipeline_core/host_stream/include",
+      "$camera_path/pipeline_core/utils",
+      "$camera_path/pipeline_core/nodes/include",
+      "$camera_path/pipeline_core/nodes/src/node_base",
+      "$camera_path/pipeline_core/nodes/src/sink_node",
+      "$camera_path/pipeline_core/nodes/src/sensor_node",
+      "$camera_path/pipeline_core/nodes/src/merge_node",
+      "$camera_path/pipeline_core/nodes/src/dummy_node",
+      "$camera_path/pipeline_core/pipeline_impl/include",
+      "$camera_path/pipeline_core/pipeline_impl/src",
+      "$camera_path/pipeline_core/include",
+      "$camera_path/pipeline_core/pipeline_impl/src/builder",
+      "$camera_path/pipeline_core/pipeline_impl/src/dispatcher",
+      "$camera_path/pipeline_core/pipeline_impl/src/parser",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy/config",
+      "$camera_path/pipeline_core/ipp/include",
+      "$camera_path/interfaces/hdi",
+      "$camera_path/utils/event",
+      "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+
+      # hcs parser
+      "//system/core/include/cutils",
+    ]
+    if (is_support_mpi) {
+      include_dirs += [
+        "$camera_path/adapter/chipset/hispark_taurus/include/device_manager",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/mpi_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/vi_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/vo_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/venc_node",
+        "$camera_path/adapter/chipset/hispark_taurus/src/pipeline_core/nodes/vpss_node",
+        "$camera_path/adapter/chipset/hispark_taurus/config/pipeline_core",
+      ]
+    }
+
+    deps = [
+      "$camera_path/buffer_manager:camera_buffer_manager",
+      "$camera_path/device_manager:camera_device_manager",
+      "$camera_path/pipeline_core:camera_pipeline_core",
+      "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+
+      # hcs parser
+      "//third_party/googletest:gmock_main",
+      "//third_party/googletest:gtest_main",
+    ]
+
+    if (is_standard_system) {
+      external_deps = [
+        "device_driver_framework:libhdf_utils",
+        "graphic_standard:surface",
+        "hiviewdfx_hilog_native:libhilog",
+        "utils_base:utils",
+      ]
+    } else {
+      external_deps = [ "hilog:libhilog" ]
+    }
+
+    external_deps += [
+      "ipc:ipc_single",
+      "samgr_standard:samgr_proxy",
+    ]
+    public_configs = [ ":pipe_config" ]
+  }
+}

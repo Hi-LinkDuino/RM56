@@ -1,0 +1,197 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            div通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <grid-row id="idProp">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <grid-row id="classProp"
+             class="classProp">
+        </grid-row>
+        <grid-row id="classPropNone"
+             class="">
+        </grid-row>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <grid-row id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <grid-row id="refProp"
+             ref="refProp">
+        </grid-row>
+        <grid-row id="refPropNone"
+             ref="">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <grid-row id="disabledPropTrue"
+             disabled="true">
+        </grid-row>
+        <grid-row id="disabledPropFalse"
+             disabled="false">
+        </grid-row>
+        <grid-row id="disabledPropNone"
+             disabled="">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <grid-row id="focusablePropTrue"
+             focusable="true">
+        </grid-row>
+        <grid-row id="focusablePropFalse"
+             focusable="false">
+        </grid-row>
+        <grid-row id="focusablePropNone"
+             focusable="">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <grid-row id="dataProp"
+             data-div="通用属性 -- data-*">
+        </grid-row>
+        <grid-row id="dataPropNone"
+             data-div="">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <grid-row id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </grid-row>
+        <grid-row id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </grid-row>
+        <grid-row id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </grid-row>
+        <grid-row id="clickEffectPropNone"
+             click-effect="">
+        </grid-row>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <grid-row id="dirPropRtl"
+             dir="rtl">
+        </grid-row>
+        <grid-row id="dirPropAuto"
+             dir="auto">
+        </grid-row>
+        <grid-row id="dirPropLtr"
+             dir="ltr">
+        </grid-row>
+        <grid-row id="dirPropNone"
+             dir="">
+        </grid-row>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <grid-row id="forPropNull"
+             for="">
+        </grid-row>
+        <grid-row id="forPropOne"
+             for="{{listOne}}">
+        </grid-row>
+        <grid-row id="forPropThree"
+             for="{{listThree}}">
+        </grid-row>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <grid-row id="ifPropTrue"
+             if="true">
+        </grid-row>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <grid-row id="showPropTrue"
+             show="true">
+        </grid-row>
+        <grid-row id="showPropFalse"
+             show="false">
+        </grid-row>
+        <grid-row id="showPropNone"
+             show="">
+        </grid-row>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            div特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- grid-row
+        </text>
+        <grid-row class="propNewAdd"
+                        grid-row="grid-row">
+        </grid-row>
+        <grid-row class="propNewAdd"
+                        grid-row="">
+        </grid-row>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <grid-row class="propNewAdd"
+                        tid="id">
+        </grid-row>
+        <grid-row class="propNewAdd"
+                        tid="">
+        </grid-row>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <grid-row class="propNewAdd"
+                        if="false">
+        </grid-row>
+        <grid-row class="propNewAdd"
+                        elif="true">
+        </grid-row>
+        <grid-row class="propNewAdd"
+                        elif="false">
+        </grid-row>
+    </div>
+</div>

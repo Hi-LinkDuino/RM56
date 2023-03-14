@@ -1,0 +1,49 @@
+{
+  "name": "usb_device_driver",
+  "description": "usb device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "usb_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "820KB",
+    "ram": "12200KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/usb:usb_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/usb/test:hdf_test_usb"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/usb/hal/client:usbd_client",
+          "header": {
+            "header_files": [
+              "usb_errors.h",
+              "usb_info.h",
+              "usb_param.h",
+              "usbd_client.h",
+              "usbd_subscriber.h",
+              "usbd_type.h"
+            ],
+            "header_base": "//drivers/peripheral/usb/hal/client/include"
+          }
+        }
+      ]
+    }
+  }
+}

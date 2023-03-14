@@ -1,0 +1,85 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/aafwk/standard/aafwk.gni")
+
+config("uiservice_manager_public_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "include/",
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/include",
+    "//foundation/aafwk/standard/frameworks/kits/ability/native/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
+    "//foundation/aafwk/standard/interfaces/innerkits/ability_manager/include/",
+    "//foundation/aafwk/standard/services/uiservicemgr/include",
+    "${innerkits_path}/want/include",
+    "//foundation/graphic/standard/rosen/modules/render_service_client/core",
+    "//foundation/graphic/standard/interfaces/innerkits/surface",
+    "//foundation/graphic/standard/interfaces/innerkits/common",
+    "//foundation/graphic/standard/utils/buffer_handle/export",
+    "//foundation/graphic/standard/rosen/modules/render_service_base/include",
+    "//drivers/peripheral/base",
+    "//third_party/icu/icu4c/source/common",
+    "//third_party/icu/icu4c/source/i18n",
+    "//third_party/icu/icu4c/source/ohos",
+    "//third_party/icu/icu4c/source",
+  ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+}
+
+ohos_shared_library("ui_service_mgr") {
+  sources = [
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice/src/dialog_callback_proxy.cpp",
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice/src/dialog_callback_stub.cpp",
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice/src/ui_service_mgr_client.cpp",
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice/src/ui_service_mgr_proxy.cpp",
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice/src/ui_service_proxy.cpp",
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice/src/ui_service_stub.cpp",
+  ]
+
+  configs = [ "//utils/native/base:utils_config" ]
+
+  public_configs = [
+    ":uiservice_manager_public_config",
+    "//foundation/ace/ace_engine/adapter/ohos/services/uiservice:uiservicems_config",
+  ]
+
+  deps = [
+    "${innerkits_path}/want:want",
+    "//foundation/appexecfwk/standard/common:libappexecfwk_common",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler:libeventhandler",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+    "//foundation/windowmanager/utils:libwmutil",
+    "//foundation/windowmanager/wm:libwm",
+    "//third_party/icu/icu4c:shared_icui18n",
+    "//third_party/icu/icu4c:shared_icuuc",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [
+    "ability_runtime:ability_manager",
+    "hiviewdfx_hilog_native:libhilog",
+    "input:libmmi-client",
+    "ipc:ipc_core",
+    "window_manager:libdm",
+  ]
+
+  subsystem_name = "ace"
+  part_name = "ace_engine_standard"
+}

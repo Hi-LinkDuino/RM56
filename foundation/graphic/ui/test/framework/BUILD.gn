@@ -1,0 +1,149 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/graphic/config.gni")
+
+config("graphic_test_config") {
+  if (ohos_kernel_type == "linux") {
+    defines = [ "AUTO_TEST_RESOURCE_PATH=\"/storage/data/auto_test/\"" ]
+  } else {
+    defines = [ "AUTO_TEST_RESOURCE_PATH=\"/user/data/auto_test/\"" ]
+  }
+}
+
+test_sources = [
+  "../uitest/test_animator/ui_test_animator.cpp",
+  "../uitest/test_anti_aliasing/ui_test_anti_aliasing.cpp",
+  "../uitest/test_arc_label/ui_test_arc_label.cpp",
+  "../uitest/test_border_margin_padding/ui_test_border_margin_padding.cpp",
+  "../uitest/test_button/ui_test_button.cpp",
+  "../uitest/test_canvas/ui_test_canvas.cpp",
+  "../uitest/test_chart/ui_test_chart_pillar.cpp",
+  "../uitest/test_chart/ui_test_chart_polyline.cpp",
+  "../uitest/test_clip/ui_test_clip.cpp",
+  "../uitest/test_dialog/ui_test_dialog.cpp",
+  "../uitest/test_digital_clock/ui_test_digital_clock.cpp",
+  "../uitest/test_draw_line/ui_test_draw_line.cpp",
+  "../uitest/test_draw_rect/ui_test_draw_rect.cpp",
+  "../uitest/test_event_injector/ui_test_event_injector.cpp",
+  "../uitest/test_focus_manager/ui_test_focus_manager.cpp",
+  "../uitest/test_font/ui_test_font.cpp",
+  "../uitest/test_image/ui_test_image.cpp",
+  "../uitest/test_image_animator/ui_test_image_animator.cpp",
+  "../uitest/test_input_event/ui_test_input_event.cpp",
+  "../uitest/test_label/ui_test_label.cpp",
+  "../uitest/test_layout/ui_test_advanced_layout.cpp",
+  "../uitest/test_layout/ui_test_basic_layout.cpp",
+  "../uitest/test_opacity/ui_test_opacity.cpp",
+  "../uitest/test_picker/ui_test_ui_picker.cpp",
+  "../uitest/test_progress_bar/ui_test_box_progress.cpp",
+  "../uitest/test_progress_bar/ui_test_circle_progress.cpp",
+  "../uitest/test_qrcode/ui_test_qrcode.cpp",
+  "../uitest/test_render/ui_test_render.cpp",
+  "../uitest/test_rotate_input/ui_test_rotate_input.cpp",
+  "../uitest/test_screenshot/ui_test_screenshot.cpp",
+  "../uitest/test_scroll_bar/ui_test_scroll_bar.cpp",
+  "../uitest/test_slider/ui_test_slider.cpp",
+  "../uitest/test_texture_mapper/ui_test_texture_mapper.cpp",
+  "../uitest/test_transform/ui_test_transform.cpp",
+  "../uitest/test_ui_analog_clock/ui_test_analog_clock.cpp",
+  "../uitest/test_ui_dump_dom_tree/ui_test_dump_dom.cpp",
+  "../uitest/test_ui_list/ui_test_ui_list.cpp",
+  "../uitest/test_ui_list_view/ui_test_list_layout.cpp",
+  "../uitest/test_ui_scroll_view/ui_test_ui_scroll_view.cpp",
+  "../uitest/test_ui_swipe_view/ui_test_ui_swipe_view.cpp",
+  "../uitest/test_vector_font/ui_test_vector_font.cpp",
+  "../uitest/test_view_bitmap/ui_test_view_bitmap.cpp",
+  "../uitest/test_view_bounds/ui_test_view_bounds.cpp",
+  "../uitest/test_view_group/ui_test_view_group.cpp",
+  "../uitest/test_view_percent/ui_test_view_percent.cpp",
+  "../uitest/test_view_scale_rotate/ui_test_view_scale_rotate.cpp",
+  "common/ui_text_language.cpp",
+  "src/test_ability.cpp",
+  "src/test_case_list_adapter.cpp",
+  "src/ui_test_app.cpp",
+  "src/ui_test_group.cpp",
+]
+
+if (enable_video_component) {
+  test_sources += [ "../uitest/test_video/ui_test_video.cpp" ]
+}
+
+auto_test_sources = [
+  "../uitest/test_layout/ui_auto_test_basic_layout.cpp",
+  "../uitest/test_render/ui_auto_test_render.cpp",
+  "src/auto_test_app.cpp",
+  "src/auto_test_case_group.cpp",
+  "src/compare_tools.cpp",
+  "src/ui_auto_test.cpp",
+]
+
+static_library("framework") {
+  sources = test_sources
+  sources += auto_test_sources
+
+  include_dirs = [
+    "common",
+    "include",
+    "../framework",
+    "../uitest",
+    "../../tools",
+    "../../interfaces",
+    "../../frameworks",
+    "//foundation/multimedia/utils/lite/interfaces/kits",
+    "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+  ]
+
+  public_deps = [
+    "//build/lite/config/component/cJSON:cjson_shared",
+    "//foundation/graphic/ui:ui",
+    "//foundation/graphic/wms:wms_client",
+  ]
+  configs += [ "//foundation/graphic/ui:graphic_define_config" ]
+  public_configs = [ ":graphic_test_config" ]
+}
+
+static_library("auto_framework") {
+  sources = test_sources
+  sources += auto_test_sources
+  include_dirs = [
+    "common",
+    "include",
+    "../framework",
+    "../uitest",
+    "../../tools",
+    "../../interfaces",
+    "../../frameworks",
+    "//foundation/multimedia/utils/lite/interfaces/kits",
+    "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+  ]
+  defines = [ "ENABEL_UI_AUTO_TEST=1" ]
+  ldflags = [
+    "-lstdc++",
+    "-lpthread",
+    "-Wl,-rpath-link=$ohos_root_path/$root_out_dir",
+  ]
+  public_deps = [
+    "//build/lite/config/component/cJSON:cjson_shared",
+    "//foundation/graphic/ui:ui",
+    "//foundation/graphic/wms:wms_client",
+  ]
+  configs += [ "//foundation/graphic/ui:graphic_define_config" ]
+  public_configs = [ ":graphic_test_config" ]
+}
+
+group("lite_graphic_test_framework") {
+  public_deps = []
+  if (ohos_build_type == "debug") {
+    public_deps += [ ":framework" ]
+  }
+}

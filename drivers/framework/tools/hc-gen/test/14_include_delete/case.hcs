@@ -1,0 +1,11 @@
+#include "base.hcs"
+
+root {
+    module = "test";
+    foo : delete{
+    }
+    bar {
+        term1 = delete;
+        term2 = 1;
+    }
+}

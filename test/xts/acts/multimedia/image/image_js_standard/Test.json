@@ -1,0 +1,46 @@
+{
+    "description": "Configuration for Image Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "120000",
+        "package": "ohos.acts.multimedia.image",
+		"shell-timeout": "120000"
+    },
+    "kits": [
+   
+		{
+            "type": "ShellKit",
+            "run-command": [
+                "mkdir /data/accounts/account_0/appdata/image",
+                "chmod -R 666 /data/media/*",
+                "chmod -R 666 /data/accounts/account_0/appdata/image/*"
+            ],
+            "teardown-command":[
+              
+            ]
+        },
+        {
+            "type": "PushKit",
+            "pre-push": [
+            ],
+            "push": [
+                "./resource/image/test.tiff ->/data/accounts/account_0/appdata/image",
+				"./resource/image/test.123 ->/data/accounts/account_0/appdata/image",
+				"./resource/image/test.bmp ->/data/accounts/account_0/appdata/image",
+                "./resource/image/test.png ->/data/accounts/account_0/appdata/image",
+				"./resource/image/test.gif ->/data/accounts/account_0/appdata/image",
+				"./resource/image/test.jpg ->/data/accounts/account_0/appdata/image",
+				"./resource/image/test_exif.jpg ->/data/accounts/account_0/appdata/image",
+				"./resource/image/moving_test.gif ->/data/accounts/account_0/appdata/image"
+            ]
+        },
+        {
+            "test-file-name": [
+                "ActsImageJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+    
+}

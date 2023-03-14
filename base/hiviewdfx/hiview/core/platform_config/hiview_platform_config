@@ -1,0 +1,8 @@
+DEFAULT_PLUGIN_CONFIG_NAME = "plugin_config"
+PLUGIN_CONFIG_FILE_DIR = "/system/etc/hiview/"
+DYNAMIC_LIB_SEARCH_DIR = "/system/lib/"
+DYNAMIC_LIB64_SEARCH_DIR = "/system/lib64/"
+CLOUD_UPDATE_CONFIG_DIR = "/data/system/hiview/"
+WORK_DIR = "/data/log/LogService/"
+COMMERCIAL_WORK_DIR = "/log/LogService/"
+PERSIST_DIR = "/log/hiview/"

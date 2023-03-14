@@ -1,0 +1,55 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//drivers/adapter/khdf/liteos/hdf.gni")
+
+module_switch = defined(LOSCFG_DRIVERS_HDF_DSOFTBUS)
+module_name = "hdf_dsoftbus_driver"
+hdf_driver(module_name) {
+  FRAMEWORKS_DSOFTBUS_ROOT = "$HDF_FRAMEWORKS_PATH/model/misc/dsoftbus"
+
+  sources = [
+    "$FRAMEWORKS_DSOFTBUS_ROOT/src/hdf_dsoftbus_driver.c",
+    "$FRAMEWORKS_DSOFTBUS_ROOT/src/module_manager.c",
+  ]
+  include_dirs = [ "$FRAMEWORKS_DSOFTBUS_ROOT/include" ]
+  cflags = [ "-Wall" ]
+  if (defined(LOSCFG_DSOFTBUS_WLAN_PARAM_MONITOR)) {
+    sources += [ "$FRAMEWORKS_DSOFTBUS_ROOT/src/wlan_param_monitor.c" ]
+    cflags += [ "-DENABLE_WLAN_PARAM_MONITOR" ]
+  }
+  if (defined(LOSCFG_DSOFTBUS_LWIP_MONITOR)) {
+    sources += [ "src/softbus_lwip_monitor.c" ]
+    include_dirs += [
+      "include",
+      "//kernel/liteos_a/net/lwip-2.1/porting/include",
+      "//third_party/lwip/src/include/lwip",
+    ]
+    cflags += [ "-DENABLE_LWIP_MONITOR" ]
+  }
+}

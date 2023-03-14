@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "minimp3",
+        "License": "Creative Commons Zero v1.0 Universal",
+        "License File": "LICENSE",
+        "Version Number": "1.0.1",
+        "Owner": "lijianpeng7@huawei.com",
+        "Upstream URL": "https://github.com/JianpengLi1993/minimp3/releases/tag/v1.0.1",
+        "Description": "Minimalistic MP3 demuxer/decoder single header library."
+    }
+]

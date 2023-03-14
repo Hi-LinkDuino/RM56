@@ -1,0 +1,595 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/config/features.gni")
+import("//build/test.gni")
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/audio/audio.gni")
+
+module_output_path = "hdf/audio"
+
+#############hdf_audio_hdi_getchannelmode_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_getchannelmode_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_getchannelmode_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_getlatency_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_getlatency_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_getlatency_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_getrenderposition_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_getrenderposition_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_getrenderposition_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_getrenderspeed_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_getrenderspeed_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_getrenderspeed_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_renderframe_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_renderframe_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_renderframe_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_renderframe_requestbytes_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_renderframe_requestbytes_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_renderframe_requestbytes_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_setchannelmode_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_setchannelmode_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_setchannelmode_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_setrenderspeed_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_setrenderspeed_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_setrenderspeed_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_setrenderspeed_speed_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_setrenderspeed_speed_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_setrenderspeed_speed_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_setextraparams_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_setextraparams_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_setextraparams_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_setextraparams_render_keyvaluelist_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_setextraparams_render_keyvaluelist_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_setextraparams_render_keyvaluelist_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+
+############################end########################################
+#############hdf_audio_hdi_getextraparams_render_fuzzer###################
+ohos_fuzztest("hdf_audio_hdi_getextraparams_render_fuzzer") {
+  module_out_path = module_output_path
+
+  include_dirs = []
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+  ]
+
+  sources = [
+    "../../../common/src/audio_hdi_fuzzer_common.cpp",
+    "audio_hdi_getextraparams_render_fuzzer.cpp",
+  ]
+  include_dirs = [
+    "//drivers/peripheral/audio/interfaces/include",
+    "//drivers/peripheral/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/audio/hal/hdi_binder/proxy/include",
+    "//drivers/framework/include/core",
+    "//drivers/framework/include/utils",
+    "//drivers/framework/include/osal",
+    "//drivers/framework/ability/sbuf/include",
+    "//drivers/framework/utils/include",
+    "//drivers/framework/include",
+    "//drivers/framework/core/sec/include",
+    "//drivers/framework/core/shared/include",
+    "//drivers/framework/core/host/include",
+    "//drivers/framework/core/manager/include",
+    "//drivers/framework/core/common/include/host/",
+    "//third_party/bounds_checking_function/include",
+    "//drivers/adapter/khdf/liteos/osal/include",
+    "//drivers/adapter/uhdf2/shared/include",
+    "//drivers/adapter/uhdf2/include/hdi/",
+    "//drivers/peripheral/audio/test/fuzztest/hdi_fuzzer/render/include",
+    "//drivers/peripheral/audio/test/fuzztest/common/include",
+  ]
+  defines = []
+  if (enable_audio_adm_so) {
+    defines += [ "AUDIO_ADM_SO" ]
+  }
+  if (enable_audio_adm_service) {
+    defines += [ "AUDIO_ADM_SERVICE" ]
+  }
+}
+############################end########################################

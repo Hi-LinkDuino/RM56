@@ -1,0 +1,68 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack
+  id="div"
+  style="width:454px;height:454px;"
+>
+  <stack style="width:250px;height:340px;left:120px">
+    <text style="width:250px;height:60px;top:40px;">
+      storage:{{status}}
+    </text>
+    <input
+      type="button"
+      value="set info1"
+      style="width:100px;height:60px;left:10px;top:100px;"
+      onclick="storageSet1"
+    />
+    <input
+      type="button"
+      value="set info2"
+      style="width:100px;height:60px;left:120px;top:100px;"
+      onclick="storageSet2"
+    />
+    <input
+      type="button"
+      value="clear"
+      style="width:100px;height:60px;left:75px;top:170px;"
+      onclick="storageClear"
+    />
+    <input
+      type="button"
+      value="get info1"
+      style="width:100px;height:60px;left:10px;top:240px;"
+      onclick="storageGet1"
+    />
+    <input
+      type="button"
+      value="get info2"
+      style="width:100px;height:60px;left:120px;top:240px;"
+      onclick="storageGet2"
+    />
+  </stack>
+
+  <input
+    type="button"
+    value="上页"
+    style="width:90px;height:40px;left:80px;top:340px;"
+    onclick="changePrev"
+  />
+  <input
+    type="button"
+    value="首页"
+    style="width:90px;height:40px;left:180px;top:340px;"
+    onclick="backMain"
+  />
+</stack>

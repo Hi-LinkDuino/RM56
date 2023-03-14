@@ -1,0 +1,169 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* xxx.css */
+.container {
+    margin: 20px;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+}
+
+.textarea1{
+    width: 100%;
+    height: 100%;
+    min-width: 25px;
+    min-height: 10px;
+    max-width: 300px;
+    max-height: 50px;
+    padding-left: 1px;
+    padding-top: 2px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    border-left-style: solid;
+    border-right-style: dashed;
+    border-top-style: dashed;
+    border-bottom-style: dotted;
+    border-left-width: 5px;
+    border-right-width: 1px;
+    border-top-width: 2px;
+    border-bottom-width: 3px;
+    border-left-color: #ff0000;
+    border-right-color: #00ff00;
+    border-top-color: #0000ff;
+    border-bottom-color: #fff000;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 12px;
+    background: linear-gradient(pink,#000000);
+    box-shadow: 2px 4px 6px 8px #888888;
+    opacity: 0.5;
+    display: flex;
+    visibility: visible;
+    align-self: center;
+    image-fill: #000fff;
+    clip-path: margin-box;
+    font-weight:700;
+}
+
+.textarea2{
+    width: 80%;
+    height: 100px;
+    padding-start: 10px;
+    padding-end: 15px;
+    margin-start: 5px;
+    margin-end: 10px;
+    border-style: dotted;
+    border-width: 2px;
+    border-color:#000000;
+    border-radius:5px;
+    background-color:#ffaa00;
+    mask-image: url('common/images/icon.png');
+    mask-size: cover;
+    mask-position: center;
+    flex:1;
+    flex-grow: 2;
+    flex-basis: 10px;
+    flex-shrink: 1;
+}
+
+.textarea3{
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    margin: 5px;
+    border-left: 1px solid #000000;
+    border-right:  2px dashed #00ff00;
+    border-top:  1.5px dotted #0000ff;
+    border-bottom:  2.5px dotted #fff000;
+    background-image:url('common/images/image.png');
+    background-size:contain;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.textarea4{
+    width: 150px;
+    height: 50px;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #000000;
+}
+
+.contain1{
+    width: 150px;
+    height: 70px;
+    flex-direction: column;
+}
+
+.textarea5{
+    width: 120px;
+    height: 30px;
+    background-color: yellow;
+    border-image-source: url('/common/images/image.png');
+    border-image-slice: 1px 2px 3px 4px;
+    border-image-width: 2px 3px 4px 5px;
+    border-image-outset: 3px 4px 5px 6px;
+    border-image-repeat: repeat;
+}
+
+.textarea6{
+    width: 120px;
+    height: 30px;
+    position: absolute;
+    left: 10px;
+    top: 35px;
+    bottom: 5px;
+    right: 10px;
+    background-color: pink;
+    border-image: url('common/images/icon.png') 1px 2px 3px 4px 2px 3px 4px 5px 3px 4px 5px 6px round;
+}
+
+.textarea7 {
+    margin-top: 10px;
+    font-size:20px;
+    color: green;
+    allow-scale:true;
+    placeholder-color:saddlebrown;
+    font-weight:bold;
+    font-family:sans-serif;
+    caret-color:red;
+}
+
+.textarea7 {
+    margin-top: 10px;
+    font-size:20px;
+    color: green;
+    allow-scale:true;
+    placeholder-color:saddlebrown;
+    font-weight:bold;
+    font-family:sans-serif;
+    caret-color:red;
+}
+
+.textarea8 {
+    margin: 30px;
+    font-size:12px;
+    color: pink;
+    allow-scale:false;
+    font-weight:bold;
+    font-family:sans-serif;
+    caret-color:yellow;
+}

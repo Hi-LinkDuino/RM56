@@ -1,0 +1,294 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container {
+    flex-direction:row;
+    width:100%;
+    height:100%;
+    padding: 1px;
+}
+
+.sub-container{
+    flex-direction: column;
+    height: 100%;
+    flex-weight: 1;
+}
+
+.style-container{
+    flex-direction: column;
+    height: 70%;
+}
+
+.title{
+    width: 100%;
+    font-size: 18px;
+    margin: 2px;
+    padding: 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sub-title{
+    width: 100%;
+    font-size: 14px;
+    text-align: left;
+    margin: 2px;
+    padding: 2px;
+}
+
+.style1{
+    width: 100%;
+    height: 100%;
+    min-width: 25px;
+    min-height: 10px;
+    max-width: 300px;
+    max-height: 50px;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    border-left-style: solid;
+    border-right-style: dashed;
+    border-top-style: dashed;
+    border-bottom-style: dotted;
+    border-left-width: 1px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 1px;
+    border-left-color: #ff0000;
+    border-right-color: #00ff00;
+    border-top-color: #0000ff;
+    border-bottom-color: #fff000;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 12px;
+    background: linear-gradient(pink,#fff000);
+    box-shadow: 2px 4px 6px 8px #888888;
+    opacity: 0.5;
+    display: flex;
+    visibility: visible;
+    align-self: center;
+    image-fill: #000fff;
+    clip-path: margin-box;
+}
+
+.style2{
+    width: 50px;
+    height: 20px;
+    padding-start: 10px;
+    padding-end: 15px;
+    margin-start: 5px;
+    margin-end: 10px;
+    border-style: dotted;
+    border-width: 2px;
+    border-color:#000000;
+    border-radius:5px;
+    background-color:#ffaa00;
+    mask-image: url('common/images/icon.png');
+    mask-size: cover;
+    mask-position: center;
+}
+
+.style3{
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    border-left: 1px solid #000000;
+    border-right:  2px dashed #00ff00;
+    border-top:  1.5px dotted #0000ff;
+    border-bottom:  2.5px dotted #fff000;
+    background-image:url('common/images/image.png');
+    background-size:cover;
+    background-repeat: repeat-x;
+    background-position: center;
+    flex:1;
+    flex-grow: 2;
+    flex-basis: 10px;
+    flex-shrink: 1;
+}
+
+.style4{
+    width: 60%;
+    height: 5%;
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #000000;
+}
+
+.contain1{
+    width: 100%;
+    height: 70px;
+    flex-direction: column;
+}
+
+.style5{
+    width: 50%;
+    height: 30px;
+    background-color: yellow;
+    border-image-source: url('/common/images/image.png');
+    border-image-slice: 1px 2px 3px 4px;
+    border-image-width: 2px 3px 4px 5px;
+    border-image-outset: 3px 4px 5px 6px;
+    border-image-repeat: repeat;
+}
+
+.style6{
+    width: 70px;
+    height: 30px;
+    position: absolute;
+    left: 10px;
+    top: 35px;
+    bottom: 5px;
+    right: 10px;
+    background-color: pink;
+    border-image: url('common/images/icon.png') 1px 2px 3px 4px 2px 3px 4px 5px 3px 4px 5px 6px round;
+}
+
+.style7 {
+    flex-direction: column;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    align-items: flex-end;
+    align-content:space-around;
+    display: flex;
+    height: 40px;
+}
+
+.flex-item {
+    width: 20px;
+    height: 20px;
+    border-radius: 16px;
+}
+
+.style8{
+    flex-direction: row;
+    flex-wrap:nowrap;
+    scrollbar-color: yellow;
+    scrollbar-width: 10px;
+    overscroll-effect:spring;
+    height: 20px;
+    overflow:scroll;
+}
+
+.style9{
+    display: grid;
+    height: 20px;
+    grid-template-columns: 20% 20%;
+    grid-columns-gap: 14px;
+    grid-rows-gap: 4px;
+    grid-template-rows: 15% 15%;
+}
+
+.prop-container{
+    flex-direction: column;
+}
+
+#prop1 {
+    height: 30px;
+    background-color: mediumslateblue;
+    width: 100%;
+    margin: 5px;
+}
+
+.prop2 {
+    height: 30px;
+    background-color: pink;
+    width: 100%;
+    margin: 5px;
+}
+
+.prop3 {
+    height: 30px;
+    background-color: darkseagreen;
+    width: 100%;
+    margin: 5px;
+}
+
+.ani-container{
+    flex-direction: column;
+    height: 100%;
+    flex-weight: 1;
+}
+
+.ani1{
+    background-color: #72ac33;
+    width: 55px;
+    height: 55px;
+    margin: 5px;
+    transform-origin: 0% 0%;
+    animation: ani1Go 3s infinite;
+}
+
+@keyframes ani1Go
+{
+    from {
+        background-color: #f76160;
+        opacity:0.3;
+        width:50px;
+        height: 50px;
+        transform:translate(20px) rotate(10deg) scale(0.2);
+        background-position:10% 10%
+    }
+    30% {
+        background-color: #60f761;
+        opacity:0.5;
+        width:70px;
+        height: 70px;
+        background-position:12% 12%;
+        transform:translateX(10px) translateY(5px) rotateX(20deg) rotateY(25deg) scaleX(0.6) scaleY(0.5)
+    }
+    to {
+        background-color: #6160f7;
+        opacity:1;
+        width:90px;
+        height: 90px;
+        background-position:22% 22%;
+        transform:rotate(180deg) scale(2)
+    }
+}
+
+.ani2{
+    background-color: #ad4e2a;
+    width: 55px;
+    height: 55px;
+    margin: 5px;
+}
+
+.access-container{
+    flex-direction: column;
+}
+
+.access1{
+    background-color: #321124;
+    margin: 5px;
+    width: 90%;
+    height: 30px;
+}
+
+.multiMode-container{
+    flex-direction: column;
+}
+
+.multiMode1{
+    background-color: #978666;
+    width: 100%;
+    height: 30px;
+    margin: 5px;
+}

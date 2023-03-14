@@ -1,0 +1,1 @@
+/system/lib:/vendor/lib:/system/lib/ndk:/system/lib/vndk:/system/lib/platform-vndk:/system/lib/platformsdk:/system/lib/priv-platformsdk:/system/lib/priv-module:/system/lib/module:/system/lib/module/data:/system/lib/module/multimedia:/lib:/usr/local/lib:/usr/lib

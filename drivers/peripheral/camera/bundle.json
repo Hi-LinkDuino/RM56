@@ -1,0 +1,75 @@
+{
+  "name": "camera_device_driver",
+  "description": "camera device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "camera_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard"],
+    "rom": "2440KB",
+    "ram": "8500KB",
+    "deps": {
+      "components": [
+        "graphic_standard",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "multimedia_camera_standard",
+        "samgr_standard",
+        "display_device_driver",
+        "ipc",
+        "utils_base"
+      ],
+      "third_part": [
+        "googletest"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/camera/hal:camera_hal"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/camera/interfaces/hdi_ipc/client:libcamera_client",
+          "header": {
+            "header_files": [
+              "camera_device_proxy.h",
+              "camera_host_proxy.h",
+              "offline_stream_operator_proxy.h",
+              "stream_operator_proxy.h"
+            ],
+            "header_base": "//drivers/peripheral/camera/interfaces/hdi_ipc/client/include"
+          }
+        },
+        {
+          "name": "//drivers/peripheral/camera/hal:camera_hal",
+          "header": {
+            "header_files": [
+              "icamera_device.h"
+            ],
+            "header_base": "//drivers/peripheral/camera/interfaces/include"
+          }
+        },
+        {
+          "name":  "//drivers/peripheral/camera/hal/device_manager:camera_device_manager",
+          "header": {
+            "header_files": [
+              "idevice_manager.h"
+            ],
+            "header_base": "//drivers/peripheral/camera/hal/device_manager/include"
+          }
+        },
+        {
+          "name": "//drivers/peripheral/camera/hal/hdi_impl:camera_hdi_impl",
+          "header": {
+            "header_files": [
+              "camera_device/camera_device_impl.h"
+            ],
+            "header_base": "//drivers/peripheral/camera/hal/hdi_impl/include"
+          }
+        }
+      ]
+    }
+  }
+}

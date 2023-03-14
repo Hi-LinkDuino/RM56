@@ -1,0 +1,48 @@
+# Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+
+config("public") {
+  include_dirs = [ "include" ]
+}
+
+kernel_module("sys_adapter") {
+  sources = [
+    "src/hm_sys.c",
+    "src/platform.c",
+    "src/printf.c",
+  ]
+
+  include_dirs = [ "include" ]
+
+  include_dirs += [
+    "//base/hiviewdfx/hiview_lite",
+    "//utils/native/lite/include",
+    "//utils/native/lite/memory/include",
+    "//base/hiviewdfx/hilog_lite/frameworks/mini",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//drivers/framework/core/common/include/manager",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/ble_stack_v2/modules/rwip/api/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/ble_app_v2/app_main",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/bt_app",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/ble_stack_v2/ip/ble/hl/api/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/ble_stack_v2/modules/common/api/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/ble_stack_v2/ip/ble/hl/inc/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/config/best2600w_liteos/",
+    "//foundation/communication/bluetooth/interfaces/innerkits/native_c/include/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/services/bt_if_enhanced/inc/",
+  ]
+
+  cflags = [ "-DLOG_FMT_MAX_LEN=128" ]
+}

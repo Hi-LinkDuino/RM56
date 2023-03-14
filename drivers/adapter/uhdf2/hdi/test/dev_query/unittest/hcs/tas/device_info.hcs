@@ -1,0 +1,1050 @@
+ root {
+    device_info {
+        match_attr = "hdf_manager";
+        template host {
+            hostName = "";
+            priority = 100;
+            template device {
+                template deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    preload = 0;
+                    permission = 0664;
+                    moduleName = "";
+                    serviceName = "";
+                    deviceMatchAttr = "";
+                }
+            }
+        }
+        platform :: host {
+            hostName = "platform_host";
+            priority = 50;
+            driver_io_ability :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver";
+                }
+            }
+            driver_io_ability1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver1";
+                }
+            }
+            driver_io_ability2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver2";
+                }
+            }
+            driver_io_ability3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver3";
+                }
+            }
+            driver_io_ability4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver4";
+                }
+            }
+            driver_io_ability5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver5";
+                }
+            }
+            driver_io_ability6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "sample_driver_no_SO";
+                }
+            }
+            driver_io_ability7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver7";
+                }
+            }
+            driver_io_ability8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver8";
+                }
+            }
+            driver_io_ability9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver9";
+                }
+            }
+            driver_io_ability10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "sample_driver10";
+                }
+            }
+        }
+        serviceA :: host {
+            hostName = "serviceA_host";
+            priority = 50;
+            serviceA :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver";
+                }
+            }
+            serviceA1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver1";
+                }
+            }
+            serviceA2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver2";
+                }
+            }
+            serviceA3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver3";
+                }
+            }
+            serviceA4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver4";
+                }
+            }
+            serviceA5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver5";
+                }
+            }
+            serviceA6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceA_driver_no_SO";
+                }
+            }
+            serviceA7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver7";
+                }
+            }
+            serviceA8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver8";
+                }
+            }
+            serviceA9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver9";
+                }
+            }
+            serviceA10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceA_driver10";
+                }
+            }
+        }
+        serviceB :: host {
+            hostName = "serviceB_host";
+            priority = 50;
+            serviceB :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver";
+                }
+            }
+            serviceB1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver1";
+                }
+            }
+            serviceB2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver2";
+                }
+            }
+            serviceB3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver3";
+                }
+            }
+            serviceB4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver4";
+                }
+            }
+            serviceB5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver5";
+                }
+            }
+            serviceB6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceB_driver_no_SO";
+                }
+            }
+            serviceB7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver7";
+                }
+            }
+            serviceB8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver8";
+                }
+            }
+            serviceB9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver9";
+                }
+            }
+            serviceB10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceB_driver10";
+                }
+            }
+        }
+        serviceC :: host {
+            hostName = "serviceC_host";
+            priority = 50;
+            serviceC :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver";
+                }
+            }
+            serviceC1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver1";
+                }
+            }
+            serviceC2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver2";
+                }
+            }
+            serviceC3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver3";
+                }
+            }
+            serviceC4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver4";
+                }
+            }
+            serviceC5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver5";
+                }
+            }
+            serviceC6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceC_driver_no_SO";
+                }
+            }
+            serviceC7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver7";
+                }
+            }
+            serviceC8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver8";
+                }
+            }
+            serviceC9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver9";
+                }
+            }
+            serviceC10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceC_driver10";
+                }
+            }
+        }
+        serviceD :: host {
+            hostName = "serviceD_host";
+            priority = 50;
+            serviceD :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver";
+                }
+            }
+            serviceD1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver1";
+                }
+            }
+            serviceD2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver2";
+                }
+            }
+            serviceD3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver3";
+                }
+            }
+            serviceD4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver4";
+                }
+            }
+            serviceD5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver5";
+                }
+            }
+            serviceD6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceD_driver_no_SO";
+                }
+            }
+            serviceD7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver7";
+                }
+            }
+            serviceD8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver8";
+                }
+            }
+            serviceD9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver9";
+                }
+            }
+            serviceD10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceD_driver10";
+                }
+            }
+        }
+        serviceE :: host {
+            hostName = "serviceE_host";
+            priority = 50;
+            serviceE :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver";
+                }
+            }
+            serviceE1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver1";
+                }
+            }
+            serviceE2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver2";
+                }
+            }
+            serviceE3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver3";
+                }
+            }
+            serviceE4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver4";
+                }
+            }
+            serviceE5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver5";
+                }
+            }
+            serviceE6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceE_driver_no_SO";
+                }
+            }
+            serviceE7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver7";
+                }
+            }
+            serviceE8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver8";
+                }
+            }
+            serviceE9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver9";
+                }
+            }
+            serviceE10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceE_driver10";
+                }
+            }
+        }
+        serviceF :: host {
+            hostName = "serviceF_host";
+            priority = 50;
+            serviceF :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver";
+                }
+            }
+            serviceF1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver1";
+                }
+            }
+            serviceF2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver2";
+                }
+            }
+            serviceF3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver3";
+                }
+            }
+            serviceF4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver4";
+                }
+            }
+            serviceF5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver5";
+                }
+            }
+            serviceF6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceF_driver_no_SO";
+                }
+            }
+            serviceF7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver7";
+                }
+            }
+            serviceF8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver8";
+                }
+            }
+            serviceF9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver9";
+                }
+            }
+            serviceF10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceF_driver10";
+                }
+            }
+        }
+        serviceH :: host {
+            hostName = "serviceH_host";
+            priority = 50;
+            serviceH :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver";
+                }
+            }
+            serviceH1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver1";
+                }
+            }
+            serviceH2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver2";
+                }
+            }
+            serviceH3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver3";
+                }
+            }
+            serviceH4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver4";
+                }
+            }
+            serviceH5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver5";
+                }
+            }
+            serviceH6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceH_driver_no_SO";
+                }
+            }
+            serviceH7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver7";
+                }
+            }
+            serviceH8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver8";
+                }
+            }
+            serviceH9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver9";
+                }
+            }
+            serviceH10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceH_driver10";
+                }
+            }
+        }
+        serviceG :: host {
+            hostName = "serviceG_host";
+            priority = 50;
+            serviceG :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver";
+                }
+            }
+            serviceG1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver1";
+                }
+            }
+            serviceG2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver2";
+                }
+            }
+            serviceG3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver3";
+                }
+            }
+            serviceG4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver4";
+                }
+            }
+            serviceG5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver5";
+                }
+            }
+            serviceG6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceG_driver_no_SO";
+                }
+            }
+            serviceG7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver7";
+                }
+            }
+            serviceG8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver8";
+                }
+            }
+            serviceG9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver9";
+                }
+            }
+            serviceG10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceG_driver10";
+                }
+            }
+        }
+        serviceI :: host {
+            hostName = "serviceI_host";
+            priority = 50;
+            serviceI :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver";
+                }
+            }
+            serviceI1 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver1";
+                }
+            }
+            serviceI2 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver2";
+                }
+            }
+            serviceI3 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver3";
+                }
+            }
+            serviceI4 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver4";
+                }
+            }
+            serviceI5 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver5";
+                }
+            }
+            serviceI6 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver1.so";
+                    serviceName = "serviceI_driver_no_SO";
+                }
+            }
+            serviceI7 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver7";
+                }
+            }
+            serviceI8 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver8";
+                }
+            }
+            serviceI9 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver9";
+                }
+            }
+            serviceI10 :: device {
+                device0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    permission = 0644;
+                    moduleName = "hdf_test_query_device_driver.so";
+                    serviceName = "serviceI_driver10";
+                }
+            }
+        }
+    }
+}

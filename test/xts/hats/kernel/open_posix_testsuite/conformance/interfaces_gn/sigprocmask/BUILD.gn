@@ -1,0 +1,48 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import(
+    "//test/xts/hats/kernel/open_posix_testsuite/conformance/interfaces_gn/posix_interface_template.gni")
+
+posix_interface_bin("sigprocmask_12-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/12-1.c" ]
+}
+posix_interface_bin("sigprocmask_15-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/15-1.c" ]
+}
+posix_interface_bin("sigprocmask_17-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/17-1.c" ]
+}
+posix_interface_bin("sigprocmask_4-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/4-1.c" ]
+}
+posix_interface_bin("sigprocmask_5-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/5-1.c" ]
+}
+posix_interface_bin("sigprocmask_6-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/6-1.c" ]
+}
+posix_interface_bin("sigprocmask_7-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/7-1.c" ]
+}
+posix_interface_bin("sigprocmask_8-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/8-1.c" ]
+}
+posix_interface_bin("sigprocmask_8-2") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/8-2.c" ]
+}
+posix_interface_bin("sigprocmask_8-3") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/8-3.c" ]
+}
+posix_interface_bin("sigprocmask_9-1") {
+  sources = [ "//third_party/ltp/testcases/open_posix_testsuite/conformance/interfaces/sigprocmask/9-1.c" ]
+}

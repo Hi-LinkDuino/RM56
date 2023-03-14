@@ -1,0 +1,2324 @@
+{
+    "zh-CN":{
+        "common":{
+            "ok":"确定",
+            "cancel":"取消",
+            "more":"更多"
+        },
+        "refresh":{
+            "last_updated":"上次更新时间：%s",
+            "loading":"正在刷新…"
+        },
+        "textoverlay":{
+            "copy":"复制",
+            "cut":"剪切",
+            "paste":"粘贴",
+            "select_all":"全选",
+            "translate":"翻译",
+            "share":"分享",
+            "search":"搜索"
+        },
+        "switch":{
+            "on":"开",
+            "off":"关"
+        },
+        "stepper":{
+            "start":"开始",
+            "skip":"跳过",
+            "back":"返回",
+            "next":"下一步"
+        }
+    },
+    "en-US":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Cancel",
+            "more":"More"
+        },
+        "refresh":{
+            "last_updated":"Last updated: %s",
+            "loading":"Refreshing…"
+        },
+        "textoverlay":{
+            "copy":"Copy",
+            "cut":"Cut",
+            "paste":"Paste",
+            "select_all":"Select all",
+            "translate":"Translate",
+            "share":"Share",
+            "search":"Search"
+        },
+        "switch":{
+            "on":"On",
+            "off":"Off"
+        },
+        "stepper":{
+            "start":"START",
+            "skip":"SKIP",
+            "back":"BACK",
+            "next":"NEXT"
+        }
+    },
+    "ml":{
+        "common":{
+            "ok":"ശരി",
+            "cancel":"റദ്ദാക്കുക"
+        },
+        "textoverlay":{
+            "paste":"ഒട്ടിക്കുക",
+            "select_all":"എല്ലാം തിരഞ്ഞെടുക്കുക",
+            "cut":"കട്ട് ചെയ്യുക",
+            "copy":"പകർത്തുക",
+            "search":"തിരയുക",
+            "share":"പങ്കിടുക",
+            "translate":"വിവർത്തനം ചെയ്യുക"
+        },
+        "refresh":{
+            "last_updated":"അവസാനം അപ്‌ഡേറ്റ് ചെയ്തത്: %s",
+            "loading":"റിഫ്രഷ് ചെയ്യുന്നു…"
+        },
+        "switch":{
+            "on":"ഓൺ",
+            "off":"ഓഫ്"
+        },
+        "stepper":{
+            "skip":"ഒഴിവാക്കുക",
+            "next":"അടുത്തത്",
+            "start":"ആരംഭിക്കുക",
+            "back":"മടങ്ങുക"
+        }
+    },
+    "tr":{
+        "common":{
+            "ok":"Tamam",
+            "cancel":"İptal"
+        },
+        "textoverlay":{
+            "paste":"Yapıştır",
+            "select_all":"Tümünü seç",
+            "cut":"Kes",
+            "copy":"Kopyala",
+            "search":"Ara",
+            "share":"Paylaş",
+            "translate":"Çeviri"
+        },
+        "refresh":{
+            "last_updated":"Son güncelleme: %s",
+            "loading":"Yenileniyor..."
+        },
+        "switch":{
+            "on":"Açık",
+            "off":"Kapalı"
+        },
+        "stepper":{
+            "skip":"Atla",
+            "next":"İleri",
+            "start":"Başlat",
+            "back":"Geri"
+        }
+    },
+    "sl":{
+        "common":{
+            "ok":"V redu",
+            "cancel":"Prekliči"
+        },
+        "textoverlay":{
+            "paste":"Prilepi",
+            "select_all":"Izberi vse",
+            "cut":"Izreži",
+            "copy":"Kopiraj",
+            "search":"Išči",
+            "share":"Deli",
+            "translate":"Prevedi"
+        },
+        "refresh":{
+            "last_updated":"Zadnja posodobitev: %s",
+            "loading":"Osveževanje …"
+        },
+        "switch":{
+            "on":"Vklopljeno",
+            "off":"Izklopljeno"
+        },
+        "stepper":{
+            "skip":"Preskoči",
+            "next":"Naprej",
+            "start":"Začni",
+            "back":"Nazaj"
+        }
+    },
+    "nb":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Avbryt"
+        },
+        "textoverlay":{
+            "paste":"Lim inn",
+            "select_all":"Velg alt",
+            "cut":"Klipp",
+            "copy":"Kopi",
+            "search":"Søk",
+            "share":"Del",
+            "translate":"Oversett"
+        },
+        "refresh":{
+            "last_updated":"Siste oppdatering: %s",
+            "loading":"Oppdaterer ..."
+        },
+        "switch":{
+            "on":"På",
+            "off":"Av"
+        },
+        "stepper":{
+            "skip":"Hopp over",
+            "next":"Neste",
+            "start":"Start",
+            "back":"Tilbake"
+        }
+    },
+    "bs":{
+        "common":{
+            "ok":"U redu",
+            "cancel":"Otkaži"
+        },
+        "textoverlay":{
+            "paste":"Zalijepi",
+            "select_all":"Odaberi sve",
+            "cut":"Izreži",
+            "copy":"Kopiraj",
+            "search":"Pretraživanje",
+            "share":"Dijelite",
+            "translate":"Prevedi"
+        },
+        "refresh":{
+            "last_updated":"Posljednje ažuriranje: %s",
+            "loading":"Osvježavanje…"
+        },
+        "switch":{
+            "on":"Uključeno",
+            "off":"Isključeno"
+        },
+        "stepper":{
+            "skip":"Preskoči",
+            "next":"Dalje",
+            "start":"Pokreni",
+            "back":"Leđa"
+        }
+    },
+    "en-GB":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Cancel"
+        },
+        "textoverlay":{
+            "paste":"Paste",
+            "select_all":"Select all",
+            "cut":"Cut",
+            "copy":"Copy",
+            "search":"Search",
+            "share":"Share",
+            "translate":"Translate"
+        },
+        "refresh":{
+            "last_updated":"Last updated: %s",
+            "loading":"Refreshing…"
+        },
+        "switch":{
+            "on":"On",
+            "off":"Off"
+        },
+        "stepper":{
+            "skip":"Skip",
+            "next":"Next",
+            "start":"Start",
+            "back":"Back"
+        }
+    },
+    "az-AZ":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Ləğv edin"
+        },
+        "textoverlay":{
+            "paste":"Əlavə edin",
+            "select_all":"Hamısını seçin",
+            "cut":"Kəsin",
+            "copy":"Köçürün",
+            "search":"Axtarın",
+            "share":"Paylaşın",
+            "translate":"Tərcümə edin"
+        },
+        "refresh":{
+            "last_updated":"Sonuncu dəfə yenilənib: %s",
+            "loading":"Təzələnir…"
+        },
+        "switch":{
+            "on":"Yanılı",
+            "off":"Sönülü"
+        },
+        "stepper":{
+            "skip":"Ötürün",
+            "next":"Növbəti",
+            "start":"Başlayın",
+            "back":"Geri"
+        }
+    },
+    "gu":{
+        "common":{
+            "ok":"ઑકે",
+            "cancel":"રદ કરો"
+        },
+        "textoverlay":{
+            "paste":"પેસ્ટ કરો",
+            "select_all":"બધું પસંદ કરો",
+            "cut":"કાપો",
+            "copy":"કૉપિ કરો",
+            "search":"શોધો",
+            "share":"શેર કરો",
+            "translate":"અનુવાદ કરો"
+        },
+        "refresh":{
+            "last_updated":"છેલ્લે અપડેટ કર્યું: %s",
+            "loading":"રિફ્રેશ કરી રહ્યું છે..."
+        },
+        "switch":{
+            "on":"ચાલુ",
+            "off":"બંધ"
+        },
+        "stepper":{
+            "skip":"છોડી દો",
+            "next":"આગલું",
+            "start":"પ્રારંભ કરો",
+            "back":"પાછળ જાઓ"
+        }
+    },
+    "gl-ES":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Cancelar"
+        },
+        "textoverlay":{
+            "paste":"Pegar",
+            "select_all":"Seleccionar todo",
+            "cut":"Cortar",
+            "copy":"Copiar",
+            "search":"Buscar",
+            "share":"Compartir",
+            "translate":"Traducir"
+        },
+        "refresh":{
+            "last_updated":"Última actualización: %s",
+            "loading":"Actualizando..."
+        },
+        "switch":{
+            "on":"Activado",
+            "off":"Desactivado"
+        },
+        "stepper":{
+            "skip":"Omitir",
+            "next":"Seguinte",
+            "start":"Comezar",
+            "back":"Volver"
+        }
+    },
+    "am":{
+        "common":{
+            "ok":"እሺ",
+            "cancel":"ይቅር"
+        },
+        "textoverlay":{
+            "paste":"ለጥፍ",
+            "select_all":"ሁሉንም ምረጥ",
+            "cut":"ቁረጥ",
+            "copy":"ቅዳ",
+            "search":"ፈልግ",
+            "share":"አጋራ",
+            "translate":"ተርጉም"
+        },
+        "refresh":{
+            "last_updated":"መጨረሻ የተዘመነው፦ %s",
+            "loading":"በማደስ ላይ..."
+        },
+        "switch":{
+            "on":"በርቷል",
+            "off":"ጠፍቷል"
+        },
+        "stepper":{
+            "skip":"እለፍ",
+            "next":"ቀጣይ",
+            "start":"ጀምር",
+            "back":"ተመለስ"
+        }
+    },
+    "bg":{
+        "common":{
+            "ok":"ОК",
+            "cancel":"Отказ"
+        },
+        "textoverlay":{
+            "paste":"Поставяне",
+            "select_all":"Избор на всички",
+            "cut":"Изрязване",
+            "copy":"Копиране",
+            "search":"Търсене",
+            "share":"Споделяне",
+            "translate":"Превод"
+        },
+        "refresh":{
+            "last_updated":"Последна актуализация: %s",
+            "loading":"Опресняване..."
+        },
+        "switch":{
+            "on":"Включено",
+            "off":"Изключено"
+        },
+        "stepper":{
+            "skip":"Пропускане",
+            "next":"Напред",
+            "start":"Начало",
+            "back":"Назад"
+        }
+    },
+    "ro":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Anulare"
+        },
+        "textoverlay":{
+            "paste":"Lipire",
+            "select_all":"Selectare totală",
+            "cut":"Tăiere",
+            "copy":"Copiere",
+            "search":"Căutare",
+            "share":"Partajare",
+            "translate":"Traducere"
+        },
+        "refresh":{
+            "last_updated":"Ultima actualizare: %s",
+            "loading":"Se reîmprospătează…"
+        },
+        "switch":{
+            "on":"Pornit",
+            "off":"Oprit"
+        },
+        "stepper":{
+            "skip":"Omitere",
+            "next":"Înainte",
+            "start":"Pornire",
+            "back":"Înapoi"
+        }
+    },
+    "ca":{
+        "common":{
+            "ok":"D\\'acord",
+            "cancel":"Cancel·lar"
+        },
+        "textoverlay":{
+            "paste":"Enganxa",
+            "select_all":"Selecciona-ho tot",
+            "cut":"Retalla",
+            "copy":"Copia",
+            "search":"Cercar",
+            "share":"Compartir",
+            "translate":"Traduir"
+        },
+        "refresh":{
+            "last_updated":"Última actualització: %s",
+            "loading":"S\\'està actualitzant…"
+        },
+        "switch":{
+            "on":"Encès",
+            "off":"Apagat"
+        },
+        "stepper":{
+            "skip":"Ometre",
+            "next":"Següent",
+            "start":"Iniciar",
+            "back":"Enrere"
+        }
+    },
+    "mi":{
+        "common":{
+            "ok":"ĀE",
+            "cancel":"Whakakore"
+        },
+        "textoverlay":{
+            "paste":"Whakapiri",
+            "select_all":"Tīpako katoa",
+            "cut":"Tapahi",
+            "copy":"Tārua",
+            "search":"Rapu",
+            "share":"Tiri",
+            "translate":"Whakamāori"
+        },
+        "refresh":{
+            "last_updated":"Whakahōunga whakamutunga: %s",
+            "loading":"Tāmata ana..."
+        },
+        "switch":{
+            "on":"Kā",
+            "off":"Weto"
+        },
+        "stepper":{
+            "skip":"Tīpoka",
+            "next":"Panuku",
+            "start":"Tīmata",
+            "back":"Hoki"
+        }
+    },
+    "uz-UZ":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Bekor qilish"
+        },
+        "textoverlay":{
+            "paste":"Joylash",
+            "select_all":"Hammasini tanlash",
+            "cut":"Kesib olish",
+            "copy":"Nusxalash",
+            "search":"Qidiruv",
+            "share":"Ulashish",
+            "translate":"Tarjima"
+        },
+        "refresh":{
+            "last_updated":"Oxirgi yangilanish: %s",
+            "loading":"Yangilanmoqda…"
+        },
+        "switch":{
+            "on":"Yoniq",
+            "off":"Yoqilmagan"
+        },
+        "stepper":{
+            "skip":"Tashlab ketish",
+            "next":"Keyingisi",
+            "start":"Boshlash",
+            "back":"Orqaga"
+        }
+    },
+    "b+sr+Latn":{
+        "common":{
+            "ok":"U REDU",
+            "cancel":"Otkaži"
+        },
+        "textoverlay":{
+            "paste":"Nalepi",
+            "select_all":"Izaberi sve",
+            "cut":"Iseci",
+            "copy":"Kopiraj",
+            "search":"Pretraži",
+            "share":"Podeli",
+            "translate":"Prevedi"
+        },
+        "refresh":{
+            "last_updated":"Poslednji put ažurirano: %s",
+            "loading":"Osvežavanje…"
+        },
+        "switch":{
+            "on":"Uključeno",
+            "off":"Isključeno"
+        },
+        "stepper":{
+            "skip":"Preskoči",
+            "next":"Sledeće",
+            "start":"Pokreni",
+            "back":"Nazad"
+        }
+    },
+    "ar":{
+        "common":{
+            "ok":"موافق",
+            "cancel":"إلغاء"
+        },
+        "textoverlay":{
+            "paste":"لصق",
+            "select_all":"تحديد الكل",
+            "cut":"قص",
+            "copy":"نسخ",
+            "search":"بحث",
+            "share":"مشاركة",
+            "translate":"ترجمة"
+        },
+        "refresh":{
+            "last_updated":"آخر تحديث: %s",
+            "loading":"جاري تجديد المحتوى..."
+        },
+        "switch":{
+            "on":"مشغّل",
+            "off":"مغلق"
+        },
+        "stepper":{
+            "skip":"تخطي",
+            "next":"التالي",
+            "start":"بدء",
+            "back":"رجوع"
+        }
+    },
+    "es-US":{
+        "common":{
+            "ok":"Aceptar",
+            "cancel":"Cancelar"
+        },
+        "textoverlay":{
+            "paste":"Pegar",
+            "select_all":"Seleccionar todo",
+            "cut":"Cortar",
+            "copy":"Copiar",
+            "search":"Buscar",
+            "share":"Compartir",
+            "translate":"Traducir"
+        },
+        "refresh":{
+            "last_updated":"Última actualización: %s",
+            "loading":"Actualizando..."
+        },
+        "switch":{
+            "on":"Sí",
+            "off":"No"
+        },
+        "stepper":{
+            "skip":"Omitir",
+            "next":"Siguiente",
+            "start":"Iniciar",
+            "back":"Volver"
+        }
+    },
+    "my-ZG":{
+        "common":{
+            "ok":"အိုေက",
+            "cancel":"မလုပ္ပါ"
+        },
+        "textoverlay":{
+            "paste":"ကူးထည့္ရန္",
+            "select_all":"အားလုံး ေရြးရန္",
+            "cut":"ျဖတ္ရန္",
+            "copy":"ကူးရန္",
+            "search":"ရွာရန္",
+            "share":"ေဝမွ်ရန္",
+            "translate":"ဘာသာျပန္"
+        },
+        "refresh":{
+            "last_updated":"ေနာက္ဆုံး အပ္ဒိတ္လုပ္ခဲ့မႈ- %s",
+            "loading":"ျပန္လည္လုပ္ေဆာင္ေနဆဲ…"
+        },
+        "switch":{
+            "on":"ဖြင့္",
+            "off":"ပိတ္"
+        },
+        "stepper":{
+            "skip":"ေက်ာ္ရန္",
+            "next":"ေရွ႕သို႔",
+            "start":"စရန္",
+            "back":"ေနာက္သို႔"
+        }
+    },
+    "eu-ES":{
+        "common":{
+            "ok":"Ados",
+            "cancel":"Utzi"
+        },
+        "textoverlay":{
+            "paste":"Itsatsi",
+            "select_all":"Hautatu dena",
+            "cut":"Ebaki",
+            "copy":"Kopiatu",
+            "search":"Bilatu",
+            "share":"Partekatu",
+            "translate":"Itzuli"
+        },
+        "refresh":{
+            "last_updated":"Azken eguneratzea: %s",
+            "loading":"Freskatzen…"
+        },
+        "switch":{
+            "on":"Aktibatuta",
+            "off":"Desaktibatuta"
+        },
+        "stepper":{
+            "skip":"Saltatu",
+            "next":"Hurrengoa",
+            "start":"Hasi",
+            "back":"Atzera"
+        }
+    },
+    "km-KH":{
+        "common":{
+            "ok":"យល់ព្រម",
+            "cancel":"បោះបង់"
+        },
+        "textoverlay":{
+            "paste":"បិទភ្ជាប់",
+            "select_all":"ជ្រើសរើសទាំងអស់",
+            "cut":"កាត់",
+            "copy":"ចម្លង",
+            "search":"ស្វែងរក",
+            "share":"ចែករំលែក",
+            "translate":"បកប្រែ"
+        },
+        "refresh":{
+            "last_updated":"បានធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយនៅ៖ %s",
+            "loading":"កំពុងធ្វើឲ្យថ្មីឡើងវិញ…"
+        },
+        "switch":{
+            "on":"បើក",
+            "off":"បិទ"
+        },
+        "stepper":{
+            "skip":"រំលង",
+            "next":"បន្ទាប់",
+            "start":"ចាប់ផ្តើម",
+            "back":"ថយក្រោយ"
+        }
+    },
+    "bo-CN":{
+        "common":{
+            "ok":"གཏན་འཁེལ།",
+            "cancel":"འདོར་བ།"
+        },
+        "textoverlay":{
+            "paste":"སྦྱར་བ།",
+            "select_all":"ཡོངས་འདེམས།",
+            "cut":"དྲས་གཏུབ།",
+            "copy":"འདྲ་བཤུས།",
+            "search":"བཤེར་འཚོལ།",
+            "share":"མཉམ་སྤྱོད།",
+            "translate":"ཡིག་སྒྱུར།"
+        },
+        "refresh":{
+            "last_updated":"ཐེངས་སྔོན་མར་གསར་བཅོས་བྱས་པའི་དུས་ཚོད། %s",
+            "loading":"གསར་འདོན་བྱེད་བཞིན་ཡོད།"
+        },
+        "switch":{
+            "on":"འབྱེད།",
+            "off":"ཁ་རྒྱག"
+        },
+        "stepper":{
+            "skip":"མཆོང་པ།",
+            "next":"གོམ་རིམ་ཕྱི་མ།",
+            "start":"འགོ་རྩོམ།",
+            "back":"ཕྱིར་ལོག"
+        }
+    },
+    "mai":{
+        "common":{
+            "ok":"ठीक अछि",
+            "cancel":"रद्द करू"
+        },
+        "textoverlay":{
+            "paste":"पेस्ट करू",
+            "select_all":"सभटा केँ चयनित करू",
+            "cut":"कट करू",
+            "copy":"कॉपी करू",
+            "search":"खोजू",
+            "share":"साझा करू",
+            "translate":"अनुवाद करू"
+        },
+        "refresh":{
+            "last_updated":"अंतिम बेर कयल गेल अपडेट: %s",
+            "loading":"रिफ्रेश कए रहल अछि..."
+        },
+        "switch":{
+            "on":"चालू",
+            "off":"बंद"
+        },
+        "stepper":{
+            "skip":"छोडू",
+            "next":"अगिला",
+            "start":"शुरू करू",
+            "back":"पाछू जाउ"
+        }
+    },
+    "lt":{
+        "common":{
+            "ok":"Gerai",
+            "cancel":"Atšaukti"
+        },
+        "textoverlay":{
+            "paste":"Įdėti",
+            "select_all":"Pasirinkti viską",
+            "cut":"Iškirpti",
+            "copy":"Kopijuoti",
+            "search":"Ieškoti",
+            "share":"Bendrinti",
+            "translate":"Versti"
+        },
+        "refresh":{
+            "last_updated":"Paskutinis atnaujinimas: %s",
+            "loading":"Atnaujinama…"
+        },
+        "switch":{
+            "on":"Įjungta",
+            "off":"Išjungta"
+        },
+        "stepper":{
+            "skip":"Praleisti",
+            "next":"Pirmyn",
+            "start":"Pradėti",
+            "back":"Atgal"
+        }
+    },
+    "in":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Batal"
+        },
+        "textoverlay":{
+            "paste":"Tempel",
+            "select_all":"Pilih semua",
+            "cut":"Potong",
+            "copy":"Salin",
+            "search":"Cari",
+            "share":"Berbagi",
+            "translate":"Terjemahkan"
+        },
+        "refresh":{
+            "last_updated":"Terakhir diperbarui: %s",
+            "loading":"Menyegarkan…"
+        },
+        "switch":{
+            "on":"Hidup",
+            "off":"Mati"
+        },
+        "stepper":{
+            "skip":"Lewati",
+            "next":"Berikutnya",
+            "start":"Mulai",
+            "back":"Kembali"
+        }
+    },
+    "mr":{
+        "common":{
+            "ok":"ठीक",
+            "cancel":"रद्द करा"
+        },
+        "textoverlay":{
+            "paste":"पेस्ट करा",
+            "select_all":"सर्व निवडा",
+            "cut":"कट करा",
+            "copy":"कॉपी करा",
+            "search":"शोधा",
+            "share":"सामायिक करा",
+            "translate":"अनुवाद करा"
+        },
+        "refresh":{
+            "last_updated":"शेवटचे अद्यतनित केले: %s",
+            "loading":"रिफ्रेश करीत आहे..."
+        },
+        "switch":{
+            "on":"चालू",
+            "off":"बंद"
+        },
+        "stepper":{
+            "skip":"वगळा",
+            "next":"पुढील",
+            "start":"प्रारंभ करा",
+            "back":"मागे"
+        }
+    },
+    "kn":{
+        "common":{
+            "ok":"ಸರಿ",
+            "cancel":"ರದ್ದುಗೊಳಿಸಿ"
+        },
+        "textoverlay":{
+            "paste":"ಅಂಟಿಸಿ",
+            "select_all":"ಎಲ್ಲವನ್ನೂ ಆಯ್ಕೆಮಾಡಿ",
+            "cut":"ಕತ್ತರಿಸಿ",
+            "copy":"ನಕಲಿಸಿ",
+            "search":"ಹುಡುಕಿ",
+            "share":"ಹಂಚಿ",
+            "translate":"ಅನುವಾದಿಸಿ"
+        },
+        "refresh":{
+            "last_updated":"ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿದ್ದು: %s",
+            "loading":"ರಿಫ್ರೆಶ್‌ ಮಾಡಲಾಗುತ್ತಿದೆ…"
+        },
+        "switch":{
+            "on":"ಆನ್",
+            "off":"ಆಫ್"
+        },
+        "stepper":{
+            "skip":"ಸ್ಕಿಪ್ ಮಾಡಿ",
+            "next":"ಮುಂದೆ",
+            "start":"ಪ್ರಾರಂಭಿಸಿ",
+            "back":"ಹಿಂದಕ್ಕೆ"
+        }
+    },
+    "or":{
+        "common":{
+            "ok":"ଓକେ",
+            "cancel":"ବାତିଲ୍ କରନ୍ତୁ"
+        },
+        "textoverlay":{
+            "paste":"ପେଷ୍ଟ କରନ୍ତୁ",
+            "select_all":"ସମସ୍ତ ଚୟନ କରନ୍ତୁ",
+            "cut":"ଛେଦନ କରନ୍ତୁ",
+            "copy":"କପି କରନ୍ତୁ",
+            "search":"ସନ୍ଧାନ କରନ୍ତୁ",
+            "share":"ଅଂଶୀଦାର କରନ୍ତୁ",
+            "translate":"ଅନୁବାଦ କରନ୍ତୁ"
+        },
+        "refresh":{
+            "last_updated":"ଶେଷ ଅପଡେଟ୍ ହୋଇଥିଲା: %s",
+            "loading":"ସତେଜ କରାଯାଉଛି..."
+        },
+        "switch":{
+            "on":"ଅନ୍‌ କରନ୍ତୁ",
+            "off":"ଅଫ୍"
+        },
+        "stepper":{
+            "skip":"ଅତିକ୍ରମ କରନ୍ତୁ",
+            "next":"ପରବର୍ତ୍ତୀ",
+            "start":"ଆରମ୍ଭ କରନ୍ତୁ",
+            "back":"ଫେରନ୍ତୁ"
+        }
+    },
+    "sv":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Avbryt"
+        },
+        "textoverlay":{
+            "paste":"Klistra in",
+            "select_all":"Markera alla",
+            "cut":"Klipp ut",
+            "copy":"Kopiera",
+            "search":"Sök",
+            "share":"Dela",
+            "translate":"Översätt"
+        },
+        "refresh":{
+            "last_updated":"Senast uppdaterad: %s",
+            "loading":"Uppdaterar …"
+        },
+        "switch":{
+            "on":"På",
+            "off":"Av"
+        },
+        "stepper":{
+            "skip":"Hoppa över",
+            "next":"Nästa",
+            "start":"Starta",
+            "back":"Bakåt"
+        }
+    },
+    "pt":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Cancelar"
+        },
+        "textoverlay":{
+            "paste":"Colar",
+            "select_all":"Selecionar tudo",
+            "cut":"Recortar",
+            "copy":"Copiar",
+            "search":"Pesquisar",
+            "share":"Compartilhar",
+            "translate":"Traduzir"
+        },
+        "refresh":{
+            "last_updated":"Última atualização: %s",
+            "loading":"Atualizando…"
+        },
+        "switch":{
+            "on":"Ligado",
+            "off":"Desligado"
+        },
+        "stepper":{
+            "skip":"Pular",
+            "next":"Avançar",
+            "start":"Iniciar",
+            "back":"Voltar"
+        }
+    },
+    "mn":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Цуцлах"
+        },
+        "textoverlay":{
+            "paste":"Буулгах",
+            "select_all":"Бүгдийг сонгох",
+            "cut":"Зөөх",
+            "copy":"Хуулах",
+            "search":"Хайх",
+            "share":"Хуваалцах",
+            "translate":"Орчуулах"
+        },
+        "refresh":{
+            "last_updated":"Сүүлд шинэчилсэн: %s",
+            "loading":"Шинэчилж байна..."
+        },
+        "switch":{
+            "on":"Асаах",
+            "off":"Унтраах"
+        },
+        "stepper":{
+            "skip":"Алгасах",
+            "next":"Дараагийнх",
+            "start":"Эхлэх",
+            "back":"Буцах"
+        }
+    },
+    "ur":{
+        "common":{
+            "ok":"ٹھیک ہے",
+            "cancel":"منسوخ کریں"
+        },
+        "textoverlay":{
+            "paste":"پیسٹ کریں",
+            "select_all":"تمام منتخب کریں",
+            "cut":"کٹ کریں",
+            "copy":"کاپی کریں",
+            "search":"تلاش کریں",
+            "share":"شیئر کریں",
+            "translate":"ترجمہ کریں"
+        },
+        "refresh":{
+            "last_updated":"آخری بار اپ ڈیٹ کی گئی: %s",
+            "loading":"ریفریش ہو رہا ہے…"
+        },
+        "switch":{
+            "on":"آن",
+            "off":"آف"
+        },
+        "stepper":{
+            "skip":"نظر انداز کریں",
+            "next":"اگلا",
+            "start":"شروع کریں",
+            "back":"واپس جائیں"
+        }
+    },
+    "nl":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Annuleren"
+        },
+        "textoverlay":{
+            "paste":"Plakken",
+            "select_all":"Alles selecteren",
+            "cut":"Knippen",
+            "copy":"Kopiëren",
+            "search":"Zoeken",
+            "share":"Delen",
+            "translate":"Vertalen"
+        },
+        "refresh":{
+            "last_updated":"Laatst bijgewerkt op: %s",
+            "loading":"Bezig met vernieuwen…"
+        },
+        "switch":{
+            "on":"Aan",
+            "off":"Uit"
+        },
+        "stepper":{
+            "skip":"Overslaan",
+            "next":"Volgende",
+            "start":"Starten",
+            "back":"Terug"
+        }
+    },
+    "pl":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Anuluj"
+        },
+        "textoverlay":{
+            "paste":"Wklej",
+            "select_all":"Zaznacz wszystko",
+            "cut":"Wytnij",
+            "copy":"Kopiuj",
+            "search":"Szukaj",
+            "share":"Udostępnij",
+            "translate":"Tłumacz"
+        },
+        "refresh":{
+            "last_updated":"Ostatnia aktualizacja: %s",
+            "loading":"Odświeżanie…"
+        },
+        "switch":{
+            "on":"Włączono",
+            "off":"Wyłączono"
+        },
+        "stepper":{
+            "skip":"Pomiń",
+            "next":"Dalej",
+            "start":"Rozpocznij",
+            "back":"Wstecz"
+        }
+    },
+    "tl":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Kanselahin"
+        },
+        "textoverlay":{
+            "paste":"I-paste",
+            "select_all":"Piliin ang lahat",
+            "cut":"I-cut",
+            "copy":"Kopyahin",
+            "search":"Maghanap",
+            "share":"Ibahagi",
+            "translate":"Isalin"
+        },
+        "refresh":{
+            "last_updated":"Huling na-update: %s",
+            "loading":"Nire-refresh…"
+        },
+        "switch":{
+            "on":"I-on",
+            "off":"I-off"
+        },
+        "stepper":{
+            "skip":"Laktawan",
+            "next":"Susunod",
+            "start":"Simula",
+            "back":"Bumalik"
+        }
+    },
+    "kk-KZ":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Бас тарту"
+        },
+        "textoverlay":{
+            "paste":"Қою",
+            "select_all":"Барлығын таңдау",
+            "cut":"Кесу",
+            "copy":"Көшіру",
+            "search":"Іздеу",
+            "share":"Бөлісу",
+            "translate":"Аудару"
+        },
+        "refresh":{
+            "last_updated":"Соңғы жаңартылған: %s",
+            "loading":"Жаңартылуда…"
+        },
+        "switch":{
+            "on":"Қосулы",
+            "off":"Өшірулі"
+        },
+        "stepper":{
+            "skip":"Өткізіп жіберу",
+            "next":"Келесі",
+            "start":"Бастау",
+            "back":"Кері"
+        }
+    },
+    "th":{
+        "common":{
+            "ok":"ตกลง",
+            "cancel":"ยกเลิก"
+        },
+        "textoverlay":{
+            "paste":"วาง",
+            "select_all":"เลือกทั้งหมด",
+            "cut":"ตัด",
+            "copy":"คัดลอก",
+            "search":"ค้นหา",
+            "share":"แบ่งปัน",
+            "translate":"แปลภาษา"
+        },
+        "refresh":{
+            "last_updated":"ปรับปรุงล่าสุด: %s",
+            "loading":"กำลังรีเฟรช…"
+        },
+        "switch":{
+            "on":"เปิด",
+            "off":"ปิด"
+        },
+        "stepper":{
+            "skip":"ข้าม",
+            "next":"ถัดไป",
+            "start":"เริ่มต้น",
+            "back":"ย้อนกลับ"
+        }
+    },
+    "si-LK":{
+        "common":{
+            "ok":"හරි",
+            "cancel":"අවලංගු කරන්න"
+        },
+        "textoverlay":{
+            "paste":"අලවන්න",
+            "select_all":"සියල්ල තෝරන්න",
+            "cut":"කපන්න",
+            "copy":"පිටපත",
+            "search":"සොයන්න",
+            "share":"හුවමාරු කරන්න",
+            "translate":"පරිවර්තනය කරන්න"
+        },
+        "refresh":{
+            "last_updated":"අවසන් වරට යාවත් කළේ: %s",
+            "loading":"නැවුම් කරමින්…"
+        },
+        "switch":{
+            "on":"සක්‍රීය කරන්න",
+            "off":"අක්‍රීය කරන්න"
+        },
+        "stepper":{
+            "skip":"මග හරින්න",
+            "next":"ඊළඟ",
+            "start":"අරඹන්න",
+            "back":"ආපසු"
+        }
+    },
+    "as":{
+        "common":{
+            "ok":"ঠিক",
+            "cancel":"বাতিল কৰক"
+        },
+        "textoverlay":{
+            "paste":"লেপন কৰক",
+            "select_all":"সকলো বাছনি কৰক",
+            "cut":"কাটক",
+            "copy":"প্ৰতিলিপি কৰক",
+            "search":"অনুসন্ধান কৰক",
+            "share":"ভাগ-বতৰা কৰক",
+            "translate":"অনুবাদ কৰক"
+        },
+        "refresh":{
+            "last_updated":"অন্তিমবাৰ আপডেট হৈছিল: %s",
+            "loading":"সতেজ কৰি আছে…"
+        },
+        "switch":{
+            "on":"অন",
+            "off":"অফ"
+        },
+        "stepper":{
+            "skip":"এৰি যাওক",
+            "next":"পৰৱৰ্তী",
+            "start":"আৰম্ভ কৰক",
+            "back":"পাছলৈ"
+        }
+    },
+    "cs":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Zrušit"
+        },
+        "textoverlay":{
+            "paste":"Vložit",
+            "select_all":"Vybrat vše",
+            "cut":"Vyjmout",
+            "copy":"Kopírovat",
+            "search":"Hledat",
+            "share":"Sdílet",
+            "translate":"Přeložit"
+        },
+        "refresh":{
+            "last_updated":"Poslední aktualizace: %s",
+            "loading":"Obnovování..."
+        },
+        "switch":{
+            "on":"Zapnuto",
+            "off":"Vypnuto"
+        },
+        "stepper":{
+            "skip":"Přeskočit",
+            "next":"Další",
+            "start":"Začít",
+            "back":"Zpět"
+        }
+    },
+    "hu":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Mégse"
+        },
+        "textoverlay":{
+            "paste":"Beillesztés",
+            "select_all":"Mind kijelöl",
+            "cut":"Kivágás",
+            "copy":"Másolás",
+            "search":"Keres",
+            "share":"Megoszt",
+            "translate":"Fordítás"
+        },
+        "refresh":{
+            "last_updated":"Utolsó frissítés: %s",
+            "loading":"Frissítés…"
+        },
+        "switch":{
+            "on":"Be",
+            "off":"Ki"
+        },
+        "stepper":{
+            "skip":"Kihagy",
+            "next":"Tovább",
+            "start":"Indítás",
+            "back":"Vissza"
+        }
+    },
+    "es":{
+        "common":{
+            "ok":"Aceptar",
+            "cancel":"Cancelar"
+        },
+        "textoverlay":{
+            "paste":"Pegar",
+            "select_all":"Seleccionar todo",
+            "cut":"Cortar",
+            "copy":"Copiar",
+            "search":"Buscar",
+            "share":"Compartir",
+            "translate":"Traducir"
+        },
+        "refresh":{
+            "last_updated":"Última actualización: %s",
+            "loading":"Actualizando..."
+        },
+        "switch":{
+            "on":"Sí",
+            "off":"No"
+        },
+        "stepper":{
+            "skip":"Omitir",
+            "next":"Siguiente",
+            "start":"Iniciar",
+            "back":"Volver"
+        }
+    },
+    "iw":{
+        "common":{
+            "ok":"אישור",
+            "cancel":"ביטול"
+        },
+        "textoverlay":{
+            "paste":"הדבק",
+            "select_all":"בחר הכל",
+            "cut":"חתוך",
+            "copy":"העתק",
+            "search":"חיפוש",
+            "share":"שיתוף",
+            "translate":"תרגום"
+        },
+        "refresh":{
+            "last_updated":"עדכון אחרון: %s",
+            "loading":"מרענן..."
+        },
+        "switch":{
+            "on":"מופעל",
+            "off":"כבוי"
+        },
+        "stepper":{
+            "skip":"דלג",
+            "next":"הבא",
+            "start":"התחל",
+            "back":"חזרה"
+        }
+    },
+    "ms":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Batalkan"
+        },
+        "textoverlay":{
+            "paste":"Tampal",
+            "select_all":"Pilih semua",
+            "cut":"Potong",
+            "copy":"Salin",
+            "search":"Cari",
+            "share":"Kongsi",
+            "translate":"Terjemahkan"
+        },
+        "refresh":{
+            "last_updated":"Kemas kini terakhir: %s",
+            "loading":"Menyegarkan..."
+        },
+        "switch":{
+            "on":"Buka",
+            "off":"Tutup"
+        },
+        "stepper":{
+            "skip":"Langkau",
+            "next":"Seterusnya",
+            "start":"Mula",
+            "back":"Kembali"
+        }
+    },
+    "be":{
+        "common":{
+            "ok":"ОК",
+            "cancel":"Адмяніць"
+        },
+        "textoverlay":{
+            "paste":"Уставіць",
+            "select_all":"Выбраць усё",
+            "cut":"Выразаць",
+            "copy":"Капіраваць",
+            "search":"Шукаць",
+            "share":"Падзяліцца",
+            "translate":"Перакласці"
+        },
+        "refresh":{
+            "last_updated":"Апошняе абнаўленне: %s",
+            "loading":"Абнаўленне…"
+        },
+        "switch":{
+            "on":"Укл.",
+            "off":"Выкл."
+        },
+        "stepper":{
+            "skip":"Прапусціць",
+            "next":"Далей",
+            "start":"Пачаць",
+            "back":"Назад"
+        }
+    },
+    "fi":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Peruuta"
+        },
+        "textoverlay":{
+            "paste":"Liitä",
+            "select_all":"Valitse kaikki",
+            "cut":"Leikkaa",
+            "copy":"Kopioi",
+            "search":"Hae",
+            "share":"Jaa",
+            "translate":"Käännä"
+        },
+        "refresh":{
+            "last_updated":"Päivitetty viimeksi: %s",
+            "loading":"Päivitetään..."
+        },
+        "switch":{
+            "on":"Päällä",
+            "off":"Pois päältä"
+        },
+        "stepper":{
+            "skip":"Ohita",
+            "next":"Seuraava",
+            "start":"Aloita",
+            "back":"Takaisin"
+        }
+    },
+    "ru":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Отмена"
+        },
+        "textoverlay":{
+            "paste":"Вставить",
+            "select_all":"Выбрать все",
+            "cut":"Вырезать",
+            "copy":"Копировать",
+            "search":"Найти",
+            "share":"Отправить",
+            "translate":"Перевести"
+        },
+        "refresh":{
+            "last_updated":"Обновлено: %s",
+            "loading":"Обновление…"
+        },
+        "switch":{
+            "on":"Включить",
+            "off":"Выключить"
+        },
+        "stepper":{
+            "skip":"Пропустить",
+            "next":"Далее",
+            "start":"Начать",
+            "back":"Назад"
+        }
+    },
+    "ko":{
+        "common":{
+            "ok":"확인",
+            "cancel":"취소"
+        },
+        "textoverlay":{
+            "paste":"붙여넣기",
+            "select_all":"모두 선택",
+            "cut":"잘라내기",
+            "copy":"복사",
+            "search":"검색",
+            "share":"공유",
+            "translate":"번역"
+        },
+        "refresh":{
+            "last_updated":"마지막 업데이트: %s",
+            "loading":"새로 고침 중..."
+        },
+        "switch":{
+            "on":"사용",
+            "off":"사용 안 함"
+        },
+        "stepper":{
+            "skip":"건너뛰기",
+            "next":"다음",
+            "start":"시작",
+            "back":"뒤로"
+        }
+    },
+    "sw":{
+        "common":{
+            "ok":"SAWA",
+            "cancel":"Ghairi"
+        },
+        "textoverlay":{
+            "paste":"Bandika",
+            "select_all":"Chagua zote",
+            "cut":"Kata",
+            "copy":"Nakili",
+            "search":"Tafuta",
+            "share":"Shiriki",
+            "translate":"Tafsiri"
+        },
+        "refresh":{
+            "last_updated":"Mara ya mwisho kusasishwa: %s",
+            "loading":"Inaonyesha upya…"
+        },
+        "switch":{
+            "on":"Waka",
+            "off":"Zima"
+        },
+        "stepper":{
+            "skip":"Ruka",
+            "next":"Ifuatayo",
+            "start":"Anza",
+            "back":"Nyuma"
+        }
+    },
+    "de":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Abbrechen"
+        },
+        "textoverlay":{
+            "paste":"Einfügen",
+            "select_all":"Alle auswählen",
+            "cut":"Ausschneiden",
+            "copy":"Kopieren",
+            "search":"Suchen",
+            "share":"Teilen",
+            "translate":"Übersetzen"
+        },
+        "refresh":{
+            "last_updated":"Letzte Aktualisierung: %s",
+            "loading":"Aktualisieren ..."
+        },
+        "switch":{
+            "on":"Ein",
+            "off":"Aus"
+        },
+        "stepper":{
+            "skip":"Überspringen",
+            "next":"Weiter",
+            "start":"Start",
+            "back":"Zurück"
+        }
+    },
+    "hi":{
+        "common":{
+            "ok":"ठीक",
+            "cancel":"रद्द करें"
+        },
+        "textoverlay":{
+            "paste":"चिपकाएं",
+            "select_all":"सभी चुनें",
+            "cut":"काटें",
+            "copy":"कॉपी करें",
+            "search":"खोजें",
+            "share":"साझा करें",
+            "translate":"अनुवाद करें"
+        },
+        "refresh":{
+            "last_updated":"पिछली बार अद्यतन किया गया: %s",
+            "loading":"रीफ़्रेश किया जा रहा है…"
+        },
+        "switch":{
+            "on":"चालू",
+            "off":"बंद करें"
+        },
+        "stepper":{
+            "skip":"छोड़ें",
+            "next":"अगला",
+            "start":"प्रारंभ करें",
+            "back":"वापस जाएँ"
+        }
+    },
+    "my-MM":{
+        "common":{
+            "ok":"အိုကေ",
+            "cancel":"မလုပ်ပါ"
+        },
+        "textoverlay":{
+            "paste":"ကူးထည့်ရန်",
+            "select_all":"အားလုံး ရွေးရန်",
+            "cut":"ဖြတ်ရန်",
+            "copy":"ကူးရန်",
+            "search":"ရှာရန်",
+            "share":"ဝေမျှရန်",
+            "translate":"ဘာသာပြန်"
+        },
+        "refresh":{
+            "last_updated":"နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့မှု- %s",
+            "loading":"ပြန်လည်လုပ်ဆောင်နေဆဲ…"
+        },
+        "switch":{
+            "on":"ဖွင့်",
+            "off":"ပိတ်"
+        },
+        "stepper":{
+            "skip":"ကျော်ရန်",
+            "next":"ရှေ့သို့",
+            "start":"စရန်",
+            "back":"နောက်သို့"
+        }
+    },
+    "da":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Annuller"
+        },
+        "textoverlay":{
+            "paste":"Indsæt",
+            "select_all":"Vælg alle",
+            "cut":"Klip",
+            "copy":"Kopier",
+            "search":"Søg",
+            "share":"Del",
+            "translate":"Oversæt"
+        },
+        "refresh":{
+            "last_updated":"Sidst opdateret: %s",
+            "loading":"Opdaterer…"
+        },
+        "switch":{
+            "on":"Til",
+            "off":"Fra"
+        },
+        "stepper":{
+            "skip":"Spring over",
+            "next":"Næste",
+            "start":"Start",
+            "back":"Tilbage"
+        }
+    },
+    "mk":{
+        "common":{
+            "ok":"ОК",
+            "cancel":"Откажи"
+        },
+        "textoverlay":{
+            "paste":"Залепи",
+            "select_all":"Изберете ги сите",
+            "cut":"Отсечи",
+            "copy":"Копирај",
+            "search":"Пребарај",
+            "share":"Сподели",
+            "translate":"Преведи"
+        },
+        "refresh":{
+            "last_updated":"Последно ажурирање: %s",
+            "loading":"Се освежува…"
+        },
+        "switch":{
+            "on":"Вклучено",
+            "off":"Исклучено"
+        },
+        "stepper":{
+            "skip":"Прескокни",
+            "next":"Следно",
+            "start":"Почеток",
+            "back":"Назад"
+        }
+    },
+    "fa":{
+        "common":{
+            "ok":"تأييد",
+            "cancel":"لغو"
+        },
+        "textoverlay":{
+            "paste":"چسباندن",
+            "select_all":"انتخاب همه",
+            "cut":"برش",
+            "copy":"کپی",
+            "search":"جستجو",
+            "share":"اشتراک‌گذاری",
+            "translate":"ترجمه"
+        },
+        "refresh":{
+            "last_updated":"آخرین به‌روزرسانی: %s",
+            "loading":"درحال تازه کردن…"
+        },
+        "switch":{
+            "on":"روشن",
+            "off":"خاموش"
+        },
+        "stepper":{
+            "skip":"رد شدن",
+            "next":"بعدی",
+            "start":"شروع",
+            "back":"بازگشت"
+        }
+    },
+    "ja":{
+        "common":{
+            "ok":"OK",
+            "cancel":"キャンセル"
+        },
+        "textoverlay":{
+            "paste":"貼り付け",
+            "select_all":"すべて選択",
+            "cut":"切り取り",
+            "copy":"コピー",
+            "search":"検索",
+            "share":"共有",
+            "translate":"翻訳"
+        },
+        "refresh":{
+            "last_updated":"最終更新：%s",
+            "loading":"再読み込み中..."
+        },
+        "switch":{
+            "on":"オン",
+            "off":"オフ"
+        },
+        "stepper":{
+            "skip":"スキップ",
+            "next":"次へ",
+            "start":"開始",
+            "back":"戻る"
+        }
+    },
+    "ka-GE":{
+        "common":{
+            "ok":"კარგი",
+            "cancel":"გაუქმება"
+        },
+        "textoverlay":{
+            "paste":"ჩასმა",
+            "select_all":"ყველას არჩევა",
+            "cut":"ამოჭრა",
+            "copy":"კოპირება",
+            "search":"ძიება",
+            "share":"გაზიარება",
+            "translate":"თარგმნა"
+        },
+        "refresh":{
+            "last_updated":"ბოლო გაახლება: %s",
+            "loading":"მიმდინარეობს განახლება..."
+        },
+        "switch":{
+            "on":"ჩართვა",
+            "off":"გამორთვა"
+        },
+        "stepper":{
+            "skip":"გამოტოვება",
+            "next":"შემდეგი",
+            "start":"დაწყება",
+            "back":"უკან"
+        }
+    },
+    "ne":{
+        "common":{
+            "ok":"ओके",
+            "cancel":"रद्द गर्नुहोस्"
+        },
+        "textoverlay":{
+            "paste":"टाँस्नुहोस्",
+            "select_all":"सबै चयन गर्नुहोस्",
+            "cut":"काट्नुहोस्",
+            "copy":"प्रतिलिपि बनाउनुहोस्",
+            "search":"खोज्नुहोस्",
+            "share":"साझा गर्नुहोस्",
+            "translate":"अनुवाद गर्नुहोस्"
+        },
+        "refresh":{
+            "last_updated":"पछिल्लो अद्यावधिक: %s",
+            "loading":"ताजा गर्दैछ..."
+        },
+        "switch":{
+            "on":"अन",
+            "off":"अफ"
+        },
+        "stepper":{
+            "skip":"छोड्नुहोस्",
+            "next":"अर्को",
+            "start":"सुरु गर्नुहोस्",
+            "back":"पछाडि"
+        }
+    },
+    "pt-PT":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Cancelar"
+        },
+        "textoverlay":{
+            "paste":"Colar",
+            "select_all":"Selecionar tudo",
+            "cut":"Cortar",
+            "copy":"Copiar",
+            "search":"Procurar",
+            "share":"Partilhar",
+            "translate":"Traduzir"
+        },
+        "refresh":{
+            "last_updated":"Última atualização: %s",
+            "loading":"A atualizar..."
+        },
+        "switch":{
+            "on":"Ativado",
+            "off":"Desativado"
+        },
+        "stepper":{
+            "skip":"Ignorar",
+            "next":"Seguinte",
+            "start":"Iniciar",
+            "back":"Anterior"
+        }
+    },
+    "sk":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Zrušiť"
+        },
+        "textoverlay":{
+            "paste":"Prilepiť",
+            "select_all":"Vybrať všetko",
+            "cut":"Vystrihnúť",
+            "copy":"Kopírovať",
+            "search":"Hľadať",
+            "share":"Zdieľať",
+            "translate":"Preložiť"
+        },
+        "refresh":{
+            "last_updated":"Posledná aktualizácia: %s",
+            "loading":"Obnovuje sa…"
+        },
+        "switch":{
+            "on":"Zapnuté",
+            "off":"Vypnuté"
+        },
+        "stepper":{
+            "skip":"Preskočiť",
+            "next":"Ďalej",
+            "start":"Spustiť",
+            "back":"Späť"
+        }
+    },
+    "uk":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Скасувати"
+        },
+        "textoverlay":{
+            "paste":"Вставити",
+            "select_all":"Вибрати все",
+            "cut":"Вирізати",
+            "copy":"Копіювати",
+            "search":"Шукати",
+            "share":"Поділитися",
+            "translate":"Перекласти"
+        },
+        "refresh":{
+            "last_updated":"Останнє оновлення: %s",
+            "loading":"Оновлення…"
+        },
+        "switch":{
+            "on":"Увімк.",
+            "off":"Вимк."
+        },
+        "stepper":{
+            "skip":"Пропустити",
+            "next":"Далі",
+            "start":"Почати",
+            "back":"Назад"
+        }
+    },
+    "vi":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Hủy"
+        },
+        "textoverlay":{
+            "paste":"Dán",
+            "select_all":"Chọn tất cả",
+            "cut":"Cắt",
+            "copy":"Sao chép",
+            "search":"Tìm kiếm",
+            "share":"Chia sẻ",
+            "translate":"Dịch"
+        },
+        "refresh":{
+            "last_updated":"Cập nhật mới nhất: %s",
+            "loading":"Đang làm mới…"
+        },
+        "switch":{
+            "on":"Bật",
+            "off":"Tắt"
+        },
+        "stepper":{
+            "skip":"Bỏ qua",
+            "next":"Tiếp",
+            "start":"Bắt đầu",
+            "back":"Quay lại"
+        }
+    },
+    "b+jv+Latn":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Wurung"
+        },
+        "textoverlay":{
+            "paste":"Tempel",
+            "select_all":"Pilih kabeh",
+            "cut":"Kethok",
+            "copy":"Salin",
+            "search":"Tlusur",
+            "share":"Bage",
+            "translate":"Jarwakake"
+        },
+        "refresh":{
+            "last_updated":"Dianyarake pungkasan tanggal: %s",
+            "loading":"Mbukak maneh..."
+        },
+        "switch":{
+            "on":"Urip",
+            "off":"Mati"
+        },
+        "stepper":{
+            "skip":"Lumpati",
+            "next":"Sabanjure",
+            "start":"Wiwit",
+            "back":"Mbalik"
+        }
+    },
+    "pa":{
+        "common":{
+            "ok":"ਠੀਕ ਹੈ",
+            "cancel":"ਰੱਦ ਕਰੋ"
+        },
+        "textoverlay":{
+            "paste":"ਚਿਪਕਾਓ",
+            "select_all":"ਸਭ ਚੁਣੋ",
+            "cut":"ਕੱਟੋ",
+            "copy":"ਕਾਪੀ ਕਰੋ",
+            "search":"ਖੋਜੋ",
+            "share":"ਸਾਂਝਾ ਕਰੋ",
+            "translate":"ਅਨੁਵਾਦ ਕਰੋ"
+        },
+        "refresh":{
+            "last_updated":"ਪਿਛਲੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ: %s",
+            "loading":"ਤਾਜ਼ਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
+        },
+        "switch":{
+            "on":"ਚਾਲੂ",
+            "off":"ਬੰਦ"
+        },
+        "stepper":{
+            "skip":"ਛੱਡੋ",
+            "next":"ਅਗਲਾ",
+            "start":"ਸ਼ੁਰੂ ਕਰੋ",
+            "back":"ਪਿੱਛੇ"
+        }
+    },
+    "te":{
+        "common":{
+            "ok":"సరే",
+            "cancel":"రద్దు చేయి"
+        },
+        "textoverlay":{
+            "paste":"అతికించు",
+            "select_all":"అన్నింటినీ ఎంచుకోండి",
+            "cut":"కత్తిరించు",
+            "copy":"కాపీ చేయి",
+            "search":"శోధించు",
+            "share":"భాగస్వామ్యం చేయి",
+            "translate":"అనువదించు"
+        },
+        "refresh":{
+            "last_updated":"చివరిగా అప్‌డేట్ చేసినది: %s",
+            "loading":"రీఫ్రెష్ చేస్తోంది…"
+        },
+        "switch":{
+            "on":"ఆన్",
+            "off":"ఆఫ్"
+        },
+        "stepper":{
+            "skip":"దాటవేయి",
+            "next":"తదుపరి",
+            "start":"ప్రారంభించు",
+            "back":"వెనుకకు"
+        }
+    },
+    "ug":{
+        "common":{
+            "ok":"جەزملەش",
+            "cancel":"بىكار قىلىش"
+        },
+        "textoverlay":{
+            "paste":"چاپلاش",
+            "select_all":"ھەممىنى تاللاش",
+            "cut":"كېسىش",
+            "copy":"كۆچۈرۈش",
+            "search":"ئىزدەش",
+            "share":"ئورتاقلىشىش",
+            "translate":"تەرجىمە"
+        },
+        "refresh":{
+            "last_updated":"يېڭىلانغان ۋاقىت: %s",
+            "loading":"يېڭىلىنىۋاتىدۇ..."
+        },
+        "switch":{
+            "on":"ئوچۇق",
+            "off":"ئېتىك"
+        },
+        "stepper":{
+            "skip":"ئاتلاش",
+            "next":"كېيىنكى",
+            "start":"باشلاش",
+            "back":"قايتىش"
+        }
+    },
+    "et":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Loobu"
+        },
+        "textoverlay":{
+            "paste":"Kleebi",
+            "select_all":"Vali kõik",
+            "cut":"Lõika",
+            "copy":"Kopeeri",
+            "search":"Otsi",
+            "share":"Jaga",
+            "translate":"Tõlgi"
+        },
+        "refresh":{
+            "last_updated":"Viimane värskendus: %s",
+            "loading":"Värskendamine..."
+        },
+        "switch":{
+            "on":"Sees",
+            "off":"Väljas"
+        },
+        "stepper":{
+            "skip":"Jäta vahele",
+            "next":"Edasi",
+            "start":"Alusta",
+            "back":"Tagasi"
+        }
+    },
+    "ta":{
+        "common":{
+            "ok":"சரி",
+            "cancel":"ரத்து"
+        },
+        "textoverlay":{
+            "paste":"ஒட்டு",
+            "select_all":"எல்லாம் தேர்வுசெய்",
+            "cut":"வெட்டு",
+            "copy":"நகலெடு",
+            "search":"தேடு",
+            "share":"பகிர்",
+            "translate":"மொழிபெயர்"
+        },
+        "refresh":{
+            "last_updated":"கடைசியாகப் புதுப்பித்தது: %s",
+            "loading":"புதுப்பிக்கிறது…"
+        },
+        "switch":{
+            "on":"ஆன்",
+            "off":"ஆஃப்"
+        },
+        "stepper":{
+            "skip":"தவிர்",
+            "next":"அடுத்து",
+            "start":"தொடங்கு",
+            "back":"திரும்பு"
+        }
+    },
+    "it":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Annulla"
+        },
+        "textoverlay":{
+            "paste":"Incolla",
+            "select_all":"Seleziona tutto",
+            "cut":"Taglia",
+            "copy":"Copia",
+            "search":"Cerca",
+            "share":"Condividi",
+            "translate":"Traduci"
+        },
+        "refresh":{
+            "last_updated":"Ultimo aggiornamento: %s",
+            "loading":"Aggiornamento..."
+        },
+        "switch":{
+            "on":"On",
+            "off":"Off"
+        },
+        "stepper":{
+            "skip":"Salta",
+            "next":"Avanti",
+            "start":"Inizio",
+            "back":"Indietro"
+        }
+    },
+    "bn":{
+        "common":{
+            "ok":"ঠিক আছে",
+            "cancel":"বাতিল"
+        },
+        "textoverlay":{
+            "paste":"প্রতিলেপন করুন",
+            "select_all":"সব নির্বাচন করুন",
+            "cut":"কাট করুন",
+            "copy":"অনুলিপি",
+            "search":"অনুসন্ধান করুন",
+            "share":"শেয়ার করুন",
+            "translate":"অনুবাদ করুন"
+        },
+        "refresh":{
+            "last_updated":"শেষবার আপডেট করা হয়েছে: %s",
+            "loading":"রিফ্রেশ করা হচ্ছে…"
+        },
+        "switch":{
+            "on":"চালু",
+            "off":"বন্ধ"
+        },
+        "stepper":{
+            "skip":"এড়িয়ে যান",
+            "next":"পরবর্তী",
+            "start":"শুরু করুন",
+            "back":"পিছনে"
+        }
+    },
+    "fr":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Annuler"
+        },
+        "textoverlay":{
+            "paste":"Coller",
+            "select_all":"Sélectionner tout",
+            "cut":"Couper",
+            "copy":"Copier",
+            "search":"Rechercher",
+            "share":"Partager",
+            "translate":"Traduire"
+        },
+        "refresh":{
+            "last_updated":"Dernière mise à jour : %s",
+            "loading":"Actualisation en cours."
+        },
+        "switch":{
+            "on":"Activé",
+            "off":"Désactivé"
+        },
+        "stepper":{
+            "skip":"Ignorer",
+            "next":"Suivant",
+            "start":"Commencer",
+            "back":"Précédent"
+        }
+    },
+    "zh-HK":{
+        "common":{
+            "ok":"確定",
+            "cancel":"取消"
+        },
+        "textoverlay":{
+            "paste":"貼上",
+            "select_all":"全選",
+            "cut":"剪下",
+            "copy":"複製",
+            "search":"搜尋",
+            "share":"分享",
+            "translate":"翻譯"
+        },
+        "refresh":{
+            "last_updated":"上次更新時間：%s",
+            "loading":"重新整理中..."
+        },
+        "switch":{
+            "on":"開",
+            "off":"關"
+        },
+        "stepper":{
+            "skip":"略過",
+            "next":"下一步",
+            "start":"開始",
+            "back":"返回"
+        }
+    },
+    "zh-TW":{
+        "common":{
+            "ok":"確定",
+            "cancel":"取消"
+        },
+        "textoverlay":{
+            "paste":"貼上",
+            "select_all":"全選",
+            "cut":"剪下",
+            "copy":"複製",
+            "search":"搜尋",
+            "share":"分享",
+            "translate":"翻譯"
+        },
+        "refresh":{
+            "last_updated":"上次更新時間：%s",
+            "loading":"正在重新整理..."
+        },
+        "switch":{
+            "on":"開",
+            "off":"關"
+        },
+        "stepper":{
+            "skip":"跳過",
+            "next":"下一步",
+            "start":"開始",
+            "back":"返回"
+        }
+    },
+    "hr":{
+        "common":{
+            "ok":"U redu",
+            "cancel":"Odustani"
+        },
+        "textoverlay":{
+            "paste":"Zalijepi",
+            "select_all":"Odaberi sve",
+            "cut":"Izreži",
+            "copy":"Kopiraj",
+            "search":"Pretraži",
+            "share":"Podijeli",
+            "translate":"Prevedi"
+        },
+        "refresh":{
+            "last_updated":"Zadnje ažuriranje: %s",
+            "loading":"Osvježavanje…"
+        },
+        "switch":{
+            "on":"Uključeno",
+            "off":"Isključeno"
+        },
+        "stepper":{
+            "skip":"Preskoči",
+            "next":"Sljedeće",
+            "start":"Početak",
+            "back":"Natrag"
+        }
+    },
+    "lv":{
+        "common":{
+            "ok":"Labi",
+            "cancel":"Atcelt"
+        },
+        "textoverlay":{
+            "paste":"Ielīmēt",
+            "select_all":"Atlasīt visu",
+            "cut":"Izgriezt",
+            "copy":"Kopēt",
+            "search":"Meklēt",
+            "share":"Kopīgot",
+            "translate":"Tulkot"
+        },
+        "refresh":{
+            "last_updated":"Pēdējoreiz atjaunināts: %s",
+            "loading":"Notiek atsvaidzināšana..."
+        },
+        "switch":{
+            "on":"Iesl.",
+            "off":"Izsl."
+        },
+        "stepper":{
+            "skip":"Izlaist",
+            "next":"Tālāk",
+            "start":"Sākt",
+            "back":"Atpakaļ"
+        }
+    },
+    "el":{
+        "common":{
+            "ok":"OK",
+            "cancel":"Ακύρωση"
+        },
+        "textoverlay":{
+            "paste":"Επικόλληση",
+            "select_all":"Επιλογή όλων",
+            "cut":"Αποκοπή",
+            "copy":"Αντιγραφή",
+            "search":"Αναζήτηση",
+            "share":"Κοινή χρήση",
+            "translate":"Μετάφραση"
+        },
+        "refresh":{
+            "last_updated":"Τελευταία ενημέρωση: %s",
+            "loading":"Ανανέωση..."
+        },
+        "switch":{
+            "on":"Ενεργό",
+            "off":"Ανενεργό"
+        },
+        "stepper":{
+            "skip":"Παράλειψη",
+            "next":"Επόμενο",
+            "start":"Εκκίνηση",
+            "back":"Πίσω"
+        }
+    },
+    "lo-LA":{
+        "common":{
+            "ok":"​ຕົກລົງ",
+            "cancel":"ຍົກ​ເລີກ"
+        },
+        "textoverlay":{
+            "paste":"ວາງ​ໃສ່",
+            "select_all":"​​ເລືອກ​ທັງ​ໝົດ",
+            "cut":"ຕັດ​",
+            "copy":"​ອັດ​ສຳ​ເນົາ",
+            "search":"ຊອກຫາ",
+            "share":"ແຊຣ໌",
+            "translate":"ແປ​ພາ​ສາ"
+        },
+        "refresh":{
+            "last_updated":"ອັບເດດຫຼ້າສຸດ: %s",
+            "loading":"ກໍາລັງຣີເຟຣຊ…"
+        },
+        "switch":{
+            "on":"ເປີດ",
+            "off":"ປິດ"
+        },
+        "stepper":{
+            "skip":"ຂ້າມໄປ",
+            "next":"ຕໍ່ໄປ",
+            "start":"ເລີ່ມຕົ້ນ",
+            "back":"ກັບ​ຄືນ"
+        }
+    },
+    "zz-ZX":{
+        "common":{
+            "ok":"[HM_637199]_OK",
+            "cancel":"[HM_637200]_Cancel"
+        },
+        "textoverlay":{
+            "paste":"[HM_637196]_Paste",
+            "select_all":"[HM_637195]_Select all",
+            "cut":"[HM_637202]_Cut",
+            "copy":"[HM_637198]_Copy",
+            "search":"[HM_743926]_Search",
+            "share":"[HM_743924]_Share",
+            "translate":"[HM_743925]_Translate"
+        },
+        "refresh":{
+            "last_updated":"[HM_637204]_Last updated: %s",
+            "loading":"[HM_637205]_Refreshing…"
+        },
+        "switch":{
+            "on":"[HM_637197]_On",
+            "off":"[HM_637194]_Off"
+        },
+        "stepper":{
+            "skip":"[HM_699345]_Skip",
+            "next":"[HM_699342]_Next",
+            "start":"[HM_699340]_Start",
+            "back":"[HM_699338]_Back"
+        }
+    }
+}

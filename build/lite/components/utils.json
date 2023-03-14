@@ -1,0 +1,205 @@
+{
+  "components": [
+    {
+      "component": "kv_store",
+      "discription": "",
+      "optional": "true",
+      "dirs": [
+        "utils/native/lite/kv_store"
+      ],
+      "targets": [
+        "//utils/native/lite/kv_store"
+      ],
+      "rom": "13KB",
+      "ram": "80k",
+      "output": [
+        "libutils_kv_store.so",
+        "libutils_kv_store.a"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "os_dump",
+      "description": "Providing commands for dumping system property.",
+      "optional": "true",
+      "dirs": [
+        "utils/native/lite/os_dump"
+      ],
+      "targets": [
+        "//utils/native/lite/os_dump:utils_os_dump"
+      ],
+      "rom": "3.7KB",
+      "ram": "~4.75KB",
+      "output": [ "os_dump" ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "syspara_lite",
+          "iot_controller"
+        ]
+      }
+    },
+    {
+      "component": "file",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "utils/native/lite/file"
+      ],
+      "targets": [
+        "//utils/native/lite/file"
+      ],
+      "rom": "0.55KB",
+      "ram": "",
+      "output": [ "native_file.a" ],
+      "adapted_kernel": [
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "utils_base",
+      "description": "Basic macro and type definitions",
+      "optional": "true",
+      "dirs": [
+        "utils/native/lite/include"
+      ],
+      "targets": [],
+      "rom": "0KB",
+      "ram": "0KB",
+      "output": [ ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "kal_timer",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "utils/native/lite/kal/timer"
+      ],
+      "targets": [
+        "//utils/native/lite/kal/timer:kal_timer"
+      ],
+      "rom": "15KB",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "js_builtin",
+      "description": "ace related kits",
+      "optional": "true",
+      "dirs": [
+        "utils/native/lite/js/builtin"
+      ],
+      "targets": [
+        "//utils/native/lite/js/builtin:ace_utils_kits"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "utils_base",
+          "aafwk_lite",
+          "syspara_lite",
+          "graphic_utils",
+          "resmgr_lite",
+          "ui",
+          "ace_native_engine_lite"
+        ]
+      }
+    },
+    {
+      "component": "timer_task",
+      "description": "ace timer kits",
+      "optional": "true",
+      "dirs": [
+        "utils/native/lite/timer_task"
+      ],
+      "targets": [
+        "//utils/native/lite/timer_task:ace_kit_timer"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "utils_base"
+        ]
+      }
+    }
+  ]
+}

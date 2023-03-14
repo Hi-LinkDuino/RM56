@@ -1,0 +1,35 @@
+{
+    "name": "@ohos/hidumper_mini",
+    "description": "System information dump service for liteos-m kernel.",
+    "optional": "false",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hidumper_lite/mini"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hidumper_mini",
+        "subsystem": "hiviewdfx",
+        "adapted_system_type": [
+            "mini"
+        ],
+        "rom": "26KB",
+        "ram": "~10KB",
+        "deps": {
+            "components": [
+                "hiview_lite",
+                "utils_base",
+                "liteos_m"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hidumper_lite/mini:hidumper_mini"
+            ]
+        }
+    }
+}

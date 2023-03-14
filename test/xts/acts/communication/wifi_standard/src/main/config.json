@@ -1,0 +1,99 @@
+{
+  "app": {
+    "bundleName": "ohos.acts.communication.wifi.wifidevice",
+    "vendor": "acts",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "ohos.acts.communication.wifi.wifidevice",
+    "name": ".MyApplication",
+    "mainAbility": "ohos.acts.communication.wifi.wifidevice.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "wifi_standard",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "visible": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "ohos.acts.communication.wifi.wifidevice.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name" : "ohos.permission.GET_WIFI_INFO",
+        "reason" : "use ohos.permission.GET_WIFI_INFO"
+      },
+      {
+        "name" : "ohos.permission.SET_WIFI_INFO",
+        "reason" : "use ohos.permission.SET_WIFI_INFO"
+      },
+      {
+        "name" : "ohos.permission.MANAGE_WIFI_CONNECTION",
+        "reason" : "use ohos.permission.MANAGE_WIFI_CONNECTION"
+      },
+      {
+        "name" : "ohos.permission.SET_WIFI_CONFIG",
+        "reason" : "use ohos.permission.SET_WIFI_CONFIG"
+      },
+      {
+        "name" : "ohos.permission.GET_WIFI_CONFIG",
+        "reason" : "use ohos.permission.GET_WIFI_CONFIG"
+      },
+      {
+        "name" : "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
+        "reason" : "use ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
+      },
+      {
+        "name" : "ohos.permission.GET_WIFI_LOCAL_MAC",
+        "reason" : "use ohos.permission.GET_WIFI_LOCAL_MAC"
+      },
+      {
+        "name" : "ohos.permission.MANAGE_WIFI_HOTSPOT",
+        "reason" : "use ohos.permission.MANAGE_WIFI_HOTSPOT"
+      },
+      {
+        "name" : "ohos.permission.GET_WIFI_INFO_INTERNAL",
+        "reason" : "use ohos.permission.GET_WIFI_INFO_INTERNAL"
+      }
+    ]
+  }
+}

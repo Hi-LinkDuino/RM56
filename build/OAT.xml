@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+	 
+	 Notes:
+	 This is project config file for OpenHarmony OSS Audit Tool, if you have any questions or concerns, please email chenyaxun. 	 
+--> 
+<!-- OAT(OSS Audit Tool) configuration guide:
+basedir: Root dir, the basedir + project path is the real source file location.
+licensefile: 
+1.If the project don't have "LICENSE" in root dir, please define all the license files in this project in , OAT will check license files according to this rule.
+
+tasklist(only for batch mode):
+1. task: Define oat check thread, each task will start a new thread.
+2. task name: Only an name, no practical effect.
+3. task policy: Default policy for projects under this task, this field is required and the specified policy must defined in policylist.
+4. task filter: Default filefilter for projects under this task, this field is required and the specified filefilter must defined in filefilterlist.
+5. task project: Projects to be checked, the path field define the source root dir of the project.
+
+
+policyList:
+1. policy: All policyitems will be merged to default OAT.xml rules, the name of policy doesn't affect OAT check process.
+2. policyitem: The fields type, name, path, desc is required, and the fields rule, group, filefilter is optional,the default value is:
+<policyitem type="" name="" path="" desc="" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter"/>
+3. policyitem type:	
+    "compatibility" is used to check license compatibility in the specified path; 
+    "license" is used to check source license header in the specified path;
+    "copyright" is used to check source copyright header in the specified path;
+    "import" is used to check source dependency in the specified path, such as import ... ,include ...
+    "filetype" is used to check file type in the specified path, supported file types: archive, binary
+    "filename" is used to check whether the specified file exists in the specified path(support projectroot in default OAT.xml), supported file names: LICENSE, README, README.OpenSource
+
+4. policyitem name: This field is used for define the license, copyright, "*" means match all, the "!" prefix means could not match this value. For example, "!GPL" means can not use GPL license. 
+5. policyitem path: This field is used for define the source file scope to apply this policyitem, the "!" prefix means exclude the files. For example, "!.*/lib/.*" means files in lib dir will be exclude while process this policyitem.
+6. policyitem rule and group: These two fields are used together to merge policy results. "may" policyitems in the same group means any one in this group passed, the result will be passed.
+7. policyitem filefilter: Used to bind filefilter which define filter rules.
+8. filefilter: Filter rules, the type filename is used to filter file name, the type filepath is used to filter file path.
+
+Note:If the text contains special characters, please escape them according to the following rules:
+" == &gt;
+& == &gt;
+' == &gt;
+< == &gt;
+> == &gt;
+-->
+<configuration>
+    <oatconfig>
+		<policylist>
+			<policy name="projectPolicy" desc="">
+				<policyitem type="license" name="BSDStyleLicense" path=".*" desc="Some chromium build code is modified and used in the build repository, and the license and copyright information are retained."/>
+				<policyitem type="license" name="BSD-3-Clause" path=".*" desc="Some chromium build code is modified and used in the build repository, and the license and copyright information are retained."/>
+			</policy>
+		</policylist>
+		<filefilterlist>
+			<filefilter name="defaultFilter" desc="Files not to check">
+				<filteritem type="filepath" name="common/musl/ld-musl-aarch64.path" desc="configuration file, this format doesn't support adding license header"/>
+				<filteritem type="filepath" name="common/musl/ld-musl-arm.path" desc="configuration file, this format doesn't support adding license header"/>
+				<filteritem type="filepath" name="common/musl/ld-musl-aarch64-asan.path" desc="configuration file, this format doesn't support adding license header"/>
+				<filteritem type="filepath" name="common/musl/ld-musl-arm-asan.path" desc="configuration file, this format doesn't support adding license header"/>
+				<filteritem type="filepath" name="common/asan/asan.options" desc="configuration file, this format doesn't support adding license header"/>
+			</filefilter>
+			<filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies" >
+				<filteritem type="filepath" name="gn_helpers.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="print_python_deps.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="zip.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/BUILDCONFIG.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/allocator.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/arm.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/deps_revisions.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/features.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/python.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/sysroot.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/v8_target_cpu.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/zip.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/ohos/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/ohos/abi.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/ohos/config.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/c.*/c.*.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/clang/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/clang/clang.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/compiler/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/compiler/compiler.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/coverage/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/coverage/coverage.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/gcc/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/linux/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/linux/pkg-config.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/linux/pkg_config.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/mac/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/mac/mac_sdk.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/mac/mac_sdk_overrides.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/mac/sdk_info.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/mac/symbols.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/mac/xcrun.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/ohos/copy_ex.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/posix/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/posix/sysroot_ld_path.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/sanitizers/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="config/sanitizers/sanitizers.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="scripts/copy_ex.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="scripts/find.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="scripts/util/build_utils.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="scripts/util/md5_check.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/linux/sysroot_ld_path.sh" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/mac/check_return_value.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/mac/find_sdk.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/overrides/build.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/overrides/gtest.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/sanitizers/asan_suppressions.cc" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/sanitizers/lsan_suppressions.cc" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/sanitizers/sanitizer_options.cc" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="misc/sanitizers/tsan_suppressions.cc" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="scripts/dir_exists.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/cc_wrapper.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/clang_static_analyzer.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/clang_static_analyzer_wrapper.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/concurrent_links.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/gcc_link_wrapper.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/gcc_solink_wrapper.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/gcc_toolchain.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/get_concurrent_links.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/get_cpu_count.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/toolchain.gni" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/wrapper_utils.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/ohos/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/linux/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/mac/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/mac/filter_libtool.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/mac/get_tool_mtime.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/mac/linker_driver.py" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/ohos/BUILD.gn" desc="keep the chromium src copyright"/>
+				<filteritem type="filepath" name="toolchain/ohos/ohos_toolchain.gni" desc="keep the chromium src copyright"/>
+			</filefilter>
+		</filefilterlist>
+	
+    </oatconfig>
+</configuration>

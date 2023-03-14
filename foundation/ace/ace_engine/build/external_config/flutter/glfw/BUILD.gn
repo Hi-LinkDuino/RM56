@@ -1,0 +1,173 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+config("flutter_glfw_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/public",
+    "$flutter_root/engine/flutter/shell/platform/glfw/public",
+  ]
+}
+
+ohos_source_set("flutter_platform_common_client_wrapper") {
+  part_name = ace_engine_part
+  sources = [
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/engine_method_result.cc",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/standard_codec.cc",
+  ]
+
+  public = [
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/basic_message_channel.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/binary_messenger.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/encodable_value.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/engine_method_result.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/message_codec.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/method_call.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/method_channel.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/method_codec.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/method_result.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/standard_message_codec.h",
+    "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter/standard_method_codec.h",
+  ]
+
+  defines = [ "FLUTTER_DESKTOP_LIBRARY" ]
+}
+
+template("flutter_embedder_with_symbol_prefix") {
+  forward_variables_from(invoker, "*")
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += [ "FLUTTER_API_SYMBOL_PREFIX=Embedder" ]
+    cflags_cc += invoker.cflags_cc
+
+    public_configs = [
+      "$ace_flutter_engine_root:flutter_config",
+      "$ace_flutter_engine_root/icu:icu_config_$platform",
+    ]
+
+    sources = [
+      # Ability Cross-platform Environment(ACE) override
+      "$flutter_root/engine/flutter/shell/platform/embedder/ace_embedder.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/ace_embedder_engine.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/ace_platform_view_embedder.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_external_texture_gl.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_external_view_embedder.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_platform_message_response.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_render_target.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_surface.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_surface_gl.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_surface_software.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_task_runner.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/embedder_thread_host.cc",
+      "$flutter_root/engine/flutter/shell/platform/embedder/vsync_waiter_embedder.cc",
+    ]
+
+    deps = [
+      "$ace_flutter_engine_root:third_party_flutter_engine_$platform",
+      "$ace_flutter_engine_root/skia:ace_skia_$platform",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_embedder_with_symbol_prefix(
+      "flutter_embedder_with_symbol_prefix_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+template("flutter_platform_glfw") {
+  forward_variables_from(invoker, "*")
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += [ "FLUTTER_DESKTOP_LIBRARY" ]
+    cflags_cc += invoker.cflags_cc
+
+    public_configs = [
+      "$ace_flutter_engine_root:flutter_config",
+      "$ace_flutter_engine_root/icu:icu_config_$platform",
+      ":flutter_glfw_config",
+    ]
+
+    sources = [
+      "$flutter_root/engine/flutter/shell/platform/glfw/glfw_event_loop.cc",
+
+      # Ability Cross-platform Environment(ACE) override
+      "$flutter_root/engine/flutter/shell/platform/glfw/flutter_glfw.cc",
+    ]
+
+    # GLFW client wrapper build
+    public = [ "$flutter_root/engine/flutter/shell/platform/glfw/client_wrapper/include/flutter/flutter_window.h" ]
+
+    include_dirs = [
+      "$flutter_root/engine/flutter/shell/platform/common/cpp/client_wrapper/include/flutter",
+      "$flutter_root/engine/flutter/shell/platform/common/cpp/public",
+    ]
+
+    deps = [
+      ":flutter_embedder_with_symbol_prefix_$platform",
+      ":flutter_platform_common_client_wrapper",
+    ]
+
+    # wait for glfw enabled in standard system
+    if (!is_standard_system || use_mingw_win || use_mac) {
+      deps += [ "//third_party/glfw:glfw_$platform" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  if (platform == "windows" || platform == "mac") {
+    flutter_platform_glfw("flutter_glfw_preview_" + item.name) {
+      platform = item.name
+      defines = []
+      cflags_cc = []
+      config = {
+      }
+
+      if (defined(item.config)) {
+        config = item.config
+      }
+
+      if (defined(config.defines)) {
+        defines = config.defines
+      }
+
+      if (defined(config.cflags_cc)) {
+        cflags_cc = config.cflags_cc
+      }
+    }
+  }
+}

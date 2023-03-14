@@ -1,0 +1,185 @@
+{
+  "app": {
+    "bundleName": "com.example.lock",
+    "vendor": "example",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.lock",
+    "name": ".MyApplication",
+    "mainAbility": ".MainAbility",
+    "srcPath": "",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "orientation": "unspecified",
+        "srcPath": "Ability2",
+        "name": ".Ability2",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_ability2",
+        "formsEnabled": false,
+        "label": "$string:entry_Ability2",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "orientation": "unspecified",
+        "srcPath": "Ability1",
+        "name": ".Ability1",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_ability1",
+        "formsEnabled": false,
+        "label": "$string:entry_Ability1",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "orientation": "unspecified",
+        "srcPath": "Ability3",
+        "name": ".Ability3",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_ability3",
+        "formsEnabled": false,
+        "label": "$string:entry_Ability3",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "orientation": "unspecified",
+        "srcPath": "Ability4",
+        "name": ".Ability4",
+        "srcLanguage": "js",
+        "icon": "$media:icon",
+        "description": "$string:description_ability4",
+        "formsEnabled": false,
+        "label": "$string:entry_Ability4",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".Ability2",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".Ability1",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".Ability3",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/second/second"
+        ],
+        "name": ".Ability4",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO",
+        "reason": "need use ohos.permission.INSTALL_BUNDLE"
+      },
+      {
+        "name": "ohos.permission.MANAGE_MISSIONS"
+      },
+      {
+        "name": "ohos.permission.INSTALL_BUNDLE",
+        "reason": "need use ohos.permission.INSTALL_BUNDLE"
+      },
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
+        "reason": "need use ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
+      },
+      {
+        "name": "ohos.permission.CHANGE_ABILITY_ENABLED_STATE",
+        "reason": "need use ohos.permission.CHANGE_ABILITY_ENABLED_STATE"
+      },
+      {
+        "name": "ohos.permission.REMOVE_CACHE_FILES",
+        "reason": "need use ohos.permission.REMOVE_CACHE_FILES"
+      },
+      {
+        "name": "ohos.permission.LISTEN_BUNDLE_CHANGE",
+        "reason": "need use ohos.permission.LISTEN_BUNDLE_CHANGE"
+      }
+    ]
+  }
+}

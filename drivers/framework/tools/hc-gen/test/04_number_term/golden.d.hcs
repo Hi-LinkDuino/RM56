@@ -1,0 +1,13 @@
+/*
+ * HDF decompile hcs file
+ */
+
+root {
+    module = "test";
+    term1 = 0x1;
+    term2 = 0x2;
+    term3 = 0x3;
+    term_uint16 = 0xFFFF;
+    term_uint32 = 0xFFFFFFFF;
+    term_uint64 = 0xFFFFFFFFFF;
+}

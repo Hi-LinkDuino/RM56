@@ -1,0 +1,54 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+declare_args() {
+  # build histreamer plugin feature ability
+  multimedia_histreamer_enable_plugin_ffmpeg_adapter = true
+  multimedia_histreamer_enable_plugin_hdi_adapter = false
+  multimedia_histreamer_enable_plugin_file_source = true
+  multimedia_histreamer_enable_plugin_http_source = false
+  multimedia_histreamer_enable_plugin_file_fd_source = false
+  multimedia_histreamer_enable_plugin_stream_source = false
+  multimedia_histreamer_enable_plugin_http_lite_source = false
+  multimedia_histreamer_enable_plugin_minimp3_adapter = false
+  multimedia_histreamer_enable_plugin_smf_adapter = false
+  multimedia_histreamer_enable_plugin_minimp4_demuxer = false
+  multimedia_histreamer_enable_plugin_aac_demuxer = false
+  multimedia_histreamer_enable_plugin_std_audio_capture = false
+  multimedia_histreamer_enable_plugin_file_sink = false
+  multimedia_histreamer_enable_plugin_audio_server_sink = false
+  multimedia_histreamer_enable_plugin_lite_aac_decoder = false
+  multimedia_histreamer_enable_plugin_std_video_surface_sink = false
+  multimedia_histreamer_enable_plugin_std_video_capture = false
+  multimedia_histreamer_enable_plugin_wav_demuxer = false
+  multimedia_histreamer_enable_plugin_avs3_audio_decoder = false
+
+  multimedia_histreamer_enable_recorder = false
+  multimedia_histreamer_enable_video = false
+  multimedia_histreamer_enable_avs3da = false
+
+  # configuration for histreamer created thread's stack size.
+  # 0 means using system default thread stack size, other positive values will be accepted.
+  config_ohos_multimedia_histreamer_stack_size = 0
+  hst_is_lite_sys = false
+}
+if (!defined(ohos_lite) || !ohos_lite) {
+  hst_is_lite_sys = false
+  multimedia_histreamer_enable_plugin_audio_server_sink = true
+  multimedia_histreamer_enable_recorder = true
+  multimedia_histreamer_enable_plugin_file_sink = true
+  multimedia_histreamer_enable_plugin_std_audio_capture = true
+} else {
+  hst_is_lite_sys = true
+}

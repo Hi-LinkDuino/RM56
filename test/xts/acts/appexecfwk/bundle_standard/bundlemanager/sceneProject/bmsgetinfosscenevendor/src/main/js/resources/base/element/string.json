@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "vendor1"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "shortcut",
+      "value": "JS_Phone_Empty Shortcut"
+    }
+  ]
+}

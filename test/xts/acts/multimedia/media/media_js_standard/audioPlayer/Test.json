@@ -1,0 +1,56 @@
+{
+    "description": "Configuration for audioPlayer Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "2000000",
+        "package": "ohos.acts.multimedia.audio.audioplayer",
+		"shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAudioPlayerJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "PushKit",
+            "pre-push": [
+            ],
+            "push": [
+                "./resource/audio/01.mp3 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/02.mp3 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/03.mp3 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/04.mp3 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/47.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/49.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/50.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/51.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/54.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/55.m4a ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/57.m4a ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/58.m4a ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/59.m4a ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/62.m4a ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/64.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/65.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/66.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/67.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/92.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/93.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/94.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/96.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/97.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/",
+                "./resource/audio/98.mp4 ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioplayer/"
+            ]
+        },
+		{
+            "type": "ShellKit",
+            "run-command": [
+            ],
+            "teardown-command":[
+            ]
+        }
+    ]
+}

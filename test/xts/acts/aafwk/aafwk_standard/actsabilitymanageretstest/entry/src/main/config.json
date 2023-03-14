@@ -1,0 +1,164 @@
+{
+  "app": {
+    "bundleName": "com.ohos.acecollaboration",
+    "vendor": "ohos",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 7,
+      "releaseType": "Release",
+      "target": 7
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.ohos.acecollaboration",
+    "name": ".MyApplication",
+    "mainAbility": "com.ohos.acecollaboration.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
+      },
+      {
+        "name": "ohos.permission.GET_BUNDLE_INFO"
+      }
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "visible": true,
+        "srcPath": "MainAbility",
+        "srcLanguage": "ets",
+        "name": "com.ohos.acecollaboration.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "orientation": "unspecified",
+        "srcPath": "MainAbility2",
+        "name": ".MainAbility2",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability2",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility2",
+        "type": "page",
+        "launchType": "standard"
+      },
+      {
+        "srcPath": "ServiceAbility",
+        "name": ".ServiceAbility",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability",
+        "type": "service"
+      },
+      {
+        "srcPath": "ServiceAbility2",
+        "name": ".ServiceAbility2",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability2",
+        "type": "service"
+      },
+      {
+        "srcPath": "ServiceAbility3",
+        "name": ".ServiceAbility3",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability3",
+        "type": "service"
+      },
+      {
+        "srcPath": "ServiceAbility4",
+        "name": ".ServiceAbility4",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability4",
+        "type": "service"
+      },
+      {
+        "srcPath": "ServiceAbility5",
+        "name": ".ServiceAbility5",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability5",
+        "type": "service"
+      },
+      {
+        "srcPath": "ServiceAbility6",
+        "name": ".ServiceAbility6",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability6",
+        "type": "service"
+      },
+      {
+        "srcPath": "ServiceAbility7",
+        "name": ".ServiceAbility7",
+        "icon": "$media:icon",
+        "srcLanguage": "ets",
+        "description": "$string:description_serviceability7",
+        "type": "service"
+      }
+    ],
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index"
+        ],
+        "name": "MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index"
+        ],
+        "name": ".MainAbility2",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],
+    "defPermissions": [
+      {
+        "name": "com.ohos.acecollaboration.DataAbilityShellProvider.PROVIDER"
+      }
+    ]
+  }
+}

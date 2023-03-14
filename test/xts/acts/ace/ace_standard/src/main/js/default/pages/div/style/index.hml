@@ -1,0 +1,254 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            div通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <div id="styleOne">
+        </div>
+        <div id="styleTwo">
+        </div>
+        <div id="styleThree">
+        </div>
+        <div id="styleFour">
+        </div>
+        <div id="styleFive">
+        </div>
+        <div id="styleSix">
+        </div>
+        <div id="styleSeven">
+        </div>
+        <div id="styleEight">
+        </div>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <div id="styleTen">
+            </div>
+            <div id="styleEleven">
+            </div>
+            <div id="styleTwelve">
+            </div>
+            <div id="styleThirteen">
+            </div>
+            <div id="styleFourteen">
+            </div>
+            <div id="styleFifteen">
+            </div>
+            <div id="styleSixteen">
+            </div>
+            <div id="styleSeventeen">
+            </div>
+            <div id="styleEighteen">
+            </div>
+            <div id="styleNineteen">
+            </div>
+            <div id="styleTwenty">
+            </div>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <div id="styleTwentyOne">
+            </div>
+            <div id="styleTwentyTwo">
+            </div>
+            <div id="styleTwentyThree">
+            </div>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <div id="styleTwentyFour">
+        </div>
+        <div id="styleTwentyFive">
+        </div>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <div id="styleTwentySix">
+        </div>
+        <div id="styleTwentySeven">
+        </div>
+        <div id="styleTwentyNine">
+        </div>
+        <div id="styleThirty">
+        </div>
+        <div id="styleThirtyOne">
+        </div>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <div id="styleThirtyTwo">
+        </div>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            div特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 flex-direction flex-wrap justify-content align-items align-content
+        </text>
+        <div id="specificOne">
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+        </div>
+        <div id="specificTwo">
+            <div id="specificThree" >
+                <div class="flex-item red-item">
+                </div>
+            </div>
+            <div id="specificFour" >
+                <div class="flex-item blue-item">
+                </div>
+
+            </div>
+            <div id="specificFive" >
+                <div class="flex-item yellow-item">
+                </div>
+                <div class="flex-item blue-item">
+                </div>
+            </div>
+            <div id="specificSix" >
+                <text style="font-size: 6px;">
+                    文本
+                </text>
+                <div class="flex-item blue-item">
+                </div>
+            </div>
+        </div>
+
+        <text class="sub-title">
+            特有样式 overflow scrollbar-color scrollbar-width overscroll-effect
+        </text>
+        <div id="specificSeven" >
+            <div id="specificEight" >
+                <div style="margin-left:10px;width: 80px; height: 10px; background-color: #0000ff;"></div>
+            </div>
+        </div>
+        <div id="specificNine">
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+        </div>
+        <div id="specificTen">
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+        </div>
+        <div id="specificEleven">
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+            <div class="flex-item red-item">
+            </div>
+            <div class="flex-item blue-item">
+            </div>
+            <div class="flex-item green-item">
+            </div>
+        </div>
+
+        <text class="sub-title">
+            特有样式 grid
+        </text>
+        <div id="specificTwelve">
+        </div>
+        <div id="specificThirteen">
+        </div>
+
+        <div style="width: 100%;flex-weight: 1;overflow: scroll;flex-direction: column;">
+            <text class="sub-title">
+                补充样式
+            </text>
+            <div id="addOne">
+            </div>
+            <div id="addTwo">
+            </div>
+            <div id="addThree">
+            </div>
+            <div id="addFour">
+            </div>
+            <div id="addFive">
+            </div>
+            <div id="addSix">
+            </div>
+            <div id="addSeven">
+            </div>
+        </div>
+
+    <!--        <div id="specificEight" >-->
+<!--            <div class="flex-item yellow-item">-->
+<!--            </div>-->
+<!--            <div class="flex-item blue-item" style="width: 45%; align-content:flex-end;">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="specificNine" >-->
+<!--            <div class="flex-item yellow-item">-->
+<!--            </div>-->
+<!--            <div class="flex-item blue-item">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="specificTen" >-->
+<!--            <div class="flex-item yellow-item">-->
+<!--            </div>-->
+<!--            <div class="flex-item blue-item">-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+    </div>
+</div>
+

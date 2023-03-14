@@ -1,0 +1,15 @@
+{
+	"BuildOptions":{
+		"SELECT_BUILD_TARGET":"default",
+		"BUILD_PATH":{
+			"OUTPUT_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\outputs\\default",
+			"RES_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\intermediates\\res\\default",
+			"ETS_SUPER_VISUAL_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\cache\\default\\LegacyCompileETS\\jsbundle",
+			"JS_ASSETS_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\intermediates\\assets_jsbundle\\default",
+			"RES_PROFILE_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\intermediates\\res\\default\\resources\\base\\profile",
+			"WORKER_LOADER":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\intermediates\\loader\\default\\loader.json",
+			"MANIFEST_JSON":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\intermediates\\manifest\\default",
+			"JS_SUPER_VISUAL_PATH":"D:\\gitee\\commbluetooth-commit\\test\\example\\bluetoothtest\\entry\\build\\default\\cache\\default\\LegacyCompileJS\\jsbundle"
+		}
+	}
+}

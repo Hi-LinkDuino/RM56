@@ -1,0 +1,238 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            div通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <grid-container id="idProp">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <grid-container id="classProp"
+             class="classProp">
+        </grid-container>
+        <grid-container id="classPropNone"
+             class="">
+        </grid-container>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <grid-container id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <grid-container id="refProp"
+             ref="refProp">
+        </grid-container>
+        <grid-container id="refPropNone"
+             ref="">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <grid-container id="disabledPropTrue"
+             disabled="true">
+        </grid-container>
+        <grid-container id="disabledPropFalse"
+             disabled="false">
+        </grid-container>
+        <grid-container id="disabledPropNone"
+             disabled="">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <grid-container id="focusablePropTrue"
+             focusable="true">
+        </grid-container>
+        <grid-container id="focusablePropFalse"
+             focusable="false">
+        </grid-container>
+        <grid-container id="focusablePropNone"
+             focusable="">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <grid-container id="dataProp"
+             data-div="通用属性 -- data-*">
+        </grid-container>
+        <grid-container id="dataPropNone"
+             data-div="">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <grid-container id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </grid-container>
+        <grid-container id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </grid-container>
+        <grid-container id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </grid-container>
+        <grid-container id="clickEffectPropNone"
+             click-effect="">
+        </grid-container>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <grid-container id="dirPropRtl"
+             dir="rtl">
+        </grid-container>
+        <grid-container id="dirPropAuto"
+             dir="auto">
+        </grid-container>
+        <grid-container id="dirPropLtr"
+             dir="ltr">
+        </grid-container>
+        <grid-container id="dirPropNone"
+             dir="">
+        </grid-container>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <grid-container id="forPropNull"
+             for="">
+        </grid-container>
+        <grid-container id="forPropOne"
+             for="{{listOne}}">
+        </grid-container>
+        <grid-container id="forPropThree"
+             for="{{listThree}}">
+        </grid-container>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <grid-container id="ifPropTrue"
+             if="true">
+        </grid-container>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <grid-container id="showPropTrue"
+             show="true">
+        </grid-container>
+        <grid-container id="showPropFalse"
+             show="false">
+        </grid-container>
+        <grid-container id="showPropNone"
+             show="">
+        </grid-container>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            grid-container特有属性
+        </text>
+        <text class="title">
+            grid-container特有属性 -- columns
+        </text>
+        <grid-container id="typeColumnsNull" columns="">
+        </grid-container>
+        <grid-container id="typeColumnsXs" columns="xs">
+        </grid-container>
+        <grid-container id="typeColumnsSm" columns="sm">
+        </grid-container>
+        <grid-container id="typeColumnsMd" columns="md">
+        </grid-container>
+        <grid-container id="typeColumnsLg" columns="lg">
+        </grid-container>
+        <text class="title">
+            grid-container特有属性 -- sizetype
+        </text>
+        <grid-container id="typeSizetypeNull" sizetype="">
+        </grid-container>
+        <grid-container id="typeSizetypeXs" sizetype="xs">
+        </grid-container>
+        <grid-container id="typeSizetypeSm" sizetype="sm">
+        </grid-container>
+        <grid-container id="typeSizetypeMd" sizetype="md">
+        </grid-container>
+        <grid-container id="typeSizetypeLg" sizetype="lg">
+        </grid-container>
+        <text class="title">
+            grid-container特有属性 -- gutter
+        </text>
+        <grid-container id="typeGutter16" gutter="16">
+        </grid-container>
+        <grid-container id="typeGutter30" gutter="30">
+        </grid-container>
+        <text class="title">
+            grid-container特有属性 -- gridtemplate
+        </text>
+
+        <grid-container id="typeGridtemplateDefault" gridtemplate="default">
+        </grid-container>
+        <text class="sub-title">
+            特有属性 -- grid-container
+        </text>
+        <grid-container class="propNewAdd"
+                grid-container="grid-container">
+        </grid-container>
+        <grid-container class="propNewAdd"
+                grid-container="">
+        </grid-container>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <grid-container class="propNewAdd"
+                tid="id">
+        </grid-container>
+        <grid-container class="propNewAdd"
+                tid="">
+        </grid-container>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <grid-container class="propNewAdd"
+                  if="false">
+        </grid-container>
+        <grid-container class="propNewAdd"
+                  elif="true">
+        </grid-container>
+        <grid-container class="propNewAdd"
+                  elif="false">
+        </grid-container>
+
+
+    </div>
+</div>

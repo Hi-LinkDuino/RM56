@@ -1,0 +1,222 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            list-item通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <list-item id="idProp">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <list-item id="classProp"
+                   class="classProp">
+        </list-item>
+        <list-item id="classPropNone"
+                   class="">
+        </list-item>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <list-item id="styleProp"
+                   style="width:10%;height:20px;background-color:red">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <list-item id="refProp"
+                   ref="refProp">
+        </list-item>
+        <list-item id="refPropNone"
+                   ref="">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <list-item id="disabledPropTrue"
+                   disabled="true">
+        </list-item>
+        <list-item id="disabledPropFalse"
+                   disabled="false">
+        </list-item>
+        <list-item id="disabledPropNone"
+                   disabled="">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <list-item id="focusablePropTrue"
+                   focusable="true">
+        </list-item>
+        <list-item id="focusablePropFalse"
+                   focusable="false">
+        </list-item>
+        <list-item id="focusablePropNone"
+                   focusable="">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <list-item id="dataProp"
+                   data-list-item="通用属性 -- data-*">
+        </list-item>
+        <list-item id="dataPropNone"
+                   data-list-item="">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <list-item id="clickEffectPropSmall"
+                   click-effect="spring-small">
+        </list-item>
+        <list-item id="clickEffectPropMedium"
+                   click-effect="spring-medium">
+        </list-item>
+        <list-item id="clickEffectPropLarge"
+                   click-effect="spring-large">
+        </list-item>
+        <list-item id="clickEffectPropNone"
+                   click-effect="">
+        </list-item>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <list-item id="dirPropRtl"
+                   dir="rtl">
+        </list-item>
+        <list-item id="dirPropAuto"
+                   dir="auto">
+        </list-item>
+        <list-item id="dirPropLtr"
+                   dir="ltr">
+        </list-item>
+        <list-item id="dirPropNone"
+                   dir="">
+        </list-item>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <list-item id="forPropNull"
+                   for="">
+        </list-item>
+        <list-item id="forPropOne"
+                   for="{{listOne}}">
+        </list-item>
+        <list-item id="forPropThree"
+                   for="{{listThree}}">
+        </list-item>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <list-item id="ifPropTrue"
+                   if="true">
+        </list-item>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <list-item id="showPropTrue"
+                   show="true">
+        </list-item>
+        <list-item id="showPropFalse"
+                   show="false">
+        </list-item>
+        <list-item id="showPropNone"
+                   show="">
+        </list-item>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            list-item特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- Type
+        </text>
+        <list-item id="Type" type="default"></list-item>
+        <list-item id="TypeNone" type=""></list-item>
+
+        <text class="sub-title">
+            特有属性 -- primary
+        </text>
+        <list-item id="primaryFalse" primary="false"></list-item>
+        <list-item id="primaryTrue" primary="true"></list-item>
+        <list-item id="primaryNone" primary=""></list-item>
+
+        <text class="sub-title">
+            特有属性 -- section
+        </text>
+        <list-item id="section" section="1"></list-item>
+        <list-item id="sectionNone" section=""></list-item>
+
+        <text class="sub-title">
+            特有属性 -- sticky
+        </text>
+        <list-item id="stickyNone" sticky="none"></list-item>
+        <list-item id="stickyNormal" sticky="normal"></list-item>
+        <list-item id="stickyOpacity" sticky="opacity"></list-item>
+        <list-item id="stickyNo" sticky=""></list-item>
+
+        <text class="sub-title">
+            特有属性 -- clickeffectTrue
+        </text>
+        <list-item id="clickeffectTrue" clickeffectTrue="true"></list-item>
+        <list-item id="clickeffectFalse" clickeffectTrue="false"></list-item>
+        <list-item id="clickeffectNone" clickeffectTrue=""></list-item>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <list-item class="propNewAdd"
+                tid="id">
+        </list-item>
+        <list-item class="propNewAdd"
+                tid="">
+        </list-item>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <list-item class="propNewAdd"
+                if="false">
+        </list-item>
+        <list-item class="propNewAdd"
+                elif="true">
+        </list-item>
+        <list-item class="propNewAdd"
+                elif="false">
+        </list-item>
+    </div>
+</div>

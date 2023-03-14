@@ -1,0 +1,18 @@
+{
+    "description": "Configuration for algorithm completion test",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "7200000",
+        "package": "com.example.err",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsHuksAbnormalTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

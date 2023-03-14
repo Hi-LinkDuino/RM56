@@ -1,0 +1,118 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (ohos_kernel_type != "liteos_m") {
+  import("//build/lite/config/subsystem/graphic/config.gni")
+  import("//build/lite/config/test.gni")
+
+  group("lite_graphic_ui_test") {
+    if (ohos_build_type == "debug") {
+      deps = [ ":graphic_test_ui_door" ]
+    }
+  }
+
+  config("graphic_test_config") {
+    include_dirs = [
+      "../framework/include",
+      "//foundation/graphic/ui/frameworks",
+      "//foundation/graphic/ui/test/framework",
+      "//foundation/graphic/surface/interfaces/kits",
+      "//third_party/bounds_checking_function/include",
+      "//third_party/freetype/include",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/communication/broadcast",
+      "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+      "//foundation/multimedia/utils/lite/interfaces/kits",
+    ]
+    ldflags = [
+      "-lstdc++",
+      "-Wl,-rpath-link=$ohos_root_path/$root_out_dir",
+    ]
+  }
+
+  if (ohos_build_type == "debug") {
+    unittest("graphic_test_ui_door") {
+      output_extension = "bin"
+      output_dir = "$root_out_dir/test/unittest/graphic"
+      configs = [ ":graphic_test_config" ]
+      sources = [
+        "animator/animator_unit_test.cpp",
+        "animator/easing_equation_unit_test.cpp",
+        "animator/interpolation_unit_test.cpp",
+        "common/focus_manager_unit_test.cpp",
+        "common/hardware_acceleration_unit_test.cpp",
+        "common/screen_unit_test.cpp",
+        "common/text_unit_test.cpp",
+        "components/ui_abstract_progress_unit_test.cpp",
+        "components/ui_analog_clock_unit_test.cpp",
+        "components/ui_arc_label_unit_test.cpp",
+        "components/ui_axis_unit_test.cpp",
+        "components/ui_box_progress_unit_test.cpp",
+        "components/ui_button_unit_test.cpp",
+        "components/ui_canvas_unit_test.cpp",
+        "components/ui_chart_unit_test.cpp",
+        "components/ui_checkbox_unit_test.cpp",
+        "components/ui_circle_progress_unit_test.cpp",
+        "components/ui_dialog_unit_test.cpp",
+        "components/ui_digital_clock_unit_test.cpp",
+        "components/ui_image_animator_unit_test.cpp",
+        "components/ui_image_unit_test.cpp",
+        "components/ui_label_button_unit_test.cpp",
+        "components/ui_label_unit_test.cpp",
+        "components/ui_list_unit_test.cpp",
+        "components/ui_picker_unit_test.cpp",
+        "components/ui_qrcode_unit_test.cpp",
+        "components/ui_radio_button_unit_test.cpp",
+        "components/ui_repeat_button_unit_test.cpp",
+        "components/ui_scroll_bar_test.cpp",
+        "components/ui_scroll_view_unit_test.cpp",
+        "components/ui_slider_unit_test.cpp",
+        "components/ui_surface_view_unit_test.cpp",
+        "components/ui_swipe_view_unit_test.cpp",
+        "components/ui_time_picker_unit_test.cpp",
+        "components/ui_toggle_button_unit_test.cpp",
+        "components/ui_view_group_unit_test.cpp",
+        "components/ui_view_unit_test.cpp",
+        "dfx/event_injector_unit_test.cpp",
+        "dfx/view_bounds_unit_test.cpp",
+        "events/cancel_event_unit_test.cpp",
+        "events/click_event_unit_test.cpp",
+        "events/drag_event_unit_test.cpp",
+        "events/event_bubble_unit_test.cpp",
+        "events/event_unit_test.cpp",
+        "events/key_event_unit_test.cpp",
+        "events/long_press_event_unit_test.cpp",
+        "events/press_event_unit_test.cpp",
+        "events/release_event_unit_test.cpp",
+        "events/virtual_device_event_unit_test.cpp",
+        "font/ui_font_unit_test.cpp",
+        "layout/flex_layout_unit_test.cpp",
+        "layout/grid_layout_unit_test.cpp",
+        "layout/list_layout_unit_test.cpp",
+        "render/render_uni_test.cpp",
+        "rotate/ui_rotate_input_unit_test.cpp",
+        "themes/theme_manager_unit_test.cpp",
+      ]
+
+      deps = [ "//foundation/graphic/ui:ui" ]
+
+      if (enable_video_component) {
+        sources += [ "components/ui_video_unit_test.cpp" ]
+
+        deps += [ "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite" ]
+      }
+    }
+  }
+} else {
+  group("lite_graphic_ui_test") {
+  }
+}

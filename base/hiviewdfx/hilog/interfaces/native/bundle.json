@@ -1,0 +1,37 @@
+{
+  "name": "@ohos/hiviewdfx_hilog_native",
+  "description": "Native log interface provided for system",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/hiviewdfx/hilog"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "hiviewdfx_hilog_native",
+    "subsystem": "hiviewdfx",
+    "syscap": [
+      "SystemCapability.HiviewDFX.HiLog"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "188KB",
+    "ram": "2000KB",
+    "deps": {
+      "components": [
+        "init",
+        "utils_base"
+      ],
+      "third_party": [
+        "bounds_checking_function",
+        "zlib"
+      ]
+    },
+    "build": {
+      "sub_component": []
+    }
+  }
+}

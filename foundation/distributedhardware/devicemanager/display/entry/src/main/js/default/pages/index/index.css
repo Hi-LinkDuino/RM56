@@ -1,0 +1,169 @@
+/*
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    background-color: azure;
+}
+
+.container > div {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-pin > .pin-numb {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 30px 10px 30px;
+}
+.main-pin > .pin-numb > .pin-numb-item  {
+    font-size: 30px;
+    line-height: 30px;
+    height: 40px;
+    padding-bottom: 5px;
+    font-weight: 800;
+    width: 30px;
+    border-bottom-width: 2px;
+    border-bottom-color: darkgray;
+    text-align: center;
+}
+
+.main-pin > .input {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 30px 5px 30px;
+}
+
+.main-pin > .input > .numb {
+    text-color: black;
+    padding: 5px;
+    flex-shrink: 0;
+    flex-basis: 60px;
+    background-color: white;
+    border: 1px;
+}
+
+.join-auth {
+    padding-top: 30px;
+}
+.join-auth-image > image {
+    height: 170px;
+}
+.join-authorize {
+    padding-top: 10px;
+}
+.join-pin {
+    padding: 10px 0;
+}
+.join-pin > .pin {
+    font-size: 50px;
+    line-height: 90px;
+    font-weight: bolder;
+    color: #000000;
+}
+
+.join-auth > .title,
+.join-auth-image > .title,
+.join-authorize > .title {
+    font-size: 18px;
+    line-height: 80px;
+    font-weight: 800;
+    color: #000000;
+}
+.join-auth > .title {
+    line-height: 40px;
+}
+.join-auth-image > .title {
+    line-height: 26px;
+}
+.join-pin > .title {
+    font-size: 28px;
+    line-height: 60px;
+    font-weight: 800;
+}
+.main-pin > .title {
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: bolder;
+}
+
+.join-auth > .title-tip,
+.join-auth-image > .title-tip,
+.main-pin > .title-tip,
+.join-authorize > .title-tip {
+    font-size: 15px;
+    line-height: 40px;
+    color: #5A5A5A;
+}
+.join-auth > .title-tip {
+    line-height: 40px;
+}
+.join-auth-image > .title-tip {
+    line-height: 24px;
+}
+.join-pin > .title-tip {
+    font-size: 20px;
+    line-height: 50px;
+    font-weight: 600;
+}
+.main-pin > .title-tip {
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 800;
+}
+
+.join-auth > .dialog-foot,
+.join-auth-image > .dialog-foot,
+.join-authorize > .dialog-foot {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+    margin: 80px 20px 30px 20px;
+}
+.join-authorize > .dialog-foot {
+    margin: 100px 20px 30px 20px;
+}
+.join-auth-image > .dialog-foot {
+    margin: 10px 20px 10px 20px;
+}
+.join-pin > .dialog-foot {
+    margin: 10px 20px 10px 20px;
+}
+
+.join-auth .button-cancel,
+.join-auth-image .button-cancel,
+.join-authorize .button-cancel {
+    width: 160px;
+    height: 36px;
+}
+.join-pin .button-cancel {
+    width: 100%;
+    font-size: 26px;
+    height: 50px;
+}
+
+.join-auth .button-ok,
+.join-auth-image .button-ok,
+.join-authorize .button-ok {
+    width: 150px;
+    height: 36px;
+}

@@ -1,0 +1,154 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            menu通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <menu id="styleOne">
+        </menu>
+        <menu id="styleTwo">
+        </menu>
+        <menu id="styleThree">
+        </menu>
+        <menu id="styleFour">
+        </menu>
+        <menu id="styleFive">
+        </menu>
+        <menu id="styleSix">
+        </menu>
+        <menu id="styleSeven">
+        </menu>
+        <menu id="styleEight">
+        </menu>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <menu id="styleTen">
+            </menu>
+            <menu id="styleEleven">
+            </menu>
+            <menu id="styleTwelve">
+            </menu>
+            <menu id="styleThirteen">
+            </menu>
+            <menu id="styleFourteen">
+            </menu>
+            <menu id="styleFifteen">
+            </menu>
+            <menu id="styleSixteen">
+            </menu>
+            <menu id="styleSeventeen">
+            </menu>
+            <menu id="styleEighteen">
+            </menu>
+            <menu id="styleNineteen">
+            </menu>
+            <menu id="styleTwenty">
+            </menu>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <menu id="styleTwentyOne">
+            </menu>
+            <menu id="styleTwentyTwo">
+            </menu>
+            <menu id="styleTwentyThree">
+            </menu>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <menu id="styleTwentyFour">
+        </menu>
+        <menu id="styleTwentyFive">
+        </menu>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <menu id="styleTwentySix">
+        </menu>
+        <menu id="styleTwentySeven">
+        </menu>
+        <menu id="styleTwentyNine">
+        </menu>
+        <menu id="styleThirty">
+        </menu>
+        <menu id="styleThirtyOne">
+        </menu>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <menu id="styleThirtyTwo">
+        </menu>
+
+        <text class="sub-title">
+            通用样式33 filter:blur() backdrop-filter:blur() window-filter:blur()
+        </text>
+        <menu id="styleThirtyThree">
+        </menu>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            menu特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 color
+        </text>
+        <div id="specificOne">
+            <menu id="addOne">
+            </menu>
+            <menu id="addTwo">
+            </menu>
+            <menu id="addThree">
+            </menu>
+            <menu id="addFour">
+            </menu>
+            <menu id="addFive">
+            </menu>
+            <menu id="addSix">
+            </menu>
+            <menu id="addSeven">
+            </menu>
+            <menu id="addSeven:disabled">
+            </menu>
+            <menu id="addSeven:active">
+            </menu>
+            <menu id="addSeven:focus">
+            </menu>
+            <menu id="addFive">
+            </menu>
+            <menu id="addFive">
+            </menu>
+        </div>
+    </div>
+</div>
+

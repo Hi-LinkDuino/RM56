@@ -1,0 +1,75 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+SUBSYSTEM_DIR = "//foundation/communication/wifi"
+module_output_path = "wifi_standard/common_test"
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "$SUBSYSTEM_DIR/tests/wifi_standard/wifi_framework/common/unittest",
+  ]
+}
+
+ohos_unittest("common_unittest") {
+  module_out_path = module_output_path
+  sources = [
+    "$SUBSYSTEM_DIR/interfaces/innerkits/native_cpp/wifi_standard/src/wifi_p2p_msg.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/config/wifi_config_file_spec.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/log/log_helper.c",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper/base_address.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper/ip_tools.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper/ipv4_address.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper/ipv6_address.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper/mac_address.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper/network_interface.cpp",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/utils/wifi_global_func.cpp",
+    "common_test.cpp",
+    "wifi_config_file_test.cpp",
+    "wifi_global_func_test.cpp",
+    "wifi_ip_tools_test.cpp",
+    "wifi_log_helper_test.cpp",
+    "wifi_network_interface_test.cpp",
+  ]
+
+  include_dirs = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/include",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/net_helper",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/utils",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/log",
+    "$SUBSYSTEM_DIR/services/wifi_standard/wifi_framework/common/config",
+    "$SUBSYSTEM_DIR/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+  ]
+
+  deps = [ "//utils/native/base:utils" ]
+
+  ldflags = [
+    "-fPIC",
+    "--coverage",
+  ]
+
+  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  configs = [ ":module_private_config" ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+  testonly = true
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ ":common_unittest" ]
+}

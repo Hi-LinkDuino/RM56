@@ -1,0 +1,52 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/powermgr_lite/powermgr.gni")
+import("//build/lite/config/component/lite_component.gni")
+
+source_set("screensaver_featrue_impl") {
+  cflags = [ "-fPIC" ]
+  cflags_cc = cflags
+
+  defines = [
+    "ENABLE_WINDOW=1",
+    "ABILITY_WINDOW_SUPPORT",
+    "OHOS_APPEXECFWK_BMS_BUNDLEMANAGER",
+  ]
+
+  sources = [
+    "screen_saver_feature_impl.c",
+    "screen_saver_handler.cpp",
+    "screen_saver_mgr.cpp",
+  ]
+
+  include_dirs = [
+    "${powermgr_kits_path}",
+    "${powermgr_frameworks_path}/include",
+    "${powermgr_frameworks_path}/include/${system_type}",
+    "${powermgr_services_path}/include",
+    "${powermgr_services_path}/include/${system_type}",
+    "${aafwk_lite_path}/interfaces/kits/ability_lite",
+    "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+    "${aafwk_lite_path}/interfaces/kits/want_lite",
+    "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+  ]
+
+  deps = [
+    "${aafwk_lite_path}/frameworks/abilitymgr_lite:abilitymanager",
+    "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+    "${powermgr_utils_path}:powermgr_utils",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//foundation/graphic/wms:lite_wms",
+  ]
+}

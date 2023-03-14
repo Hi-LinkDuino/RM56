@@ -1,0 +1,21 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "fuzztest"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "testForm",
+      "value": "REQUIRE_FORM permission"
+    },
+    {
+      "name": "testFormA",
+      "value": "CAMERA permission"
+    }
+
+  ]
+}

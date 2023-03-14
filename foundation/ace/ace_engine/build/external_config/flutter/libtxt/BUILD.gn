@@ -1,0 +1,127 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+config("thirdparty_lib_txt_config") {
+  cflags_cc = [
+    "-Wno-implicit-fallthrough",
+    "-fvisibility-inlines-hidden",
+    "-Os",
+  ]
+}
+
+template("thirdparty_lib_txt") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+
+    configs = [
+      "$ace_flutter_engine_root/icu:icu_config_$platform",
+      "$ace_flutter_engine_root:flutter_config",
+      ":thirdparty_lib_txt_config",
+    ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/engine/flutter/third_party/txt/src/log/log.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/CmapCoverage.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/Emoji.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/FontCollection.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/FontFamily.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/FontLanguage.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/FontLanguageListCache.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/FontUtils.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/GraphemeBreak.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/HbFontCache.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/Hyphenator.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/Layout.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/LayoutUtils.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/LineBreaker.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/Measurement.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/MinikinFont.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/MinikinInternal.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/SparseBitSet.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/minikin/WordBreaker.cpp",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/asset_font_manager.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/font_asset_provider.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/font_collection.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/font_features.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/font_skia.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/paint_record.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/paragraph_builder.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/paragraph_builder_txt.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/paragraph_style.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/paragraph_txt.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/placeholder_run.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/styled_runs.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/test_font_manager.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/text_decoration.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/text_shadow.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/text_style.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/txt/typeface_font_asset_provider.cc",
+      "$flutter_root/engine/flutter/third_party/txt/src/utils/JenkinsHash.cpp",
+    ]
+
+    deps = [
+      "$ace_flutter_engine_root:flutter_engine_fml_$platform",
+      "$ace_flutter_engine_root/icu:ace_libicu_$platform",
+      "$ace_flutter_engine_root/skia:ace_skia_$platform",
+    ]
+
+    if (platform == "ohos") {
+      if (defined(oem_commercial_build) && oem_commercial_build) {
+        sources += [ "$flutter_root/engine/flutter/third_party/txt/src/txt/platform_android.cc" ]
+      } else {
+        sources += [ "$flutter_root/engine/flutter/third_party/txt/src/txt/platform_ohos.cc" ]
+      }
+    } else if (platform == "windows") {
+      sources +=
+          [ "$flutter_root/engine/flutter/third_party/txt/src/txt/platform.cc" ]
+    } else if (platform == "mac") {
+      sources += [
+        "$flutter_root/engine/flutter/third_party/txt/src/txt/platform_mac.mm",
+      ]
+    } else if (platform == "android") {
+      sources += [ "$flutter_root/engine/flutter/third_party/txt/src/txt/platform_android.cc" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  thirdparty_lib_txt("thirdparty_lib_txt_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}

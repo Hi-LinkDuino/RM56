@@ -1,0 +1,28 @@
+{
+  "name": "bluetooth_device_driver",
+  "description": "bluetooth device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "bluetooth_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard"],
+    "rom": "615KB",
+    "ram": "7400KB",
+    "deps": {
+      "components": [
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base",
+        "ipc"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/bluetooth/hdi:bluetooth_hdi",
+        "//drivers/peripheral/bluetooth/audio:hdi_audio_bluetooth"
+      ]
+    }
+  }
+}

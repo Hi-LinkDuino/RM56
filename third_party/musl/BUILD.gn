@@ -1,0 +1,274 @@
+import("musl_template.gni")
+
+musl_abi_target = "soft"
+
+group("musl_all") {
+  deps = [
+    ":a7_hard_neon_libs",
+    ":a7_soft_libs",
+    ":a7_softfp_neon_libs",
+    ":musl_headers",
+    ":soft_libs",
+  ]
+}
+
+group("musl_libs") {
+  deps = [
+    ":${musl_abi_target}_libs",
+    ":musl_headers",
+  ]
+}
+
+musl_libs("soft_libs") {
+  target_abi = "soft"
+}
+
+musl_libs("a7_soft_libs") {
+  target_abi = "a7_soft"
+}
+
+musl_libs("a7_softfp_neon_libs") {
+  target_abi = "a7_softfp_neon-vfpv4"
+}
+
+musl_libs("a7_hard_neon_libs") {
+  target_abi = "a7_hard_neon-vfpv4"
+}
+
+group("musl_headers") {
+  deps = [
+    ":copy_uapi",
+    ":create_alltypes_h",
+    ":create_syscall_h",
+    ":create_version_h",
+    ":musl_copy_inc_arpa",
+    ":musl_copy_inc_bits",
+    ":musl_copy_inc_hook",
+    ":musl_copy_inc_net",
+    ":musl_copy_inc_netinet",
+    ":musl_copy_inc_netpacket",
+    ":musl_copy_inc_root",
+    ":musl_copy_inc_scsi",
+    ":musl_copy_inc_sys",
+  ]
+}
+
+action("create_porting_src") {
+  script = "scripts/porting.sh"
+
+  sources = [ "//third_party/musl" ]
+
+  outdir = [ "${target_out_dir}/${musl_ported_dir}" ]
+
+  src_files = musl_src_arch_file
+  src_files += musl_src_file
+  src_files += musl_src_ldso
+  src_files += musl_inc_bits_files
+  src_files += musl_inc_arpa_files
+  src_files += musl_inc_net_files
+  src_files += musl_inc_netinet_files
+  src_files += musl_inc_netpacket_files
+  src_files += musl_inc_scsi_files
+  src_files += musl_inc_sys_files
+  src_files += musl_inc_root_files
+  src_files += [
+    "crt/${musl_arch}/crti.s",
+    "crt/${musl_arch}/crtn.s",
+    "crt/Scrt1.c",
+    "crt/crt1.c",
+    "crt/rcrt1.c",
+    "tools/mkalltypes.sed",
+    "arch/${musl_arch}/bits/alltypes.h.in",
+    "arch/${musl_arch}/bits/syscall.h.in",
+    "include/alltypes.h.in",
+    "VERSION",
+    "tools/version.sh",
+    "tools/install.sh",
+    "scripts/install.py",
+    "scripts/create_alltypes.sh",
+    "scripts/create_vesion.sh",
+    "scripts/create_syscall.sh",
+  ]
+
+  args = [ "-i" ] + rebase_path(sources)
+  args += [ "-o" ] + rebase_path(outdir)
+  args += [ "-p" ] + [ "${musl_target_os}" ]
+
+  foreach(i, src_files) {
+    foreach(s, musl_src_porting_file) {
+      if (i == s) {
+        src_files -= [ "${s}" ]
+      }
+    }
+  }
+
+  outputs = []
+  foreach(s, src_files) {
+    outputs += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+
+  foreach(s, musl_src_porting_file) {
+    outputs += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+
+  inputs = []
+  foreach(s, src_files) {
+    inputs += [ "${musl_dir}/${s}" ]
+  }
+
+  foreach(s, musl_src_porting_file) {
+    inputs += [ "${musl_porting_dir}/${s}" ]
+  }
+}
+
+action("create_alltypes_h") {
+  script = "${target_out_dir}/${musl_ported_dir}/scripts/create_alltypes.sh"
+
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/bits/alltypes.h" ]
+
+  sources = [ "${target_out_dir}/${musl_ported_dir}/tools/mkalltypes.sed" ]
+  sources += [
+    "${target_out_dir}/${musl_ported_dir}/arch/${musl_arch}/bits/alltypes.h.in",
+    "${target_out_dir}/${musl_ported_dir}/include/alltypes.h.in",
+  ]
+
+  args = [ "-o" ] + rebase_path(outputs, root_build_dir)
+  args += rebase_path(sources, root_build_dir)
+
+  deps = [ ":create_porting_src" ]
+}
+
+action("create_version_h") {
+  script = "${target_out_dir}/${musl_ported_dir}/scripts/create_vesion.sh"
+
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/version.h" ]
+
+  sources = [
+    "${target_out_dir}/${musl_ported_dir}/VERSION",
+    "${target_out_dir}/${musl_ported_dir}/tools/version.sh",
+  ]
+
+  args = rebase_path(sources, root_build_dir)
+  args +=
+      [ rebase_path("${target_out_dir}/${musl_inc_out_dir}", root_build_dir) ]
+
+  deps = [ ":create_porting_src" ]
+}
+
+action("create_syscall_h") {
+  script = "${target_out_dir}/${musl_ported_dir}/scripts/create_syscall.sh"
+
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/bits/syscall.h" ]
+
+  sources = [
+    "${target_out_dir}/${musl_ported_dir}/arch/${musl_arch}/bits/syscall.h.in",
+  ]
+
+  args = rebase_path(sources, root_build_dir)
+  args += rebase_path(outputs, root_build_dir)
+
+  deps = [ ":create_porting_src" ]
+}
+
+action("copy_uapi") {
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/linux" ]
+  script = "scripts/copy_uapi.sh"
+  args = [ "-i" ] + [ rebase_path("${uapi_dir}") ]
+  args += [ "-o" ] + [ rebase_path("${target_out_dir}/${musl_inc_out_dir}") ]
+  args += [ "-t" ] + [ "${musl_arch}" ]
+}
+
+copy("musl_copy_inc_bits") {
+  sources = []
+  sources_orig = musl_inc_bits_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs =
+      [ "${target_out_dir}/${musl_inc_out_dir}/bits/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_arpa") {
+  sources = []
+  sources_orig = musl_inc_arpa_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs =
+      [ "${target_out_dir}/${musl_inc_out_dir}/arpa/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_net") {
+  sources = []
+  sources_orig = musl_inc_net_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/net/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_netinet") {
+  sources = []
+  sources_orig = musl_inc_netinet_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs =
+      [ "${target_out_dir}/${musl_inc_out_dir}/netinet/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_netpacket") {
+  sources = []
+  sources_orig = musl_inc_netpacket_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs =
+      [ "${target_out_dir}/${musl_inc_out_dir}/netpacket/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_scsi") {
+  sources = []
+  sources_orig = musl_inc_scsi_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs =
+      [ "${target_out_dir}/${musl_inc_out_dir}/scsi/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_sys") {
+  sources = []
+  sources_orig = musl_inc_sys_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/sys/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_root") {
+  sources = []
+  sources_orig = musl_inc_root_files
+  foreach(s, sources_orig) {
+    sources += [ "${target_out_dir}/${musl_ported_dir}/${s}" ]
+  }
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/{{source_file_part}}" ]
+  deps = [ ":create_porting_src" ]
+}
+
+copy("musl_copy_inc_hook") {
+  sources = musl_inc_hook_files
+  outputs = [ "${target_out_dir}/${musl_inc_out_dir}/{{source_file_part}}" ]
+}
+
+group("libctest") {
+  testonly = true
+  deps = [ "libc-test:musl_libc_test" ]
+}

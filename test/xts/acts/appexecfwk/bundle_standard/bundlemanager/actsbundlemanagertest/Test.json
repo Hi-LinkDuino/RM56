@@ -1,0 +1,40 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "300000",
+        "package": "com.example.actsbundlemanagertest",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsBundleManagerTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "PushKit",
+            "push": [
+                "bmsJstest1.hap->/data/bmsJstest1.hap",
+                "bmsJstest2.hap->/data/bmsJstest2.hap",
+                "bmsJstest3.hap->/data/bmsJstest3.hap",
+                "bmsJstest4.hap->/data/bmsJstest4.hap",
+                "bmsJstest5.hap->/data/bmsJstest5.hap",
+                "bmsJstest6.hap->/data/bmsJstest6.hap",
+                "bmsJstest7.hap->/data/bmsJstest7.hap",
+                "bmsJstest8.hap->/data/bmsJstest8.hap",
+                "bmsJstest9.hap->/data/bmsJstest9.hap"
+            ]
+            
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "chmod 644 /data/*.hap",
+                "chmod 600 /data/bmsJstest7.hap"
+            ]
+        }        
+    ]
+}

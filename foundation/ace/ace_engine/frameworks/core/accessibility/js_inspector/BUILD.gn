@@ -1,0 +1,95 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+template("js_inspector") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+
+    configs = [ "$ace_root:ace_config" ]
+
+    sources = [
+      "inspect_badge.cpp",
+      "inspect_button.cpp",
+      "inspect_camera.cpp",
+      "inspect_canvas.cpp",
+      "inspect_chart.cpp",
+      "inspect_dialog.cpp",
+      "inspect_div.cpp",
+      "inspect_divider.cpp",
+      "inspect_form.cpp",
+      "inspect_grid_column.cpp",
+      "inspect_grid_container.cpp",
+      "inspect_grid_row.cpp",
+      "inspect_image.cpp",
+      "inspect_image_animator.cpp",
+      "inspect_input.cpp",
+      "inspect_label.cpp",
+      "inspect_list.cpp",
+      "inspect_list_item.cpp",
+      "inspect_list_item_group.cpp",
+      "inspect_marquee.cpp",
+      "inspect_menu.cpp",
+      "inspect_navigation_bar.cpp",
+      "inspect_node.cpp",
+      "inspect_option.cpp",
+      "inspect_panel.cpp",
+      "inspect_picker.cpp",
+      "inspect_picker_view.cpp",
+      "inspect_piece.cpp",
+      "inspect_popup.cpp",
+      "inspect_progress.cpp",
+      "inspect_qrcode.cpp",
+      "inspect_rating.cpp",
+      "inspect_refresh.cpp",
+      "inspect_search.cpp",
+      "inspect_select.cpp",
+      "inspect_slider.cpp",
+      "inspect_span.cpp",
+      "inspect_stack.cpp",
+      "inspect_stepper.cpp",
+      "inspect_stepper_item.cpp",
+      "inspect_swiper.cpp",
+      "inspect_switch.cpp",
+      "inspect_tab_bar.cpp",
+      "inspect_tab_content.cpp",
+      "inspect_tabs.cpp",
+      "inspect_text.cpp",
+      "inspect_textarea.cpp",
+      "inspect_toggle.cpp",
+      "inspect_toolbar.cpp",
+      "inspect_toolbar_item.cpp",
+      "inspect_video.cpp",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  js_inspector("js_inspector_" + item.name) {
+    defines = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+  }
+}

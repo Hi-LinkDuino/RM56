@@ -1,0 +1,175 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+
+import("../camera.gni")
+
+if (defined(ohos_lite)) {
+  import("//build/ohos.gni")
+  import("//drivers/adapter/uhdf/uhdf.gni")
+
+  config("ohos_camera_demo_config") {
+    visibility = [ ":*" ]
+    cflags_cc = [ "-std=c++17" ]
+  }
+
+  ohos_executable("ohos_camera_demo") {
+    output_extension = "bin"
+    sources = [
+      "$camera_path/../interfaces/hdi_passthrough/callback/src/camera_device_callback.cpp",
+      "$camera_path/../interfaces/hdi_passthrough/callback/src/camera_host_callback.cpp",
+      "$camera_path/../interfaces/hdi_passthrough/callback/src/stream_operator_callback.cpp",
+      "./demo_main.cpp",
+      "./hos_camera_demo.cpp",
+      "./stream_customer.cpp",
+    ]
+    include_dirs = [
+      "./include",
+      "$camera_path/../interfaces/include",
+      "$camera_path/../interfaces/hdi_passthrough",
+      "$camera_path/../interfaces/hdi_passthrough/callback/include",
+      "$camera_path/include",
+      "$camera_path/hdi_impl",
+      "$camera_path/hdi_impl/include",
+      "$camera_path/hdi_impl/include/camera_host",
+      "$camera_path/hdi_impl/include/camera_device",
+      "$camera_path/hdi_impl/include/stream_operator",
+      "$camera_path/hdi_impl/src/stream_operator/stream_tunnel/lite",
+      "$camera_path/hdi_impl/include/offline_stream_operator",
+      "$camera_path/device_manager/include/",
+      "$camera_path/device_manager/include/mpi",
+      "//base/hiviewdfx/interfaces/innerkits/libhilog/include",
+      "$camera_path/utils/event",
+      "$camera_path/utils/metadata/include",
+      "//drivers/peripheral/display/interfaces/include",
+      "//drivers/peripheral/base",
+
+      #producer
+      "$camera_path/pipeline_core/utils",
+      "$camera_path/pipeline_core/include",
+      "$camera_path/pipeline_core/host_stream/include",
+      "$camera_path/pipeline_core/nodes/include",
+      "$camera_path/pipeline_core/nodes/src/node_base",
+      "$camera_path/pipeline_core/nodes/src/dummy_node",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy/config",
+      "$camera_path/pipeline_core/pipeline_impl/include",
+      "$camera_path/pipeline_core/pipeline_impl/src",
+      "$camera_path/pipeline_core/pipeline_impl/src/builder",
+      "$camera_path/pipeline_core/pipeline_impl/src/dispatcher",
+      "$camera_path/pipeline_core/pipeline_impl/src/parser",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy",
+      "$camera_path/pipeline_core/ipp/include",
+      "$camera_device_name_path/camera/camera_demo",
+
+      # hcs parser
+      "//system/core/include/cutils",
+    ]
+
+    deps = [
+      "$camera_path/hdi_impl:camera_hdi_impl",
+      "$camera_path/utils/metadata:metadata_lite",
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//foundation/graphic/surface:surface",
+    ]
+    external_deps = [ "device_driver_framework:libhdf_utils" ]
+    public_configs = [ ":ohos_camera_demo_config" ]
+    install_enable = true
+    subsystem_name = "hdf"
+    part_name = "camera_device_driver"
+  }
+} else {
+  import("//build/ohos.gni")
+  import("//drivers/adapter/uhdf2/uhdf.gni")
+
+  config("ohos_camera_demo_config") {
+    visibility = [ ":*" ]
+  }
+
+  ohos_executable("ohos_camera_demo") {
+    install_enable = true
+    sources = [
+      "./demo_main.cpp",
+      "./hos_camera_demo.cpp",
+      "./stream_customer.cpp",
+    ]
+
+    include_dirs = [
+      "./include",
+      "$camera_path/../interfaces/include",
+      "$camera_path/../interfaces/hdi_ipc",
+      "$camera_path/../interfaces/hdi_ipc/utils/include",
+      "$camera_path/../interfaces/hdi_ipc/client/include",
+      "$camera_path/../interfaces/hdi_ipc/server/include",
+      "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+      "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+      "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+      "$camera_path/include",
+      "$camera_path/hdi_impl",
+      "$camera_path/hdi_impl/include",
+      "$camera_path/hdi_impl/include/camera_host",
+      "$camera_path/hdi_impl/include/camera_device",
+      "$camera_path/hdi_impl/include/stream_operator",
+      "$camera_path/hdi_impl/include/offline_stream_operator",
+      "$camera_path/device_manager/include/",
+      "$camera_path/device_manager/include/mpi",
+      "//base/hiviewdfx/interfaces/innerkits/libhilog/include",
+      "$camera_path/utils/event",
+      "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+      "$camera_device_name_path/camera/camera_demo",
+
+      #producer
+      "//foundation/graphic/standard/prebuilts/librarys/display_gralloc/include",
+      "$camera_path/pipeline_core/utils",
+      "$camera_path/pipeline_core/include",
+      "$camera_path/pipeline_core/host_stream/include",
+      "$camera_path/pipeline_core/nodes/include",
+      "$camera_path/pipeline_core/nodes/src/node_base",
+      "$camera_path/pipeline_core/nodes/src/dummy_node",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy/config",
+      "$camera_path/pipeline_core/pipeline_impl/include",
+      "$camera_path/pipeline_core/pipeline_impl/src",
+      "$camera_path/pipeline_core/pipeline_impl/src/builder",
+      "$camera_path/pipeline_core/pipeline_impl/src/dispatcher",
+      "$camera_path/pipeline_core/pipeline_impl/src/parser",
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy",
+      "$camera_path/pipeline_core/ipp/include",
+
+      # hcs parser
+      "//system/core/include/cutils",
+    ]
+
+    deps = [
+      "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+      "$camera_path/buffer_manager:camera_buffer_manager",
+      "$camera_path/device_manager:camera_device_manager",
+      "$camera_path/hdi_impl:camera_hdi_impl",
+      "$camera_path/pipeline_core:camera_pipeline_core",
+      "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+    ]
+
+    if (is_standard_system) {
+      external_deps = [
+        "device_driver_framework:libhdf_host",
+        "device_driver_framework:libhdf_ipc_adapter",
+        "device_driver_framework:libhdf_utils",
+        "device_driver_framework:libhdi",
+        "display_device_driver:hdi_display_gralloc",
+        "graphic_standard:surface",
+        "hiviewdfx_hilog_native:libhilog",
+        "samgr_standard:samgr_proxy",
+        "utils_base:utils",
+      ]
+    } else {
+      external_deps = [ "hilog:libhilog" ]
+    }
+
+    external_deps += [
+      "ipc:ipc_single",
+      "samgr_standard:samgr_proxy",
+    ]
+
+    public_configs = [ ":ohos_camera_demo_config" ]
+    install_enable = true
+    install_images = [ chipset_base_dir ]
+    subsystem_name = "hdf"
+    part_name = "camera_device_driver"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parts": {
+    "bluetooth": {
+      "module_list": [
+        "//foundation/communication/bluetooth:bluetooth"
+      ]
+    },
+    "dsoftbus": {
+      "module_list": [
+        "//foundation/communication/dsoftbus:dsoftbus"
+      ]
+    },
+    "ipc_lite": {
+      "module_list": [
+        "//foundation/communication/ipc_lite:liteipc_adapter"
+      ]
+    },
+    "wifi_aware": {
+      "module_list": [
+        "//foundation/communication/wifi_aware:wifiaware"
+      ]
+    },
+    "wifi_lite": {
+      "module_list": [
+        "//foundation/communication/wifi_lite:wifi"
+      ]
+    },
+    "wpa_supplicant": {
+      "module_list": [
+        "//third_party/wpa_supplicant/wpa_supplicant-2.9:wpa_supplicant"
+      ]
+    }
+  },
+  "subsystem_name": "communication"
+}

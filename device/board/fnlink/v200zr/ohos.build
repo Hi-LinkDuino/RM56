@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "device_v200zr": {
+      "module_list": [
+        "//device/soc/bestechnic/bes2600:bfd_pack_flash"
+      ]
+    }
+  },
+  "subsystem": "device_v200zr"
+}

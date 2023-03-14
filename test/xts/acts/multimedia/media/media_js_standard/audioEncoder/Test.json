@@ -1,0 +1,37 @@
+{
+    "description": "Configuration for audioEncoder Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "2000000",
+        "package": "ohos.acts.multimedia.audio.audioencoder",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAudioEncoderJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "PushKit",
+            "pre-push": [
+            ],
+            "push": [
+                "./resource/audio/audioEncode/S16LE.pcm ->/data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioencoder/"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "rm -R /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioencoder/results",
+                "mkdir -p /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioencoder/results/",
+                "chmod 777 -R /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioencoder",
+                "chmod 777 /data/accounts/account_0/appdata/ohos.acts.multimedia.audio.audioencoder/*"
+            ],
+            "teardown-command":[
+            ]
+        }
+    ]
+}

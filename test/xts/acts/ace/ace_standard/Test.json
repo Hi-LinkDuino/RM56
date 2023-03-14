@@ -1,0 +1,18 @@
+{
+    "description": "Configuration for aceceshi Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "1000000",
+        "package": "com.example.aceceshi",
+        "shell-timeout": "250000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAceStandardTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

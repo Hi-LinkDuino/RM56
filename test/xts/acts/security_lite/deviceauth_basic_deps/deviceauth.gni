@@ -1,0 +1,66 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+DEVICEAUTH_BASIC_DEPS_DIR =
+    "//test/xts/acts/security_lite/deviceauth_basic_deps"
+
+DEVICEAUTH_BASIC_DEPS_SOURCE = [
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/print_log.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/test_timer.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_file_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_mutex_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_file_f_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_thread_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_dev_info_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_condition_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_file_utils_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_file_iot_flash_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_time_test.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_file_common.c",
+  "${DEVICEAUTH_BASIC_DEPS_DIR}/hc_alg_test.c",
+]
+
+DEVICEAUTH_BASIC_DEPS_INC = [
+  "//base/iot_hardware/peripheral/interfaces/kits",
+  "//utils/native/lite/include",  # utils_file.h ohos_types.h
+
+  # alg test
+  "//base/security/deviceauth/deps_adapter/key_management_adapter/interfaces",
+  "//base/security/deviceauth/deps_adapter/os_adapter/interfaces",
+  "//base/security/deviceauth/common_lib/interfaces",
+  "//base/security/deviceauth/interfaces/innerkits",
+]
+
+DEVICEAUTH_BASIC_DEPS_ALGORITHM_DEFINES = [
+  "TEST_HKDF_WITH_KEY_ALIAS_TRUE=1",
+  "TEST_IMPORT_SYMMETRIC_KEY=1",
+  "TEST_COMPUTEHMAC_WITH_ISALIAS_TRUE=1",
+  "TEST_HASH_TO_POINT=1",
+  "TEST_GENERATE_KEY_PAIR_WITH_STORAGE=1",
+  "TEST_AGREE_SHARED_SECRET_WITH_STORAGE=1",
+  "TEST_AGREE_SHARED_SECRET=1",
+  "TEST_BIG_NUM_EXP_MOD=1",
+  "TEST_EXPORT_IMPORT_SIGN_VERIFY_ED25519=1",
+  "TEST_EXPORT_IMPORT_SIGN_VERIFY_P256=1",
+  "TEST_BIG_NUM_COMPARE=1",
+  "TEST_GENERATE_KEY_PAIR=1",
+  "TEST_EXPORT_PUBLIC_KEY=1",
+  "TEST_ALGORITHM_SIGN=1",
+  "TEST_ALGORITHM_VERIFY=1",
+  "TEST_IMPORT_PUBLIC_KEY=1",
+  "TEST_CHECK_DL_PUBLIC_KEY=1",
+  "TEST_CHECK_KEY_EXIST=1",
+  "TEST_DELETE_KEY=1",
+  "TEST_AES_GCM_ENCRYPT=1",
+  "TEST_AES_GCM_DECRYPT=1",
+]

@@ -1,0 +1,14 @@
+.container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 100px;
+}
+
+.btn {
+    width: 200px;
+    height: 80px;
+}

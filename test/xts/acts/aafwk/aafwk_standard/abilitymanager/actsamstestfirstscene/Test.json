@@ -1,0 +1,19 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "300000",
+        "package": "com.example.actsamstestfirstscene",
+        "shell-timeout": "600000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAmsTestFirstSceneTest.hap",
+                "simulateFAbilityFir.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.kernel_test.struct_test.v1_0;
+
+import test.kernel_test.struct_test.v1_0.StructTypes;
+
+interface IStructTest {
+    SSampleTest([in] struct SSample param1, [out] struct SSample param2);
+    SSample2Test([in] struct SSample2 param1, [out] struct SSample2 param2);
+    SSample3Test([in] struct SSample3 param1, [out] struct SSample3 param2);
+    SSample4Test([in] struct SSample4 param1, [out] struct SSample4 param2);
+    SSample5Test([in] struct SSample5 param1, [out] struct SSample5 param2);
+    SSample6Test([in] struct SSample6 param1, [out] struct SSample6 param2);
+}

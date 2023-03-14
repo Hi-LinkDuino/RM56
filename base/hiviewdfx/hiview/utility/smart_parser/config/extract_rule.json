@@ -1,0 +1,27 @@
+{
+    "version": "1.0.0",
+    "segmentStatus":[
+        {"namespace":"segStatus", "matchKey":"tid=\\d+ (.*)", "desc":""},
+        {"namespace":"segWaitOther", "matchKey":"waiting to lock.*held by thread (\\d+)", "desc":" waiting on lock held by "},
+        {"namespace":"segWaitSelf", "matchKey":"- waiting on <(.*)>", "desc":" waiting on itself"},
+        {"namespace":"segIpcTrans", "matchKey":"os\\.(IpcProxy)\\.transact", "desc":" ipc transact:"},
+        {"namespace":"segIpcFull", "matchKey":"os\\.Ipc\\.(blockUntilThreadAvailable)", "desc":" ipc full:"}
+    ],
+    "Rule1":{
+        "DirOrFile":"/data/log/faultlog/",
+        "Subcatalog":".*?\\-.*?\\-[0-9]{5}\\-[0-9]{14}",
+        "featureId":"63_AppFreeze_00",
+        "segmentType":"TwoLayers",
+        "startSeg":["BasicParam.v_process", "main"],
+        "segStack":["^\\s+at\\s+|^\\s+-\\s\\w", "^\\s+at\\s+|^\\s+-\\s\\w"],
+        "rules":[
+            {"namespace":"BasicParam", "matchKey":"PROCESS_NAME", "v_process":"PROCESS_NAME = (.*)"},
+            {"namespace":"BasicParam", "matchKey":"PID = ", "v_pid":"PID = (.*)"},
+            {"namespace":"BasicParam", "matchKey":"UID = ", "v_uid":"UID = (.*)"}
+        ],
+        "segmentRule":[
+            {"namespace":"LayerOneCmd", "matchKey":"----- pid ", "num":2, "v_id":"^----- pid (\\d+) at", "v_name":"^Cmd line: (.*)"},
+            {"namespace":"LayerTwoCmd", "matchKey":" prio=@&@ tid=", "num":3, "v_id":"tid=(\\d+) ", "v_name":"^\"(.*)\" ", "v_sysTid":"sysTid=(\\d+) "}
+        ]
+    }
+}

@@ -1,0 +1,39 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("config.gni")
+
+platforms = []
+
+if (use_mingw_win || true) {
+  windows_platform = {
+    name = "windows"
+    config = {
+      import("config_windows.gni")
+    }
+  }
+
+  platforms += [ windows_platform ]
+}
+
+if (use_mac || true) {
+  mac_platform = {
+    name = "mac"
+    config = {
+      import("config_mac.gni")
+    }
+  }
+
+  platforms += [ mac_platform ]
+}

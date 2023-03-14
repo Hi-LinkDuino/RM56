@@ -1,0 +1,192 @@
+<!--
+Copyright (c) 2020 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack class="container" onswipe="swipeEvent">
+<!--    <div class="main" onclick="changePage('close')">-->
+    <div class="main">
+        <div class="header">
+            <image class="back" onclick="exitApp" src="common/ic_back.png"></image>
+            <text class="title-music">分布式音乐播放器</text>
+        </div>
+        <div class="body">
+            <div class="musicWrapper">
+<!--                <div class="disc-wrapper">-->
+<!--                    <image class="disc" src="{{disImage}}"></image>-->
+<!--                </div>-->
+
+                <div class="music">
+                    <marquee class="musicName" scrollamount="15">{{curMusic.curMusicName}}</marquee>
+                    <marquee class="singer" scrollamount="15">{{curMusic.singer}}</marquee>
+                </div>
+            </div>
+            <div class="progress-Wrapper">
+                <text class="playTime">{{curMusic.playTime}}</text>
+                <slider class="progressBar" min="0" max="100" value="{{playProgress}}"
+                        onchange="changeProgress"></slider>
+                <text class="allTime">{{curMusic.allTime}}</text>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="controlBar">
+<!--                <image class="modeBtn"  onclick="changeMode" src="{{modeImage}}"></image>-->
+                <image class="playBtn"  onclick="openDailog"  src="common/pincode.png"></image>
+<!--                <image class="previousBtn" onclick="changeSong('previous')"  src="common/ic_music_previous.png"></image>-->
+                <image class="playBtn" onclick="playMusic" src="{{playImage}}"></image>
+<!--                <image class="nextBtn" onclick="changeSong('next')" src="common/ic_music_next.png"></image>-->
+                <image class="playBtn"  onclick="playRemote"  src="common/ic_music_share.png"></image>
+<!--                <image class="listBtn" onclick="changePage" src="common/ic_music_list.png"></image>-->
+            </div>
+        </div>
+
+    </div>
+    <div show="{{showMusicList}}" class="list-Wrapper">
+        <text class="listText">播放列表</text>
+        <list  class="musicList" ref="musicList">
+            <list-item class="listItem" onclick="clickListItem($idx)" for="{{musicList}}">
+                <div class="space-Wrapper">
+                    <div class="itemWrapper">
+                        <text class="itemName">{{$item.name}}</text>
+                        <text class="itemSinger">{{$item.singer}}</text>
+                    </div>
+                </div>
+            </list-item>>
+        </list>
+    </div>
+    <div if="{{dmpage}}" class="container-DM">
+        <div class="navigator">
+            <text class="back" @click="back">返回</text>
+            <text>{{date}}</text>
+            <text>{{week}}</text>
+        </div>
+        <div class="body1">
+            <div if="{{status == 'device-online'}}" class="main-pin">
+                <div class="title-wrap">
+                    <div class="button-wrap">
+                    <!-- <text class="button-cancel" @click=" startDevice">发现设备</text>-->
+                    <!--                    <text class="button-cancel" @click=" getTrustedDeviceListSync">获取信任设备列表</text>-->
+                        <text class="button-cancel-1" @click="BackToMusicPage">设备上线点击返回</text>
+                    </div>
+                <!--                <div class="button-wrap">
+                    <text class="button-cancel" @click="joinAuthOk">允许认证</text>
+                    <text class="button-cancel" @click="MymainInputPin">输入PIN码</text>
+                </div>-->
+                </div>
+            </div>
+            <div if="{{statusType == 'DeviceType'}}" class='test1' >
+                <text class='test8' >选择设备</text>
+                <div  class='test3 '>
+                    <input type="radio" name="colors" id="red" checked='true' value="red"  @click='localCode'></input>
+                    <text class='test2'>本机</text>
+                </div>
+              <!--  <div  if="{{statusInfo.deviceId}}" class='test4' >-->
+                <div  class='test4' >
+                  <!--  <input type="radio" name="colors" id="{{statusInfo.deviceId}}"  value="{{statusInfo.deviceId}}" @click='changeCode(value)'></input>-->
+                    <input type="radio" name="colors" value="{{statusInfo.deviceId}}" @click='changeCode'></input>
+                    <text class='test2'>{{statusInfo.deviceId}}</text>
+                </div>
+            </div>
+            <div if="{{status == 'main-pin'}}" class="main-pin">
+                <div class="title-wrap">
+                    <text class="title">PIN码连接</text>
+                    <text class="title-tip">请输入平板上显示的PIN码</text>
+                    <div class="pin-numb" >
+                        <text class="pin-numb-item">{{pin[0]}}</text>
+                        <text class="pin-numb-item">{{pin[1]}}</text>
+                        <text class="pin-numb-item">{{pin[2]}}</text>
+                        <text class="pin-numb-item">{{pin[3]}}</text>
+                        <text class="pin-numb-item">{{pin[4]}}</text>
+                        <text class="pin-numb-item">{{pin[5]}}</text>
+                    </div>
+                    <div class="pin-numb-line"></div>
+                    <div class="content-wrap">
+                        <text class="numb" @click="mainInputPin(1)">1</text>
+                        <text class="numb" @click="mainInputPin(2)">2</text>
+                        <text class="numb" @click="mainInputPin(3)">3</text>
+                        <text class="numb" @click="mainInputPin(4)">4</text>
+                    </div>
+                    <div class="content-wrap">
+                        <text class="numb" @click="mainInputPin(5)">5</text>
+                        <text class="numb" @click="mainInputPin(6)">6</text>
+                        <text class="numb" @click="mainInputPin(7)">7</text>
+                        <text class="numb" @click="mainInputPin(8)">8</text>
+                    </div>
+                    <div class="content-wrap">
+                        <text class="numb" @click="mainInputPin(9)">9</text>
+                        <text class="numb" @click="mainInputPin(0)">0</text>
+                        <text class="numb" @click="mainInputPinBack">删除</text>
+                        <text class="numb" @click="mainInputPinCancel">取消</text>
+                    </div>
+                </div>
+            </div>
+            <div if="{{status == 'join-authorize'}}" class="join-authorize">
+                <div class="title-wrap">
+                    <text class="join-title">22是否允许{{statusInfo.deviceName}}连接本机</text>
+                    <text class="title-tip">用于资源访问</text>
+                    <div class="button-wrap">
+                        <text class="button-cancel" @click="joinAuthorizeCancel">取消（{{ timeRemaining }}）</text>
+                        <text class="button-ok" @click="joinAuthorizeOk">允许</text>
+                    </div>
+                </div>
+            </div>
+            <div if="{{status == 'join-auth'}}" class="join-auth">
+                <div class="title-wrap">
+                    <text class="join-auth-title ">11是否允许{{ statusInfo.appName }}</text>
+                    <text class="title-tip">是否允许打开apply auth?</text>
+                    <text class="title-tip">来自{{statusInfo.deviceName}}</text>
+                    <div class="button-wrap">
+                        <text class="button-cancel" @click="joinAuthCancel">取消（{{ timeRemaining }}）</text>
+                        <text class="button-ok" @click="joinAuthOk">允许</text>
+                    </div>
+                </div>
+            </div>
+            <div if="{{status == 'join-auth-image'}}" class="join-auth-image">
+                <div class="title-wrap">
+                    <image src="{{ statusInfo.appIcon }}"></image>
+                    <text class="join-auth-title ">{{ statusInfo.appName  }}</text>
+                    <text class="title-tip">是否允许打开apply auth?</text>
+                    <text class="title-tip">来自{{statusInfo.deviceName}}</text>
+                    <div class="button-wrap">
+                        <text class="button-cancel" @click="joinAuthImageCancel">取消（{{ timeRemaining }}）</text>
+                        <text class="button-ok" @click="joinAuthImageOk">允许</text>
+                    </div>
+                </div>
+            </div>
+            <div if="{{status == 'join-pin'}}" class="join-pin">
+                <div class="title-wrap">
+                    <text class="title">PIN码连接</text>
+                    <text class="title-tip">请在主控端输入连接码进行验证</text>
+                    <text class="title">{{StatInfo.pinCode.split('').join(' ')}}</text>
+                    <div class="button-wrap">
+                        <text class="joinPinCancel" @click="joinPinCancel">取消</text>
+                    </div>
+                </div>
+            </div>
+            <div if="{{status == 'start'}}" class="main-pin">
+                <div class="title-wrap">
+                    <div class="button-wrap">
+                        <text class="button-cancel" @click=" startDevice">发现设备</text>
+                        <text class="button-cancel" @click="AuthenticateDevice">发起认证</text>
+                      <!--  <text class="button-cancel" @click="joinAuthOk">允许认证</text>-->
+                    </div>
+                    <div class="button-wrap">
+                        <text class="button-cancel" @click="bottonjoinAuthOk">允许认证</text>
+                        <text class="button-cancel" @click="statmainInputPin">输入PIN码</text>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</stack>
+

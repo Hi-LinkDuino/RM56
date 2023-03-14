@@ -1,0 +1,66 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/powermgr_lite/powermgr.gni")
+import("//build/lite/config/component/lite_component.gni")
+
+local_include_dirs = []
+local_deps = []
+local_sources = []
+
+if (is_liteos_m) {
+  local_include_dirs += [
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+  ]
+
+  local_deps += [ "//kernel/liteos_m/kal:kal" ]
+} else {
+  local_deps +=
+      [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared" ]
+
+  if (enable_screensaver) {
+    local_sources += [ "src/screen_saver_feature.c" ]
+    local_deps += [ "src/screensaver/${system_type}:screensaver_featrue_impl" ]
+  }
+}
+
+lite_library("powermgrservice") {
+  target_type = lite_library_type
+
+  sources = [
+    "src/power/auto_suspend.c",
+    "src/power/running_lock_hub.c",
+    "src/power/suspend_controller.c",
+    "src/power_manage_feature.c",
+    "src/power_manage_service.c",
+    "src/running_lock_mgr.c",
+  ]
+  sources += local_sources
+
+  include_dirs = [
+    "include",
+    "${powermgr_frameworks_path}/include",
+    "${powermgr_frameworks_path}/include/${system_type}",
+    "${powermgr_innerkits_path}",
+    "${powermgr_kits_path}",
+    "//utils/native/lite/include",
+  ]
+  include_dirs += local_include_dirs
+
+  deps = [
+    "src/power/${system_type}:powermanage_feature_impl",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+  ]
+  deps += local_deps
+}

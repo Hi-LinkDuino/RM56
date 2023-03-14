@@ -1,0 +1,8 @@
+#include "base1.hcs"
+#include "base2.hcs"
+
+root {
+    foo {
+        term1 = 3;
+    }
+}

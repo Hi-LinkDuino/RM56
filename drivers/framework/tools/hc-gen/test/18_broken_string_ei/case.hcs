@@ -1,0 +1,6 @@
+root {
+    module = "test";
+    term1 = "hello",
+    // test string miss '"'
+    term2 = world"
+}

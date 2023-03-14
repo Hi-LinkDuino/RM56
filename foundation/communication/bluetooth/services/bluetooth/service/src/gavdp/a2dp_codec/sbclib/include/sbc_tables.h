@@ -1,0 +1,599 @@
+/*
+ * Copyright (C) 2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef SBC_TABLES_H
+#define SBC_TABLES_H
+
+#include <cstddef>
+#include <cstdint>
+#include <limits.h>
+#include "sbc_math.h"
+
+static const int SBC_OFFSET_4[4][4] = {
+    { -1, 0, 0, 0 },
+    { -2, 0, 0, 1 },
+    { -2, 0, 0, 1 },
+    { -2, 0, 0, 1 }
+};
+
+static const int SBC_OFFSET_8[4][8] = {
+    { -2, 0, 0, 0, 0, 0, 0, 1 },
+    { -3, 0, 0, 0, 0, 0, 1, 2 },
+    { -4, 0, 0, 0, 0, 0, 1, 2 },
+    { -4, 0, 0, 0, 0, 0, 1, 2 }
+};
+
+#define SBCDEC_FIXED_EXTRA_BITS 2
+
+static inline int32_t SS4(int32_t val)
+{
+    return ((-2 >> 1 == -1) ? (static_cast<int32_t>(val)) >> (SCALE_SPROTO4_TBL) :
+            (static_cast<int32_t>(val)) / (1 << (SCALE_SPROTO4_TBL)));
+}
+static inline int32_t SS8(int32_t val)
+{
+    return ((-2 >> 1 == -1) ? (static_cast<int32_t>(val)) >> (SCALE_SPROTO8_TBL) :
+            (static_cast<int32_t>(val)) / (1 << (SCALE_SPROTO8_TBL)));
+}
+static inline int32_t SN4(int32_t val)
+{
+    return ((-2 >> 1 == -1) ? (static_cast<int32_t>(val)) >> (SCALE_NPROTO4_TBL + 1 + SBCDEC_FIXED_EXTRA_BITS) :
+            (static_cast<int32_t>(val)) / (1 << (SCALE_NPROTO4_TBL + 1 + SBCDEC_FIXED_EXTRA_BITS)));
+}
+static inline int32_t SN8(int32_t val)
+{
+    return ((-2 >> 1 == -1) ? (static_cast<int32_t>(val)) >> (SCALE_NPROTO8_TBL + 1 + SBCDEC_FIXED_EXTRA_BITS) :
+            (static_cast<int32_t>(val)) / (1 << (SCALE_NPROTO8_TBL + 1 + SBCDEC_FIXED_EXTRA_BITS)));
+}
+
+static const int32_t PROTO_4_40M0[] = {
+    SS4(0x00000000), SS4(0xffa6982f), SS4(0xfba93848), SS4(0x0456c7b8),
+    SS4(0x005967d1), SS4(0xfffb9ac7), SS4(0xff589157), SS4(0xf9c2a8d8),
+    SS4(0x027c1434), SS4(0x0019118b), SS4(0xfff3c74c), SS4(0xff137330),
+    SS4(0xf81b8d70), SS4(0x00ec1b8b), SS4(0xfff0b71a), SS4(0xffe99b00),
+    SS4(0xfef84470), SS4(0xf6fb4370), SS4(0xffcdc351), SS4(0xffe01dc7)
+};
+
+static const int32_t PROTO_4_40M1[] = {
+    SS4(0xffe090ce), SS4(0xff2c0475), SS4(0xf694f800), SS4(0xff2c0475),
+    SS4(0xffe090ce), SS4(0xffe01dc7), SS4(0xffcdc351), SS4(0xf6fb4370),
+    SS4(0xfef84470), SS4(0xffe99b00), SS4(0xfff0b71a), SS4(0x00ec1b8b),
+    SS4(0xf81b8d70), SS4(0xff137330), SS4(0xfff3c74c), SS4(0x0019118b),
+    SS4(0x027c1434), SS4(0xf9c2a8d8), SS4(0xff589157), SS4(0xfffb9ac7)
+};
+
+static const int32_t PROTO_8_80M0[] = {
+    SS8(0x00000000), SS8(0xfe8d1970), SS8(0xee979f00), SS8(0x11686100),
+    SS8(0x0172e690), SS8(0xfff5bd1a), SS8(0xfdf1c8d4), SS8(0xeac182c0),
+    SS8(0x0d9daee0), SS8(0x00e530da), SS8(0xffe9811d), SS8(0xfd52986c),
+    SS8(0xe7054ca0), SS8(0x0a00d410), SS8(0x006c1de4), SS8(0xffdba705),
+    SS8(0xfcbc98e8), SS8(0xe3889d20), SS8(0x06af2308), SS8(0x000bb7db),
+    SS8(0xffca00ed), SS8(0xfc3fbb68), SS8(0xe071bc00), SS8(0x03bf7948),
+    SS8(0xffc4e05c), SS8(0xffb54b3b), SS8(0xfbedadc0), SS8(0xdde26200),
+    SS8(0x0142291c), SS8(0xff960e94), SS8(0xff9f3e17), SS8(0xfbd8f358),
+    SS8(0xdbf79400), SS8(0xff405e01), SS8(0xff7d4914), SS8(0xff8b1a31),
+    SS8(0xfc1417b8), SS8(0xdac7bb40), SS8(0xfdbb828c), SS8(0xff762170)
+};
+
+static const int32_t PROTO_8_80M1[] = {
+    SS8(0xff7c272c), SS8(0xfcb02620), SS8(0xda612700), SS8(0xfcb02620),
+    SS8(0xff7c272c), SS8(0xff762170), SS8(0xfdbb828c), SS8(0xdac7bb40),
+    SS8(0xfc1417b8), SS8(0xff8b1a31), SS8(0xff7d4914), SS8(0xff405e01),
+    SS8(0xdbf79400), SS8(0xfbd8f358), SS8(0xff9f3e17), SS8(0xff960e94),
+    SS8(0x0142291c), SS8(0xdde26200), SS8(0xfbedadc0), SS8(0xffb54b3b),
+    SS8(0xffc4e05c), SS8(0x03bf7948), SS8(0xe071bc00), SS8(0xfc3fbb68),
+    SS8(0xffca00ed), SS8(0x000bb7db), SS8(0x06af2308), SS8(0xe3889d20),
+    SS8(0xfcbc98e8), SS8(0xffdba705), SS8(0x006c1de4), SS8(0x0a00d410),
+    SS8(0xe7054ca0), SS8(0xfd52986c), SS8(0xffe9811d), SS8(0x00e530da),
+    SS8(0x0d9daee0), SS8(0xeac182c0), SS8(0xfdf1c8d4), SS8(0xfff5bd1a)
+};
+
+static const int32_t SYNMATRIX4[8][4] = {
+    { SN4(0x05a82798), SN4(0xfa57d868), SN4(0xfa57d868), SN4(0x05a82798) },
+    { SN4(0x030fbc54), SN4(0xf89be510), SN4(0x07641af0), SN4(0xfcf043ac) },
+    { SN4(0x00000000), SN4(0x00000000), SN4(0x00000000), SN4(0x00000000) },
+    { SN4(0xfcf043ac), SN4(0x07641af0), SN4(0xf89be510), SN4(0x030fbc54) },
+    { SN4(0xfa57d868), SN4(0x05a82798), SN4(0x05a82798), SN4(0xfa57d868) },
+    { SN4(0xf89be510), SN4(0xfcf043ac), SN4(0x030fbc54), SN4(0x07641af0) },
+    { SN4(0xf8000000), SN4(0xf8000000), SN4(0xf8000000), SN4(0xf8000000) },
+    { SN4(0xf89be510), SN4(0xfcf043ac), SN4(0x030fbc54), SN4(0x07641af0) }
+};
+
+static const int32_t SYNMATRIX8[16][8] = {
+    { SN8(0x05a82798), SN8(0xfa57d868), SN8(0xfa57d868), SN8(0x05a82798),
+      SN8(0x05a82798), SN8(0xfa57d868), SN8(0xfa57d868), SN8(0x05a82798) },
+    { SN8(0x0471ced0), SN8(0xf8275a10), SN8(0x018f8b84), SN8(0x06a6d988),
+      SN8(0xf9592678), SN8(0xfe70747c), SN8(0x07d8a5f0), SN8(0xfb8e3130) },
+    { SN8(0x030fbc54), SN8(0xf89be510), SN8(0x07641af0), SN8(0xfcf043ac),
+      SN8(0xfcf043ac), SN8(0x07641af0), SN8(0xf89be510), SN8(0x030fbc54) },
+    { SN8(0x018f8b84), SN8(0xfb8e3130), SN8(0x06a6d988), SN8(0xf8275a10),
+      SN8(0x07d8a5f0), SN8(0xf9592678), SN8(0x0471ced0), SN8(0xfe70747c) },
+    { SN8(0x00000000), SN8(0x00000000), SN8(0x00000000), SN8(0x00000000),
+      SN8(0x00000000), SN8(0x00000000), SN8(0x00000000), SN8(0x00000000) },
+    { SN8(0xfe70747c), SN8(0x0471ced0), SN8(0xf9592678), SN8(0x07d8a5f0),
+      SN8(0xf8275a10), SN8(0x06a6d988), SN8(0xfb8e3130), SN8(0x018f8b84) },
+    { SN8(0xfcf043ac), SN8(0x07641af0), SN8(0xf89be510), SN8(0x030fbc54),
+      SN8(0x030fbc54), SN8(0xf89be510), SN8(0x07641af0), SN8(0xfcf043ac) },
+    { SN8(0xfb8e3130), SN8(0x07d8a5f0), SN8(0xfe70747c), SN8(0xf9592678),
+      SN8(0x06a6d988), SN8(0x018f8b84), SN8(0xf8275a10), SN8(0x0471ced0) },
+    { SN8(0xfa57d868), SN8(0x05a82798), SN8(0x05a82798), SN8(0xfa57d868),
+      SN8(0xfa57d868), SN8(0x05a82798), SN8(0x05a82798), SN8(0xfa57d868) },
+    { SN8(0xf9592678), SN8(0x018f8b84), SN8(0x07d8a5f0), SN8(0x0471ced0),
+      SN8(0xfb8e3130), SN8(0xf8275a10), SN8(0xfe70747c), SN8(0x06a6d988) },
+    { SN8(0xf89be510), SN8(0xfcf043ac), SN8(0x030fbc54), SN8(0x07641af0),
+      SN8(0x07641af0), SN8(0x030fbc54), SN8(0xfcf043ac), SN8(0xf89be510) },
+    { SN8(0xf8275a10), SN8(0xf9592678), SN8(0xfb8e3130), SN8(0xfe70747c),
+      SN8(0x018f8b84), SN8(0x0471ced0), SN8(0x06a6d988), SN8(0x07d8a5f0) },
+    { SN8(0xf8000000), SN8(0xf8000000), SN8(0xf8000000), SN8(0xf8000000),
+      SN8(0xf8000000), SN8(0xf8000000), SN8(0xf8000000), SN8(0xf8000000) },
+    { SN8(0xf8275a10), SN8(0xf9592678), SN8(0xfb8e3130), SN8(0xfe70747c),
+      SN8(0x018f8b84), SN8(0x0471ced0), SN8(0x06a6d988), SN8(0x07d8a5f0) },
+    { SN8(0xf89be510), SN8(0xfcf043ac), SN8(0x030fbc54), SN8(0x07641af0),
+      SN8(0x07641af0), SN8(0x030fbc54), SN8(0xfcf043ac), SN8(0xf89be510) },
+    { SN8(0xf9592678), SN8(0x018f8b84), SN8(0x07d8a5f0), SN8(0x0471ced0),
+      SN8(0xfb8e3130), SN8(0xf8275a10), SN8(0xfe70747c), SN8(0x06a6d988) }
+};
+
+#define SBC_FIXED_EXTRA_BITS 0
+
+#define PROTO_BAND4_SCALE \
+    ((sizeof(int16_t) * CHAR_BIT - 1) - SBC_FIXED_EXTRA_BITS + 1)
+static int16_t FProto4(double x) {
+    return static_cast<int32_t>((x * 2) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+static int16_t FProto4N(double x) {
+    return -static_cast<int32_t>((x * 2) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+
+static const int16_t PROTO_BAND4[40] = {
+    FProto4(0.00000000E+00), FProto4(5.36548976E-04),
+    FProto4N(1.49188357E-03), FProto4(2.73370904E-03),
+    FProto4(3.83720193E-03), FProto4(3.89205149E-03),
+    FProto4(1.86581691E-03), FProto4(3.06012286E-03),
+
+    FProto4(1.09137620E-02), FProto4(2.04385087E-02),
+    FProto4N(2.88757392E-02), FProto4(3.21939290E-02),
+    FProto4(2.58767811E-02), FProto4(6.13245186E-03),
+    FProto4N(2.88217274E-02), FProto4(7.76463494E-02),
+
+    FProto4(1.35593274E-01), FProto4(1.94987841E-01),
+    FProto4N(2.46636662E-01), FProto4(2.81828203E-01),
+    FProto4(2.94315332E-01), FProto4(2.81828203E-01),
+    FProto4(2.46636662E-01), FProto4N(1.94987841E-01),
+
+    FProto4N(1.35593274E-01), FProto4N(7.76463494E-02),
+    FProto4(2.88217274E-02), FProto4(6.13245186E-03),
+    FProto4(2.58767811E-02), FProto4(3.21939290E-02),
+    FProto4(2.88757392E-02), FProto4N(2.04385087E-02),
+
+    FProto4N(1.09137620E-02), FProto4N(3.06012286E-03),
+    FProto4N(1.86581691E-03), FProto4(3.89205149E-03),
+    FProto4(3.83720193E-03), FProto4(2.73370904E-03),
+    FProto4(1.49188357E-03), FProto4N(5.36548976E-04),
+};
+
+#define COS_TABLE_BAND4_SCALE \
+    ((sizeof(int16_t) * CHAR_BIT - 1) + SBC_FIXED_EXTRA_BITS)
+static int16_t FCos4(double x) {
+    return static_cast<int32_t>((x) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+static int16_t FCos4N(double x) {
+    return -static_cast<int32_t>((x) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+
+static const int16_t COS_TABLE_BAND_4[32] = {
+    FCos4(0.7071067812), FCos4(0.9238795325), FCos4N(1.0000000000), FCos4(0.9238795325),
+    FCos4(0.7071067812), FCos4(0.3826834324), FCos4(0.0000000000), FCos4(0.3826834324),
+
+    FCos4N(0.7071067812), FCos4(0.3826834324), FCos4N(1.0000000000), FCos4(0.3826834324),
+    FCos4N(0.7071067812), FCos4N(0.9238795325), FCos4N(0.0000000000), FCos4N(0.9238795325),
+
+    FCos4N(0.7071067812), FCos4N(0.3826834324), FCos4N(1.0000000000), FCos4N(0.3826834324),
+    FCos4N(0.7071067812), FCos4(0.9238795325), FCos4(0.0000000000), FCos4(0.9238795325),
+
+    FCos4(0.7071067812), FCos4N(0.9238795325), FCos4N(1.0000000000), FCos4N(0.9238795325),
+    FCos4(0.7071067812), FCos4N(0.3826834324), FCos4N(0.0000000000), FCos4N(0.3826834324),
+};
+
+#define PROTO_BAND8_SCALE \
+    ((sizeof(int16_t) * CHAR_BIT - 1) - SBC_FIXED_EXTRA_BITS + 1)
+static int16_t FProto8(double x) {
+    return static_cast<int32_t>((x * 2) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+static int16_t FProto8N(double x) {
+    return -static_cast<int32_t>((x * 2) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+
+static const int16_t PROTO_BAND8[80] = {
+    FProto8(0.00000000E+00), FProto8(1.56575398E-04),
+    FProto8(3.43256425E-04), FProto8(5.54620202E-04),
+    FProto8N(8.23919506E-04), FProto8(1.13992507E-03),
+    FProto8(1.47640169E-03), FProto8(1.78371725E-03),
+    FProto8(2.01182542E-03), FProto8(2.10371989E-03),
+    FProto8(1.99454554E-03), FProto8(1.61656283E-03),
+    FProto8(9.02154502E-04), FProto8(1.78805361E-04),
+    FProto8(1.64973098E-03), FProto8(3.49717454E-03),
+
+    FProto8(5.65949473E-03), FProto8(8.02941163E-03),
+    FProto8(1.04584443E-02), FProto8(1.27472335E-02),
+    FProto8N(1.46525263E-02), FProto8(1.59045603E-02),
+    FProto8(1.62208471E-02), FProto8(1.53184106E-02),
+    FProto8(1.29371806E-02), FProto8(8.85757540E-03),
+    FProto8(2.92408442E-03), FProto8N(4.91578024E-03),
+    FProto8N(1.46404076E-02), FProto8(2.61098752E-02),
+    FProto8(3.90751381E-02), FProto8(5.31873032E-02),
+
+    FProto8(6.79989431E-02), FProto8(8.29847578E-02),
+    FProto8(9.75753918E-02), FProto8(1.11196689E-01),
+    FProto8N(1.23264548E-01), FProto8(1.33264415E-01),
+    FProto8(1.40753505E-01), FProto8(1.45389847E-01),
+    FProto8(1.46955068E-01), FProto8(1.45389847E-01),
+    FProto8(1.40753505E-01), FProto8(1.33264415E-01),
+    FProto8(1.23264548E-01), FProto8N(1.11196689E-01),
+    FProto8N(9.75753918E-02), FProto8N(8.29847578E-02),
+
+    FProto8N(6.79989431E-02), FProto8N(5.31873032E-02),
+    FProto8N(3.90751381E-02), FProto8N(2.61098752E-02),
+    FProto8(1.46404076E-02), FProto8N(4.91578024E-03),
+    FProto8(2.92408442E-03), FProto8(8.85757540E-03),
+    FProto8(1.29371806E-02), FProto8(1.53184106E-02),
+    FProto8(1.62208471E-02), FProto8(1.59045603E-02),
+    FProto8(1.46525263E-02), FProto8N(1.27472335E-02),
+    FProto8N(1.04584443E-02), FProto8N(8.02941163E-03),
+
+    FProto8N(5.65949473E-03), FProto8N(3.49717454E-03),
+    FProto8N(1.64973098E-03), FProto8N(1.78805361E-04),
+    FProto8N(9.02154502E-04), FProto8(1.61656283E-03),
+    FProto8(1.99454554E-03), FProto8(2.10371989E-03),
+    FProto8(2.01182542E-03), FProto8(1.78371725E-03),
+    FProto8(1.47640169E-03), FProto8(1.13992507E-03),
+    FProto8(8.23919506E-04), FProto8N(5.54620202E-04),
+    FProto8N(3.43256425E-04), FProto8N(1.56575398E-04),
+};
+
+#define COS_TABLE_BAND8_SCALE \
+    ((sizeof(int16_t) * CHAR_BIT - 1) + SBC_FIXED_EXTRA_BITS)
+static int16_t FCos8(double x) {
+    return static_cast<int32_t>((x) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+static int16_t FCos8N(double x) {
+    return -static_cast<int32_t>((x) * \
+    (static_cast<int32_t>(1) << (sizeof(int16_t) * CHAR_BIT - 1)) + 0.5);
+}
+
+static const int16_t COS_TABLE_BAND_8[128] = {
+    FCos8(0.7071067812), FCos8(0.8314696123), FCos8(0.9238795325), FCos8(0.9807852804),
+    FCos8N(1.0000000000), FCos8(0.9807852804), FCos8(0.9238795325), FCos8(0.8314696123),
+    FCos8(0.7071067812), FCos8(0.5555702330), FCos8(0.3826834324), FCos8(0.1950903220),
+    FCos8(0.0000000000), FCos8(0.1950903220), FCos8(0.3826834324), FCos8(0.5555702330),
+
+    FCos8N(0.7071067812), FCos8N(0.1950903220), FCos8(0.3826834324), FCos8(0.8314696123),
+    FCos8N(1.0000000000), FCos8(0.8314696123), FCos8(0.3826834324), FCos8N(0.1950903220),
+    FCos8N(0.7071067812), FCos8N(0.9807852804), FCos8N(0.9238795325), FCos8N(0.5555702330),
+    FCos8N(0.0000000000), FCos8N(0.5555702330), FCos8N(0.9238795325), FCos8N(0.9807852804),
+
+    FCos8N(0.7071067812), FCos8N(0.9807852804), FCos8N(0.3826834324), FCos8(0.5555702330),
+    FCos8N(1.0000000000), FCos8(0.5555702330), FCos8N(0.3826834324), FCos8N(0.9807852804),
+    FCos8N(0.7071067812), FCos8(0.1950903220), FCos8(0.9238795325), FCos8(0.8314696123),
+    FCos8(0.0000000000), FCos8(0.8314696123), FCos8(0.9238795325), FCos8(0.1950903220),
+
+    FCos8(0.7071067812), FCos8N(0.5555702330), FCos8N(0.9238795325), FCos8(0.1950903220),
+    FCos8N(1.0000000000), FCos8(0.1950903220), FCos8N(0.9238795325), FCos8N(0.5555702330),
+    FCos8(0.7071067812), FCos8(0.8314696123), FCos8N(0.3826834324), FCos8N(0.9807852804),
+    FCos8N(0.0000000000), FCos8N(0.9807852804), FCos8N(0.3826834324), FCos8(0.8314696123),
+
+    FCos8(0.7071067812), FCos8(0.5555702330), FCos8N(0.9238795325), FCos8N(0.1950903220),
+    FCos8N(1.0000000000), FCos8N(0.1950903220), FCos8N(0.9238795325), FCos8(0.5555702330),
+    FCos8(0.7071067812), FCos8N(0.8314696123), FCos8N(0.3826834324), FCos8(0.9807852804),
+    FCos8(0.0000000000), FCos8(0.9807852804), FCos8N(0.3826834324), FCos8N(0.8314696123),
+
+    FCos8N(0.7071067812), FCos8(0.9807852804), FCos8N(0.3826834324), FCos8N(0.5555702330),
+    FCos8N(1.0000000000), FCos8N(0.5555702330), FCos8N(0.3826834324), FCos8(0.9807852804),
+    FCos8N(0.7071067812), FCos8N(0.1950903220), FCos8(0.9238795325), FCos8N(0.8314696123),
+    FCos8N(0.0000000000), FCos8N(0.8314696123), FCos8(0.9238795325), FCos8N(0.1950903220),
+
+    FCos8N(0.7071067812), FCos8(0.1950903220), FCos8(0.3826834324), FCos8N(0.8314696123),
+    FCos8N(1.0000000000), FCos8N(0.8314696123), FCos8(0.3826834324), FCos8(0.1950903220),
+    FCos8N(0.7071067812), FCos8(0.9807852804), FCos8N(0.9238795325), FCos8(0.5555702330),
+    FCos8N(0.0000000000), FCos8(0.5555702330), FCos8N(0.9238795325), FCos8(0.9807852804),
+
+    FCos8(0.7071067812), FCos8N(0.8314696123), FCos8(0.9238795325), FCos8N(0.9807852804),
+    FCos8N(1.0000000000), FCos8N(0.9807852804), FCos8(0.9238795325), FCos8N(0.8314696123),
+    FCos8(0.7071067812), FCos8N(0.5555702330), FCos8(0.3826834324), FCos8N(0.1950903220),
+    FCos8N(0.0000000000), FCos8N(0.1950903220), FCos8(0.3826834324), FCos8N(0.5555702330),
+};
+
+#define SBC_ALIGN_BITS 4
+#define SBC_ALIGN_MASK ((1 << (SBC_ALIGN_BITS)) - 1)
+
+static const int16_t  ANALYSIS_CONSTS_BAND4_EVEN_MODE[40 + 16] = {
+#define C0 1.0932568993
+#define C1 1.3056875580
+#define C2 1.3056875580
+#define C3 1.6772280856
+
+    FProto4(0.00000000E+00 * C0), FProto4(3.83720193E-03 * C0),
+    FProto4(5.36548976E-04 * C1), FProto4(2.73370904E-03 * C1),
+    FProto4(3.06012286E-03 * C2), FProto4(3.89205149E-03 * C2),
+    FProto4(0.00000000E+00 * C3), FProto4N(1.49188357E-03 * C3),
+    FProto4(1.09137620E-02 * C0), FProto4(2.58767811E-02 * C0),
+    FProto4(2.04385087E-02 * C1), FProto4(3.21939290E-02 * C1),
+    FProto4(7.76463494E-02 * C2), FProto4(6.13245186E-03 * C2),
+    FProto4(0.00000000E+00 * C3), FProto4N(2.88757392E-02 * C3),
+    FProto4(1.35593274E-01 * C0), FProto4(2.94315332E-01 * C0),
+    FProto4(1.94987841E-01 * C1), FProto4(2.81828203E-01 * C1),
+    FProto4N(1.94987841E-01 * C2), FProto4(2.81828203E-01 * C2),
+    FProto4(0.00000000E+00 * C3), FProto4N(2.46636662E-01 * C3),
+    FProto4N(1.35593274E-01 * C0), FProto4(2.58767811E-02 * C0),
+    FProto4N(7.76463494E-02 * C1), FProto4(6.13245186E-03 * C1),
+    FProto4N(2.04385087E-02 * C2), FProto4(3.21939290E-02 * C2),
+    FProto4(0.00000000E+00 * C3),  FProto4(2.88217274E-02 * C3),
+    FProto4N(1.09137620E-02 * C0), FProto4(3.83720193E-03 * C0),
+    FProto4N(3.06012286E-03 * C1), FProto4(3.89205149E-03 * C1),
+    FProto4N(5.36548976E-04 * C2), FProto4(2.73370904E-03 * C2),
+    FProto4(0.00000000E+00 * C3), FProto4N(1.86581691E-03 * C3),
+
+    FCos4(0.7071067812 / C0), FCos4(0.9238795325 / C1),
+    FCos4N(0.7071067812 / C0), FCos4(0.3826834324 / C1),
+    FCos4N(0.7071067812 / C0), FCos4N(0.3826834324 / C1),
+    FCos4(0.7071067812 / C0), FCos4N(0.9238795325 / C1),
+    FCos4(0.3826834324 / C2), FCos4N(1.0000000000 / C3),
+    FCos4N(0.9238795325 / C2), FCos4N(1.0000000000 / C3),
+    FCos4(0.9238795325 / C2), FCos4N(1.0000000000 / C3),
+    FCos4N(0.3826834324 / C2), FCos4N(1.0000000000 / C3),
+
+#undef C0
+#undef C1
+#undef C2
+#undef C3
+};
+
+static const int16_t  ANALYSIS_CONSTS_BAND4_ODD_MODE[40 + 16] = {
+#define C0 1.3056875580
+#define C1 1.6772280856
+#define C2 1.0932568993
+#define C3 1.3056875580
+
+    FProto4(2.73370904E-03 * C0), FProto4(5.36548976E-04 * C0),
+    FProto4N(1.49188357E-03 * C1), FProto4(0.00000000E+00 * C1),
+    FProto4(3.83720193E-03 * C2), FProto4(1.09137620E-02 * C2),
+    FProto4(3.89205149E-03 * C3), FProto4(3.06012286E-03 * C3),
+    FProto4(3.21939290E-02 * C0), FProto4(2.04385087E-02 * C0),
+    FProto4N(2.88757392E-02 * C1), FProto4(0.00000000E+00 * C1),
+    FProto4(2.58767811E-02 * C2), FProto4(1.35593274E-01 * C2),
+    FProto4(6.13245186E-03 * C3), FProto4(7.76463494E-02 * C3),
+    FProto4(2.81828203E-01 * C0), FProto4(1.94987841E-01 * C0),
+    FProto4N(2.46636662E-01 * C1), FProto4(0.00000000E+00 * C1),
+    FProto4(2.94315332E-01 * C2), FProto4N(1.35593274E-01 * C2),
+    FProto4(2.81828203E-01 * C3), FProto4N(1.94987841E-01 * C3),
+    FProto4(6.13245186E-03 * C0), FProto4N(7.76463494E-02 * C0),
+    FProto4(2.88217274E-02 * C1),  FProto4(0.00000000E+00 * C1),
+    FProto4(2.58767811E-02 * C2), FProto4N(1.09137620E-02 * C2),
+    FProto4(3.21939290E-02 * C3), FProto4N(2.04385087E-02 * C3),
+    FProto4(3.89205149E-03 * C0), FProto4N(3.06012286E-03 * C0),
+    FProto4N(1.86581691E-03 * C1), FProto4(0.00000000E+00 * C1),
+    FProto4(3.83720193E-03 * C2), FProto4(0.00000000E+00 * C2),
+    FProto4(2.73370904E-03 * C3), FProto4N(5.36548976E-04 * C3),
+
+    FCos4(0.9238795325 / C0), FCos4N(1.0000000000 / C1),
+    FCos4(0.3826834324 / C0), FCos4N(1.0000000000 / C1),
+    FCos4N(0.3826834324 / C0), FCos4N(1.0000000000 / C1),
+    FCos4N(0.9238795325 / C0), FCos4N(1.0000000000 / C1),
+    FCos4(0.7071067812 / C2), FCos4(0.3826834324 / C3),
+    FCos4N(0.7071067812 / C2), FCos4N(0.9238795325 / C3),
+    FCos4N(0.7071067812 / C2), FCos4(0.9238795325 / C3),
+    FCos4(0.7071067812 / C2), FCos4N(0.3826834324 / C3),
+
+#undef C0
+#undef C1
+#undef C2
+#undef C3
+};
+
+static const int16_t  ANALYSIS_CONSTS_BAND8_EVEN_MODE[80 + 64] = {
+#define C0 2.7906148894
+#define C1 2.4270044280
+#define C2 2.8015616024
+#define C3 3.1710363741
+#define C4 2.5377944043
+#define C5 2.4270044280
+#define C6 2.8015616024
+#define C7 3.1710363741
+
+    FProto8(0.00000000E+00 * C0), FProto8(2.01182542E-03 * C0),
+    FProto8(1.56575398E-04 * C1), FProto8(1.78371725E-03 * C1),
+    FProto8(3.43256425E-04 * C2), FProto8(1.47640169E-03 * C2),
+    FProto8(5.54620202E-04 * C3), FProto8(1.13992507E-03 * C3),
+    FProto8N(8.23919506E-04 * C4), FProto8(0.00000000E+00 * C4),
+    FProto8(2.10371989E-03 * C5), FProto8(3.49717454E-03 * C5),
+    FProto8(1.99454554E-03 * C6), FProto8(1.64973098E-03 * C6),
+    FProto8(1.61656283E-03 * C7), FProto8(1.78805361E-04 * C7),
+    FProto8(5.65949473E-03 * C0), FProto8(1.29371806E-02 * C0),
+    FProto8(8.02941163E-03 * C1), FProto8(1.53184106E-02 * C1),
+    FProto8(1.04584443E-02 * C2), FProto8(1.62208471E-02 * C2),
+    FProto8(1.27472335E-02 * C3), FProto8(1.59045603E-02 * C3),
+    FProto8N(1.46525263E-02 * C4), FProto8(0.00000000E+00 * C4),
+    FProto8(8.85757540E-03 * C5), FProto8(5.31873032E-02 * C5),
+    FProto8(2.92408442E-03 * C6), FProto8(3.90751381E-02 * C6),
+    FProto8N(4.91578024E-03 * C7), FProto8(2.61098752E-02 * C7),
+    FProto8(6.79989431E-02 * C0), FProto8(1.46955068E-01 * C0),
+    FProto8(8.29847578E-02 * C1), FProto8(1.45389847E-01 * C1),
+    FProto8(9.75753918E-02 * C2), FProto8(1.40753505E-01 * C2),
+    FProto8(1.11196689E-01 * C3), FProto8(1.33264415E-01 * C3),
+    FProto8N(1.23264548E-01 * C4), FProto8(0.00000000E+00 * C4),
+    FProto8(1.45389847E-01 * C5), FProto8N(8.29847578E-02 * C5),
+    FProto8(1.40753505E-01 * C6), FProto8N(9.75753918E-02 * C6),
+    FProto8(1.33264415E-01 * C7), FProto8N(1.11196689E-01 * C7),
+    FProto8N(6.79989431E-02 * C0), FProto8(1.29371806E-02 * C0),
+    FProto8N(5.31873032E-02 * C1), FProto8(8.85757540E-03 * C1),
+    FProto8N(3.90751381E-02 * C2), FProto8(2.92408442E-03 * C2),
+    FProto8N(2.61098752E-02 * C3), FProto8N(4.91578024E-03 * C3),
+    FProto8(1.46404076E-02 * C4), FProto8(0.00000000E+00 * C4),
+    FProto8(1.53184106E-02 * C5), FProto8N(8.02941163E-03 * C5),
+    FProto8(1.62208471E-02 * C6), FProto8N(1.04584443E-02 * C6),
+    FProto8(1.59045603E-02 * C7), FProto8N(1.27472335E-02 * C7),
+    FProto8N(5.65949473E-03 * C0), FProto8(2.01182542E-03 * C0),
+    FProto8N(3.49717454E-03 * C1), FProto8(2.10371989E-03 * C1),
+    FProto8N(1.64973098E-03 * C2), FProto8(1.99454554E-03 * C2),
+    FProto8N(1.78805361E-04 * C3), FProto8(1.61656283E-03 * C3),
+    FProto8N(9.02154502E-04 * C4), FProto8(0.00000000E+00 * C4),
+    FProto8(1.78371725E-03 * C5), FProto8N(1.56575398E-04 * C5),
+    FProto8(1.47640169E-03 * C6), FProto8N(3.43256425E-04 * C6),
+    FProto8(1.13992507E-03 * C7), FProto8N(5.54620202E-04 * C7),
+
+    FCos8(0.7071067812 / C0), FCos8(0.8314696123 / C1),
+    FCos8N(0.7071067812 / C0), FCos8N(0.1950903220 / C1),
+    FCos8N(0.7071067812 / C0), FCos8N(0.9807852804 / C1),
+    FCos8(0.7071067812 / C0), FCos8N(0.5555702330 / C1),
+    FCos8(0.7071067812 / C0), FCos8(0.5555702330 / C1),
+    FCos8N(0.7071067812 / C0), FCos8(0.9807852804 / C1),
+    FCos8N(0.7071067812 / C0), FCos8(0.1950903220 / C1),
+    FCos8(0.7071067812 / C0), FCos8N(0.8314696123 / C1),
+    FCos8(0.9238795325 / C2), FCos8(0.9807852804 / C3),
+    FCos8(0.3826834324 / C2), FCos8(0.8314696123 / C3),
+    FCos8N(0.3826834324 / C2), FCos8(0.5555702330 / C3),
+    FCos8N(0.9238795325 / C2), FCos8(0.1950903220 / C3),
+    FCos8N(0.9238795325 / C2), FCos8N(0.1950903220 / C3),
+    FCos8N(0.3826834324 / C2), FCos8N(0.5555702330 / C3),
+    FCos8(0.3826834324 / C2), FCos8N(0.8314696123 / C3),
+    FCos8(0.9238795325 / C2), FCos8N(0.9807852804 / C3),
+    FCos8N(1.0000000000 / C4), FCos8(0.5555702330 / C5),
+    FCos8N(1.0000000000 / C4), FCos8N(0.9807852804 / C5),
+    FCos8N(1.0000000000 / C4), FCos8(0.1950903220 / C5),
+    FCos8N(1.0000000000 / C4), FCos8(0.8314696123 / C5),
+    FCos8N(1.0000000000 / C4), FCos8N(0.8314696123 / C5),
+    FCos8N(1.0000000000 / C4), FCos8N(0.1950903220 / C5),
+    FCos8N(1.0000000000 / C4), FCos8(0.9807852804 / C5),
+    FCos8N(1.0000000000 / C4), FCos8N(0.5555702330 / C5),
+    FCos8(0.3826834324 / C6), FCos8(0.1950903220 / C7),
+    FCos8N(0.9238795325 / C6), FCos8N(0.5555702330 / C7),
+    FCos8(0.9238795325 / C6), FCos8(0.8314696123 / C7),
+    FCos8N(0.3826834324 / C6), FCos8N(0.9807852804 / C7),
+    FCos8N(0.3826834324 / C6), FCos8(0.9807852804 / C7),
+    FCos8(0.9238795325 / C6), FCos8N(0.8314696123 / C7),
+    FCos8N(0.9238795325 / C6), FCos8(0.5555702330 / C7),
+    FCos8(0.3826834324 / C6), FCos8N(0.1950903220 / C7),
+
+#undef C0
+#undef C1
+#undef C2
+#undef C3
+#undef C4
+#undef C5
+#undef C6
+#undef C7
+};
+
+static const int16_t  ANALYSIS_CONSTS_BAND8_ODD_MODE[80 + 64] = {
+#define C0 2.5377944043
+#define C1 2.4270044280
+#define C2 2.8015616024
+#define C3 3.1710363741
+#define C4 2.7906148894
+#define C5 2.4270044280
+#define C6 2.8015616024
+#define C7 3.1710363741
+
+    FProto8(0.00000000E+00 * C0), FProto8N(8.23919506E-04 * C0),
+    FProto8(1.56575398E-04 * C1), FProto8(1.78371725E-03 * C1),
+    FProto8(3.43256425E-04 * C2), FProto8(1.47640169E-03 * C2),
+    FProto8(5.54620202E-04 * C3), FProto8(1.13992507E-03 * C3),
+    FProto8(2.01182542E-03 * C4), FProto8(5.65949473E-03 * C4),
+    FProto8(2.10371989E-03 * C5), FProto8(3.49717454E-03 * C5),
+    FProto8(1.99454554E-03 * C6), FProto8(1.64973098E-03 * C6),
+    FProto8(1.61656283E-03 * C7), FProto8(1.78805361E-04 * C7),
+    FProto8(0.00000000E+00 * C0), FProto8N(1.46525263E-02 * C0),
+    FProto8(8.02941163E-03 * C1), FProto8(1.53184106E-02 * C1),
+    FProto8(1.04584443E-02 * C2), FProto8(1.62208471E-02 * C2),
+    FProto8(1.27472335E-02 * C3), FProto8(1.59045603E-02 * C3),
+    FProto8(1.29371806E-02 * C4), FProto8(6.79989431E-02 * C4),
+    FProto8(8.85757540E-03 * C5), FProto8(5.31873032E-02 * C5),
+    FProto8(2.92408442E-03 * C6), FProto8(3.90751381E-02 * C6),
+    FProto8N(4.91578024E-03 * C7), FProto8(2.61098752E-02 * C7),
+    FProto8(0.00000000E+00 * C0), FProto8N(1.23264548E-01 * C0),
+    FProto8(8.29847578E-02 * C1), FProto8(1.45389847E-01 * C1),
+    FProto8(9.75753918E-02 * C2), FProto8(1.40753505E-01 * C2),
+    FProto8(1.11196689E-01 * C3), FProto8(1.33264415E-01 * C3),
+    FProto8(1.46955068E-01 * C4), FProto8N(6.79989431E-02 * C4),
+    FProto8(1.45389847E-01 * C5), FProto8N(8.29847578E-02 * C5),
+    FProto8(1.40753505E-01 * C6), FProto8N(9.75753918E-02 * C6),
+    FProto8(1.33264415E-01 * C7), FProto8N(1.11196689E-01 * C7),
+    FProto8(0.00000000E+00 * C0), FProto8(1.46404076E-02 * C0),
+    FProto8N(5.31873032E-02 * C1), FProto8(8.85757540E-03 * C1),
+    FProto8N(3.90751381E-02 * C2), FProto8(2.92408442E-03 * C2),
+    FProto8N(2.61098752E-02 * C3), FProto8N(4.91578024E-03 * C3),
+    FProto8(1.29371806E-02 * C4), FProto8N(5.65949473E-03 * C4),
+    FProto8(1.53184106E-02 * C5), FProto8N(8.02941163E-03 * C5),
+    FProto8(1.62208471E-02 * C6), FProto8N(1.04584443E-02 * C6),
+    FProto8(1.59045603E-02 * C7), FProto8N(1.27472335E-02 * C7),
+    FProto8(0.00000000E+00 * C0), FProto8N(9.02154502E-04 * C0),
+    FProto8N(3.49717454E-03 * C1), FProto8(2.10371989E-03 * C1),
+    FProto8N(1.64973098E-03 * C2), FProto8(1.99454554E-03 * C2),
+    FProto8N(1.78805361E-04 * C3), FProto8(1.61656283E-03 * C3),
+    FProto8(2.01182542E-03 * C4), FProto8(0.00000000E+00 * C4),
+    FProto8(1.78371725E-03 * C5), FProto8N(1.56575398E-04 * C5),
+    FProto8(1.47640169E-03 * C6), FProto8N(3.43256425E-04 * C6),
+    FProto8(1.13992507E-03 * C7), FProto8N(5.54620202E-04 * C7),
+
+    FCos8N(1.0000000000 / C0), FCos8(0.8314696123 / C1),
+    FCos8N(1.0000000000 / C0), FCos8N(0.1950903220 / C1),
+    FCos8N(1.0000000000 / C0), FCos8N(0.9807852804 / C1),
+    FCos8N(1.0000000000 / C0), FCos8N(0.5555702330 / C1),
+    FCos8N(1.0000000000 / C0), FCos8(0.5555702330 / C1),
+    FCos8N(1.0000000000 / C0), FCos8(0.9807852804 / C1),
+    FCos8N(1.0000000000 / C0), FCos8(0.1950903220 / C1),
+    FCos8N(1.0000000000 / C0), FCos8N(0.8314696123 / C1),
+    FCos8(0.9238795325 / C2), FCos8(0.9807852804 / C3),
+    FCos8(0.3826834324 / C2), FCos8(0.8314696123 / C3),
+    FCos8N(0.3826834324 / C2), FCos8(0.5555702330 / C3),
+    FCos8N(0.9238795325 / C2), FCos8(0.1950903220 / C3),
+    FCos8N(0.9238795325 / C2), FCos8N(0.1950903220 / C3),
+    FCos8N(0.3826834324 / C2), FCos8N(0.5555702330 / C3),
+    FCos8(0.3826834324 / C2), FCos8N(0.8314696123 / C3),
+    FCos8(0.9238795325 / C2), FCos8N(0.9807852804 / C3),
+    FCos8(0.7071067812 / C4), FCos8(0.5555702330 / C5),
+    FCos8N(0.7071067812 / C4), FCos8N(0.9807852804 / C5),
+    FCos8N(0.7071067812 / C4), FCos8(0.1950903220 / C5),
+    FCos8(0.7071067812 / C4), FCos8(0.8314696123 / C5),
+    FCos8(0.7071067812 / C4), FCos8N(0.8314696123 / C5),
+    FCos8N(0.7071067812 / C4), FCos8N(0.1950903220 / C5),
+    FCos8N(0.7071067812 / C4), FCos8(0.9807852804 / C5),
+    FCos8(0.7071067812 / C4), FCos8N(0.5555702330 / C5),
+    FCos8(0.3826834324 / C6),  FCos8(0.1950903220 / C7),
+    FCos8N(0.9238795325 / C6), FCos8N(0.5555702330 / C7),
+    FCos8(0.9238795325 / C6), FCos8(0.8314696123 / C7),
+    FCos8N(0.3826834324 / C6), FCos8N(0.9807852804 / C7),
+    FCos8N(0.3826834324 / C6), FCos8(0.9807852804 / C7),
+    FCos8(0.9238795325 / C6), FCos8N(0.8314696123 / C7),
+    FCos8N(0.9238795325 / C6), FCos8(0.5555702330 / C7),
+    FCos8(0.3826834324 / C6), FCos8N(0.1950903220 / C7),
+
+#undef C0
+#undef C1
+#undef C2
+#undef C3
+#undef C4
+#undef C5
+#undef C6
+#undef C7
+};
+#endif // SBC_TABLES_H

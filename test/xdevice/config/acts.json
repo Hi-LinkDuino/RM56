@@ -1,0 +1,22 @@
+{
+    "description": "Config for acts test suites",
+    "kits": [
+        {
+            "type": "QueryKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "resource/tools/query.bin",
+                    "target": "/test_root/tools"
+                }
+            ],
+            "query" : "/test_root/tools/query.bin"
+        },
+        {
+            "type": "RootFsKit",
+            "command": "./bin/checksum /bin",
+            "hash_file_name": "checksum.hash",
+            "device_label": "ipcamera"
+        }
+    ]
+}

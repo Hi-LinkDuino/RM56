@@ -1,0 +1,49 @@
+/*
+ * Copyright (C) 2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#ifndef OHOS_WIFI_CONFIG_FILE_TEST_H
+#define OHOS_WIFI_CONFIG_FILE_TEST_H
+
+#include <gtest/gtest.h>
+#include "wifi_config_file_impl.h"
+
+namespace OHOS {
+namespace Wifi {
+class WifiConfigFileTest : public testing::Test {
+public:
+    static void SetUpTestCase()
+    {}
+    static void TearDownTestCase()
+    {}
+    virtual void SetUp()
+    {
+        mWifiCfg.SetConfigFilePath("./wifi_config_test.conf");
+        mDeviceCfg.SetConfigFilePath("./device_config_test.conf");
+        mHotspotCfg.SetConfigFilePath("./hotspot_config_test.conf");
+        mBlockCfg.SetConfigFilePath("./block_list_test.conf");
+        mWifiP2pGroupInfo.SetConfigFilePath("./wifi_p2p_groups_test.conf");
+    }
+    virtual void TearDown()
+    {}
+
+public:
+    WifiConfigFileImpl<WifiConfig> mWifiCfg;
+    WifiConfigFileImpl<WifiDeviceConfig> mDeviceCfg;
+    WifiConfigFileImpl<HotspotConfig> mHotspotCfg;
+    WifiConfigFileImpl<StationInfo> mBlockCfg;
+    WifiConfigFileImpl<WifiP2pGroupInfo> mWifiP2pGroupInfo;
+};
+}  // namespace Wifi
+}  // namespace OHOS
+#endif

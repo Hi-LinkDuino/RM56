@@ -1,0 +1,209 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            tabs通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <tabs id="idProp">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <tabs id="classProp"
+             class="classProp">
+        </tabs>
+        <tabs id="classPropNone"
+             class="">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <tabs id="styleProp"
+             style="width:80%;height:20px;background-color:red">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <tabs id="refProp"
+             ref="refProp">
+        </tabs>
+        <tabs id="refPropNone"
+             ref="">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <tabs id="disabledPropTrue"
+             disabled="true">
+        </tabs>
+        <tabs id="disabledPropFalse"
+             disabled="false">
+        </tabs>
+        <tabs id="disabledPropNone"
+             disabled="">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <tabs id="focusablePropTrue"
+             focusable="true">
+        </tabs>
+        <tabs id="focusablePropFalse"
+             focusable="false">
+        </tabs>
+        <tabs id="focusablePropNone"
+             focusable="">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <tabs id="dataProp"
+             data-tabs="通用属性 -- data-tabs">
+        </tabs>
+        <tabs id="dataPropNone"
+             data-tabs="">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <tabs id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </tabs>
+        <tabs id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </tabs>
+        <tabs id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </tabs>
+        <tabs id="clickEffectPropNone"
+             click-effect="">
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <tabs id="dirPropRtl"
+             dir="rtl">
+        </tabs>
+        <tabs id="dirPropAuto"
+             dir="auto">
+        </tabs>
+        <tabs id="dirPropLtr"
+             dir="ltr">
+        </tabs>
+        <tabs id="dirPropNone"
+             dir="">
+        </tabs>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <tabs id="forPropNull"
+             for="">
+        </tabs>
+        <tabs id="forPropOne"
+             for="{{listOne}}">
+        </tabs>
+        <tabs id="forPropThree"
+             for="{{listThree}}">
+        </tabs>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <tabs id="ifPropTrue"
+             if="true">
+        </tabs>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <tabs id="showPropTrue"
+             show="true">
+        </tabs>
+        <tabs id="showPropFalse"
+             show="false">
+        </tabs>
+        <tabs id="showPropNone"
+             show="">
+        </tabs>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="specific-container">
+        <text class="title">
+            tabs特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- index
+        </text>
+        <tabs id="indexNumber"
+              index="0">
+        </tabs>
+
+        <text class="sub-title">
+            特有属性 -- vertical
+        </text>
+        <tabs id="verticalTrue"
+              vertical="true">
+        </tabs>
+        <tabs id="verticalFalse"
+              vertical="false">
+        </tabs>
+        <tabs id="verticalNone"
+              vertical="">
+        </tabs>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <tabs class="propNewAdd"
+               tid="id">
+        </tabs>
+        <tabs class="propNewAdd"
+               tid="">
+        </tabs>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <tabs class="propNewAdd"
+              if="false">
+        </tabs>
+        <tabs class="propNewAdd"
+               elif="true">
+        </tabs>
+        <tabs class="propNewAdd"
+               elif="false">
+        </tabs>
+
+    </div>
+</div>

@@ -1,0 +1,38 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+  dsoftbus_standard_feature_disc_ble = false
+  dsoftbus_standard_feature_disc_coap = true
+
+  dsoftbus_standard_feature_conn_tcp = true
+  dsoftbus_standard_feature_conn_br = false
+  dsoftbus_standard_feature_conn_ble = false
+  dsoftbus_standard_feature_conn_p2p = false
+
+  dsoftbus_standard_feature_trans_udp = false
+  dsoftbus_standard_feature_trans_udp_stream = false
+  dsoftbus_standard_feature_trans_udp_file = false
+
+  dsoftbus_standard_feature_ip_auth = true
+  dsoftbus_standard_feature_auth_account = false
+
+  dsoftbus_standard_feature_lnn_net = true
+  dsoftbus_standard_feature_lnn_time_sync = false
+  dsoftbus_standard_feature_lnn_heartbeat = false
+  dsoftbus_standard_feature_lnn_meta_node = false
+  dsoftbus_standard_feature_qos = false
+  dsoftbus_standard_feature_lnn_wifiservice_dependence = false
+
+  dsoftbus_standard_feature_build_shared_sdk = false
+}

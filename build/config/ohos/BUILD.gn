@@ -1,0 +1,119 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build/config/compiler/compiler.gni")
+import("//build/config/ohos/config.gni")
+
+import("//build/config/c++/c++.gni")
+import("//build/config/sanitizers/sanitizers.gni")
+
+assert(is_ohos)
+
+# This is included by reference in the //build/config/compiler config that
+# is applied to all targets. It is here to separate out the logic that is
+# ohos-only.
+config("compiler") {
+  cflags = [
+    "-ffunction-sections",
+    "-fno-short-enums",
+  ]
+  defines = [
+    # The NDK has these things, but doesn't define the constants to say that it
+    # does. Define them here instead.
+    "HAVE_SYS_UIO_H",
+  ]
+
+  defines += [
+    "__MUSL__",
+    "_LIBCPP_HAS_MUSL_LIBC",
+    "__BUILD_LINUX_WITH_CLANG",
+  ]
+
+  ldflags = [
+    "-Wl,--no-undefined",
+    "-Wl,--exclude-libs=libunwind_llvm.a",
+    "-Wl,--exclude-libs=libc++_static.a",
+
+    # Don't allow visible symbols from libraries that contain
+    # assembly code with symbols that aren't hidden properly.
+    # http://crbug.com/448386
+    "-Wl,--exclude-libs=libvpx_assembly_arm.a",
+  ]
+
+  cflags += [ "--target=$abi_target" ]
+  include_dirs = [
+    "${musl_sysroot}/usr/include/${abi_target}",
+    "${clang_base_path}/include/c++/v1",
+  ]
+
+  ldflags += [ "--target=$abi_target" ]
+
+  # Assign any flags set for the C compiler to asmflags so that they are sent
+  # to the assembler.
+  asmflags = cflags
+}
+
+# This is included by reference in the //build/config/compiler:runtime_library
+# config that is applied to all targets. It is here to separate out the logic
+# that is ohos-only. Please see that target for advice on what should go in
+# :runtime_library vs. :compiler.
+config("runtime_library") {
+  cflags_cc = []
+
+  defines = [
+    "__GNU_SOURCE=1",  # Necessary for clone().
+    "CHROMIUM_CXX_TWEAK_INLINES",  # Saves binary size.
+  ]
+
+  defines += [
+    "__MUSL__",
+    "_LIBCPP_HAS_MUSL_LIBC",
+    "__BUILD_LINUX_WITH_CLANG",
+  ]
+  ldflags = [ "-nostdlib" ]
+
+  libs = []
+
+  # arm builds of libc++ starting in NDK r12 depend on unwind.
+  if (current_cpu == "arm") {
+    libs += [ "unwind" ]
+  }
+
+  ldflags += [
+    "-L" +
+        rebase_path("${clang_base_path}/lib/${abi_target}/c++", root_build_dir),
+    "-L" + rebase_path("${musl_sysroot}/usr/lib/${abi_target}", root_build_dir),
+    "-L" + rebase_path("${clang_base_path}/lib/clang/10.0.1/lib/${abi_target}",
+                       root_build_dir),
+  ]
+
+  libs += [
+    rebase_path(libclang_rt_file),
+    "c",
+    "c++",
+    "c++abi",
+  ]
+
+  if (current_cpu == "arm" && arm_version == 6) {
+    libs += [ "atomic" ]
+  }
+
+  ldflags += [ "-Wl,--warn-shared-textrel" ]
+}
+
+config("executable_config") {
+  cflags = [ "-fPIE" ]
+  asmflags = [ "-fPIE" ]
+  ldflags = [ "-pie" ]
+}
+
+# Used for instrumented build to generate the orderfile.
+config("default_orderfile_instrumentation") {
+  if (use_order_profiling) {
+    cflags = [ "-finstrument-function-entry-bare" ]
+    if (use_thin_lto) {
+      ldflags = [ "-Wl,-u,__cyg_profile_func_enter_bare" ]
+    }
+  }
+}

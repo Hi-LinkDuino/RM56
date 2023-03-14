@@ -1,0 +1,106 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Description: Define the global variables for all components
+declare_args() {
+  # OHOS version
+  name = "OpenHarmony"
+  major = "2"
+  minor = "3"
+  revision = "beta"
+  ohos_version = "$name $major.$minor $revision"
+  ohos_build_time = ""
+  ohos_build_datetime = ""
+
+  product = ""
+  device_path = ""
+  product_path = ""
+
+  device_company = ""
+  ohos_product_adapter_dir = ""
+
+  # "debug" or "release"
+  ohos_build_type = "debug"
+  ohos_full_compile = false
+  ohos_build_compiler = ""
+  ohos_build_compiler_specified = ""
+  ohos_build_target = ""
+  ohos_build_compiler_dir = ""
+  ohos_kernel_type = ""
+  ohos_kernel_is_prebuilt = false
+  use_board_toolchain = true
+  bes_specific_chip = ""
+
+  # hb set it to true if ccache installed.
+  ohos_build_enable_ccache = false
+
+  # Current toolchain cc command. E.g. "/data/user1/riscv32/bin/riscv32-unknown-elf-gcc".
+  ohos_current_cc_command = ""
+  ohos_current_cxx_command = ""
+  ohos_current_ar_command = ""
+  ohos_current_ld_command = ""
+  ohos_current_strip_command = ""
+
+  # Current sysroot path. E.g. "//prebuilts/lite/sysroot".
+  ohos_current_sysroot = "$root_out_dir/sysroot"
+}
+
+if (product_path != "") {
+  product_config = read_file("${product_path}/config.json", "json")
+
+  # Board selected by product.
+  board_name = product_config.board
+  device_company = product_config.device_company
+
+  # Supported kernel: "liteos_a", "liteos_m", "linux"
+  ohos_kernel_type = product_config.kernel_type
+  if (defined(product_config.kernel_is_prebuilt)) {
+    ohos_kernel_is_prebuilt = product_config.kernel_is_prebuilt
+  }
+
+  # To be deleted, and will use board config.
+  if (defined(product_config.vendor_adapter_dir)) {
+    ohos_vendor_adapter_dir = product_config.vendor_adapter_dir
+    ohos_board_adapter_dir = ohos_vendor_adapter_dir
+  }
+  ohos_product_adapter_dir = product_config.product_adapter_dir
+  ohos_third_party_dir = product_config.third_party_dir
+  bes_specific_chip = product_config.bes_specific_chip
+}
+
+ohos_build_user = "jenkins"
+ohos_build_host = host_os
+ohos_build_roothash = ""
+ohos_root_path = rebase_path("//")
+ohos_lite = true
+
+# Testing switches
+LOSCFG_TEST_JS_BUILD = false
+LOSCFG_TEST_MLF_BUILD = false
+LOSCFG_TEST_C_BUILD = false
+LOSCFG_TEST_APPS = false
+
+declare_args() {
+  enable_ohos_hiview = true
+  enable_ohos_hiview_event = true
+  enable_ohos_hiview_platform = false
+}
+
+declare_args() {
+  enable_tee_ree = false
+  enable_ohos_security_dmverity = false
+}
+
+declare_args() {
+  ohos_build_userspace_only = false
+}

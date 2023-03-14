@@ -1,0 +1,194 @@
+{
+  "components": [
+    {
+      "component": "ipc_lite",
+      "description": "Lite interprosses communication.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/ipc_lite"
+      ],
+      "targets": [
+        "//foundation/communication/ipc_lite:liteipc_adapter"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ "libliteipc_adapter.so" ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "dsoftbus",
+      "description": "dsoftbus open sources software",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/dsoftbus"
+      ],
+      "targets": [
+        "//foundation/communication/dsoftbus:dsoftbus"
+      ],
+      "rom": "1.92M",
+      "ram": "",
+      "output": [
+        "libsoftbus_client_frame.z.so",
+        "libsoftbus_server.z.so"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux",
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "mbedtls",
+          "bounds_checking_function",
+          "cjson",
+          "wpa_supplicant"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "hichainsdk",
+          "syspara_lite",
+          "permission"
+        ]
+      }
+    },
+    {
+      "component": "wpa_supplicant",
+      "description": "WPA supplicant open sources software.",
+      "optional": "true",
+      "dirs": [
+        "third_party/wpa_supplicant"
+      ],
+      "targets": [
+        "//third_party/wpa_supplicant/wpa_supplicant-2.9:wpa_supplicant"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ "wpa_supplicant.so" ],
+      "adapted_kernel": [ "liteos_a", "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {},
+        "components": ["wlan_device_driver"]
+      }
+    },
+    {
+      "component": "wifi_lite",
+      "description": "Wifi service based on liteos-m and linux.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/wifi_lite"
+      ],
+      "targets": [
+        "//foundation/communication/wifi_lite:wifi"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m", "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "wpa_supplicant",
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "samgr_lite",
+          "device_driver_framework",
+          "wlan_device_driver"
+        ]
+      }
+    },
+    {
+      "component": "wifi_aware",
+      "description": "WiFi Aware",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/wifi_aware"
+      ],
+      "targets": [
+        "//foundation/communication/wifi_aware:wifiaware"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+        ],
+        "third_party": []
+      }
+    },
+		{
+      "component": "bluetooth",
+      "description": "bt service based on linux.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/bluetooth"
+      ],
+      "targets": [
+        "//foundation/communication/bluetooth:bluetooth"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m", "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+        ]
+      }
+    },
+    {
+      "component": "rpc",
+      "description": "Remote procedure call open sources software.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/ipc"
+      ],
+      "targets": [
+        "//foundation/communication/ipc/interfaces/innerkits/c:rpc"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m", "linux" ],
+      "features": [],
+      "deps": {
+        "adapted_kernel": [
+          "liteos_a",
+          "linux",
+          "liteos_m"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+        ]
+      }
+    }
+  ]
+}

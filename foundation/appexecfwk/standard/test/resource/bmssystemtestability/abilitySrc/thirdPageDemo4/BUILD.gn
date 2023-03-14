@@ -1,0 +1,43 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+import("../../../../../appexecfwk.gni")
+SUBDEMOSYSTEM_DIR = "${appexecfwk_path}/test/resource/bmssystemtestability/abilitySrc/thirdPageDemo4"
+SUBST_TOOLS_DIR = "${appexecfwk_path}/test/resource/common"
+config("third_page_demo4_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "${SUBDEMOSYSTEM_DIR}/include",
+    "${SUBST_TOOLS_DIR}/include",
+  ]
+  defines = [
+    "APP_LOG_TAG = \"thirdPageDemo4\"",
+    "LOG_DOMAIN = 0xD002200",
+  ]
+}
+ohos_shared_library("page_ability_native4") {
+  sources = [ "${SUBDEMOSYSTEM_DIR}/src/pageAbilityDemo.cpp" ]
+  configs = [ ":third_page_demo4_config" ]
+  deps = [
+    "${common_path}:libappexecfwk_common",
+    "${services_path}/bundlemgr:libbms",
+  ]
+  external_deps = [
+    "ability_base:want",
+    "ability_runtime:abilitykit_native",
+    "ability_runtime:app_manager",
+    "common_event_service:cesfwk_innerkits",
+    "utils_base:utils",
+  ]
+  subsystem_name = "bmssystemtestability"
+}

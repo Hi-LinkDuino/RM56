@@ -1,0 +1,76 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("../../../appexecfwk.gni")
+
+config("appexecfwk_base_sdk_config") {
+  include_dirs = [
+    "include",
+    "include/free_install",
+    "//third_party/json/include",
+  ]
+}
+
+ohos_shared_library("appexecfwk_base") {
+  sources = [
+    "src/ability_info.cpp",
+    "src/application_info.cpp",
+    "src/bundle_info.cpp",
+    "src/bundle_pack_info.cpp",
+    "src/bundle_user_info.cpp",
+    "src/common_event_info.cpp",
+    "src/compatible_ability_info.cpp",
+    "src/compatible_application_info.cpp",
+    "src/distributed_ability_info.cpp",
+    "src/distributed_bundle_info.cpp",
+    "src/distributed_module_info.cpp",
+    "src/extension_ability_info.cpp",
+    "src/extension_form_info.cpp",
+    "src/extension_form_profile.cpp",
+    "src/form_info.cpp",
+    "src/free_install/dispatch_info.cpp",
+    "src/free_install/install_result.cpp",
+    "src/free_install/target_ability_info.cpp",
+    "src/hap_module_info.cpp",
+    "src/install_param.cpp",
+    "src/module_info.cpp",
+    "src/module_usage_record.cpp",
+    "src/perf_profile.cpp",
+    "src/permission_define.cpp",
+    "src/remote_ability_info.cpp",
+    "src/shortcut_info.cpp",
+  ]
+
+  public_configs = [ ":appexecfwk_base_sdk_config" ]
+
+  defines = [
+    "APP_LOG_TAG = \"BundleMgrService\"",
+    "LOG_DOMAIN = 0xD001120",
+  ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = [ "${common_path}:libappexecfwk_common" ]
+
+  external_deps = [
+    "ability_base:want",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_single",
+    "utils_base:utils",
+  ]
+
+  subsystem_name = "appexecfwk"
+  part_name = "bundle_framework"
+}

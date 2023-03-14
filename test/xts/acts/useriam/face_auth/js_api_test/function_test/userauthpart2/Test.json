@@ -1,0 +1,38 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "900000",
+        "package": "com.example.myapplication101",
+        "shell-timeout": "600000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsUserauthTwoTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "remount",
+                "mkdir /data/test"
+            ]
+        },
+        {
+            "type": "PushKit",
+            "push": [
+                "ActsUserauthTwoTest.hap->/data/test/ActsUserauthTwoTest.hap"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "chmod 644 /data/test/*.hap",
+		"chmod 777 -R data"
+            ]
+        }
+    ]
+}

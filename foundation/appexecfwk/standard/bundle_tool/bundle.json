@@ -1,0 +1,45 @@
+{
+    "name": "@ohos/bundle_tool",
+    "description": "包管理命令行工具：提供命令行中执行hap包的安装、更新、卸载及信息查询的能力",
+    "version": "3.1",
+    "license": "Apache 2.0",
+    "segment": {
+        "destPath": "foundation/bundlemanager/bundle_framework/bundle_tool"
+    },
+    "component": {
+        "name": "bundle_tool",
+        "subsystem": "appexecfwk",
+        "syscap": [
+            "SystemCapability.BundleManager.BundleTool"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "100KB",
+        "ram": "100KB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "bundle_framework",
+                "hiviewdfx_hilog_native",
+                "ipc",
+                "resource_management",
+                "samgr_standard",
+                "utils_base"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/bundlemanager/bundle_framework/bundle_tool:bm"
+            ],
+            "inner_kits": [],
+            "test": [
+                "//foundation/bundlemanager/bundle_framework/bundle_tool/test:moduletest",
+                "//foundation/bundlemanager/bundle_framework/bundle_tool/test:systemtest",
+                "//foundation/bundlemanager/bundle_framework/bundle_tool/test:unittest"
+            ]
+        }
+    }
+}

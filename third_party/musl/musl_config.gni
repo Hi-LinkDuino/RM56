@@ -1,0 +1,50 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+import("//build/config/sanitizers/sanitizers.gni")
+
+declare_args() {
+  if (current_cpu == "arm") {
+    musl_arch = "arm"
+  } else if (current_cpu == "arm64") {
+    musl_arch = "aarch64"
+  }
+  # musl_root = "$root_out_dir/obj/third_party/musl"
+  # musl_sub_arch = ""
+  # musl_syslib_dir = "/system/bin"
+  # musl_linker_extension = "so.1"
+}
+
+declare_args() {
+  if ((defined(target_os) && target_os == "ohos") ||
+      (defined(ohos_kernel_type) && ohos_kernel_type == "linux")) {
+    musl_target_os = "linux"
+    musl_target_triple = "${musl_arch}-linux-ohos"
+  } else if (defined(ohos_kernel_type) && ohos_kernel_type == "liteos_a") {
+    musl_target_os = "liteos_a"
+    musl_target_triple = "arm-liteos-ohos"
+  }
+}
+
+declare_args() {
+  runtime_lib_path =
+      "//prebuilts/clang/ohos/linux-x86_64/llvm/lib/clang/10.0.1/lib"
+  user_custom_libc = true
+  musl_ported_dir = "intermidiates/${musl_target_os}/musl_src_ported"
+  musl_inc_out_dir = "usr/include/${musl_target_triple}"
+  uapi_dir = "//kernel/linux/patches/linux-5.10/prebuilts/usr/include"
+  musl_dir = "//third_party/musl"
+  musl_porting_dir = "//third_party/musl/porting/linux/user"
+
+  # if (is_asan) {
+  #   musl_linker_asan_name =
+  #       musl_syslib_dir + "/ld-musl-${musl_arch}${musl_sub_arch}-asan"
+  #   musl_ldso_path =
+  #       musl_syslib_dir + "/ld-musl-${musl_arch}${musl_sub_arch}-asan." +
+  #       musl_linker_extension
+  # } else {
+  #   musl_ldso_path =
+  #       musl_syslib_dir + "/ld-musl-${musl_arch}${musl_sub_arch}." +
+  #       musl_linker_extension
+  # }
+}

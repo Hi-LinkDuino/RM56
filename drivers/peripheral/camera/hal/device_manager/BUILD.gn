@@ -1,0 +1,14 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/camera/hal/camera.gni")
+
+if (defined(ohos_lite)) {
+  group("camera_device_manager") {
+    public_deps = []
+  }
+} else {
+  group("camera_device_manager") {
+    public_deps = []
+    public_deps += [ "${camera_device_manager_deps}" ]
+  }
+}

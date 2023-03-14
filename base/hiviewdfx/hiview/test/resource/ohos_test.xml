@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration ver="2.0">
+    <target name="PlatformConfigTest">
+        <preparer>
+            <option name="push" value="base/plugin_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/plugin_config1 -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/plugin_config_2 -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/plugin_config_incomplete -> /data/test/test_data/" src="res"/>
+        </preparer>
+    </target>
+    <target name="PluginPlatformWithLocalPluginBaseTest">
+        <preparer>
+            <option name="push" value="base/hiview_platform_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/hiview_platform_config1 -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/plugin_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/plugin_config_incomplete -> /data/test/test_data/" src="res"/>
+            <option name="push" value="hiviewdfx/hiview/libdynamicloadpluginexample.z.so -> /system/lib64/" src="out"/>
+            <option name="push" value="hiviewdfx/hiview/libdynamicloadpluginexample.z.so -> /system/lib/" src="out"/>
+        </preparer>
+        <cleaner>
+            <option name="shell" value="rm -rf /system/lib64/libdynamicloadpluginexample.z.so"/>
+            <option name="shell" value="rm -rf /system/lib/libdynamicloadpluginexample.z.so"/>
+        </cleaner>
+    </target>
+    <target name="EventloggerConfigTest">
+        <preparer>
+            <option name="push" value="base/event_logger_config -> /data/test/test_data/" src="res"/>
+        </preparer>
+    </target>
+    <target name="HiviewPlatformConfigTest">
+        <preparer>
+            <option name="push" value="base/hiview_platform_config -> /data/test/test_data/" src="res"/>
+        </preparer>
+    </target>
+    <target name="PluginBundleTest">
+        <preparer>
+            <option name="push" value="base/hiview_platform_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/bundletest_plugin_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/plugin_config_3 -> /data/test/test_data/plugin_config" src="res"/>
+            <option name="push" value="hiviewdfx/hiview/libbundletest.z.so -> /system/lib64/" src="out"/>
+            <option name="push" value="hiviewdfx/hiview/libbundletest.z.so -> /system/lib/" src="out"/>
+        </preparer>
+        <cleaner>
+            <option name="shell" value="rm -rf /system/lib64/libbundletest.z.so"/>
+            <option name="shell" value="rm -rf /system/lib/libbundletest.z.so"/>
+        </cleaner>
+    </target>
+    <target name="HolisticPlatformTest">
+        <preparer>
+            <option name="push" value="base/hiview_platform_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/bundleplugintest_plugin_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="base/holistic_platform/plugin_config -> /data/test/test_data/" src="res"/>
+            <option name="push" value="hiviewdfx/hiview/libbundleplugintest.z.so -> /system/lib64/" src="out"/>
+            <option name="push" value="hiviewdfx/hiview/libbundleplugintest.z.so -> /system/lib/" src="out"/>
+            <option name="push" value="hiviewdfx/hiview/libdynamicloadpluginexample.z.so -> /system/lib64/" src="out"/>
+            <option name="push" value="hiviewdfx/hiview/libdynamicloadpluginexample.z.so -> /system/lib/" src="out"/>
+        </preparer>
+        <cleaner>
+            <option name="shell" value="rm -rf /system/lib64/libbundleplugintest.z.so"/>
+            <option name="shell" value="rm -rf /system/lib/libbundleplugintest.z.so"/>
+            <option name="shell" value="rm -rf /system/lib64/libdynamicloadpluginexample.z.so"/>
+            <option name="shell" value="rm -rf /system/lib/libdynamicloadpluginexample.z.so"/>
+        </cleaner>
+    </target>
+</configuration>

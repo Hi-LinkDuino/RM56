@@ -1,0 +1,140 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("../config.gni")
+
+if (!enable_ohos_distributedschedule_samgr_lite_rpc_mini) {
+  config("endpoint_public") {
+    include_dirs = [
+      "../samgr/adapter",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+      "//utils/native/lite/include",
+      "//foundation/communication/ipc_lite/interfaces/kits",
+      "//third_party/bounds_checking_function/include",
+      "//base/security/permission/services/permission_lite/ipc_auth/include",
+    ]
+  }
+
+  config("endpoint_internal") {
+    include_dirs = [ "../samgr/registry" ]
+  }
+
+  source_set("endpoint_source") {
+    sources = [
+      "source/client_factory.c",
+      "source/default_client.c",
+      "source/endpoint.c",
+      "source/token_bucket.c",
+    ]
+
+    cflags = [
+      "-fPIC",
+      "-Wall",
+    ]
+
+    if (ohos_kernel_type == "linux") {
+      defines = [
+        "_GNU_SOURCE",
+        "LITE_LINUX_BINDER_IPC",
+      ]
+    }
+
+    configs += [ ":endpoint_internal" ]
+
+    public_configs = [ ":endpoint_public" ]
+
+    public_deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//foundation/communication/ipc_lite:liteipc_adapter",
+      "//third_party/bounds_checking_function:libsec_shared",
+    ]
+  }
+
+  source_set("store_source") {
+    sources = [ "source/sa_store.c" ]
+
+    cflags = [
+      "-fPIC",
+      "-Wall",
+    ]
+
+    configs += [ ":endpoint_internal" ]
+
+    public_configs = [ ":endpoint_public" ]
+
+    public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  }
+} else {
+  defines = [ "MINI_SAMGR_LITE_RPC" ]
+  config("endpoint_public") {
+    include_dirs = [
+      "../samgr/adapter",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+      "//utils/native/lite/include",
+      "//third_party/bounds_checking_function/include",
+      "//base/security/permission/services/permission_lite/ipc_auth/include",
+    ]
+  }
+
+  config("endpoint_internal") {
+    include_dirs = [
+      "./source",
+      "../samgr/registry",
+      "//foundation/distributedschedule/samgr_lite/samgr_server/source",
+      "//base/security/permission/interfaces/innerkits/permission_lite",
+      "//base/security/permission/services/permission_lite/pms_base/include",
+    ]
+  }
+
+  source_set("endpoint_source") {
+    sources = [
+      "source/client_factory.c",
+      "source/default_client_rpc.c",
+      "source/endpoint_rpc.c",
+      "source/token_bucket.c",
+    ]
+
+    cflags = [ "-Wall" ]
+
+    if (ohos_kernel_type == "linux") {
+      defines = [
+        "_GNU_SOURCE",
+        "LITE_LINUX_BINDER_IPC",
+      ]
+    }
+
+    configs += [ ":endpoint_internal" ]
+
+    public_configs = [ ":endpoint_public" ]
+
+    public_deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static",
+      "//foundation/communication/ipc/interfaces/innerkits/c/dbinder:dbinder",
+    ]
+  }
+
+  source_set("store_source") {
+    sources = [ "source/sa_store.c" ]
+
+    cflags = [ "-Wall" ]
+
+    configs += [ ":endpoint_internal" ]
+
+    public_configs = [ ":endpoint_public" ]
+    public_deps = [
+      "//foundation/communication/ipc/interfaces/innerkits/c/dbinder:dbinder",
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/camera/hal/camera.gni")
+
+group("camera_pipeline_core") {
+  deps = []
+  deps += [ "${camera_pipeline_core_deps}" ]
+}

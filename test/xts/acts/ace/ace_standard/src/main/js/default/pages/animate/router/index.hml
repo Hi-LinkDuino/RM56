@@ -1,0 +1,110 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <text class="container-title">
+        animate动画效果
+    </text>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果1
+            </text>
+            <svg width="150" height="150" class="svg-style">
+                <circle cx="60" cy="60" r="50" stroke-width="4" fill="white" stroke="blue">
+                    <animate attributeName="r" from="0" to="30" dur="2000" repeatCount="1"></animate>
+                </circle>
+                <circle cx="110" cy="110" r="50" stroke-width="4" fill="white" stroke="blue">
+                    <animate attributeName="r" from="0" to="30" dur="2000" repeatCount="1" fill="freeze"></animate>
+                </circle>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果2
+            </text>
+            <svg width="150" height="150" class="svg-style">
+                <rect x="25" y="25" width="100" height="100" fill="red" rx="0" ry="20">
+                    <animate attributeName="rx" from="0" to="30" keyTimes="0;0.25;0.75;1" keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"
+                             dur="1000" repeatCount="indefinite">
+                    </animate>
+                </rect>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果3
+            </text>
+            <svg width="150" height="150" class="svg-style">
+                <text x="25" y="25" font-size="30px" fill="red">
+                    animate
+                    <animate attributeName="y" values="25;90;150;80" keyTimes="0;0.25;0.75;1" keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"
+                             dur="5000" repeatCount="indefinite">
+                    </animate>
+                    <animate attributeName="x" values="25;100;30;0" keyTimes="0;0.25;0.75;1" keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"
+                             dur="5000" repeatCount="indefinite">
+                    </animate>
+                    <animate attributeName="fill" values="red;blue;#00ff00;#888888" keyTimes="0;0.25;0.75;1" keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"
+                             dur="5000" repeatCount="indefinite">
+                    </animate>
+                </text>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果4
+            </text>
+            <svg width="150" height="150" class="svg-style">
+                <path d="M0,0 Q40,40 60,80 Q90,60 100,120 Q100,0 150,150" stroke="red"
+                      fill="none"></path>
+                <text>
+                    <textpath fill="blue" path="M0,0 Q40,40 60,80 Q90,60 100,120 Q100,0 150,150"
+                              font-size="16px" startOffset="0%">
+                        animate
+                        <animate attributeName="startOffset" values="0%;40%;60%;80%" keyTimes="0.5;0.25;0.75;1" keySplines="0.5 0 0.5 1; 0.5 0 0.5 1; 0.5 0 0.5 1"
+                                 dur="5000" repeatCount="indefinite">
+                        </animate>
+                    </textpath>
+                </text>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果5
+            </text>
+            <svg width="150" height="150" class="svg-style">
+                <rect x="25" y="25" width="100" height="100" fill="red" rx="0" ry="20">
+                    <animate attributeName="fill" from="red" to="#ff00ff" dur="3000" repeatCount="indefinite" calcMode="discrete">
+                    </animate>
+                </rect>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果6
+            </text>
+            <svg width="150" height="150" class="svg-style">
+                <rect x="25" y="25" width="100" height="100" fill="red" rx="0" ry="20">
+                    <animate attributeName="fill" from="red" to="#ff00ff" dur="3000" repeatCount="indefinite">
+                    </animate>
+                </rect>
+            </svg>
+        </div>
+    </div>
+</div>

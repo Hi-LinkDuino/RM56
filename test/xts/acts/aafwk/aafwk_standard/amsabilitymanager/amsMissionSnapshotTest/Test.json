@@ -1,0 +1,20 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "300000",
+        "package": "com.amsst.amsMissionSnapshotTest",
+        "shell-timeout": "600000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAmsMissionSnapshotTest.hap",
+		        "ActsAmsMissionSnapshotTestSingleton.hap",
+                "ActsAmsMissionSnapshotTestSingletonS.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

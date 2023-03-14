@@ -1,0 +1,58 @@
+{
+    "name": "@ohos/startup_syspara_lite",
+    "description": "ohos parameter manager",
+    "homePage": "https://gitee.com/openharmony",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/startup_syspara_lite",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/startup/syspara_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "startup_l2",
+        "subsystem": "startup",
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "init",
+                "utils_base"
+            ],
+            "third_party": [
+                "bounds_checking_function",
+                "mbedtls"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/startup/syspara_lite:syspara_group"
+            ],
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include/",
+                        "header_files": [
+                            "parameter.h"
+                        ]
+                    },
+                    "name": "//base/startup/syspara_lite/interfaces/innerkits/native/syspara:syspara"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include/",
+                        "header_files": [
+                            "parameter.h"
+                        ]
+                    },
+                    "name": "//base/startup/syspara_lite/interfaces/innerkits/native/syspara:syspara_watchagent"
+                }
+            ]
+        }
+    }
+}

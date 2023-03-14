@@ -1,0 +1,463 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/ohos/copy_ex.gni")
+import("//build/config/python.gni")
+import("//build/ohos/build_var.gni")
+import("//build/ohos/notice/notice.gni")
+import("//build/ohos_var.gni")
+
+declare_args() {
+  sdk_native = "sdk-native"
+  version_script_suffix = ".map.txt"
+  ndk_signature_save_dir = "//interface/sdk-native"
+  ndk_zip_prefix = "native"
+}
+
+ndk_os_irrelevant_out_dir = "$root_out_dir/${sdk_native}/os-irrelevant"
+ndk_os_specific_out_dir = "$root_out_dir/${sdk_native}/os-specific"
+ndk_signature_out_dir = "$root_out_dir/${sdk_native}/signature"
+
+ndk_headers_out_dir = "$ndk_os_irrelevant_out_dir/sysroot/usr/include"
+ndk_libraries_out_dir = "$ndk_os_irrelevant_out_dir/sysroot/usr/lib"
+ndk_docs_out_dir = "$ndk_os_irrelevant_out_dir/docs"
+
+windows_system = "windows"
+linux_system = "linux"
+darwin_system = "darwin"
+
+ndk_windows_specific_out_dir = "${ndk_os_specific_out_dir}/${windows_system}"
+ndk_darwin_specific_out_dir = "${ndk_os_specific_out_dir}/${darwin_system}"
+ndk_linux_specific_out_dir = "${ndk_os_specific_out_dir}/${linux_system}"
+
+ndk_windows_toolchains_out_dir = "${ndk_windows_specific_out_dir}/llvm"
+ndk_windows_tools_out_dir = "${ndk_windows_specific_out_dir}/build-tools"
+
+ndk_darwin_toolchains_out_dir = "${ndk_darwin_specific_out_dir}/llvm"
+ndk_darwin_tools_out_dir = "${ndk_darwin_specific_out_dir}/build-tools"
+
+ndk_linux_toolchains_out_dir = "${ndk_linux_specific_out_dir}/llvm"
+ndk_linux_tools_out_dir = "${ndk_linux_specific_out_dir}/build-tools"
+
+# Generate NDK library from NDK description file.
+#
+# Variables:
+#  ndk_description_file:
+#  min_compact_version: string specifies the minimal compactible version of NDK.
+#    set to major_version in default.
+#
+template("ohos_ndk_library") {
+  forward_variables_from(invoker, [ "testonly" ])
+  assert(defined(invoker.ndk_description_file),
+         "ndk description file is necessary ")
+
+  _ndk_description_file = invoker.ndk_description_file
+
+  _system_capability = ""
+  if (defined(invoker.system_capability)) {
+    _system_capability = invoker.system_capability
+  }
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+
+  _ndk_config_output = "$target_gen_dir/$target_name.build_config"
+  _sdk_version = exec_script("//build/ohos/version.py",
+                             [
+                               "--version",
+                               sdk_version,
+                             ],
+                             "list lines")
+  _min_compact_version = _sdk_version[0]
+  if (defined(invoker.min_compact_version)) {
+    _min_compact_version = invoker.min_compact_version
+  }
+  assert(_min_compact_version != "0")  # mark as used
+
+  _output_name = target_name
+  if (defined(invoker.output_name)) {
+    _output_name = invoker.output_name
+  }
+
+  _output_extension = "z.so"
+  if (defined(invoker.output_extension)) {
+    _output_extension = invoker.output_extension
+  }
+
+  _ndk_stub_target = "${target_name}__ndk_stub"
+  _generated_ndk_stub_file = target_gen_dir + "/${target_name}.ndk/" +
+                             get_path_info(_ndk_description_file, "name") + ".c"
+  _current_label = get_label_info(":${target_name}", "label_with_toolchain")
+  action_with_pydeps(_ndk_stub_target) {
+    deps = _deps
+    script = "//build/ohos/ndk/generate_ndk_stub_file.py"
+    depfile = "${target_gen_dir}/${target_name}.d"
+    args = [
+      "--output",
+      rebase_path(_generated_ndk_stub_file, root_build_dir),
+      "--ndk-description-file",
+      rebase_path(_ndk_description_file, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+    inputs = [ _ndk_description_file ]
+    outputs = [ _generated_ndk_stub_file ]
+
+    _ndk_config_info = {
+      label = _current_label
+      lib_name = _output_name
+      system_capability = _system_capability
+    }
+    metadata = {
+      ndk_config = [ _ndk_config_info ]
+    }
+  }
+
+  _ndk_config_target = "${target_name}__ndk_config"
+  generated_file(_ndk_config_target) {
+    deps = [ ":$_ndk_stub_target" ]
+    output_conversion = "json"
+    outputs = [ _ndk_config_output ]
+
+    data_keys = [ "ndk_config" ]
+  }
+
+  if (build_ohos_ndk) {
+    ndk_toolchains = [
+      "//build/toolchain/ohos:ohos_clang_arm",
+      "//build/toolchain/ohos:ohos_clang_arm64",
+    ]
+  } else {
+    # Don't enable cross compile if build_ohos_ndk is false.
+    # Cross compiling in this case may cause build failure in some scenario,
+    # such as build for ASAN.
+    ndk_toolchains = [ "//build/toolchain/ohos:ohos_clang_${target_cpu}" ]
+  }
+
+  _accumulated_deps = []
+
+  foreach(_toolchain, ndk_toolchains) {
+    if (_toolchain == "//build/toolchain/ohos:ohos_clang_arm") {
+      _ndk_shlib_directory = "arm-linux-ohos"
+    } else if (_toolchain == "//build/toolchain/ohos:ohos_clang_arm64") {
+      _ndk_shlib_directory = "aarch64-linux-ohos"
+    } else if (_toolchain == "//build/toolchain/ohos:ohos_clang_x86_64") {
+      _ndk_shlib_directory = "x86_64-linux-ohos"
+    }
+
+    assert(defined(_ndk_shlib_directory))
+    _output_dir = "$ndk_libraries_out_dir/$_ndk_shlib_directory"
+    _output_ndk_shlib = "${_output_dir}/lib${_output_name}.${_output_extension}"
+
+    _toolchain_name = get_label_info(_toolchain, "name")
+
+    _ndk_shlib_target = "${target_name}_${_toolchain_name}__ndk_shlib"
+
+    shared_library(_ndk_shlib_target) {
+      forward_variables_from(invoker,
+                             [
+                               "cflags",
+                               "ldflags",
+                               "configs",
+                               "libs",
+                               "include_dirs",
+                             ])
+      deps = [ ":$_ndk_stub_target" ]
+      sources = [ _generated_ndk_stub_file ]
+      output_dir = target_out_dir + "/$_toolchain_name"
+      output_name = _output_name
+      output_extension = _output_extension
+    }
+
+    _ndk_shlib_copy_target = "${target_name}_${_toolchain_name}__copy"
+    copy(_ndk_shlib_copy_target) {
+      deps = [ ":$_ndk_shlib_target($_toolchain)" ]
+      sources = [ get_label_info(":$_ndk_shlib_target($_toolchain)",
+                                 "target_out_dir") +
+                  "/$_toolchain_name/lib$_output_name.$_output_extension" ]
+      outputs = [ _output_ndk_shlib ]
+    }
+    _accumulated_deps += [ ":$_ndk_shlib_copy_target" ]
+    _accumulated_deps += [ ":$_ndk_shlib_target" ]
+  }
+
+  _ndk_version_script_target = target_name
+  if (current_toolchain == default_toolchain) {
+    # Notice file for different toolchains are the same, it's enough to
+    # collect notice file for default toolchain.
+    _notice_target = "${target_name}__ndk_libraries_notice"
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+      module_source_dir =
+          get_label_info(":${_ndk_version_script_target}", "dir")
+      outputs = [ "$ndk_notice_dir/sysroot/usr/lib/lib$_output_name.$_output_extension.txt" ]
+    }
+    _accumulated_deps += [ ":$_notice_target" ]
+  }
+  if (defined(invoker.license_file)) {
+    not_needed(invoker, [ "license_file" ])
+  }
+  if (defined(invoker.license_as_sources)) {
+    not_needed(invoker, [ "license_as_sources" ])
+  }
+
+  _generated_version_script =
+      target_gen_dir + "/$target_name" + version_script_suffix
+  action_with_pydeps(_ndk_version_script_target) {
+    deps = _accumulated_deps
+    script = "//build/ohos/ndk/generate_version_script.py"
+    depfile = "${target_gen_dir}/${target_name}.d"
+    args = [
+      "--output",
+      rebase_path(_generated_version_script, root_build_dir),
+      "--ndk-description-file",
+      rebase_path(_ndk_description_file, root_build_dir),
+      "--shlib-name",
+      _output_name,
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+    outputs = [ _generated_version_script ]
+  }
+}
+
+# Specify an ndk copy target
+# NOTE: It's an internal template, not designed for everyone use.
+#
+# Input variables:
+#   dest_dir: Root directory where sources are copied to.
+#   sources: List of files and directories to copy to ${dest_dir}.
+#
+template("ohos_ndk_copy") {
+  assert(defined(invoker.sources) && defined(invoker.dest_dir),
+         "sources and dest_dir are necessary ")
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+  _dest = invoker.dest_dir
+
+  set_sources_assignment_filter([ "*os-irrelevant*" ])
+  sources = [ _dest ]
+  if (sources == []) {
+    _notice_rel_dir = ndk_os_irrelevant_out_dir
+  } else {
+    _notice_rel_dir = ndk_os_specific_out_dir
+  }
+  set_sources_assignment_filter([])
+  sources = []
+
+  _main_target_name = target_name
+  _notice_target = "${target_name}__notice"
+  collect_notice(_notice_target) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "license_as_sources",
+                             "license_file",
+                           ])
+    module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    outputs = []
+
+    foreach(s, invoker.sources) {
+      outputs += [ ndk_notice_dir + "/" + rebase_path(_dest, _notice_rel_dir) +
+                   "/" + get_path_info(s, "file") + ".txt" ]
+    }
+  }
+  _deps += [ ":$_notice_target" ]
+
+  copy_ex(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "visibility",
+                           ])
+    forward_variables_from(invoker, [ "outputs" ])
+    deps = _deps
+    sources = invoker.sources
+
+    if (!defined(outputs)) {
+      outputs = []
+      foreach(src, invoker.sources) {
+        _all_files = []
+        _all_files =
+            exec_script("//build/scripts/find.py",
+                        [
+                          rebase_path(src, root_build_dir),
+                          "--base-dir=" + rebase_path(src, root_build_dir),
+                          "--return-relpath",
+                          "--follow-symlinks",
+                        ],
+                        "list lines")
+
+        if (_all_files == [ "." ]) {
+          outputs += [ _dest + "/" + get_path_info(src, "file") ]
+        } else {
+          foreach(f, _all_files) {
+            outputs += [ _dest + "/" + get_path_info(src, "name") + "/$f" ]
+          }
+        }
+      }
+    }
+
+    dest = _dest
+    depfile = "$target_gen_dir/$target_name.d"
+    args = [
+      "--clear",
+      "--follow-outside-symlinks",
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--stamp",
+      rebase_path("$target_gen_dir/$target_name.stamp", root_build_dir),
+    ]
+    if (defined(invoker.args)) {
+      args += invoker.args
+    }
+  }
+}
+
+# Specify ndk header files
+#
+# Input variables:
+#   dest_dir: Root directory where sources are copied to.
+#   sources: List of files and directories to copy to ${dest_dir}.
+#
+template("ohos_ndk_headers") {
+  assert(defined(invoker.sources), "sources are necessary ")
+
+  if (defined(invoker.dest_dir)) {
+    _dest_dir = invoker.dest_dir
+  } else {
+    _dest_dir = "$ndk_headers_out_dir"
+  }
+
+  _ndk_header_signature_target = "${target_name}__ndk_signature_check"
+  _target_name = target_name
+  action_with_pydeps(_ndk_header_signature_target) {
+    if (defined(invoker.deps)) {
+      deps = invoker.deps
+    }
+
+    script = "//build/ohos/ndk/check_ndk_header_signature.py"
+    depfile = "${target_gen_dir}/${target_name}.d"
+
+    inputs = []
+    foreach(src, invoker.sources) {
+      _all_files = []
+      _all_files = exec_script("//build/scripts/find.py",
+                               [ rebase_path(src) ],
+                               "list lines")
+
+      inputs += _all_files
+    }
+
+    _output = "$target_gen_dir/$target_name.stamp"
+
+    args = [
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--generated-signature",
+      rebase_path("$ndk_signature_out_dir/$_target_name/signature.txt",
+                  root_build_dir),
+      "--saved-signature",
+      rebase_path("$ndk_signature_save_dir/$_target_name/signature.txt",
+                  root_build_dir),
+      "--output",
+      rebase_path(_output, root_build_dir),
+    ]
+    foreach(f, inputs) {
+      args += [
+        "--headers",
+        rebase_path(f, root_build_dir),
+        "--root-build-dir",
+        rebase_path("//", root_build_dir),
+      ]
+    }
+
+    if (check_ndk_signature) {
+      args += [ "--check-signature" ]
+    }
+
+    outputs = [ _output ]
+  }
+
+  ohos_ndk_copy(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "deps",
+                             "args",
+                             "dest_dir",
+                           ])
+    deps = [ ":$_ndk_header_signature_target" ]
+
+    if (defined(invoker.deps)) {
+      deps += invoker.deps
+    }
+    dest_dir = _dest_dir
+
+    args = [ "--ignore-stale" ]
+    if (defined(invoker.args)) {
+      args += invoker.args
+    }
+  }
+}
+
+# Specify ndk toolchains
+#
+# Input variables:
+#   dest_dir: Root directory where sources are copied to.
+#   sources: List of files and directories to copy to ${dest_dir}.
+#
+template("ohos_ndk_toolchains") {
+  ohos_ndk_copy(target_name) {
+    forward_variables_from(invoker, "*")
+  }
+}
+
+# Specify ndk prebuilt library
+#
+# Input variables:
+#   dest_dir: Root directory where sources are copied to.
+#   sources: List of files and directories to copy to ${dest_dir}.
+#
+template("ohos_ndk_prebuilt_library") {
+  if (defined(invoker.dest_dir)) {
+    _dest_dir = invoker.dest_dir
+  } else {
+    _dest_dir = "$ndk_libraries_out_dir"
+  }
+
+  ohos_ndk_copy(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "args",
+                             "dest_dir",
+                           ])
+    dest_dir = _dest_dir
+
+    args = [ "--ignore-stale" ]
+    if (defined(invoker.args)) {
+      args += invoker.args
+    }
+  }
+}

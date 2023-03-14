@@ -1,0 +1,53 @@
+# Copyright (c) 2021 Shenzhen Kaihong DID Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+ohos_unittest("codec_config_test") {
+  module_out_path = "hdf/codec"
+  include_dirs = [
+    "//drivers/peripheral/codec/interfaces/include",
+    "//drivers/peripheral/codec/hal/config/capability_config/include",
+    "//drivers/peripheral/codec/hal/config/common/include",
+  ]
+  sources = [
+    "//drivers/peripheral/codec/hal/config/capability_config/src/codec_config_reader.c",
+    "//drivers/peripheral/codec/hal/config/common/src/codec_utils.c",
+    "codec_config_test.cpp",
+  ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+}

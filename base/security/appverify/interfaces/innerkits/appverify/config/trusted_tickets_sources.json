@@ -1,0 +1,13 @@
+{
+    "version": "1.0.1",
+    "release-time":"2021-06-03 10:06:00",
+    "trust-app-source":[
+        {
+            "name":"huawei member center",
+            "ticket-signing-cert":"^C=CN, O=Huawei, OU=MemberCenter, CN=MemberShip ticket Release V([1-9])([0-9])*$",
+            "issuer-ca":"C=CN, O=Huawei, OU=Huawei CBG, CN=Huawei CBG Software Signing Service CA",
+            "max-certs-path":3,
+            "critialcal-cert-extension":["keyusage","huawei-signing-capability"]
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+{
+    "name": "@ohos/hiview",
+    "description": "Hiview is the module of OpenHarmony that provides toolkits for device maintenance across different platforms.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hiview"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hiview",
+        "subsystem": "hiviewdfx",
+        "syscap": [
+            "SystemCapability.HiviewDFX.Hiview",
+            "SystemCapability.HiviewDFX.Hiview.FaultLogger"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "hisysevent_config": [
+            "//base/hiviewdfx/hiview/hisysevent.yaml",
+            "//base/hiviewdfx/hiview/kernel_vendor.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "hilog_native",
+                "hisysevent_native",
+                "init",
+                "ipc",
+                "safwk",
+                "samgr_standard",
+                "startup_l2",
+                "utils_base"
+            ],
+            "third_party": [
+                "cJSON",
+                "ejdb",
+                "iowow",
+                "jsoncpp",
+                "libxml2",
+                "sqlite"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hiview:hiview_package",
+                "//base/hiviewdfx/hiview/plugins/faultlogger/interfaces/js/napi:faultlogger_napi"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/hiviewdfx/hiview/plugins/faultlogger:libfaultlogger",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/plugins/faultlogger/interfaces/cpp/innerkits/include",
+                        "header_files": [
+                            "faultlog_info.h",
+                            "faultlog_query_result.h",
+                            "faultlogger_client.h"
+                        ]
+                    }
+                }
+            ],
+            "test": [ "//base/hiviewdfx/hiview:hiview_test_package" ]
+        }
+    }
+}

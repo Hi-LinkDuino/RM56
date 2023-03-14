@@ -1,0 +1,57 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/appexecfwk/standard/appexecfwk.gni")
+
+################################################################################
+
+ohos_executable("dhcp_client_service") {
+  install_enable = true
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_api.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_client.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_function.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_ipv4.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_main.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_options.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/src/dhcp_socket.c",
+  ]
+
+  include_dirs = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client/include",
+    "//utils/native/base/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include",
+    "//third_party/openssl/include",
+  ]
+
+  deps = [
+    "${aafwk_path}/interfaces/innerkits/base:base",
+    "${aafwk_path}/interfaces/innerkits/want:want",
+    "//third_party/openssl:libcrypto_static",
+    "//utils/native/base:utils",
+  ]
+
+  cflags_cc = [ "-fno-rtti" ]
+
+  external_deps = [
+    "ces_standard:cesfwk_innerkits",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+  defines = []
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

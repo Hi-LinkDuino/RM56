@@ -1,0 +1,193 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            select通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <select id="idProp">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <select id="classProp"
+             class="classProp">
+        </select>
+        <select id="classPropNone"
+             class="">
+        </select>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <select id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <select id="refProp"
+             ref="refProp">
+        </select>
+        <select id="refPropNone"
+             ref="">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <select id="disabledPropTrue"
+             disabled="true">
+        </select>
+        <select id="disabledPropFalse"
+             disabled="false">
+        </select>
+        <select id="disabledPropNone"
+             disabled="">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <select id="focusablePropTrue"
+             focusable="true">
+        </select>
+        <select id="focusablePropFalse"
+             focusable="false">
+        </select>
+        <select id="focusablePropNone"
+             focusable="">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <select id="dataPropB"
+               data-input="通用属性 -- data">
+        </select>
+        <select id="dataPropBNone"
+               data-input="">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <select id="dataProp"
+             data-select="通用属性 -- data-*">
+        </select>
+        <select id="dataPropNone"
+             data-select="">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <select id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </select>
+        <select id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </select>
+        <select id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </select>
+        <select id="clickEffectPropNone"
+             click-effect="">
+        </select>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <select id="dirPropRtl"
+             dir="rtl">
+        </select>
+        <select id="dirPropAuto"
+             dir="auto">
+        </select>
+        <select id="dirPropLtr"
+             dir="ltr">
+        </select>
+        <select id="dirPropNone"
+             dir="">
+        </select>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <select id="forPropNull"
+             for="">
+        </select>
+        <select id="forPropOne"
+             for="{{listOne}}">
+        </select>
+        <select id="forPropThree"
+             for="{{listThree}}">
+        </select>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <select id="ifPropTrue"
+             if="true">
+        </select>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <select id="showPropTrue"
+             show="true">
+        </select>
+        <select id="showPropFalse"
+             show="false">
+        </select>
+        <select id="showPropNone"
+             show="">
+        </select>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            select特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <select for="{{array}}" tid="id" style="color: #679855; margin: 1px;"
+               id="showFor{{$item.id}}" value="{{$item.name }}">
+        </select>
+        <text class="sub-title">
+            特有属性 -- if elif
+        </text>
+        <select if="false" id="showIf">
+        </select>
+        <select elif="false" id="showElseIfTrue">
+        </select>
+        <select elif="true" id="showElseIfFalse">
+        </select>
+        <select else id="showElse">
+        </select>
+    </div>
+</div>

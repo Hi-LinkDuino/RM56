@@ -1,0 +1,75 @@
+{
+  "app": {
+    "bundleName": "ohos.acts.storage.statistics",
+    "vendor": "acts",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "ohos.acts.storage.statistics",
+    "name": ".MyApplication",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": true
+    },
+    "reqPermissions": [
+      {
+        "name" : "ohos.permission.GRANT_SENSITIVE_PERMISSIONS",
+        "reason" : "use ohos.permission.GRANT_SENSITIVE_PERMISSIONS"
+      },
+      {
+        "name" : "ohos.permission.REVOKE_SENSITIVE_PERMISSIONS",
+        "reason" : "use ohos.permission.REVOKE_SENSITIVE_PERMISSIONS"
+      },
+      {
+        "name" : "ohos.permission.READ_MEDIA",
+        "reason" : "use ohos.permission.READ_MEDIA"
+      }
+    ],
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "visible": true,
+        "name": "ohos.acts.storage.statistics.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        }
+      }
+    ]
+  }
+}

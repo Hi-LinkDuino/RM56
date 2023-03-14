@@ -1,0 +1,6 @@
+root {
+    module = "test";
+    foo {
+
+    }
+}

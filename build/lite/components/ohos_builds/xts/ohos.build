@@ -1,0 +1,35 @@
+{
+  "parts": {
+    "xts_acts": {
+      "module_list": [
+        "//test/xts/acts/build_lite:acts"
+      ]
+    },
+    "xts_hits": {
+      "module_list": [
+        "//test/xts/huawei_proprietary/hits/build_lite:hits"
+      ]
+    },
+    "xts_ists": {
+      "module_list": [
+        "//test/xts/huawei_proprietary/ists"
+      ]
+    },
+    "xts_ssts": {
+      "module_list": [
+        "//test/xts/huawei_proprietary/ssts/build_lite:ssts"
+      ]
+    },
+    "xts_tools": {
+      "module_list": [
+        "//test/xts/tools/lite:tools"
+      ]
+    },
+    "xts_xdevice": {
+      "module_list": [
+        "//test/xdevice:xdevice"
+      ]
+    }
+  },
+  "subsystem_name": "xts"
+}

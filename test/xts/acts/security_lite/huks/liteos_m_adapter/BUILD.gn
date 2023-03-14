@@ -1,0 +1,54 @@
+#
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import("//base/security/huks/build/config.gni")
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hctest_suite("ActsHuksHalFunctionTest") {
+  suite_name = "acts"
+  sources = [
+    "hks_aes_test.c",
+    "hks_agreement_test.c",
+    "hks_bn_exp_mod_test.c",
+    "hks_cipher_test.c",
+    "hks_curve25519_test.c",
+    "hks_delete_test.c",
+    "hks_derive_test.c",
+    "hks_exist_test.c",
+    "hks_generate_key_test.c",
+    "hks_generate_random_test.c",
+    "hks_hash_test.c",
+    "hks_mac_test.c",
+    "hks_modify_key_test.c",
+    "hks_others_test.c",
+    "hks_safe_cipher_key_test.c",
+    "hks_safe_compare_key_test.c",
+  ]
+  include_dirs = [
+    "//base/security/huks/interfaces/innerkits/huks_standard/main/include",
+    "//base/iot_hardware/peripheral/interfaces/kits",
+    "../common/include",
+  ]
+
+  deps = [ "//test/xts/acts/security_lite/huks/common:huks_test_common" ]
+
+  cflags = [
+    "-D_CUT_ED25519_",
+    "-D_CUT_LOG_",
+  ]
+  if (disable_authenticate == true) {
+    cflags += [ "-D_CUT_AUTHENTICATE_" ]
+  }
+}

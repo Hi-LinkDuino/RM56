@@ -1,0 +1,128 @@
+{
+    "name": "@ohos/communication_wifi",
+    "version": "3.1.0",
+    "description": "The WLAN module provides basic WLAN functions, peer-to-peer (P2P) connection, and WLAN notification, enabling your application to communicate with other devices through a WLAN.",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/communication_wifi",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "foundation"
+    ],
+    "keywords": [
+        "communication",
+        "wifi"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "foundation/communication/wifi"
+    },
+    "component": {
+        "name": "wifi_standard",
+        "subsystem": "communication",
+        "syscap": [
+            "SystemCapability.Communication.WiFi.STA",
+            "SystemCapability.Communication.WiFi.AP",
+            "SystemCapability.Communication.WiFi.P2P",
+            "SystemCapability.Communication.WiFi.Core",
+            "SystemCapability.Communication.WiFi.HotspotExt"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "ipc",
+                "ces_standard",
+                "hiviewdfx_hilog_native",
+                "hisysevent_native",
+                "netmanager_base"
+            ],
+            "third_party": [
+                "wpa_supplicant",
+                "node",
+                "bounds_checking_function",
+                "googletest",
+                "openssl"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard:wifi_sdk",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework:wifi_manage",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework:dhcp_manage",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_hal:wifi_hal",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework:wifi_system_ability",
+                "//foundation/communication/wifi/services/wifi_standard/sa_profile:wifi_standard_sa_profile",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_device_ability",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_scan_ability",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_hotspot_ability",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_p2p_ability",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_manager_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_scan:wifi_scan_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta:wifi_sta_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_ap:wifi_ap_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p:wifi_p2p_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service:dhcp_manager_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_client:dhcp_client_service",
+                "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/dhcp_server:dhcp_server",
+                "//foundation/communication/wifi/utils/src:wifi_utils",
+                "//foundation/communication/wifi/interfaces/innerkits/native_cpp/napi:wifi_native_js",
+                "//foundation/communication/wifi/interfaces/innerkits/native_cpp/napi:wifi"
+            ],
+            "inner_kits": [
+                {
+                    "header" : {
+                        "header_base": "//foundation/communication/wifi/interfaces/innerkits/native_c",
+                        "header_files": [
+                            "wifi_device.h",
+                            "wifi_hotspot.h",
+                            "wifi_p2p.h",
+                            "wifi_hid2d.h"
+                        ]
+                    },
+                    "name" : "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard:wifi_sdk"
+                },
+                {
+                    "header" : {
+                        "header_base": "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/include",
+                        "header_files": [
+                            "wifi_device.h",
+                            "wifi_hotspot.h",
+                            "wifi_p2p.h",
+                            "wifi_scan.h",
+                            "wifi_hid2d.h"
+                        ]
+                    },
+                    "name" : "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard:wifi_sdk"
+                }
+            ],
+            "test": [
+            ]
+        },
+        "hisysevent_config": [
+            "//foundation/communication/wifi/hisysevent.yaml"
+        ]
+    }
+}

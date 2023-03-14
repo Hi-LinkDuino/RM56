@@ -1,0 +1,27 @@
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+
+ohos_shared_library("libhdf_${model_name}_hotplug") {
+  include_dirs = [
+    "//third_party/FreeBSD/sys/dev/evdev",
+  ]
+  sources = [
+    "${driver_file_name}"
+    ]
+
+  deps = [
+    "//drivers/adapter/uhdf2/host:libhdf_host",
+    "//drivers/adapter/uhdf2/utils:libhdf_utils",
+    "//utils/native/base:utils",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  subsystem_name = "hdf"
+  part_name = "hdf"
+}

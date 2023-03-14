@@ -1,0 +1,33 @@
+{
+  "name": "wlan_device_driver",
+  "description": "wlan device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "wlan_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "660KB",
+    "ram": "7600KB",
+    "deps": {
+      "components": [
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function",
+        "third_party_libnl"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/wlan:wlan_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/wlan/test:hdf_test_wlan"
+      ]
+    }
+  }
+}

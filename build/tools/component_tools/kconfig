@@ -1,0 +1,1088 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+mainmenu "Subsystem Component Kconfig Configuration"
+config property$$product_name
+        string "product_name"
+        default ""
+config property$$version
+        string "version"
+        default ""
+config property$$type
+        string "type"
+        default ""
+config property$$ohos_version
+        string "ohos_version"
+        default ""
+config property$$board
+        string "board"
+        default ""
+config property$$kernel_type
+        string "kernel_type"
+        default ""
+config property$$kernel_version
+        string "kernel_version"
+        default ""
+config property$$device_name
+        string "device_name"
+        default ""
+config property$$device_company
+        string "device_company"
+        default ""
+config property$$target_os
+        string "target_os"
+        default ""
+config property$$target_cpu
+        string "target_cpu"
+        default ""
+menu "ace"
+config ace$$ace_engine_standard
+    bool "ace_engine_standard"
+    default n
+config feature$$ace$$ace_engine_standard
+        string "feature"
+        default ""
+        depends on ace$$ace_engine_standard
+config ace$$napi
+    bool "napi"
+    default n
+config feature$$ace$$napi
+        string "feature"
+        default ""
+        depends on ace$$napi
+endmenu
+menu "ai"
+endmenu
+menu "account"
+config account$$os_account_standard
+    bool "os_account_standard"
+    default n
+config feature$$account$$os_account_standard
+        string "feature"
+        default ""
+        depends on account$$os_account_standard
+endmenu
+menu "distributeddatamgr"
+config distributeddatamgr$$distributeddataobject
+    bool "distributeddataobject"
+    default n
+config feature$$distributeddatamgr$$distributeddataobject
+        string "feature"
+        default ""
+        depends on distributeddatamgr$$distributeddataobject
+config distributeddatamgr$$native_appdatamgr
+    bool "native_appdatamgr"
+    default n
+config feature$$distributeddatamgr$$native_appdatamgr
+        string "feature"
+        default ""
+        depends on distributeddatamgr$$native_appdatamgr
+config distributeddatamgr$$e2fsprogs
+    bool "e2fsprogs"
+    default n
+config feature$$distributeddatamgr$$e2fsprogs
+        string "feature"
+        default ""
+        depends on distributeddatamgr$$e2fsprogs
+config distributeddatamgr$$distributeddatamgr
+    bool "distributeddatamgr"
+    default n
+config feature$$distributeddatamgr$$distributeddatamgr
+        string "feature"
+        default ""
+        depends on distributeddatamgr$$distributeddatamgr
+config distributeddatamgr$$distributedfilejs
+    bool "distributedfilejs"
+    default n
+config feature$$distributeddatamgr$$distributedfilejs
+        string "feature"
+        default ""
+        depends on distributeddatamgr$$distributedfilejs
+endmenu
+menu "security"
+config security$$device_security_level
+    bool "device_security_level"
+    default n
+config feature$$security$$device_security_level
+        string "feature"
+        default ""
+        depends on security$$device_security_level
+config security$$huks
+    bool "huks"
+    default n
+config feature$$security$$huks
+        string "feature"
+        default ""
+        depends on security$$huks
+config security$$appverify
+    bool "appverify"
+    default n
+config feature$$security$$appverify
+        string "feature"
+        default ""
+        depends on security$$appverify
+config security$$access_token
+    bool "access_token"
+    default n
+config feature$$security$$access_token
+        string "feature"
+        default ""
+        depends on security$$access_token
+config security$$permission_standard
+    bool "permission_standard"
+    default n
+config feature$$security$$permission_standard
+        string "feature"
+        default ""
+        depends on security$$permission_standard
+config security$$selinux
+    bool "selinux"
+    default n
+config feature$$security$$selinux
+        string "feature"
+        default ""
+        depends on security$$selinux
+config security$$deviceauth_standard
+    bool "deviceauth_standard"
+    default n
+config feature$$security$$deviceauth_standard
+        string "feature"
+        default ""
+        depends on security$$deviceauth_standard
+config security$$dataclassification
+    bool "dataclassification"
+    default n
+config feature$$security$$dataclassification
+        string "feature"
+        default ""
+        depends on security$$dataclassification
+endmenu
+menu "useriam"
+config useriam$$user_idm
+    bool "user_idm"
+    default n
+config feature$$useriam$$user_idm
+        string "feature"
+        default ""
+        depends on useriam$$user_idm
+config useriam$$auth_executor_mgr
+    bool "auth_executor_mgr"
+    default n
+config feature$$useriam$$auth_executor_mgr
+        string "feature"
+        default ""
+        depends on useriam$$auth_executor_mgr
+config useriam$$useriam_common
+    bool "useriam_common"
+    default n
+config feature$$useriam$$useriam_common
+        string "feature"
+        default ""
+        depends on useriam$$useriam_common
+config useriam$$pin_auth
+    bool "pin_auth"
+    default n
+config feature$$useriam$$pin_auth
+        string "feature"
+        default ""
+        depends on useriam$$pin_auth
+config useriam$$user_auth
+    bool "user_auth"
+    default n
+config feature$$useriam$$user_auth
+        string "feature"
+        default ""
+        depends on useriam$$user_auth
+config useriam$$faceauth
+    bool "faceauth"
+    default n
+config feature$$useriam$$faceauth
+        string "feature"
+        default ""
+        depends on useriam$$faceauth
+endmenu
+menu "startup"
+config startup$$init
+    bool "init"
+    default n
+config feature$$startup$$init
+        string "feature"
+        default ""
+        depends on startup$$init
+config startup$$startup_l2
+    bool "startup_l2"
+    default n
+config feature$$startup$$startup_l2
+        string "feature"
+        default ""
+        depends on startup$$startup_l2
+config startup$$appspawn
+    bool "appspawn"
+    default n
+config feature$$startup$$appspawn
+        string "feature"
+        default ""
+        depends on startup$$appspawn
+endmenu
+menu "hiviewdfx"
+config hiviewdfx$$hilog
+    bool "hilog"
+    default n
+config feature$$hiviewdfx$$hilog
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hilog
+config hiviewdfx$$hitrace_native
+    bool "hitrace_native"
+    default n
+config feature$$hiviewdfx$$hitrace_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hitrace_native
+config hiviewdfx$$hiappevent_js
+    bool "hiappevent_js"
+    default n
+config feature$$hiviewdfx$$hiappevent_js
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hiappevent_js
+config hiviewdfx$$hilog_native
+    bool "hilog_native"
+    default n
+config feature$$hiviewdfx$$hilog_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hilog_native
+config hiviewdfx$$hichecker_native
+    bool "hichecker_native"
+    default n
+config feature$$hiviewdfx$$hichecker_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hichecker_native
+config hiviewdfx$$hisysevent_native
+    bool "hisysevent_native"
+    default n
+config feature$$hiviewdfx$$hisysevent_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hisysevent_native
+config hiviewdfx$$hiappevent_native
+    bool "hiappevent_native"
+    default n
+config feature$$hiviewdfx$$hiappevent_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hiappevent_native
+config hiviewdfx$$hiviewdfx_hilog_native
+    bool "hiviewdfx_hilog_native"
+    default n
+config feature$$hiviewdfx$$hiviewdfx_hilog_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hiviewdfx_hilog_native
+config hiviewdfx$$hilog_service
+    bool "hilog_service"
+    default n
+config feature$$hiviewdfx$$hilog_service
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hilog_service
+config hiviewdfx$$hiview
+    bool "hiview"
+    default n
+config feature$$hiviewdfx$$hiview
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hiview
+config hiviewdfx$$faultloggerd
+    bool "faultloggerd"
+    default n
+config feature$$hiviewdfx$$faultloggerd
+        string "feature"
+        default ""
+        depends on hiviewdfx$$faultloggerd
+config hiviewdfx$$hicollie_native
+    bool "hicollie_native"
+    default n
+config feature$$hiviewdfx$$hicollie_native
+        string "feature"
+        default ""
+        depends on hiviewdfx$$hicollie_native
+endmenu
+menu "utils"
+config utils$$utils_base
+    bool "utils_base"
+    default n
+config feature$$utils$$utils_base
+        string "feature"
+        default ""
+        depends on utils$$utils_base
+config utils$$utils_memory
+    bool "utils_memory"
+    default n
+config feature$$utils$$utils_memory
+        string "feature"
+        default ""
+        depends on utils$$utils_memory
+config utils$$systemres
+    bool "systemres"
+    default n
+config feature$$utils$$systemres
+        string "feature"
+        default ""
+        depends on utils$$systemres
+config utils$$memory
+    bool "memory"
+    default n
+config feature$$utils$$memory
+        string "feature"
+        default ""
+        depends on utils$$memory
+config utils$$utils_lite
+    bool "utils_lite"
+    default n
+config feature$$utils$$utils_lite
+        string "feature"
+        default ""
+        depends on utils$$utils_lite
+config utils$$timer_task
+    bool "timer_task"
+    default n
+config feature$$utils$$timer_task
+        string "feature"
+        default ""
+        depends on utils$$timer_task
+endmenu
+menu "appexecfwk"
+config appexecfwk$$distributed_bundle_framework
+    bool "distributed_bundle_framework"
+    default n
+config feature$$appexecfwk$$distributed_bundle_framework
+        string "feature"
+        default ""
+        depends on appexecfwk$$distributed_bundle_framework
+config appexecfwk$$eventhandler
+    bool "eventhandler"
+    default n
+config feature$$appexecfwk$$eventhandler
+        string "feature"
+        default ""
+        depends on appexecfwk$$eventhandler
+config appexecfwk$$bundle_framework
+    bool "bundle_framework"
+    default n
+config feature$$appexecfwk$$bundle_framework
+        string "feature"
+        default ""
+        depends on appexecfwk$$bundle_framework
+config appexecfwk$$bundle_tool
+    bool "bundle_tool"
+    default n
+config feature$$appexecfwk$$bundle_tool
+        string "feature"
+        default ""
+        depends on appexecfwk$$bundle_tool
+endmenu
+menu "aafwk"
+config aafwk$$form_runtime
+    bool "form_runtime"
+    default n
+config feature$$aafwk$$form_runtime
+        string "feature"
+        default ""
+        depends on aafwk$$form_runtime
+config aafwk$$ability_runtime
+    bool "ability_runtime"
+    default n
+config feature$$aafwk$$ability_runtime
+        string "feature"
+        default ""
+        depends on aafwk$$ability_runtime
+config aafwk$$ability_tools
+    bool "ability_tools"
+    default n
+config feature$$aafwk$$ability_tools
+        string "feature"
+        default ""
+        depends on aafwk$$ability_tools
+config aafwk$$zidl
+    bool "zidl"
+    default n
+config feature$$aafwk$$zidl
+        string "feature"
+        default ""
+        depends on aafwk$$zidl
+endmenu
+menu "notification"
+config notification$$ans_standard
+    bool "ans_standard"
+    default n
+config feature$$notification$$ans_standard
+        string "feature"
+        default ""
+        depends on notification$$ans_standard
+config notification$$ces_standard
+    bool "ces_standard"
+    default n
+config feature$$notification$$ces_standard
+        string "feature"
+        default ""
+        depends on notification$$ces_standard
+endmenu
+menu "communication"
+config communication$$ipc_js
+    bool "ipc_js"
+    default n
+config feature$$communication$$ipc_js
+        string "feature"
+        default ""
+        depends on communication$$ipc_js
+config communication$$ipc
+    bool "ipc"
+    default n
+config feature$$communication$$ipc
+        string "feature"
+        default ""
+        depends on communication$$ipc
+config communication$$dsoftbus_standard
+    bool "dsoftbus_standard"
+    default n
+config feature$$communication$$dsoftbus_standard
+        string "feature"
+        default ""
+        depends on communication$$dsoftbus_standard
+config communication$$wifi_standard
+    bool "wifi_standard"
+    default n
+config feature$$communication$$wifi_standard
+        string "feature"
+        default ""
+        depends on communication$$wifi_standard
+config communication$$netstack
+    bool "netstack"
+    default n
+config feature$$communication$$netstack
+        string "feature"
+        default ""
+        depends on communication$$netstack
+config communication$$netmanager_ext
+    bool "netmanager_ext"
+    default n
+config feature$$communication$$netmanager_ext
+        string "feature"
+        default ""
+        depends on communication$$netmanager_ext
+config communication$$bluetooth_standard
+    bool "bluetooth_standard"
+    default n
+config feature$$communication$$bluetooth_standard
+        string "feature"
+        default ""
+        depends on communication$$bluetooth_standard
+config communication$$netmanager_base
+    bool "netmanager_base"
+    default n
+config feature$$communication$$netmanager_base
+        string "feature"
+        default ""
+        depends on communication$$netmanager_base
+endmenu
+menu "distributedschedule"
+config distributedschedule$$samgr_standard
+    bool "samgr_standard"
+    default n
+config feature$$distributedschedule$$samgr_standard
+        string "feature"
+        default ""
+        depends on distributedschedule$$samgr_standard
+config distributedschedule$$safwk
+    bool "safwk"
+    default n
+config feature$$distributedschedule$$safwk
+        string "feature"
+        default ""
+        depends on distributedschedule$$safwk
+config distributedschedule$$dmsfwk_standard
+    bool "dmsfwk_standard"
+    default n
+config feature$$distributedschedule$$dmsfwk_standard
+        string "feature"
+        default ""
+        depends on distributedschedule$$dmsfwk_standard
+endmenu
+menu "hdf"
+config hdf$$display_device_driver
+    bool "display_device_driver"
+    default n
+config feature$$hdf$$display_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$display_device_driver
+config hdf$$usb_device_driver
+    bool "usb_device_driver"
+    default n
+config feature$$hdf$$usb_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$usb_device_driver
+config hdf$$audio_device_driver
+    bool "audio_device_driver"
+    default n
+config feature$$hdf$$audio_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$audio_device_driver
+config hdf$$device_driver_framework
+    bool "device_driver_framework"
+    default n
+config feature$$hdf$$device_driver_framework
+        string "feature"
+        default ""
+        depends on hdf$$device_driver_framework
+config hdf$$input_device_driver
+    bool "input_device_driver"
+    default n
+config feature$$hdf$$input_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$input_device_driver
+config hdf$$battery_device_driver
+    bool "battery_device_driver"
+    default n
+config feature$$hdf$$battery_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$battery_device_driver
+config hdf$$vibrator_device_driver
+    bool "vibrator_device_driver"
+    default n
+config feature$$hdf$$vibrator_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$vibrator_device_driver
+config hdf$$wlan_device_driver
+    bool "wlan_device_driver"
+    default n
+config feature$$hdf$$wlan_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$wlan_device_driver
+config hdf$$codec_device_driver
+    bool "codec_device_driver"
+    default n
+config feature$$hdf$$codec_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$codec_device_driver
+config hdf$$light_device_driver
+    bool "light_device_driver"
+    default n
+config feature$$hdf$$light_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$light_device_driver
+config hdf$$power_device_driver
+    bool "power_device_driver"
+    default n
+config feature$$hdf$$power_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$power_device_driver
+config hdf$$sensor_device_driver
+    bool "sensor_device_driver"
+    default n
+config feature$$hdf$$sensor_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$sensor_device_driver
+config hdf$$camera_device_driver
+    bool "camera_device_driver"
+    default n
+config feature$$hdf$$camera_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$camera_device_driver
+config hdf$$bluetooth_device_driver
+    bool "bluetooth_device_driver"
+    default n
+config feature$$hdf$$bluetooth_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$bluetooth_device_driver
+config hdf$$thermal_device_driver
+    bool "thermal_device_driver"
+    default n
+config feature$$hdf$$thermal_device_driver
+        string "feature"
+        default ""
+        depends on hdf$$thermal_device_driver
+endmenu
+menu "updater"
+config updater$$update_service
+    bool "update_service"
+    default n
+config feature$$updater$$update_service
+        string "feature"
+        default ""
+        depends on updater$$update_service
+config updater$$updater
+    bool "updater"
+    default n
+config feature$$updater$$updater
+        string "feature"
+        default ""
+        depends on updater$$updater
+endmenu
+menu "developtools"
+config developtools$$hdc_standard
+    bool "hdc_standard"
+    default n
+config feature$$developtools$$hdc_standard
+        string "feature"
+        default ""
+        depends on developtools$$hdc_standard
+config developtools$$profiler
+    bool "profiler"
+    default n
+config feature$$developtools$$profiler
+        string "feature"
+        default ""
+        depends on developtools$$profiler
+config developtools$$hiperf
+    bool "hiperf"
+    default n
+config feature$$developtools$$hiperf
+        string "feature"
+        default ""
+        depends on developtools$$hiperf
+config developtools$$bytrace_standard
+    bool "bytrace_standard"
+    default n
+config feature$$developtools$$bytrace_standard
+        string "feature"
+        default ""
+        depends on developtools$$bytrace_standard
+config developtools$$packing_tool
+    bool "packing_tool"
+    default n
+config feature$$developtools$$packing_tool
+        string "feature"
+        default ""
+        depends on developtools$$packing_tool
+endmenu
+menu "sensors"
+config sensors$$sensor
+    bool "sensor"
+    default n
+config feature$$sensors$$sensor
+        string "feature"
+        default ""
+        depends on sensors$$sensor
+config sensors$$start
+    bool "start"
+    default n
+config feature$$sensors$$start
+        string "feature"
+        default ""
+        depends on sensors$$start
+config sensors$$miscdevice
+    bool "miscdevice"
+    default n
+config feature$$sensors$$miscdevice
+        string "feature"
+        default ""
+        depends on sensors$$miscdevice
+endmenu
+menu "graphic"
+config graphic$$graphic_standard
+    bool "graphic_standard"
+    default n
+config feature$$graphic$$graphic_standard
+        string "feature"
+        default ""
+        depends on graphic$$graphic_standard
+endmenu
+menu "window"
+config window$$window_manager
+    bool "window_manager"
+    default n
+config feature$$window$$window_manager
+        string "feature"
+        default ""
+        depends on window$$window_manager
+endmenu
+menu "miscservices"
+config miscservices$$time_native
+    bool "time_native"
+    default n
+config feature$$miscservices$$time_native
+        string "feature"
+        default ""
+        depends on miscservices$$time_native
+config miscservices$$inputmethod_native
+    bool "inputmethod_native"
+    default n
+config feature$$miscservices$$inputmethod_native
+        string "feature"
+        default ""
+        depends on miscservices$$inputmethod_native
+endmenu
+menu "multimedia"
+config multimedia$$multimedia_image_standard
+    bool "multimedia_image_standard"
+    default n
+config feature$$multimedia$$multimedia_image_standard
+        string "feature"
+        default ""
+        depends on multimedia$$multimedia_image_standard
+config multimedia$$multimedia_audio_standard
+    bool "multimedia_audio_standard"
+    default n
+config feature$$multimedia$$multimedia_audio_standard
+        string "feature"
+        default ""
+        depends on multimedia$$multimedia_audio_standard
+config multimedia$$multimedia_media_library_standard
+    bool "multimedia_media_library_standard"
+    default n
+config feature$$multimedia$$multimedia_media_library_standard
+        string "feature"
+        default ""
+        depends on multimedia$$multimedia_media_library_standard
+config multimedia$$multimedia_camera_standard
+    bool "multimedia_camera_standard"
+    default n
+config feature$$multimedia$$multimedia_camera_standard
+        string "feature"
+        default ""
+        depends on multimedia$$multimedia_camera_standard
+config multimedia$$multimedia_media_standard
+    bool "multimedia_media_standard"
+    default n
+config feature$$multimedia$$multimedia_media_standard
+        string "feature"
+        default ""
+        depends on multimedia$$multimedia_media_standard
+config multimedia$$multimedia_histreamer
+    bool "multimedia_histreamer"
+    default n
+config feature$$multimedia$$multimedia_histreamer
+        string "feature"
+        default ""
+        depends on multimedia$$multimedia_histreamer
+endmenu
+menu "multimodalinput"
+config multimodalinput$$multimodalinput_base
+    bool "multimodalinput_base"
+    default n
+config feature$$multimodalinput$$multimodalinput_base
+        string "feature"
+        default ""
+        depends on multimodalinput$$multimodalinput_base
+endmenu
+menu "telephony"
+config telephony$$data_storage
+    bool "data_storage"
+    default n
+config feature$$telephony$$data_storage
+        string "feature"
+        default ""
+        depends on telephony$$data_storage
+config telephony$$sms_mms
+    bool "sms_mms"
+    default n
+config feature$$telephony$$sms_mms
+        string "feature"
+        default ""
+        depends on telephony$$sms_mms
+config telephony$$core_service
+    bool "core_service"
+    default n
+config feature$$telephony$$core_service
+        string "feature"
+        default ""
+        depends on telephony$$core_service
+config telephony$$state_registry
+    bool "state_registry"
+    default n
+config feature$$telephony$$state_registry
+        string "feature"
+        default ""
+        depends on telephony$$state_registry
+config telephony$$call_manager
+    bool "call_manager"
+    default n
+config feature$$telephony$$call_manager
+        string "feature"
+        default ""
+        depends on telephony$$call_manager
+config telephony$$ril_adapter
+    bool "ril_adapter"
+    default n
+config feature$$telephony$$ril_adapter
+        string "feature"
+        default ""
+        depends on telephony$$ril_adapter
+config telephony$$cellular_call
+    bool "cellular_call"
+    default n
+config feature$$telephony$$cellular_call
+        string "feature"
+        default ""
+        depends on telephony$$cellular_call
+config telephony$$cellular_data
+    bool "cellular_data"
+    default n
+config feature$$telephony$$cellular_data
+        string "feature"
+        default ""
+        depends on telephony$$cellular_data
+endmenu
+menu "global"
+config global$$cust_lite
+    bool "cust_lite"
+    default n
+config feature$$global$$cust_lite
+        string "feature"
+        default ""
+        depends on global$$cust_lite
+config global$$i18n_standard
+    bool "i18n_standard"
+    default n
+config feature$$global$$i18n_standard
+        string "feature"
+        default ""
+        depends on global$$i18n_standard
+config global$$resmgr_standard
+    bool "resmgr_standard"
+    default n
+config feature$$global$$resmgr_standard
+        string "feature"
+        default ""
+        depends on global$$resmgr_standard
+endmenu
+menu "powermgr"
+config powermgr$$display_manager_native
+    bool "display_manager_native"
+    default n
+config feature$$powermgr$$display_manager_native
+        string "feature"
+        default ""
+        depends on powermgr$$display_manager_native
+config powermgr$$thermal_manager
+    bool "thermal_manager"
+    default n
+config feature$$powermgr$$thermal_manager
+        string "feature"
+        default ""
+        depends on powermgr$$thermal_manager
+config powermgr$$battery_statistics_native
+    bool "battery_statistics_native"
+    default n
+config feature$$powermgr$$battery_statistics_native
+        string "feature"
+        default ""
+        depends on powermgr$$battery_statistics_native
+config powermgr$$battery_manager_native
+    bool "battery_manager_native"
+    default n
+config feature$$powermgr$$battery_manager_native
+        string "feature"
+        default ""
+        depends on powermgr$$battery_manager_native
+config powermgr$$power_manager_native
+    bool "power_manager_native"
+    default n
+config feature$$powermgr$$power_manager_native
+        string "feature"
+        default ""
+        depends on powermgr$$power_manager_native
+endmenu
+menu "usb"
+config usb$$usb_manager
+    bool "usb_manager"
+    default n
+config feature$$usb$$usb_manager
+        string "feature"
+        default ""
+        depends on usb$$usb_manager
+endmenu
+menu "applications"
+config applications$$prebuilt_hap
+    bool "prebuilt_hap"
+    default n
+config feature$$applications$$prebuilt_hap
+        string "feature"
+        default ""
+        depends on applications$$prebuilt_hap
+endmenu
+menu "settingsdata"
+endmenu
+menu "wpa_supplicant-2.9"
+config wpa_supplicant-2.9$$wpa_supplicant-2.9
+    bool "wpa_supplicant-2.9"
+    default n
+config feature$$wpa_supplicant-2.9$$wpa_supplicant-2.9
+        string "feature"
+        default ""
+        depends on wpa_supplicant-2.9$$wpa_supplicant-2.9
+endmenu
+menu "xts"
+config xts$$wearable_tests
+    bool "wearable_tests"
+    default n
+config feature$$xts$$wearable_tests
+        string "feature"
+        default ""
+        depends on xts$$wearable_tests
+config xts$$intellitv_tests
+    bool "intellitv_tests"
+    default n
+config feature$$xts$$intellitv_tests
+        string "feature"
+        default ""
+        depends on xts$$intellitv_tests
+config xts$$ivi_tests
+    bool "ivi_tests"
+    default n
+config feature$$xts$$ivi_tests
+        string "feature"
+        default ""
+        depends on xts$$ivi_tests
+config xts$$phone_tests
+    bool "phone_tests"
+    default n
+config feature$$xts$$phone_tests
+        string "feature"
+        default ""
+        depends on xts$$phone_tests
+endmenu
+menu "distributedhardware"
+config distributedhardware$$device_manager_base
+    bool "device_manager_base"
+    default n
+config feature$$distributedhardware$$device_manager_base
+        string "feature"
+        default ""
+        depends on distributedhardware$$device_manager_base
+endmenu
+menu "ark"
+config ark$$ark
+    bool "ark"
+    default n
+config feature$$ark$$ark
+        string "feature"
+        default ""
+        depends on ark$$ark
+config ark$$ark_frontend_tool
+    bool "ark_frontend_tool"
+    default n
+config feature$$ark$$ark_frontend_tool
+        string "feature"
+        default ""
+        depends on ark$$ark_frontend_tool
+config ark$$ark_js_runtime
+    bool "ark_js_runtime"
+    default n
+config feature$$ark$$ark_js_runtime
+        string "feature"
+        default ""
+        depends on ark$$ark_js_runtime
+endmenu
+menu "compileruntime"
+endmenu
+menu "iot"
+endmenu
+menu "iot_hardware"
+endmenu
+menu "kernel"
+config kernel$$linux
+    bool "linux"
+    default n
+config feature$$kernel$$linux
+        string "feature"
+        default ""
+        depends on kernel$$linux
+endmenu
+menu "msdp"
+endmenu
+menu "deviceprofile"
+config deviceprofile$$device_profile_core
+    bool "device_profile_core"
+    default n
+config feature$$deviceprofile$$device_profile_core
+        string "feature"
+        default ""
+        depends on deviceprofile$$device_profile_core
+endmenu
+menu "filemanagement"
+config filemanagement$$user_file_service
+    bool "user_file_service"
+    default n
+config feature$$filemanagement$$user_file_service
+        string "feature"
+        default ""
+        depends on filemanagement$$user_file_service
+config filemanagement$$storage_service
+    bool "storage_service"
+    default n
+config feature$$filemanagement$$storage_service
+        string "feature"
+        default ""
+        depends on filemanagement$$storage_service
+endmenu
+menu "resourceschedule"
+config resourceschedule$$device_usage_statistics
+    bool "device_usage_statistics"
+    default n
+config feature$$resourceschedule$$device_usage_statistics
+        string "feature"
+        default ""
+        depends on resourceschedule$$device_usage_statistics
+config resourceschedule$$soc_perf
+    bool "soc_perf"
+    default n
+config feature$$resourceschedule$$soc_perf
+        string "feature"
+        default ""
+        depends on resourceschedule$$soc_perf
+config resourceschedule$$background_task_mgr
+    bool "background_task_mgr"
+    default n
+config feature$$resourceschedule$$background_task_mgr
+        string "feature"
+        default ""
+        depends on resourceschedule$$background_task_mgr
+config resourceschedule$$work_scheduler
+    bool "work_scheduler"
+    default n
+config feature$$resourceschedule$$work_scheduler
+        string "feature"
+        default ""
+        depends on resourceschedule$$work_scheduler
+config resourceschedule$$resource_schedule_service
+    bool "resource_schedule_service"
+    default n
+config feature$$resourceschedule$$resource_schedule_service
+        string "feature"
+        default ""
+        depends on resourceschedule$$resource_schedule_service
+config resourceschedule$$memmgr
+    bool "memmgr"
+    default n
+config feature$$resourceschedule$$memmgr
+        string "feature"
+        default ""
+        depends on resourceschedule$$memmgr
+endmenu

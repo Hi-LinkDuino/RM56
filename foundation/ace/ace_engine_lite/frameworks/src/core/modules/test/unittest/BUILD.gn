@@ -1,0 +1,65 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+import("//build/lite/config/test.gni")
+import("//foundation/ace/ace_engine_lite/test/ace_test_config.gni")
+
+presets_unittest_root =
+    "$ace_lite_root/frameworks/src/core/modules/presets/test/unittest"
+
+unittest("js_frameworks_test_app") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [ "$ace_lite_root/test:test_whole_archive_config" ]
+  sources = all_acelite_source_files
+  sources += [
+    "$ace_lite_root/test/moduletest/common/basic_tdd_test.cpp",
+    "common/app_tdd_test.cpp",
+  ]
+  deps = all_external_deps
+}
+
+unittest("js_frameworks_test_dfx") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [ "$ace_lite_root/test:test_common_config" ]
+  sources = [
+    "$ace_lite_root/test/moduletest/common/basic_tdd_test.cpp",
+    "common/dfx_tdd_test.cpp",
+  ]
+  deps = ace_test_deps
+}
+
+unittest("js_frameworks_test_dialog") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [ "$ace_lite_root/test:test_common_config" ]
+  sources = [
+    "$ace_lite_root/test/moduletest/common/basic_tdd_test.cpp",
+    "common/dialog_tdd_test.cpp",
+  ]
+  deps = ace_test_deps
+}
+
+group("modules_unittest") {
+  deps = [
+    ":js_frameworks_test_app",
+    ":js_frameworks_test_dfx",
+    ":js_frameworks_test_dialog",
+    "$presets_unittest_root:js_frameworks_test_console",
+    "$presets_unittest_root:js_frameworks_test_date_time",
+    "$presets_unittest_root:js_frameworks_test_localization",
+    "$presets_unittest_root:js_frameworks_test_number_format",
+    "$presets_unittest_root:js_frameworks_test_timer",
+  ]
+}

@@ -1,0 +1,13 @@
+plugins:6
+EventProcessorExample4[thread:t-example-2]:0 static
+EventProcessorExample1[thread:t-example-4]:0 static
+EventProcessorExample2[thread:t-example-1]:0 static
+EventProcessorExample3[thread:t-example-4]:0 static
+EventSourceExample[thread:t-example-3]:0 static
+DynamicLoadPluginExample[thread:t-example-5]:0 dynamic
+pipelines:3
+NormalPipeline:EventProcessorExample1 EventProcessorExample2 EventProcessorExample3 EventProcessorExample4 
+ReversePipeline:EventProcessorExample4 EventProcessorExample3 EventProcessorExample2 EventProcessorExample1 
+SimplePipeline:EventProcessorExample3 EventProcessorExample2 
+pipelinegroups:1
+EventSourceExample:NormalPipeline ReversePipeline SimplePipeline 

@@ -1,0 +1,41 @@
+{
+  "name": "element",
+  "version": [
+    {
+      "name": "v3.0"
+    }
+  ],
+  "syscap": ["SystemCapability.ArkUI.ArkUI.Full"],
+  "description": [
+    {
+      "name": "custom component."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "name",
+      "required": false,
+      "description": [
+        {
+          "name": "custom component name."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "src",
+      "required": true,
+      "description": [
+        {
+          "name": "custom component path."
+        }
+      ],
+      "type": "url"
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": false,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

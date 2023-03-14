@@ -1,0 +1,133 @@
+{
+  "color": [
+    {
+      "name": "color_333333_grey",
+      "value": "#333333"
+    },
+    {
+      "name": "color_666666_grey",
+      "value": "#666666"
+    },
+    {
+      "name": "color_999999_grey",
+      "value": "#999999"
+    },
+    {
+      "name": "color_E3E3E3_grey",
+      "value": "#E3E3E3"
+    },
+    {
+      "name": "color_D8D8D8_grey",
+      "value": "#D8D8D8"
+    },
+    {
+      "name": "color_button_grey",
+      "value": "#1824310D"
+    },
+    {
+      "name": "color_00000000_transparent",
+      "value": "#00000000"
+    },
+    {
+      "name": "volume_bg_color",
+      "value": "#CCFFFFFF"
+    },
+    {
+      "name": "white_bg_color",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "font_color_182431",
+      "value": "#182431"
+    },
+    {
+      "name": "font_color_007DFF",
+      "value": "#007DFF"
+    },
+    {
+      "name": "search_no_result_text_color",
+      "value": "$color:font_color_182431"
+    },
+    {
+      "name": "search_result_text_color",
+      "value": "$color:font_color_182431"
+    },
+    {
+      "name": "search_result_text_color_highlight",
+      "value": "$color:font_color_007DFF"
+    },
+    {
+      "name": "bluetooth_text_color_highlight",
+      "value": "$color:font_color_007DFF"
+    },
+    {
+      "name": "FAFAFA",
+      "value": "#FAFAFA"
+    },
+    {
+      "name": "DCEAF9",
+      "value": "#DCEAF9"
+    },
+    {
+      "name": "ab274f",
+      "value": "#ab274f"
+    },
+    {
+      "name":"66ccff",
+      "value":"#66ccff"
+    },
+    {
+      "name": "white",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "black",
+      "value": "#000000"
+    },
+    {
+      "name": "blue",
+      "value": "#87CEFA"
+    },
+    {
+      "name": "cyan",
+      "value": "#E1FFFF"
+    },
+    {
+      "name": "spring",
+      "value": "#F5FFFA"
+    },
+    {
+      "name": "red",
+      "value": "#DC143C"
+    },
+    {
+      "name": "yellow",
+      "value": "#D9B612"
+    },
+    {
+      "name": "lightyellow",
+      "value": "#F3F143"
+    },
+    {
+      "name": "green",
+      "value": "#549688"
+    },
+    {
+      "name": "moon",
+      "value": "#D7ECF1"
+    },
+    {
+      "name": "frost",
+      "value": "#E9F0F6"
+    },
+    {
+      "name": "water",
+      "value": "#D4F2E8"
+    },
+    {
+      "name": "lead",
+      "value": "#F0EFF4"
+    }
+
+  ]
+}

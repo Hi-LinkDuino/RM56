@@ -1,0 +1,248 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            ellipse通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- fill
+        </text>
+        <svg width="100" height="25" >
+            <ellipse id ="fillProp" cx="60" cy="11" rx="25" ry="10" fill="red"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- fill-opacity
+        </text>
+        <div style="height: 25px;width: 220px;">
+            <svg width="70px" height="25px">
+                <ellipse id ="fillOpacityPropOne" cx="25" cy="11" rx="25" ry="10" fill-opacity="0.5" fill="red"></ellipse>
+            </svg>
+            <svg width="70px" height="25px">
+                <ellipse id ="fillOpacityPropTwo" cx="25" cy="11" rx="25" ry="10" fill-opacity="1" fill="red"></ellipse>
+            </svg>
+            <svg width="80px" height="25px">
+                <ellipse id ="fillOpacityPropThree" cx="25" cy="11" rx="25" ry="10" fill-opacity="1.5" fill="red"></ellipse>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- fill-rule
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg width="70px" height="25px">
+                <ellipse id ="fillRulePropOne" cx="25" cy="11" rx="25" ry="10" fill-rule="evenodd" fill="red"></ellipse>
+            </svg>
+            <svg  width="70px" height="25px">
+                <ellipse id ="fillRulePropTwo" cx="25" cy="11" rx="25" ry="10" fill-rule="nonzero" fill="red"></ellipse>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- opacity
+        </text>
+        <div style="height: 25px;width: 220px;">
+            <svg width="70px" height="25px" fill="red">
+                <ellipse id ="opacityPropOne" cx="25" cy="11" rx="25" ry="10" opacity="0.5"></ellipse>
+            </svg>
+            <svg width="70px" height="25px" fill="red">
+                <ellipse id ="opacityPropTwo" cx="25" cy="11" rx="25" ry="10" opacity="1"></ellipse>
+            </svg>
+            <svg width="80px" height="25px" fill="red">
+                <ellipse id ="opacityPropThree" cx="25" cy="11" rx="25" ry="10" opacity="1.5"></ellipse>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <ellipse id ="strokeProp" cx="60" cy="11" rx="25" ry="10" stroke = "red"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-dasharray
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <ellipse id ="strokeDashArrayProp" cx="60" cy="11" rx="25" ry="10" stroke = "red"
+                     stroke-dasharray="2 3"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-dashoffset
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <ellipse id ="strokeDashOffsetProp" cx="60" cy="11" rx="25" ry="10" stroke = "red"
+                    stroke-dashoffset="23"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-linejoin
+        </text>
+        <div style="height: 25px;width: 220px;">
+            <svg  width="70px" height="25px" fill="white">
+                <ellipse id ="strokeLineJoinPropOne" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-linejoin="bevel"></ellipse>
+            </svg>
+            <svg  width="70px" height="25px" fill="white">
+                <ellipse id ="strokeLineJoinPropTwo" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-linejoin="miter"></ellipse>
+            </svg>
+            <svg  width="80px" height="25px" fill="white">
+                <ellipse id ="strokeLineJoinPropThree" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-linejoin="round"></ellipse>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke-linecap
+        </text>
+        <div style="height: 25px;width: 220px;">
+            <svg width="70px" height="25px" fill="white">
+                <ellipse id ="strokeLineCapPropOne" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-linecap="butt"></ellipse>
+            </svg>
+            <svg width="70px" height="25px" fill="white">
+                <ellipse id ="strokeLineCapPropTwo" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-linecap="round"></ellipse>
+            </svg>
+            <svg width="80px" height="25px" fill="white">
+                <ellipse id ="strokeLineCapPropThree" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-linecap="square"></ellipse>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke-miterlimit
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <ellipse id ="strokeMiterLimitProp" cx="60" cy="11" rx="25" ry="10"
+                    stroke = "red" stroke-miterlimit="10"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-opacity
+        </text>
+        <div style="height: 25px;width: 220px;">
+            <svg width="70px" height="25px" fill="white">
+                <ellipse id ="strokeOpacityPropOne" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-opacity="0.5"></ellipse>
+            </svg>
+            <svg width="70px" height="25px" fill="white">
+                <ellipse id ="strokeOpacityPropTwo" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-opacity="1"></ellipse>
+            </svg>
+            <svg width="80px" height="25px" fill="white">
+                <ellipse id ="strokeOpacityPropThree" cx="25" cy="11" rx="25" ry="10"
+                        stroke = "red" stroke-opacity="1.5"></ellipse>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke-width
+        </text>
+        <svg width="100px" height="30px" fill="white">
+            <ellipse id ="strokeWidthProp" cx="60" cy="14" rx="25" ry="10"
+                    stroke = "red" stroke-width="6"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- transform
+        </text>
+        <svg width="100px" height="100px" fill="red">
+            <ellipse id ="transformProp" cx="25" cy="50" rx="25" ry="10"
+                    transform="translate(10,5) scale(0.5 1.3) rotate(20 40 90) skewX(10) skewY(-15)"></ellipse>
+        </svg>
+    </div>
+
+    <divider style="color: #000000; stroke-width: 2px;" vertical="true">
+    </divider>
+
+    <div class="prop-container">
+        <text class="title">
+            ellipse特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性-id
+        </text>
+        <svg width="100px" height="40px" fill="red">
+            <ellipse id ="idProp" cx="25" cy="20" rx="25" ry="10" ></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-cx
+        </text>
+            <svg width="200px" height="40px" >
+                <ellipse id ="cxPropOne" cx="25" cy="20" rx="25" ry="10" fill="red"></ellipse>
+                <ellipse id ="cxPropTwo" cx="50%" cy="20" rx="25" ry="10" fill="pink"></ellipse>
+            </svg>
+
+        <text class="sub-title">
+            特有属性-cy
+        </text>
+        <svg  width="200px" height="40px">
+            <ellipse id ="cyPropOne" cx="25" cy="20" rx="25" ry="10" fill="red" ></ellipse>
+            <ellipse id ="cyPropTwo" cx="80" cy="50%" rx="25" ry="10" fill="pink" ></ellipse>
+
+        </svg>
+
+        <text class="sub-title">
+            特有属性-rx
+        </text>
+        <svg width="200px" height="40px" fill="white">
+            <ellipse id ="rxPropOne" cx="25" cy="20" rx="25" ry="10"  stroke="red" ></ellipse>
+            <ellipse id ="rxPropTwo" cx="100" cy="20" rx="25%" ry="10" stroke="pink" ></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-ry
+        </text>
+        <svg width="200px" height="40px" fill="white">
+            <ellipse id ="ryPropOne" cx="25" cy="20" rx="25" ry="10" stroke="red" ></ellipse>
+            <ellipse id ="ryPropTwo" cx="100" cy="20" rx="25" ry="10%" stroke="pink"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-if
+        </text>
+        <svg width="100px" height="50px">
+            <ellipse id ="ifPropTrue" cx="25" cy="20" rx="25" ry="10" fill="red" if="true"></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-show
+        </text>
+        <svg width="200px" height="50px">
+            <ellipse id ="showPropTrue" cx="25" cy="20" rx="25" ry="10" fill="red" show="true"></ellipse>
+            <ellipse id ="showPropFalse" cx="25" cy="20" rx="25" ry="10" fill="red" show="false"></ellipse>
+            <ellipse id ="showPropNone" cx="25" cy="20" rx="25" ry="10" fill="red" show=""></ellipse>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-elif
+        </text>
+        <svg width="200px" height="50px" fill="red" >
+            <ellipse cx="25" cy="20" rx="25" ry="10" if="false"></ellipse>
+            <ellipse id="elifPropTrue" cx="25" cy="20" rx="25" ry="10" elif="true"></ellipse>
+            <ellipse id="elifPropFalse" cx="25" cy="20" rx="25" ry="10" elif="false"></ellipse>
+        </svg>
+
+    </div>
+
+</div>

@@ -1,0 +1,114 @@
+#ifndef __INCLUDE_GPU_SEMAPHORE_H
+#define __INCLUDE_GPU_SEMAPHORE_H
+#include "cmsis_os.h"
+
+
+#define FAR
+
+
+typedef struct {
+    osSemaphoreId    _osSemaphoreId;
+    osSemaphoreDef_t _osSemaphoreDef;
+} sem_t;
+
+
+
+/**
+ * sem_init - initializes the semaphore sem
+ *
+ * @sem : Semaphore to be initialized
+ * @pshared : Process sharing (not used)
+ * @value : Semaphore initialization value
+ *
+ * Returns:zero (OK) if successful.  Otherwise, -1 (ERROR)
+ *
+ */
+
+int sem_init(FAR sem_t *sem, int pshared, unsigned int value);
+
+
+/**
+ * sem_wait_uninterruptible - wrapped version of nxsem_wait(), which is
+ *   uninterruptible and convenient for use.
+ *
+ * @sem : Semaphore descriptor.
+ *
+ * Returns:
+ *   Zero(OK)  : On success
+ *   EINVAL    : Invalid attempt to get the semaphore
+ *   ECANCELED : May be returned if the thread is canceled while waiting.
+ *
+ */
+
+int sem_wait_uninterruptible(FAR sem_t *sem);
+
+/**
+ * @sem_wait - attempts to lock the semaphore referenced by 'sem'
+ *
+ * @sem : Semaphore descriptor.
+ *
+ * Returns:
+ *   zero (OK) if successful.  Otherwise, -1 (ERROR) is returned and
+ *   the errno value is set appropriately.  Possible errno values include:
+ */
+
+int sem_wait(FAR sem_t *sem);
+
+/**
+ * sem_post - unlocks the semaphore referenced by sem
+ *
+ * @sem : Semaphore descriptor
+ *
+ * Returns: zero (OK) if successful.  Otherwise, -1 (ERROR)
+ *
+ * Assumptions:
+ *   This function may be called from an interrupt handler.
+ *
+ */
+
+int sem_post(FAR sem_t *sem);
+
+/**
+ * sem_destroy - destroy the un-named semaphore indicated by 'sem'.
+ *
+*
+ * @sem : Semaphore to be destroyed.
+ *
+ * Returns: zero (OK),  -1 (ERROR)
+ *
+ */
+
+int sem_destroy (FAR sem_t *sem);
+
+
+/**
+ * sem_trywait - lighter weight version of sem_timedwait()
+ * @sem     : Semaphore object
+
+ * Returns: Zero (OK) is returned on success. A negated errno value is
+ * returned on failure:
+ *     -ETIMEDOUT is returned on the timeout condition.
+ *     -ECANCELED may be returned if the thread is canceled while waiting.
+ *
+ */
+int sem_trywait(FAR sem_t *sem);
+
+
+void sem_reset(FAR sem_t *sem, unsigned int value);
+
+
+/**
+ * sem_timedwait - attempts to lock the semaphore referenced by 'sem'
+ *
+ * @sem : Semaphore descriptor.
+ *
+ * Returns: Zero (OK) , A negated errno value is returned on failure.
+ *
+ */
+
+int sem_timedwait(FAR sem_t *sem, uint32_t ms);
+
+int sem_getvalue(sem_t *sem, int *currVal);
+
+#endif //__INCLUDE_GPU_SEMAPHORE_H
+

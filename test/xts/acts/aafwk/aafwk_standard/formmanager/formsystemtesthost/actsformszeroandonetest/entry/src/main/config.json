@@ -1,0 +1,85 @@
+{
+  "app": {
+    "bundleName": "com.example.formszeroandone",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 5,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.formszeroandone",
+    "name": ".MyApplication",
+    "mainAbility": "com.example.formszeroandone.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "visible": true,
+        "name": "com.example.formszeroandone.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.INSTALL_BUNDLE",
+        "reason": "need use ohos.permission.INSTALL_BUNDLE"
+      },
+      {
+        "name":"ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
+        "reason":"need use ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
+      },
+      {
+        "name":"ohos.permission.CHANGE_ABILITY_ENABLED_STATE",
+        "reason":"need use ohos.permission.CHANGE_ABILITY_ENABLED_STATE"
+      },
+      {
+        "name":"ohos.permission.REMOVE_CACHE_FILES",
+        "reason":"need use ohos.permission.REMOVE_CACHE_FILES"
+      },
+      {
+        "name":"ohos.permission.LISTEN_BUNDLE_CHANGE",
+        "reason":"need use ohos.permission.LISTEN_BUNDLE_CHANGE"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        }
+      }
+    ]
+  }
+}

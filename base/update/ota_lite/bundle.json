@@ -1,0 +1,81 @@
+{
+    "name": "@ohos/update_ota_lite",
+    "version": "3.1",
+    "description": "为轻量级设备提供升级写入相关的api",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/update_ota_lite",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "base"
+    ],
+    "keywords": [
+        "update",
+        "ota",
+        "lite"
+    ],
+    "envs": {},
+    "dirs": {},
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/update/ota_lite"
+    },
+    "component": {
+        "name": "ota_lite",
+        "subsystem": "updater",
+        "syscap": [
+            "SystemCapability.Updater.Raw"
+        ],
+        "features": [],
+        "adapted_system_type": [ 
+            "mini",
+            "small"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "startup_syspara_lite",
+                "utils_native"
+            ],
+            "third_party": [
+                "third_party_bounds_checking_function",
+                "third_party_mbedtls"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/update/ota_lite/frameworks:ota_lite"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/update/ota_lite/frameworks:update_api",
+                    "header": {
+                        "header_files": [
+                            "hota_partition.h",
+                            "hota_updater.h"
+                        ],
+                        "header_base": "//base/update/ota_lite/interfaces/kits"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}
+

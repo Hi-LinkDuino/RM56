@@ -1,0 +1,72 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+pipeline_context_test_sources = [
+  # common
+  # test file
+  "//foundation/ace/ace_engine/frameworks/core/common/ace_application_info.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/common/ace_engine.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/common/event_manager.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/common/pipeline_context.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/common/window.cpp",
+
+  # components
+  "//foundation/ace/ace_engine/frameworks/core/components/base/composed_component.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/box/box_component.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/display/display_component.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/page/page_component.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/root/root_component.cpp",
+
+  # elements
+  "//foundation/ace/ace_engine/frameworks/core/components/base/component_group_element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/base/composed_element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/base/element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/base/render_element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/base/sole_child_element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/page/page_element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/root/root_element.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/stage/stage_element.cpp",
+
+  # others
+  "//foundation/ace/ace_engine/frameworks/core/event/back_end_event_manager.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/event/multimodal/multimodal_manager.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/event/multimodal/multimodal_scene.cpp",
+
+  # focus
+  "//foundation/ace/ace_engine/frameworks/core/focus/focus_node.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/gestures/drag_recognizer.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/gestures/gesture_referee.cpp",
+
+  # gestures
+  "//foundation/ace/ace_engine/frameworks/core/gestures/gesture_recognizer.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/gestures/raw_recognizer.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/gestures/swipe_recognizer.cpp",
+
+  # properties
+  "//foundation/ace/ace_engine/frameworks/core/components/common/properties/alignment.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/common/properties/border.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/common/properties/color.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/common/properties/decoration.cpp",
+
+  # rendering
+  "//foundation/ace/ace_engine/frameworks/core/components/base/render_node.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/box/render_box.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/box/render_box_base.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/display/render_display.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/proxy/render_proxy.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/root/render_root.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/stack/render_stack.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/components/stage/render_stage.cpp",
+  "//foundation/ace/ace_engine/frameworks/core/rendering/common/render_touch_listener.cpp",
+  "pipeline_context_test.cpp",
+]

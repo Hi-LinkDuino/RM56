@@ -1,0 +1,187 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+config DRIVERS_HDF
+    bool "HDF driver framework support"
+    default n
+    depends on DRIVERS
+    select KERNEL_PM
+    help
+      Answer Y to enable LiteOS support HDF.
+if DRIVERS_HDF
+config DRIVERS_HDF_CONFIG_MACRO
+    bool "Enable HDF config macro parser"
+    default n
+    depends on DRIVERS_HDF
+    help
+      Answer Y to enable HDF config macro parser.
+config DRIVERS_HDF_PLATFORM
+    bool "Enable HDF platform driver"
+    default n
+    depends on DRIVERS_HDF
+    help
+      Answer Y to enable HDF platform driver.
+
+config DRIVERS_HDF_PLATFORM_GPIO
+    bool "Enable HDF platform gpio driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform gpio driver.
+
+config DRIVERS_HDF_PLATFORM_I2C
+    bool "Enable HDF platform i2c driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform i2c driver.
+config DRIVERS_HDF_PLATFORM_UART
+    bool "Enable HDF platform uart driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform uart driver.
+  
+config DRIVERS_HDF_PLATFORM_ADC
+    bool "Enable HDF platform adc driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform adc driver.
+
+config DRIVERS_HDF_PLATFORM_MMC
+    bool "Enable HDF platform mmc driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform mmc driver.
+
+config DRIVERS_HDF_PLATFORM_EMMC
+    bool "Enable HDF platform emmc driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform emmc driver.
+
+config DRIVERS_HDF_PLATFORM_PWM
+    bool "Enable HDF platform pwm driver"
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform pwm driver.
+
+config DRIVERS_HDF_PLATFORM_RTC
+    bool "Enable HDF platform rtc driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform rtc driver.
+
+config DRIVERS_HDF_PLATFORM_SDIO
+    bool "Enable HDF platform sdio driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM && DRIVERS_HDF_PLATFORM_MMC
+    help
+      Answer Y to enable HDF platform sdio driver.
+
+config DRIVERS_HDF_PLATFORM_DMAC
+    bool "Enable HDF platform dmac driver"
+        default n
+    depends on DRIVERS_HDF_PLATFORM
+        help
+      Answer Y to enable HDF platform dmac driver.
+
+config DRIVERS_HDF_PLATFORM_MIPI_DSI
+    bool "Enable HDF platform mipi dsi driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform mipi dsi driver.
+
+config DRIVERS_HDF_PLATFORM_MIPI_CSI
+    bool "Enable HDF platform mipi csi driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform mipi csi driver.
+
+config DRIVERS_HDF_PLATFORM_HISI_SDK
+    bool "Enable HDF hisi sdk driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF hisi sdk driver.
+
+config DRIVERS_HDF_PLATFORM_SPI
+    bool "Enable HDF platform spi driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform spi driver.
+
+config DRIVERS_HDF_PLATFORM_I2S
+    bool "Enable HDF platform i2s driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform i2s driver.
+
+config DRIVERS_HDF_PLATFORM_HDMI
+    bool "Enable HDF platform hdmi driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform hdmi driver.
+
+config DRIVERS_HDF_PLATFORM_WATCHDOG
+    bool "Enable HDF platform watchdog driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform watchdog driver.
+
+config DRIVERS_HIEDMAC
+    bool "Enable HIEDMAC"
+    default n
+    depends on DRIVERS && PLATFORM_HI3559AV100
+    help
+      Answer Y to enable LiteOS support hiedmac.
+
+config DRIVERS_HDF_WIFI
+    bool "Enable HDF WiFi Host driver"
+    default n
+    depends on DRIVERS_HDF && NET_LWIP_SACK && DRIVERS_HDF_PLATFORM_SDIO
+    help
+      Answer Y to enable HDF WiFi Host driver.
+
+endif
+config DRIVERS_HDF_PLATFORM_REGULATOR
+    bool "Enable HDF platform regulator driver"
+    default n
+    depends on DRIVERS_HDF_PLATFORM
+    help
+      Answer Y to enable HDF platform regulator driver.

@@ -1,0 +1,30 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_static_library("libhuks_service_standard_static") {
+  subsystem_name = "security"
+  part_name = "huks"
+  defines = [
+    "L2_STANDARD",
+    "_HARDWARE_ROOT_KEY_",
+    "_HUKS_LOG_ENABLE_",
+  ]
+  public_deps = [
+    "//base/security/huks/services/huks_standard/huks_service/main/core:libhuks_service_core_standard_static",
+    "//base/security/huks/services/huks_standard/huks_service/main/os_dependency:libhuks_service_os_dependency_standard_static",
+  ]
+
+  complete_static_lib = true
+}

@@ -1,0 +1,207 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            piece通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <piece id="idProp">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <piece id="classProp"
+             class="classProp">
+        </piece>
+        <piece id="classPropNone"
+             class="">
+        </piece>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <piece id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <piece id="refProp"
+             ref="refProp">
+        </piece>
+        <piece id="refPropNone"
+             ref="">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <piece id="disabledPropTrue"
+             disabled="true">
+        </piece>
+        <piece id="disabledPropFalse"
+             disabled="false">
+        </piece>
+        <piece id="disabledPropNone"
+             disabled="">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <piece id="focusablePropTrue"
+             focusable="true">
+        </piece>
+        <piece id="focusablePropFalse"
+             focusable="false">
+        </piece>
+        <piece id="focusablePropNone"
+             focusable="">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <piece id="dataProp"
+             data-piece="通用属性 -- data-*">
+        </piece>
+        <piece id="dataPropNone"
+             data-piece="">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <piece id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </piece>
+        <piece id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </piece>
+        <piece id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </piece>
+        <piece id="clickEffectPropNone"
+             click-effect="">
+        </piece>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <piece id="dirPropRtl"
+             dir="rtl">
+        </piece>
+        <piece id="dirPropAuto"
+             dir="auto">
+        </piece>
+        <piece id="dirPropLtr"
+             dir="ltr">
+        </piece>
+        <piece id="dirPropNone"
+             dir="">
+        </piece>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <piece id="forPropNull"
+             for="">
+        </piece>
+        <piece id="forPropOne"
+             for="{{listOne}}">
+        </piece>
+        <piece id="forPropThree"
+             for="{{listThree}}">
+        </piece>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <piece id="ifPropTrue"
+             if="true">
+        </piece>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <piece id="showPropTrue"
+             show="true">
+        </piece>
+        <piece id="showPropFalse"
+             show="false">
+        </piece>
+        <piece id="showPropNone"
+             show="">
+        </piece>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            piece特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- content
+        </text>
+        <piece id="contentProp" content="content">
+        </piece>
+
+        <text class="sub-title">
+            特有属性 -- closable
+        </text>
+        <piece id="closablePropTrue" closable="true" content="content">
+        </piece>
+        <piece id="closablePropFalse" closable="false" content="content">
+        </piece>
+
+        <text class="sub-title">
+            特有属性 -- icon
+        </text>
+        <piece id="closablePropTrue" closable="true" content="content" icon="common/images/image.png">
+        </piece>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <piece class="propNewAdd" content="content"
+                tid="id">
+        </piece>
+        <piece class="propNewAdd" content="content"
+                tid="">
+        </piece>
+
+        <div>
+            <piece id="ifPropTrue" content="content"
+                    if="true">
+            </piece>
+            <piece class="propNewAdd" content="content"
+                    elif="true">
+            </piece>
+            <piece class="propNewAdd" content="content"
+                    elif="false">
+            </piece>
+        </div>
+
+    </div>
+</div>

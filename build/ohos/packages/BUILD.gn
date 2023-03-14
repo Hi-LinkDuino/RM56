@@ -1,0 +1,513 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos/sa_profile/sa_profile.gni")
+
+import("//build/ohos.gni")
+import("//build/ohos/build_var.gni")
+
+import("//build/ohos/hisysevent/hisysevent.gni")
+
+# import target_platform_list
+import("${build_configs_path}/platforms_list.gni")
+group("make_packages") {
+  deps = []
+  foreach(_platform, target_platform_list) {
+    if (is_standard_system) {
+      # Lite system uses different packaging scheme, which is called in hb.
+      # So skip install_modules for lite system since it's the packaging
+      # action of standard system.
+
+      deps += [ ":${_platform}_install_modules" ]
+    }
+    deps += [
+      ":${_platform}_parts_list",
+      ":gen_required_modules_${_platform}",
+    ]
+  }
+  if (make_osp) {
+    deps += [ ":open_source_package" ]
+  }
+}
+
+all_parts_info_file = "${root_build_dir}/all_parts_info.json"
+all_platforms_parts =
+    "${root_build_dir}/build_configs/target_platforms_parts.json"
+
+foreach(_platform, target_platform_list) {
+  current_platform = _platform
+  current_platform_dir = "${product_output_dir}/$current_platform"
+
+  _system_install_info_file =
+      "${current_platform_dir}/system_install_parts.json"
+
+  action_with_pydeps("${current_platform}_parts_list") {
+    script = "//build/ohos/packages/parts_install_info.py"
+    deps = [ "//build/ohos/common:merge_all_parts" ]
+    inputs = [ all_parts_info_file ]
+    outputs = [ _system_install_info_file ]
+    depfile = "$target_gen_dir/$target_name.d"
+    args = [
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--all-parts-info-file",
+      rebase_path(all_parts_info_file, root_build_dir),
+      "--platforms-parts-file",
+      rebase_path(all_platforms_parts, root_build_dir),
+      "--system-install-info-file",
+      rebase_path(_system_install_info_file, root_build_dir),
+      "--current-platform",
+      current_platform,
+    ]
+  }
+
+  post_process_modules_list = []
+
+  # sa profile install
+  sa_install_modules_info_file =
+      "${current_platform_dir}/sa_profile/sa_install_info.json"
+  _merged_sa_profile_zipfile =
+      "${current_platform_dir}/sa_profile/merged_sa_profile.zip"
+  _merged_sa_profile_dir = "${current_platform_dir}/sa_profile/merged_sa"
+  ohos_sa_install_info("${current_platform}_sa_profile_install_info") {
+    deps = [ ":${current_platform}_parts_list" ]
+    _outputs = get_target_outputs(":${current_platform}_parts_list")
+    system_install_info_file = _outputs[0]
+    sa_install_info_file = sa_install_modules_info_file
+    merged_sa_profile_zipfile = _merged_sa_profile_zipfile
+    merged_sa_profile_dir = _merged_sa_profile_dir
+  }
+
+  # all post process moudles info
+  post_process_modules_list += [ sa_install_modules_info_file ]
+
+  hisysevent_install_info_file =
+      "${current_platform_dir}/hisysevent/hisysevent_install_info.json"
+  ohos_hisysevent_install_info("${current_platform}_hisysevent_install_info") {
+    deps = [ ":${current_platform}_parts_list" ]
+    _outputs = get_target_outputs(":${current_platform}_parts_list")
+    system_install_info_file = _outputs[0]
+  }
+  post_process_modules_list += [ hisysevent_install_info_file ]
+
+  _notice_root_dir = "${current_platform_dir}/NOTICE_FILES"
+  _collected_notice_zipfile = "${current_platform_dir}/system_notice_files.zip"
+
+  action_with_pydeps("collect_notice_files__${_platform}") {
+    deps = [ ":${_platform}_parts_list" ]
+    script = "//build/ohos/notice/collect_system_notice_files.py"
+    depfile = "$target_gen_dir/$target_name.d"
+    sources = [ _system_install_info_file ]
+    outputs = [ _collected_notice_zipfile ]
+    args = [
+      "--install-info-file",
+      rebase_path(_system_install_info_file, root_build_dir),
+      "--output-file",
+      rebase_path(_collected_notice_zipfile, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--notice-root-dir",
+      rebase_path(_notice_root_dir, root_build_dir),
+    ]
+  }
+
+  _merged_notice_txt = "${current_platform_dir}/NOTICE.txt"
+  _notice_module_info_file = "${current_platform_dir}/NOTICE_module_info.json"
+  action_with_pydeps("merge_system_notice_file_${current_platform}") {
+    deps = [ ":collect_notice_files__${current_platform}" ]
+    script = "//build/ohos/notice/merge_notice_files.py"
+    depfile = "$target_gen_dir/$target_name.d"
+
+    _merged_notice_gz = "${current_platform_dir}/NOTICE.xml.gz"
+    inputs = [ _collected_notice_zipfile ]
+    outputs = [
+      _merged_notice_txt,
+      _merged_notice_gz,
+      _notice_module_info_file,
+    ]
+    args = [
+      "--image-name",
+      "system",
+      "--notice-root-dir",
+      rebase_path(_notice_root_dir, root_build_dir),
+      "--output-notice-txt",
+      rebase_path(_merged_notice_txt, root_out_dir),
+      "--output-notice-gz",
+      rebase_path(_merged_notice_gz, root_out_dir),
+      "--notice-title",
+      "Notices for files contained in the system filesystem image in this directory:",
+      "--static-library-notice-dir",
+      rebase_path(static_libraries_notice_dir, root_build_dir),
+      "--target-cpu",
+      target_cpu,
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--collected-notice-zipfile",
+      rebase_path(_collected_notice_zipfile, root_build_dir),
+      "--notice-module-info",
+      rebase_path(_notice_module_info_file, root_build_dir),
+      "--notice-install-dir",
+      "system/etc",
+    ]
+  }
+  post_process_modules_list += [ _notice_module_info_file ]
+
+  action("verify_notice_file_${current_platform}") {
+    deps = [ ":merge_system_notice_file_${current_platform}" ]
+
+    script = "//build/core/build_scripts/verify_notice.sh"
+    _verify_result = "${current_platform_dir}/notice_verify_result.out"
+
+    inputs = [ _merged_notice_txt ]
+    outputs = [ _verify_result ]
+
+    args = [
+      rebase_path(_merged_notice_txt, root_build_dir),
+      rebase_path(_verify_result, root_build_dir),
+      rebase_path(current_platform_dir, root_build_dir),
+    ]
+  }
+
+  system_install_modules = "${current_platform_dir}/system_install_modules.json"
+  system_module_info_list = "${current_platform_dir}/system_module_info.json"
+  system_modules_list = "${current_platform_dir}/system_modules_list.txt"
+  _system_image_zipfile = "${current_platform_dir}/system.zip"
+
+  action_with_pydeps("${_platform}_install_modules") {
+    script = "//build/ohos/packages/modules_install.py"
+    public_deps = [ ":${current_platform}_parts_list" ]
+    depfile = "$target_gen_dir/$target_name.d"
+    deps = [
+      ":${current_platform}_hisysevent_install_info",
+      ":${current_platform}_sa_profile_install_info",
+      ":merge_system_notice_file_${current_platform}",
+      ":verify_notice_file_${current_platform}",
+    ]
+
+    sources = [
+      _merged_sa_profile_zipfile,
+      _system_install_info_file,
+    ]
+
+    outputs = [
+      system_install_modules,
+      system_module_info_list,
+      system_modules_list,
+      _system_image_zipfile,
+    ]
+
+    args = [
+      "--system-install-info-file",
+      rebase_path(_system_install_info_file, root_build_dir),
+      "--install-modules-info-file",
+      rebase_path(system_install_modules, root_build_dir),
+      "--modules-info-file",
+      rebase_path(system_module_info_list, root_build_dir),
+      "--modules-list-file",
+      rebase_path(system_modules_list, root_build_dir),
+      "--platform-installed-path",
+      rebase_path(current_platform_dir, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--sa-profile-extract-dir",
+      rebase_path(_merged_sa_profile_dir, root_build_dir),
+      "--merged-sa-profile",
+      rebase_path(_merged_sa_profile_zipfile, root_build_dir),
+      "--system-dir",
+      rebase_path("$current_platform_dir/system", root_build_dir),
+      "--system-image-zipfile",
+      rebase_path(_system_image_zipfile, root_build_dir),
+    ]
+
+    _additional_system_files = []
+    foreach(tuple, _additional_system_files) {
+      args += [
+        "--additional-system-files",
+        rebase_path(tuple[0], root_build_dir) + ":" + tuple[1],
+      ]
+    }
+
+    if (post_process_modules_list != []) {
+      sources += post_process_modules_list
+      args += [ "--post-process-modules-info-files" ]
+      args += rebase_path(post_process_modules_list, root_build_dir)
+    }
+  }
+}
+
+# required_install_module_list.json
+foreach(_platform, target_platform_list) {
+  current_platform_dir = "${product_output_dir}/$_platform"
+  _system_install_info_file =
+      "${current_platform_dir}/system_install_parts.json"
+  required_install_modules_file =
+      "${current_platform_dir}/required_install_module_list.json"
+  action_with_pydeps("gen_required_modules_${_platform}") {
+    deps = [ ":${_platform}_parts_list" ]
+    script = "//build/ohos/packages/gen_required_modules_list.py"
+    inputs = [ _system_install_info_file ]
+    outputs = [ required_install_modules_file ]
+    depfile = "$target_gen_dir/$target_name.d"
+    args = [
+      "--system-installed-info-file",
+      rebase_path(_system_install_info_file, root_out_dir),
+      "--required-install-modules-file",
+      rebase_path(required_install_modules_file, root_out_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+  }
+}
+
+if (is_asan) {
+  foreach(_platform, target_platform_list) {
+    action("restore_first_stage_artifact_${_platform}") {
+      current_platform = _platform
+      current_platform_dir = "${product_output_dir}/$current_platform"
+      deps = [ ":${_platform}_install_modules" ]
+      print("restore_first_stage_artifact_${_platform}")
+
+      if (current_cpu == "arm64") {
+        module_type = "lib64"
+      } else if (current_cpu == "arm") {
+        module_type = "lib"
+      }
+
+      sources_dir = [
+        "${root_build_dir}/backup/packages/${_platform}/system/$module_type",
+        "${root_build_dir}/backup/packages/${_platform}/system/bin",
+      ]
+
+      restore_dir = "${current_platform_dir}/${system_base_dir}/restore"
+
+      outputs = [ restore_dir ]
+
+      script = "//build/ohos/packages/backup_restore_artifact.py"
+      args = [ "--source-dir" ]
+      foreach(source_dir, sources_dir) {
+        args += [ rebase_path(source_dir, root_out_dir) ]
+      }
+
+      args += [
+        "--output-dir",
+        rebase_path(restore_dir, root_out_dir),
+      ]
+    }
+
+    action("restore_first_stage_symbols_${_platform}") {
+      current_platform = _platform
+      current_platform_dir = "${product_output_dir}/$current_platform"
+      deps = [ ":package_libs_symbols_${_platform}" ]
+      print("restore_first_stage_symbols_${_platform}")
+
+      sources_dir = [
+        "${root_build_dir}/backup/packages/${_platform}/exe.unstripped",
+        "${root_build_dir}/backup/packages/${_platform}/lib.unstripped",
+      ]
+
+      restore_dir = "${current_platform_dir}/restore_symbols"
+
+      outputs = [ restore_dir ]
+
+      script = "//build/ohos/packages/backup_restore_artifact.py"
+      args = [ "--source-dir" ]
+      foreach(source_dir, sources_dir) {
+        args += [ rebase_path(source_dir, root_out_dir) ]
+      }
+
+      args += [
+        "--output-dir",
+        rebase_path(restore_dir, root_out_dir),
+      ]
+    }
+  }
+}
+
+foreach(_platform, target_platform_list) {
+  current_platform_dir = "$product_output_dir/$_platform"
+  _system_install_info_file =
+      "${current_platform_dir}/system_install_parts.json"
+
+  action_with_pydeps("package_libs_symbols_${_platform}") {
+    deps = [ ":${_platform}_parts_list" ]
+    script = "//build/ohos/packages/resources_collect.py"
+    inputs = [ _system_install_info_file ]
+    output_file = "$target_out_dir/$target_name.out"
+    outputs = [ output_file ]
+
+    args = [
+      "--collect-type",
+      "libs_symbols",
+      "--system-install-info-file",
+      rebase_path(_system_install_info_file, root_build_dir),
+      "--resources-dir-list",
+      "lib.unstripped",
+      "exe.unstripped",
+      "--package-output-base-dir",
+      rebase_path("$current_platform_dir", root_build_dir),
+      "--output-file",
+      rebase_path(output_file, root_build_dir),
+    ]
+  }
+}
+
+group("package_libs_symbols") {
+  deps = []
+  foreach(_platform, target_platform_list) {
+    deps += [ ":package_libs_symbols_${_platform}" ]
+    if (is_asan) {
+      deps += [ ":restore_first_stage_symbols_${_platform}" ]
+    }
+  }
+}
+
+foreach(_platform, target_platform_list) {
+  current_platform_dir = "${product_output_dir}/$_platform"
+  _system_install_info_file =
+      "${current_platform_dir}/system_install_parts.json"
+
+  action_with_pydeps("package_testcase_mlf_${_platform}") {
+    testonly = true
+    deps = [
+      ":${_platform}_parts_list",
+      "//build/core/gn:build_all_test_pkg",
+    ]
+    script = "//build/ohos/packages/resources_collect.py"
+    inputs = [ _system_install_info_file ]
+    output_file = "$target_out_dir/$target_name.out"
+    outputs = [ output_file ]
+    args = [
+      "--collect-type",
+      "module_list_files",
+      "--system-install-info-file",
+      rebase_path(_system_install_info_file, root_build_dir),
+      "--resources-dir-list",
+      "module_list_files",
+      "--package-output-base-dir",
+      rebase_path("$current_platform_dir", root_build_dir),
+      "--output-file",
+      rebase_path(output_file, root_build_dir),
+    ]
+  }
+}
+
+group("package_testcase_mlf") {
+  testonly = true
+  deps = []
+  foreach(_platform, target_platform_list) {
+    deps += [ ":package_testcase_mlf_${_platform}" ]
+  }
+}
+
+foreach(_platform, target_platform_list) {
+  current_platform_dir = "${product_output_dir}/$_platform"
+
+  _system_install_info_file =
+      "${current_platform_dir}/system_install_parts.json"
+
+  action_with_pydeps("package_testcase_${_platform}") {
+    testonly = true
+    deps = [
+      ":${_platform}_parts_list",
+      "//build/core/gn:build_all_test_pkg",
+    ]
+    script = "//build/ohos/packages/resources_collect.py"
+    inputs = [ _system_install_info_file ]
+    output_file = "$target_out_dir/$target_name.out"
+    outputs = [ output_file ]
+
+    test_type_list = [
+      "unittest",
+      "moduletest",
+      "systemtest",
+      "performance",
+      "security",
+      "reliability",
+      "distributedtest",
+      "fuzztest",
+    ]
+
+    resources_dir_list = []
+    foreach(test_type, test_type_list) {
+      resources_dir_list += [ "tests/" + test_type ]
+    }
+
+    args = [
+      "--collect-type",
+      "testcase",
+      "--system-install-info-file",
+      rebase_path(_system_install_info_file, root_build_dir),
+      "--package-output-base-dir",
+      rebase_path("$current_platform_dir/tests", root_build_dir),
+      "--output-file",
+      rebase_path(output_file, root_build_dir),
+      "--resources-dir-list",
+    ]
+    args += resources_dir_list
+  }
+}
+
+foreach(_platform, target_platform_list) {
+  current_platform_dir = "${product_output_dir}/$_platform"
+  required_files = []
+  required_files += [
+    "${build_configs_path}/target_platforms_parts.json",
+    "${build_configs_path}/parts_info/parts_info.json",
+    "${build_configs_path}/infos_for_testfwk.json",
+  ]
+  action_with_pydeps("copy_testfwk_required_files_${_platform}") {
+    testonly = true
+    deps = [ ":package_testcase_${_platform}" ]
+    script = "//build/ohos/copy_files.py"
+    depfile = "$target_gen_dir/$target_name.d"
+    output_file = "$target_out_dir/$target_name.out"
+    outputs = [ output_file ]
+    args = [
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--copy-output-dir",
+      rebase_path("$current_platform_dir/tests", root_build_dir),
+      "--outfile",
+      rebase_path(output_file, root_build_dir),
+      "--source-files",
+    ]
+    args += rebase_path(required_files, root_build_dir)
+  }
+}
+
+action_with_pydeps("open_source_package") {
+  script = "//build/scripts/code_release.py"
+  depfile = "$target_gen_dir/$target_name.d"
+  _output = "$root_build_dir/packages/code_opensource/CodeOpensource.tar.gz"
+  outputs = [ _output ]
+  args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--output",
+    rebase_path(_output, root_build_dir),
+    "--root-dir",
+    rebase_path("//", root_build_dir),
+  ]
+}
+
+group("package_testcase") {
+  testonly = true
+  deps = []
+  foreach(_platform, target_platform_list) {
+    deps += [
+      ":copy_testfwk_required_files_${_platform}",
+      ":package_testcase_${_platform}",
+    ]
+  }
+}

@@ -1,0 +1,3 @@
+[compile exit status]:1
+[compile console output]:
+[Error] ./01_empty_file_ei/case.hcs: Empty hcs file

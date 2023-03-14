@@ -1,0 +1,33 @@
+{
+  "product_name": "ohos-arm64",
+  "product_company": "openharmony",
+  "product_device": "arm64",
+  "version": "2.0",
+  "type": "standard",
+  "product_build_path": "",
+  "inherit": ["productdefine/common/inherit/_ohos_common_parts.json"],
+  "parts": {
+    "customization:config_policy":{},
+    "customization:enterprise_device_management":{},
+    "hdf:device_driver_framework":{},
+    "hdf:bluetooth_device_driver":{},
+    "hdf:input_device_driver":{},
+    "hdf:display_device_driver":{},
+    "hdf:thermal_device_driver":{},
+    "hdf:wlan_device_driver":{},
+    "hdf:sensor_device_driver":{},
+    "hdf:audio_device_driver":{},
+    "hdf:usb_device_driver":{},
+    "hdf:camera_device_driver":{},
+    "hdf:vibrator_device_driver":{},
+    "hdf:codec_device_driver":{},
+    "hdf:power_device_driver":{},
+    "hdf:battery_device_driver":{},
+    "powermgr:power_manager_native":{},
+    "powermgr:battery_manager_native":{},
+    "powermgr:battery_statistics_native":{},
+    "powermgr:display_manager_native":{},
+    "powermgr:thermal_manager":{},
+    "distributeddatamgr:distributeddataobject":{}
+  }
+}

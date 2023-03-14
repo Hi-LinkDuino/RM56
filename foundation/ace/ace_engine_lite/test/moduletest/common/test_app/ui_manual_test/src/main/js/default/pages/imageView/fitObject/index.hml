@@ -1,0 +1,56 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div class="container">
+    <image class="image" style="objectFit:{{fitobject}}; width: {{imageWith}}; height: {{imageHeight}};
+            fitOriginalSize : {{fitOriginal}} " src="common/icon.png">
+    </image>
+    <div class="radiogroup">
+        <div class="radiolable">
+            <text class="radiotext">cover:</text>
+            <input style="width: 50px; height: 50px;" type="radio" checked="true"
+                   onclick="changeToCover" name="fitRadio"></input>
+        </div>
+
+        <div class="radiolable">
+            <text class="radiotext">contain:</text>
+            <input style="width: 50px; height: 50px;" type="radio" onclick="changeToContain" name="fitRadio"></input>
+        </div>
+
+
+        <div class="radiolable">
+            <text class="radiotext">fill:</text>
+            <input style="width: 50px; height: 50px;" type="radio" onclick="changeToFill" name="fitRadio"></input>
+        </div>
+
+        <div class="radiolable">
+            <text class="radiotext">none:</text>
+            <input style="width: 50px; height: 50px;" type="radio" onclick="changeToNone" name="fitRadio"></input>
+        </div>
+
+        <div class="radiolable">
+            <text class="radiotext">scaled:</text>
+            <input style="width: 50px; height: 50px;" type="radio"
+                   onclick="changeToScaleDown" name="fitRadio"></input>
+        </div>
+
+    </div>
+
+    <div class = "bottom">
+        <input type = "button" class = "page" onclick = "goHome" value = "首页"/>
+        <input type = "button" class = "page" onclick = "goNext" value = "下一页"/>
+    </div>
+
+</div>

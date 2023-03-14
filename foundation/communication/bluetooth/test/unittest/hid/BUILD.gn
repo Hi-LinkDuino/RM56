@@ -1,0 +1,72 @@
+# Copyright (C) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "bluetooth/framework_test/hid"
+SUBSYSTEM_DIR = "//foundation/communication"
+
+###############################################################################
+#1. intent(c++) get/set test without transport
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  include_dirs = [
+    "mock/include",
+    "//third_party/json/include",
+    "//third_party/bounds_checking_function/include",
+    "//utils/system/safwk/native/include",
+  ]
+  defines = [
+    "BTFW_LOG_TAG = \"bluetooth_test\"",
+    "BTFW_LOG_DOMAIN = 0xD000103",
+  ]
+}
+
+ohos_moduletest("btfw_hid_unit_test") {
+  module_out_path = module_output_path
+  sources = [ "hid_host_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "$SUBSYSTEM_DIR/bluetooth/services/bluetooth/ipc:btipc_static",
+    "//base/global/resource_management/frameworks/resmgr:global_resmgr",
+    "//foundation/communication/bluetooth/frameworks/inner:btframework",
+    "//third_party/bounds_checking_function:libsec_shared",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+    "//third_party/libxml2:xml2",
+  ]
+
+  external_deps = [
+    "c_utils:utils",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+  ]
+}
+
+################################################################################
+group("unittest") {
+  testonly = true
+
+  deps = []
+
+  if (is_phone_product) {
+    deps += [ ":btfw_hid_unit_test" ]
+  }
+}

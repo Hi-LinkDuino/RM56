@@ -1,0 +1,61 @@
+{
+  "name": "@ohos/powermgr_lite",
+  "version": "3.1",
+  "description": "轻设备电源管理服务。",
+  "homePage": "https://gitee.com/openharmony",
+  "license": "Apache License 2.0",
+  "repository": "https://gitee.com/openharmony/powermgr_powermgr_lite",
+  "domain": "os",
+  "language": "",
+  "publishAs": "",
+  "private": false,
+  "scripts": {},
+  "dirs": [
+    "base/powermgr/powermgr_lite"
+  ],
+  "segment": {
+    "destPath": "base/powermgr/powermgr_lite"
+  },
+  "component": {
+    "name": "powermgr_lite",
+    "subsystem": "powermgr",
+    "syscap": [
+        "SystemCapability.PowerManager.PowerManager.Lite"
+    ],
+    "features": [],
+    "adapted_system_type": [
+      "liteos_a",
+      "liteos_m",
+      "linux"
+    ],
+    "rom": "22KB",
+    "ram": "~10KB",
+    "output": [
+      "libpowermgr.so",
+      "libpowermgrservice.so"
+    ],
+    "deps": {
+      "components": [
+        "utils_base",
+        "samgr_lite",
+        "peripheral_input",
+        "ui",
+        "ipc_lite",
+        "aafwk_lite",
+        "appexecfwk_lite",
+        "hilog",
+        "wms"
+      ],
+      "third_party": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+       "//base/powermgr/powermgr_lite:powermgr_lite"
+      ],
+      "inner_kits": [],
+      "test": []
+    }
+  }
+}

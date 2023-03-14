@@ -1,0 +1,10 @@
+{
+  "product_name": "ohos-sdk",
+  "product_company": "openharmony",
+  "product_device": "sdk",
+  "version": "2.0",
+  "type": "standard",
+  "product_build_path": "",
+  "inherit": ["productdefine/common/inherit/_ohos_common_parts.json"],
+  "parts": {}
+}

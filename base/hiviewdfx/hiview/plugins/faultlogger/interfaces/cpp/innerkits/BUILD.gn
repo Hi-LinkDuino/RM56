@@ -1,0 +1,45 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/ohos.gni")
+
+config("faultlogger_innerkits_config") {
+  visibility = [ "*:*" ]
+
+  include_dirs = [ "include" ]
+}
+
+ohos_source_set("faultlogger_client_impl") {
+  part_name = "hiview"
+  include_dirs = [ "." ]
+
+  public_configs = [ ":faultlogger_innerkits_config" ]
+
+  sources = [
+    "faultlog_info.cpp",
+    "impl/faultlog_query_result.cpp",
+    "impl/faultlog_query_result_impl.cpp",
+    "impl/faultlogger_client.cpp",
+  ]
+
+  deps = [
+    "$hiview_plugin/faultlogger/service/idl:faultlogger_service_ohos_common",
+  ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+}

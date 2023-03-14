@@ -1,0 +1,46 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.c_test.array_test.v1_0;
+
+import test.c_test.types.v1_0.Types;
+
+interface IArrayTest {
+
+    BoolArrayTest([in] boolean[] param1, [out] boolean[] param2);
+
+    ByteArrayTest([in] byte[] param1, [out] byte[] param2);
+
+    ShortArrayTest([in] short[] param1, [out] short[] param2);
+
+    IntArrayTest([in] int[] param1, [out] int[] param2);
+
+    LongArrayTest([in] long[] param1, [out] long[] param2);
+
+    UCharArrayTest([in] unsigned char[] param1, [out] unsigned char[] param2);
+
+    UShortArrayTest([in] unsigned short[] param1, [out] unsigned short[] param2);
+
+    UIntArrayTest([in] unsigned int[] param1, [out] unsigned int[] param2);
+
+    ULongArrayTest([in] unsigned long[] param1, [out] unsigned long[] param2);
+
+    FloatArrayTest([in] float[] param1, [out] float[] param2);
+
+    DoubleArrayTest([in] double[] param1, [out] double[] param2);
+
+    StringArrayTest([in] String[] param1, [out] String[] param2);
+
+    FdArrayTest([in] FileDescriptor[] param1, [out] FileDescriptor[] param2);
+
+    EnumArrayTest([in] enum ESample[] param1, [out] enum ESample[] param2);
+
+    StructArrayTest([in] struct SSample[] param1, [out] struct SSample[] param2);
+
+    UnionArrayTest([in] union USample[] param1, [out] union USample[] param2);
+}

@@ -1,0 +1,278 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            chart通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <chart id="idProp">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <chart id="classProp"
+             class="classProp">
+        </chart>
+        <chart id="classPropNone"
+             class="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <chart id="styleProp"
+             style="width:80%;height:20px;background-color:red">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <chart id="refProp"
+             ref="refProp">
+        </chart>
+        <chart id="refPropNone"
+             ref="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <chart id="disabledPropTrue"
+             disabled="true">
+        </chart>
+        <chart id="disabledPropFalse"
+             disabled="false">
+        </chart>
+        <chart id="disabledPropNone"
+             disabled="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <chart id="focusablePropTrue"
+             focusable="true">
+        </chart>
+        <chart id="focusablePropFalse"
+             focusable="false">
+        </chart>
+        <chart id="focusablePropNone"
+             focusable="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <chart id="dataProp"
+             data-chart="通用属性 -- data-chart">
+        </chart>
+        <chart id="dataPropNone"
+             data-chart="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <chart class="propNewAdd"
+                data="通用属性 -- data">
+        </chart>
+        <chart class="propNewAdd"
+                data="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <chart id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </chart>
+        <chart id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </chart>
+        <chart id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </chart>
+        <chart id="clickEffectPropNone"
+             click-effect="">
+        </chart>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <chart id="dirPropRtl"
+             dir="rtl">
+        </chart>
+        <chart id="dirPropAuto"
+             dir="auto">
+        </chart>
+        <chart id="dirPropLtr"
+             dir="ltr">
+        </chart>
+        <chart id="dirPropNone"
+             dir="">
+        </chart>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <chart id="forPropNull"
+             for="">
+        </chart>
+        <chart id="forPropOne"
+             for="{{listOne}}">
+        </chart>
+        <chart id="forPropThree"
+             for="{{listThree}}">
+        </chart>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <chart id="ifPropTrue"
+             if="true">
+        </chart>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <chart id="showPropTrue"
+             show="true">
+        </chart>
+        <chart id="showPropFalse"
+             show="false">
+        </chart>
+        <chart id="showPropNone"
+             show="">
+        </chart>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            chart特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- type
+        </text>
+        <chart id="typeBar"
+                type="bar">
+        </chart>
+        <chart id="typeLine"
+                type="line">
+        </chart>
+        <chart id="typeGauge"
+                type="gauge">
+        </chart>
+        <chart id="typeProgress"
+                type="progress">
+        </chart>
+        <chart id="typeLoading"
+                type="loading">
+        </chart>
+        <chart id="typeRainbow"
+               type="rainbow">
+        </chart>
+        <chart id="typeNone"
+                type="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- options
+        </text>
+        <chart id="options"
+               options="{{lineOps}}">
+        </chart>
+        <chart id="optionsNone"
+               options="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- datasets
+        </text>
+        <chart id="datasets"
+               datasets="{{lineData}}">
+        </chart>
+        <chart id="datasetsNone"
+               datasets="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- segments
+        </text>
+        <chart id="segmentsSeg"
+               segments="{{lineSeg}}">
+        </chart>
+        <chart id="segmentsRain"
+               segments="{{lineRain}}">
+        </chart>
+        <chart id="segmentsNone"
+               segments="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- waiting
+        </text>
+        <chart id="effectsTrue"
+               effects="true">
+        </chart>
+        <chart id="effectsFalse"
+               effects="false">
+        </chart>
+        <chart id="effectsNone"
+               effects="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- animationduration
+        </text>
+        <chart id="animationduration"
+               animationduration="3000">
+        </chart>
+        <chart id="animationdurationNone"
+               animationduration="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <chart class="propNewAdd"
+                tid="id">
+        </chart>
+        <chart class="propNewAdd"
+                tid="">
+        </chart>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <chart class="propNewAdd"
+               if="false">
+        </chart>
+        <chart class="propNewAdd"
+                elif="true">
+        </chart>
+        <chart class="propNewAdd"
+                elif="false">
+        </chart>
+    </div>
+</div>

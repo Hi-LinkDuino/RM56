@@ -1,0 +1,15 @@
+${model_name} :: host{
+    hostName = "${model_name}_host";        // Host name. The host node is used to store a certain type of drivers.
+    priority = 100;                         //Host startup priority (0-200). A larger value indicates a lower priority. The default value 100 is recommended. If the priorities are the same, the host loading sequence is random.
+    device_${model_name} :: device {        // Device node of sample
+        device0 :: deviceNode {             // DeviceNode of the sample driver
+            policy = 2;                     // Driver service release policy. For details, see section Driver Service Management.
+            priority= 100;                  // Driver startup priority (0-200). A larger value indicates a lower priority. The default value 100 is recommended. If the priorities are the same, the device loading sequence is random.
+            preload = 0;                    // On-demand loading of the driver. For details, see "NOTE" at the end of this section.
+            permission = 0664;              // Permission for the driver to create device nodes.
+            moduleName = "${driver_name}_driver";       // Driver name. The value of this field must be the same as the value of moduleName in the driver entry structure.
+            serviceName = "${driver_name}_service";     // Name of the service released by the driver. The name must be unique.
+            deviceMatchAttr = "";                          // Keyword matching the private data of the driver. The value must be the same as that of match_attr in the private data configuration table of the driver.
+        }
+    }
+}

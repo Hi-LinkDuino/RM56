@@ -1,0 +1,63 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/ndk/ndk.gni")
+
+declare_args() {
+  ohos_hiviewdfx_hilog_lite_file_size = 8192
+  ohos_hiviewdfx_hilog_lite_disable_cache = false
+  ohos_hiviewdfx_hilog_lite_limit_level_default = 30
+  ohos_hiviewdfx_hilog_lite_disable_print_limit = false
+  ohos_hiviewdfx_log_static_cache_size = 1024
+  ohos_hiviewdfx_hiview_hilog_file_buf_size = 512
+}
+
+config("hilog_lite_config") {
+  include_dirs = [
+    "//base/hiviewdfx/hiview_lite",
+    "//utils/native/lite/include",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+  ]
+}
+
+static_library("hilog_lite") {
+  sources = [
+    "hiview_log.c",
+    "hiview_log_limit.c",
+    "hiview_output_log.c",
+  ]
+  defines = [
+    "HIVIEW_LOG_FILE_SIZE = $ohos_hiviewdfx_hilog_lite_file_size",
+    "LOG_LIMIT_DEFAULT = $ohos_hiviewdfx_hilog_lite_limit_level_default",
+    "LOG_STATIC_CACHE_SIZE = $ohos_hiviewdfx_log_static_cache_size",
+    "HIVIEW_HILOG_FILE_BUF_SIZE = $ohos_hiviewdfx_hiview_hilog_file_buf_size",
+  ]
+  if (ohos_hiviewdfx_hilog_lite_disable_cache) {
+    defines += [ "DISABLE_HILOG_CACHE" ]
+  }
+  if (ohos_hiviewdfx_hilog_lite_disable_print_limit) {
+    defines += [ "DISABLE_HILOG_LITE_PRINT_LIMIT" ]
+  }
+  public_configs = [
+    "//base/hiviewdfx/hiview_lite:hiview_lite_config",
+    ":hilog_lite_config",
+  ]
+  deps = [ "//base/hiviewdfx/hiview_lite" ]
+}
+
+ndk_lib("hilog_lite_ndk") {
+  deps = [ ":hilog_lite" ]
+  head_files =
+      [ "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite" ]
+}

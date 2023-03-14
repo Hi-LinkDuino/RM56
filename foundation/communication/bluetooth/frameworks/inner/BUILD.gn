@@ -1,0 +1,101 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos_var.gni")
+
+SUBSYSTEM_DIR = "//foundation/communication"
+
+config("btframework_config") {
+  cflags_cc = [
+    "-fPIC",
+    "-Wno-unused-parameter",
+    "-Wunused-private-field",
+  ]
+  include_dirs = [
+    "//utils/system/safwk/native/include",
+    "//foundation/communication/bluetooth/services/bluetooth/common/",
+    "include",
+    "//foundation/communication/bluetooth/interfaces/inner_api/include",
+    "//foundation/communication/bluetooth/frameworks/inner/common",
+    "//foundation/communication/bluetooth/interfaces/inner_api/include/c_header",
+  ]
+}
+
+config("btframework_public_config") {
+  include_dirs = [
+    "//foundation/communication/bluetooth/interfaces/inner_api/include",
+    "//foundation/communication/bluetooth/services/bluetooth/common/",
+  ]
+}
+
+ohos_shared_library("btframework") {
+  # uncomment to enable cfi for libbtframework.z.so
+  # sanitize = {
+  #   cfi = true
+  #   blocklist = "./frameworks_inner_blocklist.txt"
+  # }
+  stack_protector_ret = true
+  configs = [ ":btframework_config" ]
+  public_configs = [ ":btframework_public_config" ]
+  sources = [
+    "c_adapter/ohos_bt_adapter_utils.cpp",
+    "c_adapter/ohos_bt_gap.cpp",
+    "c_adapter/ohos_bt_gatt.cpp",
+    "c_adapter/ohos_bt_gatt_client.cpp",
+    "c_adapter/ohos_bt_gatt_server.cpp",
+    "c_adapter/ohos_bt_spp.cpp",
+    "src/bluetooth_a2dp_snk.cpp",
+    "src/bluetooth_a2dp_src.cpp",
+    "src/bluetooth_avrcp_ct.cpp",
+    "src/bluetooth_avrcp_tg.cpp",
+    "src/bluetooth_ble_advertiser.cpp",
+    "src/bluetooth_ble_central_manager.cpp",
+    "src/bluetooth_device_class.cpp",
+    "src/bluetooth_gatt_characteristic.cpp",
+    "src/bluetooth_gatt_client.cpp",
+    "src/bluetooth_gatt_descriptor.cpp",
+    "src/bluetooth_gatt_manager.cpp",
+    "src/bluetooth_gatt_server.cpp",
+    "src/bluetooth_gatt_service.cpp",
+    "src/bluetooth_hfp_ag.cpp",
+    "src/bluetooth_hfp_hf.cpp",
+    "src/bluetooth_hid_host.cpp",
+    "src/bluetooth_host.cpp",
+    "src/bluetooth_map_mce.cpp",
+    "src/bluetooth_map_mse.cpp",
+    "src/bluetooth_opp.cpp",
+    "src/bluetooth_pan.cpp",
+    "src/bluetooth_pbap_pce.cpp",
+    "src/bluetooth_pbap_pse.cpp",
+    "src/bluetooth_proxy_manager.cpp",
+    "src/bluetooth_remote_device.cpp",
+    "src/bluetooth_socket.cpp",
+    "src/bluetooth_socket_inputstream.cpp",
+    "src/bluetooth_socket_outputstream.cpp",
+    "src/bluetooth_utils.cpp",
+  ]
+
+  deps = [ "$SUBSYSTEM_DIR/bluetooth/services/bluetooth/ipc:btipc_static" ]
+
+  external_deps = [
+    "c_utils:utils",
+    "hisysevent_native:libhisysevent",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "samgr:samgr_proxy",
+  ]
+
+  subsystem_name = "communication"
+  part_name = "bluetooth"
+}

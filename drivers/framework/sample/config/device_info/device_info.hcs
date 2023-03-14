@@ -1,0 +1,18 @@
+root {
+    device_info {
+        platform :: host {
+            hostName = "platform_host";
+            priority = 50;
+            device_uart :: device {
+                device5 :: deviceNode {
+                    policy = 2;
+                    priority = 10;
+                    permission = 0660;
+                    moduleName = "UART_SAMPLE";
+                    serviceName = "HDF_PLATFORM_UART_5";
+                    deviceMatchAttr = "sample_uart_5";
+                }
+            }
+        }
+    }
+}

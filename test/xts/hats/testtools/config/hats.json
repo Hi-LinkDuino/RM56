@@ -1,0 +1,33 @@
+{
+    "description": "Common configurations for running acts modules",
+    "kits": [
+        {
+            "type": "PropertyCheckKit",
+            "property-name": "ro.build.type",
+            "expected-value": "user",
+            "throw-error": "false"
+        },
+        {
+            "type": "PropertyCheckKit",
+            "property-name": "ro.product.locale",
+            "expected-value": "en-US",
+            "throw-error": "false"
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "remount",
+                "mkdir /data/data/resource",
+                "chmod -R 777 /data/data/resource",
+		"settings put global verifier_verify_hdc_installs 0",
+                "settings put secure hdc_install_need_confirm 0",
+                "setprop persist.sys.platformautotest 1",
+                "settings put secure smart_suggestion_enable 1"
+            ],
+            "teardown-command": [
+                "remount",
+                "rm -rf /data/data/resource"
+            ]
+        }
+    ]
+}

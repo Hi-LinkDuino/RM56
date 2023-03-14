@@ -1,0 +1,150 @@
+#  Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+#####################################################
+#     below is the format of defining event         #
+#####################################################
+#domain: domain name.  [Only one domain name can be defined at the top]
+#
+#author: the author name who defined this event.
+#date: the date when this event was defined, format is YYYY-MM-DD.
+#logged: source file which refer to this event.
+#usage: the usage of this event.
+#//Define event name and event properties.
+#@EVENT_NAME: the event definition part begin.
+#  // __BASE is used for defining the basic info of the event.
+#  // "type" optional values are: FAULT, STATISTICS, SECURITY, BEHAVIOR.
+#  // "level" optional values are: CRITICAL, MINOR.
+#  // "tag" set tags with may used by subscriber of this event, multiple tags divided by space.
+#  // "desc" full description of this event.
+#  @PARAMETER: {type: parameter type, arrsize: array length(optional), desc: parameter description}.
+#  // follow the __BASE block, each line defines a parameter of this event.
+#  // "type" optional values are: INT8, UINT8, INT16, UINT16, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, STRING.
+#  // "arrsize" of the parameter is an array, set a non-zero value.
+#  // "desc" full description of this parameter.
+
+#####################################################
+#   Example of some hiviewdfx events definition     #
+#####################################################
+
+domain: ACE
+
+JS_CARD_FIRST_RENDER_TIME:
+  __BASE: {type: STATISTIC, level: MINOR, desc: js card first render duration}
+  SESSION_ID: {type: STRING, desc: session id}
+  DURATION: {type: UINT64, desc: duration from js card created to first render}
+
+JS_CARD_FIRST_UPDATE_TIME:
+  __BASE: {type: STATISTIC, level: MINOR, desc: js card first update duration}
+  SESSION_ID: {type: STRING, desc: session id}
+  DURATION: {type: UINT64, desc: duration from js card first update to render}
+
+FRAMEWORK_APP_START_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: application start exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+FRAMEWORK_PAGE_ROUTER_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: page router exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+  PAGE_NAME: { type: STRING, desc: page name }
+
+COMPONENT_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: component exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+API_CHANNEL_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: API channel exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+RENDER_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: render exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+  RENDER_OBJECT_NAME: { type: STRING, desc: render object name }
+
+JS_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: JS exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+ANIMATION_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: animation exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+EVENT_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: event exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+PLUGIN_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: plugin exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+INTERNATIONALIZATION_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: internationalization exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+ACCESSIBILITY_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: accessibility exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+FORM_EXCEPTION:
+  __BASE: { type: FAULT, level: MINOR, desc: form exception }
+  ERROR_TYPE: { type: INT32, desc: error type }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+
+JS_ERROR:
+  __BASE: { type: FAULT, level: MINOR, desc: JS runtime exception }
+  PACKAGE_NAME: { type: STRING, desc: package name }
+  REASON: { type: STRING, desc: js runtime error reason }
+  SUMMARY: { type: STRING, desc: js runtime error summary }
+
+UI_BLOCK_3S:
+  __BASE: {type: FAULT, level: CRITICAL, desc: The thread is blocked for 3s }
+  UID: {type: INT32, desc: application uid}
+  PACKAGE_NAME: {type: STRING, desc: application package name}
+  PROCESS_NAME: {type: STRING, desc: application process name}
+  MSG: {type: STRING, desc: application event message}
+  CMD: {type: STRING, desc: application event cmd}
+
+UI_BLOCK_6S:
+  __BASE: {type: FAULT, level: CRITICAL, desc: The thread is blocked for 6s }
+  UID: {type: INT32, desc: application uid}
+  PACKAGE_NAME: {type: STRING, desc: application package name}
+  PROCESS_NAME: {type: STRING, desc: application process name}
+  MSG: {type: STRING, desc: application event message}
+  CMD: {type: STRING, desc: application event cmd}
+
+UI_BLOCK_RECOVERED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: The thread is recovered }
+  UID: {type: INT32, desc: application uid}
+  PACKAGE_NAME: {type: STRING, desc: application package name}
+  PROCESS_NAME: {type: STRING, desc: application process name}
+  MSG: {type: STRING, desc: application event message}
+  CMD: {type: STRING, desc: application event cmd}
+
+UI_BLOCK_DIALOG:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Dialog is displayed when the thread is blocked }
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  PACKAGE_NAME: {type: STRING, desc: application package name}
+  PROCESS_NAME: {type: STRING, desc: application process name}
+  MSG: {type: STRING, desc: application event message}

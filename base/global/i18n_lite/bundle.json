@@ -1,0 +1,77 @@
+{
+    "name": "@ohos/global_i18n_lite",
+    "version": "1.0.0",
+    "description": "Provides internationalization APIS for implementing functions such as date and time formatting.",
+    "homePage": "https://gitee.com/openharmony/",
+    "license": "Apache V2",
+    "repository": "https://gitee.com/openharmony/global_i18n_lite",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "global"
+    ],
+    "keywords": [
+        "i18n",
+        "lite"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/global/i18n_lite"
+    },
+    "component": {
+        "name": "i18n_lite",
+        "subsystem": "global",
+        "features": [],
+        "adapted_system_type": [
+            "small"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [ "utils_base" ],
+            "third_party": [
+                "bounds_checking_function"         
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/global/i18n_lite/frameworks/i18n:global_i18n"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/global/i18n_lite/frameworks/i18n:global_i18n",
+                    "header": {
+                        "header_files": [
+                            "date_time_format.h",
+                            "locale_info.h",
+                            "number_format.h",
+                            "plural_format.h",
+                            "types.h",
+                            "week_info.h"
+                        ],
+                        "header_base": "//base/global/i18n_lite/interfaces/kits/i18n/zone/include"
+                    }
+                }
+            ],
+            "test": [
+                "//base/global/i18n_lite/frameworks/i18n/test:I18nTest"
+            ]
+        }
+    }
+}

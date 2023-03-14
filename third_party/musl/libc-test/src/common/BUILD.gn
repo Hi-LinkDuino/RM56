@@ -1,0 +1,79 @@
+import("//build/test.gni")
+
+ohos_static_library("libtest") {
+  include_dirs = [ "." ]
+
+  sources = [
+    "fdfill.c",
+    "memfill.c",
+    "mtest.c",
+    "path.c",
+    "print.c",
+    "rand.c",
+    "runtest.c",
+    "setrlim.c",
+    "utf8.c",
+    "vmfill.c",
+  ]
+
+  cflags_c = [
+    "-pipe",
+    "-std=c99",
+    "-D_POSIX_C_SOURCE=200809L",
+    "-Wall",
+    "-Wno-unused",
+    "-Wno-unused-function",
+    "-Wno-missing-braces",
+    "-Wno-overflow",
+    "-Wno-unknown-pragmas",
+    "-fno-builtin",
+    "-frounding-math",
+    "-Werror=implicit-function-declaration",
+    "-Werror=implicit-int",
+    "-Werror=pointer-sign",
+    "-Werror=pointer-arith",
+    "-g",
+    "-D_FILE_OFFSET_BITS=64",
+  ]
+
+  output_name = "libtest"
+}
+
+ohos_unittest("runtest") {
+  module_out_path = "libc-test/src/common"
+
+  sources = [ "runtest.c" ]
+
+  configs = [ ":config_runtest" ]
+
+  deps = [ ":libtest" ]
+}
+
+config("config_runtest") {
+  include_dirs = [ "." ]
+
+  cflags_c = [
+    "-pipe",
+    "-std=c99",
+    "-D_POSIX_C_SOURCE=200809L",
+    "-Wall",
+    "-Wno-unused",
+    "-Wno-unused-function",
+    "-Wno-missing-braces",
+    "-Wno-overflow",
+    "-Wno-unknown-pragmas",
+    "-fno-builtin",
+    "-frounding-math",
+    "-Werror=implicit-function-declaration",
+    "-Werror=implicit-int",
+    "-Werror=pointer-sign",
+    "-Werror=pointer-arith",
+    "-Wno-error=unused-function",
+    "-g",
+    "-D_FILE_OFFSET_BITS=64",
+  ]
+
+  ldflags = [ "-nostdlib" ]
+
+  libs = [ "//${target_out_dir}/libtest.a" ]
+}

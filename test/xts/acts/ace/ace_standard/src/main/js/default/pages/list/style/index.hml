@@ -1,0 +1,117 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            list通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <list id="styleOne">
+        </list>
+        <list id="styleTwo">
+        </list>
+        <list id="styleThree">
+        </list>
+        <list id="styleFour">
+        </list>
+        <list id="styleFive">
+        </list>
+        <list id="styleSix">
+        </list>
+        <list id="styleSeven">
+        </list>
+        <list id="styleEight">
+        </list>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <list id="styleTen">
+            </list>
+            <list id="styleEleven">
+            </list>
+            <list id="styleTwelve">
+            </list>
+            <list id="styleThirteen">
+            </list>
+            <list id="styleFourteen">
+            </list>
+            <list id="styleFifteen">
+            </list>
+            <list id="styleSixteen">
+            </list>
+            <list id="styleSeventeen">
+            </list>
+            <list id="styleEighteen">
+            </list>
+            <list id="styleNineteen">
+            </list>
+            <list id="styleTwenty">
+            </list>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <list id="styleTwentyOne">
+            </list>
+            <list id="styleTwentyTwo">
+            </list>
+            <list id="styleTwentyThree">
+            </list>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <list id="styleTwentyFour">
+        </list>
+        <list id="styleTwentyFive">
+        </list>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <list id="styleTwentySix">
+        </list>
+        <list id="styleTwentySeven">
+        </list>
+        <list id="styleTwentyNine">
+        </list>
+        <list id="styleThirty">
+        </list>
+        <list id="styleThirtyOne">
+        </list>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <div id="styleThirtyTwo">
+        </div>
+    </div>
+    <div class="style-container">
+        <text class="title">
+            list特有样式
+        </text>
+        
+    </div>
+</div>
+

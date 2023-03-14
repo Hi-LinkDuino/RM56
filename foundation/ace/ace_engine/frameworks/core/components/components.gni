@@ -1,0 +1,135 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+template("build_component") {
+  forward_variables_from(invoker, "*")
+
+  component_name = target_name
+
+  template("build_component_impl") {
+    forward_variables_from(invoker, "*")
+
+    platform = target_name
+
+    component_deps = []
+    extra_deps = []
+    foreach(item, component_deps) {
+      extra_deps += [ "$ace_root/frameworks/core/components/${item}:ace_core_components_${item}_${platform}" ]
+    }
+
+    if (defined(platform_deps)) {
+      foreach(item, platform_deps) {
+        extra_deps += [ "${item}_${platform}" ]
+      }
+    }
+
+    if (defined(deps)) {
+      extra_deps += deps
+    }
+
+    ohos_source_set("ace_core_components_${component_name}_${platform}") {
+      defines += invoker.defines
+
+      sources = []
+      sources += invoker.sources
+
+      configs = []
+      configs += [ "$ace_root:ace_config" ]
+
+      if (defined(invoker.configs)) {
+        configs += invoker.configs
+      }
+
+      deps = []
+      deps += extra_deps
+      deps += [
+        "$ace_flutter_engine_root:third_party_flutter_engine_$platform",
+        "$ace_flutter_engine_root/skia:ace_skia_$platform",
+        "$ace_root/frameworks/core/components/theme:build_theme_code",
+      ]
+
+      if (defined(invoker.public_configs)) {
+        public_configs = []
+        public_configs += invoker.public_configs
+      }
+
+      if (defined(invoker.aosp_deps)) {
+        aosp_deps = []
+        aosp_deps += invoker.aosp_deps
+      }
+
+      if (defined(invoker.external_deps)) {
+        external_deps = []
+        external_deps += invoker.external_deps
+      }
+
+      if (defined(invoker.external_deps_info)) {
+        external_deps_info = []
+        external_deps_info += invoker.external_deps_info
+      }
+
+      if (defined(invoker.cflags_cc)) {
+        cflags_cc = []
+        cflags_cc += invoker.cflags_cc
+      }
+
+      if (defined(config.enable_rosen_backend) && config.enable_rosen_backend &&
+          defined(invoker.rosen_sources)) {
+        sources += invoker.rosen_sources
+        configs += [ "//foundation/graphic/standard/rosen/modules/render_service_client:render_service_client_config" ]
+      }
+
+      if (defined(config.enable_standard_input) &&
+          config.enable_standard_input) {
+        if (defined(invoker.standard_input_sources)) {
+          sources += invoker.standard_input_sources
+        }
+        if (defined(invoker.standard_input_deps)) {
+          if (defined(external_deps)) {
+            external_deps += invoker.standard_input_deps
+          } else {
+            external_deps = invoker.standard_input_deps
+          }
+        }
+      }
+      part_name = ace_engine_part
+    }
+  }
+
+  foreach(item, ace_platforms) {
+    build_component_impl(item.name) {
+      platform = item.name
+      defines = []
+
+      if (defined(item.config)) {
+        config = item.config
+      } else {
+        config = {
+        }
+      }
+
+      if (defined(config.defines)) {
+        defines += config.defines
+      }
+
+      if (defined(config.cflags_cc)) {
+        cflags_cc = config.cflags_cc
+      } else {
+        cflags_cc = []
+      }
+    }
+  }
+}

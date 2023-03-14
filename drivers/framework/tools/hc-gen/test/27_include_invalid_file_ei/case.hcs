@@ -1,0 +1,6 @@
+#include "bar.hcs"
+
+root {
+    module = "test";
+    term1 = 1;
+}

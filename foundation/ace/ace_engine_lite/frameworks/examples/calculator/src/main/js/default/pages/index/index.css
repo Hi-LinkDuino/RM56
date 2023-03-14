@@ -1,0 +1,126 @@
+/*
+ * Copyright (c) 2020 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.calc-container {
+    height: 480px;
+    width: 960px;
+}
+.calc-icon {
+    width: 36px;
+    height: 36px;
+}
+.calc-titlebar {
+    width: 200px;
+    height: 60px;
+}
+.calc-back-btn {
+    left: 39px;
+    top: 10px;
+}
+.calc-title {
+    left: 96px;
+    font-size: 30px;
+    top: 2px;
+}
+.calc-expr, .calc-rsl {
+    left: 68px;
+    width: 404px;
+}
+.calc-expr {
+    font-size: 72px;
+    top: 100px;
+
+}
+.calc-rsl {
+    color: #999;
+    font-size: 38px;
+    top: 374px;
+}
+.calc-text-btn, .calc-op-btn, .calc-equals-btn {
+    border-radius: 16px;
+    height: 76px;
+    width: 76px;
+    font-size: 38px;
+}
+.calc-text-btn {
+    background-color: rgb(41, 41, 41);
+}
+.calc-text-btn:active {
+    background-color: rgb(72, 72, 72);
+}
+.calc-op-btn {
+    background-color: #4D3F97E9;
+    color: #FF3F97E9;
+}
+.calc-op-btn:active {
+    background-color: rgb(54, 76, 97);
+}
+.calc-equals-btn {
+    background-color: #FF006CDE;
+    color: #fff;
+}
+.calc-equals-btn:active {
+    background-color: rgb(38, 129, 226);
+}
+.calc-btn-row-1 {
+    top: 112px;
+}
+.calc-btn-row-2 {
+    top: 196px;
+}
+.calc-btn-row-3 {
+    top: 280px;
+}
+.calc-btn-row-4 {
+    top: 364px;
+}
+.calc-btn-col-1 {
+    left: 480px;
+}
+.calc-btn-col-2 {
+    left: 564px;
+}
+.calc-btn-col-3 {
+    left: 648px;
+}
+.calc-btn-col-4 {
+    left: 732px;
+}
+.calc-btn-col-5 {
+    left: 816px;
+}
+.calc-btn-row-span-2 {
+    width: 160px;
+}
+.calc-btn-col-span-2 {
+    height: 160px;
+}
+.calc-icon-row-1 {
+    top: 132px;
+}
+.calc-icon-row-2 {
+    top: 216px;
+}
+.calc-icon-row-3 {
+    top: 300px;
+}
+.calc-icon-row-4 {
+    top: 384px;
+}
+.calc-icon-col-1 {
+    left: 752px;
+}
+.calc-icon-col-2 {
+    left: 836px;
+}

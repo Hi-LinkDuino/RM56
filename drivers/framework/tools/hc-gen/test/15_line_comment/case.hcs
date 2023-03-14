@@ -1,0 +1,10 @@
+root {
+    module = "test";
+    bar{
+    }
+    foo {
+        // it's comment
+        // term1 = 1;
+        term2 = 1;
+    }
+}

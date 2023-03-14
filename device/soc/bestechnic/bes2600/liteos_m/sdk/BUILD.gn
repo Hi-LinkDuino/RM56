@@ -1,0 +1,147 @@
+# Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/lite_subsystem.gni")
+import("//kernel/liteos_m/liteos.gni")
+
+out_product_path = "${ohos_root_path}out/${board_name}/${product_name}"
+
+if(bfd_build != "true"){
+romfs_enable = ""
+print("product_path:", product_path)
+if (product_path != "") {
+  conf = read_file("${product_path}/config.json", "json")
+  romfs_enable = conf.romfs_enable
+  best2003_type = conf.best2003_type
+}
+}
+# build sdk into lib
+build_ext_component("build_sdk_into_lib") {
+  exec_path = rebase_path(".")
+
+  print("product_name:", product_name)
+  print("product_path:", product_path)
+  print("bfd_build:", bfd_build)
+  if (bfd_build == "true") {
+    exec_path = rebase_path("./bsp")
+    command = "./tools/build.sh"
+  } else {
+    build_tz = "false"
+    build_mini = "false"
+
+    foreach(bsp_bin, bin_list) {
+      if (bsp_bin.bsp_target_name == "best2600w_liteos_se") {
+        build_tz = bsp_bin.enable
+      }
+      if (bsp_bin.bsp_target_name == "best2600w_liteos_mini") {
+        build_mini = bsp_bin.enable
+      }
+    }    
+    print("build_sdk_into_lib: ./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}")
+    if (romfs_enable == "true" ) {
+      command = "./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}"
+    } else {
+      command = "./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}"
+    }
+  }
+}
+
+foreach(bin_file, bin_list) {
+  build_enable = bin_file.enable
+  exe_bin = "${bin_file.elf_name}_${board_name}"
+  if (build_enable == "true") {
+    bsp_target_name = bin_file.bsp_target_name
+
+    # copy lib generate by bsp target to out directory.
+    copy_lib_name = "gen_bsp_lib_${exe_bin}"
+    print("copy_lib_name:", copy_lib_name)
+    build_ext_component(copy_lib_name) {
+      exec_path = rebase_path(".")
+      if (bfd_build == "true") {
+        out_lib_path = "${out_product_path}/libs/libbsp${bsp_target_name}.a"
+        if(bfd_dev_mode == "prod"){
+          bsp_lib_path = "./bsp/prebuild/lib${bsp_target_name}.a"
+        } else {
+          bsp_lib_path = "./bsp/out/${bsp_target_name}/lib${bsp_target_name}.a"
+          deps = [ ":build_sdk_into_lib" ]
+        }
+      } else {
+        out_lib_path = "${out_product_path}/libs/"
+        bsp_lib_path = "./bsp/out/${bsp_target_name}/libbsp${bsp_target_name}.a"
+        deps = [ ":build_sdk_into_lib" ]
+      }
+      command = "cp -rf ${bsp_lib_path} ${out_lib_path}"
+    }
+  }
+}
+
+module_name = "bsp_config"
+
+kernel_module(module_name) {
+  deps = []
+  foreach(bin_file, bin_list) {
+    build_enable = bin_file.enable
+    exe_bin = "${bin_file.elf_name}_${board_name}"
+    if (build_enable == "true") {
+      # copy lib generate by bsp target to out directory.
+      copy_lib_name = "gen_bsp_lib_${exe_bin}"
+      deps += [ ":${copy_lib_name}" ]
+    }
+  }
+}
+
+config("public") {
+  include_dirs = [
+    "bsp/rtos/liteos/liteos_m",
+    "bsp/rtos/liteos/liteos_m/kal/cmsis",
+    "bsp/platform/cmsis/inc",
+    "bsp/platform/hal",
+    "bsp/platform/drivers/ana",
+    "bsp/services/wifi_app/wifi_console",
+    "bsp/utils/crc32",
+    "bsp/utils/kfifo",
+    "bsp/net/wifi",
+    "bsp/platform/hal/best2003",
+  ]
+  if(bfd_dev_mode == "prod"){
+    ldflags = [ "-Wl,-T" + rebase_path("bsp/prebuild/${bes_specific_chip}_best2001.lds") ]
+  }else{
+    ldflags = [ "-Wl,-T" + rebase_path("bsp/out/best2600w_liteos/_best2001.lds") ]
+  }
+  # libs = [
+  #   "bspbest2600w_liteos",
+  #   "c",
+  #   "m",
+  #   "stdc++",
+  # ]
+ defines = [
+    "BES_BLE_ACTIVITY_MAX=9"
+ ]
+}

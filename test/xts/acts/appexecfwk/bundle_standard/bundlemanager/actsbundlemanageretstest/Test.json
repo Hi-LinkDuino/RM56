@@ -1,0 +1,18 @@
+{
+    "description": "Configuration for actsbundleetsgetinfotest Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "600000",
+        "package": "com.open.harmony.packagemag",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsBundleManagerEtsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

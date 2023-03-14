@@ -1,0 +1,189 @@
+#
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
+import("//build/test.gni")
+import("../../../../../appexecfwk.gni")
+import("../../../../../libs/libeventhandler/lib_event_handler_sources.gni")
+
+config("libeventhandler_module_test_config") {
+  include_dirs = [ "${libs_path}/libeventhandler/include/libeventhandler" ]
+
+  defines = event_handler_log_domain_defines
+
+  configs = [ "${libs_path}/libeventhandler:libeventhandler_config" ]
+}
+
+module_output_path = "appexecfwk_standard/mstlibeventhandler"
+
+ohos_moduletest("EventHandlerSendEventModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_send_event_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+ohos_moduletest("EventHandlerPostTaskModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_post_task_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+ohos_moduletest("EventHandlerSetGetRemoveModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_set_get_remove_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+ohos_moduletest("EventHandlerFdListenerModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_fd_listener_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+ohos_moduletest("EventHandlerPressModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_press_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+ohos_moduletest("EventHandlerSendSyncEventModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_send_sync_event_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+ohos_moduletest("EventHandlerSendTimingEventModuleTest") {
+  module_out_path = module_output_path
+
+  sources = lib_event_handler_sources
+
+  sources += [
+    "event_handler_send_timing_event_module_test.cpp",
+    "event_handler_test_common.cpp",
+  ]
+
+  configs = [ ":libeventhandler_module_test_config" ]
+
+  deps = [ "//third_party/googletest:gtest_main" ]
+
+  external_deps = [
+    "hichecker_native:libhichecker",
+    "hitrace_native:libhitrace",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+}
+
+group("moduletest") {
+  testonly = true
+
+  deps = [
+    ":EventHandlerFdListenerModuleTest",
+    ":EventHandlerPostTaskModuleTest",
+    ":EventHandlerPressModuleTest",
+    ":EventHandlerSendEventModuleTest",
+    ":EventHandlerSendSyncEventModuleTest",
+    ":EventHandlerSendTimingEventModuleTest",
+    ":EventHandlerSetGetRemoveModuleTest",
+  ]
+}

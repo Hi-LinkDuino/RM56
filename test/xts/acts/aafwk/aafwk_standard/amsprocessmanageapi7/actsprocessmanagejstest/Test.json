@@ -1,0 +1,40 @@
+{
+    "description": "Configuration for hjsunit Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "300000",
+        "package": "com.acts.actsprocessmanagejstestapi7",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsAmsProcessManageJsApi7Test.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+		{
+            "type": "ShellKit",
+            "run-command": [
+                "remount"
+            ]
+        },
+        {
+            "type": "PushKit",
+            "push": [
+                "ActsAmsProcessManageSystemAppAApi7.hap->/data/ActsAmsProcessManageSystemAppAApi7.hap",
+                "ActsAmsProcessManageSystemAppAMultiApi7.hap->/data/ActsAmsProcessManageSystemAppAMultiApi7.hap",
+                "ActsAmsProcessManageSystemAppBApi7.hap->/data/ActsAmsProcessManageSystemAppBApi7.hap",
+                "ActsAmsProcessManageVendorAppAApi7.hap->/data/ActsAmsProcessManageVendorAppAApi7.hap"
+            ]
+            
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "chmod 644 /data/*.hap"
+			]
+		}
+	]
+}

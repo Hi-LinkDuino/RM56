@@ -1,0 +1,157 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            qrcode通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <qrcode id="styleOne" value="value">
+        </qrcode>
+        <qrcode id="styleTwo" value="value">
+        </qrcode>
+        <qrcode id="styleThree" value="value">
+        </qrcode>
+        <qrcode id="styleFour" value="value">
+        </qrcode>
+        <qrcode id="styleFive" value="value">
+        </qrcode>
+        <qrcode id="styleSix" value="value">
+        </qrcode>
+        <qrcode id="styleSeven" value="value">
+        </qrcode>
+        <qrcode id="styleEight" value="value">
+        </qrcode>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <qrcode id="styleTen" value="value">
+            </qrcode>
+            <qrcode id="styleEleven" value="value">
+            </qrcode>
+            <qrcode id="styleTwelve" value="value">
+            </qrcode>
+            <qrcode id="styleThirteen" value="value">
+            </qrcode>
+            <qrcode id="styleFourteen" value="value">
+            </qrcode>
+            <qrcode id="styleFifteen" value="value">
+            </qrcode>
+            <qrcode id="styleSixteen" value="value">
+            </qrcode>
+            <qrcode id="styleSeventeen" value="value">
+            </qrcode>
+            <qrcode id="styleEighteen" value="value">
+            </qrcode>
+            <qrcode id="styleNineteen" value="value">
+            </qrcode>
+            <qrcode id="styleTwenty" value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <qrcode id="styleTwentyOne" value="value">
+            </qrcode>
+            <qrcode id="styleTwentyTwo" value="value">
+            </qrcode>
+            <qrcode id="styleTwentyThree" value="value">
+            </qrcode>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <qrcode id="styleTwentyFour" value="value">
+        </qrcode>
+        <qrcode id="styleTwentyFive" value="value">
+        </qrcode>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <qrcode id="styleTwentySix" value="value">
+        </qrcode>
+        <qrcode id="styleTwentySeven" value="value">
+        </qrcode>
+        <qrcode id="styleTwentyNine" value="value">
+        </qrcode>
+        <qrcode id="styleThirty" value="value">
+        </qrcode>
+        <qrcode id="styleThirtyOne" value="value">
+        </qrcode>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <qrcode id="styleThirtyTwo" value="value">
+        </qrcode>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            qrcode特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 color
+        </text>
+        <div id="specificOne">
+            <qrcode id="specificColor1" class="color-red" value="value">
+            </qrcode>
+            <qrcode id="specificColor2" class="color-black" value="value">
+            </qrcode>
+        </div>
+        <text class="sub-title">
+            特有样式 background-color
+        </text>
+        <div id="specificTwo">
+            <qrcode id="specificBackgroundColor1" class="background-color1" value="value">
+            </qrcode>
+            <qrcode id="specificBackgroundColor2" class="background-color2" value="value">
+            </qrcode>
+        </div>
+
+        <div style="width: 100%;flex-weight: 1;overflow: scroll;flex-direction: column;">
+            <text class="sub-title">
+                补充样式
+            </text>
+            <qrcode id="addOne" value="value">
+            </qrcode>
+            <qrcode id="addTwo" value="value">
+            </qrcode>
+            <qrcode id="addThree" value="value">
+            </qrcode>
+            <qrcode id="addFour" value="value">
+            </qrcode>
+            <qrcode id="addFive" value="value">
+            </qrcode>
+            <qrcode id="addSix" value="value">
+            </qrcode>
+            <qrcode id="addSeven" value="value">
+            </qrcode>
+        </div>
+    </div>
+</div>
+

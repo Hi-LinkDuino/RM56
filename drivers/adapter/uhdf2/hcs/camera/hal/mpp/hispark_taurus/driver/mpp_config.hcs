@@ -1,0 +1,250 @@
+root {
+    module="sample";
+    mpp_config {
+        vbConfig {
+            maxPoolCnt = 5;
+            pool0 {
+                image_width        = 2592;
+                image_height       = 1944;
+                pix_format         = 19;
+                data_bitwidth      = 0;
+                compress_mode      = 0;
+                default_align      = 8;
+                blk_count          = 7;
+            }
+            pool1 {
+                image_width        = 2592;
+                image_height       = 1944;
+                pix_format         = 26;
+                data_bitwidth      = 0;
+                compress_mode      = 0;
+                default_align      = 8;
+                blk_count          = 7;
+            }
+            pool2 {
+                image_width        = 1280;
+                image_height       = 720;
+                pix_format         = 26;
+                data_bitwidth      = 0;
+                compress_mode      = 0;
+                default_align      = 8;
+                blk_count          = 12;
+            }
+        }
+        vcapDev {
+            sensocnt               = 1;
+            sensor_type0           = 12;
+            sensor_mode            = 0;
+            sensor_width           = 2592;
+            sensor_height          = 1944;
+            bas_width              = 2592;
+            bas_height             = 1944;
+            wdr_mode               = 0;
+            data_type              = 2;
+            componentmask0         = 4293918720;
+            componentmask1         = 0;
+        }
+        vcapMipi {
+            enable                 = 1;
+            combo_dev_t            = 0;
+            input_mode_t           = 0;
+            mipi_data_rate_t       = 0;
+            img_rect_x             = 0;
+            img_rect_y             = 0;
+            img_rect_w             = 2592;
+            img_rect_h             = 1944;
+            data_type_t            = 1;
+            mipi_wdr_mode_t        = 0;
+            lane_id_num            = 4;
+            lane_id_0              = 0;
+            lane_id_1              = 1;
+            lane_id_2              = 2;
+            lane_id_3              = 3;
+        }
+        vcapIspPub {
+            enable                 = 1;
+            stWndRect_x            = 0;
+            stWndRect_y            = 0;
+            stWndRect_w            = 2592;
+            stWndRect_h            = 1944;
+            outImageSize_x         = 2592;
+            outImageSize_y         = 1944;
+            frameRate              = 30;
+            enBayer                = 0;
+            wdrMode                = 0;
+            snsMode                = 0;
+        }
+        vcapPipe {
+            pipecnt                = 2;
+            pipe0 {
+                chncnt             = 1;
+                vivpssmode         = 0;
+                enPipeBypassMode   = 0;
+                bYuvSkip           = 0;
+                bIspBypass         = 0;
+                u32MaxW            = 2592;
+                u32MaxH            = 1944;
+                enPixFmt           = 19;
+                enCompressMode     = 0;
+                enBitWidth         = 2;
+                bNrEn              = 1;
+                enNrRefSource      = 0;
+                bSharpenEn         = 1;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                bDiscardProPic     = 0;
+                chl0 {
+                    out_width      = 2592;
+                    out_height     = 1944;
+                    enPixelFormat  = 26;
+                    enDynamicRange = 0;
+                    enVideoFormat  = 0;
+                    enCompressMode = 0;
+                    bMirror        = 0;
+                    bFlip          = 0;
+                    u32Depth       = 0;
+                    src_framerate  = 30;
+                    dst_framerate  = 30;
+                }
+            }
+            pipe1 {
+                chncnt             = 1;
+                vivpssmode         = 0;
+                enPipeBypassMode   = 0;
+                bYuvSkip           = 0;
+                bIspBypass         = 0;
+                u32MaxW            = 2592;
+                u32MaxH            = 1944;
+                enPixFmt           = 19;
+                enCompressMode     = 0;
+                enBitWidth         = 2;
+                bNrEn              = 1;
+                enNrRefSource      = 0;
+                bSharpenEn         = 1;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                bDiscardProPic     = 0;
+                chl0 {
+                    out_width      = 2592;
+                    out_height     = 1944;
+                    enPixelFormat  = 26;
+                    enDynamicRange = 0;
+                    enVideoFormat  = 0;
+                    enCompressMode = 0;
+                    bMirror        = 0;
+                    bFlip          = 0;
+                    u32Depth       = 0;
+                    src_framerate  = 30;
+                    dst_framerate  = 30;
+                }
+            }
+        }
+        vpss0 {
+            vportcnt               = 3;
+            max_width              = 2592;
+            max_height             = 1944;
+            src_framerate          = 30;
+            dst_framerate          = 30;
+            pix_format             = 26;
+            vport0 {
+                enable             = 1;
+                res_width          = 2592;
+                res_height         = 1944;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                video_format       = 0;
+                pix_format         = 26;
+                compressMode       = 0;
+                depth              = 0;
+                mirror             = 0;
+                flip               = 0;
+            }
+            vport1 {
+                enable             = 1;
+                res_width          = 1280;
+                res_height         = 720;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                video_format       = 0;
+                pix_format         = 26;
+                compressMode       = 0;
+                depth              = 0;
+                mirror             = 0;
+                flip               = 0;
+            }
+            vport2 {
+                enable             = 1;
+                res_width          = 640;
+                res_height         = 480;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                video_format       = 0;
+                pix_format         = 26;
+                compressMode       = 0;
+                depth              = 0;
+                mirror             = 0;
+                flip               = 0;
+            }
+            extvport0 {
+                enable             = 0;
+                res_width          = 160;
+                res_height         = 120;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                video_format       = 0;
+                pix_format         = 26;
+                compressMode       = 0;
+                depth              = 0;
+                mirror             = 0;
+                flip               = 0;
+            }
+        }
+        venc {
+            venccnt = 4;
+            venc0 {
+                res_width          = 1920;
+                res_height         = 1080;
+                bufsize            = 1258290;
+                gop                = 30;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                h265bitrate        = 10240;
+                h264bitrate        = 12288;
+                stat_time          = 2;
+            }
+            venc1 {
+                res_width          = 640;
+                res_height         = 360;
+                bufsize            = 230400;
+                gop                = 30;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                h265bitrate        = 2048;
+                h264bitrate        = 2048;
+                stat_time          = 2;
+            }
+            venc2 {
+                res_width          = 1920;
+                res_height         = 1080;
+                bufsize            = 1258290;
+                gop                = 0;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                h265bitrate        = 0;
+                h264bitrate        = 0;
+                stat_time          = 2;
+            }
+            venc3 {
+                res_width          = 320;
+                res_height         = 180;
+                bufsize            = 57600;
+                gop                = 0;
+                src_framerate      = 30;
+                dst_framerate      = 30;
+                h265bitrate        = 0;
+                h264bitrate        = 0;
+                stat_time          = 2;
+            }
+        }
+    }
+}

@@ -1,0 +1,132 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "hdf/usb"
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "include",
+    "//utils/system/safwk/native/include",
+    "//drivers/peripheral/usb/hal/client/include",
+  ]
+}
+
+ohos_unittest("test_transfer") {
+  sources = [ "src/usbd_transfer_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//drivers/peripheral/usb/ddk:libusb_core",
+    "//drivers/peripheral/usb/hal/client:usbd_client",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "ces_standard:cesfwk_innerkits",
+    "device_driver_framework:libhdf_utils",
+    "eventhandler:libeventhandler",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_single",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+    "utils_base:utils",
+  ]
+  module_out_path = module_output_path
+}
+ohos_unittest("test_device") {
+  sources = [ "src/usbd_device_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//drivers/peripheral/usb/hal/client:usbd_client",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "ces_standard:cesfwk_innerkits",
+    "device_driver_framework:libhdf_utils",
+    "eventhandler:libeventhandler",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_single",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+    "utils_base:utils",
+  ]
+  module_out_path = module_output_path
+}
+
+ohos_unittest("test_function") {
+  sources = [ "src/usbd_function_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//drivers/peripheral/usb/hal/client:usbd_client",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "ces_standard:cesfwk_innerkits",
+    "device_driver_framework:libhdf_utils",
+    "eventhandler:libeventhandler",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_single",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+    "utils_base:utils",
+  ]
+  module_out_path = module_output_path
+}
+
+ohos_unittest("test_request") {
+  sources = [ "src/usbd_request_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//drivers/peripheral/usb/ddk:libusb_core",
+    "//drivers/peripheral/usb/hal/client:usbd_client",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "bundle_framework:appexecfwk_base",
+    "ces_standard:cesfwk_innerkits",
+    "device_driver_framework:libhdf_utils",
+    "eventhandler:libeventhandler",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_single",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+    "utils_base:utils",
+  ]
+  module_out_path = module_output_path
+}
+
+group("hal_test") {
+  testonly = true
+  deps = []
+}

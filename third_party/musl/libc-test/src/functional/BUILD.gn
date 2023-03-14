@@ -1,0 +1,37 @@
+import("../../test_template.gni")
+import("test_src_functional.gni")
+
+foreach(s, functional_list) {
+  test_unittest(s) {
+    target_dir = "functional"
+  }
+}
+
+group("functional_test") {
+  testonly = true
+  deps = [ ":dso_shared" ]
+
+  foreach(s, functional_list) {
+    deps += [ ":${s}" ]
+  }
+}
+
+test_sharedlib("dlopen_dso") {
+}
+test_sharedlib("dlclose_reset_dso") {
+}
+test_sharedlib("tls_init_dso") {
+}
+test_sharedlib("tls_align_dso") {
+}
+
+group("dso_shared") {
+  testonly = true
+
+  deps = [
+    ":dlclose_reset_dso",
+    ":dlopen_dso",
+    ":tls_align_dso",
+    ":tls_init_dso",
+  ]
+}

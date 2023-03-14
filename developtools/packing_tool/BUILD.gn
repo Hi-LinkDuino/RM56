@@ -1,0 +1,129 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/ohos/rules.gni")
+import("//build/ohos.gni")
+import("//developtools/developtools.gni")
+
+java_library("app_packing_tool_java") {
+  java_files = [
+    "adapter/ohos/BundleException.java",
+    "adapter/ohos/CommandParser.java",
+    "adapter/ohos/CompressEntrance.java",
+    "adapter/ohos/Compressor.java",
+    "adapter/ohos/CompressVerify.java",
+    "adapter/ohos/Log.java",
+    "adapter/ohos/ShowHelp.java",
+    "adapter/ohos/Utility.java",
+    "adapter/ohos/ModuleJsonUtil.java",
+    "adapter/ohos/Version.java",
+  ]
+
+  main_class = "ohos.CompressEntrance"
+
+  final_jar_path = "$root_build_dir/developtools/app_packing_tool.jar"
+}
+
+java_library("app_unpacking_tool_java") {
+  java_files = [
+    "adapter/ohos/BundleException.java",
+    "adapter/ohos/CommandParser.java",
+    "adapter/ohos/Log.java",
+    "adapter/ohos/ShowHelp.java",
+    "adapter/ohos/UncompressEntrance.java",
+    "adapter/ohos/Uncompress.java",
+    "adapter/ohos/UncompressVerify.java",
+    "adapter/ohos/Utility.java",
+    "adapter/ohos/HapInfo.java",
+    "adapter/ohos/ReqPermission.java",
+    "adapter/ohos/Distro.java",
+    "adapter/ohos/AbilityInfo.java",
+    "adapter/ohos/MetaData.java",
+    "adapter/ohos/MetaDataInfo.java",
+    "adapter/ohos/SkillInfo.java",
+    "adapter/ohos/UsedScene.java",
+    "adapter/ohos/PackInfo.java",
+    "adapter/ohos/FormInfo.java",
+    "adapter/ohos/ProfileInfo.java",
+    "adapter/ohos/AppInfo.java",
+    "adapter/ohos/DefPermission.java",
+    "adapter/ohos/DefPermissionGroup.java",
+    "adapter/ohos/CustomizeData.java",
+    "adapter/ohos/UncomperssResult.java",
+    "adapter/ohos/JsonUtil.java",
+    "adapter/ohos/JsInfo.java",
+    "adapter/ohos/DeviceConfig.java",
+    "adapter/ohos/CommonEvent.java",
+    "adapter/ohos/Shortcut.java",
+    "adapter/ohos/IntentInfo.java",
+    "adapter/ohos/ResourcesParser.java",
+    "adapter/ohos/DistroFilter.java",
+    "adapter/ohos/ApiVersion.java",
+    "adapter/ohos/ScreenShape.java",
+    "adapter/ohos/ScreenDensity.java",
+    "adapter/ohos/ScreenWindow.java",
+    "adapter/ohos/CountryCode.java",
+    "adapter/ohos/HapZipInfo.java",
+    "adapter/ohos/AbilityFormInfo.java",
+  ]
+
+  deps = [ "//third_party/fastjson/repackaged:fastjson_utils_java" ]
+
+  java_manifest_file = "META-INF/unpacking_tool/MANIFEST.MF"
+
+  main_class = "ohos.UncompressEntrance"
+
+  final_jar_path = "$root_build_dir/developtools/app_unpacking_tool.jar"
+}
+
+java_library("haptobin_tool_java") {
+  java_files = [
+    "adapter/ohos/Log.java",
+    "adapter/ohos/BinaryTool.java",
+    "adapter/ohos/FileUtils.java",
+    "adapter/ohos/ConvertHapToBin.java",
+  ]
+
+  deps = [ "//third_party/fastjson/repackaged:fastjson_utils_java" ]
+
+  java_manifest_file = "META-INF/packingbin_tool/MANIFEST.MF"
+
+  main_class = "ohos.ConvertHapToBin"
+
+  final_jar_path = "$root_build_dir/developtools/haptobin_tool.jar"
+}
+
+java_library("bininfo_collecting_tool_java") {
+  java_files = [
+    "adapter/ohos/Log.java",
+    "adapter/ohos/FileUtils.java",
+    "adapter/ohos/CollectBinInfo.java",
+  ]
+
+  deps = [ "//third_party/fastjson/repackaged:fastjson_utils_java" ]
+
+  java_manifest_file = "META-INF/collectingbininfo_tool/MANIFEST.MF"
+
+  main_class = "ohos.CollectBinInfo"
+
+  final_jar_path = "$root_build_dir/developtools/bininfo_collecting_tool.jar"
+}
+
+group("packing_tool_target") {
+  deps = [
+    ":app_packing_tool_java",
+    ":app_unpacking_tool_java",
+    ":bininfo_collecting_tool_java",
+    ":haptobin_tool_java",
+  ]
+}

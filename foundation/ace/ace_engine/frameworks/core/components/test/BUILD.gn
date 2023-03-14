@@ -1,0 +1,106 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/test.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+ohos_source_set("json") {
+  defines = ace_common_defines
+  if (is_wearable_product) {
+    defines += ace_wearable_defines
+  }
+  include_dirs = [
+    ".",
+    "//foundation/ace/ace_engine",
+    "$ace_root/frameworks",
+    "$root_out_dir/ace/framework",
+  ]
+
+  deps = [
+    "$ace_root/frameworks/base:ace_base_ohos",
+    "$ace_root/frameworks/core:ace_core_ohos",
+  ]
+
+  sources = [
+    "json/align_creator.cpp",
+    "json/background_image_creator.cpp",
+    "json/border_creator.cpp",
+    "json/border_edge_creator.cpp",
+    "json/box_creator.cpp",
+    "json/button_creator.cpp",
+    "json/checkable_creator.cpp",
+    "json/clip_creator.cpp",
+    "json/color_creator.cpp",
+    "json/component_factory.cpp",
+    "json/compose_creator.cpp",
+    "json/decoration_creator.cpp",
+    "json/dialog_creator.cpp",
+    "json/display_creator.cpp",
+    "json/divider_creator.cpp",
+    "json/edge_creator.cpp",
+    "json/flex_creator.cpp",
+    "json/flex_item_creator.cpp",
+    "json/focusable_creator.cpp",
+    "json/gesture_listener_creator.cpp",
+    "json/gradient_creator.cpp",
+    "json/grid_creator.cpp",
+    "json/grid_item_creator.cpp",
+    "json/grid_layout_creator.cpp",
+    "json/grid_layout_item_creator.cpp",
+    "json/image_creator.cpp",
+    "json/json_frontend.cpp",
+    "json/list_creator.cpp",
+    "json/list_item_creator.cpp",
+    "json/loading_progress_creator.cpp",
+    "json/offset_creator.cpp",
+    "json/padding_creator.cpp",
+    "json/positioned_creator.cpp",
+    "json/progress_creator.cpp",
+    "json/radius_creator.cpp",
+    "json/scroll_creator.cpp",
+    "json/shadow_creator.cpp",
+    "json/slider_creator.cpp",
+    "json/stack_creator.cpp",
+    "json/swiper_creator.cpp",
+    "json/text_creator.cpp",
+    "json/text_span_creator.cpp",
+    "json/text_style_creator.cpp",
+    "json/touch_listener_creator.cpp",
+    "json/transform_creator.cpp",
+    "json/tween_creator.cpp",
+    "json/tween_option_creator.cpp",
+    "json/wrap_creator.cpp",
+  ]
+
+  if (!is_wearable_product) {
+    sources += [
+      "json/marquee_creator.cpp",
+      "json/popup_creator.cpp",
+      "json/rating_creator.cpp",
+      "json/select_creator.cpp",
+      "json/tab_bar_creator.cpp",
+      "json/tab_content_creator.cpp",
+      "json/text_field_creator.cpp",
+      "json/texture_creator.cpp",
+      "json/video_creator.cpp",
+    ]
+  }
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ ":json" ]
+
+  deps += [ "unittest:unittest" ]
+}

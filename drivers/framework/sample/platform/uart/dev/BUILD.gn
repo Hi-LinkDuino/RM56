@@ -1,0 +1,41 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+#
+# HDF is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+
+HDF_FRAMEWORKS = "//drivers/framework"
+
+executable("hello_uart") {
+  sources = [ "hello_uart_dev.c" ]
+
+  include_dirs = [
+    "$HDF_FRAMEWORKS/ability/sbuf/include",
+    "$HDF_FRAMEWORKS/core/shared/include",
+    "$HDF_FRAMEWORKS/core/host/include",
+    "$HDF_FRAMEWORKS/core/master/include",
+    "$HDF_FRAMEWORKS/include/core",
+    "$HDF_FRAMEWORKS/include/utils",
+    "$HDF_FRAMEWORKS/utils/include",
+    "$HDF_FRAMEWORKS/include/osal",
+    "//drivers/adapter/uhdf/posix/include",
+    "//third_party/bounds_checking_function/include",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/uhdf/manager:hdf_core",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+  ]
+
+  public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  defines = [ "__USER__" ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Wno-format",
+    "-Wno-format-extra-args",
+  ]
+}

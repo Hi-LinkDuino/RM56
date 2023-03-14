@@ -1,0 +1,28 @@
+{
+    "description": "Config for abilityms test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/aafwk",
+                    "target": "/test_root/aafwk"
+                },{
+                    "source": "resource/aafwk",
+                    "target": "/test_root/aafwk"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/aafwk/ActsAbilityMgrTest.bin"
+    }
+}

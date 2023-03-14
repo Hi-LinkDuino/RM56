@@ -1,0 +1,139 @@
+{
+  "app": {
+    "bundleName": "com.ohos.contactperformance",
+    "vendor": "open",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 7,
+      "releaseType": "Release",
+      "target": 7
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.ohos.contactperformance",
+    "name": ".MyApplication",
+    "mainAbility": ".MainAbility",
+    "srcPath": "MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.LOCATION",
+        "reason": "need use ohos.permission.LOCATION"
+      },
+      {
+        "name":"ohos.permission.SET_TELEPHONY_STATE",
+        "reason":"need use ohos.permission.SET_TELEPHONY_STATE"
+      },
+      {
+        "name":"ohos.permission.GET_TELEPHONY_STATE",
+        "reason":"need use ohos.permission.GET_TELEPHONY_STATE"
+      },
+      {
+        "name":"ohos.permission.PLACE_CALL",
+        "reason":"need use ohos.permission.PLACE_CALL"
+      },
+      {
+        "name":"ohos.permission.READ_CONTACTS",
+        "reason":"need use ohos.permission.READ_CONTACTS"
+      },
+      {
+        "name":"ohos.permission.WRITE_CONTACTS",
+        "reason":"need use ohos.permission.WRITE_CONTACTS"
+      },
+	  {
+        "name":"ohos.permission.SEND_MESSAGES",
+        "reason":"need use ohos.permission.SEND_MESSAGES"
+      },
+	  {
+        "name":"ohos.permission.RECEIVE_SMS",
+        "reason":"need use ohos.permission.RECEIVE_SMS"
+      },
+	  {
+        "name":"ohos.permission.READ_CALL_LOG",
+        "reason":"need use ohos.permission.READ_CALL_LOG"
+      },
+	  {
+        "name":"ohos.permission.GET_NETWORK_INFO",
+        "reason":"need use ohos.permission.GET_NETWORK_INFO"
+      },
+	  {
+        "name":"ohos.permission.INTERNET",
+        "reason":"need use ohos.permission.INTERNET"
+      }
+    ],
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index",
+          "pages/Button",
+          "pages/Blank",
+          "pages/DataPanel",
+          "pages/Divider",
+          "pages/Text",
+          "pages/RowSplit",
+          "pages/Scroll",
+          "pages/Stack",
+          "pages/Image",
+          "pages/Progress",
+          "pages/Qrcode",
+          "pages/Rating",
+          "pages/Span",
+          "pages/Slider",
+          "pages/Badge",
+          "pages/Column",
+          "pages/ColumnSplit",
+          "pages/Counter",
+          "pages/Flex",
+          "pages/GridContainer"
+
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

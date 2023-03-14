@@ -1,0 +1,39 @@
+{
+  "app": {
+    "bundleName": "com.example.musicplayer",
+    "vendor": "example",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "deviceType": [
+      "liteWearable",
+      "smartVision"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "name": "default",
+        "icon": "$media:icon",
+        "label": "$string:entry_MainAbility",
+        "type": "page"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/dm/dmstep"
+        ],
+        "name": "default"
+      }
+    ]
+  }
+}

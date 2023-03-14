@@ -1,0 +1,61 @@
+{
+    "name": "@ohos/huks",
+    "description": "The provider of key and certificate manangement capbility, which belongs to security subsystem",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/security/huks"
+    },
+    "dirs":{},
+    "scripts": {
+      "install": "DEST_PATH=${DEP_BUNDLE_BASE}/base/security/huks && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "repository": "",
+    "component": {
+      "name": "huks",
+      "subsystem": "security",
+      "syscap": [ "SystemCapability.Security.Huks" ],
+      "features": [],
+      "adapted_system_type": [
+          "standard",
+          "small",
+          "mini"
+        ],
+      "rom": "5000KB",
+      "ram": "500kB",
+      "deps": {
+        "components": [
+          "libhilog",
+          "ipc_core",
+          "system_ability_fwk",
+          "samgr_proxy",
+          "utils_base"
+        ],
+        "third_party": [ 
+          "openssl",
+          "bounds_checking_function"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//base/security/huks:huks_components"
+        ],
+        "inner_kits": [
+          {
+            "name": "//base/security/huks/interfaces/innerkits/huks_standard/main:libhukssdk",
+            "header": {
+              "header_files": [
+                "hks_api.h"
+              ],
+              "header_base": "//base/security/huks/interfaces/innerkits/huks_standard/main/include"
+            }
+          }
+        ],
+        "test": [ 
+          "//base/security/huks:huks_sdk_test"
+        ]
+      }
+    }
+  }

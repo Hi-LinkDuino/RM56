@@ -1,0 +1,38 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+if (ohos_kernel_type == "liteos_m") {
+  static_library("foundation_dbm_kv_store") {
+    sources = [ "src/kv_store_impl_hal/dbm_kv_store.c" ]
+    include_dirs = [
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/dbm_kv_store/include",
+      "inc",
+    ]
+  }
+} else {
+  shared_library("foundation_dbm_kv_store") {
+    cflags = [ "-Wall" ]
+    cflags_cc = cflags
+    sources = [ "src/kvstore_impl_posix/dbm_kv_store.c" ]
+    include_dirs = [
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/dbm_kv_store/include",
+      "inc",
+    ]
+    public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  }
+}
+
+lite_component("dbm_kv_store") {
+  features = [ ":foundation_dbm_kv_store" ]
+}

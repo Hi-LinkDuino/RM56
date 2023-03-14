@@ -1,0 +1,153 @@
+{
+  "name": "tspan",
+  "version": [
+    {
+      "name": "v7.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": ""
+    }
+  ],
+  "attributes": [
+    {
+      "name": "id",
+      "required": false,
+      "description": [
+        {
+          "name": "Unique identification of the component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "rotate",
+      "required": false,
+      "description": [
+        {
+          "name": "The bottom left corner of the font is the center of the rotation Angle, positive numbers clockwise, negative numbers counterclockwise"
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "font-size",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the size of the text."
+        }
+      ],
+      "type": "length"
+    },
+    {
+      "name": "fill",
+      "required": false,
+      "description": [
+        {
+          "name": "Font fill color."
+        }
+      ],
+      "type": "color"
+    },
+    {
+      "name": "x",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the x-coordinate of the upper left corner of the component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "y",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the Y-axis of the upper left corner of the component. Invalid as a child of TextPath."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "dy",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the text Y-axis offset Invalid as a child of TextPath."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "dx",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the text X-axis offset."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "stroke",
+      "required": false,
+      "description": [
+        {
+          "name": "Draws the font border and specifies the color."
+        }
+      ],
+      "type": "color"
+    },
+    {
+      "name": "opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-width",
+      "required": false,
+      "description": [
+        {
+          "name": "Font border width."
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": "Font border transparency."
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "fill-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": "Font fill transparency."
+        }
+      ],
+      "type": "number"
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

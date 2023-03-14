@@ -1,0 +1,22 @@
+{
+  "data": {
+    "temperature": "0",
+    "time": "00:00:00"
+  },
+  "actions": {
+    "routerEvent": {
+      "action": "router",
+      "bundleName": "ohos.samples.FormApplication",
+      "abilityName": "ohos.samples.FormApplication.MainAbility",
+      "params": {
+        "message": "add detail"
+      }
+    },
+    "messageEvent": {
+      "action": "message",
+      "params": {
+        "message": "add detail"
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            panel通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <panel id="idProp" type="temporary">
+        </panel>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <panel id="classProp"
+             class="classProp" type="minibar">
+        </panel>
+        <panel id="classPropNone"
+             class="" type="temporary">
+        </panel>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <panel id="styleProp" type="temporary"
+             style="width:10%;height:20px;background-color:red">
+        </panel>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <panel id="refProp" type="temporary"
+             ref="refProp">
+        </panel>
+        <panel id="refPropNone" type="temporary"
+             ref="">
+        </panel>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <panel id="dataProp" type="temporary"
+             data-panel="通用属性 -- data-*">
+        </panel>
+        <panel id="dataPropNone" type="temporary"
+             data-panel="">
+        </panel>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <panel id="clickEffectPropSmall" type="temporary"
+             click-effect="spring-small">
+        </panel>
+        <panel id="clickEffectPropMedium" type="temporary"
+             click-effect="spring-medium">
+        </panel>
+        <panel id="clickEffectPropLarge" type="temporary"
+             click-effect="spring-large">
+        </panel>
+        <panel id="clickEffectPropNone" type="minibar"
+             click-effect="">
+        </panel>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <panel id="dirPropRtl" type="minibar"
+             dir="rtl">
+        </panel>
+        <panel id="dirPropAuto" type="minibar"
+             dir="auto">
+        </panel>
+        <panel id="dirPropLtr" type="minibar"
+             dir="ltr">
+        </panel>
+        <panel id="dirPropNone" type="minibar"
+             dir="">
+        </panel>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            panel特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- type
+        </text>
+        <panel id="typePropFoldAble" type="foldable">
+        </panel>
+        <panel id="typePropMinibar" type="minibar">
+        </panel>
+        <panel id="typePropTemporary" type="temporary">
+        </panel>
+
+        <text class="sub-title">
+            特有属性 -- mode
+        </text>
+        <panel id="modePropMini" type="foldable" mode="mini">
+        </panel>
+        <panel id="modePropHalf" type="foldable" mode="half">
+        </panel>
+        <panel id="modePropFull" type="foldable" mode="full">
+        </panel>
+
+        <text class="sub-title">
+            特有属性 -- dragbar
+        </text>
+        <panel id="dragBarPropTrue" type="foldable" dragbar="true">
+        </panel>
+        <panel id="dragBarPropFalse" type="foldable" dragbar="false">
+        </panel>
+
+        <text class="sub-title">
+            特有属性 -- fullheight
+        </text>
+        <panel id="fullHeightPro" type="foldable" fullheight="500px">
+        </panel>
+
+        <text class="sub-title">
+            特有属性 -- halfheight
+        </text>
+        <panel id="halfHeightPro" type="foldable" halfheight="400px">
+        </panel>
+
+        <text class="sub-title">
+            特有属性 -- miniheight
+        </text>
+        <panel id="miniHeightPro" type="foldable" miniheight="50px">
+        </panel>
+    </div>
+</div>

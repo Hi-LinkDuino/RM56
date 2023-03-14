@@ -1,0 +1,89 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+template("pa_backend") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    configs = [ "$ace_root:ace_config" ]
+
+    deps = []
+
+    include_dirs = [
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability/include",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb/include",
+      "//foundation/aafwk/standard/services/common/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/uri/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/context",
+      "//foundation/aafwk/standard/frameworks/kits/ability/native/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
+      "//foundation/aafwk/standard/interfaces/innerkits/ability_manager/include",
+      "//foundation/aafwk/standard/services/abilitymgr/include",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/inner/napi_common",
+      "//foundation/aafwk/standard/services/common/include",
+    ]
+    deps = [
+      "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
+      "//foundation/aafwk/standard/frameworks/kits/appkit:appkit_native",
+      "//foundation/aafwk/standard/interfaces/innerkits/base:base",
+      "//foundation/aafwk/standard/interfaces/innerkits/uri:zuri",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/inner/napi_common:napi_common",
+      "//foundation/ace/napi:ace_napi",
+      "//foundation/ace/napi:ace_napi_quickjs",
+      "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+      "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+      "//utils/native/base:utils",
+    ]
+    external_deps = [
+      "ability_base:want",
+      "bundle_framework:appexecfwk_base",
+      "bundle_framework:appexecfwk_core",
+      "eventhandler:libeventhandler",
+      "form_runtime:form_manager",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_core",
+      "ipc_js:rpc",
+      "napi:ace_napi",
+      "native_appdatamgr:native_dataability",
+      "native_appdatamgr:native_rdb",
+      "samgr_standard:samgr_proxy",
+    ]
+
+    sources = [
+      "backend_delegate_impl.cpp",
+      "pa_backend.cpp",
+    ]
+
+    # if not build-in js engine, should use engine loader to load so
+    if (!defined(config.use_build_in_js_engine) ||
+        !config.use_build_in_js_engine) {
+      sources += [ "engine/common/js_backend_engine_loader.cpp" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  pa_backend("pa_backend_" + item.name) {
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+  }
+}

@@ -1,0 +1,108 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+  import("//build/lite/config/test.gni")
+  import("//drivers/peripheral/audio/audio.gni")
+} else {
+  import("//build/ohos.gni")
+  import("//build/test.gni")
+  import("//drivers/adapter/uhdf2/uhdf.gni")
+  import("//drivers/peripheral/audio/audio.gni")
+}
+
+if (defined(ohos_lite)) {
+  unittest("hdf_audio_hdi_headset_test") {
+    sources = [ "//drivers/peripheral/audio/test/unittest/hdi/jack/src/analog_headset_test.cpp" ]
+
+    include_dirs = [
+      "//drivers/peripheral/audio/test/unittest/hdi/jack/include",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+      "//drivers/adapter/uhdf/posix/include",
+      "//drivers/framework/include",
+      "//drivers/framework/include/core",
+      "//drivers/framework/include/osal",
+      "//drivers/framework/include/platform",
+      "//drivers/framework/include/utils",
+      "//drivers/framework/utils/include",
+      "//drivers/framework/test/unittest/include",
+      "//drivers/peripheral/input/hal/include",
+      "//drivers/peripheral/input/interfaces/include",
+      "//third_party/bounds_checking_function/include",
+      "//third_party/FreeBSD/sys/dev/evdev",
+    ]
+
+    deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//drivers/adapter/uhdf/manager:hdf_core",
+      "//drivers/adapter/uhdf/platform:hdf_platform",
+      "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+      "//drivers/adapter/uhdf/test/unittest/common:hdf_test_common",
+      "//drivers/peripheral/audio/hal/hdi_passthrough:hdi_audio",
+      "//drivers/peripheral/input/hal:hdi_input",
+    ]
+    public_deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsigned-char",
+      "-fno-common",
+      "-fno-strict-aliasing",
+      "-std=c++11",
+    ]
+    if (ohos_build_compiler != "clang") {
+      cflags += [
+        "-Wno-format",
+        "-Wno-format-extra-args",
+      ]
+    }
+  }
+} else {
+  module_output_path = "hdf/audio/unittest/hal"
+  ohos_unittest("hdf_audio_hdi_headset_test") {
+    module_out_path = module_output_path
+    sources = [ "//drivers/peripheral/audio/test/unittest/hdi/jack/src/analog_headset_test.cpp" ]
+
+    include_dirs =
+        [ "//drivers/peripheral/audio/test/unittest/hdi/jack/include" ]
+
+    deps = [
+      "$hdf_uhdf_path/utils:libhdf_utils",
+      "//drivers/peripheral/audio/hal/hdi_passthrough:hdi_audio",
+      "//drivers/peripheral/input/hal:hdi_input",
+    ]
+    if (is_standard_system) {
+      external_deps = [
+        "device_driver_framework:libhdf_test_common",
+        "device_driver_framework:libhdf_utils",
+        "hiviewdfx_hilog_native:libhilog",
+        "utils_base:utils",
+      ]
+    } else {
+      external_deps = [
+        "device_driver_framework:libhdf_utils",
+        "hilog:libhilog",
+      ]
+    }
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsigned-char",
+      "-fno-common",
+      "-fno-strict-aliasing",
+    ]
+  }
+}

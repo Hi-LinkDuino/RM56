@@ -1,0 +1,1959 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# ------------------------------------------------
+#      Skia main target config begin
+# ------------------------------------------------
+
+# symbol link for skia include dirs
+system_skia_override_path = root_out_dir + "/override/system"
+third_party_skia_override_path = root_out_dir + "/override/third_party"
+
+template("make_skia_include_dir") {
+  forward_variables_from(invoker, "*")
+
+  action("make_${target_name}_skia_include_dir") {
+    script = "make_skia_include_dir.py"
+    inputs = [ src_path ]
+    outputs = [ dst_path ]
+    args = [
+      rebase_path(dst_path, root_build_dir),
+      rebase_path(src_path, root_build_dir),
+    ]
+  }
+}
+
+make_skia_include_dir("system") {
+  src_path = "$libs_root/shared_library/${target_os}_${target_cpu}/include/external/skia"
+  dst_path = system_skia_override_path + "/third_party"
+}
+
+make_skia_include_dir("third_party") {
+  src_path = "$flutter_root/skia"
+  dst_path = third_party_skia_override_path + "/third_party"
+}
+
+# Config for using system skia
+config("system_skia_config") {
+  include_dirs = [
+    "$system_skia_override_path",
+    "$system_skia_override_path/third_party/skia",
+    "$system_skia_override_path/third_party/skia/include",
+    "$system_skia_override_path/third_party/skia/include/codec",
+    "$system_skia_override_path/third_party/skia/include/config",
+    "$system_skia_override_path/third_party/skia/include/config/android",
+    "$system_skia_override_path/third_party/skia/include/core",
+    "$system_skia_override_path/third_party/skia/include/gpu",
+    "$system_skia_override_path/third_party/skia/include/private",
+    "$system_skia_override_path/third_party/skia/include/utils",
+  ]
+
+  include_dirs += [ "$libs_root/shared_library/${target_os}_${target_cpu}/include/external/vulkan-headers/include" ]
+  include_dirs += [ "$libs_root/shared_library/${target_os}_${target_cpu}/include/frameworks/native/opengl/include" ]
+  include_dirs += [ "$libs_root/shared_library/${target_os}_${target_cpu}/include/frameworks/native/opengl/libs/EGL/include" ]
+  defines = [ "USE_SYSTEM_SKIA" ]
+}
+
+config("system_harfbuzz_config") {
+  include_dirs = [ "$libs_root/shared_library/${target_os}_${target_cpu}/include/external/harfbuzz_ng/src" ]
+  defines = [ "USE_SYSTEM_HARFBUZZ" ]
+}
+
+template("make_skia_deps") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set("ace_skia_$platform") {
+    part_name = ace_engine_part
+    license_file = "$flutter_root/skia/LICENSE"
+    if (platform == "ohos" &&
+        (!defined(config.disable_gpu) || !config.disable_gpu) &&
+        defined(config.enable_rosen_backend) && config.enable_rosen_backend) {
+      public_configs = [
+        ":skia_config",
+        ":harfbuzz_config",
+      ]
+      public_deps =
+          [ "//foundation/graphic/standard/rosen/build/skia:skia_ohos" ]
+    } else if (platform == "ohos" && defined(config.enable_native_view) &&
+               config.enable_native_view) {
+      public_configs = [
+        ":system_skia_config",
+        ":system_harfbuzz_config",
+      ]
+
+      deps = [ ":ace_skia_ext_$platform" ]
+      deps += [ ":make_system_skia_include_dir" ]
+
+      aosp_deps = [
+        "shared_library:libharfbuzz_ng",
+        "shared_library:libhwui",
+      ]
+
+      sources = [ "$flutter_root/skia/src/utils/SkParsePath.cpp" ]
+    } else {
+      public_configs = [
+        ":skia_config",
+        ":harfbuzz_config",
+      ]
+
+      deps = [
+        ":ace_fontmgr_$platform",
+        ":ace_gif",
+        ":ace_gpu_$platform",
+        ":ace_heif",
+        ":ace_jpeg",
+        ":ace_pdf_$platform",
+        ":ace_png_$platform",
+        ":ace_skcms",
+        ":ace_skia_core_$platform",
+        ":ace_skia_opts_$platform",
+        ":ace_svg_model_$platform",
+        ":ace_typeface_freetype",
+        ":ace_webp",
+        ":ace_xml",
+        ":make_third_party_skia_include_dir",
+        "$ace_flutter_engine_root/freetype:ace_libfreetype2",
+        "$ace_flutter_engine_root/harfbuzz:ace_libharfbuzz_$platform",
+        "$ace_flutter_engine_root/icu:ace_libicu_$platform",
+        "$ace_flutter_engine_root/libjpeg:ace_libjpeg",
+        "$ace_flutter_engine_root/libpng:ace_libpng",
+        "$ace_flutter_engine_root/libwebp:ace_libwebp",
+        "$ace_flutter_engine_root/sfntly:ace_libsfntly_$platform",
+      ]
+
+      if (defined(config.disable_gpu) && config.disable_gpu) {
+        deps -= [ ":ace_gpu_$platform" ]
+      }
+    }
+
+    public_configs += [
+      ":ace_svg_model_config",
+      ":skia_deps_include_config",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  make_skia_deps(item.name) {
+    platform = item.name
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Skia main target config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia common config begin
+# ------------------------------------------------
+config("skia_deps_include_config") {
+  include_dirs =
+      [ "$libs_root/shared_library/global_header/frameworks/native/include/" ]
+  include_dirs += [
+    "$libs_root/shared_library/${target_os}_${target_cpu}/include/frameworks/native/libs/nativewindow/include",
+    "$libs_root/shared_library/${target_os}_${target_cpu}/include/frameworks/native/libs/arect/include",
+  ]
+}
+
+ace_skia_common_ccflags = [
+  "-std=c++14",
+  "-fno-exceptions",
+  "-fno-rtti",
+  "-Wnon-virtual-dtor",
+  "-Wno-noexcept-type",
+  "-Wno-abstract-vbase-init",
+  "-Wno-weak-vtables",
+  "-Wno-c++98-compat",
+  "-Wno-c++98-compat-pedantic",
+  "-Wno-undefined-func-template",
+  "-Wno-return-std-move-in-c++11",
+  "-Wno-implicit-fallthrough",
+  "-fvisibility-inlines-hidden",
+  "-Os",
+]
+
+ace_skia_common_cflags = [
+  "-fstrict-aliasing",
+  "-fdata-sections",
+  "-ffunction-sections",
+  "-gline-tables-only",
+  "-funwind-tables",
+  "-Wall",
+  "-Wextra",
+  "-Winit-self",
+  "-Wpointer-arith",
+  "-Wsign-compare",
+  "-Wvla",
+  "-Wno-deprecated-declarations",
+  "-Wno-maybe-uninitialized",
+  "-fcolor-diagnostics",
+  "-Weverything",
+  "-Wno-unknown-warning-option",
+  "-Wno-nonportable-include-path",
+  "-Wno-nonportable-system-include-path",
+  "-Wno-cast-align",
+  "-Wno-cast-qual",
+  "-Wno-conversion",
+  "-Wno-disabled-macro-expansion",
+  "-Wno-documentation",
+  "-Wno-documentation-unknown-command",
+  "-Wno-double-promotion",
+  "-Wno-exit-time-destructors",
+  "-Wno-float-equal",
+  "-Wno-format-nonliteral",
+  "-Wno-global-constructors",
+  "-Wno-missing-prototypes",
+  "-Wno-missing-variable-declarations",
+  "-Wno-pedantic",
+  "-Wno-reserved-id-macro",
+  "-Wno-shadow",
+  "-Wno-shift-sign-overflow",
+  "-Wno-signed-enum-bitfield",
+  "-Wno-switch-enum",
+  "-Wno-undef",
+  "-Wno-unreachable-code",
+  "-Wno-unreachable-code-break",
+  "-Wno-unreachable-code-return",
+  "-Wno-unused-macros",
+  "-Wno-unused-member-function",
+  "-Wno-unused-template",
+  "-Wno-zero-as-null-pointer-constant",
+  "-Wno-thread-safety-negative",
+  "-Wno-bad-function-cast",
+  "-Wno-covered-switch-default",
+  "-Wno-deprecated",
+  "-Wno-missing-noreturn",
+  "-Wno-old-style-cast",
+  "-Wno-padded",
+  "-Wno-newline-eof",
+  "-Wno-implicit-fallthrough",
+  "-Wno-unused-parameter",
+  "-fvisibility=hidden",
+  "-Os",
+]
+
+ace_skia_common_defines = [
+  "SK_SUPPORT_ATLAS_TEXT=1",
+  "SK_GAMMA_APPLY_TO_A8",
+  "SK_GAMMA_EXPONENT=1.4",
+  "SK_GAMMA_CONTRAST=0.0",
+  "SK_ALLOW_STATIC_GLOBAL_INITIALIZERS=1",
+  "GR_TEST_UTILS=1",
+  "SKIA_IMPLEMENTATION=1",
+  "SK_GL",
+  "SK_SUPPORT_PDF",
+  "SK_HAS_JPEG_LIBRARY",
+  "SK_HAS_HEIF_LIBRARY",
+  "SK_HAS_PNG_LIBRARY",
+  "SK_ENABLE_SKSL_INTERPRETER",
+  "SK_HAS_WEBP_LIBRARY",
+  "SK_XML",
+  "XML_STATIC",
+  "XML_POOR_ENTROPY",
+  "SK_DISABLE_AAA",
+  "SK_DISABLE_READBUFFER",
+  "SK_DISABLE_EFFECT_DESERIALIZATION",
+  "SK_DISABLE_LEGACY_SHADERCONTEXT",
+  "SK_DISABLE_LOWP_RASTER_PIPELINE",
+  "SK_FORCE_RASTER_PIPELINE_BLITTER",
+  "SK_LEGACY_SKCODEC_NONE_ENUM",
+  "SK_ENABLE_DUMP_GPU",
+]
+
+config("harfbuzz_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [ "$flutter_root/skia/third_party/externals/harfbuzz/src" ]
+
+  defines = [
+    "HAVE_ICU",
+    "HAVE_ICU_BUILTIN",
+    "HAVE_INTEL_ATOMIC_PRIMITIVES",
+    "HAVE_OT",
+  ]
+}
+
+config("skia_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "$third_party_skia_override_path",
+    "$flutter_root/skia",
+    "$third_party_skia_override_path/third_party/skia",
+    "$third_party_skia_override_path/third_party/skia/include/config/android",
+  ]
+
+  defines = ace_skia_common_defines
+}
+
+# ------------------------------------------------
+#      Skia common config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia opts config begin
+# ------------------------------------------------
+config("ace_skia_opts_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+  cflags_cc = ace_skia_common_ccflags
+}
+
+template("ace_skia_opts") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines = [
+      "SK_SUPPORT_ATLAS_TEXT=1",
+      "SK_GAMMA_APPLY_TO_A8",
+      "SK_GAMMA_EXPONENT=1.4",
+      "SK_GAMMA_CONTRAST=0.0",
+      "SK_ALLOW_STATIC_GLOBAL_INITIALIZERS=1",
+      "GR_TEST_UTILS=1",
+      "SKIA_IMPLEMENTATION=1",
+    ]
+
+    configs = [ ":ace_skia_opts_config" ]
+    cflags = ace_skia_common_cflags
+    cflags += [ "-march=armv8-a+crc" ]
+
+    sources = []
+
+    if (target_cpu == "x86_64" || platform == "windows" || platform == "mac") {
+      cflags -= [ "-march=armv8-a+crc" ]
+      sources += [
+        "$flutter_root/skia/src/opts/SkOpts_avx.cpp",
+        "$flutter_root/skia/src/opts/SkOpts_hsw.cpp",
+      ]
+    }
+
+    if (platform == "windows") {
+      sources += [
+        "$flutter_root/skia/src/opts/SkOpts_sse41.cpp",
+        "$flutter_root/skia/src/opts/SkOpts_sse42.cpp",
+        "$flutter_root/skia/src/opts/SkOpts_ssse3.cpp",
+      ]
+    } else if (platform == "mac") {
+      cflags += [
+        "-march=haswell",
+        "-mavx",
+        "-mssse3",
+        "-msse4.1",
+        "-msse4.2",
+      ]
+
+      sources += [
+        "$flutter_root/skia/src/opts/SkOpts_sse41.cpp",
+        "$flutter_root/skia/src/opts/SkOpts_sse42.cpp",
+        "$flutter_root/skia/src/opts/SkOpts_ssse3.cpp",
+      ]
+    } else {
+      sources += [ "$flutter_root/skia/src/opts/SkOpts_crc32.cpp" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_skia_opts("ace_skia_opts_" + item.name) {
+    platform = item.name
+  }
+}
+
+# ------------------------------------------------
+#      Skia opts config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia core config begin
+# ------------------------------------------------
+config("ace_skia_core_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags_cc += [ "-Wno-extra-semi" ]
+  cflags = ace_skia_common_cflags
+  cflags += [ "-Wno-extra-semi" ]
+}
+
+template("ace_skia_core") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += ace_skia_common_defines
+    cflags_cc += invoker.cflags_cc
+    configs = [
+      ":ace_skia_core_config",
+      ":skia_deps_include_config",
+    ]
+    configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    sources = [
+      "$flutter_root/skia/src/android/SkAndroidFrameworkUtils.cpp",
+      "$flutter_root/skia/src/android/SkAnimatedImage.cpp",
+      "$flutter_root/skia/src/android/SkBitmapRegionCodec.cpp",
+      "$flutter_root/skia/src/android/SkBitmapRegionDecoder.cpp",
+      "$flutter_root/skia/src/c/sk_effects.cpp",
+      "$flutter_root/skia/src/c/sk_imageinfo.cpp",
+      "$flutter_root/skia/src/c/sk_paint.cpp",
+      "$flutter_root/skia/src/c/sk_surface.cpp",
+      "$flutter_root/skia/src/codec/SkAndroidCodec.cpp",
+      "$flutter_root/skia/src/codec/SkAndroidCodecAdapter.cpp",
+      "$flutter_root/skia/src/codec/SkBmpBaseCodec.cpp",
+      "$flutter_root/skia/src/codec/SkBmpCodec.cpp",
+      "$flutter_root/skia/src/codec/SkBmpMaskCodec.cpp",
+      "$flutter_root/skia/src/codec/SkBmpRLECodec.cpp",
+      "$flutter_root/skia/src/codec/SkBmpStandardCodec.cpp",
+      "$flutter_root/skia/src/codec/SkCodec.cpp",
+      "$flutter_root/skia/src/codec/SkCodecImageGenerator.cpp",
+      "$flutter_root/skia/src/codec/SkColorTable.cpp",
+      "$flutter_root/skia/src/codec/SkEncodedInfo.cpp",
+      "$flutter_root/skia/src/codec/SkMaskSwizzler.cpp",
+      "$flutter_root/skia/src/codec/SkMasks.cpp",
+      "$flutter_root/skia/src/codec/SkSampledCodec.cpp",
+      "$flutter_root/skia/src/codec/SkSampler.cpp",
+      "$flutter_root/skia/src/codec/SkStreamBuffer.cpp",
+      "$flutter_root/skia/src/codec/SkSwizzler.cpp",
+      "$flutter_root/skia/src/codec/SkWbmpCodec.cpp",
+      "$flutter_root/skia/src/core/SkAAClip.cpp",
+      "$flutter_root/skia/src/core/SkATrace.cpp",
+      "$flutter_root/skia/src/core/SkAlphaRuns.cpp",
+      "$flutter_root/skia/src/core/SkAnalyticEdge.cpp",
+      "$flutter_root/skia/src/core/SkAnnotation.cpp",
+      "$flutter_root/skia/src/core/SkArenaAlloc.cpp",
+      "$flutter_root/skia/src/core/SkAutoPixmapStorage.cpp",
+      "$flutter_root/skia/src/core/SkBBHFactory.cpp",
+      "$flutter_root/skia/src/core/SkBigPicture.cpp",
+      "$flutter_root/skia/src/core/SkBitmap.cpp",
+      "$flutter_root/skia/src/core/SkBitmapCache.cpp",
+      "$flutter_root/skia/src/core/SkBitmapController.cpp",
+      "$flutter_root/skia/src/core/SkBitmapDevice.cpp",
+      "$flutter_root/skia/src/core/SkBitmapProcState.cpp",
+      "$flutter_root/skia/src/core/SkBitmapProcState_matrixProcs.cpp",
+      "$flutter_root/skia/src/core/SkBlendMode.cpp",
+      "$flutter_root/skia/src/core/SkBlitRow_D32.cpp",
+      "$flutter_root/skia/src/core/SkBlitter.cpp",
+      "$flutter_root/skia/src/core/SkBlitter_A8.cpp",
+      "$flutter_root/skia/src/core/SkBlitter_ARGB32.cpp",
+      "$flutter_root/skia/src/core/SkBlitter_RGB565.cpp",
+      "$flutter_root/skia/src/core/SkBlitter_Sprite.cpp",
+      "$flutter_root/skia/src/core/SkBlurMF.cpp",
+      "$flutter_root/skia/src/core/SkBlurMask.cpp",
+      "$flutter_root/skia/src/core/SkBuffer.cpp",
+      "$flutter_root/skia/src/core/SkCachedData.cpp",
+      "$flutter_root/skia/src/core/SkCanvas.cpp",
+      "$flutter_root/skia/src/core/SkCanvasPriv.cpp",
+      "$flutter_root/skia/src/core/SkClipStack.cpp",
+      "$flutter_root/skia/src/core/SkClipStackDevice.cpp",
+      "$flutter_root/skia/src/core/SkColor.cpp",
+      "$flutter_root/skia/src/core/SkColorFilter.cpp",
+      "$flutter_root/skia/src/core/SkColorFilter_Matrix.cpp",
+      "$flutter_root/skia/src/core/SkColorSpace.cpp",
+      "$flutter_root/skia/src/core/SkColorSpaceXformSteps.cpp",
+      "$flutter_root/skia/src/core/SkContourMeasure.cpp",
+      "$flutter_root/skia/src/core/SkConvertPixels.cpp",
+      "$flutter_root/skia/src/core/SkCpu.cpp",
+      "$flutter_root/skia/src/core/SkCubicClipper.cpp",
+      "$flutter_root/skia/src/core/SkCubicMap.cpp",
+      "$flutter_root/skia/src/core/SkData.cpp",
+      "$flutter_root/skia/src/core/SkDataTable.cpp",
+      "$flutter_root/skia/src/core/SkDebug.cpp",
+      "$flutter_root/skia/src/core/SkDeferredDisplayList.cpp",
+      "$flutter_root/skia/src/core/SkDeferredDisplayListRecorder.cpp",
+      "$flutter_root/skia/src/core/SkDeque.cpp",
+      "$flutter_root/skia/src/core/SkDescriptor.cpp",
+      "$flutter_root/skia/src/core/SkDevice.cpp",
+      "$flutter_root/skia/src/core/SkDistanceFieldGen.cpp",
+      "$flutter_root/skia/src/core/SkDocument.cpp",
+      "$flutter_root/skia/src/core/SkDraw.cpp",
+      "$flutter_root/skia/src/core/SkDrawLooper.cpp",
+      "$flutter_root/skia/src/core/SkDrawShadowInfo.cpp",
+      "$flutter_root/skia/src/core/SkDraw_atlas.cpp",
+      "$flutter_root/skia/src/core/SkDraw_text.cpp",
+      "$flutter_root/skia/src/core/SkDraw_vertices.cpp",
+      "$flutter_root/skia/src/core/SkDrawable.cpp",
+      "$flutter_root/skia/src/core/SkEdge.cpp",
+      "$flutter_root/skia/src/core/SkEdgeBuilder.cpp",
+      "$flutter_root/skia/src/core/SkEdgeClipper.cpp",
+      "$flutter_root/skia/src/core/SkExecutor.cpp",
+      "$flutter_root/skia/src/core/SkFlattenable.cpp",
+      "$flutter_root/skia/src/core/SkFont.cpp",
+      "$flutter_root/skia/src/core/SkFontDescriptor.cpp",
+      "$flutter_root/skia/src/core/SkFontLCDConfig.cpp",
+      "$flutter_root/skia/src/core/SkFontMgr.cpp",
+      "$flutter_root/skia/src/core/SkFontStream.cpp",
+      "$flutter_root/skia/src/core/SkGaussFilter.cpp",
+      "$flutter_root/skia/src/core/SkGeometry.cpp",
+      "$flutter_root/skia/src/core/SkGlobalInitialization_core.cpp",
+      "$flutter_root/skia/src/core/SkGlyph.cpp",
+      "$flutter_root/skia/src/core/SkGlyphRun.cpp",
+      "$flutter_root/skia/src/core/SkGlyphRunPainter.cpp",
+      "$flutter_root/skia/src/core/SkGpuBlurUtils.cpp",
+      "$flutter_root/skia/src/core/SkGraphics.cpp",
+      "$flutter_root/skia/src/core/SkHalf.cpp",
+      "$flutter_root/skia/src/core/SkICC.cpp",
+      "$flutter_root/skia/src/core/SkImageFilter.cpp",
+      "$flutter_root/skia/src/core/SkImageFilterCache.cpp",
+      "$flutter_root/skia/src/core/SkImageGenerator.cpp",
+      "$flutter_root/skia/src/core/SkImageInfo.cpp",
+      "$flutter_root/skia/src/core/SkLatticeIter.cpp",
+      "$flutter_root/skia/src/core/SkLineClipper.cpp",
+      "$flutter_root/skia/src/core/SkLocalMatrixImageFilter.cpp",
+      "$flutter_root/skia/src/core/SkMD5.cpp",
+      "$flutter_root/skia/src/core/SkMallocPixelRef.cpp",
+      "$flutter_root/skia/src/core/SkMask.cpp",
+      "$flutter_root/skia/src/core/SkMaskBlurFilter.cpp",
+      "$flutter_root/skia/src/core/SkMaskCache.cpp",
+      "$flutter_root/skia/src/core/SkMaskFilter.cpp",
+      "$flutter_root/skia/src/core/SkMaskGamma.cpp",
+      "$flutter_root/skia/src/core/SkMath.cpp",
+      "$flutter_root/skia/src/core/SkMatrix.cpp",
+      "$flutter_root/skia/src/core/SkMatrix44.cpp",
+      "$flutter_root/skia/src/core/SkMatrixImageFilter.cpp",
+      "$flutter_root/skia/src/core/SkMiniRecorder.cpp",
+      "$flutter_root/skia/src/core/SkMipMap.cpp",
+      "$flutter_root/skia/src/core/SkModeColorFilter.cpp",
+      "$flutter_root/skia/src/core/SkMultiPictureDraw.cpp",
+      "$flutter_root/skia/src/core/SkNormalFlatSource.cpp",
+      "$flutter_root/skia/src/core/SkNormalMapSource.cpp",
+      "$flutter_root/skia/src/core/SkNormalSource.cpp",
+      "$flutter_root/skia/src/core/SkOpts.cpp",
+      "$flutter_root/skia/src/core/SkOverdrawCanvas.cpp",
+      "$flutter_root/skia/src/core/SkPaint.cpp",
+      "$flutter_root/skia/src/core/SkPaintPriv.cpp",
+      "$flutter_root/skia/src/core/SkPath.cpp",
+      "$flutter_root/skia/src/core/SkPathEffect.cpp",
+      "$flutter_root/skia/src/core/SkPathMeasure.cpp",
+      "$flutter_root/skia/src/core/SkPathRef.cpp",
+      "$flutter_root/skia/src/core/SkPath_serial.cpp",
+      "$flutter_root/skia/src/core/SkPicture.cpp",
+      "$flutter_root/skia/src/core/SkPictureData.cpp",
+      "$flutter_root/skia/src/core/SkPictureFlat.cpp",
+      "$flutter_root/skia/src/core/SkPictureImageGenerator.cpp",
+      "$flutter_root/skia/src/core/SkPicturePlayback.cpp",
+      "$flutter_root/skia/src/core/SkPictureRecord.cpp",
+      "$flutter_root/skia/src/core/SkPictureRecorder.cpp",
+      "$flutter_root/skia/src/core/SkPixelRef.cpp",
+      "$flutter_root/skia/src/core/SkPixmap.cpp",
+      "$flutter_root/skia/src/core/SkPoint.cpp",
+      "$flutter_root/skia/src/core/SkPoint3.cpp",
+      "$flutter_root/skia/src/core/SkPromiseImageTexture.cpp",
+      "$flutter_root/skia/src/core/SkPtrRecorder.cpp",
+      "$flutter_root/skia/src/core/SkQuadClipper.cpp",
+      "$flutter_root/skia/src/core/SkRRect.cpp",
+      "$flutter_root/skia/src/core/SkRTree.cpp",
+      "$flutter_root/skia/src/core/SkRWBuffer.cpp",
+      "$flutter_root/skia/src/core/SkRasterClip.cpp",
+      "$flutter_root/skia/src/core/SkRasterPipeline.cpp",
+      "$flutter_root/skia/src/core/SkRasterPipelineBlitter.cpp",
+      "$flutter_root/skia/src/core/SkReadBuffer.cpp",
+      "$flutter_root/skia/src/core/SkRecord.cpp",
+      "$flutter_root/skia/src/core/SkRecordDraw.cpp",
+      "$flutter_root/skia/src/core/SkRecordOpts.cpp",
+      "$flutter_root/skia/src/core/SkRecordedDrawable.cpp",
+      "$flutter_root/skia/src/core/SkRecorder.cpp",
+      "$flutter_root/skia/src/core/SkRecords.cpp",
+      "$flutter_root/skia/src/core/SkRect.cpp",
+      "$flutter_root/skia/src/core/SkRegion.cpp",
+      "$flutter_root/skia/src/core/SkRegion_path.cpp",
+      "$flutter_root/skia/src/core/SkRemoteGlyphCache.cpp",
+      "$flutter_root/skia/src/core/SkResourceCache.cpp",
+      "$flutter_root/skia/src/core/SkScalar.cpp",
+      "$flutter_root/skia/src/core/SkScalerContext.cpp",
+      "$flutter_root/skia/src/core/SkScan.cpp",
+      "$flutter_root/skia/src/core/SkScan_AAAPath.cpp",
+      "$flutter_root/skia/src/core/SkScan_AntiPath.cpp",
+      "$flutter_root/skia/src/core/SkScan_Antihair.cpp",
+      "$flutter_root/skia/src/core/SkScan_Hairline.cpp",
+      "$flutter_root/skia/src/core/SkScan_Path.cpp",
+      "$flutter_root/skia/src/core/SkSemaphore.cpp",
+      "$flutter_root/skia/src/core/SkSharedMutex.cpp",
+      "$flutter_root/skia/src/core/SkSpecialImage.cpp",
+      "$flutter_root/skia/src/core/SkSpecialSurface.cpp",
+      "$flutter_root/skia/src/core/SkSpinlock.cpp",
+      "$flutter_root/skia/src/core/SkSpriteBlitter_ARGB32.cpp",
+      "$flutter_root/skia/src/core/SkSpriteBlitter_RGB565.cpp",
+      "$flutter_root/skia/src/core/SkStream.cpp",
+      "$flutter_root/skia/src/core/SkStrike.cpp",
+      "$flutter_root/skia/src/core/SkStrikeCache.cpp",
+      "$flutter_root/skia/src/core/SkStrikeSpec.cpp",
+      "$flutter_root/skia/src/core/SkString.cpp",
+      "$flutter_root/skia/src/core/SkStringUtils.cpp",
+      "$flutter_root/skia/src/core/SkStroke.cpp",
+      "$flutter_root/skia/src/core/SkStrokeRec.cpp",
+      "$flutter_root/skia/src/core/SkStrokerPriv.cpp",
+      "$flutter_root/skia/src/core/SkSurfaceCharacterization.cpp",
+      "$flutter_root/skia/src/core/SkSwizzle.cpp",
+      "$flutter_root/skia/src/core/SkTLS.cpp",
+      "$flutter_root/skia/src/core/SkTSearch.cpp",
+      "$flutter_root/skia/src/core/SkTaskGroup.cpp",
+      "$flutter_root/skia/src/core/SkTextBlob.cpp",
+      "$flutter_root/skia/src/core/SkThreadID.cpp",
+      "$flutter_root/skia/src/core/SkTime.cpp",
+      "$flutter_root/skia/src/core/SkTypeface.cpp",
+      "$flutter_root/skia/src/core/SkTypefaceCache.cpp",
+      "$flutter_root/skia/src/core/SkTypeface_remote.cpp",
+      "$flutter_root/skia/src/core/SkUnPreMultiply.cpp",
+      "$flutter_root/skia/src/core/SkUtils.cpp",
+      "$flutter_root/skia/src/core/SkVM.cpp",
+      "$flutter_root/skia/src/core/SkVMBlitter.cpp",
+      "$flutter_root/skia/src/core/SkVertState.cpp",
+      "$flutter_root/skia/src/core/SkVertices.cpp",
+      "$flutter_root/skia/src/core/SkWriteBuffer.cpp",
+      "$flutter_root/skia/src/core/SkWriter32.cpp",
+      "$flutter_root/skia/src/core/SkXfermode.cpp",
+      "$flutter_root/skia/src/core/SkXfermodeInterpretation.cpp",
+      "$flutter_root/skia/src/core/SkYUVASizeInfo.cpp",
+      "$flutter_root/skia/src/core/SkYUVMath.cpp",
+      "$flutter_root/skia/src/core/SkYUVPlanesCache.cpp",
+      "$flutter_root/skia/src/effects/Sk1DPathEffect.cpp",
+      "$flutter_root/skia/src/effects/Sk2DPathEffect.cpp",
+      "$flutter_root/skia/src/effects/SkColorMatrix.cpp",
+      "$flutter_root/skia/src/effects/SkColorMatrixFilter.cpp",
+      "$flutter_root/skia/src/effects/SkCornerPathEffect.cpp",
+      "$flutter_root/skia/src/effects/SkDashPathEffect.cpp",
+      "$flutter_root/skia/src/effects/SkDiscretePathEffect.cpp",
+      "$flutter_root/skia/src/effects/SkEmbossMask.cpp",
+      "$flutter_root/skia/src/effects/SkEmbossMaskFilter.cpp",
+      "$flutter_root/skia/src/effects/SkHighContrastFilter.cpp",
+      "$flutter_root/skia/src/effects/SkLayerDrawLooper.cpp",
+      "$flutter_root/skia/src/effects/SkLumaColorFilter.cpp",
+      "$flutter_root/skia/src/effects/SkOpPathEffect.cpp",
+      "$flutter_root/skia/src/effects/SkOverdrawColorFilter.cpp",
+      "$flutter_root/skia/src/effects/SkPackBits.cpp",
+      "$flutter_root/skia/src/effects/SkShaderMaskFilter.cpp",
+      "$flutter_root/skia/src/effects/SkTableColorFilter.cpp",
+      "$flutter_root/skia/src/effects/SkTableMaskFilter.cpp",
+      "$flutter_root/skia/src/effects/SkTrimPathEffect.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkAlphaThresholdFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkArithmeticImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkBlurImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkColorFilterImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkComposeImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkDisplacementMapEffect.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkDropShadowImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkImageFilters.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkImageSource.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkLightingImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkMagnifierImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkMatrixConvolutionImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkMergeImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkMorphologyImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkOffsetImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkPaintImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkPictureImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkTileImageFilter.cpp",
+      "$flutter_root/skia/src/effects/imagefilters/SkXfermodeImageFilter.cpp",
+      "$flutter_root/skia/src/image/SkImage.cpp",
+      "$flutter_root/skia/src/image/SkImage_Lazy.cpp",
+      "$flutter_root/skia/src/image/SkImage_Raster.cpp",
+      "$flutter_root/skia/src/image/SkSurface.cpp",
+      "$flutter_root/skia/src/image/SkSurface_Raster.cpp",
+      "$flutter_root/skia/src/images/SkImageEncoder.cpp",
+      "$flutter_root/skia/src/lazy/SkDiscardableMemoryPool.cpp",
+      "$flutter_root/skia/src/pathops/SkAddIntersections.cpp",
+      "$flutter_root/skia/src/pathops/SkDConicLineIntersection.cpp",
+      "$flutter_root/skia/src/pathops/SkDCubicLineIntersection.cpp",
+      "$flutter_root/skia/src/pathops/SkDCubicToQuads.cpp",
+      "$flutter_root/skia/src/pathops/SkDLineIntersection.cpp",
+      "$flutter_root/skia/src/pathops/SkDQuadLineIntersection.cpp",
+      "$flutter_root/skia/src/pathops/SkIntersections.cpp",
+      "$flutter_root/skia/src/pathops/SkOpAngle.cpp",
+      "$flutter_root/skia/src/pathops/SkOpBuilder.cpp",
+      "$flutter_root/skia/src/pathops/SkOpCoincidence.cpp",
+      "$flutter_root/skia/src/pathops/SkOpContour.cpp",
+      "$flutter_root/skia/src/pathops/SkOpCubicHull.cpp",
+      "$flutter_root/skia/src/pathops/SkOpEdgeBuilder.cpp",
+      "$flutter_root/skia/src/pathops/SkOpSegment.cpp",
+      "$flutter_root/skia/src/pathops/SkOpSpan.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsAsWinding.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsCommon.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsConic.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsCubic.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsCurve.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsDebug.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsLine.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsOp.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsQuad.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsRect.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsSimplify.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsTSect.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsTightBounds.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsTypes.cpp",
+      "$flutter_root/skia/src/pathops/SkPathOpsWinding.cpp",
+      "$flutter_root/skia/src/pathops/SkPathWriter.cpp",
+      "$flutter_root/skia/src/pathops/SkReduceOrder.cpp",
+      "$flutter_root/skia/src/ports/SkDebug_android.cpp",
+      "$flutter_root/skia/src/ports/SkDiscardableMemory_none.cpp",
+      "$flutter_root/skia/src/ports/SkGlobalInitialization_default.cpp",
+      "$flutter_root/skia/src/ports/SkImageGenerator_skia.cpp",
+      "$flutter_root/skia/src/ports/SkMemory_malloc.cpp",
+      "$flutter_root/skia/src/ports/SkOSFile_posix.cpp",
+      "$flutter_root/skia/src/ports/SkOSFile_stdio.cpp",
+      "$flutter_root/skia/src/ports/SkOSLibrary_posix.cpp",
+      "$flutter_root/skia/src/ports/SkTLS_pthread.cpp",
+      "$flutter_root/skia/src/sfnt/SkOTTable_name.cpp",
+      "$flutter_root/skia/src/sfnt/SkOTUtils.cpp",
+      "$flutter_root/skia/src/shaders/SkBitmapProcShader.cpp",
+      "$flutter_root/skia/src/shaders/SkColorFilterShader.cpp",
+      "$flutter_root/skia/src/shaders/SkColorShader.cpp",
+      "$flutter_root/skia/src/shaders/SkComposeShader.cpp",
+      "$flutter_root/skia/src/shaders/SkImageShader.cpp",
+      "$flutter_root/skia/src/shaders/SkLightingShader.cpp",
+      "$flutter_root/skia/src/shaders/SkLights.cpp",
+      "$flutter_root/skia/src/shaders/SkLocalMatrixShader.cpp",
+      "$flutter_root/skia/src/shaders/SkPerlinNoiseShader.cpp",
+      "$flutter_root/skia/src/shaders/SkPictureShader.cpp",
+      "$flutter_root/skia/src/shaders/SkRTShader.cpp",
+      "$flutter_root/skia/src/shaders/SkShader.cpp",
+      "$flutter_root/skia/src/shaders/gradients/Sk4fGradientBase.cpp",
+      "$flutter_root/skia/src/shaders/gradients/Sk4fLinearGradient.cpp",
+      "$flutter_root/skia/src/shaders/gradients/SkGradientShader.cpp",
+      "$flutter_root/skia/src/shaders/gradients/SkLinearGradient.cpp",
+      "$flutter_root/skia/src/shaders/gradients/SkRadialGradient.cpp",
+      "$flutter_root/skia/src/shaders/gradients/SkSweepGradient.cpp",
+      "$flutter_root/skia/src/shaders/gradients/SkTwoPointConicalGradient.cpp",
+      "$flutter_root/skia/src/sksl/SkSLASTNode.cpp",
+      "$flutter_root/skia/src/sksl/SkSLByteCode.cpp",
+      "$flutter_root/skia/src/sksl/SkSLByteCodeGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLCFGGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLCompiler.cpp",
+      "$flutter_root/skia/src/sksl/SkSLIRGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLJIT.cpp",
+      "$flutter_root/skia/src/sksl/SkSLLexer.cpp",
+      "$flutter_root/skia/src/sksl/SkSLParser.cpp",
+      "$flutter_root/skia/src/sksl/SkSLString.cpp",
+      "$flutter_root/skia/src/sksl/SkSLUtil.cpp",
+      "$flutter_root/skia/src/sksl/ir/SkSLSetting.cpp",
+      "$flutter_root/skia/src/sksl/ir/SkSLSymbolTable.cpp",
+      "$flutter_root/skia/src/sksl/ir/SkSLType.cpp",
+      "$flutter_root/skia/src/sksl/ir/SkSLVariableReference.cpp",
+      "$flutter_root/skia/src/utils/Sk3D.cpp",
+      "$flutter_root/skia/src/utils/SkAnimCodecPlayer.cpp",
+      "$flutter_root/skia/src/utils/SkBase64.cpp",
+      "$flutter_root/skia/src/utils/SkCamera.cpp",
+      "$flutter_root/skia/src/utils/SkCanvasStack.cpp",
+      "$flutter_root/skia/src/utils/SkCanvasStateUtils.cpp",
+      "$flutter_root/skia/src/utils/SkCharToGlyphCache.cpp",
+      "$flutter_root/skia/src/utils/SkDashPath.cpp",
+      "$flutter_root/skia/src/utils/SkEventTracer.cpp",
+      "$flutter_root/skia/src/utils/SkFloatToDecimal.cpp",
+      "$flutter_root/skia/src/utils/SkFrontBufferedStream.cpp",
+      "$flutter_root/skia/src/utils/SkInterpolator.cpp",
+      "$flutter_root/skia/src/utils/SkJSON.cpp",
+      "$flutter_root/skia/src/utils/SkJSONWriter.cpp",
+      "$flutter_root/skia/src/utils/SkMatrix22.cpp",
+      "$flutter_root/skia/src/utils/SkMultiPictureDocument.cpp",
+      "$flutter_root/skia/src/utils/SkNWayCanvas.cpp",
+      "$flutter_root/skia/src/utils/SkNullCanvas.cpp",
+      "$flutter_root/skia/src/utils/SkOSPath.cpp",
+      "$flutter_root/skia/src/utils/SkPaintFilterCanvas.cpp",
+      "$flutter_root/skia/src/utils/SkParse.cpp",
+      "$flutter_root/skia/src/utils/SkParseColor.cpp",
+      "$flutter_root/skia/src/utils/SkParsePath.cpp",
+      "$flutter_root/skia/src/utils/SkPatchUtils.cpp",
+      "$flutter_root/skia/src/utils/SkPolyUtils.cpp",
+      "$flutter_root/skia/src/utils/SkShadowTessellator.cpp",
+      "$flutter_root/skia/src/utils/SkShadowUtils.cpp",
+      "$flutter_root/skia/src/utils/SkShaperJSONWriter.cpp",
+      "$flutter_root/skia/src/utils/SkTextUtils.cpp",
+      "$flutter_root/skia/src/utils/SkThreadUtils_pthread.cpp",
+      "$flutter_root/skia/src/utils/SkThreadUtils_win.cpp",
+      "$flutter_root/skia/src/utils/SkUTF.cpp",
+      "$flutter_root/skia/src/utils/SkWhitelistTypefaces.cpp",
+      "$flutter_root/skia/src/utils/mac/SkCreateCGImageRef.cpp",
+      "$flutter_root/skia/src/utils/mac/SkStream_mac.cpp",
+      "$flutter_root/skia/src/utils/win/SkAutoCoInitialize.cpp",
+      "$flutter_root/skia/src/utils/win/SkDWrite.cpp",
+      "$flutter_root/skia/src/utils/win/SkDWriteFontFileStream.cpp",
+      "$flutter_root/skia/src/utils/win/SkDWriteGeometrySink.cpp",
+      "$flutter_root/skia/src/utils/win/SkHRESULT.cpp",
+      "$flutter_root/skia/src/utils/win/SkIStream.cpp",
+      "$flutter_root/skia/src/utils/win/SkWGL_win.cpp",
+      "$flutter_root/skia/src/xps/SkXPSDevice.cpp",
+      "$flutter_root/skia/src/xps/SkXPSDocument.cpp",
+    ]
+
+    if (enable_dump_drawcmd) {
+      defines += [ "DUMP_DRAW_CMD" ]
+    }
+
+    if (platform == "windows") {
+      defines -= [ "NOGDI" ]
+
+      sources -= [
+        "$flutter_root/skia/src/ports/SkOSFile_posix.cpp",
+        "$flutter_root/skia/src/ports/SkOSLibrary_posix.cpp",
+        "$flutter_root/skia/src/ports/SkTLS_pthread.cpp",
+
+        # SkXPS - Experimental XPS backend, maybe we can remove this.
+        "$flutter_root/skia/src/xps/SkXPSDevice.cpp",
+        "$flutter_root/skia/src/xps/SkXPSDocument.cpp",
+      ]
+
+      sources += [
+        "$flutter_root/skia/src/ports/SkDebug_win.cpp",
+        "$flutter_root/skia/src/ports/SkImageEncoder_WIC.cpp",
+        "$flutter_root/skia/src/ports/SkImageGeneratorWIC.cpp",
+        "$flutter_root/skia/src/ports/SkOSFile_win.cpp",
+        "$flutter_root/skia/src/ports/SkOSLibrary_win.cpp",
+        "$flutter_root/skia/src/ports/SkTLS_win.cpp",
+      ]
+
+      libs = [
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libfontsub.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libole32.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/liboleaut32.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libuser32.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libusp10.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libwindowscodecs.a",
+      ]
+    } else if (platform == "mac") {
+      sources += [
+        "$flutter_root/skia/src/ports/SkDebug_stdio.cpp",
+        "$flutter_root/skia/src/ports/SkImageEncoder_CG.cpp",
+        "$flutter_root/skia/src/ports/SkImageGeneratorCG.cpp",
+      ]
+
+      libs = [
+        # AppKit symbols NSFontWeightXXX may be dlsym'ed.
+        "AppKit.framework",
+        "ApplicationServices.framework",
+        "OpenGL.framework",
+      ]
+    } else {
+      # Ohos and Android plarform
+      if (target_cpu != "arm") {
+        defines += [ "SKVM_JIT" ]
+      }
+
+      if (defined(config.disable_gpu) && config.disable_gpu) {
+        defines += [
+          "SK_BUILD_FOR_UNIX",
+          "SK_SUPPORT_ATLAS_TEXT=0",
+          "SK_SUPPORT_GPU=0",
+        ]
+        defines -= [
+          "SK_SUPPORT_ATLAS_TEXT=1",
+          "SK_GL",
+        ]
+      } else {
+        if (is_standard_system) {
+          public_deps = [ "//foundation/graphic/standard:libgl" ]
+        } else {
+          aosp_deps = [
+            "shared_library:libEGL",
+            "shared_library:libGLESv2",
+            "shared_library:liblog",
+          ]
+        }
+      }
+
+      if (defined(config.sk_use_hilog) && config.sk_use_hilog) {
+        sources -= [ "$flutter_root/skia/src/ports/SkDebug_android.cpp" ]
+        sources += [ "$flutter_root/skia/src/ports/SkDebug_ohos.cpp" ]
+        external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+      }
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_skia_core("ace_skia_core_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Skia core config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia ext config begin
+# ------------------------------------------------
+config("ace_skia_ext_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root",
+    "$flutter_root/skia",
+    "$flutter_root/engine",
+  ]
+
+  cflags = [ "-fvisibility=hidden" ]
+}
+
+template("ace_skia_ext") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += [ "OHOS_ACE_SKIA_EXT" ]
+    configs = [ ":ace_skia_ext_config" ]
+    cflags_cc += invoker.cflags_cc
+    cflags_cc += ace_skia_common_ccflags
+
+    sources = [
+      # enable ext utils
+      "$flutter_root/skia/src/core/SkArenaAlloc.cpp",
+      "$flutter_root/skia/src/core/SkOpts.cpp",
+      "$flutter_root/skia/src/core/SkTSearch.cpp",
+      "$flutter_root/skia/src/utils/SkBase64.cpp",
+
+      # use ohos fontmgr
+      "$flutter_root/skia/src/ports/SkFontMgr_ohos.cpp",
+    ]
+
+    deps = [
+      ":ace_skia_opts_$platform",
+      ":ace_svg_model_$platform",
+      ":ace_xml",
+    ]
+
+    if (platform == "ohos" && defined(config.enable_native_view) &&
+        config.enable_native_view) {
+      aosp_deps = [
+        "shared_library:libexpat",
+        "shared_library:libhwui",
+      ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_skia_ext("ace_skia_ext_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Skia ext config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia jpeg config begin
+# ------------------------------------------------
+config("ace_jpeg_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia",
+    "$flutter_root/skia/third_party/libjpeg-turbo",
+    "$flutter_root/skia/third_party/externals/libjpeg-turbo",
+  ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+ohos_source_set("ace_jpeg") {
+  part_name = ace_engine_part
+  configs = [ ":ace_jpeg_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+
+  sources = [
+    "$flutter_root/skia/src/codec/SkJpegCodec.cpp",
+    "$flutter_root/skia/src/codec/SkJpegDecoderMgr.cpp",
+    "$flutter_root/skia/src/codec/SkJpegUtility.cpp",
+    "$flutter_root/skia/src/images/SkJPEGWriteUtility.cpp",
+    "$flutter_root/skia/src/images/SkJpegEncoder.cpp",
+  ]
+
+  defines = ace_skia_common_defines
+  defines += [ "SK_HAS_JPEG_LIBRARY" ]
+}
+
+# ------------------------------------------------
+#      Skia jpeg config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia skcms config begin
+# ------------------------------------------------
+config("ace_skcms_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia/include/third_party/skcms" ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = [
+    "-w",
+    "-std=c11",
+  ]
+  cflags += ace_skia_common_cflags
+}
+
+ohos_source_set("ace_skcms") {
+  part_name = ace_engine_part
+  configs = [ ":ace_skcms_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [ "$flutter_root/skia/third_party/skcms/skcms.cc" ]
+}
+
+# ------------------------------------------------
+#      Skia skcms config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia pdf config begin
+# ------------------------------------------------
+config("pdf_compile_flags") {
+  cflags_cc = ace_skia_common_ccflags
+  cflags_cc += [ "-Wno-extra-semi" ]
+  cflags = ace_skia_common_cflags
+  cflags += [ "-Wno-extra-semi" ]
+  include_dirs = [
+    "$flutter_root/skia",
+    "$flutter_root/skia/third_party/icu",
+  ]
+}
+
+template("ace_pdf") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+    defines += ace_skia_common_defines
+    defines += [
+      "SK_PDF_USE_SFNTLY",
+      "U_USING_ICU_NAMESPACE=0",
+      "SK_USING_THIRD_PARTY_ICU",
+    ]
+
+    configs = [
+      ":skia_deps_include_config",
+      ":pdf_compile_flags",
+    ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/skia/src/pdf/SkClusterator.cpp",
+      "$flutter_root/skia/src/pdf/SkDeflate.cpp",
+      "$flutter_root/skia/src/pdf/SkJpegInfo.cpp",
+      "$flutter_root/skia/src/pdf/SkKeyedImage.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFBitmap.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFDevice.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFDocument.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFFont.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFFormXObject.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFGradientShader.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFGraphicStackState.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFGraphicState.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFMakeCIDGlyphWidthsArray.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFMakeToUnicodeCmap.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFMetadata.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFResourceDict.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFShader.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFSubsetFont.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFTag.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFType1Font.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFTypes.cpp",
+      "$flutter_root/skia/src/pdf/SkPDFUtils.cpp",
+    ]
+
+    if (platform == "windows") {
+      sources += [ "$flutter_root/skia/third_party/icu/SkLoadICU.cpp" ]
+    }
+
+    deps = [
+      "$ace_flutter_engine_root/icu:ace_libicu_$platform",
+      "$ace_flutter_engine_root/sfntly:ace_libsfntly_$platform",
+      "//third_party/zlib:libz",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_pdf("ace_pdf_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Skia pdf config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia gpu config begin
+# ------------------------------------------------
+config("ace_gpu_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags_cc += [ "-Wno-extra-semi" ]
+  cflags = ace_skia_common_cflags
+  cflags += [ "-Wno-extra-semi" ]
+}
+
+template("ace_gpu") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += ace_skia_common_defines
+    defines += [ "SK_DISABLE_REDUCE_OPLIST_SPLITTING" ]
+    cflags_cc += invoker.cflags_cc
+    configs = [
+      ":ace_gpu_config",
+      ":skia_deps_include_config",
+    ]
+    configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+
+    sources = [
+      "$flutter_root/skia/src/atlastext/SkAtlasTextContext.cpp",
+      "$flutter_root/skia/src/atlastext/SkAtlasTextTarget.cpp",
+      "$flutter_root/skia/src/atlastext/SkInternalAtlasTextContext.cpp",
+      "$flutter_root/skia/src/gpu/GrAHardwareBufferImageGenerator.cpp",
+      "$flutter_root/skia/src/gpu/GrAHardwareBufferUtils.cpp",
+      "$flutter_root/skia/src/gpu/GrAuditTrail.cpp",
+      "$flutter_root/skia/src/gpu/GrBackendSurface.cpp",
+      "$flutter_root/skia/src/gpu/GrBackendTextureImageGenerator.cpp",
+      "$flutter_root/skia/src/gpu/GrBitmapTextureMaker.cpp",
+      "$flutter_root/skia/src/gpu/GrBlurUtils.cpp",
+      "$flutter_root/skia/src/gpu/GrBufferAllocPool.cpp",
+      "$flutter_root/skia/src/gpu/GrCaps.cpp",
+      "$flutter_root/skia/src/gpu/GrClipStackClip.cpp",
+      "$flutter_root/skia/src/gpu/GrColorSpaceInfo.cpp",
+      "$flutter_root/skia/src/gpu/GrColorSpaceXform.cpp",
+      "$flutter_root/skia/src/gpu/GrContext.cpp",
+      "$flutter_root/skia/src/gpu/GrContextPriv.cpp",
+      "$flutter_root/skia/src/gpu/GrContextThreadSafeProxy.cpp",
+      "$flutter_root/skia/src/gpu/GrContext_Base.cpp",
+      "$flutter_root/skia/src/gpu/GrDDLContext.cpp",
+      "$flutter_root/skia/src/gpu/GrDataUtils.cpp",
+      "$flutter_root/skia/src/gpu/GrDefaultGeoProcFactory.cpp",
+      "$flutter_root/skia/src/gpu/GrDeinstantiateProxyTracker.cpp",
+      "$flutter_root/skia/src/gpu/GrDistanceFieldGenFromVector.cpp",
+      "$flutter_root/skia/src/gpu/GrDrawOpAtlas.cpp",
+      "$flutter_root/skia/src/gpu/GrDrawOpTest.cpp",
+      "$flutter_root/skia/src/gpu/GrDrawingManager.cpp",
+      "$flutter_root/skia/src/gpu/GrDriverBugWorkarounds.cpp",
+      "$flutter_root/skia/src/gpu/GrFixedClip.cpp",
+      "$flutter_root/skia/src/gpu/GrFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/GrGpu.cpp",
+      "$flutter_root/skia/src/gpu/GrGpuBuffer.cpp",
+      "$flutter_root/skia/src/gpu/GrGpuCommandBuffer.cpp",
+      "$flutter_root/skia/src/gpu/GrGpuResource.cpp",
+      "$flutter_root/skia/src/gpu/GrImageContext.cpp",
+      "$flutter_root/skia/src/gpu/GrImageTextureMaker.cpp",
+      "$flutter_root/skia/src/gpu/GrLegacyDirectContext.cpp",
+      "$flutter_root/skia/src/gpu/GrMemoryPool.cpp",
+      "$flutter_root/skia/src/gpu/GrOnFlushResourceProvider.cpp",
+      "$flutter_root/skia/src/gpu/GrOpFlushState.cpp",
+      "$flutter_root/skia/src/gpu/GrOpList.cpp",
+      "$flutter_root/skia/src/gpu/GrPaint.cpp",
+      "$flutter_root/skia/src/gpu/GrPath.cpp",
+      "$flutter_root/skia/src/gpu/GrPathProcessor.cpp",
+      "$flutter_root/skia/src/gpu/GrPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/GrPathRendererChain.cpp",
+      "$flutter_root/skia/src/gpu/GrPathRendering.cpp",
+      "$flutter_root/skia/src/gpu/GrPipeline.cpp",
+      "$flutter_root/skia/src/gpu/GrPrimitiveProcessor.cpp",
+      "$flutter_root/skia/src/gpu/GrProcessor.cpp",
+      "$flutter_root/skia/src/gpu/GrProcessorAnalysis.cpp",
+      "$flutter_root/skia/src/gpu/GrProcessorSet.cpp",
+      "$flutter_root/skia/src/gpu/GrProcessorUnitTest.cpp",
+      "$flutter_root/skia/src/gpu/GrProgramDesc.cpp",
+      "$flutter_root/skia/src/gpu/GrProxyProvider.cpp",
+      "$flutter_root/skia/src/gpu/GrRecordingContext.cpp",
+      "$flutter_root/skia/src/gpu/GrRectanizer_pow2.cpp",
+      "$flutter_root/skia/src/gpu/GrRectanizer_skyline.cpp",
+      "$flutter_root/skia/src/gpu/GrReducedClip.cpp",
+      "$flutter_root/skia/src/gpu/GrRenderTarget.cpp",
+      "$flutter_root/skia/src/gpu/GrRenderTargetContext.cpp",
+      "$flutter_root/skia/src/gpu/GrRenderTargetOpList.cpp",
+      "$flutter_root/skia/src/gpu/GrRenderTargetProxy.cpp",
+      "$flutter_root/skia/src/gpu/GrRenderTask.cpp",
+      "$flutter_root/skia/src/gpu/GrResourceAllocator.cpp",
+      "$flutter_root/skia/src/gpu/GrResourceCache.cpp",
+      "$flutter_root/skia/src/gpu/GrResourceProvider.cpp",
+      "$flutter_root/skia/src/gpu/GrSWMaskHelper.cpp",
+      "$flutter_root/skia/src/gpu/GrSamplePatternDictionary.cpp",
+      "$flutter_root/skia/src/gpu/GrShaderCaps.cpp",
+      "$flutter_root/skia/src/gpu/GrShaderUtils.cpp",
+      "$flutter_root/skia/src/gpu/GrShaderVar.cpp",
+      "$flutter_root/skia/src/gpu/GrSoftwarePathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/GrStencilAttachment.cpp",
+      "$flutter_root/skia/src/gpu/GrStencilSettings.cpp",
+      "$flutter_root/skia/src/gpu/GrStyle.cpp",
+      "$flutter_root/skia/src/gpu/GrSurface.cpp",
+      "$flutter_root/skia/src/gpu/GrSurfaceContext.cpp",
+      "$flutter_root/skia/src/gpu/GrSurfaceProxy.cpp",
+      "$flutter_root/skia/src/gpu/GrSwizzle.cpp",
+      "$flutter_root/skia/src/gpu/GrTessellator.cpp",
+      "$flutter_root/skia/src/gpu/GrTestUtils.cpp",
+      "$flutter_root/skia/src/gpu/GrTexture.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureAdjuster.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureContext.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureMaker.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureOpList.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureProducer.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureProxy.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureRenderTargetProxy.cpp",
+      "$flutter_root/skia/src/gpu/GrTextureResolveRenderTask.cpp",
+      "$flutter_root/skia/src/gpu/GrXferProcessor.cpp",
+      "$flutter_root/skia/src/gpu/GrYUVProvider.cpp",
+      "$flutter_root/skia/src/gpu/SkGpuDevice.cpp",
+      "$flutter_root/skia/src/gpu/SkGpuDevice_drawTexture.cpp",
+      "$flutter_root/skia/src/gpu/SkGr.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCAtlas.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCClipPath.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCClipProcessor.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCConicShader.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCCoverageProcessor.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCCubicShader.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCDrawPathsOp.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCFillGeometry.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCFiller.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCPathCache.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCPathProcessor.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCPerFlushResources.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCQuadraticShader.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCStrokeGeometry.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCCStroker.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrCoverageCountingPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrGSCoverageProcessor.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrOctoBounds.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrSampleMaskProcessor.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrStencilAtlasOp.cpp",
+      "$flutter_root/skia/src/gpu/ccpr/GrVSCoverageProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrBezierEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrBicubicEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrBitmapTextGeoProc.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrConvexPolyEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrCoverageSetOpXP.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrCustomXfermode.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrDisableColorXP.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrDistanceFieldGeoProc.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrGaussianConvolutionFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrMatrixConvolutionEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrOvalEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrPorterDuffXferProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrRRectEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrSRGBEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrShadowGeoProc.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrSkSLFP.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrTextureDomain.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrXfermodeFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/GrYUVtoRGBEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrAARectEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrAlphaThresholdFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrBlurredEdgeFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrCircleBlurFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrCircleEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrColorMatrixFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrComposeLerpEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrComposeLerpRedEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrConfigConversionEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrConstColorProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrEllipseEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrLumaColorFilterEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrMagnifierEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrMixerEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrOverrideInputFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrPremulInputFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrRRectBlurEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrRectBlurEffect.cpp",
+      "$flutter_root/skia/src/gpu/effects/generated/GrSimpleTextureEffect.cpp",
+      "$flutter_root/skia/src/gpu/geometry/GrPathUtils.cpp",
+      "$flutter_root/skia/src/gpu/geometry/GrQuad.cpp",
+      "$flutter_root/skia/src/gpu/geometry/GrQuadUtils.cpp",
+      "$flutter_root/skia/src/gpu/geometry/GrShape.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLAssembleGLESInterfaceAutogen.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLAssembleGLInterfaceAutogen.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLAssembleHelpers.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLAssembleInterface.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLAssembleWebGLInterfaceAutogen.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLBuffer.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLCaps.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLContext.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLExtensions.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLGLSL.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLGpu.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLGpuCommandBuffer.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLGpuProgramCache.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLInterfaceAutogen.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLPath.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLPathRendering.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLProgram.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLProgramDataManager.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLRenderTarget.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLSemaphore.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLStencilAttachment.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLTexture.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLTextureRenderTarget.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLTypesPriv.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLUniformHandler.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLUtil.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLVaryingHandler.cpp",
+      "$flutter_root/skia/src/gpu/gl/GrGLVertexArray.cpp",
+      "$flutter_root/skia/src/gpu/gl/builders/GrGLProgramBuilder.cpp",
+      "$flutter_root/skia/src/gpu/gl/builders/GrGLShaderStringBuilder.cpp",
+      "$flutter_root/skia/src/gpu/gl/egl/GrGLMakeNativeInterface_egl.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSL.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLBlend.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLFragmentProcessor.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLFragmentShaderBuilder.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLGeometryProcessor.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLPrimitiveProcessor.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLProgramBuilder.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLProgramDataManager.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLShaderBuilder.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLUtil.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLVarying.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLVertexGeoBuilder.cpp",
+      "$flutter_root/skia/src/gpu/glsl/GrGLSLXferProcessor.cpp",
+      "$flutter_root/skia/src/gpu/gradients/GrGradientBitmapCache.cpp",
+      "$flutter_root/skia/src/gpu/gradients/GrGradientShader.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrClampedGradientEffect.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrDualIntervalGradientColorizer.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrLinearGradientLayout.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrRadialGradientLayout.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrSingleIntervalGradientColorizer.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrSweepGradientLayout.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrTextureGradientColorizer.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrTiledGradientEffect.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrTwoPointConicalGradientLayout.cpp",
+      "$flutter_root/skia/src/gpu/gradients/generated/GrUnrolledBinaryGradientColorizer.cpp",
+      "$flutter_root/skia/src/gpu/mock/GrMockCaps.cpp",
+      "$flutter_root/skia/src/gpu/mock/GrMockGpu.cpp",
+      "$flutter_root/skia/src/gpu/mock/GrMockTypes.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrAAConvexPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrAAConvexTessellator.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrAAHairLinePathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrAALinearizingConvexPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrAtlasTextOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrClearOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrClearStencilClipOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrCopySurfaceOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDashLinePathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDashOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDebugMarkerOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDefaultPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDrawAtlasOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDrawPathOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDrawVerticesOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrDrawableOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrFillRRectOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrFillRectOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrLatticeOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrMeshDrawOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrOvalOpFactory.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrQuadPerEdgeAA.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrRegionOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrSemaphoreOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrShadowRRectOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrSimpleMeshDrawOpHelper.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrSmallPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrStencilAndCoverPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrStencilPathOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrStrokeRectOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrTessellatingPathRenderer.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrTextureOp.cpp",
+      "$flutter_root/skia/src/gpu/ops/GrTransferFromOp.cpp",
+      "$flutter_root/skia/src/gpu/text/GrAtlasManager.cpp",
+      "$flutter_root/skia/src/gpu/text/GrDistanceFieldAdjustTable.cpp",
+      "$flutter_root/skia/src/gpu/text/GrSDFMaskFilter.cpp",
+      "$flutter_root/skia/src/gpu/text/GrStrikeCache.cpp",
+      "$flutter_root/skia/src/gpu/text/GrTextBlob.cpp",
+      "$flutter_root/skia/src/gpu/text/GrTextBlobCache.cpp",
+      "$flutter_root/skia/src/gpu/text/GrTextBlobVertexRegenerator.cpp",
+      "$flutter_root/skia/src/gpu/text/GrTextContext.cpp",
+      "$flutter_root/skia/src/image/SkImage_Gpu.cpp",
+      "$flutter_root/skia/src/image/SkImage_GpuBase.cpp",
+      "$flutter_root/skia/src/image/SkImage_GpuYUVA.cpp",
+      "$flutter_root/skia/src/image/SkSurface_Gpu.cpp",
+      "$flutter_root/skia/src/sksl/SkSLCPPCodeGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLCPPUniformCTypes.cpp",
+      "$flutter_root/skia/src/sksl/SkSLGLSLCodeGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLHCodeGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLMetalCodeGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLOutputStream.cpp",
+      "$flutter_root/skia/src/sksl/SkSLPipelineStageCodeGenerator.cpp",
+      "$flutter_root/skia/src/sksl/SkSLSPIRVCodeGenerator.cpp",
+    ]
+
+    if (platform == "windows") {
+      defines -= [ "NOGDI" ]
+      include_dirs =
+          [ "$flutter_root/skia/third_party/externals/angle2/include" ]
+      sources -= [
+        "$flutter_root/skia/src/gpu/gl/egl/GrGLMakeNativeInterface_egl.cpp",
+      ]
+      sources += [
+        "$flutter_root/skia/src/gpu/gl/win/GrGLMakeNativeInterface_win.cpp",
+      ]
+
+      libs = [ "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libopengl32.a" ]
+    } else if (platform == "mac") {
+      defines += [ "SK_ASSUME_GL=1" ]
+      sources -= [
+        "$flutter_root/skia/src/gpu/gl/egl/GrGLMakeNativeInterface_egl.cpp",
+      ]
+      sources += [
+        "$flutter_root/skia/src/gpu/gl/mac/GrGLMakeNativeInterface_mac.cpp",
+      ]
+    } else {
+      if (!defined(config.disable_gpu) || !config.disable_gpu) {
+        # Ohos or Android platform
+        if (is_standard_system) {
+          public_deps = [ "//foundation/graphic/standard:libgl" ]
+        } else {
+          aosp_deps = [
+            "shared_library:libEGL",
+            "shared_library:libGLESv2",
+          ]
+        }
+      }
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_gpu("ace_gpu_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Skia gpu config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia typeface config begin
+# ------------------------------------------------
+config("ace_typeface_freetype_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia",
+    "$flutter_root/skia/third_party/externals/freetype/include",
+  ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+ohos_source_set("ace_typeface_freetype") {
+  part_name = ace_engine_part
+  defines = ace_skia_common_defines
+  defines += [ "SK_FREETYPE_MINIMUM_RUNTIME_VERSION=(((FREETYPE_MAJOR) << 24) | ((FREETYPE_MINOR) << 16) | ((FREETYPE_PATCH) << 8))" ]
+  configs = [
+    ":ace_typeface_freetype_config",
+    ":skia_deps_include_config",
+  ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [
+    "$flutter_root/skia/src/ports/SkFontHost_FreeType.cpp",
+    "$flutter_root/skia/src/ports/SkFontHost_FreeType_common.cpp",
+  ]
+}
+
+# ------------------------------------------------
+#      Skia typeface config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia gif config begin
+# ------------------------------------------------
+config("ace_gif_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+ohos_source_set("ace_gif") {
+  part_name = ace_engine_part
+  defines = ace_skia_common_defines
+  configs = [ ":ace_gif_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [
+    "$flutter_root/skia/src/codec/SkGifCodec.cpp",
+    "$flutter_root/skia/third_party/gif/SkGifImageReader.cpp",
+  ]
+}
+
+# ------------------------------------------------
+#      Skia gif config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia xml config begin
+# ------------------------------------------------
+config("ace_xml_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+ohos_source_set("ace_xml") {
+  part_name = ace_engine_part
+  configs = [
+    ":ace_xml_config",
+    ":skia_deps_include_config",
+  ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  defines = ace_skia_common_defines
+
+  sources = [
+    "$flutter_root/skia/src/xml/SkXMLParser.cpp",
+    "$flutter_root/skia/src/xml/SkXMLWriter.cpp",
+  ]
+
+  deps = [ "$ace_root/build/external_config/expat:ace_libexpat" ]
+}
+
+# ------------------------------------------------
+#      Skia xml config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia font manager config begin
+# ------------------------------------------------
+config("ace_fontmgr_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root",
+    "$flutter_root/skia",
+  ]
+
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+template("ace_fontmgr") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    configs = [
+      ":ace_fontmgr_config",
+      ":skia_deps_include_config",
+    ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+    defines += invoker.defines
+    defines += ace_skia_common_defines
+    cflags_cc += invoker.cflags_cc
+
+    if (platform == "windows") {
+      defines -= [
+        "UNICODE",
+        "NOGDI",
+      ]
+      sources = [
+        # Use font installed in windows platform
+        "$flutter_root/skia/src/fonts/SkFontMgr_indirect.cpp",
+        "$flutter_root/skia/src/ports/SkFontHost_win.cpp",
+
+        # Use font in physical device
+        "$flutter_root/skia/src/ports/SkFontMgr_config_parser.cpp",
+        "$flutter_root/skia/src/ports/SkFontMgr_preview.cpp",
+        "$flutter_root/skia/src/ports/SkFontMgr_win_dw.cpp",
+        "$flutter_root/skia/src/ports/SkFontMgr_win_factory.cpp",
+        "$flutter_root/skia/src/ports/SkScalerContext_win_dw.cpp",
+        "$flutter_root/skia/src/ports/SkTypeface_win_dw.cpp",
+      ]
+      deps = [ "$ace_root/build/external_config/expat:ace_libexpat" ]
+
+      libs = [
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libgdi32.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libuuid.a",
+      ]
+    } else if (platform == "mac") {
+      sources = [
+        "$flutter_root/skia/src/ports/SkFontHost_mac.cpp",
+        "$flutter_root/skia/src/ports/SkFontMgr_config_parser.cpp",
+        "$flutter_root/skia/src/ports/SkFontMgr_preview.cpp",
+      ]
+    } else {
+      # Ohos or Android platform
+      if (defined(config.ohos_standard_fontmgr) &&
+          config.ohos_standard_fontmgr) {
+        sources = []
+        deps = [ ":ace_fontmgr_standard" ]
+      } else {
+        sources = [
+          "$flutter_root/skia/src/ports/SkFontMgr_android.cpp",
+          "$flutter_root/skia/src/ports/SkFontMgr_android_factory.cpp",
+          "$flutter_root/skia/src/ports/SkFontMgr_android_parser.cpp",
+        ]
+        if (platform == "ohos") {
+          sources += [ "$flutter_root/skia/src/ports/SkFontMgr_ohos.cpp" ]
+        }
+        deps = [ "$ace_root/build/external_config/expat:ace_libexpat" ]
+      }
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_fontmgr("ace_fontmgr_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+config("ace_fontmgr_standard_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia/include/private",
+    "$flutter_root/skia/include/core",
+    "$flutter_root/skia/src/core",
+    "$flutter_root/skia/src/ports",
+    "$flutter_root/skia/src/ports/skia_ohos",
+    "//utils/native/base/include",
+  ]
+}
+
+ohos_source_set("ace_fontmgr_standard") {
+  part_name = ace_engine_part
+  configs = [
+    ":ace_fontmgr_config",
+    ":ace_fontmgr_standard_config",
+    ":skia_deps_include_config",
+  ]
+
+  sources = [
+    "$flutter_root/skia/src/ports/skia_ohos/FontConfig_ohos.cpp",
+    "$flutter_root/skia/src/ports/skia_ohos/SkFontMgr_ohos.cpp",
+    "$flutter_root/skia/src/ports/skia_ohos/SkFontMgr_ohos_factory.cpp",
+    "$flutter_root/skia/src/ports/skia_ohos/SkFontStyleSet_ohos.cpp",
+    "$flutter_root/skia/src/ports/skia_ohos/SkTypeface_ohos.cpp",
+  ]
+
+  cflags_cc = ace_skia_common_ccflags
+  cflags_cc += [
+    "-Wsign-compare",
+    "-Wno-vla",
+    "-Wno-tautological-unsigned-enum-zero-compare",
+  ]
+
+  deps = [
+    ":ace_fontconfig.json",
+    "$ace_root/build/external_config/jsoncpp:ace_jsoncpp",
+  ]
+
+  # Only standard system has ohos_fonts source
+  if (is_standard_system) {
+    deps += [ "//utils/resources:ohos_fonts" ]
+  }
+
+  defines = [ "SK_BUILD_FONT_MGR_FOR_OHOS" ]
+}
+
+ohos_prebuilt_etc("ace_fontconfig.json") {
+  source = "$flutter_root/skia/src/ports/skia_ohos/config/fontconfig.json"
+  subsystem_name = "ace"
+  part_name = "ace_engine_standard"
+}
+
+# ------------------------------------------------
+#      Skia font manager config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia webp config begin
+# ------------------------------------------------
+config("ace_webp_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia",
+    "$flutter_root/skia/third_party/externals/libwebp/src",
+    "$flutter_root/skia/third_party/externals/libwebp",
+  ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+ohos_source_set("ace_webp") {
+  part_name = ace_engine_part
+  configs = [ ":ace_webp_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [
+    "$flutter_root/skia/src/codec/SkWebpCodec.cpp",
+    "$flutter_root/skia/src/images/SkWebpEncoder.cpp",
+  ]
+
+  defines = ace_skia_common_defines
+}
+
+# ------------------------------------------------
+#      Skia webp config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia png config begin
+# ------------------------------------------------
+config("ace_png_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "$flutter_root/skia",
+    "$flutter_root/skia/third_party/libpng",
+    "$flutter_root/skia/third_party/externals/libpng",
+  ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+template("ace_png") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += ace_skia_common_defines
+    cflags_cc += invoker.cflags_cc
+    if (platform == "windows") {
+      cflags_cc += [ "-Wno-unknown-pragmas" ]
+    }
+
+    configs = [ ":ace_png_config" ]
+    configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    sources = [
+      "$flutter_root/skia/src/codec/SkIcoCodec.cpp",
+      "$flutter_root/skia/src/codec/SkPngCodec.cpp",
+      "$flutter_root/skia/src/images/SkPngEncoder.cpp",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_png("ace_png_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Skia png config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia heif config begin
+# ------------------------------------------------
+config("ace_heif_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+  cflags_cc = ace_skia_common_ccflags
+  cflags = ace_skia_common_cflags
+}
+
+ohos_source_set("ace_heif") {
+  part_name = ace_engine_part
+  configs = [ ":ace_heif_config" ]
+  configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+  sources = [ "$flutter_root/skia/src/codec/SkHeifCodec.cpp" ]
+  defines = ace_skia_common_defines
+}
+
+# ------------------------------------------------
+#      Skia heif config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Skia svg config begin
+# ------------------------------------------------
+config("ace_svg_model_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$flutter_root/skia" ]
+}
+
+config("svg_compile_flags") {
+  cflags_cc = ace_skia_common_ccflags
+  cflags_cc += [ "-Wno-extra-semi" ]
+  cflags = ace_skia_common_cflags
+  cflags += [ "-Wno-extra-semi" ]
+  ldflags = [ "-Wl,–gc-sections" ]
+}
+
+template("ace_svg_model") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    configs = []
+    if (platform == "ohos" && defined(config.enable_native_view) &&
+        config.enable_native_view) {
+      configs += [ ":system_skia_config" ]
+      deps = [ ":make_system_skia_include_dir" ]
+    } else {
+      defines += ace_skia_common_defines
+    }
+
+    configs += [
+      ":ace_svg_model_config",
+      ":svg_compile_flags",
+    ]
+
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/skia/experimental/svg/model/CssStyleParser.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGAttribute.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGAttributeParser.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGCircle.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGClipPath.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGContainer.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGDOM.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGEllipse.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGGradient.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGLine.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGLinearGradient.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGNode.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGPath.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGPattern.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGPoly.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGRadialGradient.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGRect.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGRenderContext.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGSVG.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGShape.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGStop.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGTransformableNode.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGUse.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGValue.cpp",
+      "$flutter_root/skia/experimental/svg/model/SkSVGXMLDOM.cpp",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_svg_model("ace_svg_model_" + item.name) {
+    platform = item.name
+    defines = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+  }
+}
+# ------------------------------------------------
+#      Skia svg config  end
+# ------------------------------------------------

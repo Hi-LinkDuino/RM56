@@ -1,0 +1,123 @@
+{
+  "name": "textpath",
+  "version": [
+    {
+      "name": "v7.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": "Draw text along a path."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "id",
+      "required": false,
+      "description": [
+        {
+          "name": "Unique identification of the component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "path",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the shape of the path."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "font-size",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the size of the text."
+        }
+      ],
+      "type": "length"
+    },
+    {
+      "name": "fill",
+      "required": false,
+      "description": [
+        {
+          "name": "Font fill color."
+        }
+      ],
+      "type": "color"
+    },
+    {
+      "name": "stroke",
+      "required": false,
+      "description": [
+        {
+          "name": "Draws the font border and specifies the color."
+        }
+      ],
+      "type": "color"
+    },
+    {
+      "name": "stroke-width",
+      "required": false,
+      "description": [
+        {
+          "name": "Font border width."
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": "Font border transparency."
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "startOffset",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the starting offset of the text along the path."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "fill-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": "Font fill transparency."
+        }
+      ],
+      "type": "number"
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

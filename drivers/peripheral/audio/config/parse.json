@@ -1,0 +1,66 @@
+{
+    "deep-buffer-playback Speaker": [{
+        "name": "DACL Left Speaker Mixer",
+        "value": 1
+      },
+      {
+        "name": "DACR Left Speaker Mixer",
+        "value": 1
+    }],
+    "Speaker": [{
+        "name":	"Dacl enable",
+        "value": 1
+    },
+    {
+        "name":	"Dacr enable",
+        "value": 1
+    }],
+    "headphones": [{
+        "name":	"Dacl enable",
+        "value": 0
+    },
+    {
+        "name":	"Dacr enable",
+        "value": 0
+    }],
+    "deep-buffer-playback headphones": [{
+        "name": "DACL Left Speaker Mixer",
+        "value": 1
+      },
+      {
+        "name": "DACR Left Speaker Mixer",
+        "value": 1
+    }],
+    "deep-buffer-playback mic": [{
+        "name": "DACL Left Speaker Mixer",
+        "value": 1
+      },
+      {
+        "name": "DACR Left Speaker Mixer",
+        "value": 1
+    }],
+    "deep-buffer-playback micHs": [{
+        "name": "DACL Left Speaker Mixer",
+        "value": 1
+      },
+      {
+        "name": "DACR Left Speaker Mixer",
+        "value": 1
+    }],
+    "mic": [{
+        "name":	"LPGA MIC Switch",
+        "value": 1
+    },
+    {
+        "name":	"RPGA MIC Switch",
+        "value": 0
+    }],
+    "micHs": [{
+        "name":	"LPGA MIC Switch",
+        "value": 0
+    },
+    {
+        "name":	"RPGA MIC Switch",
+        "value": 0
+    }]
+}

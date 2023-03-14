@@ -1,0 +1,250 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Copyright (C) 2019 The Android Open Source Project
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos/ndk/ndk.gni")
+import("//third_party/musl/musl_config.gni")
+import("//third_party/musl/musl_src.gni")
+import("//third_party/musl/musl_template.gni")
+
+toolchains_dir = "//prebuilts/clang/ohos"
+musl_target_out_dir = "${root_out_dir}/obj/third_party/musl"
+
+if (host_os == "mac") {
+  darwin_x86_64_toolchains_dir = "${toolchains_dir}/darwin-x86_64"
+  ohos_ndk_toolchains("darwin_x86_64") {
+    dest_dir = "$ndk_darwin_toolchains_out_dir"
+    sources = [
+      "${darwin_x86_64_toolchains_dir}/llvm/NOTICE",
+      "${darwin_x86_64_toolchains_dir}/llvm/bin",
+      "${darwin_x86_64_toolchains_dir}/llvm/include",
+      "${darwin_x86_64_toolchains_dir}/llvm/lib",
+      "${darwin_x86_64_toolchains_dir}/llvm/libexec",
+      "${darwin_x86_64_toolchains_dir}/llvm/share",
+    ]
+    license_file = "${darwin_x86_64_toolchains_dir}/llvm/NOTICE"
+  }
+  action("darwin_toolchain") {
+    outputs = [ "${ndk_darwin_toolchains_out_dir}" ]
+    script = "toolchain.sh"
+    args =
+        [ "-i" ] + [ rebase_path("${darwin_x86_64_toolchains_dir}/libcxx-ndk") ]
+    args += [ "-o" ] + [ rebase_path("${ndk_darwin_toolchains_out_dir}") ]
+    deps = [ ":darwin_x86_64" ]
+  }
+} else {
+  linux_x86_64_toolchains_dir = "${toolchains_dir}/linux-x86_64"
+  windows_x86_64_toolchain_dir = "${toolchains_dir}/windows-x86_64"
+
+  ohos_ndk_toolchains("linux_x86_64") {
+    dest_dir = "$ndk_linux_toolchains_out_dir"
+    sources = [
+      "${linux_x86_64_toolchains_dir}/llvm/NOTICE",
+      "${linux_x86_64_toolchains_dir}/llvm/bin",
+      "${linux_x86_64_toolchains_dir}/llvm/include",
+      "${linux_x86_64_toolchains_dir}/llvm/lib",
+      "${linux_x86_64_toolchains_dir}/llvm/libexec",
+      "${linux_x86_64_toolchains_dir}/llvm/share",
+    ]
+    license_file = "${linux_x86_64_toolchains_dir}/llvm/NOTICE"
+  }
+
+  ohos_ndk_toolchains("windows_x86_64") {
+    dest_dir = "$ndk_windows_toolchains_out_dir"
+    sources = [
+      "${windows_x86_64_toolchain_dir}/llvm/NOTICE",
+      "${windows_x86_64_toolchain_dir}/llvm/bin",
+      "${windows_x86_64_toolchain_dir}/llvm/include",
+      "${windows_x86_64_toolchain_dir}/llvm/lib",
+      "${windows_x86_64_toolchain_dir}/llvm/libexec",
+      "${windows_x86_64_toolchain_dir}/llvm/share",
+    ]
+    args = [ "--follow-all-symlinks" ]
+    license_file = "${windows_x86_64_toolchain_dir}/llvm/NOTICE"
+  }
+  action("linux_toolchain") {
+    outputs = [ "${ndk_linux_toolchains_out_dir}" ]
+    script = "toolchain.sh"
+    args =
+        [ "-i" ] + [ rebase_path("${linux_x86_64_toolchains_dir}/libcxx-ndk") ]
+    args += [ "-o" ] + [ rebase_path("${ndk_linux_toolchains_out_dir}") ]
+    deps = [ ":linux_x86_64" ]
+  }
+
+  action("windows_toolchain") {
+    outputs = [ "${ndk_windows_toolchains_out_dir}" ]
+    script = "toolchain.sh"
+    args =
+        [ "-i" ] + [ rebase_path("${windows_x86_64_toolchain_dir}/libcxx-ndk") ]
+    args += [ "-o" ] + [ rebase_path("${ndk_windows_toolchains_out_dir}") ]
+    deps = [ ":windows_x86_64" ]
+  }
+}
+
+group("ndk_toolchain") {
+  if (host_os == "mac") {
+    deps = [ ":darwin_toolchain" ]
+  } else {
+    deps = [
+      ":linux_toolchain",
+      ":windows_toolchain",
+    ]
+  }
+}
+
+group("musl_sysroot") {
+  deps = [
+    ":copy_musl_sysroot",
+    ":musl_arm_bits_arm32",
+    ":musl_arm_uapi_arm32",
+  ]
+}
+
+action("copy_musl_sysroot") {
+  outputs = [ "${ndk_headers_out_dir}" ]
+  script = "copy_musl_sysroot.sh"
+  args =
+      [ "-i" ] + [ rebase_path("${musl_target_out_dir}/${musl_inc_out_dir}") ]
+  args += [ "-o" ] + [ rebase_path("${ndk_headers_out_dir}") ]
+  args += [ "-t" ] + [ "${musl_arch}" ]
+  deps = [ "//third_party/musl:musl_headers" ]
+}
+
+musl_libs_arm32 = [
+  "//third_party/musl:create_alltypes_h(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:create_syscall_h(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:musl_copy_inc_bits(//build/toolchain/ohos:ohos_clang_arm)",
+]
+
+musl_lib_arm32 = [
+  "//third_party/musl:soft_musl_crt_install_action(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libc_musl_static(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libm(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libdl(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libpthread(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libcrypt(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libutil(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libxnet(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_libresolv(//build/toolchain/ohos:ohos_clang_arm)",
+  "//third_party/musl:soft_librt(//build/toolchain/ohos:ohos_clang_arm)",
+]
+
+musl_lib_arm64 = [
+  "//third_party/musl:soft_musl_crt_install_action(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libc_musl_static(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libm(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libdl(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libpthread(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libcrypt(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libutil(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libxnet(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_libresolv(//build/toolchain/ohos:ohos_clang_arm64)",
+  "//third_party/musl:soft_librt(//build/toolchain/ohos:ohos_clang_arm64)",
+]
+
+## arm-linux-ohos asm directory
+ohos_ndk_copy("musl_arm_uapi_arm32") {
+  dest_dir = "$ndk_os_irrelevant_out_dir/sysroot/usr/include/arm-linux-ohos"
+
+  sources =
+      [ "//kernel/linux/patches/linux-5.10/prebuilts/usr/include/asm-arm/asm" ]
+  args = [ "--ignore-stale" ]
+}
+
+## arm-linux-ohos bits directory
+ohos_copy("musl_arm_bits_arm32") {
+  deps = musl_libs_arm32
+  sources = []
+  sources_temp = [
+    "alltypes.h",
+    "syscall.h",
+  ]
+  sources_temp += musl_inc_bits_files
+  sources_orig = get_path_info(sources_temp, "file")
+
+  # print("${sources_orig}")
+
+  foreach(s, sources_orig) {
+    sources += [ get_label_info(deps[0], "target_out_dir") +
+                 "/usr/include/arm-linux-ohos/bits/${s}" ]
+  }
+  outputs = [ "$ndk_os_irrelevant_out_dir/sysroot/usr/include/arm-linux-ohos/bits/{{source_file_part}}" ]
+}
+
+ohos_copy("musl_ndk_libs_arm32") {
+  deps = musl_lib_arm32
+  sources = [ get_label_info(deps[0], "target_out_dir") +
+              "/usr/lib/arm-linux-ohos/Scrt1.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/crt1.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/crti.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/crtn.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/rcrt1.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libm.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libdl.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libc.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libcrypt.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libpthread.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libresolv.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/librt.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libutil.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/arm-linux-ohos/libxnet.a" ]
+
+  outputs = [ "$ndk_os_irrelevant_out_dir/sysroot/usr/lib/arm-linux-ohos/{{source_file_part}}" ]
+}
+
+ohos_copy("musl_ndk_libs_aarch64") {
+  deps = musl_lib_arm64
+  sources = [ get_label_info(deps[0], "target_out_dir") +
+              "/usr/lib/aarch64-linux-ohos/Scrt1.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/crt1.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/crti.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/crtn.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/rcrt1.o" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libc.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libdl.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libm.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libcrypt.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libpthread.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libresolv.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/librt.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libutil.a" ]
+  sources += [ get_label_info(deps[0], "target_out_dir") +
+               "/usr/lib/aarch64-linux-ohos/libxnet.a" ]
+
+  outputs = [ "$ndk_os_irrelevant_out_dir/sysroot/usr/lib/aarch64-linux-ohos/{{source_file_part}}" ]
+}

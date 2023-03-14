@@ -1,0 +1,70 @@
+{
+    "app": {
+        "apiVersion": {
+            "compatible": 4,
+            "releaseType": "Release",
+            "target": 5
+        },
+        "vendor": "example",
+        "bundleName": "com.example.l3jsdemo",
+        "version": {
+            "code": 1000000,
+            "name": "1.0.0"
+        }
+    },
+    "deviceConfig": {
+        "default": {
+            "debug": true
+        }
+    },
+    "module": {
+        "abilities": [
+            {
+                "iconId": 16777218,
+                "skills": [
+                    {
+                        "entities": [
+                            "entity.system.home"
+                        ],
+                        "actions": [
+                            "action.system.home"
+                        ]
+                    }
+                ],
+                "descriptionId": 16777217,
+                "labelId": 16777216,
+                "icon": "$media:icon",
+                "name": "com.example.l3jsdemo.MainAbility",
+                "description": "$string:mainability_description",
+                "label": "$string:app_name",
+                "type": "page",
+                "homeAbility": true,
+                "launchType": "standard"
+            }
+        ],
+        "deviceType": [
+            "tablet"
+        ],
+        "mainAbility": "com.example.l3jsdemo.MainAbility",
+        "distro": {
+            "moduleType": "entry",
+            "installationFree": true,
+            "deliveryWithInstall": true,
+            "moduleName": "entry"
+        },
+        "package": "com.example.l1jsdemo",
+        "name": ".MyApplication",
+        "js": [
+            {
+                "pages": [
+                    "pages/index/index"
+                ],
+                "name": "default",
+                "window": {
+                    "designWidth": 720,
+                    "autoDesignWidth": true
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,369 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            tab-bar通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="idProp">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="classProp"
+                  class="classProp">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="classPropNone"
+                  class="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="styleProp"
+                  style="width:80%;height:20px;background-color:red">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="refProp"
+                  ref="refProp">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="refPropNone"
+                  ref="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="disabledPropTrue"
+                  disabled="true">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="disabledPropFalse"
+                  disabled="false">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="disabledPropNone"
+                  disabled="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="focusablePropTrue"
+                  focusable="true">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="focusablePropFalse"
+                  focusable="false">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="focusablePropNone"
+                  focusable="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="dataProp"
+                  data-tabBar="通用属性 -- data-tab-bar">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="dataPropNone"
+                  data-tab-bar="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <tabs class = "tabs">
+            <tab-bar class="propNewAdd"
+                     data="通用属性 -- data">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar class="propNewAdd"
+                     data="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="clickEffectPropSmall"
+                  click-effect="spring-small">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="clickEffectPropMedium"
+                  click-effect="spring-medium">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="clickEffectPropLarge"
+                  click-effect="spring-large">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="clickEffectPropNone"
+                  click-effect="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="dirPropRtl"
+                  dir="rtl">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="dirPropAuto"
+                  dir="auto">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="dirPropLtr"
+                  dir="ltr">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="dirPropNone"
+                  dir="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="forPropNull"
+                  for="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="forPropOne"
+                  for="{{listOne}}">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="forPropThree"
+                  for="{{listThree}}">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="ifPropTrue"
+                  if="true">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <tabs class = "tabs">
+            <tab-bar id="showPropTrue"
+                  show="true">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="showPropFalse"
+                  show="false">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "tabs">
+            <tab-bar id="showPropNone"
+                  show="false">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="specific-container">
+        <text class="title">
+            tab-bar特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- mode
+        </text>
+        <tabs class = "mode">
+            <tab-bar id="modeScroll"
+                     mode="scrollable">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "mode">
+            <tab-bar id="modeFixed"
+                     mode="fixed">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "mode">
+            <tab-bar id="modeNone"
+                     mode="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <tabs class = "mode">
+            <tab-bar class="propNewAdd"
+              tid="id">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "mode">
+            <tab-bar class="propNewAdd"
+              tid="">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <tabs class = "mode">
+            <tab-bar class="propNewAdd"
+                     if="false">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "mode">
+            <tab-bar class="propNewAdd"
+              elif="true">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+        <tabs class = "mode">
+            <tab-bar class="propNewAdd"
+              elif="false">
+                <text class="tab-text">Home</text>
+                <text class="tab-text">Index</text>
+            </tab-bar>
+        </tabs>
+
+    </div>
+</div>

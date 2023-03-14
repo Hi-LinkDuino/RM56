@@ -1,0 +1,68 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+config("huks_config") {
+  include_dirs = [ "service" ]
+}
+
+ohos_static_library("libhuks_service_os_dependency_standard_static") {
+  subsystem_name = "security"
+  part_name = "huks"
+  public_configs = [ ":huks_config" ]
+  include_dirs = [
+    "//third_party/json/include",
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/include",
+  ]
+
+  defines = [
+    "L2_STANDARD",
+    "_HARDWARE_ROOT_KEY_",
+    "_HUKS_LOG_ENABLE_",
+  ]
+  sources = [
+    "posix/hks_rwlock.c",
+    "sa/hks_sa.cpp",
+  ]
+  deps = [
+    "//base/security/huks/frameworks/huks_standard/main/common:libhuks_common_standard_static",
+    "//base/security/huks/services/huks_standard/huks_service/main/core:libhuks_service_core_standard_static",
+    "//base/security/huks/utils/mutex:libhuks_utils_mutex_static",
+  ]
+  public_deps = [ "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/idl:libhuks_service_idl_standard_static" ]
+
+  external_deps = [
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+  if (support_jsapi) {
+    sources += [ "sa/hks_event_observer.cpp" ]
+    defines += [ "SUPPORT_COMMON_EVENT" ]
+    external_deps += [
+      "ability_base:want",
+      "bundle_framework:appexecfwk_base",
+      "ces_standard:cesfwk_innerkits",
+      "os_account_standard:os_account_innerkits",
+    ]
+  }
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+  cflags = cflags_cc
+  complete_static_lib = true
+}

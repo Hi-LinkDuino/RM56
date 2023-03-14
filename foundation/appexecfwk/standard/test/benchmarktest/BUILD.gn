@@ -1,0 +1,39 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+group("benchmarktest") {
+  testonly = true
+
+  deps = [
+    "ability_info_test:benchmarktest",
+    "application_info_test:benchmarktest",
+    "bundle_info_test:benchmarktest",
+    "bundle_mgr_client_test:benchmarktest",
+    "bundle_user_info_test:benchmarktest",
+    "bundlemgr_proxy_test:benchmarktest",
+    "common_event_info_test:benchmarktest",
+    "distributed_bundle_info_test:benchmarktest",
+    "extension_ability_info_test:benchmarktest",
+    "extension_form_profile_test:benchmarktest",
+    "form_info_test:benchmarktest",
+    "hap_module_info_test:benchmarktest",
+    "install_param_test:benchmarktest",
+    "installer_proxy_test:benchmarktest",
+    "json_serializer_test:benchmarktest",
+    "launcher_service_test:benchmarktest",
+    "module_info_test:benchmarktest",
+    "permission_def_test:benchmarktest",
+    "remote_ability_info_test:benchmarktest",
+    "shortcut_info_test:benchmarktest",
+  ]
+}

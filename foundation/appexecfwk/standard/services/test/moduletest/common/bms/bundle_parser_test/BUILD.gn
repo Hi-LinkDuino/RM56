@@ -1,0 +1,59 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("../../../../../../appexecfwk.gni")
+
+module_output_path = "bundle_framework/mstbundlemgrservice"
+
+ohos_moduletest("BmsBundleParserModuleTest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+
+  sources = [
+    "${services_path}/bundlemgr/src/inner_bundle_info.cpp",
+    "${services_path}/bundlemgr/src/inner_bundle_user_info.cpp",
+    "${services_path}/bundlemgr/src/pre_install_bundle_info.cpp",
+    "bms_bundle_parser_module_test.cpp",
+  ]
+
+  configs =
+      [ "${services_path}/test/moduletest/common/bms:bms_module_test_config" ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = [
+    "${common_path}:libappexecfwk_common",
+    "${services_path}/bundlemgr:bundle_parser",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "ability_runtime:app_manager",
+    "access_token:libaccesstoken_sdk",
+    "bundle_framework:appexecfwk_core",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+  ]
+  resource_config_file =
+      "${appexecfwk_path}/test/resource/mstbundlemgrservice/ohos_test.xml"
+}
+
+group("moduletest") {
+  testonly = true
+
+  if (ability_runtime_enable) {
+    deps = [ ":BmsBundleParserModuleTest" ]
+  }
+}

@@ -1,0 +1,44 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div class="container" style="flex-direction:column; align-items:center">
+    <div style="margin-top:40px;width:320px;height:80px;" class="divFrame">
+        <text style="width:320px;height:80px;text-overflow:ellipsis">Component_Div_StyleSet_Test_036</text>
+    </div>
+    <div style="height:270px;flex-direction: column;justify-content: flex-end;" class="divFrame">
+        <div style="width: {{divWidth}}px; height: {{divHeight}}px; border-width: {{divBorder}}px; border-color: red;
+                    padding: {{divPadding}}px; background-color: green; flex-wrap: wrap;" onclick="changeFocusToDiv">
+            <input style="width: {{buttonWidth}}px; height: {{buttonHeight}}px; border-color: yellow;
+                          border-width: {{buttonBorder}}px; padding: {{buttonPadding}}px"
+                  type="button" onclick="changeFocusToButton" value="size include border and padding test">
+            </input>
+            <text style="width:350px">click button above or div to change focus</text>
+        </div>
+        <div style="flex-wrap: wrap; width: 454px; height: 80px;">
+            <input style="width:110px; height: 40px;" value="+width" onclick="increaseWidth"></input>
+            <input style="width:120px; height: 40px;" value="+height" onclick="increaseHeight"></input>
+            <input style="width:90px; height: 40px;" value="+pad" onclick="increasePadding"></input>
+            <input style="width:130px; height: 40px;" value="+border" onclick="increaseBorder"></input>
+            <input style="width:110px; height: 40px;" value="-width" onclick="reduceWidth"></input>
+            <input style="width:120px; height: 40px;" value="-height" onclick="reduceHight"></input>
+            <input style="width:90px; height: 40px;" value="-pad" onclick="reducePadding"></input>
+            <input style="width:130px; height: 40px;" value="-border" onclick="reduceBorder"></input>
+        </div>
+    </div>
+    <div class="divFrame">
+        <input type="button" value="上页" style="width:90px;height:40px;" onclick="changePrev"/>
+        <input type="button" value="首页" style="width:90px;height:40px;" onclick="backMain"/>
+    </div>
+</div>

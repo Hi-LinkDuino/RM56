@@ -1,0 +1,163 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/templates/common/copy.gni")
+
+template("ohos_prebuilt_executable") {
+  assert(defined(invoker.source), "source must be defined for ${target_name}.")
+
+  ohos_copy(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "visibility",
+
+                             "deps",
+                             "public_configs",
+                             "subsystem_name",
+                             "part_name",
+
+                             # For generate_module_info
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+
+                             # Open source license related
+                             "license_file",
+                             "license_as_sources",
+                           ])
+    set_sources_assignment_filter([])
+    sources = [ invoker.source ]
+    outputs = [ "${target_out_dir}/${invoker.source}" ]
+    module_type = "bin"
+    prebuilt = true
+    install_enable = false
+    if (defined(invoker.install_enable)) {
+      install_enable = invoker.install_enable
+    }
+  }
+}
+
+template("ohos_prebuilt_shared_library") {
+  assert(defined(invoker.source), "source must be defined for ${target_name}.")
+
+  _copy_output = "${target_out_dir}/${invoker.source}"
+  config("${target_name}__config") {
+    libs = [ _copy_output ]
+  }
+  ohos_copy(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "visibility",
+
+                             "deps",
+                             "public_configs",
+                             "subsystem_name",
+                             "part_name",
+
+                             # For generate_module_info
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+
+                             # Open source license related
+                             "license_file",
+                             "license_as_sources",
+                           ])
+    set_sources_assignment_filter([])
+    sources = [ invoker.source ]
+    outputs = [ _copy_output ]
+    module_type = "lib"
+    prebuilt = true
+    install_enable = true
+    if (defined(invoker.install_enable)) {
+      install_enable = invoker.install_enable
+    }
+    if (!defined(public_configs)) {
+      public_configs = []
+    }
+    public_configs += [ ":${target_name}__config" ]
+  }
+}
+
+template("ohos_prebuilt_static_library") {
+  assert(defined(invoker.source), "source must be defined for ${target_name}.")
+
+  _copy_output = "${target_out_dir}/${invoker.source}"
+  config("${target_name}__config") {
+    libs = [ _copy_output ]
+  }
+  ohos_copy(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "visibility",
+
+                             "deps",
+                             "public_configs",
+                             "subsystem_name",
+                             "part_name",
+
+                             # Open source license related
+                             "license_file",
+                             "license_as_sources",
+                           ])
+    set_sources_assignment_filter([])
+    sources = [ invoker.source ]
+    outputs = [ _copy_output ]
+    bypass_module_info_generation = true
+    if (!defined(public_configs)) {
+      public_configs = []
+    }
+    public_configs += [ ":${target_name}__config" ]
+  }
+}
+
+template("ohos_prebuilt_etc") {
+  assert(defined(invoker.source), "source must be defined for ${target_name}.")
+
+  ohos_copy(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "visibility",
+
+                             "deps",
+                             "public_configs",
+                             "subsystem_name",
+                             "part_name",
+
+                             # For generate_module_info
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+
+                             # Open source license related
+                             "license_file",
+                             "license_as_sources",
+                           ])
+    set_sources_assignment_filter([])
+    sources = [ invoker.source ]
+    outputs = [ "${target_out_dir}/${invoker.source}" ]
+    module_type = "etc"
+    prebuilt = true
+    install_enable = true
+    if (defined(invoker.install_enable)) {
+      install_enable = invoker.install_enable
+    }
+  }
+}

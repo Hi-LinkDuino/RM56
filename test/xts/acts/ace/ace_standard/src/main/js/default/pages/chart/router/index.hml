@@ -1,0 +1,362 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+    <!-- 通用样式 -->
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+
+            <text class="sub-title">
+                 chart通用样式1
+            </text>
+            <chart id="style1" class="style1" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用样式2
+            </text>
+            <chart id="style2" class="style2" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用样式3
+            </text>
+            <chart id="style3" class="style3" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用样式4
+            </text>
+            <chart id="style4" class="style4" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用样式5
+            </text>
+            <div class="contain1">
+                <chart id="style5" class="style5">
+                </chart>
+                <chart id="style6" class="style6">
+                </chart>
+            </div>
+
+            <text  class="sub-title">
+                 chart特有样式
+            </text>
+            <chart id="style7" class="style7" >
+            </chart>
+        </div>
+
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 动画 -->
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+
+            <text class="sub-title">
+                 chart动画样式1
+            </text>
+            <chart id="ani1" class="ani1" >
+            </chart>
+
+            <text class="sub-title">
+                 chart动画样式2
+            </text>
+            <chart id="ani2" class="ani2" >
+            </chart>
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                 chart通用属性1
+            </text>
+            <chart id="prop1"
+                   class="prop1"
+                   disabled = "true"
+                   focusable ="true"
+                   data-name ="prop1"
+                   click-effect="spring-medium"
+                   dir ="rtl" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用属性2
+            </text>
+            <chart id="prop2"
+                   class="prop2"
+                   ref ="prop2"
+                   disabled = "false"
+                   focusable ="false"
+                   data-name ="prop2"
+                   click-effect="spring-large"
+                   dir ="ltr"
+                   >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用属性3
+            </text>
+            <chart id="prop3" style="color: #679855; margin: 5px;width: 100%;height: 40px;" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart特有属性4
+            </text>
+            <chart id="prop4" class="prop4" type="bar"
+                   options="{{lineOps}}"
+                   datasets="{{lineData}}"
+                    >
+            </chart>
+
+            <text  class="sub-title">
+                 chart特有属性5
+            </text>
+            <chart id="prop5" class="prop5" type="gauge">
+            </chart>
+
+            <text  class="sub-title">
+                chart特有属性6
+            </text>
+            <chart id="prop6" class="prop6" type="line"
+                   options="{{lineOps}}"
+                   datasets="{{lineData}}">
+            </chart>
+
+            <text  class="sub-title">
+                chart特有属性7
+            </text>
+            <chart id="prop7" class="prop7" type="loading"
+                   segments="{{lineSeg}}">
+            </chart>
+
+            <text  class="sub-title">
+                chart特有属性8
+            </text>
+            <chart id="prop8" class="prop8" type="progress"
+                   segments="{{lineSeg}}"
+                   effects="false">
+            </chart>
+
+            <text  class="sub-title">
+                chart特有属性9
+            </text>
+            <chart id="prop9" class="prop9" type="rainbow"
+                   segments="{{lineRain}}"
+                   effects="true"
+                   animationduration="1000">
+            </chart>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                 chart通用事件1
+            </text>
+            <chart id="event1" class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                   ontouchend="touchEnd" ontouchcancel="touchCancel" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用事件2
+            </text>
+            <chart id="event2" class="event2" onclick="click" ondoubleclick="doubleClick"
+                   onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                   onswipe="swipe" onattached="attached" ondetached="detached" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart通用事件3
+            </text>
+            <chart id="event3" class="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                   onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                   ondragstart="dragStart" ondrag="drag"
+                   ondragend="dragEnd" ondragenter="dragEnter"
+                   ondragover="dragOver" ondragleave="dragLeave"
+                   ondrop="drop" >
+            </chart>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用方法 -->
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                 chart通用方法1
+            </text>
+            <chart id="function1" class="function1" ontouchstart="functionTest1" >
+            </chart>
+
+            <text class="sub-title">
+                 chart通用方法2
+            </text>
+            <chart id="function2" class="function2" ontouchstart="functionTest2" >
+            </chart>
+
+            <text class="sub-title">
+                 chart通用方法3
+            </text>
+            <chart id="function3" class="function3" ontouchstart="functionTest3" >
+            </chart>
+
+            <text  class="sub-title">
+                chart特有事件1
+            </text>
+            <chart id="function4" class="function4" ref="linechart">
+            </chart>
+            <button value="Add data" onclick="addData"></button>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+
+            <text class="sub-title">
+                 chart渐变样式1
+            </text>
+            <chart id="gradient1" class="gradient1" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart渐变样式2
+            </text>
+            <chart id="gradient2" class="gradient2" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart渐变样式3
+            </text>
+            <chart id="gradient3" class="gradient3" >
+            </chart>
+
+            <text  class="sub-title">
+                 chart渐变样式4
+            </text>
+            <chart id="gradient4" class="gradient4" >
+            </chart>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                 chart无障碍1
+            </text>
+            <chart id="access1" class="access1"
+                   onaccessibility="onAccessibility"
+                   accessibilitygroup ="true"
+                   accessibilitytext="这是div"
+                   accessibilitydescription="点击此按键会弹出一个对话框"
+                   accessibilityimportance="no-hide-descendants"
+                   >
+            </chart>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 原子布局和多模输入 -->
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                 chart原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <chart id="atomA1" class="atom1">
+                </chart>
+                <chart id="atomA2" class="atom2">
+                </chart>
+                <chart id="atomA3" class="atom3">
+                </chart>
+            </div>
+            <text class="sub-title">
+                 chart原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <chart id="atomB1" class="atom1">
+                </chart>
+                <chart id="atomB2" class="atom2">
+                </chart>
+                <chart id="atomB3" class="atom3">
+                </chart>
+            </div>
+            <text class="sub-title">
+                 chart原子布局3
+            </text>
+            <div style="flex-direction: row;height:40px;width: 100%;">
+                <chart id="atomC1" class="atom1">
+                </chart>
+                <chart id="atomC2" class="atom2">
+                </chart>
+                <chart id="atomC3" class="atom3">
+                </chart>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                     chart多模输入1
+                </text>
+                <chart id="multiMode1"
+                       class="multimode1"
+                       voicelabel = "voice"
+                       subscriptflag="on"
+                       subscriptlabel="div"
+                       scenelabel="common"
+                       >
+                </chart>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

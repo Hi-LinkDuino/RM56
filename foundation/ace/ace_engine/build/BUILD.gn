@@ -1,0 +1,167 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+import("//foundation/ace/ace_engine/build/ace_lib.gni")
+
+# generate libace_engine and libace_debug targets
+foreach(item, ace_platforms) {
+  platform = item.name
+  engine_config = {
+  }
+  engine_config = item.config
+  support_engines = []
+  support_engines = engine_config.js_engines
+
+  # generate libace_static lib
+  libace_static("libace_static_" + item.name) {
+    platform = item.name
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+  }
+
+  # build-in qjs debugger so, generate libace_debug library
+  if (defined(engine_config.use_build_in_js_engine) &&
+      engine_config.use_build_in_js_engine) {
+    # only qjs support build-in
+    if (defined(engine_config.qjs_engine)) {
+      engine = {
+      }
+      engine = engine_config.qjs_engine
+      if (defined(engine.have_debug) && engine.have_debug) {
+        libace_static("libace_static_debug_" + item.name) {
+          platform = item.name
+          use_js_debug = true
+          config = {
+          }
+          if (defined(item.config)) {
+            config = item.config
+          }
+        }
+
+        # target for build-in debugger
+        ohos_shared_library("libace_debug") {
+          deps = [ "$ace_root/build:libace_static_debug_${item.name}" ]
+          part_name = ace_engine_part
+          subsystem_name = "ace"
+        }
+      }
+    }
+  }
+
+  # generate separated libace_engine lib
+  if (platform == "ohos") {
+    foreach(engine, support_engines) {
+      # generate libace_engine
+      ace_bridge_engine("libace_engine_${engine.engine_name}") {
+        platform = item.name
+        engine_name = engine.engine_name
+        build_type = "engine"
+        use_js_debug = false
+      }
+
+      # generate libace_engine_debug
+      if (defined(engine.have_debug) && engine.have_debug) {
+        ace_bridge_engine("libace_engine_${engine.engine_name}_debug") {
+          platform = item.name
+          engine_name = engine.engine_name
+          build_type = "engine"
+          use_js_debug = true
+        }
+      }
+
+      # generate libace_engine_declarative
+      ace_bridge_engine("libace_engine_declarative_${engine.engine_name}") {
+        platform = item.name
+        engine_name = engine.engine_name
+        build_type = "engine_declarative"
+      }
+      if (defined(engine.declarative_default) && engine.declarative_default) {
+        ace_bridge_engine("libace_engine_declarative") {
+          platform = item.name
+          engine_name = engine.engine_name
+          build_type = "engine_declarative"
+        }
+      }
+
+      # generate libace_engine_pa
+      if (defined(engine_config.js_pa_support) && engine_config.js_pa_support) {
+        ace_bridge_engine("libace_engine_pa_${engine.engine_name}") {
+          platform = item.name
+          engine_name = engine.engine_name
+          build_type = "engine_pa"
+          pa_engine_path = engine_config.pa_engine_path
+        }
+      }
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  if (platform == "ohos") {
+    # libace target
+    ohos_shared_library("libace") {
+      deps = [ "$ace_root/build:libace_static_ohos" ]
+      part_name = ace_engine_part
+      subsystem_name = "ace"
+    }
+
+    ohos_source_set("ace_ohos_unittest_base") {
+      part_name = ace_engine_part
+      testonly = true
+      sources = [
+        "$ace_root/frameworks/base/test/mock/mock_drag_window.cpp",
+        "$ace_root/frameworks/core/mock/mock_ace_application_info.cpp",
+        "$ace_root/frameworks/core/mock/mock_download_manager.cpp",
+        "$ace_root/frameworks/core/mock/mock_resource_adapter.cpp",
+      ]
+
+      if (is_standard_system) {
+        sources -= [
+          "$ace_root/frameworks/core/mock/mock_download_manager.cpp",
+          "$ace_root/frameworks/core/mock/mock_resource_adapter.cpp",
+        ]
+      }
+
+      configs = [ "$ace_root:ace_test_config" ]
+
+      deps = [
+        "$ace_root/adapter/ohos/osal:ace_osal_ohos",
+        "$ace_root/frameworks/base:ace_base_ohos",
+        "$ace_root/frameworks/base/resource:ace_resource",
+        "$ace_root/frameworks/bridge:framework_bridge_ohos",
+        "$ace_root/frameworks/core:ace_core_ohos",
+        "$ace_root/frameworks/core/components/theme:build_theme_code",
+        "//third_party/googletest:gtest_main",
+        "//utils/native/base:utils",
+      ]
+    }
+  }
+}
+
+# Config for reduceing eh_frame section on aosp platform to save rom size.
+config("reduce_eh_frame_config") {
+  if (!use_mingw_win && !use_mac) {
+    cflags = [
+      "-fno-unwind-tables",
+      "-fomit-frame-pointer",
+    ]
+    cflags_cc = cflags
+  }
+}

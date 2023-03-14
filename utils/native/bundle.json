@@ -1,0 +1,76 @@
+{
+    "name": "@openharmony/utils_base",
+    "version": "3.1.0",
+    "description": "utils_base",
+    "publishAs": "code-segment",
+    "scripts": {
+      "install": "DEST_PATH=${DEP_BUNDLE_BASE}/utils/native/base && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "component": {
+      "name": "utils_base",
+      "subsystem": "utils",
+      "adapted_system_type": [ "standard" ],
+      "deps": {
+        "components": [
+          "hilog_native"
+        ],
+        "third_party": []
+      },
+      "build": {
+        "sub_component": [
+          "//utils/native/base:utils",
+          "//utils/native/base:utilsecurec_shared"
+        ],
+        "inner_kits": [
+          {
+            "name": "//utils/native/base:utils",
+            "header": {
+              "header_files": [
+                "include/ashmem.h",
+                "include/common_errors.h",
+                "include/common_timer_errors.h",
+                "include/datetime_ex.h",
+                "include/directory_ex.h",
+                "include/errors.h",
+                "include/file_ex.h",
+                "include/flat_obj.h",
+                "include/nocopyable.h",
+                "include/observer.h",
+                "include/parcel.h",
+                "include/pubdef.h",
+                "include/refbase.h",
+                "include/rwlock.h",
+                "include/safe_block_queue.h",
+                "include/safe_map.h",
+                "include/safe_queue.h",
+                "include/securec_p.h",
+                "include/securec.h",
+                "include/securectype.h",
+                "include/semaphore_ex.h",
+                "include/singleton.h",
+                "include/sorted_vector.h",
+                "include/string_ex.h",
+                "include/thread_ex.h",
+                "include/thread_pool.h",
+                "include/timer.h",
+                "include/unique_fd.h",
+                "src/event_demultiplexer.h",
+                "src/event_handler.h",
+                "src/event_reactor.h",
+                "src/timer_event_handler.h",
+                "src/unicode_ex.h",
+                "src/utils_log.h"
+              ],
+              "header_base": "//utils/native/base/"
+            }
+          }
+        ],
+        "test": [
+          "//utils/native/base/test:unittest"
+        ]
+      }
+    }
+  }

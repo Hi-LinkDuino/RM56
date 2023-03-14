@@ -1,0 +1,240 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            badge通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <badge id="idProp">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <badge id="classProp"
+             class="classProp">
+        </badge>
+        <badge id="classPropNone"
+             class="">
+        </badge>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <badge id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <badge id="refProp"
+             ref="refProp">
+        </badge>
+        <badge id="refPropNone"
+             ref="">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <badge id="disabledPropTrue"
+             disabled="true">
+        </badge>
+        <badge id="disabledPropFalse"
+             disabled="false">
+        </badge>
+        <badge id="disabledPropNone"
+             disabled="">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <badge id="focusablePropTrue"
+             focusable="true">
+        </badge>
+        <badge id="focusablePropFalse"
+             focusable="false">
+        </badge>
+        <badge id="focusablePropNone"
+             focusable="">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <badge id="dataProp"
+             data-badge="通用属性 -- data-*">
+        </badge>
+        <badge id="dataPropNone"
+             data-badge="">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <badge id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </badge>
+        <badge id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </badge>
+        <badge id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </badge>
+        <badge id="clickEffectPropNone"
+             click-effect="">
+        </badge>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <badge id="dirPropRtl"
+             dir="rtl">
+        </badge>
+        <badge id="dirPropAuto"
+             dir="auto">
+        </badge>
+        <badge id="dirPropLtr"
+             dir="ltr">
+        </badge>
+        <badge id="dirPropNone"
+             dir="">
+        </badge>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <badge id="forPropNull"
+             for="">
+        </badge>
+        <badge id="forPropOne"
+             for="{{listOne}}">
+        </badge>
+        <badge id="forPropThree"
+             for="{{listThree}}">
+        </badge>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <badge id="ifPropTrue"
+             if="true">
+        </badge>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <badge id="showPropTrue"
+             show="true">
+        </badge>
+        <badge id="showPropFalse"
+             show="false">
+        </badge>
+        <badge id="showPropNone"
+             show="">
+        </badge>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            bagde特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- placement
+        </text>
+        <badge id="placementRight" placement="right">
+        </badge>
+        <badge id="placementRightTop" placement="rightTop">
+        </badge>
+        <badge id="placementLeft" placement="left">
+        </badge>
+        <badge id="placementNone" placement="">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- count
+        </text>
+        <badge id="count" count="10">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- visible
+        </text>
+        <badge id="visibleTrue" visible="true">
+        </badge>
+        <badge id="visibleFalse" visible="false">
+        </badge>
+        <badge id="visibleNone" visible="">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- maxcount
+        </text>
+        <badge id="maxcount" maxcount="100">
+        </badge>
+        <badge id="maxcountNone" maxcount="">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- config
+        </text>
+        <badge id="config" config="{{badgeconfig}}">
+        </badge>
+        <badge id="configNone" config="">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- label
+        </text>
+        <badge id="label" label="哈哈">
+        </badge>
+        <badge id="labelNone" label="">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <badge class="propNewAdd"
+                tid="id">
+        </badge>
+        <badge class="propNewAdd"
+                tid="">
+        </badge>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <badge class="propNewAdd"
+                if="false">
+        </badge>
+        <badge class="propNewAdd"
+                elif="true">
+        </badge>
+        <badge class="propNewAdd"
+                elif="false">
+        </badge>
+    </div>
+</div>

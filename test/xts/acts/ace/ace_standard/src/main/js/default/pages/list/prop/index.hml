@@ -1,0 +1,331 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            list通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <list id="idProp">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <list id="classProp"
+              class="classProp">
+        </list>
+        <list id="classPropNone"
+              class="">
+        </list>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <list id="styleProp"
+              style="width:10%;height:20px;background-color:red">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <list id="refProp"
+              ref="refProp">
+        </list>
+        <list id="refPropNone"
+              ref="">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <list id="disabledPropTrue"
+              disabled="true">
+        </list>
+        <list id="disabledPropFalse"
+              disabled="false">
+        </list>
+        <list id="disabledPropNone"
+              disabled="">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <list id="focusablePropTrue"
+              focusable="true">
+        </list>
+        <list id="focusablePropFalse"
+              focusable="false">
+        </list>
+        <list id="focusablePropNone"
+              focusable="">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <list id="dataProp"
+              data-list="通用属性 -- data-*">
+        </list>
+        <list id="dataPropNone"
+              data-list="">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <list id="clickEffectPropSmall"
+              click-effect="spring-small">
+        </list>
+        <list id="clickEffectPropMedium"
+              click-effect="spring-medium">
+        </list>
+        <list id="clickEffectPropLarge"
+              click-effect="spring-large">
+        </list>
+        <list id="clickEffectPropNone"
+              click-effect="">
+        </list>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <list id="dirPropRtl"
+              dir="rtl">
+        </list>
+        <list id="dirPropAuto"
+              dir="auto">
+        </list>
+        <list id="dirPropLtr"
+              dir="ltr">
+        </list>
+        <list id="dirPropNone"
+              dir="">
+        </list>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <list id="forPropNull"
+              for="">
+        </list>
+        <list id="forPropOne"
+              for="{{listOne}}">
+        </list>
+        <list id="forPropThree"
+              for="{{listThree}}">
+        </list>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <list id="ifPropTrue"
+              if="true">
+        </list>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <list id="showPropTrue"
+              show="true">
+        </list>
+        <list id="showPropFalse"
+              show="false">
+        </list>
+        <list id="showPropNone"
+              show="">
+        </list>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            list特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- scrollpage
+        </text>
+        <list id="scrollPageTrue" scrollpage="true">
+        </list>
+        <list id="scrollPageFalse" scrollpage="false">
+        </list>
+        <list id="scrollPageNone" scrollpage="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- cachedcount
+        </text>
+        <list id="cachedcount" cachedcount="1">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- scrollbar
+        </text>
+        <list id="scrollbarOff" scrollbar="off">
+        </list>
+        <list id="scrollbarAuto" scrollbar="auto">
+        </list>
+        <list id="scrollbarOn" scrollbar="on">
+        </list>
+        <list id="scrollbarNone" scrollbar="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- scrolleffect
+        </text>
+        <list id="scrolleffectSpring" scrolleffect="spring">
+        </list>
+        <list id="scrolleffectFade" scrolleffect="fade">
+        </list>
+        <list id="scrolleffectNo" scrolleffect="no">
+        </list>
+        <list id="scrolleffectNone" scrolleffect="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- indexer
+        </text>
+        <list id="indexerTrue" indexer="true">
+        </list>
+        <list id="indexerFalse" indexer="false">
+        </list>
+        <list id="indexerArray" indexer="{{array}}">
+        </list>
+        <list id="indexerNone" indexer="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- indexercircle
+        </text>
+        <list id="indexercircleTrue" indexercircle="true">
+        </list>
+        <list id="indexercircleFalse" indexercircle="false">
+        </list>
+        <list id="indexercircleNone" indexercircle="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- indexermulti
+        </text>
+        <list id="indexermultiTrue" indexermulti="true">
+        </list>
+        <list id="indexermultiFalse" indexermulti="false">
+        </list>
+        <list id="indexermultiNone" indexermulti="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- indexerbubble
+        </text>
+        <list id="indexerbubbleTrue" indexerbubble="true">
+        </list>
+        <list id="indexerbubbleFalse" indexerbubble="false">
+        </list>
+        <list id="indexerbubbleNone" indexerbubble="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- divider
+        </text>
+        <list id="dividerTrue" divider="true">
+        </list>
+        <list id="dividerFalse" divider="false">
+        </list>
+        <list id="dividerNone" divider="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- shapemode
+        </text>
+        <list id="shapemodeDefault" shapemode="default">
+        </list>
+        <list id="shapemodeRect" shapemode="rect">
+        </list>
+        <list id="shapemodeRound" shapemode="round">
+        </list>
+        <list id="shapemodeNone" shapemode="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- chainanimation
+        </text>
+        <list id="chainanimationTrue" chainanimation="true">
+        </list>
+        <list id="chainanimationFalse" chainanimation="false">
+        </list>
+        <list id="chainanimationNone" chainanimation="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- updateeffect
+        </text>
+        <list id="updateeffectTrue" updateeffect="true">
+        </list>
+        <list id="updateeffectFalse" updateeffect="false">
+        </list>
+        <list id="updateeffectNone" updateeffect="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- initialindex
+        </text>
+        <list id="initialindex" initialindex="0">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- initialoffset
+        </text>
+        <list id="initialoffset" initialoffset="0">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- selected
+        </text>
+        <list id="selected" selected="0">
+        </list>
+        <list id="selectedNone" selected="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <list class="propNewAdd"
+                tid="id">
+        </list>
+        <list class="propNewAdd"
+                tid="">
+        </list>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <list class="propNewAdd"
+                if="false">
+        </list>
+        <list class="propNewAdd"
+                elif="true">
+        </list>
+        <list class="propNewAdd"
+                elif="false">
+        </list>
+    </div>
+</div>

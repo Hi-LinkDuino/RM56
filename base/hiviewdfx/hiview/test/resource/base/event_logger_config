@@ -1,0 +1,11 @@
+version="0.1"
+event id="" name="UI_BLOCK_3S" action="s,b,pb:1" interval="20"
+event id="" name="UI_BLOCK_6S" action="s,B,pb:0" interval="10"
+event id="" name="FWK_BLOCK" action="b,s=1,n=2,pb:0" interval="30"
+event id="" name="XCOLLIE" action="b,s" interval="0"
+event id="" name="RESUME" action="s" interval="0"
+event id="" name="RESUME01" action="b,s=123,n=cb2,pb:0" interval="40"
+event id="" name="RESUME02 " action="b,s=1456,n=pdc,pb:0" interval="30"
+event id="" name="RESUME03" action="b,s=332,m=sd:2.2.10;tr56,pb:0" interval="87"
+event id="" name="RESUME04" action="b,s=42,n=a,pb:0" interval="a16"
+event id="0x123" name="RESUME05"  action="b,s=1456,n=pdc,pb:0"interval="31" qwead 

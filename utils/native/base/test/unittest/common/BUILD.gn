@@ -1,0 +1,321 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/test.gni")
+
+module_output_path = "utils/base"
+
+###############################################################################
+config("module_private_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [ "../../../include" ]
+
+  cflags = [ "-Wno-implicit-const-int-float-conversion" ]
+
+  # library path
+  lib_dirs = [ "libs" ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsStringTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_string_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsSecurecTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_securec_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsDirectoryTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_directory_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsDateTimeTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_datetime_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsParcelTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_parcel_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsAshmemTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_ashmem_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "hilog_native:libhilog" ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsRefbaseTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_refbase_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsThreadTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_thread_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsFileTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_file_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsObserverTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_observer_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsSafeBlockQueueTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_safe_block_queue_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsSafeMapTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_safe_map_test.cpp" ]
+
+  configs = [
+    ":module_private_config",
+    "//build/config/compiler:exceptions",
+  ]
+  remove_configs = [ "//build/config/compiler:no_exceptions" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsSafeBlockQueueTrackingTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_safe_block_queue_tracking.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+###############################################################################
+ohos_unittest("UtilsSafeQueueTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_safe_queue_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsThreadPoolTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_thread_pool_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsSemaphoreTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_semaphore_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+##############################unittest##########################################
+ohos_unittest("UtilsSingletonTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_singleton_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+###############################################################################
+ohos_unittest("UtilsSortedVectorTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_sorted_vector_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+###############################################################################
+ohos_unittest("UtilsUniqueFdTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_unique_fd_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+###############################################################################
+ohos_unittest("UtilsTimerTest") {
+  module_out_path = module_output_path
+  sources = [ "utils_timer_test.cpp" ]
+
+  configs = [ ":module_private_config" ]
+
+  deps = [
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+}
+
+###############################################################################
+
+group("unittest") {
+  testonly = true
+  deps = []
+
+  deps += [
+    # deps file
+    ":UtilsAshmemTest",
+    ":UtilsDateTimeTest",
+    ":UtilsDirectoryTest",
+    ":UtilsParcelTest",
+    ":UtilsRefbaseTest",
+    ":UtilsSafeBlockQueueTest",
+    ":UtilsSafeBlockQueueTrackingTest",
+    ":UtilsSafeMapTest",
+    ":UtilsSafeQueueTest",
+    ":UtilsSecurecTest",
+    ":UtilsSingletonTest",
+    ":UtilsSortedVectorTest",
+    ":UtilsStringTest",
+    ":UtilsThreadTest",
+    ":UtilsTimerTest",
+    ":UtilsUniqueFdTest",
+  ]
+}
+###############################################################################

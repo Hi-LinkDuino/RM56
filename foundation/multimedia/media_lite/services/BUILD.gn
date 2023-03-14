@@ -1,0 +1,111 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/ndk/ndk.gni")
+import("//foundation/multimedia/utils/lite/config.gni")
+
+executable("media_server") {
+  ldflags = [ "-Wl,-Map=media_server.map" ]
+  sources = [ "media_main.cpp" ]
+  cflags = [ "-Wall" ]
+  if (enable_media_passthrough_mode == true) {
+    defines = [ "ENABLE_PASSTHROUGH_MODE" ]
+  }
+
+  cflags_cc = cflags
+  include_dirs = [
+    "//third_party/bounds_checking_function/include",
+    "//drivers/peripheral/display/interfaces/include",
+    "//foundation/multimedia/media_lite/interfaces/innerkits",
+    "//foundation/multimedia/camera_lite/services/server/include",
+    "//foundation/multimedia/camera_lite/services/impl/include",
+    "//foundation/multimedia/utils/lite/interfaces/kits",
+    "//foundation/multimedia/utils/lite/hals",
+    "//foundation/multimedia/audio_lite/interfaces/kits",
+    "//foundation/multimedia/media_lite/services/recorder_lite",
+    "//foundation/multimedia/media_lite/services/player_lite",
+    "//foundation/multimedia/audio_lite/services/impl",
+    "//foundation/multimedia/audio_lite/services/server/include",
+    "//foundation/multimedia/media_lite/services/recorder_lite/impl/include",
+    "//foundation/multimedia/media_lite/services/recorder_lite/server/include",
+  ]
+  ldflags += [
+    "-lstdc++",
+    "-lcodec",
+    "-laudio_hw",
+    "-lformat_hw",
+    "-lhdi_camera",
+    "-lhdi_videodisplayer",
+    "-lpthread",
+    "-Wl,-rpath-link=$ohos_root_path/$root_out_dir",
+  ]
+  deps = [
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//foundation/multimedia/camera_lite/services:camera_server",
+  ]
+  if (enable_media_passthrough_mode == false) {
+    deps += [
+      "//foundation/multimedia/audio_lite/services:audio_capturer_impl",
+      "//foundation/multimedia/audio_lite/services:audio_capturer_server",
+      "//foundation/multimedia/media_lite/services/player_lite:player_server",
+      "//foundation/multimedia/media_lite/services/recorder_lite:recorder_server",
+    ]
+  }
+}
+copy("camera_config") {
+  if (board_name == "hi3516dv300" || board_name == "hispark_taurus") {
+    sources = [ "cameradev_imx335_5M.ini" ]
+  } else if ((board_name == "hi3518ev300" || board_name == "hispark_aries") &&
+             ohos_build_compiler == "clang") {
+    sources = [ "cameradev_jxf23.ini" ]
+  } else {
+    sources = [ "cameradev_imx307.ini" ]
+  }
+  outputs = [ "$root_out_dir/data/cameradev00.ini" ]
+}
+if (board_name == "hi3516dv300" || board_name == "hispark_taurus") {
+  copy("camera_config01") {
+    sources = [ "cameradev_imx335_4M.ini" ]
+    outputs = [ "$root_out_dir/data/cameradev01.ini" ]
+  }
+}
+lite_component("media_lite") {
+  features = [
+    ":media_server",
+    "//foundation/multimedia/utils/lite:media_common",
+    "//foundation/multimedia/camera_lite/frameworks:camera_lite",
+    "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite",
+    "//foundation/multimedia/media_lite/frameworks/recorder_lite:recorder_lite",
+    "//foundation/multimedia/media_lite/services/player_lite:player_server",
+    "//foundation/multimedia/audio_lite/frameworks:audio_capturer_lite",
+  ]
+}
+
+ndk_lib("media_ndk") {
+  lib_extension = ".so"
+  deps = [
+    "//foundation/multimedia/audio_lite/frameworks:audio_capturer_lite",
+    "//foundation/multimedia/camera_lite/frameworks:camera_lite",
+    "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite",
+    "//foundation/multimedia/media_lite/frameworks/recorder_lite:recorder_lite",
+    "//foundation/multimedia/utils/lite:media_common",
+  ]
+  head_files = [
+    "//foundation/multimedia/utils/lite/interfaces/kits",
+    "//foundation/multimedia/camera_lite/interfaces/kits",
+    "//foundation/multimedia/audio_lite/interfaces/kits",
+    "//foundation/multimedia/media_lite/interfaces/kits/player_lite",
+    "//foundation/multimedia/media_lite/interfaces/kits/recorder_lite",
+    "//foundation/multimedia/audio_lite/interfaces/kits/audio_capturer_lite",
+  ]
+}

@@ -1,0 +1,325 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/config/sanitizers/sanitizers.gni")
+import("//build/ohos_var.gni")
+
+# Gen module info to file
+# private template
+#
+template("generate_module_info") {
+  assert(defined(invoker.module_name),
+         "module_label must be defined for ${target_name}.")
+  assert(defined(invoker.module_type),
+         "module_type must be defined for ${target_name}.")
+
+  forward_variables_from(invoker,
+                         [
+                           "testonly",
+                           "visibility",
+                         ])
+  forward_variables_from(invoker,
+                         [
+                           "module_label",
+                           "module_name",
+                           "module_source_dir",
+                           "module_install_images",
+                           "module_type",
+                           "module_install_name",
+                           "module_install_dir",
+                           "relative_install_dir",
+                           "module_output_extension",
+                           "module_source",
+                           "notice",
+                         ])
+
+  if (!defined(module_label)) {
+    if (module_type == "java_library" || module_type == "none" ||
+        module_type == "app" || module_type == "dex") {
+      module_label = get_label_info(":$module_name", "label_no_toolchain")
+    } else {
+      module_label = get_label_info(":$module_name", "label_with_toolchain")
+    }
+  }
+  module_deps = [ get_label_info(module_label, "label_no_toolchain") ]
+
+  gen_script = rebase_path("//build/templates/metadata/gen_module_info.py")
+
+  if (!defined(module_source_dir)) {
+    module_source_dir = "$root_out_dir"
+  }
+  if (!defined(module_install_name)) {
+    module_install_name = module_name
+  }
+  if (!defined(module_output_extension)) {
+    module_output_extension = ""
+  }
+
+  output_file = "${target_out_dir}/${module_name}_module_info.json"
+
+  # reset module_type when module_type is lib
+  if (module_type == "lib") {
+    if (target_cpu == "arm64" || target_cpu == "x86_64") {
+      module_type = "lib64"
+    } else if (target_cpu == "arm" || target_cpu == "x86") {
+      module_type = "lib"
+    } else {
+      assert(false, "Error: unsupported target cpu name.")
+    }
+  }
+
+  if (!is_standard_system && is_asan &&
+      ("${module_type}" == "lib" || "${module_type}" == "lib64" ||
+       "${module_type}" == "bin")) {
+    system_base_dir = "${system_base_dir}/asan"
+  }
+
+  arguments = [
+    "--system-base-dir",
+    system_base_dir,
+    "--ramdisk-base-dir",
+    ramdisk_base_dir,
+    "--vendor-base-dir",
+    vendor_base_dir,
+    "--updater-base-dir",
+    updater_base_dir,
+    "--type",
+    module_type,
+    "--target-label",
+    module_label,
+    "--source-dir",
+    rebase_path(module_source_dir, "$root_build_dir"),
+    "--label-name",
+    module_name,
+    "--install-name",
+    module_install_name,
+    "--output-file",
+    rebase_path(output_file, "$root_build_dir"),
+  ]
+
+  if (defined(invoker.module_alt_output_extension)) {
+    arguments += [
+      "--alternative-suffix",
+      invoker.module_alt_output_extension,
+    ]
+  }
+
+  if (defined(invoker.install_enable) && !invoker.install_enable) {
+    arguments += [ "--install-enable" ]
+  }
+  if (defined(invoker.collect) && invoker.collect) {
+    arguments += [ "--collect" ]
+  }
+
+  if (defined(module_install_images)) {
+    if (!defined(module_install_dir)) {
+      module_install_dir = ""
+    }
+    if (!defined(relative_install_dir)) {
+      relative_install_dir = ""
+    }
+    arguments += [
+      "--module-install-dir",
+      module_install_dir,
+      "--relative-install-dir",
+      relative_install_dir,
+      "--install-images",
+    ]
+    arguments += module_install_images
+  }
+
+  # if prebuilt, add prebuilt=True
+  if (defined(invoker.prebuilt) && invoker.prebuilt) {
+    arguments += [
+      "--prebuilt",
+      "--module-source",
+      module_source,
+    ]
+  } else {
+    arguments += [
+      "--install-name",
+      module_install_name,
+    ]
+  }
+
+  if (module_output_extension != "") {
+    arguments += [
+      "--suffix",
+      module_output_extension,
+    ]
+  }
+
+  if (defined(invoker.symlink_target_name)) {
+    arguments += [ "--symlink-target" ]
+    arguments += invoker.symlink_target_name
+  }
+
+  if (defined(invoker.output_prefix_override) &&
+      invoker.output_prefix_override) {
+    arguments += [ "--prefix-override" ]
+  }
+  if (defined(notice)) {
+    arguments += [
+      "--notice",
+      rebase_path(notice, root_build_dir),
+    ]
+  }
+
+  exec_script(gen_script, arguments)
+
+  generated_file("${target_name}") {
+    outputs = [ "${target_out_dir}/${module_name}_install_info.json" ]
+    data_keys = [ "install_modules" ]
+    output_conversion = "json"
+    deps = module_deps
+  }
+}
+
+template("write_meta_data") {
+  assert(defined(invoker.meta_data), "meta_data must be defined")
+  assert(defined(invoker.type), "type must be defined")
+  forward_variables_from(invoker, [ "testonly" ])
+
+  action_with_pydeps(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "deps",
+                             "meta_data",
+                             "type",
+                             "resources",
+                             "hap_path",
+                             "app_profile",
+                             "hap_profile",
+                             "package_name",
+                             "raw_assets",
+                             "js_assets",
+                           ])
+    if (type != "js_assets" && type != "assets" && type != "resources" &&
+        type != "hap" && type != "app_profile") {
+      assert(false, "type must be one of [js_assets, assets, resources, hap]")
+    }
+    if (type != "hap") {
+      _parent_invoker = invoker.invoker
+      _caller_target_name = get_label_info(":${_parent_invoker.target_name}",
+                                           "label_no_toolchain")
+      set_sources_assignment_filter(app_target_allowlist)
+      sources = [ _caller_target_name ]
+      if (sources != []) {
+        if (type == "js_assets" || type == "assets") {
+          assert(
+              false,
+              "Illegal target name: \"${_caller_target_name}\", target name of ohos_js_assets or ohos_assets must endswith assets or asset ")
+        } else if (type == "resources") {
+          assert(
+              false,
+              "Illegal target name: \"${_caller_target_name}\", target name of ohos_resources must endswith res or resources or resource")
+        }
+      }
+      set_sources_assignment_filter([])
+    }
+
+    script = "//build/templates/metadata/write_meta_data.py"
+    outputs = [ meta_data ]
+    depfile = "$target_gen_dir/$target_name.d"
+
+    args = [
+      "--output",
+      rebase_path(meta_data, root_build_dir),
+      "--type",
+      type,
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+    ]
+
+    if (!defined(deps)) {
+      deps = []
+    }
+
+    _possible_deps = []
+    if (defined(invoker.possible_deps)) {
+      _possible_deps = invoker.possible_deps
+    }
+
+    _deps_metadata = []
+    inputs = []
+    set_sources_assignment_filter(app_target_allowlist)
+    foreach(d, _possible_deps) {
+      sources = []
+      _target_label = get_label_info(d, "label_no_toolchain")
+      sources += [ _target_label ]
+      if (sources == []) {
+        _deps_metadata += [ get_label_info(d, "target_gen_dir") + "/" +
+                            get_label_info(d, "name") + ".metadata" ]
+        deps += [ "${_target_label}__metadata" ]
+      }
+    }
+    set_sources_assignment_filter([])
+
+    if (_deps_metadata != []) {
+      args += [ "--deps-metadata" ]
+      foreach(d, _deps_metadata) {
+        args += [ rebase_path(d, root_build_dir) ]
+      }
+      inputs += _deps_metadata
+    }
+
+    if (defined(resources)) {
+      args += [ "--resources" ]
+      foreach(res, resources) {
+        args += [ rebase_path(res, root_build_dir) ]
+      }
+      if (defined(package_name)) {
+        args += [
+          "--package-name",
+          package_name,
+        ]
+      }
+    }
+
+    if (defined(app_profile)) {
+      args += [
+        "--app-profile",
+        rebase_path(app_profile, root_build_dir),
+      ]
+    }
+
+    if (defined(hap_profile)) {
+      args += [
+        "--hap-profile",
+        rebase_path(hap_profile, root_build_dir),
+      ]
+    }
+
+    if (defined(raw_assets)) {
+      args += [ "--raw-assets" ]
+      foreach(asset, raw_assets) {
+        args += [ rebase_path(asset, root_build_dir) ]
+      }
+    }
+
+    if (defined(js_assets)) {
+      args += [ "--js-assets" ]
+      foreach(asset, js_assets) {
+        args += [ rebase_path(asset, root_build_dir) ]
+      }
+    }
+
+    if (defined(hap_path)) {
+      args += [
+        "--hap-path",
+        rebase_path(hap_path, root_build_dir),
+      ]
+    }
+  }
+}

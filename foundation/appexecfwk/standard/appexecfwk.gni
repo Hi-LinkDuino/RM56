@@ -1,0 +1,92 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+aafwk_path = "//foundation/aafwk/standard"
+appexecfwk_path = "//foundation/bundlemanager/bundle_framework"
+
+libs_path = "${appexecfwk_path}/libs"
+common_path = "${appexecfwk_path}/common"
+services_path = "${appexecfwk_path}/services"
+kits_path = "${appexecfwk_path}/interfaces/kits"
+innerkits_path = "${appexecfwk_path}/interfaces/innerkits"
+inner_api_path = "${appexecfwk_path}/interfaces/inner_api"
+tools_path = "${appexecfwk_path}/tools"
+aafwk_innerkits_path = "//foundation/aafwk/standard/interfaces/innerkits"
+use_pre_bundle_profile = false
+declare_args() {
+  bundle_framework_graphics = true
+  bundle_framework_free_install = true
+
+  ability_runtime_enable = true
+  account_enable = true
+  configpolicy_enable = true
+  device_manager_enable = true
+  global_resmgr_enable = true
+  hicollie_enable = true
+  hisysevent_enable = true
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.aafwk_ability_runtime)) {
+    ability_runtime_enable = false
+    bundle_framework_free_install = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.account_os_account)) {
+    account_enable = false
+    bundle_framework_free_install = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.customization_config_policy)) {
+    configpolicy_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.distributedhardware_device_manager_base)) {
+    device_manager_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.global_resource_management)) {
+    global_resmgr_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hiviewdfx_hicollie_native)) {
+    hicollie_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      (!defined(global_parts_info.powermgr_power_manager_native) ||
+       !defined(global_parts_info.powermgr_battery_manager_native) ||
+       !defined(global_parts_info.powermgr_display_manager_native))) {
+    bundle_framework_free_install = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hiviewdfx_hisysevent_native)) {
+    hisysevent_enable = false
+  }
+
+  print("bundle_framework_graphics = " + "$bundle_framework_graphics")
+  print("bundle_framework_free_install = " + "$bundle_framework_free_install")
+  print("ability_runtime_enable = " + "$ability_runtime_enable")
+  print("account_enable = " + "$account_enable")
+  print("configpolicy_enable = " + "$configpolicy_enable")
+  print("device_manager_enable = " + "$device_manager_enable")
+  print("global_resmgr_enable = " + "$global_resmgr_enable")
+  print("hicollie_enable = " + "$hicollie_enable")
+  print("support_jsapi = " + "$support_jsapi")
+  print("hisysevent_enable = " + "$hisysevent_enable")
+}

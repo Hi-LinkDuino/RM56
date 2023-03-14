@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "QR-Code-generator",
+    "License": "MIT License",
+    "License File": "LICENSE",
+    "Version Number": " 1.7.0",
+    "Owner": "guorensong1@huawei.com",
+    "Upstream URL": "https://www.nayuki.io/page/qr-code-generator-library",
+    "Description": "QR-Code-generator"
+  }
+]

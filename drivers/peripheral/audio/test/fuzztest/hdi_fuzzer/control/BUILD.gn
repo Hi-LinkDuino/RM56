@@ -1,0 +1,37 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/config/features.gni")
+import("//build/test.gni")
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/audio/audio.gni")
+
+group("control") {
+  testonly = true
+  deps = []
+
+  deps += [
+    # deps file
+    "src:hdf_audio_hdi_flush_capture_fuzzer",
+    "src:hdf_audio_hdi_flush_render_fuzzer",
+    "src:hdf_audio_hdi_pause_capture_fuzzer",
+    "src:hdf_audio_hdi_pause_render_fuzzer",
+    "src:hdf_audio_hdi_resume_capture_fuzzer",
+    "src:hdf_audio_hdi_resume_render_fuzzer",
+    "src:hdf_audio_hdi_start_capture_fuzzer",
+    "src:hdf_audio_hdi_start_render_fuzzer",
+    "src:hdf_audio_hdi_stop_capture_fuzzer",
+    "src:hdf_audio_hdi_stop_render_fuzzer",
+  ]
+}
+############################end########################################

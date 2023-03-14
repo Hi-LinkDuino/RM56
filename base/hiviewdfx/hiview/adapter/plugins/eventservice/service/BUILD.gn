@@ -1,0 +1,54 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/ohos.gni")
+
+config("sys_event_service_adapter_config") {
+  visibility = [ "*:*" ]
+
+  include_dirs = [ "." ]
+}
+
+ohos_source_set("sys_event_service_adapter") {
+  part_name = "hiview"
+  include_dirs = [
+    "//third_party/bounds_checking_function/include",
+    "$hiview_plugin/eventservice/include",
+    "//third_party/cJSON",
+    "//third_party/jsoncpp/include",
+    "$hiview_base/event_store/include",
+  ]
+
+  public_configs = [ ":sys_event_service_adapter_config" ]
+
+  sources = [ "sys_event_service_adapter.cpp" ]
+
+  deps = [
+    "$hiview_adapter/plugins/eventservice/service/idl:sys_event_service_ohos",
+    "$hiview_base:hiviewbase",
+    "$hiview_base/event_store:event_store_source",
+  ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ "test:SysEventServiceOhosUnitTest" ]
+}

@@ -1,0 +1,190 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="specific-container">
+        <text class="title">
+            animateTransform特有属性
+        </text>
+        <text class="sub-title">
+            标识属性 -- id
+        </text>
+        <svg class="svg-style">
+            <text  y="10">
+                text
+                <animateTransform id="idProp"></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动效的属性名的属性 -- attributeName
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="attributeNameProp" attributeName="x"></animateTransform>
+                <animateTransform id="attributeNamePropNone" attributeName=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            延迟时间属性 -- begin
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="beginProp" begin="1000"></animateTransform>
+                <animateTransform id="beginPropNone" begin=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            持续时间属性 -- dur
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="durProp" dur="1000"></animateTransform>
+                <animateTransform id="durPropNone" dur=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            结束时间属性 -- end
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="endProp" end="1000"></animateTransform>
+                <animateTransform id="endPropNone" end=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动画播放次数属性 -- repeatCount
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="repeatCountProp" repeatCount="20"></animateTransform>
+                <animateTransform id="repeatCountPropNone" repeatCount=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动画结束状态属性 -- fill
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="fillPropFreeze" fill="freeze"></animateTransform>
+                <animateTransform id="fillPropRemove" fill="remove"></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动画插值模式属性 -- calcMode
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="calcModePropDiscrete" calcMode="discrete"></animateTransform>
+                <animateTransform id="calcModePropLinear" calcMode="linear"></animateTransform>
+                <animateTransform id="calcModePropPaced" calcMode="paced"></animateTransform>
+                <animateTransform id="calcModePropSpline" calcMode="spline"></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            关键帧时间属性 -- keyTimes
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="keyTimesProp" keyTimes="0.3;0.6;0,9"></animateTransform>
+                <animateTransform id="keyTimesPropNone" keyTimes=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            贝塞尔控制点属性 -- keySplines
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="keySplinesProp" keySplines="0.5 0 0.5 1"></animateTransform>
+                <animateTransform id="keySplinesPropNone" keySplines=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动画偏移值属性 -- by
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="byProp" by="1"></animateTransform>
+                <animateTransform id="byPropNone" by=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            开始值属性 -- from
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="fromProp" from="10"></animateTransform>
+                <animateTransform id="fromPropNone" from=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            结束值属性 -- to
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="toProp" to="10"></animateTransform>
+                <animateTransform id="toPropNone" to=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            变化值属性 -- values
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="valuesProp" values="10;30"></animateTransform>
+                <animateTransform id="valuesPropNone" values=""></animateTransform>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动画类型属性 -- type
+        </text>
+        <svg class="svg-style">
+            <text y="10">
+                text
+                <animateTransform id="typePropTranslate" type="translate"></animateTransform>
+                <animateTransform id="typePropScale" type="scale"></animateTransform>
+                <animateTransform id="typePropRotate" type="rotate"></animateTransform>
+                <animateTransform id="typePropSkewX" type="skewX"></animateTransform>
+                <animateTransform id="typePropSkewY" type="skewY"></animateTransform>
+            </text>
+        </svg>
+    </div>
+</div>

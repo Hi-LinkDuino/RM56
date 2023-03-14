@@ -1,0 +1,41 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+group("bms_target") {
+  deps = [
+    "common:common_target",
+    "interfaces/inner_api/appexecfwk_base:appexecfwk_base",
+    "interfaces/inner_api/appexecfwk_core:appexecfwk_core",
+    "interfaces/kits/js:napi_packages",
+    "interfaces/kits/native/bundle:bundle_ndk",
+    "sa_profile:appexecfwk_sa_profile",
+    "services/bundlemgr:bms_target",
+    "tools/zip:tools_zip",
+  ]
+}
+
+group("test_target") {
+  testonly = true
+
+  deps = [
+    "services/bundlemgr/test:unittest",
+    "services/test/moduletest/common/bms:moduletest",
+    "test/benchmarktest:benchmarktest",
+    "test/fuzztest:fuzztest",
+    "test/resource/bmssystemtestability/abilitySrc:bms_system_test_app",
+    "test/systemtest/common/bms:systemtest_bms",
+    "tools/zip/test:unittest",
+  ]
+}

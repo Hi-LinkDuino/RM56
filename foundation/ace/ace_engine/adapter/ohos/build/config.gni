@@ -1,0 +1,126 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos/ace/ace_args.gni")
+import("//foundation/graphic/standard/graphic_config.gni")
+import("product_config.gni")
+
+defines = [
+  "OHOS_PLATFORM",
+  "OHOS_STANDARD_SYSTEM",
+]
+
+js_engines = []
+qjs_engine = {
+  engine_name = "qjs"
+  engine_path = "quickjs"
+  engine_defines = [ "USE_QUICKJS_ENGINE" ]
+  have_debug = true
+  declarative_default = true
+}
+js_engines += [ qjs_engine ]
+ark_engine = {
+  engine_name = "ark"
+  engine_path = "jsi"
+  engine_defines = [ "USE_ARK_ENGINE" ]
+}
+js_engines += [ ark_engine ]
+
+if (ace_enable_gpu) {
+  disable_gpu = false
+} else {
+  disable_gpu = true
+}
+
+foreach(product, enable_accessibility_product_list) {
+  if ("${product_name}" == product) {
+    accessibility_support = true
+  }
+}
+
+foreach(product, enable_web_product_list) {
+  if ("${product_name}" == product) {
+    web_components_support = true
+  }
+}
+
+use_external_icu = "shared"
+use_curl_download = true
+ohos_standard_fontmgr = true
+sk_use_hilog = true
+rich_components_support = true
+advance_components_support = false
+form_components_support = true
+plugin_components_support = true
+xcomponent_components_support = true
+pixel_map_support = true
+js_pa_support = true
+connect_server_support = false
+hdc_register_support = true
+pa_engine_path = "adapter/ohos/entrance/pa_engine"
+enable_rosen_backend = true
+enable_standard_input = true
+build_container_scope_lib = true
+multiple_window_support = true
+
+if (defined(is_experiment_build) && is_experiment_build) {
+  web_components_support = true
+  enable_system_clipboard = true
+  accessibility_support = true
+}
+
+if (defined(web_components_support) && web_components_support) {
+  defines += [ "WEB_SUPPORTED" ]
+}
+
+if (disable_gpu || enable_rosen_backend) {
+  defines += [ "GPU_DISABLED" ]
+}
+
+if (form_components_support) {
+  defines += [ "FORM_SUPPORTED" ]
+}
+
+if (xcomponent_components_support) {
+  defines += [ "XCOMPONENT_SUPPORTED" ]
+}
+
+if (plugin_components_support) {
+  defines += [ "PLUGIN_COMPONENT_SUPPORTED" ]
+}
+
+if (pixel_map_support) {
+  defines += [ "PIXEL_MAP_SUPPORTED" ]
+}
+
+if (enable_rosen_backend) {
+  defines += [ "ENABLE_ROSEN_BACKEND" ]
+}
+
+if (enable_standard_input) {
+  defines += [ "ENABLE_STANDARD_INPUT" ]
+}
+
+if (multiple_window_support) {
+  defines += [ "MULTIPLE_WINDOW_SUPPORTED" ]
+}
+
+cflags_cc = [
+  "-Wno-thread-safety-attributes",
+  "-Wno-thread-safety-analysis",
+]
+
+platform_deps = [
+  "//foundation/ace/ace_engine/adapter/ohos/entrance:ace_ohos_standard_entrance",
+  "//foundation/ace/ace_engine/adapter/ohos/osal:ace_osal_ohos",
+]

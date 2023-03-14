@@ -1,0 +1,7 @@
+root {
+    module = "test";
+    foo {
+        term = 1;
+        term1 = 1;
+    }
+}

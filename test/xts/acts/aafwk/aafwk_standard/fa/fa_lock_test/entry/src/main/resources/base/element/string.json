@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "entry_MainAbility"
+    },
+    {
+      "name": "description_mainability",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "description_ability2",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_Ability2",
+      "value": "entry_Ability2"
+    },
+    {
+      "name": "description_ability1",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_Ability1",
+      "value": "entry_Ability1"
+    },
+    {
+      "name": "description_ability3",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_Ability3",
+      "value": "entry_Ability3"
+    },
+    {
+      "name": "description_ability4",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_Ability4",
+      "value": "entry_Ability4"
+    }
+  ]
+}

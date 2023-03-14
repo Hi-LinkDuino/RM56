@@ -1,0 +1,84 @@
+{
+  "app": {
+    "bundleName": "com.example.firstrequestpermissions",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.firstrequestpermissions",
+    "name": ".MyApplication",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "visible": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.firstrequestpermissions.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "launchType": "standard",
+        "permissions": ["ohos.permission.CAMERA"]
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "com.permission.BMS_PERMISSIONCHANGE_U",
+        "reason": "Need PERMISSION_U",
+        "usedScene": {
+            "ability": [
+              "com.example.firstrequestpermissions.MainAbility"
+            ],
+            "when": "always"
+        }
+      },
+      {
+        "name": "com.permission.BMS_PERMISSIONCHANGE_V",
+        "reason": "Need PERMISSION_V",
+        "usedScene": {
+          "ability": [
+            "com.example.firstrequestpermissions.MainAbility"
+          ],
+          "when": "always"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "name": "svg",
+  "version": [
+    {
+      "name": "v7.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": "The <divider> component is used to separate content blocks and content elements. It can be used for the list or interface layout."
+    }
+  ],
+  "attributes": [
+    {
+      "name": "fill",
+      "required": false,
+      "description": [
+        {
+          "name": "Whether to use the vertical divider. The default value is false, indicating that the horizontal divider is used."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "fill-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "fill-rule",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "nonzero"
+        },
+        {
+          "name": "evenodd"
+        }
+      ]
+    },
+    {
+      "name": "opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "color"
+    },
+    {
+      "name": "stroke-dasharray",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "stroke-dashoffset",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "stroke-linejoin",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "bevel"
+        },
+        {
+          "name": "miter"
+        },
+        {
+          "name": "round"
+        }
+      ]
+    },
+    {
+      "name": "stroke-linecap",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "butt"
+        },
+        {
+          "name": "round"
+        },
+        {
+          "name": "square"
+        }
+      ]
+    },
+    {
+      "name": "stroke-miterlimit",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-width",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "transform",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "width",
+      "required": false,
+      "description": [
+        {
+          "name": "Unique identification of the component."
+        }
+      ],
+      "type": "length|percentage"
+    },
+    {
+      "name": "id",
+      "required": false,
+      "description": [
+        {
+          "name": "Unique ID of a component."
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "height",
+      "required": false,
+      "description": [
+        {
+          "name": "Set the height of the component."
+        }
+      ],
+      "type": "length|percentage"
+    },
+    {
+      "name": "x",
+      "required": false,
+      "description": [
+        {
+          "name": "Set the x-axis coordinate of the current SVG, and the root SVG node is invalid."
+        }
+      ],
+      "type": "length|percentage"
+    },
+    {
+      "name": "y",
+      "required": false,
+      "description": [
+        {
+          "name": "Set the y-axis coordinate of the current SVG, and the root SVG node is invalid."
+        }
+      ],
+      "type": "length|percentage"
+    },
+    {
+      "name": "viewBox",
+      "required": false,
+      "description": [
+        {
+          "name": "Sets the viewport for the current SVG. The supported format is [number number number> and four parameters respectively represent the inconsistency   between the width height of min-x, min-y, width and height, the width height of viewbox and the width height of SVG, and will be scaled with center alignment."
+        }
+      ],
+      "type": "length|percentage"
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

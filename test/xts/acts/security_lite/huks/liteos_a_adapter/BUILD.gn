@@ -1,0 +1,64 @@
+#
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import("//base/security/huks/build/config.gni")
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/test.gni")
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hcpptest_suite("ActsHuksLiteFunctionTest") {
+  suite_name = "acts"
+  sources = [
+    "hks_aes_test.cpp",
+    "hks_agreement_test.cpp",
+    "hks_bn_exp_mod_test.cpp",
+    "hks_cipher_test.cpp",
+    "hks_curve25519_test.cpp",
+    "hks_delete_test.cpp",
+    "hks_derive_test.cpp",
+    "hks_exist_test.cpp",
+    "hks_generate_key_test.cpp",
+    "hks_generate_random_test.cpp",
+    "hks_hash_test.cpp",
+    "hks_mac_test.cpp",
+    "hks_modify_key_test.cpp",
+    "hks_others_test.cpp",
+    "hks_safe_cipher_key_test.cpp",
+    "hks_safe_compare_key_test.cpp",
+  ]
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//third_party/bounds_checking_function/include",
+    "../common/include",
+  ]
+
+  deps = [
+    "//base/security/huks/interfaces/innerkits/huks_lite:huks_3.0_sdk",
+    "//test/xts/acts/security_lite/huks/common:huks_test_common",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+  cflags = [ "-Wno-error" ]
+
+  defines = [ "_LITEONE_SYSTEM_" ]
+
+  if (disable_authenticate == true) {
+    defines = [ "_CUT_AUTHENTICATE_" ]
+  }
+}
+
+group("Hukslitetest") {
+  deps = [ ":ActsHuksLiteFunctionTest" ]
+}

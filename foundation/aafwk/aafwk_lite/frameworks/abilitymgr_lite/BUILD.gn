@@ -1,0 +1,88 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/aafwk/config.gni")
+import("//build/lite/config/test.gni")
+
+lite_library("abilitymanager") {
+  if (ohos_kernel_type == "liteos_m") {
+    target_type = "static_library"
+
+    sources = [
+      "src/slite/ability_manager.cpp",
+      "src/slite/ability_manager_inner.cpp",
+      "src/slite/abilityms_slite_client.cpp",
+    ]
+
+    deps = [
+      "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static",
+      "//foundation/ace/ace_engine_lite/frameworks:ace_lite",
+    ]
+  } else {
+    target_type = "shared_library"
+
+    sources = [
+      "src/ability_callback_utils.cpp",
+      "src/ability_manager.cpp",
+      "src/ability_self_callback.cpp",
+      "src/ability_service_manager.cpp",
+      "src/abilityms_client.cpp",
+    ]
+
+    deps = [
+      "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//foundation/communication/ipc_lite:liteipc_adapter",
+    ]
+
+    defines = [ "OHOS_APPEXECFWK_BMS_BUNDLEMANAGER" ]
+  }
+
+  cflags = [ "-Wall" ]
+  cflags_cc = cflags
+
+  include_dirs = [
+    "${aafwk_lite_path}/services/abilitymgr_lite/include",
+    "${aafwk_lite_path}/services/abilitymgr_lite/include/util",
+    "${aafwk_lite_path}/frameworks/abilitymgr_lite/include",
+    "${aafwk_lite_path}/frameworks/want_lite/include",
+    "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+    "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite/slite",
+    "${aafwk_lite_path}/interfaces/kits/want_lite",
+    "${aafwk_lite_path}/interfaces/kits/ability_lite",
+    "${aafwk_lite_path}/interfaces/kits/ability_lite/slite",
+    "${appexecfwk_lite_path}/utils/bundle_lite",
+    "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+    "${appexecfwk_lite_path}/frameworks/bundle_lite/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//third_party/bounds_checking_function/include",
+    "//utils/native/lite/kv_store/innerkits",
+    "//utils/native/lite/include",
+    "//utils/native/lite/memory/include",
+    "./include",
+    "./",
+  ]
+}
+
+unittest("ability_manager_inner_test") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/ManagerInnerTest_lv0"
+
+  sources = [ "//foundation/aafwk/aafwk_lite/frameworks/abilitymgr_lite/unittest/ability_manager_inner_test.cpp" ]
+}
+
+lite_component("aafwk_abilityManager_lite") {
+  features = [ ":abilitymanager" ]
+}

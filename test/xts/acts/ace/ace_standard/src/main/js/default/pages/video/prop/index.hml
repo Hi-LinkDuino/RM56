@@ -1,0 +1,266 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            video通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <video id="idProp">
+        </video>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <video id="classProp"
+               class="classProp">
+        </video>
+        <video id="classPropNone"
+               class="">
+        </video>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <video id="styleProp"
+               style="width:10%;height:20px;background-color:red">
+        </video>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <video id="refProp"
+               ref="refProp">
+        </video>
+        <video id="refPropNone"
+               ref="">
+        </video>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <video id="disabledPropTrue"
+               disabled="true">
+        </video>
+        <video id="disabledPropFalse"
+               disabled="false">
+        </video>
+        <video id="disabledPropNone"
+               disabled="">
+        </video>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <video id="focusablePropTrue"
+               focusable="true">
+        </video>
+        <video id="focusablePropFalse"
+               focusable="false">
+        </video>
+        <video id="focusablePropNone"
+               focusable="">
+        </video>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <video id="dataProp"
+               data-div="通用属性 -- data-*">
+        </video>
+        <video id="dataPropNone"
+               data-div="">
+        </video>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <video id="forPropNull"
+               for="">
+        </video>
+        <video id="forPropOne"
+               for="{{listOne}}">
+        </video>
+        <video id="forPropThree"
+               for="{{listThree}}">
+        </video>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <video id="ifPropTrue"
+               if="true">
+        </video>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <video id="showPropTrue"
+               show="true">
+        </video>
+        <video id="showPropFalse"
+               show="false">
+        </video>
+        <video id="showPropNone"
+               show="">
+        </video>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            video特有属性
+        </text>
+        <text class="sub-title">
+            静音播放属性 -- muted
+        </text>
+        <video id="mutedPropFalse"
+               muted="false">
+        </video>
+        <video id="mutedPropTrue"
+               muted="true">
+        </video>
+        <video id="mutedPropNone"
+               muted="">
+        </video>
+
+        <text class="sub-title">
+            视频路径属性 -- src
+        </text>
+        <video id="srcProp"
+               src="/common/images/video.mp4">
+        </video>
+        <video id="srcPropNone"
+               src="">
+        </video>
+
+        <text class="sub-title">
+            自动播放属性 -- autoplay
+        </text>
+        <video id="autoplayPropFalse"
+               autoplay="false">
+        </video>
+        <video id="autoplayPropTrue"
+               autoplay="true">
+        </video>
+        <video id="autoplayPropNone"
+               autoplay="">
+        </video>
+
+        <text class="sub-title">
+            预览海报属性 -- poster
+        </text>
+        <video id="posterProp"
+               poster="/common/images/image.png">
+        </video>
+        <video id="posterPropNone"
+               poster="">
+        </video>
+
+        <text class="sub-title">
+            显隐控制栏属性 -- controls
+        </text>
+        <video id="controlsPropFalse"
+               controls="false">
+        </video>
+        <video id="controlsPropTrue"
+               controls="true">
+        </video>
+        <video id="controlsPropNone"
+               controls="">
+        </video>
+
+        <text class="sub-title">
+            重头循环属性 -- loop
+        </text>
+        <video id="loopPropFalse"
+               loop="false">
+        </video>
+        <video id="loopPropTrue"
+               loop="true">
+        </video>
+        <video id="loopPropNone"
+               loop="">
+        </video>
+
+        <text class="sub-title">
+            起始时间属性 -- starttime
+        </text>
+        <video id="starttimeProp"
+               starttime="3">
+        </video>
+
+        <text class="sub-title">
+            全屏下布局属性 -- direction
+        </text>
+        <video id="directionPropAuto"
+               direction="auto">
+        </video>
+        <video id="directionPropVertical"
+               direction="vertical">
+        </video>
+        <video id="directionPropHorizontal"
+               direction="horizontal">
+        </video>
+        <video id="directionPropAdapt"
+               direction="adapt">
+        </video>
+        <video id="directionPropNone"
+               direction="">
+        </video>
+
+        <text class="sub-title">
+            播放速度属性 -- speed
+        </text>
+        <video id="speedProp"
+               speed="1.0">
+        </video>
+        <video id="speedPropNone"
+               speed="">
+        </video>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <video id="tidProp"
+               class="specific-style color-grey"
+               tid="tid">
+        </video>
+        <video id="tidPropNone"
+               class="specific-style color-red"
+               tid="">
+        </video>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <video if="false"></video>
+        <video id="elifPropTrue"
+               class="specific-style color-grey"
+               elif="true">
+        </video>
+        <video id="elifPropFalse"
+               class="specific-style color-red"
+               elif="false">
+        </video>
+
+    </div>
+</div>

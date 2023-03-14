@@ -1,0 +1,10 @@
+{
+    "device_name": "rk3568",
+    "device_company": "rockchip",
+    "target_os": "ohos",
+    "target_cpu": "arm",
+    "kernel_version": "",
+    "device_build_path": "device/board/hihope/rk3568",
+    "enable_ramdisk": true,
+    "build_selinux": true
+}

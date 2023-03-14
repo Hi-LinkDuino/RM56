@@ -1,0 +1,37 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/clang/clang.gni")
+import("//build/ohos.gni")
+
+ohos_prebuilt_shared_library("libclang_rt.asan.so") {
+  if (target_cpu == "arm") {
+    source = "${clang_base_path}/lib/clang/$clang_version/lib/arm-linux-ohos/libclang_rt.asan.so"
+  } else if (target_cpu == "arm64") {
+    source = "${clang_base_path}/lib/clang/$clang_version/lib/aarch64-linux-ohos/libclang_rt.asan.so"
+  } else {
+    source = ""
+  }
+  part_name = "common"
+}
+
+ohos_prebuilt_etc("asan.options") {
+  source = "asan.options"
+  part_name = "common"
+}
+
+ohos_prebuilt_etc("asan.cfg") {
+  source = "asan.cfg"
+  module_install_dir = "etc/init/"
+  part_name = "common"
+}

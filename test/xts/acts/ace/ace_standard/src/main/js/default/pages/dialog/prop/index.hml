@@ -1,0 +1,264 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            dialog通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <dialog id="idProp">
+        </dialog>
+        <button style="background-color: skyblue;width:90%;" @click="openidProp">
+        </button>
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <button style="background-color: red;width:90%;" @click="openclassProp">
+        </button>
+        <button style="background-color: darkblue;width:90%;" @click="openclassPropNone">
+        </button>
+        <dialog id="classProp"
+             class="classProp">
+        </dialog>
+        <dialog id="classPropNone"
+             class="">
+        </dialog>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <button style="background-color: saddlebrown;width:90%;" @click="openstyleProp">
+        </button>
+        <dialog id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </dialog>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <button style="background-color: saddlebrown;width:90%;" @click="openrefProp">
+        </button>
+        <button style="background-color: hotpink;width:90%;" @click="openrefPropNone">
+        </button>
+        <dialog id="refProp"
+             ref="refProp">
+        </dialog>
+        <dialog id="refPropNone"
+             ref="">
+        </dialog>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <button style="background-color: saddlebrown;width:90%;" @click="opendisabledPropTrue">
+        </button>
+        <button style="background-color: hotpink;width:90%;" @click="opendisabledPropFalse">
+        </button>
+        <button style="background-color: darkolivegreen;width:90%;" @click="opendisabledPropNone">
+        </button>
+        <dialog id="disabledPropTrue"
+             disabled="true">
+        </dialog>
+        <dialog id="disabledPropFalse"
+             disabled="false">
+        </dialog>
+        <dialog id="disabledPropNone"
+             disabled="">
+        </dialog>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <button style="background-color: gainsboro;width:90%;" @click="openfocusablePropTrue">
+        </button>
+        <button style="background-color: navy;width:90%;" @click="openfocusablePropFalse">
+        </button>
+        <button style="background-color: darkolivegreen;width:90%;" @click="openfocusablePropNone">
+        </button>
+        <dialog id="focusablePropTrue"
+             focusable="true">
+        </dialog>
+        <dialog id="focusablePropFalse"
+             focusable="false">
+        </dialog>
+        <dialog id="focusablePropNone"
+             focusable="">
+        </dialog>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <button style="background-color: bisque;width:90%;" @click="opendataProp">
+        </button>
+        <button style="background-color: saddlebrown;width:90%;" @click="opendataPropNone">
+        </button>
+        <dialog id="dataProp"
+             data-dialog="通用属性 -- data-*">
+        </dialog>
+        <dialog id="dataPropNone"
+             data-dialog="">
+        </dialog>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <button style="background-color: gainsboro;width:90%;" @click="openclickEffectPropSmall">
+        </button>
+        <button style="background-color: navy;width:90%;" @click="openclickEffectPropMedium">
+        </button>
+        <button style="background-color: darkolivegreen;width:90%;" @click="openclickEffectPropLarge">
+        </button>
+        <button style="background-color: skyblue;width:90%;" @click="openclickEffectPropNone">
+        </button>
+        <dialog id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </dialog>
+        <dialog id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </dialog>
+        <dialog id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </dialog>
+        <dialog id="clickEffectPropNone"
+             click-effect="">
+        </dialog>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <button style="background-color: gainsboro;width:90%;" @click="opendirPropRtl">
+        </button>
+        <button style="background-color: navy;width:90%;" @click="opendirPropAuto">
+        </button>
+        <button style="background-color: darkolivegreen;width:90%;" @click="opendirPropLtr">
+        </button>
+        <button style="background-color: skyblue;width:90%;" @click="opendirPropNone">
+        </button>
+        <dialog id="dirPropRtl"
+             dir="rtl">
+        </dialog>
+        <dialog id="dirPropAuto"
+             dir="auto">
+        </dialog>
+        <dialog id="dirPropLtr"
+             dir="ltr">
+        </dialog>
+        <dialog id="dirPropNone"
+             dir="">
+        </dialog>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <button style="background-color: gainsboro;width:90%;" @click="openforPropNull">
+        </button>
+        <button style="background-color: navy;width:90%;" @click="openforPropOne">
+        </button>
+        <button style="background-color: darkolivegreen;width:90%;" @click="openforPropThree">
+        </button>
+        <dialog id="forPropNull"
+             for="">
+        </dialog>
+        <dialog id="forPropOne"
+             for="{{listOne}}">
+        </dialog>
+        <dialog id="forPropThree"
+             for="{{listThree}}">
+        </dialog>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <button style="background-color: gainsboro;width:90%;" @click="openifPropTrue">
+        </button>
+        <dialog id="ifPropTrue"
+             if="true">
+        </dialog>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <button style="background-color: gainsboro;width:90%;" @click="openshowPropTrue">
+        </button>
+        <button style="background-color: skyblue;width:90%;" @click="openshowPropFalse">
+        </button>
+        <button style="background-color: darkolivegreen;width:90%;" @click="openshowPropNone">
+        </button>
+        <dialog id="showPropTrue"
+             show="true">
+        </dialog>
+        <dialog id="showPropFalse"
+             show="false">
+        </dialog>
+        <dialog id="showPropNone"
+             show="">
+        </dialog>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            dialog特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- dragable
+        </text>
+
+        <button style="background-color: skyblue;width:90%;margin-bottom: 10px;" @click="opendragableNone">
+        </button>
+        <button style="background-color: saddlebrown;width:90%; margin-bottom: 10px;" @click="opendragableTrue">
+        </button>
+        <button style="background-color: gainsboro;width:90%;" @click="opendragableFalse">
+        </button>
+        <dialog id="dragableNone"
+                dragable=''>
+        </dialog>
+        <dialog id="dragableTrue"
+                dragable='true'>
+        </dialog>
+        <dialog id="dragableFalse"
+                dragable='false'>
+        </dialog>
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <dialog class="propNewAdd"
+                tid="id">
+        </dialog>
+        <dialog class="propNewAdd"
+                tid="">
+        </dialog>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <dialog class="propNewAdd"
+                if="false">
+        </dialog>
+        <dialog class="propNewAdd"
+                elif="true">
+        </dialog>
+        <dialog class="propNewAdd"
+                elif="false">
+        </dialog>
+    </div>
+</div>

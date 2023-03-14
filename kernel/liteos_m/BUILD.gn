@@ -1,0 +1,309 @@
+# Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//build/lite/config/component/lite_component.gni")
+
+LITEOS_MENUCONFIG_H = rebase_path("$root_out_dir/config.h")
+
+declare_args() {
+  liteos_name = "OHOS_Image"
+  liteos_kernel_only = false
+}
+
+import("liteos.gni")
+
+liteos_arch_cflags = []
+if (defined(LOSCFG_ARCH_ARM)) {
+  mcpu = LOSCFG_ARCH_CPU
+  if (defined(LOSCFG_ARCH_ARM_AARCH64) && defined(LOSCFG_ARCH_FPU_DISABLE)) {
+    mcpu += "+nofp"
+  }
+  liteos_arch_cflags += [ "-mcpu=$mcpu" ]
+  if (defined(LOSCFG_ARCH_ARM_AARCH32) && defined(LOSCFG_ARCH_FPU)) {
+    liteos_arch_cflags += [ "-mfpu=$LOSCFG_ARCH_FPU" ]
+  }
+}
+
+cc = "$ohos_current_cc_command " + string_join(" ", liteos_arch_cflags)
+if (ohos_build_compiler == "clang") {
+  cc += " --target=$target_triple"
+}
+
+config("arch_config") {
+  cflags = liteos_arch_cflags
+  asmflags = cflags
+  ldflags = cflags
+  if (defined(LOSCFG_ARCH_ARM_AARCH32)) {
+    if (!defined(LOSCFG_COMPILER_CLANG_LLVM)) {
+      cflags += [ "-mthumb-interwork" ]
+    }
+  }
+  if (defined(LOSCFG_THUMB)) {
+    cflags += [ "-mthumb" ]
+    if (defined(LOSCFG_COMPILER_CLANG_LLVM)) {
+      cflags += [ "-mimplicit-it=thumb" ]
+    } else {
+      cflags += [ "-Wa,-mimplicit-it=thumb" ]
+    }
+  }
+}
+
+config("stdinc_config") {
+  std_include = exec_script("//build/lite/run_shell_cmd.py",
+                            [ "$cc -print-file-name=include" ],
+                            "trim string")
+  cflags = [
+    "-isystem",
+    std_include,
+  ]
+  cflags += [ "-nostdinc" ]
+  asmflags = cflags
+  if (defined(LOSCFG_LIBC_NEWLIB)) {
+    cflags -= [ "-nostdinc" ]
+  }
+}
+
+config("ssp_config") {
+  cflags = []
+  if (defined(LOSCFG_CC_STACKPROTECTOR_ALL)) {
+    cflags += [ "-fstack-protector-all" ]
+  } else if (defined(LOSCFG_CC_STACKPROTECTOR_STRONG)) {
+    cflags += [ "-fstack-protector-strong" ]
+  } else if (defined(LOSCFG_CC_STACKPROTECTOR)) {
+    cflags += [
+      "-fstack-protector",
+      "--param",
+      "ssp-buffer-size=4",
+    ]
+  } else {
+    cflags += [ "-fno-stack-protector" ]
+  }
+  asmflags = cflags
+}
+
+config("optimize_config") {
+  cflags = []
+  if (defined(LOSCFG_COMPILE_DEBUG)) {
+    cflags += [
+      "-g",
+      "-gdwarf-2",
+    ]
+    optimization_cflag = "-O0"
+  }
+  if (defined(LOSCFG_COMPILE_OPTIMIZE)) {
+    optimization_cflag = "-O2"
+  }
+  if (defined(LOSCFG_COMPILE_OPTIMIZE_SIZE)) {
+    if (defined(LOSCFG_COMPILER_CLANG_LLVM)) {
+      optimization_cflag = "-Oz"
+    } else {
+      optimization_cflag = "-Os"
+    }
+  }
+  if (defined(LOSCFG_COMPILE_LTO)) {
+    if (defined(LOSCFG_COMPILER_CLANG_LLVM)) {
+      cflags += [ "-flto=thin" ]
+    } else {
+      #cflags += [ "-flto" ]
+    }
+  }
+  cflags += [ optimization_cflag ]
+  asmflags = cflags
+}
+
+config("kconfig_config") {
+  cflags = [
+    "-imacros",
+    "$LITEOS_MENUCONFIG_H",
+  ]
+  asmflags = cflags
+  cflags_cc = cflags
+}
+
+config("warn_config") {
+  cflags = [
+    "-Wall",
+    "-Werror",
+    "-Wpointer-arith",
+    "-Wstrict-prototypes",
+    "-Winvalid-pch",
+    "-Wno-address-of-packed-member",
+  ]
+  asmflags = cflags
+}
+
+config("dialect_config") {
+  cflags_c = [ "-std=c99" ]
+  cflags_cc = [ "-std=c++11" ]
+}
+
+config("misc_config") {
+  defines = [ "__LITEOS__" ]
+  defines += [ "__LITEOS_M__" ]
+  if (!defined(LOSCFG_DEBUG_VERSION)) {
+    defines += [ "NDEBUG" ]
+  }
+
+  cflags = [
+    "-fno-pic",
+    "-fno-builtin",
+    "-fms-extensions",
+    "-fno-strict-aliasing",
+    "-fno-common",
+    "-fsigned-char",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fno-exceptions",
+    "-fno-omit-frame-pointer",
+  ]
+
+  if (!defined(LOSCFG_COMPILER_CLANG_LLVM)) {
+    cflags += [ "-fno-aggressive-loop-optimizations" ]
+  }
+
+  asmflags = cflags
+  asmflags += [ "-DCLZ=CLZ" ]
+}
+
+config("los_config") {
+  configs = [
+    #":arch_config",
+    ":kconfig_config",
+
+    ":stdinc_config",
+    ":dialect_config",
+    ":optimize_config",
+    ":ssp_config",
+
+    #":warn_config",
+    ":misc_config",
+  ]
+}
+
+cmd = "if [ -f $device_path/BUILD.gn ]; then echo true; else echo false; fi"
+HAVE_DEVICE_SDK = exec_script("//build/lite/run_shell_cmd.py", [ cmd ], "value")
+
+# board and soc decoupling feature, device_path should contains board
+BOARD_SOC_FEATURE = device_path != string_replace(device_path, "/board/", "")
+
+config("public") {
+  configs = [
+    "arch:public",
+    "kernel:public",
+    "kal:public",
+    "components:public",
+    "utils:public",
+  ]
+
+  if (BOARD_SOC_FEATURE) {
+    configs += [ "//device/board/$device_company:public" ]
+    configs += [ "//device/soc/$LOSCFG_SOC_COMPANY:public" ]
+  } else {
+    if (HAVE_DEVICE_SDK) {
+      configs += [ "$device_path:public" ]
+    }
+  }
+}
+
+group("modules") {
+  deps = [
+    "arch",
+    "components",
+    "kal",
+    "kernel",
+    "testsuites",
+    "utils",
+    HDFTOPDIR,
+  ]
+
+  if (BOARD_SOC_FEATURE) {
+    deps += [ "//device/board/$device_company" ]
+    deps += [ "//device/soc/$LOSCFG_SOC_COMPANY" ]
+  } else {
+    if (HAVE_DEVICE_SDK) {
+      deps += [ device_path ]
+    }
+  }
+}
+
+# when HAVE_DEVICE_SDK is not reached, gn raises an error. so we just use it as
+# not needed
+not_needed([ "HAVE_DEVICE_SDK" ])
+
+static_library("libkernel") {
+  deps = [ ":modules" ]
+  complete_static_lib = false
+}
+
+group("kernel") {
+  deps = [ ":libkernel" ]
+}
+
+group("liteos_m") {
+}
+
+executable("liteos") {
+  configs += [
+    ":public",
+    ":los_config",
+  ]
+
+  ldflags = [
+    "-static",
+    "-Wl,--gc-sections",
+    "-Wl,-Map=$liteos_name.map",
+  ]
+
+  output_dir = target_out_dir
+
+  if (liteos_kernel_only) {
+    deps = [ ":kernel" ]
+  } else {
+    deps = [ "//build/lite:ohos" ]
+  }
+}
+
+copy("copy_liteos") {
+  deps = [ ":liteos" ]
+  sources = [ "$target_out_dir/unstripped/bin/liteos" ]
+  outputs = [ "$root_out_dir/$liteos_name" ]
+}
+
+build_ext_component("build_kernel_image") {
+  deps = [ ":copy_liteos" ]
+  exec_path = rebase_path(root_out_dir)
+
+  objcopy = "${compile_prefix}objcopy$toolchain_cmd_suffix"
+  objdump = "${compile_prefix}objdump$toolchain_cmd_suffix"
+
+  command = "$objcopy -O binary $liteos_name $liteos_name.bin"
+  command +=
+      " && sh -c '$objdump -t $liteos_name | sort >$liteos_name.sym.sorted'"
+  command += " && sh -c '$objdump -d $liteos_name >$liteos_name.asm'"
+}

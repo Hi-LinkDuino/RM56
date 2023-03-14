@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "iot_link": {
+      "module_list": [
+        "//domains/iot/link"
+      ]
+    }
+  },
+  "subsystem_name": "iot"
+}

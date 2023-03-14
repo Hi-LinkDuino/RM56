@@ -1,0 +1,57 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+group("huks_sdk_test") {
+  testonly = true
+  if (os_level == "standard") {
+    deps = [
+      "//base/security/huks/frameworks/huks_standard/main/crypto_engine/test:crypto_engine_test",
+      "//base/security/huks/interfaces/innerkits/huks_standard/test:hukssdk_test",
+      "//base/security/huks/interfaces/innerkits/huks_standard/test/moduletest:huks_mt_test",
+      "//base/security/huks/services/huks_standard/huks_service/main/test/unittest:huks_multithread_test",
+      "//base/security/huks/test/fuzz:huks_fuzz_test",
+      "//base/security/huks/test/fuzz:huks_three_stage_fuzz_test",
+      "//base/security/huks/test/stability:huks_stability_test",
+      "//base/security/huks/unittest:huks_UT_test",
+    ]
+  } else {
+  }
+}
+
+group("huks_napi") {
+  if (os_level == "standard") {
+    if (support_jsapi) {
+      deps = [ "//base/security/huks/interfaces/kits/napi:huks" ]
+    }
+  }
+}
+
+group("huks_components") {
+  if (os_level == "standard") {
+    deps = [
+      "//base/security/huks:huks_napi",
+      "//base/security/huks/frameworks/huks_standard/main:huks_standard_frameworks",
+      "//base/security/huks/services/huks_standard:huks_service",
+      "//base/security/huks/services/huks_standard/huks_engine/main/core:huks_engine_core_standard",
+      "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/sa/sa_profile:huks_sa_profile",
+    ]
+  } else if (os_level == "small") {
+    deps = [
+      "//base/security/huks/frameworks/crypto_lite/cipher:cipher_shared",
+      "//base/security/huks/frameworks/crypto_lite/js/builtin:ace_kit_cipher",
+      "//base/security/huks/frameworks/huks_lite:huks_sdk",
+    ]
+  } else {
+    deps = [ "//base/security/huks/frameworks/huks_lite:huks_sdk" ]
+  }
+}

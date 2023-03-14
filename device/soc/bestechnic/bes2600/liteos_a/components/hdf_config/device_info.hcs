@@ -1,0 +1,114 @@
+root {
+    module = "bestechnic,bes2600w";
+    device_info {
+        match_attr = "hdf_manager";
+        template host {
+            hostName = "";
+            priority = 100;
+            template device {
+                template deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    preload = 0;
+                    permission = 0664;
+                    moduleName = "";
+                    serviceName = "";
+                    deviceMatchAttr = "";
+                }
+            }
+        }
+        platform :: host {
+            hostName = "platform_host";
+            priority = 50;
+            device_gpio :: device {
+                gpio0 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "BES_GPIO_MODULE_HDF";
+                    serviceName = "HDF_PLATFORM_GPIO";
+                    deviceMatchAttr = "gpio_config";
+                }
+            }
+            device_i2c :: device {
+                i2c_manager :: deviceNode {
+                    policy = 2;
+                    priority = 50;
+                    moduleName = "HDF_PLATFORM_I2C_MANAGER";
+                    serviceName = "HDF_PLATFORM_I2C_MANAGER";
+                }
+                i2c0 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "BES_I2C_MODULE_HDF";
+                    serviceName = "";
+                    deviceMatchAttr = "i2c0_config";
+                }
+                i2c1 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "BES_I2C_MODULE_HDF";
+                    serviceName = "";
+                    deviceMatchAttr = "i2c1_config";
+                }
+            }
+            device_romfs :: device {
+                romfs :: deviceNode {
+                    policy = 0;
+                    priority = 50; // load before fs
+                    moduleName = "HDF_STORAGE_ROMFS";
+                    deviceMatchAttr = "romfs_config";
+                }
+            }
+            device_mipi_dsi :: device {
+                mipi_dsi0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    moduleName = "HDF_PLATFORM_MIPI_DSI";
+                    serviceName = "HDF_PLATFORM_MIPI_DSI";
+                }
+            }
+        }
+        display :: host {
+            hostName = "display_host";
+            priority = 100;
+            device_panel :: device {
+                /*panel_rm69330 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "HDF_PANEL_RM69330";
+                    deviceMatchAttr = "rm69330_config";
+                }
+                panel_icna3311 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "HDF_PANEL_ICNA3311";
+                    deviceMatchAttr = "icna3311_config";
+                }*/
+                panel_a064 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "HDF_PANEL_A064";
+                    deviceMatchAttr = "a064_config";
+                }
+            }
+        }
+        input :: host {
+            hostName = "input_host";
+            priority = 100;
+            device_touch :: device {
+                /*touch_ztw523 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "HDF_TOUCH_ZTW523";
+                    deviceMatchAttr = "touch_ztw523_config";
+                }*/
+                touch_fts :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "HDF_TOUCH_FTS";
+                    deviceMatchAttr = "touch_fts_config";
+                }
+            }
+        }
+    }
+}

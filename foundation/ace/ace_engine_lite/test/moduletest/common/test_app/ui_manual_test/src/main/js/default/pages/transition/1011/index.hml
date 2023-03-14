@@ -1,0 +1,33 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div class="container" style="flex-direction:column; align-items:center">
+    <div style="margin-top:40px;width:380px;height:80px;" class="divFrame">
+        <text style="width:380px;height:80px;text-overflow:ellipsis">Component_animation_StyleSet_Test_1011</text>
+    </div>
+    <div style="height:220px;flex-direction:column" class="divFrame">
+        <div class="divBlock divAnimationStyle" style="animation-name:{{animationName1}}" onclick="changeAnimation">
+        </div>
+        <div class="divBlock divAnimationStyle" style="animation-name:{{animationName2}}" onclick="changeAnimation">
+        </div>
+        <div class="divBlock divAnimationStyle" style="animation-name:{{animationName3}}" onclick="changeAnimation">
+        </div>
+    </div>
+    <div class="divFrame">
+        <input type="button" value="上页" style="width:90px;height:40px;" onclick="changePrev"/>
+        <input type="button" value="首页" style="width:90px;height:40px;" onclick="backMain"/>
+        <input type="button" value="下页" style="width:90:height:40px;" onclick="changeNext"/>
+    </div>
+</div>

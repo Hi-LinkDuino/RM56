@@ -1,0 +1,159 @@
+[
+  {
+    "SESSION_NAME": "DBinderService",
+    "DEVID": "NETWORKID",
+    "APP_INFO": [
+      {
+        "TYPE": "native_app",
+        "UID": "1000",
+        "PKG_NAME": "DBinderService",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "DBinder.*",
+    "REGEXP": "true",
+    "DEVID": "NETWORKID",
+    "SEC_LEVEL": "public",
+    "APP_INFO": [
+      {
+        "TYPE": "granted_app",
+        "PKG_NAME": "DBinderBus",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "DistributedFileService.*",
+    "REGEXP": "true",
+    "DEVID": "UUID",
+    "APP_INFO": [
+      {
+        "TYPE": "native_app",
+        "UID": "1000",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "distributeddata-default",
+    "REGEXP": "true",
+    "DEVID": "UUID",
+    "SEC_LEVEL": "public",
+    "APP_INFO": [
+      {
+        "TYPE": "normal_app",
+        "PKG_NAME": "ohos.distributeddata",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "objectstoreDB-*",
+    "REGEXP": "true",
+    "DEVID": "UDID",
+    "SEC_LEVEL": "public",
+    "APP_INFO": [
+      {
+        "TYPE": "normal_app",
+        "PKG_NAME": "ohos.objectstore",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "ohos.distributedschedule.dms.*",
+    "REGEXP": "true",
+    "DEVID": "UUID",
+    "APP_INFO": [
+      {
+        "PKG_NAME": "dms",
+        "TYPE": "system_app",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "com.huawei.dmsdp.*",
+    "REGEXP": "true",
+    "DEVID": "UDID",
+    "APP_INFO": [
+      {
+        "TYPE": "system_app",
+        "PKG_NAME": "com.huawei.dmsdp",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "com.huawei.devicegroupmanage",
+    "DEVID": "UDID",
+    "APP_INFO": [
+      {
+        "PKG_NAME": "com.huawei.devicegroupmanage",
+        "TYPE": "system_app",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "ohos.distributedhardware.devicemanager.*",
+    "REGEXP": "true",
+    "DEVID": "UUID",
+    "APP_INFO": [
+      {
+        "PKG_NAME": "ohos.distributedhardware.devicemanager",
+        "TYPE": "system_app",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "ohos.dhardware.*",
+    "REGEXP": "true",
+    "DEVID": "NETWORKID",
+    "SEC_LEVEL": "public",
+    "APP_INFO": [
+      {
+        "PKG_NAME": "ohos.dhardware",
+        "TYPE": "system_app",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "security.dpms_channel",
+    "DEVID": "NETWORKID",
+    "APP_INFO": [
+      {
+        "TYPE": "system_app",
+        "PKG_NAME": "ohos.security.distributed_permission",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "device.security.level",
+    "DEVID": "UDID",
+    "APP_INFO": [
+      {
+        "TYPE": "native_app",
+        "UID": "3046",
+        "PKG_NAME": "ohos.dslm",
+        "ACTIONS": "create,open"
+      }
+    ]
+  },
+  {
+    "SESSION_NAME": "ohos.security.atm_channel",
+    "DEVID": "NETWORKID",
+    "APP_INFO": [
+      {
+        "TYPE": "system_app",
+        "PKG_NAME": "ohos.security.distributed_access_token",
+        "ACTIONS": "create,open"
+      }
+    ]
+  }
+]

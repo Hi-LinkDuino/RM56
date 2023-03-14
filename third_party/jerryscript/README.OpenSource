@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "jerryscript",
+    "License": "Apache-2.0",
+    "License File": "LICENSE",
+    "Version Number": "v2.3.0",
+    "Owner": "pengbiao1@huawei.com",
+    "Upstream URL": "https://github.com/jerryscript-project/jerryscript.git",
+    "Description": "JerryScript is the lightweight JavaScript engine intended to run on a very constrained devices such as microcontrollers."
+  }
+]

@@ -1,0 +1,37 @@
+{
+    "name": "@ohos/hilog_lite",
+    "description": "Log services for liteos-m kernel.",
+    "optional": "false",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hilog_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hilog_lite",
+        "subsystem": "hiviewdfx",
+        "syscap": [
+            "SystemCapability.HiviewDFX.HiLogLite"
+        ],
+        "adapted_system_type": [
+            "mini"
+        ],
+      "rom": "10KB",
+      "ram": "~10KB",
+        "deps": {
+            "components": [
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite"
+            ]
+        }
+    }
+}

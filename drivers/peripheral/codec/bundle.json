@@ -1,0 +1,30 @@
+{
+  "name": "codec_device_driver",
+  "description": "codec device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "codec_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard"],
+    "rom": "675KB",
+    "ram": "7400KB",
+    "deps": {
+      "components": [
+        "device_driver_framework",
+        "hiviewdfx_hilog_native"
+      ],
+      "third_part": [
+        "googletest"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/codec/hdi_service:codec_client",
+        "//drivers/peripheral/codec/hdi_service:codec_service",
+        "//drivers/peripheral/codec:hdf_media_codec"
+      ]
+    }
+  }
+}

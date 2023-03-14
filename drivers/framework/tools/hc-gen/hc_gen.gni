@@ -1,0 +1,102 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+#
+# HDF is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+
+template("hc_gen") {
+  assert(defined(invoker.sources), "sources are must")
+  if (defined(invoker.outputs)) {
+    foreach(o, invoker.outputs) {
+      if (o == string_replace(o, "{{", "")) {
+        specified_output_name = true
+      }
+    }
+  }
+  if (defined(specified_output_name) && specified_output_name) {
+    target_type = "action"
+  } else {
+    target_type = "action_foreach"
+  }
+  target(target_type, target_name) {
+    deps = [ "//drivers/framework/tools/hc-gen:build_hc_gen" ]
+    script = "/usr/bin/env"
+    if (defined(ohos_lite)) {
+      script = "//build/lite/run_shell_cmd.py"
+    }
+    sources = invoker.sources
+    if (defined(invoker.hc_gen_hex) && invoker.hc_gen_hex) {
+      hc_flags = [
+        "-b",
+        "-i",
+        "-a",
+      ]
+      output_suffix = "_hex.c"
+      output_suffix2 = ".hcb"
+    } else if (defined(invoker.hc_gen_c) && invoker.hc_gen_c) {
+      hc_flags = [ "-t" ]
+      output_suffix = ".c"
+      output_suffix2 = ".h"
+    } else if (defined(invoker.hc_gen_macro) && invoker.hc_gen_macro) {
+      hc_flags = [ "-m" ]
+      output_suffix = ".h"
+    } else if (defined(invoker.hc_gen_start_cfg) && invoker.hc_gen_start_cfg) {
+      hc_flags = [ "-s" ]
+      output_suffix = ".cfg"
+    } else {
+      hc_flags = []
+      output_suffix = ".hcb"
+    }
+
+    if (defined(invoker.outputs)) {
+      outputs = invoker.outputs
+    } else {
+      outputs = [ "$target_gen_dir/{{source_name_part}}$output_suffix" ]
+    }
+    if (defined(output_suffix2)) {
+      outputs += [ string_replace(outputs[0], output_suffix, output_suffix2) ]
+    }
+    if (target_type == "action") {
+      src = rebase_path(sources[0], root_build_dir)
+    } else {
+      src = "{{source}}"
+    }
+
+    args = [ rebase_path(get_path_info("//drivers/framework/tools/hc-gen/",
+                                       "out_dir") + "/hc-gen") ]
+    args += hc_flags
+    args += [
+      "-o",
+      rebase_path(string_replace(outputs[0], output_suffix, "")),
+      src,
+    ]
+  }
+}
+
+template("hc_gen_c") {
+  hc_gen_c = true
+  hc_gen(target_name) {
+    forward_variables_from(invoker, "*")
+  }
+}
+
+template("hc_gen_hex") {
+  hc_gen_hex = true
+  hc_gen(target_name) {
+    forward_variables_from(invoker, "*")
+  }
+}
+
+template("hc_gen_macro") {
+  hc_gen_macro = true
+  hc_gen(target_name) {
+    forward_variables_from(invoker, "*")
+  }
+}
+
+template("hc_gen_start_cfg") {
+  hc_gen_start_cfg = true
+  hc_gen(target_name) {
+    forward_variables_from(invoker, "*")
+  }
+}

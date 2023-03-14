@@ -1,0 +1,332 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+    <!-- 通用样式 -->
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+
+            <text class="sub-title">
+                picker通用样式1
+            </text>
+            <picker id="style1" class="style1" value="{{textvalue}}" ></picker>
+
+            <text  class="sub-title">
+                picker通用样式2
+            </text>
+            <picker id="style2" class="style2" value="{{textvalue}}" ></picker>
+
+            <text  class="sub-title">
+                picker通用样式3
+            </text>
+            <picker id="style3" class="style3" value="{{textvalue}}" >
+            </picker>
+
+            <text  class="sub-title">
+                picker通用样式4
+            </text>
+            <picker id="style4" class="style4" value="{{textvalue}}" >
+            </picker>
+
+            <text  class="sub-title">
+                picker通用样式5
+            </text>
+            <div class="contain1">
+                <picker id="style5" class="style5" value="{{textvalue}}" >
+                </picker>
+                <picker id="style6" class="style6" value="{{textvalue}}" >
+                </picker>
+            </div>
+
+            <text  class="sub-title">
+                picker特有样式
+            </text>
+            <picker id="style7" class="style7" value="{{textvalue}}">
+            </picker>
+        </div>
+
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                picker通用属性1
+            </text>
+            <picker  id="prop1"
+                   class="prop1"
+                   disabled = "true"
+                   focusable ="true"
+                   data-name ="prop1"
+                   click-effect="spring-medium"
+                   dir ="rtl"
+                   value="{{textvalue}}">
+            </picker>
+
+            <text  class="sub-title">
+                picker通用属性2
+            </text>
+            <picker class="prop2"
+                   ref ="prop2"
+                   disabled = "false"
+                   focusable ="false"
+                   data-name ="prop2"
+                   click-effect="spring-large"
+                   dir ="ltr"
+                   value="{{textvalue}}">
+            </picker>
+
+            <text  class="sub-title">
+                picker通用属性3
+            </text>
+            <picker id="prop3" value="textvalue" style="color: #679855; margin: 5px;width: 100%;height: 40px;" class="prop3" >
+            </picker>
+
+            <text class="sub-title">
+                picker特有属性4
+            </text>
+            <picker id="prop4" class="prop4" type="text" value="普通选择器" selected="{{textselect}}" range="{{rangetext}}" >
+            </picker>
+
+            <text  class="sub-title">
+                picker特有属性5
+            </text>
+            <picker id="prop4" class="prop4" type="datetime" value="时间日期选择器">
+            </picker>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                picker通用事件1
+            </text>
+            <picker id="event1" class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                   ontouchend="touchEnd" ontouchcancel="touchCancel"
+                   value="通用事件1" range="{{ rangetext }}" >
+            </picker>
+
+            <text  class="sub-title">
+                picker通用事件2
+            </text>
+            <picker id="event2" class="event2" onclick="click" ondoubleclick="doubleClick"
+                   onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                    onaccessibility="onAccessibility"
+                   onswipe="swipe" onattached="attached" ondetached="detached"
+                    value="通用事件2" range="{{ rangetext }}">
+            </picker>
+
+            <text  class="sub-title">
+                picker通用事件3
+            </text>
+            <picker id="event3" class="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                   onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                   ondragstart="dragStart" ondrag="drag"
+                   ondragend="dragEnd" ondragenter="dragEnter"
+                   ondragover="dragOver" ondragleave="dragLeave"
+                   ondrop="drop"
+                   value="通用事件3" range="{{ rangetext }}">
+            </picker>
+
+            <text  class="sub-title">
+                picker特有事件1
+            </text>
+            <picker id="event4" class="event4" type="multi-text" value="{{multitextvalue}}" columns="3" range="{{multitext}}" selected="{{multitextselect}}"
+                    onchange="multitextonchange" oncancel="multitextoncancel" oncolumnchange="columnchange" show="true">
+            </picker>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用方法 -->
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                picker通用方法1
+            </text>
+            <picker id="function1" value="通用方法1" class="function1" ontouchstart="functionTest1">
+            </picker>
+
+
+            <text class="sub-title">
+                picker通用方法2
+            </text>
+            <picker id="function2" value="通用方法2" class="function2" ontouchstart="functionTest2">
+            </picker>
+
+
+            <text class="sub-title">
+                picker通用方法3
+            </text>
+            <picker id="function3" value="通用方法3" class="function3" ontouchstart="functionTest3">
+            </picker>
+
+            <text class="sub-title">
+                picker特有方法1
+            </text>
+            <picker id="function4" show="true" value="特有方法1" range="{{rangetext}}" class="function4">
+            </picker>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+
+            <text class="sub-title">
+                picker渐变样式1
+            </text>
+            <picker id="gradient1" class="gradient1" value="渐变样式1" range="{{ rangetext }}">
+            </picker>
+
+            <text  class="sub-title">
+                picker渐变样式2
+            </text>
+            <picker id="gradient2" class="gradient2" value="渐变样式2" range="{{ rangetext }}">
+            </picker>
+
+            <text  class="sub-title">
+                picker渐变样式3
+            </text>
+            <picker id="gradient3" class="gradient3" value="渐变样式3" range="{{ rangetext }}">
+            </picker>
+
+            <text  class="sub-title">
+                picker渐变样式4
+            </text>
+            <picker id="gradient4" class="gradient4">
+            </picker>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                picker无障碍1
+            </text>
+            <picker class="access1" accessibilitygroup ="true"
+                 accessibilitytext="这是div"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants">
+            </picker>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                picker原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <div style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </div>
+                <div style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </div>
+                <div style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </div>
+                <div style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </div>
+                <div style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </div>
+                <div style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </div>
+            </div>
+            <text class="sub-title">
+                picker原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <picker style="height:20px;background-color: blue;flex-weight: 1;">
+                </picker>
+                <picker style="height:20px;background-color: black;flex-weight: 5;">
+                </picker>
+                <picker style="height:20px;background-color: yellow;flex-weight: 4;">
+                </picker>
+                <picker style="height:20px;background-color: red;flex-weight: 3;">
+                </picker>
+                <picker style="height:20px;background-color:pink;flex-weight: 7;">
+                </picker>
+                <picker style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </picker>
+            </div>
+            <text class="sub-title">
+                picker原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <picker style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </picker>
+                <picker style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </picker>
+                <picker style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </picker>
+                <picker style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </picker>
+                <picker style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </picker>
+                <picker style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </picker>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    menu多模输入1
+                </text>
+                <picker id="multiMode1"
+                      class="multiMode1"
+                      value="picker"
+                      voicelabel = "voice"
+                      subscriptflag="on"
+                      subscriptlabel="div"
+                      scenelabel="common">
+                </picker>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

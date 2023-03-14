@@ -1,0 +1,38 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack style="left:0px;top:0px;width:454px;height:454px;">
+  <text style="left:70px;top:20px;width:170px;height:40px;">list-item1</text>
+  <input type="button" style="left:240px;top:20px;width:90px;height:40px;" value="首页" onclick="backMain"/>
+  <list
+      id="list1"
+      style="left:70px;top:73px;width:270px;height:70px;flex-direction: column;border-width:2px;border-color:#008000;flex-direction: column"
+      onclick="listClick"
+      onscrollend="scrollEnd"
+    >
+    <list-item style="width:180px;height:40px;">
+      <text style="color: #ffa500;width:180px;height:40px;">
+        mytext0
+      </text>
+    </list-item>
+    <list-item style="width:180px;height:40px;">
+      <text style="color: #ffa500;width:180px;height:40px;">
+        mytext1
+      </text>
+    </list-item>
+  </list>
+  <image src="common/preRow.png" style="left:20px;top:227px;width:30px;height:45px;" onclick="prePage"/>
+  <image src="common/nextRow.png" style="left:390px;top:227px;width:30px;height:45px;" onclick="nextPage"/>
+</stack>

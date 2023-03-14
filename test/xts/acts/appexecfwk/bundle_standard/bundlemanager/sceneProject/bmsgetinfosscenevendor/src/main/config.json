@@ -1,0 +1,140 @@
+{
+  "app": {
+    "bundleName": "com.example.vendor1",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.vendor1",
+    "name": ".BmsVendorBundle1",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.vendor.home"
+            ],
+            "actions": [
+              "action.vendor.home"
+            ]
+          }
+        ],
+        "name": "com.example.vendor1.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "forms": [
+          {
+            "colorMode": "dark",
+            "description": "JS1V Form",
+            "supportDimensions": ["1*2", "2*2", "test", "2*4"],
+            "type": "Java",
+            "jsComponentName": "JS_name1V",
+            "metaData": {
+              "customizeData": [{
+                "name": "originWidgetName1V",
+                "value": "com.openharmony.weather.testWidget1V"
+              }]
+            },
+            "isDefault": false,
+            "deepLink": "ability://com.example.myapplication.fa/.MainAbility",
+            "defaultDimension": "2*3",
+            "name": "Form_JS1V",
+            "scheduledUpdateTime": "21:55",
+            "updateEnabled": true,
+            "updateDuration": 1,
+            "window": {
+              "designWidth": 720,
+              "autoDesignWidth": true
+            }
+          },
+          {
+            "colorMode": "light",
+            "description": " JS1V2 Form",
+            "supportDimensions": [ "1*2", "2*4", "4*4"],
+            "type": "JS",
+            "jsComponentName": "JS_name1V2",
+            "metaData": {
+              "customizeData": [
+                {
+                  "name": "originWidgetName1V2",
+                  "value": "com.openharmony.weather.testWidget1V2"
+                }
+              ]
+            },
+            "isDefault": true,
+            "deepLink": "ability://com.example.myapplication.fa/.MainAbility",
+            "defaultDimension": "1*2",
+            "name": "Form_JS1V2",
+            "scheduledUpateTime": "21:55",
+            "updateEnabled": true,
+            "updateDuration": 1
+          }
+        ],
+        "launchType": "standard",
+        "metaData": {
+          "parameters": [{
+            "name": "Data1V0",
+            "type": "float",
+            "description": "$string:mainability_description"
+          },
+        {
+          "name": "Data1V1",
+          "type": "float",
+          "description": "$string:mainability_description"
+        }],
+          "results": [{
+            "name": "Data1V",
+            "type": "float",
+            "description": "$string:mainability_description"
+          }],
+          "customizeData": [{  
+          }]
+        }
+      }
+    ],
+    "shortcuts": [
+      {
+        "icon": "$media:icon",
+        "shortcutId": "id.vendor1",
+        "label": "$string:shortcut",
+        "intents": [
+          {
+            "targetClass":"com.example.vendor1.MainAbility",
+            "targetBundle":"com.example.vendor1"
+          }
+        ]
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

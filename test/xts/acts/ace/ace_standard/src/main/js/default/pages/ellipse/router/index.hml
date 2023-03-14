@@ -1,0 +1,101 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                ellipse通用属性1
+            </text>
+            <svg x="0" y="0" width="200" height="50" >
+                <ellipse id="prop1" cx="100" cy="20" rx="50" ry="10"
+                         stroke="blue" stroke-width="4" fill-opacity="0.5"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性2
+            </text>
+            <svg x="0" y="0" width="200" height="50" >
+                <ellipse id="prop2" cx="100" cy="20" rx="50" ry="10"
+                         stroke-width="3" fill="red"  stroke="blue"></ellipse>
+            </svg>
+
+            <text  class="sub-title">
+                ellipse通用属性3
+            </text>
+            <svg x="0" y="0" width="200" height="50" fill="white" fill-opacity="0">
+                <ellipse id="prop3"  cx="100" cy="20" rx="50" ry="10"
+                         stroke="blue" stroke-width="4" fill-opacity="0.5"></ellipse>
+            </svg>
+
+            <text  class="sub-title">
+                ellipse通用属性4
+            </text>
+            <svg x="0" y="0" width="200" height="50" fill="white" fill-opacity="0">
+                <ellipse id="prop4" cx="100" cy="20" rx="50" ry="10"
+                         stroke-width="3" stroke="red" stroke-dasharray="10 5" stroke-dashoffset="3"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性5
+            </text>
+            <svg x="0" y="0" width="200" height="70"  fill="white" fill-opacity="0">
+                <ellipse id="prop5" cx="80" cy="40" rx="50" ry="15"
+                         stroke-width="3" stroke="red" stroke-dasharray="10 5" stroke-dashoffset="3" transform="rotate(-10)"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性6
+            </text>
+            <svg x="0" y="0" width="200" height="110"  fill="white" fill-opacity="0">
+                <ellipse id="prop6" cx="80" cy="0" rx="50" ry="15"
+                         stroke-width="3" stroke="blue" stroke-dasharray="10 5" stroke-dashoffset="3" transform="skewY(30)"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性7
+            </text>
+            <svg x="0" y="0" width="200" height="80"  fill="white" fill-opacity="0">
+                <ellipse  id="prop7" cx="80" cy="40" rx="50" ry="15"
+                         stroke-width="3" stroke="yellow" stroke-dasharray="10 5" stroke-dashoffset="3" transform="skewY(-10)"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性8
+            </text>
+            <svg x="0" y="0" width="200" height="50"  fill="white" >
+                <ellipse id="prop8" cx="100" cy="20" rx="50" ry="15" fill="red" fill-rule="nonzero"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性9
+            </text>
+            <svg x="0" y="0" width="200" height="50"  fill="white" >
+                <ellipse id="prop9" cx="100" cy="20" rx="50" ry="15" fill="pink" stroke-linejoin="miter"></ellipse>
+            </svg>
+
+            <text class="sub-title">
+                ellipse通用属性10
+            </text>
+            <svg x="0" y="0" width="200" height="50"  fill="white" >
+                <ellipse id="prop10" cx="100" cy="20" rx="50" ry="15" fill="red" stroke-miterlimit="10"></ellipse>
+            </svg>
+        </div>
+    </div>
+
+</div>

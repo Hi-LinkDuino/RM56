@@ -1,0 +1,16 @@
+{
+  "SysCaps": [
+    "SystemCapability.Communication.SoftBus.Core",
+    "SystemCapability.Communication.WiFi.AP.Extension",
+    "SystemCapability.PowerManager.PowerManager.Lite",
+    "SystemCapability.PowerManager.BatteryManager.Lite",
+    "SystemCapability.Customization.ConfigPolicy",
+    "SystemCapability.HiviewDFX.HiLogLite",
+    "SystemCapability.HiviewDFX.HiviewLite",
+    "SystemCapability.HiviewDFX.HiEventLite",
+    "SystemCapability.Update.UpdateService",
+    "SystemCapability.FileManagement.File.FileIO",
+    "SystemCapability.FileManagement.File.Environment",
+    "SystemCapability.Startup.SystemInfo"
+  ]
+}

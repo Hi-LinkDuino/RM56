@@ -1,0 +1,442 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            input通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <input id="idProp">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <input id="classProp"
+             class="classProp">
+        </input>
+        <input id="classPropNone"
+             class="">
+        </input>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <input id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <input id="refProp"
+             ref="refProp">
+        </input>
+        <input id="refPropNone"
+             ref="">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <input id="disabledPropTrue"
+             disabled="true">
+        </input>
+        <input id="disabledPropFalse"
+             disabled="false">
+        </input>
+        <input id="disabledPropNone"
+             disabled="">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <input id="focusablePropTrue"
+             focusable="true">
+        </input>
+        <input id="focusablePropFalse"
+             focusable="false">
+        </input>
+        <input id="focusablePropNone"
+             focusable="">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <input id="dataPropB"
+               data-input="通用属性 -- data">
+        </input>
+        <input id="dataPropBNone"
+               data-input="">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <input id="dataProp"
+             data-input="通用属性 -- data-*">
+        </input>
+        <input id="dataPropNone"
+             data-input="">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <input id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </input>
+        <input id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </input>
+        <input id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </input>
+        <input id="clickEffectPropNone"
+             click-effect="">
+        </input>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <input id="dirPropRtl"
+             dir="rtl">
+        </input>
+        <input id="dirPropAuto"
+             dir="auto">
+        </input>
+        <input id="dirPropLtr"
+             dir="ltr">
+        </input>
+        <input id="dirPropNone"
+             dir="">
+        </input>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <input id="forPropNull"
+             for="">
+        </input>
+        <input id="forPropOne"
+             for="{{listOne}}">
+        </input>
+        <input id="forPropThree"
+             for="{{listThree}}">
+        </input>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <input id="ifPropTrue"
+             if="true">
+        </input>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <input id="showPropTrue"
+             show="true">
+        </input>
+        <input id="showPropFalse"
+             show="false">
+        </input>
+        <input id="showPropNone"
+             show="">
+        </input>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            input特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- type
+        </text>
+        <input id="typeText"
+                type="text">
+        </input>
+        <input id="typeEmail"
+                type="email">
+        </input>
+        <input id="typeDate"
+                type="date">
+        </input>
+        <input id="typeTime"
+                type="time">
+        </input>
+        <input id="typeNumber"
+                type="number">
+        </input>
+        <input id="typePassword"
+               type="password">
+        </input>
+        <input id="typeButton"
+                type="button">
+        </input>
+        <div class="typeDiv">
+            <input id="typeCheckbox"
+                    type="checkbox">
+            </input>
+            <input id="typeRadio"
+                    type="radio">
+            </input>
+        </div>
+        <input id="typeNone"
+               type="">
+        </input>
+
+        <text class="sub-title">
+            特有属性 -- checked
+        </text>
+        <div class="checkedDiv">
+            <input id="checkboxFalse"
+                    type="checkbox"
+                    checked="false">
+            </input>
+            <input id="checkboxTrue"
+                   type="checkbox"
+                   checked="true">
+            </input>
+            <input id="checkboxNone"
+                   type="checkbox"
+                   checked="">
+            </input>
+            <input id="radioFalse"
+                   type="radio"
+                   checked="false">
+            </input>
+            <input id="radioTrue"
+                   type="radio"
+                   checked="true">
+            </input>
+            <input id="radioNone"
+                   type="radio"
+                   checked="">
+            </input>
+        </div>
+        <text class="sub-title">
+            特有属性 -- name
+        </text>
+        <input id="inputName"
+               name="inputName">
+        </input>
+        <input id="inputNameNone"
+               name="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <input id="inputValue"
+               value="inputValue">
+        </input>
+        <input id="inputValueNone"
+               value="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- placeholder
+        </text>
+        <input id="textPlaceholder"
+               placeholder="placeholder"
+                type="text">
+        </input>
+        <input id="textPlaceholderNone"
+               placeholder=""
+               type="text">
+        </input>
+        <input id="emailPlaceholder"
+               placeholder="placeholder"
+               type="email">
+        </input>
+        <input id="emailPlaceholderNone"
+               placeholder=""
+               type="email">
+        </input>
+        <input id="datePlaceholder"
+               placeholder="placeholder"
+               type="date">
+        </input>
+        <input id="datePlaceholderNone"
+               placeholder=""
+               type="date">
+        </input>
+        <input id="timePlaceholder"
+               placeholder="placeholder"
+               type="time">
+        </input>
+        <input id="timePlaceholderNone"
+               placeholder=""
+               type="time">
+        </input>
+        <input id="numberPlaceholder"
+               placeholder="placeholder"
+               type="number">
+        </input>
+        <input id="numberPlaceholderNone"
+               placeholder=""
+               type="number">
+        </input>
+        <input id="passwordPlaceholder"
+               placeholder="placeholder"
+               type="password">
+        </input>
+        <input id="passwordPlaceholderNone"
+               placeholder=""
+               type="password">
+        </input>
+        <text class="sub-title">
+            特有属性 -- maxlength
+        </text>
+        <input id="maxlength"
+               maxlength="10">
+        </input>
+        <text class="sub-title">
+            特有属性 -- enterkeytype
+        </text>
+        <input id="enterkeytypeDefault"
+               enterkeytype="default">
+        </input>
+        <input id="enterkeytypeNext"
+               enterkeytype="next">
+        </input>
+        <input id="enterkeytypeGo"
+               enterkeytype="go">
+        </input>
+        <input id="enterkeytypeDone"
+               enterkeytype="done">
+        </input>
+        <input id="enterkeytypeSend"
+               enterkeytype="send">
+        </input>
+        <input id="enterkeytypeSearch"
+               enterkeytype="search">
+        </input>
+        <text class="sub-title">
+            特有属性 -- headericon
+        </text>
+        <input id="headericon"
+               headericon="../../../common/images/icon.png">
+        </input>
+        <input id="headericonNone"
+               headericon="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- showcounter
+        </text>
+        <input id="showcounterTrue"
+               maxlength="10"
+               showcounter="true">
+        </input>
+        <input id="showcounterFalse"
+               maxlength="10"
+               showcounter="false">
+        </input>
+        <input id="showcounterNone"
+               showcounter="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- menuoptions
+        </text>
+        <input id="menuoptions"
+               menuoptions="[{icon:'../../../common/images/icon.png',content:'content1'},{icon:'../../../common/images/icon.png',content:'content2'}]">
+        </input>
+        <input id="menuoptionsNone"
+               menuoptions="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- autofocus
+        </text>
+        <input id="autofocusTrue"
+               autofocus="true">
+        </input>
+        <input id="autofocusFalse"
+               autofocus="false">
+        </input>
+        <input id="autofocusNone"
+               autofocus="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- selectedstart
+        </text>
+        <input id="selectedstart"
+               selectedstart="0">
+        </input>
+        <input id="selectedstartNone"
+               selectedstart="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- selectedend
+        </text>
+        <input id="selectedendTrue"
+               selectedend="10">
+        </input>
+        <input id="selectedendNone"
+               selectedend="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- softkeyboardenabled
+        </text>
+        <input id="softkeyboardenabledTrue"
+               softkeyboardenabled="true">
+        </input>
+        <input id="softkeyboardenabledFalse"
+               softkeyboardenabled="false">
+        </input>
+        <input id="softkeyboardenabledNone"
+               softkeyboardenabled="">
+        </input>
+        <text class="sub-title">
+            特有属性 -- showpasswordicon
+        </text>
+        <input id="showpasswordiconTrue"
+               showpasswordicon="true"
+                type="password">
+        </input>
+        <input id="showpasswordiconFalse"
+               showpasswordicon="false"
+               type="password">
+        </input>
+        <input id="showpasswordiconNone"
+               showpasswordicon=""
+               type="password">
+        </input>
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <input for="{{array}}" tid="id" style="color: #679855; margin: 1px;"
+               id="showFor{{$item.id}}" value="{{$item.name }}">
+        </input>
+        <text class="sub-title">
+            特有属性 -- if elif
+        </text>
+        <input if="false" id="showIf">
+        </input>
+        <input elif="false" id="showElseIfTrue">
+        </input>
+        <input elif="true" id="showElseIfFalse">
+        </input>
+        <input else id="showElse">
+        </input>
+    </div>
+</div>

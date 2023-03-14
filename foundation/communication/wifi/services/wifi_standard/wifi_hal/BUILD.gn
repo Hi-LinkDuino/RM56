@@ -1,0 +1,83 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_executable("wifi_hal_service") {
+  install_enable = true
+  sources = [
+    "common/wifi_hal_common_func.c",
+    "main.c",
+    "wifi_hal_adapter.c",
+    "wifi_hal_ap_interface.c",
+    "wifi_hal_base_interface.c",
+    "wifi_hal_callback.c",
+    "wifi_hal_chip_interface.c",
+    "wifi_hal_crpc_ap.c",
+    "wifi_hal_crpc_base.c",
+    "wifi_hal_crpc_chip.c",
+    "wifi_hal_crpc_common.c",
+    "wifi_hal_crpc_p2p.c",
+    "wifi_hal_crpc_server.c",
+    "wifi_hal_crpc_sta.c",
+    "wifi_hal_crpc_supplicant.c",
+    "wifi_hal_module/hostapd_hal/wifi_hostapd_hal.c",
+    "wifi_hal_module/wpa_supplicant_hal/wifi_wpa_common.c",
+    "wifi_hal_module/wpa_supplicant_hal/wifi_wpa_hal.c",
+    "wifi_hal_module/wpa_supplicant_hal/wpa_p2p_hal/wifi_p2p_hal.c",
+    "wifi_hal_module/wpa_supplicant_hal/wpa_sta_hal/wifi_supplicant_hal.c",
+    "wifi_hal_module_manage.c",
+    "wifi_hal_p2p_interface.c",
+    "wifi_hal_sta_interface.c",
+    "wifi_hal_vendor_interface.c",
+  ]
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_hal",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_hal/common",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_hal/wifi_hal_module/hostapd_hal",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_hal/wifi_hal_module/wpa_supplicant_hal",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_hal/wifi_hal_module/wpa_supplicant_hal/wpa_sta_hal",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_hal/wifi_hal_module/wpa_supplicant_hal/wpa_p2p_hal",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard/src/",
+    "//third_party/bounds_checking_function/include/",
+    "//drivers/peripheral/wlan/interfaces/include/",
+    "//drivers/peripheral/wlan/client/include/",
+  ]
+
+  deps = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//drivers/peripheral/wlan/hal:wifi_hal",
+    "//foundation/communication/wifi/services//wifi_standard/wifi_hal/etc/init:etc",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC:crpc_server",
+    "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client",
+    "//utils/native/base:utils",
+  ]
+
+  cflags_cc = [ "-fno-rtti" ]
+  defines = []
+  if (product_name == "rk3568") {
+    defines += [ "PRODUCT_RK" ]
+  }
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+
+group("wifi_hal") {
+  deps = [ ":wifi_hal_service" ]
+}

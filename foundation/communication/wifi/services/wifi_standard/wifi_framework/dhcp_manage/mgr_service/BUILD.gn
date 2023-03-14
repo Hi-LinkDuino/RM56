@@ -1,0 +1,60 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/appexecfwk/standard/appexecfwk.gni")
+
+################################################################################
+
+ohos_shared_library("dhcp_manager_service") {
+  install_enable = true
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_client_service_impl.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_event_subscriber.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_func.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_server_service.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/src/dhcp_service.cpp",
+  ]
+
+  include_dirs = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/interfaces",
+    "//utils/native/base/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include",
+  ]
+
+  deps = [
+    "${aafwk_path}/interfaces/innerkits/base:base",
+    "${aafwk_path}/interfaces/innerkits/want:want",
+    "//utils/native/base:utils",
+  ]
+
+  cflags_cc = [
+    "-std=c++17",
+    "-Wall",
+  ]
+
+  external_deps = [
+    "ces_standard:cesfwk_innerkits",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

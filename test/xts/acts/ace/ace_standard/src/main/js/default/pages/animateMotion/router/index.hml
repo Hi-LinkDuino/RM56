@@ -1,0 +1,72 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+ <div class="container">
+    <text class="container-title">
+        animateMotion动画效果
+    </text>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果1
+            </text>
+            <svg width="150" height="120" class="svg-style">
+                <path fill="none" stroke="blue" stroke-width="3" d="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z"></path>
+                <path fill="red" d="M-5,-10 L15,0 L-5,10 L0,0 Z">
+                    <animateMotion dur="2000" repeatCount="indefinite" rotate="auto" keyPoints="0;0.2;0.4;0.6;0.8;1" path="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z">
+                    </animateMotion>
+                </path>>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果2
+            </text>
+            <svg width="150" height="120" class="svg-style">
+                <path fill="none" stroke="blue" stroke-width="3" d="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z"></path>
+                <path fill="red" d="M-5,-10 L15,0 L-5,10 L0,0 Z">
+                    <animateMotion dur="2000" repeatCount="1" rotate="auto" keyPoints="0;0.2;0.4;0.6;0.8;1" path="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z">
+                    </animateMotion>
+                </path>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果3
+            </text>
+            <svg width="150" height="120" class="svg-style">
+                <path fill="none" stroke="blue" stroke-width="3" d="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z"></path>
+                <path fill="red" d="M-5,-10 L15,0 L-5,10 L0,0 Z">
+                    <animateMotion dur="2000" repeatCount="indefinite" rotate="auto-reverse" path="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z">
+                    </animateMotion>
+                </path>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果4
+            </text>
+            <svg width="150" height="120" class="svg-style">
+                <path fill="none" stroke="blue" stroke-width="3" d="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120,0 z"></path>
+                <path fill="red" d="M-5,-10 L15,0 L-5,10 L0,0 Z">
+                    <animateMotion dur="2000" repeatCount="1" fill="freeze" rotate="5" path="m20,60 c0,-100 120,100 120,0 c0,-100 -120,100 -120, 0 z">
+                    </animateMotion>
+                </path>
+            </svg>
+        </div>
+    </div>
+</div>

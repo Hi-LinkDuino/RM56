@@ -1,0 +1,5 @@
+root {
+    module = "test";
+    // test number miss ']'
+    term1 = [1, 2,
+}

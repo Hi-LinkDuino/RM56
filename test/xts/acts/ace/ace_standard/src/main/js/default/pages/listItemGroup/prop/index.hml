@@ -1,0 +1,194 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            list-item-group通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <list-item-group id="idProp">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <list-item-group id="classProp"
+                         class="classProp">
+        </list-item-group>
+        <list-item-group id="classPropNone"
+                         class="">
+        </list-item-group>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <list-item-group id="styleProp"
+                         style="width:10%;height:20px;background-color:red">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <list-item-group id="refProp"
+                         ref="refProp">
+        </list-item-group>
+        <list-item-group id="refPropNone"
+                         ref="">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <list-item-group id="disabledPropTrue"
+                         disabled="true">
+        </list-item-group>
+        <list-item-group id="disabledPropFalse"
+                         disabled="false">
+        </list-item-group>
+        <list-item-group id="disabledPropNone"
+                         disabled="">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <list-item-group id="focusablePropTrue"
+                         focusable="true">
+        </list-item-group>
+        <list-item-group id="focusablePropFalse"
+                         focusable="false">
+        </list-item-group>
+        <list-item-group id="focusablePropNone"
+                         focusable="">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <list-item-group id="dataProp"
+                         data-list-item-group="通用属性 -- data-*">
+        </list-item-group>
+        <list-item-group id="dataPropNone"
+                         data-list-item-group="">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <list-item-group id="clickEffectPropSmall"
+                         click-effect="spring-small">
+        </list-item-group>
+        <list-item-group id="clickEffectPropMedium"
+                         click-effect="spring-medium">
+        </list-item-group>
+        <list-item-group id="clickEffectPropLarge"
+                         click-effect="spring-large">
+        </list-item-group>
+        <list-item-group id="clickEffectPropNone"
+                         click-effect="">
+        </list-item-group>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <list-item-group id="dirPropRtl"
+                         dir="rtl">
+        </list-item-group>
+        <list-item-group id="dirPropAuto"
+                         dir="auto">
+        </list-item-group>
+        <list-item-group id="dirPropLtr"
+                         dir="ltr">
+        </list-item-group>
+        <list-item-group id="dirPropNone"
+                         dir="">
+        </list-item-group>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <list-item-group id="forPropNull"
+                         for="">
+        </list-item-group>
+        <list-item-group id="forPropOne"
+                         for="{{listOne}}">
+        </list-item-group>
+        <list-item-group id="forPropThree"
+                         for="{{listThree}}">
+        </list-item-group>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <list-item-group id="ifPropTrue"
+                         if="true">
+        </list-item-group>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <list-item-group id="showPropTrue"
+                         show="true">
+        </list-item-group>
+        <list-item-group id="showPropFalse"
+                         show="false">
+        </list-item-group>
+        <list-item-group id="showPropNone"
+                         show="">
+        </list-item-group>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            list-item-group特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- Type
+        </text>
+        <list-item-group id="Type" type="default"></list-item-group>
+        <list-item-group id="TypeNone" type=""></list-item-group>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <list-item-group class="propNewAdd"
+                tid="id">
+        </list-item-group>
+        <list-item-group class="propNewAdd"
+                tid="">
+        </list-item-group>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <list-item-group class="propNewAdd"
+                if="false">
+        </list-item-group>
+        <list-item-group class="propNewAdd"
+                elif="true">
+        </list-item-group>
+        <list-item-group class="propNewAdd"
+                elif="false">
+        </list-item-group>
+    </div>
+</div>

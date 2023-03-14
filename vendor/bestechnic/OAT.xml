@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="copyright" name="Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved" path=".*" desc="original bestechnic copyright"/>
+                <policyitem type="license" name="Apache" path=".*" desc="bestechnic use apache 2.0 license"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="ARM Limited appache2">
+                <filteritem type="filepath" name="display_demo/config.json" desc="ARM limits license"/>
+                <filteritem type="filepath" name="iotlink_demo/config.json" desc="ARM limits license"/>
+                <filteritem type="filepath" name="mini_distributed_music_player/fs/data/data/data/dsoftbus/placeholder" desc="littlefs file placeholder"/>
+                <filteritem type="filepath" name="display_demo/fs/data/data/data/dsoftbus/placeholder" desc="littlefs file placeholder"/>
+                <filteritem type="filepath" name="xts_demo/config.json" desc="ARM limits license"/>
+                <filteritem type="filepath" name="display_demo/fs/data/data/font.ttf" desc="fs file"/>
+                <filteritem type="filepath" name="xts_demo/fs/data/data/font.ttf" desc="fs file"/>
+                <filteritem type="filepath" name="mini_distributed_music_player/fs/data/data/font.ttf" desc="fs file"/>
+                <filteritem type="filepath" name="xts_demo/fs/data/data/KV_FILE_SUM" desc="fs file"/>
+                <filteritem type="filepath" name="iotlink_demo/fs/*" desc="fs file"/>
+                <filteritem type="filepath" name="xts_demo/fs/data/data/data/dsoftbus/placeholder" desc="littlefs file placeholder"/>
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+                <filteritem type="filename" name="*.a|*.so|*.bin|*.png|*.mp3|*.jpg|*.gif|.ttf" desc="Temp files"/>
+            </filefilter>
+        </filefilterlist>
+    </oatconfig>
+</configuration>

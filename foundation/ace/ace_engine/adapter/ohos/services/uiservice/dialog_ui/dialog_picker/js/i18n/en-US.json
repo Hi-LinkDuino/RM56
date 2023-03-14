@@ -1,0 +1,15 @@
+{
+  "message": {
+    "hello": "hello world"
+  },
+  "strings": {
+    "btnCopy": "copy",
+    "btnPrint": "print",
+    "uri": "network uri: ",
+    "unknownName": "unknown file name",
+    "fileSize": "file size is ",
+    "sameFile": "same format file",
+    "unSameFile": "different format file",
+    "totalSize": "total size is "
+  },
+}

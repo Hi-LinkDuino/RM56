@@ -1,0 +1,114 @@
+{
+  "app": {
+    "bundleName": "com.example.third1",
+    "vendor": "example",
+    "version": {
+      "code": 2,
+      "name": "2.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.third1",
+    "name": "com.example.third1.MyApplication",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.third1.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "forms": [
+          {
+            "colorMode": "light",
+            "description": " JSA1 Form",
+            "supportDimensions": [ "2*2", "2*4" ],
+            "type": "JS",
+            "jsComponentName": "JS_nameA1",
+            "metaData": {
+              "customizeData": [
+                {
+                  "name": "originWidgetNameA1",
+                  "value": "com.openharmony.weather.testWidgetA1"
+                }
+              ]
+            },
+            "isDefault": true,
+            "deepLink": "ability://com.example.myapplication.fa/.MainAbility",
+            "defaultDimension": "1*2",
+            "name": "Form_JSA1",
+            "scheduledUpateTime": "21:55",
+            "updateEnabled": true,
+            "updateDuration": 1
+          }
+        ],
+        "launchType": "standard",
+		"metaData": {
+          "parameters": [{
+            "name": "DataA1",
+            "type": "float",
+            "description": "$string:mainability_description"
+          }],
+          "results": [{
+            "name": "DataA1",
+            "type": "float",
+            "description": "$string:mainability_description"
+          }],
+          "customizeData": [{
+            "name": "DataA1",
+            "value": "float",
+            "extra": "$string:mainability_description"
+          }]
+        }
+      }
+    ],
+	"shortcuts": [
+      {
+        "icon": "$media:icon",
+        "shortcutId": "id.thirdA1",
+        "label": "$string:app_name",
+        "intents": [
+          {
+            "targetClass":"com.example.third1.MainAbility",
+            "targetBundle":"com.example.third1"
+          }
+        ]
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

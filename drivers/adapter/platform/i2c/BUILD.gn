@@ -1,0 +1,28 @@
+#
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+#
+# This file is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+#
+
+import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+
+module_switch = defined(LOSCFG_DRIVERS_HDF_PLATFORM_I2C)
+module_name = get_path_info(rebase_path("."), "name")
+
+hdf_driver(module_name) {
+  sources = []
+  if (defined(LOSCFG_SOC_COMPANY_BESTECHNIC)) {
+    sources += [ "i2c_bes.c" ]
+  }
+  if (defined(LOSCFG_SOC_COMPANY_WINNERMICRO)) {
+    sources += [ "i2c_wm.c" ]
+  }
+
+  include_dirs = [ "." ]
+  if (defined(LOSCFG_SHIELD_V200ZR_EVB_T1) &&
+      defined(LOSCFG_DRIVERS_HDF_CONFIG_MACRO)) {
+    deps = [ "//device/board/fnlink/shields" ]
+  }
+}

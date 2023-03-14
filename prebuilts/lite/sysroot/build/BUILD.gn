@@ -1,0 +1,137 @@
+# Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//build/lite/config/component/lite_component.gni")
+
+targets = ""
+if (ohos_kernel_type == "liteos_a") {
+  targets = "liteos_a_user"
+} else if (ohos_kernel_type == "linux") {
+  targets = "linux_user"
+}
+
+assert(targets != "", "Unsupported ohos_kernel_type: $ohos_kernel_type")
+
+sysroot_path = rebase_path(ohos_current_sysroot)
+arch_cflags = string_join(" ", target_arch_cflags)
+
+build_ext_component("build_sysroot") {
+  no_default_deps = true
+  deps = []
+  exec_path = rebase_path(target_out_dir)
+  if (!defined(board_configed_sysroot) || board_configed_sysroot == "") {
+    makefile = rebase_path("Makefile", exec_path)
+    command = "make TOPDIR=$ohos_root_path SYSROOTDIR=$sysroot_path TARGETS=$targets -f $makefile"
+    command += " ARCH=$arch ARCH_CFLAGS=\"$arch_cflags\""
+    if (ohos_build_compiler == "clang") {
+      command += " CLANG=\"$ohos_current_cc_command\" TARGET=$target_triple"
+    } else {
+      command += " GCC=\"$ohos_current_cc_command\""
+    }
+    if (ohos_build_type == "debug") {
+      command += " BUILD_DEBUG=true"
+    }
+    if (ohos_kernel_type == "linux") {
+      deps += [ "//kernel/linux/build:linux_kernel" ]
+      command += " LINUXDIR=" + rebase_path("$root_out_dir/kernel/linux-4.19")
+      command += " PREBUILTLINUXHDRDIR=" + rebase_path(
+                     "//kernel/linux/patches/linux-4.19/prebuilts/usr/include")
+    }
+  } else {
+    command = "true"
+  }
+
+  # copy C/C++ runtime libraries to lib out dir
+  if (ohos_build_compiler == "clang") {
+    runtime_libs = [
+      "libc++.so",
+      "libc.so",
+    ]
+    compiler_cmd = "$ohos_current_cxx_command --target=$target_triple --sysroot=$sysroot_path $arch_cflags"
+  } else {
+    runtime_libs = [
+      "libstdc++.so.6",
+      "libc.so",
+      "libgcc_s.so.1",
+    ]
+    compiler_cmd =
+        "$ohos_current_cxx_command --sysroot=$sysroot_path $arch_cflags"
+  }
+
+  libs = []
+  outputs = []
+  foreach(lib, runtime_libs) {
+    libs += [ "\$($compiler_cmd -print-file-name=$lib)" ]
+    outputs += [ "$root_out_dir/unstripped/usr/lib/$lib" ]
+  }
+
+  lib_out_dir = rebase_path("$root_out_dir/unstripped/usr/lib", exec_path)
+  command += " && mkdir -p $lib_out_dir && sh -c \"cp -f " +
+             string_join(" ", libs) + " $lib_out_dir\""
+}
+
+action_foreach("strip") {
+  no_default_deps = true
+  deps = [ ":build_sysroot" ]
+  script = "//build/lite/run_shell_cmd.py"
+  set_sources_assignment_filter([ "*.txt" ])
+  sources = get_target_outputs(deps[0])
+  outputs = [ "$root_out_dir/libs/{{source_file_part}}" ]
+  args = [
+    "$ohos_current_strip_command",
+    "{{source}}",
+    "-o",
+    rebase_path("$root_out_dir/libs/{{source_file_part}}", root_build_dir),
+  ]
+}
+
+config("sysroot_flags") {
+  if (ohos_build_compiler == "clang") {
+    cflags = [
+      "--target=$target_triple",
+      "--sysroot=$sysroot_path",
+    ]
+  } else {
+    cflags = [
+      "--sysroot=$sysroot_path",
+      "-specs=musl-gcc.specs",
+    ]
+  }
+  cflags_cc = cflags
+  ldflags = cflags
+  asmflags = cflags
+}
+
+group("build") {
+  all_dependent_configs = [ ":sysroot_flags" ]
+  deps = [
+    ":build_sysroot",
+    ":strip",
+  ]
+}

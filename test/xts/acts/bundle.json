@@ -1,0 +1,30 @@
+{
+    "name": "@ohos/xts_acts",
+    "description": "acts",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "test/xts/acts"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "xts_acts",
+        "subsystem": "xts",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": [ "//test/xts/acts:acts" ]
+        }
+    }
+}

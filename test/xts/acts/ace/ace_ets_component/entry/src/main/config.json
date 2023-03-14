@@ -1,0 +1,92 @@
+{
+  "app": {
+    "bundleName": "com.open.harmony.acetest",
+    "vendor": "open",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 7,
+      "releaseType": "Release",
+      "target": 7
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.open.harmony.acetest",
+    "name": ".MyApplication",
+    "mainAbility": "com.open.harmony.acetest.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index",
+          "pages/appear",
+          "pages/areaChange",
+          "pages/ellipse",
+          "pages/enable",
+          "pages/flex",
+          "pages/gauge",
+          "pages/global",
+          "pages/gridContainer",
+          "pages/gridSettings",
+          "pages/imageEffects",
+          "pages/layoutConstraints",
+          "pages/list",
+          "pages/marquee",
+          "pages/overlay",
+          "pages/stepper",
+          "pages/swiper",
+          "pages/textStyle",
+          "pages/touchAble",
+          "pages/touch",
+          "pages/visibility",
+          "pages/zIndex"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

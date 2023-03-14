@@ -1,0 +1,95 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.c_test.types.v1_0;
+
+enum ESample
+{
+    MEM_ONE,
+    MEM_TWO,
+    MEM_THREE,
+};
+
+struct SSample
+{
+    boolean m1;
+    int m2;
+    double m3;
+    String m4;
+};
+
+union USample
+{
+    boolean m1;
+    int m2;
+};
+
+struct SSample2
+{
+    boolean m1;
+    byte m2;
+    short m3;
+    int m4;
+    long m5;
+    unsigned char m6;
+    unsigned short m7;
+    unsigned int m8;
+    unsigned long m9;
+    float m10;
+    double m11;
+};
+
+struct SSample3
+{
+    String m1;
+    enum ESample m2;
+    struct SSample2 m3;
+    FileDescriptor m4;
+};
+
+struct SSample4
+{
+    boolean[] m1;
+    byte[] m2;
+    short[] m3;
+    int[] m4;
+    long[] m5;
+    unsigned char[] m6;
+    unsigned short[] m7;
+    unsigned int[] m8;
+    unsigned long[] m9;
+    float[] m10;
+    double[] m11;
+    String[] m12;
+    enum ESample[] m13;
+    struct SSample[] m14;
+};
+
+struct SSample5
+{
+    List<boolean> m1;
+    List<byte> m2;
+    List<short> m3;
+    List<int> m4;
+    List<long> m5;
+    List<unsigned char> m6;
+    List<unsigned short> m7;
+    List<unsigned int> m8;
+    List<unsigned long> m9;
+    List<float> m10;
+    List<double> m11;
+    List<String> m12;
+    List<enum ESample> m13;
+    List<struct SSample> m14;
+};
+
+struct SSample6 {
+    union USample m1;
+    union USample[] m2;
+    List<union USample> m3;
+};

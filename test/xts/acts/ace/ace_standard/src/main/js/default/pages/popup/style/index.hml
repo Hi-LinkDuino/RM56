@@ -1,0 +1,151 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            popup通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <popup id="styleOne" target="text1">
+        </popup>
+        <popup id="styleTwo" target="text1">
+        </popup>
+        <popup id="styleThree" target="text1">
+        </popup>
+        <popup id="styleFour" target="text1">
+        </popup>
+        <popup id="styleFive" target="text1">
+        </popup>
+        <popup id="styleSix" target="text1">
+        </popup>
+        <popup id="styleSeven" target="text1">
+        </popup>
+        <popup id="styleEight" target="text1">
+        </popup>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <popup id="styleTen" target="text1">
+            </popup>
+            <popup id="styleEleven" target="text1">
+            </popup>
+            <popup id="styleTwelve" target="text1">
+            </popup>
+            <popup id="styleThirteen" target="text1">
+            </popup>
+            <popup id="styleFourteen" target="text1">
+            </popup>
+            <popup id="styleFifteen" target="text1">
+            </popup>
+            <popup id="styleSixteen" target="text1">
+            </popup>
+            <popup id="styleSeventeen" target="text1">
+            </popup>
+            <popup id="styleEighteen" target="text1">
+            </popup>
+            <popup id="styleNineteen" target="text1">
+            </popup>
+            <popup id="styleTwenty" target="text1">
+            </popup>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <popup id="styleTwentyOne" target="text1">
+            </popup>
+            <popup id="styleTwentyTwo" target="text1">
+            </popup>
+            <popup id="styleTwentyThree" target="text1">
+            </popup>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <popup id="styleTwentyFour" target="text1">
+        </popup>
+        <popup id="styleTwentyFive" target="text1">
+        </popup>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <popup id="styleTwentySix" target="text1">
+        </popup>
+        <popup id="styleTwentySeven" target="text1">
+        </popup>
+        <popup id="styleTwentyNine" target="text1">
+        </popup>
+        <popup id="styleThirty" target="text1">
+        </popup>
+        <popup id="styleThirtyOne"  target="text1">
+        </popup>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <popup id="styleThirtyTwo" target="text1">
+        </popup>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="ani-container">
+
+        <text class="title">
+            动画样式
+        </text>
+
+        <text id="textani1" class="sub-title">
+            popup动画样式1
+        </text>
+
+        <text id="textani2" class="sub-title">
+            popup动画样式2
+        </text>
+    </div>
+    <popup id="popupani1"
+           class="ani1"
+           target="textani1"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupani1">
+        <text class="text">popupani-1</text>
+    </popup>
+
+    <popup id="popupani2"
+           class="ani2"
+           target="textani2"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupani2">
+        <text class="text">popupani-2</text>
+    </popup>
+
+</div>
+

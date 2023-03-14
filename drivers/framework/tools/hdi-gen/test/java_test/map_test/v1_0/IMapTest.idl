@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.java_test.map_test.v1_0;
+
+sequenceable test.java_test.types.v1_0.SequenceData;
+
+interface IMapTest {
+    //same key
+    MapIntByteTest([in] Map<int, byte> param1, [out] Map<int, byte> param2);
+
+    MapIntShortTest([in] Map<int, short> param1, [out] Map<int, short> param2);
+
+    MapIntIntTest([in] Map<int, int> param1, [out] Map<int, int> param2);
+
+    MapIntLongTest([in] Map<int, long> param1, [out] Map<int, long> param2);
+
+    MapIntFloatTest([in] Map<int, float> param1, [out] Map<int, float> param2);
+
+    MapIntDoubleTest([in] Map<int, double> param1, [out] Map<int, double> param2);
+
+    MapIntStringTest([in] Map<int, String> param1, [out] Map<int, String> param2);
+
+    MapIntFdTest([in] Map<int, FileDescriptor> param1, [out] Map<int, FileDescriptor> param2);
+
+    MapIntSeqTest([in] Map<int, SequenceData> param1, [out] Map<int, SequenceData> param2);
+
+    //same value
+    MapByteIntTest([in] Map<byte, int> param1, [out] Map<byte, int> param2);
+
+    MapShortIntTest([in] Map<short, int> param1, [out] Map<short, int> param2);
+
+    MapLongIntTest([in] Map<long, int> param1, [out] Map<long, int> param2);
+
+    MapFloatIntTest([in] Map<float, int> param1, [out] Map<float, int> param2);
+
+    MapDoubleIntTest([in] Map<double, int> param1, [out] Map<double, int> param2);
+
+    MapStringIntTest([in] Map<String, int> param1, [out] Map<String, int> param2);
+
+    MapFdIntTest([in] Map<FileDescriptor, int> param1, [out] Map<FileDescriptor, int> param2);
+
+    MapSeqIntTest([in] Map<SequenceData, int> param1, [out] Map<SequenceData, int> param2);
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration datetime="2019-12-12 10:33:10" url="http://127.0.0.1/dummy">
+    <item name="SpentTime001" baseline="1200" lastvalue="1200" floatrange="0.05"></item>
+    <item name="SpentTime002" baseline="1000" lastvalue="1000" floatrange="0.06"></item>
+    <item name="SpentTime003" baseline="110"  lastvalue="110"  floatrange="0.05"></item>
+    <item name="SpentTime004" baseline="108"  lastvalue="108"  floatrange="0.05"></item>
+</configuration>

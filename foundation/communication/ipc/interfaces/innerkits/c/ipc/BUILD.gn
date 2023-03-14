@@ -1,0 +1,220 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+
+SUBSYSTEM_DIR = "//foundation/communication/ipc"
+IPC_CORE_ROOT = "$SUBSYSTEM_DIR/ipc/native/c"
+
+config("ipc_rpc_interface") {
+  include_dirs = [
+    "$SUBSYSTEM_DIR/interfaces/innerkits/c/ipc/include",
+    "$SUBSYSTEM_DIR/interfaces/innerkits/c/dbinder/include",
+  ]
+}
+
+if (ohos_kernel_type == "liteos_m") {
+  hilog_lite_include_path =
+      "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite"
+} else {
+  hilog_lite_include_path =
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits"
+}
+
+ipc_common_include = [
+  "$IPC_CORE_ROOT/ipc/include",
+  "$IPC_CORE_ROOT/manager/include",
+  "//third_party/bounds_checking_function/include",
+  "//utils/native/lite/include",
+  "$hilog_lite_include_path",
+]
+
+ipc_common_src = [
+  "$IPC_CORE_ROOT/manager/src/ipc_process_skeleton.c",
+  "$IPC_CORE_ROOT/manager/src/ipc_skeleton.c",
+  "$IPC_CORE_ROOT/manager/src/ipc_thread_pool.c",
+  "$IPC_CORE_ROOT/manager/src/iremote_invoker.c",
+  "$IPC_CORE_ROOT/manager/src/serializer.c",
+]
+
+if (ohos_kernel_type == "liteos_m") {
+  SYSTEM_LEVEL = "mini"
+  enable_socket_trans = false
+  static_library("rpc_manager") {
+    sources = ipc_common_src
+    sources += [
+      "$IPC_CORE_ROOT/ipc/src/liteos_m/ipc_invoker.c",
+      "$IPC_CORE_ROOT/ipc/src/liteos_m/serializer_inner.c",
+      "$IPC_CORE_ROOT/manager/src/rpc_log.c",
+      "$IPC_CORE_ROOT/rpc/ipc_adapter/${SYSTEM_LEVEL}/ipc_proxy_inner.c",
+      "$IPC_CORE_ROOT/rpc/ipc_adapter/${SYSTEM_LEVEL}/ipc_stub_inner.c",
+      "$IPC_CORE_ROOT/rpc/src/dbinder_invoker.c",
+      "$IPC_CORE_ROOT/rpc/src/rpc_process_skeleton.c",
+      "$IPC_CORE_ROOT/rpc/src/rpc_trans_callback.c",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/src/rpc_softbus_trans.c",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/src/rpc_trans.c",
+      "$SUBSYSTEM_DIR/utils/src/rpc_session_handle.c",
+    ]
+    public_configs = [ ":ipc_rpc_interface" ]
+    include_dirs = ipc_common_include
+    include_dirs += [
+      "$IPC_CORE_ROOT/rpc/include",
+      "$IPC_CORE_ROOT/rpc/ipc_adapter/include",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/include",
+      "$SUBSYSTEM_DIR/services/dbinder/c/include",
+      "$SUBSYSTEM_DIR/utils/include",
+    ]
+    deps = [
+      "//foundation/communication/dsoftbus/sdk:softbus_client",
+      "//foundation/communication/ipc/ipc/native/c/adapter:rpc_adapter",
+      "//kernel/liteos_m/components/net",
+    ]
+    defines = [ "RPC_SOFTBUS_TRANS" ]
+    ldflags = [ "-lpthread" ]
+
+    if (enable_socket_trans) {
+      sources -= [ "$IPC_CORE_ROOT/rpc/trans_adapter/src/rpc_softbus_trans.c" ]
+      sources += [ "$SUBSYSTEM_DIR/ipc/test/rpc/socket_trans/src/rpc_${SYSTEM_LEVEL}_socket_trans.c" ]
+      include_dirs += [ "$SUBSYSTEM_DIR/ipc/test/rpc/socket_trans/include" ]
+      defines -= [ "RPC_SOFTBUS_TRANS" ]
+      defines += [ "RPC_SOCKET_TRANS" ]
+    }
+  }
+} else if (ohos_kernel_type == "liteos_a") {
+  shared_library("rpc_log") {
+    sources = [ "$IPC_CORE_ROOT/manager/src/rpc_log.c" ]
+    include_dirs = [
+      "$IPC_CORE_ROOT/manager/include",
+      "$hilog_lite_include_path",
+    ]
+    public_deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//third_party/bounds_checking_function/:libsec_shared",
+    ]
+  }
+
+  shared_library("ipc_single") {
+    sources = ipc_common_src
+    sources += [ "$IPC_CORE_ROOT/ipc/src/liteos_a/ipc_invoker.c" ]
+    public_configs = [ ":ipc_rpc_interface" ]
+    include_dirs = ipc_common_include
+    ldflags = [
+      "-lstdc++",
+      "-lpthread",
+    ]
+    cflags = [ "-fPIC" ]
+    cflags_cc = cflags
+    public_deps = [
+      ":rpc_log",
+      "//foundation/communication/ipc/ipc/native/c/adapter:rpc_adapter",
+      "//third_party/bounds_checking_function/:libsec_shared",
+    ]
+  }
+
+  shared_library("rpc_manager") {
+  }
+} else {
+  shared_library("rpc_log") {
+    sources = [ "$IPC_CORE_ROOT/manager/src/rpc_log.c" ]
+    include_dirs = [
+      "$IPC_CORE_ROOT/manager/include",
+      "$hilog_lite_include_path",
+    ]
+    public_deps = [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//third_party/bounds_checking_function/:libsec_shared",
+    ]
+  }
+
+  shared_library("ipc_single") {
+    sources = ipc_common_src
+    sources += [
+      "$IPC_CORE_ROOT/ipc/src/linux/ipc_invoker.c",
+      "$IPC_CORE_ROOT/ipc/src/linux/serializer_inner.c",
+      "$IPC_CORE_ROOT/rpc/src/rpc_process_skeleton_virtual.c",
+    ]
+    public_configs = [ ":ipc_rpc_interface" ]
+    include_dirs = ipc_common_include
+    include_dirs += [
+      "$IPC_CORE_ROOT/rpc/include",
+      "$IPC_CORE_ROOT/ipc/src/linux/include",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/include",
+      "$SUBSYSTEM_DIR/services/dbinder/c/include",
+      "$SUBSYSTEM_DIR/utils/include",
+    ]
+    ldflags = [
+      "-lstdc++",
+      "-lpthread",
+    ]
+    cflags = [ "-fPIC" ]
+    cflags_cc = cflags
+    public_deps = [
+      ":rpc_log",
+      "//foundation/communication/ipc/ipc/native/c/adapter:rpc_adapter",
+      "//third_party/bounds_checking_function/:libsec_shared",
+    ]
+    configs -= [ "//build/lite/config:clang_opt" ]
+  }
+
+  SYSTEM_LEVEL = "small"
+  enable_socket_trans = true
+  shared_library("rpc_manager") {
+    sources = ipc_common_src
+    sources += [
+      "$IPC_CORE_ROOT/ipc/src/linux/ipc_invoker.c",
+      "$IPC_CORE_ROOT/ipc/src/linux/serializer_inner.c",
+      "$IPC_CORE_ROOT/rpc/ipc_adapter/${SYSTEM_LEVEL}/ipc_proxy_inner.c",
+      "$IPC_CORE_ROOT/rpc/ipc_adapter/${SYSTEM_LEVEL}/ipc_stub_inner.c",
+      "$IPC_CORE_ROOT/rpc/src/dbinder_invoker.c",
+      "$IPC_CORE_ROOT/rpc/src/rpc_process_skeleton.c",
+      "$IPC_CORE_ROOT/rpc/src/rpc_trans_callback.c",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/src/rpc_softbus_trans.c",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/src/rpc_trans.c",
+      "$SUBSYSTEM_DIR/utils/src/rpc_session_handle.c",
+    ]
+    public_configs = [ ":ipc_rpc_interface" ]
+    include_dirs = ipc_common_include
+    include_dirs += [
+      "$IPC_CORE_ROOT/rpc/include",
+      "$IPC_CORE_ROOT/ipc/src/linux/include",
+      "$IPC_CORE_ROOT/rpc/ipc_adapter/include",
+      "$IPC_CORE_ROOT/rpc/trans_adapter/include",
+      "$SUBSYSTEM_DIR/services/dbinder/c/include",
+      "$SUBSYSTEM_DIR/utils/include",
+      "//third_party/bounds_checking_function/include",
+    ]
+    ldflags = [
+      "-lstdc++",
+      "-lpthread",
+    ]
+    cflags = [ "-fPIC" ]
+    cflags_cc = cflags
+    public_deps = [
+      ":rpc_log",
+      "//foundation/communication/ipc/ipc/native/c/adapter:rpc_adapter",
+      "//third_party/bounds_checking_function/:libsec_shared",
+    ]
+    deps = [ "//foundation/communication/dsoftbus/sdk:softbus_client" ]
+    defines = [ "RPC_SOFTBUS_TRANS" ]
+
+    if (enable_socket_trans) {
+      sources -= [ "$IPC_CORE_ROOT/rpc/trans_adapter/src/rpc_softbus_trans.c" ]
+      sources +=
+          [ "$SUBSYSTEM_DIR/ipc/test/rpc/socket_trans/src/rpc_socket_trans.c" ]
+      include_dirs += [ "$SUBSYSTEM_DIR/ipc/test/rpc/socket_trans/include" ]
+      deps -= [ "//foundation/communication/dsoftbus/sdk:softbus_client" ]
+      defines -= [ "RPC_SOFTBUS_TRANS" ]
+      defines += [ "RPC_SOCKET_TRANS" ]
+    }
+  }
+}

@@ -1,0 +1,189 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            form通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <form id="idProp">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <form id="classProp"
+              class="classProp">
+        </form>
+        <form id="classPropNone"
+              class="">
+        </form>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <form id="styleProp"
+              style="width:10%;height:20px;background-color:red">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <form id="refProp"
+              ref="refProp">
+        </form>
+        <form id="refPropNone"
+              ref="">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <form id="disabledPropTrue"
+              disabled="true">
+        </form>
+        <form id="disabledPropFalse"
+              disabled="false">
+        </form>
+        <form id="disabledPropNone"
+              disabled="">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <form id="focusablePropTrue"
+              focusable="true">
+        </form>
+        <form id="focusablePropFalse"
+              focusable="false">
+        </form>
+        <form id="focusablePropNone"
+              focusable="">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <form id="dataProp"
+              data-form="通用属性 -- data-*">
+        </form>
+        <form id="dataPropNone"
+              data-form="">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <form id="clickEffectPropSmall"
+              click-effect="spring-small">
+        </form>
+        <form id="clickEffectPropMedium"
+              click-effect="spring-medium">
+        </form>
+        <form id="clickEffectPropLarge"
+              click-effect="spring-large">
+        </form>
+        <form id="clickEffectPropNone"
+              click-effect="">
+        </form>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <form id="dirPropRtl"
+              dir="rtl">
+        </form>
+        <form id="dirPropAuto"
+              dir="auto">
+        </form>
+        <form id="dirPropLtr"
+              dir="ltr">
+        </form>
+        <form id="dirPropNone"
+              dir="">
+        </form>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <form id="forPropNull"
+              for="">
+        </form>
+        <form id="forPropOne"
+              for="{{listOne}}">
+        </form>
+        <form id="forPropThree"
+              for="{{listThree}}">
+        </form>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <form id="ifPropTrue"
+              if="true">
+        </form>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <form id="showPropTrue"
+              show="true">
+        </form>
+        <form id="showPropFalse"
+              show="false">
+        </form>
+        <form id="showPropNone"
+              show="">
+        </form>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            form特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <form class="propNewAdd"
+                tid="id">
+        </form>
+        <form class="propNewAdd"
+                tid="">
+        </form>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <form class="propNewAdd"
+                if="false">
+        </form>
+        <form class="propNewAdd"
+                elif="true">
+        </form>
+        <form class="propNewAdd"
+                elif="false">
+        </form>
+    </div>
+</div>

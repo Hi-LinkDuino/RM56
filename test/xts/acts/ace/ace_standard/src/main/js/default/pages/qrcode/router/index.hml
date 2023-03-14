@@ -1,0 +1,345 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+            <text class="sub-title">
+                qrcode通用样式1
+            </text>
+            <qrcode class="style1" id="style1" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode通用样式2
+            </text>
+            <div style="height: 120px;
+                    flex-weight: 1;">
+                <qrcode class="style2" id="style2" value="value">
+                </qrcode>
+            </div>
+            <text class="sub-title">
+                qrcode通用样式3
+            </text>
+            <qrcode class="style3" id="style3" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode通用样式4
+            </text>
+            <div style="height: 120px;
+                    flex-weight: 1;">
+                <qrcode class="style4" id="style4" value="value">
+                </qrcode>
+            </div>
+            <text  class="sub-title">
+                qrcode通用样式5
+            </text>
+            <div class="contain1">
+                <qrcode class="style5" id="style5" value="value">
+                </qrcode>
+                <qrcode class="style6" id="style6" value="value">
+                </qrcode>
+            </div>
+            <text  class="sub-title">
+                qrcode特有样式1
+            </text>
+            <div class="style7" id="style7">
+                <qrcode class="flex-item color-red" value="value">
+                </qrcode>
+                <qrcode class="flex-item color-white" value="value">
+                </qrcode>
+            </div>
+            <text  class="sub-title">
+                qrcode特有样式2
+            </text>
+            <div class="style8" id="style8">
+                <qrcode class="flex-item background-primary" value="value">
+                </qrcode>
+                <qrcode class="flex-item background-success" placeholder="placeholder" value="value">
+                </qrcode>
+            </div>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                qrcode动画样式1
+            </text>
+            <qrcode class="ani1"  value="value">
+            </qrcode>
+            <text class="sub-title">
+                qrcode动画样式2
+            </text>
+            <qrcode class="ani2"  value="value">
+            </qrcode>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                qrcode通用属性1
+            </text>
+            <qrcode id="prop1" class="prop1"
+                 disabled = "true" focusable ="true"
+                 data-name ="prop1" click-effect="spring-medium"
+                 dir ="rtl" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode通用属性2
+            </text>
+            <qrcode class="prop2" ref ="prop2" id="prop2"
+                    disabled = "false" focusable ="false"
+                    data-name ="prop2" click-effect="spring-large"
+                    dir ="ltr" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode通用属性3
+            </text>
+            <qrcode style="color: #679855; margin: 5px;" class="prop3" id="prop3" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode特有属性1
+            </text>
+            <div>
+                <qrcode class="prop4" id="prop4"
+                        value="value"
+                       placeholder="placeholder"
+                       menuoptions="[{icon:'../../../common/images/icon.png',content:'content1'},{icon:'../../../common/images/icon.png',content:'content2'}]"
+                       autofocus="true"
+                       selectedstart="0"
+                       selectedend="10"
+                       softkeyboardenabled="false">
+                </qrcode>
+                <qrcode if="false" class="prop2" ref ="prop2" style="background-color: rebeccapurple;" value="value">
+                </qrcode>
+                <qrcode elif="true" class="prop2" ref ="prop2" style="background-color: black;" value="value">
+                </qrcode>
+                <qrcode elif="false" class="prop2" ref ="prop2" style="background-color: blue;" value="value">
+                </qrcode>
+                <qrcode else class="prop2" ref ="prop2" style="background-color: yellow;" value="value">
+                </qrcode>
+            </div>
+            <text  class="sub-title">
+                qrcode特有属性2
+            </text>
+            <div>
+                <qrcode class="prop5" id="prop5"
+                       value=""
+                        placeholder=""
+                       maxlength="10"
+                       enterkeytype="go"
+                       headericon="../../../common/images/icon.png"
+                       showcounter="true"
+                       menuoptions=""
+                        autofocus="false"
+                       selectedstart=""
+                       selectedend=""
+                       softkeyboardenabled="true"
+                       showpasswordicon="false">
+                </qrcode>
+                <qrcode for="{{array}}" tid="id" style="color: #679855; margin: 5px;" class="prop3" value="{{$item.name }}">
+                </qrcode>
+            </div>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                qrcode通用事件1
+            </text>
+            <qrcode class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                 ontouchend="touchEnd" ontouchcancel="touchCancel" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode通用事件2
+            </text>
+            <qrcode class ="event2" onclick="click" ondoubleclick="doubleClick"
+                 onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                 onswipe="swipe" onattached="attached" ondetached="detached" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode通用事件3
+            </text>
+            <qrcode class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                 onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                 ondragstart="dragStart" ondrag="drag"
+                 ondragend="dragEnd" ondragenter="dragEnter"
+                 ondragover="dragOver" ondragleave="dragLeave"
+                 ondrop="drop" value="value"
+                    onaccessibility="onAccessibility">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode特有事件1
+            </text>
+            <qrcode class ="event3" value="value"
+                    onaccessibility="onAccessibility">
+            </qrcode>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                qrcode通用方法1
+            </text>
+            <qrcode id="function1" class="function1" ontouchstart="functionTest1" value="value">
+            </qrcode>
+            <text class="sub-title">
+                qrcode通用方法2
+            </text>
+            <qrcode id="function2" class="function2" ontouchstart="functionTest2" value="value">
+            </qrcode>
+            <text class="sub-title">
+                qrcode通用方法3
+            </text>
+            <qrcode id="function3" class="function3" ontouchstart="functionTest3" value="value">
+            </qrcode>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                qrcode渐变样式1
+            </text>
+            <qrcode class="gradient1" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode渐变样式2
+            </text>
+            <qrcode class="gradient2" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode渐变样式3
+            </text>
+            <qrcode class="gradient3" value="value">
+            </qrcode>
+            <text  class="sub-title">
+                qrcode渐变样式4
+            </text>
+            <qrcode class="gradient4" value="value">
+            </qrcode>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                qrcode无障碍1
+            </text>
+            <qrcode class="access1" accessibilitygroup ="true"
+                 accessibilitytext="这是qrcode"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants" value="value">
+            </qrcode>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                qrcode原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <qrcode style="width:22px; height:35px;background-color: blue;display-index: 1;" value="value">
+                </qrcode>
+                <qrcode style="width:23px; height:35px;background-color: black;display-index: 5;" value="value">
+                </qrcode>
+                <qrcode style="width:24px; height:35px;background-color: yellow;display-index: 4;" value="value">
+                </qrcode>
+                <qrcode style="width:25px; height:35px;background-color: red;display-index: 3;" value="value">
+                </qrcode>
+                <qrcode style="width:26px; height:35px;background-color:pink;display-index: 7;" value="value">
+                </qrcode>
+                <qrcode style="width:35px; height:35px;background-color: palegoldenrod;display-index: 2;" value="value">
+                </qrcode>
+            </div>
+            <text class="sub-title">
+                qrcode原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <qrcode style="height:30px;background-color: blue;flex-weight: 1;" value="value">
+                </qrcode>
+                <qrcode style="height:30px;background-color: black;flex-weight: 5;" value="value">
+                </qrcode>
+                <qrcode style="height:30px;background-color: yellow;flex-weight: 4;" value="value">
+                </qrcode>
+                <qrcode style="height:30px;background-color: red;flex-weight: 3;" value="value">
+                </qrcode>
+                <qrcode style="height:30px;background-color:pink;flex-weight: 7;" value="value">
+                </qrcode>
+                <qrcode style="height:30px;background-color: palegoldenrod;flex-weight: 2;" value="value">
+                </qrcode>
+            </div>
+            <text class="sub-title">
+                qrcode原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <qrcode style="width:30px;background-color: blue;aspect-ratio: 0.6;" value="value">
+                </qrcode>
+                <qrcode style="width:30px;background-color: black;aspect-ratio:0.5;" value="value">
+                </qrcode>
+                <qrcode style="width:30px;background-color: yellow;aspect-ratio: 1.5;" value="value">
+                </qrcode>
+                <qrcode style="width:30px;background-color: red;aspect-ratio: 1.3;" value="value">
+                </qrcode>
+                <qrcode style="width:30px;background-color:pink;aspect-ratio: 1;" value="value">
+                </qrcode>
+                <qrcode style="width:30px;background-color: palegoldenrod;aspect-ratio:2;" value="value">
+                </qrcode>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multiMode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    qrcode多模输入1
+                </text>
+                <qrcode class="multiMode1" voicelabel = "voice"  value="value"
+                     subscriptflag="on" subscriptlabel="qrcode" scenelabel="common">
+                </qrcode>
+            </div>
+        </div>
+    </div>
+</div>

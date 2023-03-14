@@ -1,0 +1,179 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            stack通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <stack id="idProp">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <stack id="classProp"
+             class="classProp">
+        </stack>
+        <stack id="classPropNone"
+             class="">
+        </stack>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <stack id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <stack id="refProp"
+             ref="refProp">
+        </stack>
+        <stack id="refPropNone"
+             ref="">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <stack id="disabledPropTrue"
+             disabled="true">
+        </stack>
+        <stack id="disabledPropFalse"
+             disabled="false">
+        </stack>
+        <stack id="disabledPropNone"
+             disabled="">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <stack id="focusablePropTrue"
+             focusable="true">
+        </stack>
+        <stack id="focusablePropFalse"
+             focusable="false">
+        </stack>
+        <stack id="focusablePropNone"
+             focusable="">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <stack id="dataProp"
+             data-stack="通用属性 -- data-*">
+        </stack>
+        <stack id="dataPropNone"
+             data-stack="">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <stack id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </stack>
+        <stack id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </stack>
+        <stack id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </stack>
+        <stack id="clickEffectPropNone"
+             click-effect="">
+        </stack>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <stack id="dirPropRtl"
+             dir="rtl">
+        </stack>
+        <stack id="dirPropAuto"
+             dir="auto">
+        </stack>
+        <stack id="dirPropLtr"
+             dir="ltr">
+        </stack>
+        <stack id="dirPropNone"
+             dir="">
+        </stack>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <stack id="forPropNull"
+             for="">
+        </stack>
+        <stack id="forPropOne"
+             for="{{listOne}}">
+        </stack>
+        <stack id="forPropThree"
+             for="{{listThree}}">
+        </stack>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <stack id="ifPropTrue"
+             if="true">
+        </stack>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <stack id="showPropTrue"
+             show="true">
+        </stack>
+        <stack id="showPropFalse"
+             show="false">
+        </stack>
+        <stack id="showPropNone"
+             show="">
+        </stack>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <stack class="propNewAdd"
+                 tid="id">
+        </stack>
+        <stack class="propNewAdd"
+                 tid="">
+        </stack>
+
+        <div>
+            <stack id="ifPropTrue"
+                     if="true">
+            </stack>
+            <stack class="propNewAdd"
+                     elif="true">
+            </stack>
+            <stack class="propNewAdd"
+                     elif="false">
+            </stack>
+        </div>
+    </div>
+</div>

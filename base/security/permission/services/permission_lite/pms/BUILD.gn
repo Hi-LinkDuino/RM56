@@ -1,0 +1,51 @@
+# Copyright (c) 2020-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+
+lite_library("pms_target") {
+  target_type = "shared_library"
+  sources = [
+    "//base/security/permission/services/permission_lite/pms/src/perm_operate.c",
+    "//base/security/permission/services/permission_lite/pms/src/pms_impl.c",
+    "//base/security/permission/services/permission_lite/pms/src/pms_inner.c",
+    "//base/security/permission/services/permission_lite/pms/src/pms_server.c",
+    "//base/security/permission/services/permission_lite/pms/src/pms_server_internal.c",
+  ]
+
+  include_dirs = [
+    "//base/security/permission/interfaces/kits/permission_lite",
+    "//base/security/permission/services/permission_lite/pms/include",
+    "//base/security/permission/services/permission_lite/pms/include/hals",
+    "//base/security/permission/services/permission_lite/pms_base/include",
+    "//foundation/distributedschedule/samgr_lite/samgr/adapter/",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/communication/broadcast",
+    "//foundation/distributedschedule/samgr_lite/samgr_endpoint/source",
+    "//utils/native/lite/include",
+    "//third_party/cJSON",
+    "//third_party/bounds_checking_function/include/",
+  ]
+
+  deps = [
+    "${ohos_product_adapter_dir}/security/permission_lite:hal_pms",
+    "//base/security/permission/services/permission_lite/pms_base:pms_base",
+    "//build/lite/config/component/cJSON:cjson_shared",
+    "//foundation/communication/ipc_lite:liteipc_adapter",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+
+  cflags = [ "-Wall" ]
+}

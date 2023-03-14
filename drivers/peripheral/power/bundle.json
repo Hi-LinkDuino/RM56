@@ -1,0 +1,41 @@
+{
+    "name": "power_device_driver",
+    "description": "power_hdf",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "component": {
+      "name": "power_device_driver",
+      "subsystem": "hdf",
+      "syscap": [ "" ],
+      "adapter_system_type": ["standard", "small"],
+      "rom": "981KB",
+      "ram": "6000KB",
+      "deps": {
+        "components": [
+          "device_driver_framework",
+          "hiviewdfx_hilog_native",
+          "ipc"
+        ],
+        "third_part": [
+          "xml2"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//drivers/peripheral/power:power_entry"
+        ],
+        "inner_kits": [
+          {
+            "name": "//drivers/interface/power/v1_0:libpower_proxy_1.0",
+            "header": {
+              "header_files": [
+                  "power_hdi_callback_impl.h"
+              ],
+              "header_base": "//drivers/peripheral/power/interfaces/include"
+            }
+          }
+        ]
+      }
+    }
+  }
+  

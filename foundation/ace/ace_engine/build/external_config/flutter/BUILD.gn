@@ -1,0 +1,601 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+# ------------------------------------------------
+#      Flutter engine config begin
+# ------------------------------------------------
+config("flutter_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "$flutter_root",
+    "$flutter_root/engine",
+    "$flutter_root/engine/flutter",
+    "$flutter_root/engine/flutter/third_party/txt/src",
+  ]
+
+  cflags = [
+    "-fvisibility=hidden",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-Os",
+  ]
+
+  cflags_cc = [
+    "-fvisibility-inlines-hidden",
+    "-Os",
+  ]
+  defines = []
+  defines += ace_common_defines
+}
+
+template("flutter_engine") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    license_file = "$flutter_root/engine/flutter/LICENSE"
+    deps = [
+      ":flutter_engine_asset_manager",
+      ":flutter_engine_common_$platform",
+      ":flutter_engine_flow_$platform",
+      ":flutter_engine_fml_$platform",
+      ":flutter_engine_lib_ui_$platform",
+      ":flutter_engine_shell_$platform",
+      "libtxt:thirdparty_lib_txt_$platform",
+    ]
+    public_configs = [
+      ":flutter_config",
+      "icu:icu_config_$platform",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_engine("third_party_flutter_engine_" + item.name) {
+    platform = item.name
+  }
+}
+
+# ------------------------------------------------
+#      Flutter engine config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Flutter asset_manager config begin
+# ------------------------------------------------
+ohos_source_set("flutter_engine_asset_manager") {
+  part_name = ace_engine_part
+  sources = [
+    "$flutter_root/engine/flutter/assets/asset_manager.cc",
+    "$flutter_root/engine/flutter/assets/directory_asset_bundle.cc",
+  ]
+
+  configs = [ ":flutter_config" ]
+}
+
+# ------------------------------------------------
+#      Flutter asset_manager config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Flutter fml config begin
+# ------------------------------------------------
+config("flutter_engine_fml_mac_config") {
+  cflags = [
+    "-Wno-thread-safety-attributes",
+    "-Wno-thread-safety-analysis",
+  ]
+}
+
+template("flutter_engine_fml") {
+  forward_variables_from(invoker, "*")
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+    configs = [
+      ":flutter_config",
+      "icu:icu_config_$platform",
+    ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/engine/flutter/fml/base32.cc",
+      "$flutter_root/engine/flutter/fml/command_line.cc",
+      "$flutter_root/engine/flutter/fml/concurrent_message_loop.cc",
+      "$flutter_root/engine/flutter/fml/delayed_task.cc",
+      "$flutter_root/engine/flutter/fml/file.cc",
+      "$flutter_root/engine/flutter/fml/gpu_thread_merger.cc",
+      "$flutter_root/engine/flutter/fml/icu_util.cc",
+      "$flutter_root/engine/flutter/fml/log_settings.cc",
+      "$flutter_root/engine/flutter/fml/log_settings_state.cc",
+      "$flutter_root/engine/flutter/fml/logging.cc",
+      "$flutter_root/engine/flutter/fml/mapping.cc",
+      "$flutter_root/engine/flutter/fml/memory/weak_ptr_internal.cc",
+      "$flutter_root/engine/flutter/fml/message.cc",
+      "$flutter_root/engine/flutter/fml/message_loop.cc",
+      "$flutter_root/engine/flutter/fml/message_loop_impl.cc",
+      "$flutter_root/engine/flutter/fml/message_loop_task_queues.cc",
+      "$flutter_root/engine/flutter/fml/paths.cc",
+      "$flutter_root/engine/flutter/fml/synchronization/count_down_latch.cc",
+      "$flutter_root/engine/flutter/fml/synchronization/semaphore.cc",
+      "$flutter_root/engine/flutter/fml/synchronization/waitable_event.cc",
+      "$flutter_root/engine/flutter/fml/task_runner.cc",
+      "$flutter_root/engine/flutter/fml/thread.cc",
+      "$flutter_root/engine/flutter/fml/thread_local.cc",
+      "$flutter_root/engine/flutter/fml/time/time_point.cc",
+      "$flutter_root/engine/flutter/fml/trace_event.cc",
+      "$flutter_root/engine/flutter/fml/unique_fd.cc",
+    ]
+
+    if (platform == "windows") {
+      sources += [
+        "$flutter_root/engine/flutter/fml/platform/win/errors_win.cc",
+        "$flutter_root/engine/flutter/fml/platform/win/file_win.cc",
+        "$flutter_root/engine/flutter/fml/platform/win/mapping_win.cc",
+        "$flutter_root/engine/flutter/fml/platform/win/message_loop_win.cc",
+        "$flutter_root/engine/flutter/fml/platform/win/native_library_win.cc",
+        "$flutter_root/engine/flutter/fml/platform/win/paths_win.cc",
+      ]
+
+      libs = [ "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/librpcrt4.a" ]
+    } else if (platform == "mac") {
+      public_configs = [ ":flutter_engine_fml_mac_config" ]
+      sources += [
+        "$flutter_root/engine/flutter/fml/platform/darwin/cf_utils.cc",
+        "$flutter_root/engine/flutter/fml/platform/darwin/message_loop_darwin.mm",
+        "$flutter_root/engine/flutter/fml/platform/darwin/paths_darwin.mm",
+        "$flutter_root/engine/flutter/fml/platform/darwin/platform_version.mm",
+        "$flutter_root/engine/flutter/fml/platform/darwin/scoped_block.mm",
+        "$flutter_root/engine/flutter/fml/platform/darwin/scoped_nsobject.mm",
+        "$flutter_root/engine/flutter/fml/platform/darwin/string_range_sanitization.mm",
+        "$flutter_root/engine/flutter/fml/platform/posix/file_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/mapping_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/native_library_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/paths_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/shared_mutex_posix.cc",
+      ]
+
+      libs = [
+        "CoreFoundation.framework",
+        "Foundation.framework",
+      ]
+    } else {
+      sources += [
+        "$flutter_root/engine/flutter/fml/platform/linux/timerfd.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/file_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/mapping_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/native_library_posix.cc",
+        "$flutter_root/engine/flutter/fml/platform/posix/paths_posix.cc",
+      ]
+
+      if (is_standard_system) {
+        sources += [
+          "$flutter_root/engine/flutter/fml/platform/linux/message_loop_linux.cc",
+          "$flutter_root/engine/flutter/fml/platform/linux/paths_linux.cc",
+        ]
+        external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+      } else {
+        sources += [
+          "$flutter_root/engine/flutter/fml/platform/android/jni_util.cc",
+          "$flutter_root/engine/flutter/fml/platform/android/jni_weak_ref.cc",
+          "$flutter_root/engine/flutter/fml/platform/android/message_loop_android.cc",
+          "$flutter_root/engine/flutter/fml/platform/android/paths_android.cc",
+          "$flutter_root/engine/flutter/fml/platform/android/scoped_java_ref.cc",
+        ]
+        aosp_deps = [
+          "shared_library:libandroid",
+          "shared_library:liblog",
+        ]
+      }
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_engine_fml("flutter_engine_fml_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Flutter fml config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Flutter common config begin
+# ------------------------------------------------
+template("flutter_engine_common") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+    configs = [ ":flutter_config" ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/engine/flutter/common/settings.cc",
+      "$flutter_root/engine/flutter/common/task_runners.cc",
+    ]
+
+    deps = [ ":flutter_engine_fml_$platform" ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_engine_common("flutter_engine_common_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Flutter common config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Flutter flow config begin
+# ------------------------------------------------
+template("flutter_engine_flow") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+
+    configs = [ ":flutter_config" ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/engine/flutter/flow/compositor_context.cc",
+      "$flutter_root/engine/flutter/flow/debug_print.cc",
+      "$flutter_root/engine/flutter/flow/embedded_views.cc",
+      "$flutter_root/engine/flutter/flow/instrumentation.cc",
+      "$flutter_root/engine/flutter/flow/layers/backdrop_filter_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/clip_path_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/clip_rect_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/clip_rrect_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/color_filter_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/container_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/filter_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/layer_tree.cc",
+      "$flutter_root/engine/flutter/flow/layers/mask_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/opacity_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/performance_overlay_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/physical_shape_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/picture_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/platform_view_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/shader_mask_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/texture_layer.cc",
+      "$flutter_root/engine/flutter/flow/layers/transform_layer.cc",
+      "$flutter_root/engine/flutter/flow/matrix_decomposition.cc",
+      "$flutter_root/engine/flutter/flow/paint_utils.cc",
+      "$flutter_root/engine/flutter/flow/raster_cache.cc",
+      "$flutter_root/engine/flutter/flow/raster_cache_key.cc",
+      "$flutter_root/engine/flutter/flow/skia_gpu_object.cc",
+      "$flutter_root/engine/flutter/flow/texture.cc",
+    ]
+
+    deps = [
+      ":flutter_engine_fml_$platform",
+      "skia:ace_skia_$platform",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_engine_flow("flutter_engine_flow_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Flutter flow config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Flutter shell config begin
+# ------------------------------------------------
+template("flutter_engine_shell") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    defines += [
+      "FLUTTER_ENGINE_VERSION=\"cc88fa45dbf4c55bc23cecea17fb90f43bccf588\"",
+      "SKIA_VERSION=\"4b567cd679ab964b5f6281a67a96c694c950f597\"",
+      "DART_VERSION=\"fake version\"",
+    ]
+    cflags_cc += invoker.cflags_cc
+
+    configs = [
+      ":flutter_config",
+      "icu:icu_config_$platform",
+    ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/engine/flutter/shell/common/animator.cc",
+      "$flutter_root/engine/flutter/shell/common/persistent_cache.cc",
+      "$flutter_root/engine/flutter/shell/common/pipeline.cc",
+      "$flutter_root/engine/flutter/shell/common/rasterizer.cc",
+      "$flutter_root/engine/flutter/shell/common/shell_io_manager.cc",
+      "$flutter_root/engine/flutter/shell/common/surface.cc",
+      "$flutter_root/engine/flutter/shell/common/thread_host.cc",
+      "$flutter_root/engine/flutter/shell/common/vsync_waiter.cc",
+      "$flutter_root/engine/flutter/shell/common/vsync_waiter_fallback.cc",
+
+      # only support gl and software
+      "$flutter_root/engine/flutter/shell/gpu/gpu_surface_gl.cc",
+      "$flutter_root/engine/flutter/shell/gpu/gpu_surface_gl_delegate.cc",
+      "$flutter_root/engine/flutter/shell/gpu/gpu_surface_software.cc",
+      "$flutter_root/engine/flutter/shell/gpu/gpu_surface_software_delegate.cc",
+      "$flutter_root/engine/flutter/shell/version/version.cc",
+
+      # Ability Cross-platform Environment(ACE) override implementation
+      "$flutter_root/engine/flutter/runtime/ace_runtime_controller.cc",
+      "$flutter_root/engine/flutter/runtime/window_manager.cc",
+      "$flutter_root/engine/flutter/shell/common/ace_engine.cc",
+      "$flutter_root/engine/flutter/shell/common/ace_platform_view.cc",
+      "$flutter_root/engine/flutter/shell/common/ace_run_configuration.cc",
+      "$flutter_root/engine/flutter/shell/common/ace_shell.cc",
+    ]
+
+    if (defined(config.disable_gpu) && config.disable_gpu) {
+      sources -= [ "$flutter_root/engine/flutter/shell/gpu/gpu_surface_gl.cc" ]
+    }
+
+    deps = [
+      ":flutter_engine_fml_$platform",
+      "skia:ace_skia_$platform",
+    ]
+
+    if (is_standard_system && platform == "ohos") {
+      include_dirs = [
+        "//foundation/windowmanager/interfaces/innerkits",
+        "//utils/native/base/include",
+      ]
+      sources += [
+        "$flutter_root/engine/flutter/shell/platform/ohos/ace_vsync_waiter_embedder.cc",
+        "$flutter_root/engine/flutter/shell/platform/ohos/ohos_shell_holder.cc",
+        "$flutter_root/engine/flutter/shell/platform/ohos/ohos_surface_software.cc",
+        "$flutter_root/engine/flutter/shell/platform/ohos/platform_task_runner.cc",
+        "$flutter_root/engine/flutter/shell/platform/ohos/platform_task_runner_adapter.cc",
+        "$flutter_root/engine/flutter/shell/platform/ohos/platform_view_ohos.cc",
+      ]
+      if ((!defined(config.disable_gpu) || !config.disable_gpu) && (!defined(
+                                                                        config.enable_rosen_backend) || !config.enable_rosen_backend)) {
+        sources += [
+          "$flutter_root/engine/flutter/shell/platform/ohos/ohos_surface_gl.cc",
+        ]
+
+        public_deps = [ "//foundation/graphic/standard:libgl" ]
+      }
+      deps += [
+        "//foundation/graphic/standard/rosen/modules/composer:libcomposer",
+        "//foundation/graphic/standard/rosen/modules/render_service_client:librender_service_client",
+        "//foundation/windowmanager/wm:libwm",
+      ]
+      external_deps = [
+        "eventhandler:libeventhandler",
+        "ipc:ipc_core",
+      ]
+    } else if (platform == "ohos" || platform == "android") {
+      sources += [
+        # Ability Cross-platform Environment(ACE) override implementation
+        "$flutter_root/engine/flutter/shell/common/ace_display_manager_jni.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/ace_platform_view_android.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/ace_vsync_waiter_android.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_context_gl.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_environment_gl.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_external_texture_gl.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_native_window.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_shell_holder.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_surface.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_surface_gl.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/android_surface_software.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/apk_asset_provider.cc",
+        "$flutter_root/engine/flutter/shell/platform/android/platform_message_response_android.cc",
+      ]
+
+      aosp_deps = [
+        "shared_library:libEGL",
+        "shared_library:libGLESv2",
+      ]
+
+      if (defined(config.use_agp_vsync) && config.use_agp_vsync) {
+        sources += [ "$flutter_root/engine/flutter/shell/platform/ohos/ace_vsync_waiter_embedder.cc" ]
+        external_deps = [
+          "graphic:libagp",
+          "graphic:libagpcoreui",
+          "graphic:libagpcoreui_adapter",
+          "graphic:libagpwindow",
+        ]
+      }
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_engine_shell("flutter_engine_shell_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+
+# ------------------------------------------------
+#      Flutter shell config end
+# ------------------------------------------------
+
+# ------------------------------------------------
+#      Flutter lib_ui config begin
+# ------------------------------------------------
+template("flutter_engine_lib_ui") {
+  forward_variables_from(invoker, "*")
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+
+    configs = [
+      ":flutter_config",
+      "icu:icu_config_$platform",
+    ]
+    if (platform == "android") {
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+    }
+
+    sources = [
+      "$flutter_root/engine/flutter/lib/ui/compositing/scene.cc",
+      "$flutter_root/engine/flutter/lib/ui/compositing/scene_builder.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/canvas.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/color_filter.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/engine_layer.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/gradient.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/image.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/image_filter.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/matrix.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/path.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/picture_recorder.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/shader.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/vertices.cc",
+      "$flutter_root/engine/flutter/lib/ui/window/platform_message.cc",
+      "$flutter_root/engine/flutter/lib/ui/window/platform_message_response.cc",
+      "$flutter_root/engine/flutter/lib/ui/window/pointer_data_packet.cc",
+      "$flutter_root/engine/flutter/lib/ui/window/viewport_metrics.cc",
+
+      # Ability Cross-platform Environment(ACE) override implementation
+      "$flutter_root/engine/flutter/lib/ui/painting/image_encoding.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/paint.cc",
+      "$flutter_root/engine/flutter/lib/ui/painting/picture.cc",
+      "$flutter_root/engine/flutter/lib/ui/text/font_collection.cc",
+      "$flutter_root/engine/flutter/lib/ui/text/text_box.cc",
+      "$flutter_root/engine/flutter/lib/ui/ui_dart_state.cc",
+      "$flutter_root/engine/flutter/lib/ui/window/window.cc",
+    ]
+
+    if (platform == "mac" || platform == "windows") {
+      sources +=
+          [ "$flutter_root/engine/flutter/lib/ui/window/pointer_data.cc" ]
+    }
+
+    deps = [
+      ":flutter_engine_fml_$platform",
+      "skia:ace_skia_$platform",
+    ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  flutter_engine_lib_ui("flutter_engine_lib_ui_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}
+# ------------------------------------------------
+#      Flutter lib_ui config end
+# ------------------------------------------------

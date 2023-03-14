@@ -1,0 +1,10 @@
+plugins:4
+BundlePluginExample1[thread:t-bundle_example-1]:0 static
+BundlePluginExample2[thread:t-bundle_example-2]:0 static
+BundlePluginExample3[thread:t-bundle_example-3]:0 static
+BundleEventSourceExample[thread:t-event_source]:0 static
+pipelines:2
+OnePipeline:BundlePluginExample1 BundlePluginExample2
+TowPipeline:BundlePluginExample2
+pipelinegroups:1
+BundleEventSourceExample:OnePipeline TowPipeline

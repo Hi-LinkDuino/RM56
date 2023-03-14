@@ -1,0 +1,15 @@
+{
+    "appID": "com.example.examples",
+    "appName": "$string:entry_MainAbility",
+    "versionName": "1.0.0",
+    "versionCode": 1000000,
+    "minPlatformVersion": 4,
+    "pages": [
+        "pages/index/index",
+        "pages/detail/detail",
+        "pages/history/history"
+    ],
+    "deviceType": [
+        "smartVision"
+    ]
+}

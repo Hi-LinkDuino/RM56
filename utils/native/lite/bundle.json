@@ -1,0 +1,29 @@
+{
+    "name": "@openharmony/utils_lite",
+    "version": "3.1.0",
+    "description": "Basic macro and type definitions",
+    "publishAs": "code-segment",
+    "scripts": {
+        "install": "DEST_PATH=${DEP_BUNDLE_BASE}/utils/native/lite && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "dirs": [
+        "utils/native/lite/include"
+    ],
+    "component": {
+        "name": "utils_lite",
+	"subsystem": "utils",
+	"features" :[],
+	"adapted_system_type": [ "standard" ],
+	"rom": "0KB",
+	"ram": "0KB",
+	"deps": {},
+	"build": {
+	    "sub_component": [],
+	    "inner_kits": [],
+	    "test": []
+	}
+    }
+}

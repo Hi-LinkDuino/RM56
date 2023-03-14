@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "entry_MainAbility"
+    },
+    {
+      "name": "description_mainability",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "description_mainability2",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_MainAbility2",
+      "value": "entry_MainAbility2"
+    },
+    {
+      "name": "description_mainability3",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_MainAbility3",
+      "value": "entry_MainAbility3"
+    },
+    {
+      "name": "description_mainability4",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_MainAbility4",
+      "value": "entry_MainAbility4"
+    },
+    {
+      "name": "description_mainability5",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_MainAbility5",
+      "value": "entry_MainAbility5"
+    }
+  ]
+}

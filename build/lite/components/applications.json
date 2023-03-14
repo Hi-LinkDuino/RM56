@@ -1,0 +1,194 @@
+{
+  "components": [
+    {
+      "component": "camera_sample_communication",
+      "description": "Communication related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/communication"
+      ],
+      "targets": [
+        "//applications/sample/camera/communication:sample"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "components": [],
+        "third_party": [ ]
+      }
+    },
+    {
+      "component": "camera_sample_app",
+      "description": "Camera related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/launcher",
+        "applications/sample/camera/cameraApp",
+        "applications/sample/camera/setting",
+        "applications/sample/camera/gallery",
+        "applications/sample/camera/media"
+      ],
+      "targets": [
+        "//applications/sample/camera/launcher:launcher_hap",
+        "//applications/sample/camera/cameraApp:cameraApp_hap",
+        "//applications/sample/camera/setting:setting_hap",
+        "//applications/sample/camera/gallery:gallery_hap",
+        "//applications/sample/camera/media:media_sample"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "cameraApp.so",
+        "launcher.so",
+        "setting.so",
+        "gallery.so",
+        "camera_sample",
+        "player_sample"
+      ],
+      "adapted_kernel": [ "liteos_a","linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "wpa_supplicant"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "surface",
+          "ui",
+          "graphic_utils",
+          "kv_store",
+          "syspara_lite",
+          "camera_lite",
+          "media_lite",
+          "permission",
+          "ipc_lite",
+          "samgr_lite",
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "camera_screensaver_app",
+      "description": "Camera related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/screensaver"
+      ],
+      "targets": [
+        "//applications/sample/camera/screensaver:screensaver_hap"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "screensaver.so"
+      ],
+      "adapted_kernel": [ "liteos_a","linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "libjpeg",
+          "libpng",
+          "bounds_checking_function",
+          "cjson",
+          "giflib"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "surface",
+          "ui",
+          "graphic_utils",
+          "kv_store",
+          "syspara_lite",
+          "ipc_lite",
+          "samgr_lite",
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "camera_sample_ai",
+      "description": "Sample applications for AI-Engine in hispark_taurus.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/ai"
+      ],
+      "targets": [
+        "//applications/sample/camera/ai:ai"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "wifi_iot_sample_app",
+      "description": "Wifi iot samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/wifi-iot/app"
+      ],
+      "targets": [
+        "//applications/sample/wifi-iot/app"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [ "hi3861v100" ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+          "components": [
+            "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "kit_framework",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "applications/kit_framework"
+      ],
+      "targets": [
+        "//applications/kit_framework:kit_framework"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_m",
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "hilog",
+          "huks",
+          "syspara_lite",
+          "ipc_lite",
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "kv_store"
+        ],
+        "third_party": [
+          "cjson",
+          "mbedtls",
+          "bounds_checking_function"
+        ]
+      }
+    }
+  ]
+}

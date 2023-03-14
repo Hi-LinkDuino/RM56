@@ -1,0 +1,39 @@
+{
+    "DEMO": {
+        "EVENT_NAME_A": {
+            "__BASE": {
+                "type": "BEHAVIOR",
+                "level": "MINOR",
+                "tag": "demo",
+                "desc": "event name a definition"
+            },
+            "PARAM_A": {
+                "type": "STRING",
+                "desc": "param a in event name a"
+            },
+            "PARAM_B": {
+                "type": "STRING",
+                "desc": "param b in event name a"
+            }
+        },
+        "EVENT_NAME_B": {
+            "__BASE": {
+                "type": "FAULT",
+                "level": "CRITICAL",
+                "desc": "event name b definition"
+            },
+            "PARAM_A": {
+                "type": "UINT32",
+                "desc": "param a in event name b"
+            },
+            "PARAM_B": {
+                "type": "UINT32",
+                "desc": "param b in event name b"
+            },
+            "PARAM_C": {
+                "type": "UINT32",
+                "desc": "param c in event name b"
+            }
+        }
+    }
+}

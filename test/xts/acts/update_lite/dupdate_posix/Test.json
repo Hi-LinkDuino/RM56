@@ -1,0 +1,26 @@
+
+{
+    "description": "Config for kernel_lite test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/update",
+                    "target": "/test_root/update"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/update/ActsUpdateTest.bin"
+    }
+}

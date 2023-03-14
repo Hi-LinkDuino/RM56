@@ -1,0 +1,178 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            rating通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <rating id="styleOne">
+        </rating>
+        <rating id="styleTwo">
+        </rating>
+        <rating id="styleThree">
+        </rating>
+        <rating id="styleFour">
+        </rating>
+        <rating id="styleFive">
+        </rating>
+        <rating id="styleSix">
+        </rating>
+        <rating id="styleSeven">
+        </rating>
+        <rating id="styleEight">
+        </rating>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <rating id="styleTen">
+            </rating>
+            <rating id="styleEleven">
+            </rating>
+            <rating id="styleTwelve">
+            </rating>
+            <rating id="styleThirteen">
+            </rating>
+            <rating id="styleFourteen">
+            </rating>
+            <rating id="styleFifteen">
+            </rating>
+            <rating id="styleSixteen">
+            </rating>
+            <rating id="styleSeventeen">
+            </rating>
+            <rating id="styleEighteen">
+            </rating>
+            <rating id="styleNineteen">
+            </rating>
+            <rating id="styleTwenty">
+            </rating>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <rating id="styleTwentyOne">
+            </rating>
+            <rating id="styleTwentyTwo">
+            </rating>
+            <rating id="styleTwentyThree">
+            </rating>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <rating id="styleTwentyFour">
+        </rating>
+        <rating id="styleTwentyFive">
+        </rating>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <rating id="styleTwentySix">
+        </rating>
+        <rating id="styleTwentySeven">
+        </rating>
+        <rating id="styleTwentyNine">
+        </rating>
+        <rating id="styleThirty">
+        </rating>
+        <rating id="styleThirtyOne">
+        </rating>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <rating id="styleThirtyTwo">
+        </rating>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            rating特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 star-background
+        </text>
+        <div id="specificOne">
+            <rating id="specificStarBackground" class="star-background">
+            </rating>
+        </div>
+        <text class="sub-title">
+            特有样式 star-foreground
+        </text>
+        <div id="specificTwo">
+            <rating id="specificStarForeground" class="star-foreground">
+            </rating>
+        </div>
+        <text class="sub-title">
+            特有样式 star-secondary
+        </text>
+        <div id="specificThree">
+            <rating id="specificStarSecondary" class="star-secondary">
+            </rating>
+        </div>
+        <text class="sub-title">
+            特有样式 width height
+        </text>
+        <div id="specificFour">
+            <rating id="specificWidthHeight1" class="width-height1">
+            </rating>
+            <rating id="specificWidthHeight2" class="width-height2">
+            </rating>
+        </div>
+        <text class="sub-title">
+            特有样式 rtl-flip
+        </text>
+        <div id="specificFive">
+            <rating id="specificRtlFlip1" class="rtl-flip1">
+            </rating>
+            <rating id="specificRtlFlip2" class="rtl-flip2">
+            </rating>
+        </div>
+
+        <div style="width: 100%;flex-weight: 1;overflow: scroll;flex-direction: column;">
+            <text class="sub-title">
+                补充样式
+            </text>
+            <rating id="addOne">
+            </rating>
+            <rating id="addTwo">
+            </rating>
+            <rating id="addThree">
+            </rating>
+            <rating id="addFour">
+            </rating>
+            <rating id="addFive">
+            </rating>
+            <rating id="addSix">
+            </rating>
+            <rating id="addSeven">
+            </rating>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,12 @@
+{
+  "parts": {
+    "aafwk_lite": {
+      "module_list": [
+        "//foundation/aafwk/aafwk_lite/frameworks/ability_lite:aafwk_abilitykit_lite",
+        "//foundation/aafwk/aafwk_lite/frameworks/abilitymgr_lite:aafwk_abilityManager_lite",
+        "//foundation/aafwk/aafwk_lite/services/abilitymgr_lite:aafwk_services_lite"
+      ]
+    }
+  },
+  "subsystem_name": "aafwk"
+}

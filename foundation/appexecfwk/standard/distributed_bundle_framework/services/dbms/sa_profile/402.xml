@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<info>
+    <process>d-bms</process>
+    <systemability>
+        <name>402</name>
+        <libpath>/system/lib64/libdbms.z.so</libpath>
+        <!--<depend></depend> --> <!-- Declare the name of system abilities which the system ability depends on, Note that one dependency uses 1 line. If there are dependencies, it needs to check if all those dependencies are available in service manager before starting the system ability. -->
+        <!--<depend-time-out></depend-time-out> --> <!-- Check all dependencies are available before the timeout period ended. The MAX_DEPENDENCY_TIMEOUT is 60s. -->
+        <run-on-create>true</run-on-create>
+        <distributed>true</distributed>
+        <dump-level>1</dump-level>
+    </systemability>
+</info>

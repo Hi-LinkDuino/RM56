@@ -1,0 +1,107 @@
+{
+  "app": {
+    "bundleName": "com.ohos.simmanagertest",
+    "vendor": "ohos",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Release"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.ohos.simmanagertest",
+    "name": ".MyApplication",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "visible": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.ohos.simmanagertest.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.LOCATION",
+        "reason": "need use ohos.permission.LOCATION"
+      },
+      {
+        "name":"ohos.permission.SET_TELEPHONY_STATE",
+        "reason":"need use ohos.permission.SET_TELEPHONY_STATE"
+      },
+      {
+        "name":"ohos.permission.GET_TELEPHONY_STATE",
+        "reason":"need use ohos.permission.GET_TELEPHONY_STATE"
+      },
+      {
+        "name":"ohos.permission.PLACE_CALL",
+        "reason":"need use ohos.permission.PLACE_CALL"
+      },
+      {
+        "name":"ohos.permission.READ_CONTACTS",
+        "reason":"need use ohos.permission.READ_CONTACTS"
+      },
+      {
+        "name":"ohos.permission.WRITE_CONTACTS",
+        "reason":"need use ohos.permission.WRITE_CONTACTS"
+      },
+	  {
+        "name":"ohos.permission.SEND_MESSAGES",
+        "reason":"need use ohos.permission.SEND_MESSAGES"
+      },
+	  {
+        "name":"ohos.permission.RECEIVE_SMS",
+        "reason":"need use ohos.permission.RECEIVE_SMS"
+      },
+	  {
+        "name":"ohos.permission.READ_CALL_LOG",
+        "reason":"need use ohos.permission.READ_CALL_LOG"
+      },
+	  {
+        "name":"ohos.permission.GET_NETWORK_INFO",
+        "reason":"need use ohos.permission.GET_NETWORK_INFO"
+      },
+	  {
+        "name":"ohos.permission.INTERNET",
+        "reason":"need use ohos.permission.INTERNET"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

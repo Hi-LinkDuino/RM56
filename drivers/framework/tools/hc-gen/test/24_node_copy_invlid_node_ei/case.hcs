@@ -1,0 +1,6 @@
+root {
+    module = "test";
+    foo : root.bar{
+        term1 = 1;
+    }
+}

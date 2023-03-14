@@ -1,0 +1,86 @@
+#  Copyright (c) 2021 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: RELIABILITY
+
+APP_FREEZE:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: application freeze}
+  SUB_EVENT_TYPE: {type: STRING, desc: sub event type}
+  EVENT_TIME: {type: STRING, desc: event time}
+  MODULE: {type: STRING, desc: module}
+  PNAME: {type: STRING, desc: process name}
+  REASON: {type: STRING, desc: reason}
+  DIAG_INFO: {type: STRING, desc: diagnostic info}
+  STACK: {type: STRING, desc: stack}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  DOMAIN: {type: STRING, desc: event domain}
+  STRING_ID: {type: STRING, desc: event stringid}
+  PID: {type: INT32, desc: pid}
+  UID: {type: INT32, desc: uid}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: application event message}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FAULT_TYPE: {type: STRING, desc: fault type}
+  LOG_PATH: {type: STRING, desc: fault log path}
+
+SYS_FREEZE:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: system freeze}
+  SUB_EVENT_TYPE: {type: STRING, desc: sub event type}
+  EVENT_TIME: {type: STRING, desc: event time}
+  MODULE: {type: STRING, desc: module}
+  PNAME: {type: STRING, desc: process name}
+  REASON: {type: STRING, desc: reason}
+  DIAG_INFO: {type: STRING, desc: diagnostic info}
+  STACK: {type: STRING, desc: stack}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  DOMAIN: {type: STRING, desc: event domain}
+  STRING_ID: {type: STRING, desc: event stringid}
+  PID: {type: INT32, desc: pid}
+  UID: {type: INT32, desc: uid}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: application event message}
+
+STACK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: system freeze}
+  PID: {type: INT32, desc: pid}
+  UID: {type: INT32, desc: uid}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: application event message}
+
+SERVICE_BLOCK_REPORT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: application freeze}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  PID: {type: INT32, desc: pid}
+  TGID: {type: INT32, desc: tgid}
+  MSG: {type: STRING, desc: watchdog event message}
+
+SERVICE_TIMEOUT_REPORT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: application freeze}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  PID: {type: INT32, desc: pid}
+  TGID: {type: INT32, desc: tgid}
+  MSG: {type: STRING, desc: timer event message}
+
+CPP_CRASH:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: cpp crash}
+  MODULE: {type: STRING, desc: module name}
+  VERSION: {type: STRING, desc: module version}
+  REASON: {type: STRING, desc: fault reason}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FAULT_TYPE: {type: STRING, desc: fault type}
+  LOG_PATH: {type: STRING, desc: fault log path}
+  FEATURE: {type: STRING, desc: unique id for grouping same fault}
+  CAUSE: {type: STRING, desc: unique id for grouping same root cause}

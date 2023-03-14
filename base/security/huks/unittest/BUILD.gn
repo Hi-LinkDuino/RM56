@@ -1,0 +1,88 @@
+# Copyright (C) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/huks/huks.gni")
+import("//build/ohos.gni")
+import("//build/test.gni")
+
+module_output_path = "huks_standard/huks_UT_test"
+
+ohos_unittest("huks_UT_test") {
+  module_out_path = module_output_path
+
+  sources = [
+    "src/hks_aes_cipher_part1_test.cpp",
+    "src/hks_aes_cipher_part2_test.cpp",
+    "src/hks_aes_cipher_part3_test.cpp",
+    "src/hks_aes_cipher_test_common.cpp",
+    "src/hks_cross_test.cpp",
+    "src/hks_cross_test_common.cpp",
+    "src/hks_dh_agree_test.cpp",
+    "src/hks_ecc_sign_verify_part1_test.cpp",
+    "src/hks_ecc_sign_verify_part2_test.cpp",
+    "src/hks_ecc_sign_verify_part3_test.cpp",
+    "src/hks_ecc_sign_verify_test_common.cpp",
+    "src/hks_ecdh_agree_part1_test.cpp",
+    "src/hks_ecdh_agree_part2_test.cpp",
+    "src/hks_ecdh_agree_test_common.cpp",
+    "src/hks_ed25519_sign_verify_test.cpp",
+    "src/hks_hkdf_derive_part1_test.cpp",
+    "src/hks_hkdf_derive_part2_test.cpp",
+    "src/hks_hkdf_derive_test_common.cpp",
+    "src/hks_hmac_test.cpp",
+    "src/hks_pbkdf2_derive_part1_test.cpp",
+    "src/hks_pbkdf2_derive_part2_test.cpp",
+    "src/hks_pbkdf2_derive_test_common.cpp",
+    "src/hks_rsa_cipher_part1_test.cpp",
+    "src/hks_rsa_cipher_part2_test.cpp",
+    "src/hks_rsa_cipher_part3_test.cpp",
+    "src/hks_rsa_cipher_part4_test.cpp",
+    "src/hks_rsa_cipher_part5_test.cpp",
+    "src/hks_rsa_cipher_test_common.cpp",
+    "src/hks_rsa_sign_verify_part1_test.cpp",
+    "src/hks_rsa_sign_verify_part2_test.cpp",
+    "src/hks_rsa_sign_verify_part3_test.cpp",
+    "src/hks_rsa_sign_verify_part4_test.cpp",
+    "src/hks_rsa_sign_verify_part5_test.cpp",
+    "src/hks_rsa_sign_verify_part6_test.cpp",
+    "src/hks_rsa_sign_verify_part7_test.cpp",
+    "src/hks_rsa_sign_verify_part8_test.cpp",
+    "src/hks_rsa_sign_verify_test_common.cpp",
+    "src/hks_test_common.c",
+    "src/hks_x25519_agree_test.cpp",
+  ]
+
+  defines = [ "_HUKS_LOG_ENABLE_" ]
+  if (use_crypto_lib == "openssl") {
+    defines += [ "_USE_OPENSSL_" ]
+    sources += [ "src/hks_dsa_sign_verify_test.cpp" ]
+  }
+  if (use_crypto_lib == "mbedtls") {
+    defines += [ "_USE_MBEDTLS_" ]
+  }
+
+  include_dirs = [
+    "//base/security/huks/unittest/include",
+    "//utils/native/base/include",
+    "include",
+    "//test/xts/acts/security_lite/huks/common/include",
+    "//base/security/huks/interfaces/innerkits/huks_standard/main/include",
+    "//base/security/huks/frameworks/huks_standard/main/common/include/",
+  ]
+
+  deps = [
+    "//base/security/huks/frameworks/huks_standard/main:huks_standard_frameworks",
+    "//base/security/huks/interfaces/innerkits/huks_standard/main:libhukssdk",
+    "//base/security/huks/services/huks_standard/huks_engine/main/core:huks_engine_core_standard",
+  ]
+}

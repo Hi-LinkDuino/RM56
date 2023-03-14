@@ -1,0 +1,82 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//drivers/adapter/khdf/liteos/hdf.gni")
+
+module_switch = defined(LOSCFG_DRIVERS_HDF_USB_DDK_DEVICE)
+module_name = "hdf_usb_ddk_device"
+hdf_driver(module_name) {
+  FRAMEWORKS_USB_DDK_DEVICE = "$HDF_PERIPHERAL_PATH/usb/ddk/device"
+  USB_DEVICE_ROOT = "$LITEOSTHIRDPARTY/NuttX/drivers/usbdev"
+  FRAMEWORKS_USB_DRIVERS = "$HDF_PERIPHERAL_PATH/usb/gadget/function"
+  sources = [
+    "$FRAMEWORKS_USB_DDK_DEVICE/src/adapter_if_liteos.c",
+    "$FRAMEWORKS_USB_DDK_DEVICE/src/usbfn_cfg_mgr.c",
+    "$FRAMEWORKS_USB_DDK_DEVICE/src/usbfn_dev_mgr.c",
+    "$FRAMEWORKS_USB_DDK_DEVICE/src/usbfn_io_mgr.c",
+    "$FRAMEWORKS_USB_DDK_DEVICE/src/usbfn_sdk_if.c",
+  ]
+
+  if (defined(LOSCFG_DRIVERS_HDF_USB_COMPOSITE)) {
+    sources += [
+      "$USB_DEVICE_ROOT/gadget/composite.c",
+      "$USB_DEVICE_ROOT/gadget/composite_desc.c",
+      "$USB_DEVICE_ROOT/gadget/f_acm_desc.c",
+      "$USB_DEVICE_ROOT/gadget/f_camera.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/f_config.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/f_generic.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/obj_res.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/usb_handle.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/usb_obj.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/usb_string.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/usbd_config.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/usbd_generic_ep0.c",
+      "$USB_DEVICE_ROOT/gadget/fconfig/src/usbd_generic_epfile.c",
+    ]
+  }
+
+  if (defined(LOSCFG_DRIVERS_HDF_USB_DEVICE_DEMO_TEST)) {
+    sources += [
+      "$FRAMEWORKS_USB_DRIVERS/acm/cdcacm.c",
+      "$FRAMEWORKS_USB_DRIVERS/ecm/cdcecm.c",
+      "$FRAMEWORKS_USB_DRIVERS/master/dev_master.c",
+    ]
+  }
+
+  libs = [ "//device/soc/hisilicon/common/platform/libs/ohos/llvm/hi3516dv300/libusb_dwc3.a" ]
+
+  include_dirs = [
+    "$USB_DEVICE_ROOT",
+    "$USB_DEVICE_ROOT/gadget/fconfig/include",
+    "$FRAMEWORKS_USB_DDK_DEVICE/../../interfaces/ddk/common",
+    "$FRAMEWORKS_USB_DDK_DEVICE/../../interfaces/ddk/device",
+    "$FRAMEWORKS_USB_DDK_DEVICE/include",
+    "$FRAMEWORKS_USB_DRIVERS/include",
+    "$LITEOSTOPDIR/../../device/soc/hisilicon/common/hal/usb/hi3516dv300/include",
+  ]
+}

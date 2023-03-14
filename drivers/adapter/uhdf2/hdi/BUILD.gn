@@ -1,0 +1,99 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+group("uhdf_hidl_pkg") {
+  deps = [ ":libhdi" ]
+}
+
+config("libhdi_pub_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "//utils/native/base/include",
+    "$hdf_framework_path/utils/include",
+    "$hdf_framework_path/core/shared/include",
+    "$hdf_uhdf_path/ipc/include",
+    "$hdf_uhdf_path/hdi/include",
+    "$hdf_uhdf_path/include/hdi",
+    "$hdf_uhdf_path/include/hdi/base",
+    "$hdf_uhdf_path/shared/include",
+  ]
+}
+if (defined(ohos_lite)) {
+  group("libhdi") {
+    deps = []
+  }
+} else {
+  ohos_shared_library("libhdi") {
+    if (target_cpu == "arm64") {
+      defines = [ "__ARM64__" ]
+    }
+
+    include_dirs = [
+      "$hdf_framework_path/core/sec/include",
+      "$hdf_framework_path/core/shared/include",
+      "$hdf_framework_path/core/host/include",
+      "$hdf_framework_path/core/manager/include",
+      "$hdf_uhdf_path/include/devhost",
+      "$hdf_uhdf_path/devhost/include",
+      "$hdf_uhdf_path/devmgr/include",
+      "$hdf_uhdf_path/host/include",
+      "$hdf_uhdf_path/manager/include",
+      "$hdf_uhdf_path/include/host",
+    ]
+    public_configs = [ ":libhdi_pub_config" ]
+    sources = [
+      "$hdf_framework_path/core/shared/src/service_status.c",
+      "src/devmgr_client.c",
+      "src/hdf_load_hdi.c",
+      "src/hdi_smq_syncer.cpp",
+      "src/idevmgr_client.cpp",
+      "src/iservmgr_client.cpp",
+      "src/servmgr_client.c",
+      "src/servstat_listener.c",
+      "src/servstat_listener_stub.cpp",
+    ]
+
+    deps = [
+      "$hdf_uhdf_path/ipc:libhdf_ipc_adapter",
+      "$hdf_uhdf_path/utils:libhdf_utils",
+    ]
+
+    if (is_standard_system) {
+      external_deps = [
+        "hiviewdfx_hilog_native:libhilog",
+        "ipc:ipc_single",
+        "samgr_standard:samgr_proxy",
+        "utils_base:utils",
+      ]
+    } else {
+      external_deps = [
+        "hilog:libhilog",
+        "ipc:ipc_single",
+        "samgr:samgr_proxy",
+      ]
+    }
+
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+    ]
+
+    install_images = [ chipset_base_dir ]
+    subsystem_name = "hdf"
+    part_name = "device_driver_framework"
+  }
+}

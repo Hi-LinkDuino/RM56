@@ -1,0 +1,49 @@
+{
+  "name": "battery_device_driver",
+  "description": "battery hdf",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "battery_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "600KB",
+    "ram": "7400KB",
+    "deps": {
+      "components": [
+        "base",
+        "device_driver_framework",
+        "libhilog",
+        "ipc_single"
+      ],
+      "third_part": [
+        "gmock_main",
+        "gtest_main",
+        "jsoncpp"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/battery:battery_entry",
+        "//drivers/peripheral/battery/charger:charger_group",
+        "//drivers/peripheral/battery/charger:led_service",
+        "//drivers/peripheral/battery/charger:resources_service"
+      ],
+      "test": [
+        "//drivers/peripheral/battery/interfaces/hdi_service/test:unittest"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/interface/battery/v1_0:libbattery_proxy_1.0",
+          "header": {
+            "header_files": [
+                "battery_callback_impl.h"
+            ],
+            "header_base": "//drivers/peripheral/battery/interfaces/include"
+          }
+        }
+      ]
+    }
+  }
+}

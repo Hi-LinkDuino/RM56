@@ -1,0 +1,77 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/deviceauth/deps_adapter/deviceauth_hals.gni")
+import("//base/security/deviceauth/services/deviceauth.gni")
+import("//build/test.gni")
+
+module_output_path = "deviceauth_standard/deviceauth_test"
+
+ohos_unittest("deviceauth_llt") {
+  module_out_path = module_output_path
+
+  include_dirs = inc_path
+  include_dirs += hals_inc_path
+
+  include_dirs += [
+    "./include",
+    "//third_party/json/include",
+    "//utils/native/base/include",
+    "//foundation/communication/dsoftbus/interfaces/kits/common",
+    "//foundation/communication/dsoftbus/interfaces/kits/transport",
+    "//foundation/communication/dsoftbus/interfaces/inner_kits/transport",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+  ]
+
+  sources = [
+    "${common_lib_path}/impl/src/clib_types.c",
+    "${common_lib_path}/impl/src/hc_parcel.c",
+    "${common_lib_path}/impl/src/hc_string.c",
+    "${common_lib_path}/impl/src/hc_string_vector.c",
+    "${common_lib_path}/impl/src/hc_tlv_parser.c",
+    "${common_lib_path}/impl/src/json_utils.c",
+    "${common_lib_path}/impl/src/string_util.c",
+    "${key_management_adapter_path}/impl/src/alg_loader.c",
+    "${key_management_adapter_path}/impl/src/standard/crypto_hash_to_point.c",
+    "${key_management_adapter_path}/impl/src/standard/huks_adapter.c",
+    "${os_adapter_path}/impl/src/hc_mutex.c",
+    "${os_adapter_path}/impl/src/hc_task_thread.c",
+    "${os_adapter_path}/impl/src/hc_time.c",
+    "${os_adapter_path}/impl/src/linux/hc_condition.c",
+    "${os_adapter_path}/impl/src/linux/hc_dev_info.c",
+    "${os_adapter_path}/impl/src/linux/hc_file.c",
+    "${os_adapter_path}/impl/src/linux/hc_init_protection.c",
+    "${os_adapter_path}/impl/src/linux/hc_thread.c",
+    "${os_adapter_path}/impl/src/linux/hc_types.c",
+  ]
+  sources += deviceauth_files
+  sources += [ "source/deviceauth_standard_test.cpp" ]
+
+  deps = [
+    "//base/security/huks/interfaces/innerkits/huks_standard/main:libhukssdk",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara:syspara",
+    "//third_party/cJSON:cjson_static",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest_main",
+    "//third_party/openssl:libcrypto_static",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [
+    "dsoftbus_standard:softbus_client",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
+  if (support_jsapi) {
+    external_deps += [ "os_account_standard:os_account_innerkits" ]
+  }
+}

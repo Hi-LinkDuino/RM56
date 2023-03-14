@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: javac.py
+Class-Path: fastjson_utils_java.jar
+Main-Class: ohos.UncompressEntrance

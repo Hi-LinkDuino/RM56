@@ -1,0 +1,31 @@
+{
+  "parts": {
+    "audio_manager_lite": {
+      "module_list": [
+        "//foundation/multimedia/audio_lite/frameworks:audio_capturer_lite"
+      ]
+    },
+    "camera_lite": {
+      "module_list": [
+        "//foundation/multimedia/camera_lite/frameworks:camera_lite"
+      ]
+    },
+    "media_lite": {
+      "module_list": [
+        "//foundation/multimedia/media_lite/frameworks/recorder_lite:recorder_lite",
+        "//foundation/multimedia/media_lite/frameworks/player_lite:player_lite"
+      ]
+    },
+    "media_service": {
+      "module_list": [
+        "//foundation/multimedia/media_lite/services:media_lite"
+      ],
+      "test_list": [
+        "//foundation/multimedia/camera_lite/test:lite_camera_test",
+        "//foundation/multimedia/media_lite/test/unittest:lite_medialite_test",
+        "//foundation/multimedia/audio_lite/test:lite_audio_test"
+      ]
+    }
+  },
+  "subsystem_name": "multimedia"
+}

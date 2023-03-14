@@ -1,0 +1,77 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/ohos.gni")
+
+config("faultlogger_service_ohos_private_config") {
+  include_dirs = [ "." ]
+}
+
+config("faultlogger_service_impl_config") {
+  include_dirs = [ "include" ]
+}
+
+ohos_source_set("faultlogger_service_ohos_common") {
+  part_name = "hiview"
+  sources = [
+    "src/faultlog_info_ohos.cpp",
+    "src/faultlog_query_result_proxy.cpp",
+    "src/faultlog_query_result_stub.cpp",
+    "src/faultlogger_service_proxy.cpp",
+    "src/faultlogger_service_stub.cpp",
+  ]
+
+  configs = [ ":faultlogger_service_ohos_private_config" ]
+
+  public_configs = [ ":faultlogger_service_impl_config" ]
+
+  deps = [
+    "$hiview_base:hiviewbase",
+    "$hiview_plugin/faultlogger/common:faultlogger_common",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "samgr_standard:samgr_proxy",
+  ]
+}
+
+ohos_source_set("faultlogger_service_impl") {
+  part_name = "hiview"
+  include_dirs = [ "$hiview_plugin/faultlogger/service" ]
+
+  sources = [
+    "faultlog_query_result_ohos.cpp",
+    "faultlogger_service_ohos.cpp",
+  ]
+
+  configs = [ ":faultlogger_service_ohos_private_config" ]
+
+  public_configs = [ ":faultlogger_service_impl_config" ]
+
+  deps = [
+    ":faultlogger_service_ohos_common",
+    "$hiview_base:hiviewbase",
+    "$hiview_plugin/faultlogger/common:faultlogger_common",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+  ]
+}

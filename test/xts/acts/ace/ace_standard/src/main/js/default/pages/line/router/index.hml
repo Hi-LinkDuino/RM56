@@ -1,0 +1,106 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                line通用属性1
+            </text>
+            <svg width="200" height="50">
+                <line id="prop1" x1="10" x2="180" y1="20" y2="20"
+                      stroke="green" stroke-width="4" ></line>
+            </svg>
+
+            <text class="sub-title">
+                line通用属性2
+            </text>
+            <svg width="200" height="50">
+                <line id="prop2" x1="10" x2="180" y1="20" y2="20"
+                      stroke="white" stroke-width="4" opacity="0.5"></line>
+            </svg>
+
+            <text  class="sub-title">
+                line通用属性3
+            </text>
+            <svg width="200" height="50">
+                <line  id="prop3" x1="10" x2="180" y1="20" y2="20" stroke="red"
+                      stroke-width="4"  stroke-dasharray="5 3" stroke-dashoffset="3"></line>
+            </svg>
+            <text  class="sub-title">
+                line通用属性4
+            </text>
+            <svg width="200" height="50">
+                <line id="prop4" x1="10" x2="180" y1="20" y2="20" stroke="black"
+                      stroke-width="4" stroke-linecap="round"></line>
+            </svg>
+            <text  class="sub-title">
+                line通用属性5
+            </text>
+            <svg width="200" height="50">
+                <line  id="prop5" x1="10" x2="180" y1="20" y2="20" stroke="black"
+                      stroke-width="4" stroke-linecap="butt"></line>
+            </svg>
+
+            <text  class="sub-title">
+                line通用属性6
+            </text>
+            <svg width="200" height="50">
+                <line id="prop6" x1="10" x2="180" y1="20" y2="20" stroke="black"
+                      stroke-width="4" stroke-linecap="square"></line>
+            </svg>
+
+            <text  class="sub-title">
+                line通用属性7
+            </text>
+            <svg width="200" height="50">
+                <line  id="prop7" x1="10" x2="180" y1="20" y2="20" stroke="blue" stroke-width="4" transform="rotate(-5)"></line>
+            </svg>
+
+            <text  class="sub-title">
+                line通用属性8
+            </text>
+            <svg width="200" height="50">
+                <line id="prop8" x1="10" x2="180" y1="20" y2="20" stroke="yellow" stroke-width="4" transform="skewX(20)"></line>
+            </svg>
+
+            <text  class="sub-title">
+                line通用属性9
+            </text>
+            <svg width="200" height="60">
+                <line id="prop9" x1="10" x2="180" y1="10" y2="10" stroke="blue" stroke-width="4" transform="skewY(10)"></line>
+            </svg>
+
+            <text  class="sub-title">
+                line通用属性10
+            </text>
+            <svg  width="200" height="50"  >
+                <line id="prop10" x1="10" x2="180" y1="10" y2="10" stroke="red" stroke-width="4"  stroke-linejoin="square"></line>
+            </svg>
+
+            <text class="sub-title">
+                line通用属性11
+            </text>
+            <svg  width="200" height="50"  >
+                <line id="prop11" x1="10" x2="180" y1="10" y2="10" stroke="red" stroke-width="4"  stroke-miterlimit="10"></line>
+            </svg>
+
+        </div>
+
+    </div>
+</div>

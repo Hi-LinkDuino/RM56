@@ -1,0 +1,54 @@
+{
+    "app": {
+        "bundleName": "com.huawei.hiability",
+        "vendor": "huawei",
+        "version": {
+            "code": 1,
+            "name": "1.0"
+        },
+       "apiVersion": {
+          "compatible": 3,
+          "target": 3
+       }
+    },
+    "deviceConfig": {
+        "default": {
+            "keepAlive": false
+        },
+    },
+    "module": {
+        "deviceType": [
+            "smartVision"
+        ],
+        "distro": {
+            "deliveryWithInstall": true,
+            "moduleName": "hiability",
+            "moduleType": "entry"
+        },
+        "abilities": [{
+            "name": "MainAbility",
+            "icon": "assets/entry/resources/base/media/icon.png",
+            "label": "Hi Ability",
+            "launchType": "standard",
+            "type": "page",
+            "visible": true
+        },
+        {
+            "name": "SecondAbility",
+            "icon": "",
+            "label": "Hi Ability",
+            "launchType": "standard",
+            "type": "page",
+            "visible": true
+        },
+        {
+            "name": "ServiceAbility",
+            "icon": "",
+            "label": "Hi Ability",
+            "launchType": "standard",
+            "type": "service",
+            "visible": true
+        }
+        ]
+    }
+}

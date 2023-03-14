@@ -1,0 +1,173 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+################################################################################
+
+config("wifi_sdk_header") {
+  include_dirs = [
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/ace/ace_engine/frameworks/base/utils",
+    "//foundation/ace/ace_engine/frameworks",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log/",
+    "//foundation/distributedschedule/samgr/adapter/interfaces/innerkits/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+  ]
+}
+
+config("wifi_sdk_config") {
+  visibility = [ "//:*" ]
+  include_dirs = [ ":wifi_fw_common_header" ]
+
+  cflags = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+}
+
+ohos_source_set("wifi_device_proxy_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "src/wifi_device_impl.cpp",
+    "src/wifi_device_proxy.cpp",
+  ]
+
+  configs = [
+    ":wifi_sdk_config",
+    ":wifi_sdk_header",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+}
+
+ohos_source_set("wifi_hotspot_proxy_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "src/wifi_hotspot_impl.cpp",
+    "src/wifi_hotspot_proxy.cpp",
+  ]
+
+  configs = [
+    ":wifi_sdk_config",
+    ":wifi_sdk_header",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+}
+
+ohos_source_set("wifi_scan_proxy_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "src/wifi_scan_impl.cpp",
+    "src/wifi_scan_proxy.cpp",
+  ]
+
+  configs = [
+    ":wifi_sdk_config",
+    ":wifi_sdk_header",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+}
+
+ohos_source_set("wifi_p2p_proxy_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "src/wifi_p2p_impl.cpp",
+    "src/wifi_p2p_proxy.cpp",
+  ]
+
+  configs = [
+    ":wifi_sdk_config",
+    ":wifi_sdk_header",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+}
+
+ohos_shared_library("wifi_sdk") {
+  install_enable = true
+
+  include_dirs = [
+    "//foundation/communication/wifi/interfaces/innerkits",
+    "//foundation/communication/wifi/utils/inc",
+  ]
+
+  sources = [
+    "c_adapter/wifi_c_device.cpp",
+    "c_adapter/wifi_c_event.cpp",
+    "c_adapter/wifi_c_hid2d.cpp",
+    "c_adapter/wifi_c_hotspot.cpp",
+    "c_adapter/wifi_c_p2p.cpp",
+    "c_adapter/wifi_c_utils.cpp",
+    "src/wifi_device.cpp",
+    "src/wifi_device_callback_stub.cpp",
+    "src/wifi_hid2d.cpp",
+    "src/wifi_hid2d_msg.cpp",
+    "src/wifi_hotspot.cpp",
+    "src/wifi_hotspot_callback_stub.cpp",
+    "src/wifi_p2p.cpp",
+    "src/wifi_p2p_callback_stub.cpp",
+    "src/wifi_p2p_msg.cpp",
+    "src/wifi_scan.cpp",
+    "src/wifi_scan_callback_stub.cpp",
+  ]
+
+  deps = [
+    ":wifi_device_proxy_impl",
+    ":wifi_hotspot_proxy_impl",
+    ":wifi_p2p_proxy_impl",
+    ":wifi_scan_proxy_impl",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//base/notification/ces_standard/frameworks/core:cesfwk_core",
+    "//base/notification/ces_standard/frameworks/native:cesfwk_innerkits",
+    "//foundation/aafwk/standard/interfaces/innerkits/want:want",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_manager_service",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+    "//third_party/bounds_checking_function:libsec_static",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+
+  cflags_cc = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+  ]
+
+  configs = [
+    ":wifi_sdk_config",
+    ":wifi_sdk_header",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

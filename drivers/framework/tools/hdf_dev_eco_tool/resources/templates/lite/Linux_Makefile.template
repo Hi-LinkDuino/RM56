@@ -1,0 +1,19 @@
+${module_upper_case}_ROOT_DIR = ../../../../../framework/model/${module_lower_case}/driver
+
+obj-$(CONFIG_DRIVERS_HDF_${module_upper_case}) += \
+               $(${module_upper_case}_ROOT_DIR)/${driver_name}_driver.o
+
+ccflags-y += -I$(srctree)/drivers/hdf/framework/include/core \
+             -I$(srctree)/drivers/hdf/framework/core/common/include/host \
+             -I$(srctree)/drivers/hdf/framework/include/utils \
+             -I$(srctree)/drivers/hdf/framework/include/osal \
+             -I$(srctree)/drivers/hdf/framework/ability/sbuf/include \
+             -I$(srctree)/drivers/hdf/framework/include/platform \
+             -I$(srctree)/drivers/hdf/framework/include/config \
+             -I$(srctree)/drivers/hdf/framework/core/host/include \
+             -I$(srctree)/drivers/hdf/framework/core/shared/include \
+             -I$(srctree)/drivers/hdf/framework/utils/include \
+             -I$(srctree)/drivers/hdf/khdf/osal/include
+
+ccflags-y +=-I$(srctree)/bounds_checking_function/include \
+            -I$(srctree)/drivers/hdf/evdev

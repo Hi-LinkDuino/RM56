@@ -1,0 +1,21 @@
+[
+  {
+    "first_introduced": "1",
+    "name": "GetEventRunnerNativeObjForThread"
+  },
+  {
+    "name": "CreateEventRunnerNativeObj"
+  },
+  {
+    "name": "EventRunnerRun"
+  },
+  {
+    "name": "EventRunnerStop"
+  },
+  {
+    "name": "EventRunnerAddFileDescriptorListener"
+  },
+  {
+    "name": "EventRunnerRemoveFileDescriptorListener"
+  }
+]

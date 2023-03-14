@@ -1,0 +1,200 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <text class="container-title">
+        animateMotion动画效果
+    </text>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果1
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <circle cx="40" cy="40" r="20" stroke-width="4" fill="white" stroke="blue">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 100 120"
+                                      to="150 60 90" dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                </circle>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果2
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <circle cx="30" cy="100" r="20" stroke-width="4" fill="white" stroke="blue">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0"
+                                      to="-100" dur="3s"  repeatCount="1">
+                    </animateTransform>
+                </circle>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果3
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <ellipse cx="50" cy="50" rx="30" ry="20" fill="blue">
+                    <animateTransform attributeName="transform" attributeType="XML" type="scale" from="1" to="2" dur="3s"
+                                      repeatCount="indefinite">
+                    </animateTransform>
+                </ellipse>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果4
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <ellipse cx="50" cy="50" rx="30" ry="20" fill="blue">
+                    <animateTransform attributeName="transform" attributeType="XML" type="scale" from="1" to="2" dur="3s"
+                                      repeatCount="1" fill="freeze">
+                    </animateTransform>
+                </ellipse>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果5
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <line x1="10" x2="90" y1="75" y2="75" stroke-width="10" stroke="black" stroke-linecap="square">
+                    <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="100"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                </line>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果6
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <line x1="10" x2="90" y1="35" y2="35" stroke-width="10" stroke="black" stroke-linecap="square">
+                    <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0 0" to="0 100"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                </line>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果7
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <path stroke="black" fill="none" stroke-linejoin="miter" stroke-miterlimit="1" id="p2"
+                      d="M1,19 l17,-13 l7,23 m0,0 l13.5,33 l13.5 ,-43 m0,0 l32 ,-13 l42 ,13 m0,0 l10.75,93">
+                    <animateTransform attributeName="transform" attributeType="XML" type="scale" from="1" to="3"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                </path>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果8
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <path stroke="black" fill="none" stroke-linejoin="miter" stroke-miterlimit="1" id="p2"
+                      d="M1,19 l17,-13 l7,23 m0,0 l13.5,33 l13.5 ,-43 m0,0 l32 ,-13 l42 ,13 m0,0 l10.75,93">
+                    <animateTransform attributeName="transform" attributeType="XML" type="scale" from="1 1" to="2 6"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                </path>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果9
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <polygon points="10,20 40,40 30,60" fill="black">
+                    <animateTransform attributeName="transform" attributeType="XML" type="skewX" from="10" to="80" dur="3s"
+                                      repeatCount="indefinite">
+                    </animateTransform>
+                </polygon>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果10
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <polygon points="10,20 40,40 30,60" fill="black">
+                    <animateTransform attributeName="transform" attributeType="XML" type="skewY" from="10" to="80" dur="3s"
+                                      repeatCount="indefinite">
+                    </animateTransform>
+                </polygon>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果11
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <polyline points="10,80 50,80 50,80 60,80" fill="white" stroke="black">
+                    <animateTransform attributeName="transform" attributeType="XML" type="skewX" from="0" to="80" dur="3s"
+                                      repeatCount="indefinite">
+                    </animateTransform>
+                    <animateTransform attributeName="transform" attributeType="XML" type="skewY" from="150" to="90" dur="3s"
+                                      repeatCount="indefinite">
+                    </animateTransform>
+                </polyline>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果12
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <rect width="100" height="100" x="25" y="25" stroke-width="10" stroke="red" rx="10" ry="10"
+                      stroke-dasharray="5 3" stroke-dashoffset="3">
+                    <animateTransform attributeName="transform" attributeType="XML" type="scale" from="1" to="2"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                    <animate attributeName="stroke" from="red" to="#ff00ff" dur="3000" repeatCount="indefinite">
+                    </animate>
+                </rect>
+            </svg>
+        </div>
+        <div class="outerBox">
+            <text class="title">
+                动画效果13
+            </text>
+            <svg width="80" height="80" class="svg-style">
+                <text x="10" y="10" fill="#D2691E" font-size="12">
+                    animateTransform
+                    <animateTransform attributeName="transform" attributeType="XML" type="scale" from="1" to="5"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                    <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0 0" to="0 90"
+                                      dur="3s" repeatCount="indefinite">
+                    </animateTransform>
+                </text>
+            </svg>
+        </div>
+    </div>
+</div>

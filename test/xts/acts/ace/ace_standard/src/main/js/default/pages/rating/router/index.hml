@@ -1,0 +1,338 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+            <text class="sub-title">
+                rating通用样式1
+            </text>
+            <rating class="style1" id="style1">
+            </rating>
+            <text  class="sub-title">
+                rating通用样式2
+            </text>
+            <rating class="style2" id="style2">
+            </rating>
+            <text class="sub-title">
+                rating通用样式3
+            </text>
+            <rating class="style3" id="style3">
+            </rating>
+            <text  class="sub-title">
+                rating通用样式4
+            </text>
+            <rating class="style4" id="style4">
+            </rating>
+            <text  class="sub-title">
+                rating通用样式5
+            </text>
+            <div class="contain1">
+                <rating class="style5" id="style5">
+                </rating>
+                <rating class="style6" id="style6">
+                </rating>
+            </div>
+            <text  class="sub-title">
+                rating特有样式1
+            </text>
+            <div class="style7" id="style7">
+                <rating class="flex-item background-red">
+                </rating>
+                <rating class="flex-item foreground-yellow">
+                </rating>
+                <rating class="flex-item fsecondary-blue">
+                </rating>
+            </div>
+            <text  class="sub-title">
+                rating特有样式2
+            </text>
+            <div class="style8" id="style8">
+                <rating class="flex-item size1">
+                </rating>
+                <rating class="flex-item size2">
+                </rating>
+            </div>
+            <text  class="sub-title">
+                rating特有样式3
+            </text>
+            <div class="style9" id="style9">
+                <rating class="flex-item rtl-flip-true"></rating>
+                <rating class="flex-item rtl-flip-false"></rating>
+            </div>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                rating动画样式1
+            </text>
+            <rating class="ani1" >
+            </rating>
+            <text class="sub-title">
+                rating动画样式2
+            </text>
+            <rating class="ani2" >
+            </rating>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                rating通用属性1
+            </text>
+            <rating id="prop1" class="prop1"
+                 disabled = "true" focusable ="true"
+                 data-name ="prop1" click-effect="spring-medium"
+                 dir ="rtl">
+            </rating>
+            <text  class="sub-title">
+                rating通用属性2
+            </text>
+            <rating class="prop2" ref ="prop2" id="prop2"
+                 disabled = "false" focusable ="false"
+                 data-name ="prop2" click-effect="spring-large"
+                 dir ="ltr">
+            </rating>
+            <text  class="sub-title">
+                rating通用属性3
+            </text>
+            <rating style="color: #679855; margin: 5px;" class="prop3" id="prop3">
+            </rating>
+            <text  class="sub-title">
+                rating特有属性1
+            </text>
+            <rating class="prop4" id="prop4"
+                    numstars="5"
+                    rating="1"
+                    stepsize="1"
+                    indicator="false">
+            </rating>
+            <div style="margin: 2px;">
+                <rating if="false" class="prop2" ref ="prop2">
+                </rating>
+                <rating elif="true" class="prop2" ref ="prop2">
+                </rating>
+                <rating elif="false" class="prop2" ref ="prop2">
+                </rating>
+                <rating else class="prop2" ref ="prop2">
+                </rating>
+            </div>
+            <text  class="sub-title">
+                rating特有属性2
+            </text>
+            <rating class="prop5" id="prop5"
+                    numstars="5"
+                    rating="1"
+                    stepsize="1"
+                    indicator="true">
+            </rating>
+            <rating for="{{array}}" tid="id" style="color: #679855; margin: 5px;" class="prop3">
+            </rating>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                rating通用事件1
+            </text>
+            <rating class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                 ontouchend="touchEnd" ontouchcancel="touchCancel">
+            </rating>
+            <text  class="sub-title">
+                rating通用事件2
+            </text>
+            <rating class ="event2" onclick="click" ondoubleclick="doubleClick"
+                 onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                 onswipe="swipe" onattached="attached" ondetached="detached">
+            </rating>
+            <text  class="sub-title">
+                rating通用事件3
+            </text>
+            <rating class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                 onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                 ondragstart="dragStart" ondrag="drag"
+                 ondragend="dragEnd" ondragenter="dragEnter"
+                 ondragover="dragOver" ondragleave="dragLeave"
+                 ondrop="drop">
+            </rating>
+            <text  class="sub-title">
+                rating特有事件1
+            </text>
+            <rating class ="event4"
+                    numstars="5"
+                    rating="1"
+                    stepsize="1"
+                   onchange="change"
+                    onaccessibility="onAccessibility">
+            </rating>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                rating通用方法1
+            </text>
+            <rating id="function1" class="function1" ontouchstart="functionTest1">
+            </rating>
+            <text class="sub-title">
+                rating通用方法2
+            </text>
+            <rating id="function2" class="function2" ontouchstart="functionTest2">
+            </rating>
+            <text class="sub-title">
+                rating通用方法3
+            </text>
+            <rating id="function3" class="function3" ontouchstart="functionTest3">
+            </rating>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                rating渐变样式1
+            </text>
+            <rating class="gradient1">
+            </rating>
+            <text  class="sub-title">
+                rating渐变样式2
+            </text>
+            <rating class="gradient2">
+            </rating>
+            <text  class="sub-title">
+                rating渐变样式3
+            </text>
+            <rating class="gradient3">
+            </rating>
+            <text  class="sub-title">
+                rating渐变样式4
+            </text>
+            <rating class="gradient4">
+            </rating>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                rating无障碍1
+            </text>
+            <rating class="access1" accessibilitygroup ="true"
+                 accessibilitytext="这是rating"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants">
+            </rating>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                rating原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <rating style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </rating>
+                <rating style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </rating>
+                <rating style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </rating>
+                <rating style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </rating>
+                <rating style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </rating>
+                <rating style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </rating>
+            </div>
+            <text class="sub-title">
+                rating原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <rating style="height:20px;background-color: blue;flex-weight: 1;">
+                </rating>
+                <rating style="height:20px;background-color: black;flex-weight: 5;">
+                </rating>
+                <rating style="height:20px;background-color: yellow;flex-weight: 4;">
+                </rating>
+                <rating style="height:20px;background-color: red;flex-weight: 3;">
+                </rating>
+                <rating style="height:20px;background-color:pink;flex-weight: 7;">
+                </rating>
+                <rating style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </rating>
+            </div>
+            <text class="sub-title">
+                rating原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <rating style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </rating>
+                <rating style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </rating>
+                <rating style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </rating>
+                <rating style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </rating>
+                <rating style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </rating>
+                <rating style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </rating>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multiMode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    rating多模输入1
+                </text>
+                <rating class="multiMode1" voicelabel = "voice"
+                     subscriptflag="on" subscriptlabel="rating" scenelabel="common">
+                </rating>
+            </div>
+        </div>
+    </div>
+</div>

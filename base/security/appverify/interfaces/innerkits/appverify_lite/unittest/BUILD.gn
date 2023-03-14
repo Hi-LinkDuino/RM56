@@ -1,0 +1,63 @@
+# Copyright (c) 2020-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/test.gni")
+
+config("app_verify_test_config") {
+  cflags_cc = [ "-std=c++17" ]
+}
+
+unittest("app_verify_test") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/security"
+  sources = [
+    "packets/business_packet.cpp",
+    "packets/modified_packet.cpp",
+    "packets/success_test.cpp",
+    "packets/udid_wrong_test.cpp",
+    "packets/unsigned_packet.cpp",
+    "packets/wrong_license.cpp",
+    "src/hap_verify_test.cpp",
+    "src/write_file.cpp",
+  ]
+
+  configs = [ ":app_verify_test_config" ]
+
+  include_dirs = [
+    "src",
+    "//base/security/appverify/interfaces/innerkits/appverify_lite/include",
+    "//base/startup/syspara_lite/interfaces/kits",
+    "//base/security/permission/interfaces/innerkits/permission_lite",
+    "//third_party/bounds_checking_function/include",
+    "//third_party/cJSON",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//base/security/appverify/interfaces/innerkits/appverify_lite:verify",
+    "//base/security/permission/services/permission_lite/pms_client:pms_client",
+    "//base/startup/syspara_lite/frameworks/parameter:parameter",
+    "//build/lite/config/component/cJSON:cjson_shared",
+    "//third_party/bounds_checking_function:libsec_shared",
+    "//third_party/mbedtls:mbedtls_shared",
+  ]
+  ldflags = [
+    "-lstdc++",
+    "-lm",
+    "-lpthread",
+  ]
+}
+
+group("unittest") {
+  deps = [ ":app_verify_test" ]
+}

@@ -1,0 +1,44 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("config.gni")
+
+batterymgr_path = "//base/powermgr/battery_lite"
+
+batterymgr_frameworks_path = "${batterymgr_path}/frameworks/native"
+
+batterymgr_interfaces_path = "${batterymgr_path}/interfaces"
+
+batterymgr_innerkits_path = "${batterymgr_interfaces_path}/innerkits"
+
+batterymgr_kits_path = "${batterymgr_interfaces_path}/kits"
+
+batterymgr_services_path = "${batterymgr_path}/services"
+
+batterymgr_utils_path = "//base/powermgr/powermgr_lite/utils"
+
+declare_args() {
+  battery_mini_system = false
+  battery_small_system = false
+}
+
+if (ohos_kernel_type == "liteos_m") {
+  battery_mini_system = true
+  battery_library_type = "static_library"
+  battery_system_type = "mini"
+} else {
+  battery_small_system = true
+  battery_library_type = "shared_library"
+  battery_system_type = "small"
+}

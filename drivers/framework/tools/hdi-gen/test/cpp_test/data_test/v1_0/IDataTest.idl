@@ -1,0 +1,50 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.cpp_test.data_test.v1_0;
+
+sequenceable test.cpp_test.types.v1_0.SequenceData;
+
+import test.cpp_test.types.v1_0.Types;
+
+interface IDataTest {
+
+    BoolTest([in] boolean param1, [out] boolean param2);
+
+    ByteTest([in] byte param1, [out] byte param2);
+
+    ShortTest([in] short param1, [out] short param2);
+
+    IntTest([in] int param1, [out] int param2);
+
+    LongTest([in] long param1, [out] long param2);
+
+    UCharTest([in] unsigned char param1, [out] unsigned char param2);
+
+    UShortTest([in] unsigned short param1, [out] unsigned short param2);
+
+    UIntTest([in] unsigned int param1, [out] unsigned int param2);
+
+    ULongTest([in] unsigned long param1, [out] unsigned long param2);
+
+    FloatTest([in] float param1, [out] float param2);
+
+    DoubleTest([in] double param1, [out] double param2);
+
+    StringTest([in] String param1, [out] String param2);
+
+    FdTest([in] FileDescriptor fd);
+
+    EnumTest([in] enum ESample param1, [out] enum ESample param2);
+
+    StructTest([in] struct SSample param1, [out] struct SSample param2);
+
+    UnionTest([in] union USample param1, [out] union USample param2);
+
+    SequenceDataTest([in] SequenceData param1, [out] SequenceData param2);
+}

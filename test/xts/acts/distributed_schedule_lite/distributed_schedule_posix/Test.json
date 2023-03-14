@@ -1,0 +1,28 @@
+{
+    "description": "Config for hcpptest demo test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/distributed_schedule",
+                    "target": "/test_root/distributed_schedule"
+                },{
+                    "source": "resource/distributed_schedule",
+                    "target": "/test_root/distributed_schedule"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/distributed_schedule/ActsDMSTest.bin"
+    }
+}

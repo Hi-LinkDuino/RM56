@@ -1,0 +1,90 @@
+#include "device_info.hcs"
+root {
+    platform {
+        gpio_config {
+            match_attr = "bes2600_gpio_config";
+            pin = [0, 1];
+            realPin = [5, 27];
+            config = [5, 2];
+            pinNum = 2;
+        }
+        i2c_config {
+            i2c1 {
+                match_attr = "i2c1_config";
+                port = 1;
+                speed = 200000;
+                scl_pin = 6;
+                sda_pin = 7;
+                use_dma = 0;
+                use_sync = 1;
+                as_master = 1;
+                address_width = 8;
+                mode = 0;
+            }
+        }
+    }
+    display {
+        panel_config {
+            /*rm69330_config {
+                match_attr = "rm69330_config";
+                // EVB_V3: RST - GPIO03, TE - GPIO21
+                rst_pin = 3;
+                te_pin = 21;
+            }
+            icna3311_config {
+                match_attr = "icna3311_config";
+                // EVB_V3: RST - GPIO03, TE - GPIO21, VCI_EN - GPIO02
+                rst_pin = 3;
+                te_pin = 21;
+                vci_pin = 2;
+            }*/
+            a064_config {
+                match_attr = "a064_config";
+                // EVB_V3: RST - GPIO03, TE - GPIO21, LED_EN - GPIO26
+                rst_pin = 3;
+                te_pin = 21;
+                led_pin = 26;
+            }
+        }
+    }
+    input {
+        touch_config {
+            /*touch_ztw523 {
+                match_attr = "touch_ztw523_config";
+                gpio_rst = 0;
+                gpio_int = 1;
+                i2c_id = 0;
+                i2c_addr = 0x20;
+            }*/
+            touch_fts {
+                match_attr = "touch_fts_config";
+                gpio_rst = 0;
+                gpio_int = 1;
+                i2c_id = 1;
+                i2c_addr = 0x38;
+            }
+        }
+    }
+    misc {
+        fs_config {
+            littlefs_config {
+                match_attr = "littlefs_config";
+                mount_points = ["/data"];
+                partitions = [10];
+                block_size = [4096];
+                block_count = [1024];
+            }
+        }
+        storage_config {
+            flash_config {
+                match_attr = "flash_config";
+                partitions = [10];
+                owner = [0];
+                description = ["littlefs"];
+                start_addr = [0xB60000];
+                length = [0x400000];
+                options = [3];
+            }
+        }
+    }
+}

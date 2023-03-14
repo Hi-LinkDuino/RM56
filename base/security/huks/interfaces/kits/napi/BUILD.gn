@@ -1,0 +1,70 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_shared_library("huks") {
+  defines = [
+    "L2_STANDARD",
+    "_HARDWARE_ROOT_KEY_",
+    "_HUKS_LOG_ENABLE_",
+  ]
+
+  include_dirs = [
+    "//base/security/huks/interfaces/innerkits/huks_standard/main/include",
+    "//base/security/huks/frameworks/huks_standard/main/common/include",
+    "//foundation/ace/napi/interfaces/kits/napi",
+    "//utils/native/base/include",
+    "//third_party/node/src",
+    "include",
+  ]
+
+  sources = [
+    "src/huks_napi.cpp",
+    "src/huks_napi_abort.cpp",
+    "src/huks_napi_agree_key.cpp",
+    "src/huks_napi_attest_key.cpp",
+    "src/huks_napi_common.cpp",
+    "src/huks_napi_decrypt.cpp",
+    "src/huks_napi_delete_key.cpp",
+    "src/huks_napi_derive_key.cpp",
+    "src/huks_napi_encrypt.cpp",
+    "src/huks_napi_export_key.cpp",
+    "src/huks_napi_finish.cpp",
+    "src/huks_napi_generate_key.cpp",
+    "src/huks_napi_get_certificate_chain.cpp",
+    "src/huks_napi_get_key_properties.cpp",
+    "src/huks_napi_get_sdk_version.cpp",
+    "src/huks_napi_import_key.cpp",
+    "src/huks_napi_init.cpp",
+    "src/huks_napi_is_key_exist.cpp",
+    "src/huks_napi_mac.cpp",
+    "src/huks_napi_sign.cpp",
+    "src/huks_napi_unwrap_key.cpp",
+    "src/huks_napi_update.cpp",
+    "src/huks_napi_verify.cpp",
+    "src/huks_napi_wrap_key.cpp",
+  ]
+
+  deps = [ "//foundation/ace/napi:ace_napi" ]
+
+  external_deps = [ "huks:libhukssdk" ]
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+
+  relative_install_dir = "module/security"
+  subsystem_name = "security"
+  part_name = "huks"
+}

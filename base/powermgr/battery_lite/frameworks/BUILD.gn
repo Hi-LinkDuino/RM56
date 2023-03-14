@@ -1,0 +1,58 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/powermgr/battery_lite/batterymgr.gni")
+import("//build/lite/config/component/lite_component.gni")
+
+local_include_dirs = []
+local_deps = []
+
+if (battery_mini_system) {
+  local_include_dirs += [
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+  ]
+
+  local_deps +=
+      [ "//base/powermgr/battery_lite/frameworks/native/src/mini:battery_impl" ]
+} else {
+  local_deps += [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//base/powermgr/battery_lite/frameworks/native/src/small:battery_impl",
+  ]
+}
+
+config("batterymgr_public_config") {
+  include_dirs = [
+    "${batterymgr_innerkits_path}",
+    "${batterymgr_kits_path}",
+  ]
+}
+
+lite_library("batterymgr") {
+  target_type = battery_library_type
+
+  sources = []
+
+  include_dirs = [
+    "include",
+    "include/${battery_system_type}",
+    "//utils/native/lite/include",
+  ]
+  include_dirs += local_include_dirs
+
+  public_configs = [ ":batterymgr_public_config" ]
+
+  deps = [ "//foundation/distributedschedule/samgr_lite/samgr:samgr" ]
+  deps += local_deps
+}

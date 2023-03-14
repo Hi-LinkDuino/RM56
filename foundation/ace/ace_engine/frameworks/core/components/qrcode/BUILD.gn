@@ -1,0 +1,56 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/frameworks/core/components/components.gni")
+
+qrcodegen_src_dir = "//third_party/qrcodegen/cpp"
+qrcodegen_dst_dir = root_out_dir + "/qrcode"
+action("apply_patch") {
+  visibility = [ ":*" ]
+  script = "applypatch.sh"
+  inputs = [ qrcodegen_src_dir ]
+  outputs = [ "$qrcodegen_dst_dir/qrcodegen.cpp" ]
+  args = [
+    rebase_path(qrcodegen_src_dir, root_build_dir),
+    rebase_path(qrcodegen_dst_dir, root_build_dir),
+    rebase_path("qrcode_patch2.patch", root_build_dir),
+  ]
+}
+
+config("qrcodegen_config") {
+  include_dirs = [ "$qrcodegen_dst_dir" ]
+}
+
+source_set("qrcodegen") {
+  deps = [ ":apply_patch" ]
+  sources = [ "$qrcodegen_dst_dir/qrcodegen.cpp" ]
+  cflags = [
+    "-Wall",
+    "-Wno-reorder",
+  ]
+  cflags_cc = cflags
+
+  public_configs = [ ":qrcodegen_config" ]
+}
+
+build_component("qrcode") {
+  sources = [
+    "flutter_render_qrcode.cpp",
+    "qrcode_component.cpp",
+    "render_qrcode.cpp",
+    "render_qrcode_creator.cpp",
+  ]
+  rosen_sources = [ "rosen_render_qrcode.cpp" ]
+
+  deps = [ ":qrcodegen" ]
+}

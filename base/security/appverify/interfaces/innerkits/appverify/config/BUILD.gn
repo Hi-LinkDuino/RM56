@@ -1,0 +1,57 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_prebuilt_etc("trusted_apps_sources") {
+  if (build_public_version) {
+    source = "OpenHarmony/trusted_apps_sources.json"
+  } else {
+    source = "trusted_apps_sources.json"
+  }
+  part_name = "appverify"
+  subsystem_name = "security"
+  relative_install_dir = "security"
+}
+
+ohos_prebuilt_etc("trusted_apps_sources_test") {
+  source = "trusted_apps_sources_test.json"
+  part_name = "appverify"
+  subsystem_name = "security"
+  relative_install_dir = "security"
+}
+
+ohos_prebuilt_etc("trusted_root_ca") {
+  if (build_public_version) {
+    source = "OpenHarmony/trusted_root_ca.json"
+  } else {
+    source = "trusted_root_ca.json"
+  }
+  part_name = "appverify"
+  subsystem_name = "security"
+  relative_install_dir = "security"
+}
+
+ohos_prebuilt_etc("trusted_root_ca_test") {
+  source = "trusted_root_ca_test.json"
+  part_name = "appverify"
+  subsystem_name = "security"
+  relative_install_dir = "security"
+}
+
+ohos_prebuilt_etc("trusted_tickets_sources") {
+  source = "trusted_tickets_sources.json"
+  part_name = "appverify"
+  subsystem_name = "security"
+  relative_install_dir = "security"
+}

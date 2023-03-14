@@ -1,0 +1,96 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+root_path = "//drivers/peripheral/bluetooth/hdi"
+
+group("bluetooth_hdi") {
+  deps = [
+    ":bluetooth_hdi_client",
+    ":bluetooth_hdi_server",
+  ]
+}
+
+ohos_shared_library("bluetooth_hdi_client") {
+  include_dirs = [ "$root_path" ]
+
+  sources = [
+    "$root_path/ohos/hardware/bt/v1_0/bt_hci_callbacks_stub.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/client/bt_hci_proxy.cpp",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [
+      "hilog:libhilog",
+      "ipc:ipc_single",
+    ]
+  }
+
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "bluetooth_device_driver"
+}
+
+ohos_shared_library("bluetooth_hdi_server") {
+  include_dirs = [
+    "$root_path",
+    "$root_path/ohos/hardware/bt/v1_0",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement",
+  ]
+
+  sources = [
+    "$root_path/ohos/hardware/bt/v1_0/bt_hci_callbacks_proxy.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/bt_hci_driver.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/bt_hci_service.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/bt_hci_stub.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement/bluetooth_address.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement/h4_protocol.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement/hci_protocol.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement/hci_watcher.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement/mct_protocol.cpp",
+    "$root_path/ohos/hardware/bt/v1_0/server/implement/vendor_interface.cpp",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_host",
+      "device_driver_framework:libhdf_ipc_adapter",
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [
+      "hilog:libhilog",
+      "ipc:ipc_single",
+    ]
+  }
+
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "bluetooth_device_driver"
+}

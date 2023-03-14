@@ -1,0 +1,29 @@
+{
+    "description": "Configuration for camerastandard Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "1000000",
+        "package": "com.open.harmony.multimedia.cameratest",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "touch /data/media/01.mp4",
+                "chmod -R 777 /data/media"
+                
+            ],
+            "teardown-command":[
+               
+            ]
+        },
+        {
+            "test-file-name": [
+                "ActsCameraStandardETSTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

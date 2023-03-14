@@ -1,0 +1,487 @@
+# Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#                                    +-----------------+
+#                                    | topographic map |
+#                                    +-----------------+
+# topographic map descripe how to generate write_flash_gui.tar.gz, according to depends rules.
+#
+#                               +-----------------------------+
+#                       +-----> |    copy_${exe_bin}_to_gui   |
+#                       |       +-----------------------------+
+#                       |       +-----------------------------+
+#                       +-----> |   copy_${fs_name}_to_gui    |
+# +---------------+     |       +-----------------------------+
+# | pack_flash_gui|---> +
+# +---------------+     |       +-----------------------------+
+#                       +-----> | copy_${bsp_bin_name}_to_gui |
+#                       |       +-----------------------------+
+#                       |       +-----------------------------+     +-----------------+
+#                       +-----> | update_${product_name}_yaml | --> | init_burn_tools |
+#                               +-----------------------------+     +-----------------+
+#                                                                                             +--------------------+     +---------+
+#                                                                                             | gen_bin_${exe_bin} | --> | exe_bin |
+# excutable bin topographic map:                                                              +--------------------+     +---------+
+#                             +--------+                  +-------------------------------+   /                                |
+#                             | no sig | ---------------> | copy_${exe_bin}_to_relase_bin | -+                                \|/
+#                             +--------+                  +-------------------------------+   \                                V
+# +------------------------+   /                                ^                              +-----------------+  +------------------------+
+# | copy_${exe_bin}_to_gui | -+                                /|\                             | init_burn_tools |  | gen_bsp_lib_${exe_bin} |
+# +------------------------+   \                                |                              +-----------------+  +------------------------+
+#                             +--------+     +--------------------------+                                                       |
+#                             |  sig   | --> | gen_bin_${burn_name}_sig |                                                      \|/
+#                             +--------+     +--------------------------+                                                       V
+#                                                                                                                    +--------------------+
+#                                                                                                                    | build_sdk_into_lib |
+#                                                                                                                    +--------------------+
+#
+# fs bin topographic map:
+#                             +--------+         +------------------+   +-----------------+
+#                             | no sig | ------> | genfs_${fs_name} |-->| init_burn_tools |
+#                             +--------+         +------------------+   +-----------------+
+# +------------------------+   /                         ^
+# | copy_${fs_name}_to_gui | -+                         /|\
+# +------------------------+   \                         |
+#                             +--------+     +----------------------+
+#                             |  sig   | --> | genfs_${fs_name}_sig |
+#                             +--------+     +----------------------+
+#
+# bsp bin topographic map:
+#                                                                                               +--------------------+
+#                                                                                               | build_sdk_into_lib |
+#                                                                                               +--------------------+
+#                                  +--------+         +------------------------------------+   /
+#                                  | no sig | ------> | copy_${bsp_bin_name}_to_relase_bin | -+
+#                                  +--------+         +------------------------------------+   \
+# +------------------------------+   /                         ^                                +-----------------+
+# | copy_${bsp_bin_name}_to_gui  | -+                         /|\                               | init_burn_tools |
+# +------------------------------+   \                         |                                +-----------------+
+#                                  +--------+     +------------------------------+
+#                                  |  sig   | --> | gen_bsp_bin_${burn_name}_sig |
+#                                  +--------+     +------------------------------+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/subsystem/lite_subsystem.gni")
+import("//kernel/${ohos_kernel_type}/liteos.gni")
+if (ohos_kernel_type == "liteos_m") {
+  module_name = get_path_info(rebase_path("."), "name")
+  module_group(module_name) {
+    modules = [ "liteos_m" ]
+  }
+
+  # global config
+  out_product_path = "${ohos_root_path}out/${board_name}/${product_name}"
+
+  build_ext_component("init_burn_tools") {
+    exec_path = rebase_path("pack_tools")
+    if (bfd_build == "true") {
+      command =
+          "./bfd_init_burn_tools.sh ./../../ ${out_product_path} ${product_path} ${bfd_dist_gui}"
+    } else {
+      command =
+          "./init_burn_tools.sh ./../../ ${out_product_path} ${product_path}"
+    }
+  }
+
+  # config bin from vendor/bestechnic/<product_name>/config.json
+  foreach(bin_file, bin_list) {
+    build_enable = bin_file.enable
+    unstripped_folder = "unstripped/"
+    if (ohos_build_type == "release") {
+      unstripped_folder = ""
+    }
+    out_bin_path = "${out_product_path}/${unstripped_folder}bin/"
+
+    if (build_enable == "true") {
+      exe_bin = "${bin_file.elf_name}_${board_name}"
+      bsp_target_name = bin_file.bsp_target_name
+      print("build", exe_bin, ":", build_enable)
+      copy_lib_name = "gen_bsp_lib_${exe_bin}"
+
+      # generate execute bin
+      executable(exe_bin) {
+        output_name = exe_bin
+        output_extension = "elf"
+        deps = [ "liteos_m/sdk:${copy_lib_name}" ]
+
+        ldflags = [
+          "-Wl,--gc-sections",
+          "-Wl,-Map=bin/$output_name.map",
+        ]
+
+        # force link invisible function ,which ar to lib
+        ldflags += [ "-Wl,--whole-archive" ]
+        foreach(force_link_lib, bin_file.force_link_libs) {
+          ldflags += [ "-l${force_link_lib}" ]
+        }
+        if(bfd_dev_mode == "prod"){
+          cwd = rebase_path(".")
+          ldflags += [
+            "-L${cwd}/liteos_m/sdk/bsp/prebuild",
+            "-lbfd_oh_force",
+          ]
+        }
+        ldflags += [ "-lbsp${bsp_target_name}" ]
+        ldflags += [ "-Wl,--no-whole-archive" ]
+
+        libs = [
+          "c",
+          "m",
+          "stdc++",
+        ]
+        if(bfd_dev_mode == "prod"){
+          libs += [
+            "bfd_oh",
+          ]
+        }
+        deps += [ "//build/lite:ohos" ]
+        deps += [ "//build/lite:product" ]
+        deps += [ "//kernel/liteos_m:kernel" ]
+      }
+
+      # link target lib into bin
+      gen_bin_name = "gen_bin_${exe_bin}"
+      build_ext_component(gen_bin_name) {
+        exec_path = rebase_path(".")
+        src_elf = "${out_bin_path}/${exe_bin}.elf"
+        dest_bin = "${out_bin_path}/${exe_bin}.bin"
+        command = "arm-none-eabi-objcopy -O binary ${src_elf} ${dest_bin}"
+        deps = [ ":${exe_bin}" ]
+      }
+
+      burn_name = bin_file.burn_name
+
+      # copy out/<board_name>/<product_name>/bin/ to release bin
+      copy_burn_bin_name = "copy_${exe_bin}_to_release_bin"
+      build_ext_component(copy_burn_bin_name) {
+        exec_path = rebase_path("${out_product_path}")
+        copy_dest = "./release_bin"
+        bin_name_ota = burn_name
+        command = "cp -rf ${out_bin_path}/${exe_bin}.bin ${copy_dest}/${bin_name_ota}.bin"
+        deps = [ ":${gen_bin_name}" ]
+        deps += [ ":init_burn_tools" ]
+      }
+
+      # sig exe bin to hash_sig bin
+      bin_sig = bin_file.signature
+      if (bin_sig == "true") {
+        gen_bin_name_sig = "gen_bin_${burn_name}_sig"
+        build_ext_component(gen_bin_name_sig) {
+          exec_path = rebase_path("pack_tools")
+          command = "./sig_bin.sh ${burn_name} ${out_product_path}"
+          deps = [ ":${copy_burn_bin_name}" ]
+        }
+      }
+
+      # if use copy signature bin
+      copy_bin_name = "copy_${exe_bin}_to_gui"
+      build_ext_component(copy_bin_name) {
+        exec_path = rebase_path("${out_product_path}")
+        print(" copy signature bin exec_path", exec_path)
+        deps = []
+        if (bin_sig == "true") {
+          copy_src = "./auto_build_tool/hash_sig"
+          bin_name_ota = "${burn_name}_sig"
+          deps += [ ":${gen_bin_name_sig}" ]
+        } else {
+          copy_src = "./release_bin"
+          bin_name_ota = burn_name
+          deps += [ ":${copy_burn_bin_name}" ]
+        }
+        copy_dst = "./write_flash_gui/ota_bin"
+        command = "cp -rf ${copy_src}/${bin_name_ota}.bin ${copy_dst}/${burn_name}.bin"
+      }
+    }
+  }
+
+  # generate file system bin from resources/ and sig or not sig before copy to write_flash_gui
+  foreach(fs_bin, fs_list) {
+    fs_enable = fs_bin.enable
+    fs_name = fs_bin.fs_name
+    burn_name = fs_bin.burn_name
+    specific_chip_fs_name = "${burn_name}_${best2003_type}"
+
+    if (fs_name == specific_chip_fs_name) {
+      fs_enable = "true"
+    } else {
+      fs_enable = "false"
+    }
+
+    if (fs_enable == "true") {
+      fs_name = fs_bin.fs_name
+
+      # generate fs bin to release bin
+      gen_fs_name = "genfs_${fs_name}"
+      fs_size = fs_bin.fs_size
+      fs_src = product_path + "/" + flash_partition_dir + "/" + fs_bin.fs_src
+      block_size = fs_bin.block_size
+      bsp_path = rebase_path("liteos_m") + "/sdk/bsp"
+      build_ext_component(gen_fs_name) {
+        exec_path = rebase_path("pack_tools")
+        command = "./genfs.sh ${block_size} ${fs_size} ${fs_src} ${out_product_path} ${fs_name} ${bsp_path}"
+        deps = [ ":init_burn_tools" ]
+        if (bfd_build == "true") {
+          exec_path = rebase_path(".")
+          command = "${bsp_path}/tools/genfs.sh ${fs_name}"
+          # bin configed from vendor/bestechnic/<product_name>/config.json
+          if(fs_bin.burn_name == "littlefs"){
+            foreach(bin_file, bin_list) {
+              build_enable = bin_file.enable
+              if (build_enable == "true" && bfd_dev_mode != "prod") {
+                # exe_bin = "${bin_file.elf_name}_${board_name}"
+                # copy_burn_bin_name = "copy_${exe_bin}_to_release_bin"
+                # deps += [ ":${copy_burn_bin_name}" ]
+                deps += [ "liteos_m/sdk:build_sdk_into_lib" ]
+              }
+            }
+          }
+          print("bfd_build.gen_fs_name", gen_fs_name, deps, command)
+        }        
+      }
+
+      # sig fs bin to hash_sig bin
+      fs_sig = fs_bin.signature
+      if (fs_sig == "true") {
+        gen_fs_name_sig = "genfs_${fs_name}_sig"
+        build_ext_component(gen_fs_name_sig) {
+          exec_path = rebase_path("pack_tools")
+          command = "./sig_fs.sh ${fs_name} ${out_product_path}"
+          deps = [ ":${gen_fs_name}" ]
+        }
+      }
+
+      # if use copy signature bin
+      copy_fs_name = "copy_${fs_name}_to_gui"
+      build_ext_component(copy_fs_name) {
+        exec_path = rebase_path("${out_product_path}")
+        deps = []
+        if (fs_sig == "true") {
+          copy_src = "auto_build_tool/hash_sig"
+          fs_name_ota = "${fs_name}_sig"
+          deps += [ ":${gen_fs_name_sig}" ]
+        } else {
+          copy_src = "release_bin"
+          fs_name_ota = fs_name
+          deps += [ ":${gen_fs_name}" ]
+        }
+        command = "cp -rf ${copy_src}/${fs_name_ota}.bin ./write_flash_gui/ota_bin/${fs_name}.bin"
+      }
+    }
+  }
+
+  # generate bsp bin from bsp and sig or not sig before copy to write_flash_gui
+  foreach(bsp_bin, bsp_bin_list) {
+    bsp_bin_enable = bsp_bin.enable
+
+    if (bsp_bin_enable == "true") {
+      bsp_bin_name = bsp_bin.bsp_bin_name
+      burn_name = bsp_bin.burn_name
+
+      # copy ./liteos_m/sdk/bsp/out/<bsp_bin_name>/<bsp_bin_name>.bin to release bin
+      copy_burn_bin_name = "copy_${bsp_bin_name}_to_release_bin"
+      build_ext_component(copy_burn_bin_name) {
+        exec_path = rebase_path(".")
+        bsp_out_bin_path = "liteos_m/sdk/bsp/prebuild"
+        copy_dest = "${out_product_path}/release_bin"
+        bin_name_ota = burn_name
+        command = "cp -rf ${bsp_out_bin_path}/${bsp_bin_name}.bin ${copy_dest}/${bin_name_ota}.bin"
+        deps = [ "liteos_m/sdk:build_sdk_into_lib" ]
+        deps += [ ":init_burn_tools" ]
+      }
+
+      # sig exe bin to hash_sig bin
+      bsp_bin_sig = bsp_bin.signature
+      if (bsp_bin_sig == "true") {
+        gen_bsp_bin_name_sig = "gen_bsp_bin_${burn_name}_sig"
+        build_ext_component(gen_bsp_bin_name_sig) {
+          exec_path = rebase_path("pack_tools")
+          command = "./sig_bin.sh ${burn_name} ${out_product_path}"
+          deps = [ ":${copy_burn_bin_name}" ]
+        }
+      }
+
+      # if use copy bsp signature bin
+      copy_bsp_bin_name = "copy_${bsp_bin_name}_to_gui"
+      build_ext_component(copy_bsp_bin_name) {
+        exec_path = rebase_path("${out_product_path}")
+        deps = []
+        if (bsp_bin_sig == "true") {
+          copy_src = "./auto_build_tool/hash_sig"
+          bsp_bin_name_ota = "${burn_name}_sig"
+          deps += [ ":${gen_bsp_bin_name_sig}" ]
+        } else {
+          copy_src = "release_bin"
+          bsp_bin_name_ota = burn_name
+          deps += [ ":${copy_burn_bin_name}" ]
+        }
+        command = "cp -rf ./${copy_src}/${bsp_bin_name_ota}.bin ./write_flash_gui/ota_bin/${bsp_bin_name_ota}.bin"
+      }
+    }
+  }
+
+  # pack write flash gui to write_flash_gui-<time>.tar.gz
+  wifi_Download_cfg_name = "wifi_Download_cfg_${best2003_type}.yaml"
+  update_product_yaml = "update_${product_name}_yaml"
+  build_ext_component(update_product_yaml) {
+    exec_path = rebase_path("${ohos_root_path}")
+    command = "cp -rf ${product_path}/${flash_partition_dir}/${wifi_Download_cfg_name} ${out_product_path}/write_flash_gui/wifi_Download_cfg.yaml"
+    deps = [ ":init_burn_tools" ]
+  }
+
+  # pack write flash gui to write_flash_gui-<time>.tar.gz
+  build_ext_component("pack_flash_gui") {
+    exec_path = rebase_path("pack_tools")
+    command =
+        "./pack_burn_tools.sh ${out_product_path} ${pack_burn} ${product_name} ${best2003_type}"
+    deps = [ ":${update_product_yaml}" ]
+
+    # bin configed from vendor/bestechnic/<product_name>/config.json
+    foreach(bin_file, bin_list) {
+      build_enable = bin_file.enable
+      if (build_enable == "true") {
+        exe_bin = "${bin_file.elf_name}_${board_name}"
+        copy_bin_name = "copy_${exe_bin}_to_gui"
+        deps += [ ":${copy_bin_name}" ]
+      }
+    }
+
+    # fs bin configed from vendor/bestechnic/<product_name>/config.json
+    foreach(fs_bin, fs_list) {
+      fs_enable = fs_bin.enable
+      fs_name = fs_bin.fs_name
+      burn_name = fs_bin.burn_name
+      specific_chip_fs_name = "${burn_name}_${best2003_type}"
+
+      if (fs_name == specific_chip_fs_name) {
+        fs_enable = "true"
+      } else {
+        fs_enable = "false"
+      }
+
+      if (fs_enable == "true") {
+        fs_name = fs_bin.fs_name
+        copy_fs_name = "copy_${fs_name}_to_gui"
+        if (fs_enable == "true") {
+          deps += [ ":${copy_fs_name}" ]
+        }
+      }
+    }
+
+    # bsp bin configed from vendor/bestechnic/<product_name>/config.json
+    foreach(bsp_bin, bsp_bin_list) {
+      bsp_bin_enable = bsp_bin.enable
+      if (bsp_bin_enable == "true") {
+        bsp_bin_name = bsp_bin.bsp_bin_name
+        copy_bsp_bin_name = "copy_${bsp_bin_name}_to_gui"
+        deps += [ ":${copy_bsp_bin_name}" ]
+      }
+    }
+  }
+
+  build_ext_component("bfd_pack_flash") {
+    exec_path = rebase_path(".")
+    if (bfd_build == "true") {
+      command = "./liteos_m/sdk/bsp/tools/dist.sh"
+      deps = []
+      if (bfd_dist_gui == "true") {
+        deps += [ ":${update_product_yaml}" ]
+      }
+      # bin configed from vendor/bestechnic/<product_name>/config.json
+      foreach(bin_file, bin_list) {
+        build_enable = bin_file.enable
+        if (build_enable == "true") {
+          exe_bin = "${bin_file.elf_name}_${board_name}"
+          copy_burn_bin_name = "copy_${exe_bin}_to_release_bin"
+          deps += [ ":${copy_burn_bin_name}" ]
+        }
+      }
+      # fs bin configed from vendor/bestechnic/<product_name>/config.json
+      foreach(fs_bin, fs_list) {
+        fs_enable = fs_bin.enable
+        if (fs_enable == "true") {
+          burn_name = fs_bin.burn_name
+          specific_chip_fs_name = "${burn_name}_${best2003_type}"
+          fs_name = fs_bin.fs_name
+          if (fs_name == specific_chip_fs_name) {
+            gen_fs_name = "genfs_${fs_name}"
+            deps += [ ":${gen_fs_name}" ]
+          }
+        }
+      }
+      print("bfd_pack_flash", deps, command)
+    } else {
+      deps = [ ":pack_flash_gui" ]
+    }
+  }
+}
+
+if (ohos_kernel_type == "liteos_a") {
+  if (product_path != "") {
+    product_conf = read_file("${product_path}/config.json", "json")
+    force_link_libs = product_conf.force_link_libs
+  }
+
+  module_name = get_path_info(rebase_path("."), "name")
+  module_group(module_name) {
+    modules = [ "liteos_a" ]
+  }
+
+  # global config
+  out_product_path = "${ohos_root_path}out/${board_name}/${product_name}"
+  out_bin_path = "${out_product_path}/unstripped/bin/"
+
+  # generate execute bin
+  exe_bin = "a7_dsp"
+  gen_dsp_bin = "gen_a7_dsp"
+  copy_lib_name = "gen_bsp_lib_${exe_bin}"
+  executable(gen_dsp_bin) {
+    output_name = "a7_dsp"
+    output_extension = "elf"
+    deps = [ "liteos_a:${copy_lib_name}" ]
+
+    ldflags = [
+      "-Wl,--gc-sections",
+      "-Wl,-Map=bin/$output_name.map",
+    ]
+
+    # force link invisible function ,which ar to lib
+    ldflags += [ "-Wl,--whole-archive" ]
+    ldflags += [ "-l${output_name}" ]
+    foreach(force_link_lib, force_link_libs) {
+      print("force_link_lib:", force_link_lib)
+      ldflags += [ "-l${force_link_lib}" ]
+    }
+    ldflags +=
+        [ "-Wl,-T" +
+          rebase_path("liteos_m/sdk/bsp/out/${exe_bin}/_armca_psram.lds") ]
+    ldflags += [ "-Wl,--no-whole-archive" ]
+
+    libs = [
+      "c",
+      "m",
+      "stdc++",
+    ]
+
+    deps += [ "//build/lite:ohos" ]
+    deps += [ "//build/lite:product" ]
+    deps += [ "//kernel/liteos_a:kernel" ]
+  }
+
+  gen_bin_name = "pack_flash_gui"
+  build_ext_component(gen_bin_name) {
+    exec_path = rebase_path(".")
+    src_elf = "${out_bin_path}/${exe_bin}.elf"
+    dest_bin = "${out_bin_path}/${exe_bin}.bin"
+    command = "arm-none-eabi-objcopy -O binary ${src_elf} ${dest_bin}"
+    deps = [ ":${gen_dsp_bin}" ]
+  }
+}

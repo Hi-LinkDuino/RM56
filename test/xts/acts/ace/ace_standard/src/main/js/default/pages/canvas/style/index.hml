@@ -1,0 +1,235 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            canvas通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <canvas id="styleOne">
+        </canvas>
+        <canvas id="styleTwo">
+        </canvas>
+        <canvas id="styleThree">
+        </canvas>
+        <canvas id="styleFour">
+        </canvas>
+        <canvas id="styleFive">
+        </canvas>
+        <canvas id="styleSix">
+        </canvas>
+        <canvas id="styleSeven">
+        </canvas>
+        <canvas id="styleEight">
+        </canvas>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <canvas id="styleTen">
+            </canvas>
+            <canvas id="styleEleven">
+            </canvas>
+            <canvas id="styleTwelve">
+            </canvas>
+            <canvas id="styleThirteen">
+            </canvas>
+            <canvas id="styleFourteen">
+            </canvas>
+            <canvas id="styleFifteen">
+            </canvas>
+            <canvas id="styleSixteen">
+            </canvas>
+            <canvas id="styleSeventeen">
+            </canvas>
+            <canvas id="styleEighteen">
+            </canvas>
+            <canvas id="styleNineteen">
+            </canvas>
+            <canvas id="styleTwenty">
+            </canvas>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <canvas id="styleTwentyOne">
+            </canvas>
+            <canvas id="styleTwentyTwo">
+            </canvas>
+            <canvas id="styleTwentyThree">
+            </canvas>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <canvas id="styleTwentyFour">
+        </canvas>
+        <canvas id="styleTwentyFive">
+        </canvas>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <canvas id="styleTwentySix">
+        </canvas>
+        <canvas id="styleTwentySeven">
+        </canvas>
+        <canvas id="styleTwentyNine">
+        </canvas>
+        <canvas id="styleThirty">
+        </canvas>
+        <canvas id="styleThirtyOne">
+        </canvas>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <canvas id="styleThirtyTwo">
+        </canvas>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            canvas特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 flex-direction flex-wrap justify-content align-items align-content
+        </text>
+        <div id="specificOne">
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+        </div>
+        <div id="specificTwo">
+            <div id="specificThree" >
+                <canvas class="flex-item red-item">
+                </canvas>
+            </div>
+            <div id="specificFour" >
+                <canvas class="flex-item blue-item">
+                </canvas>
+
+            </div>
+            <div id="specificFive" >
+                <canvas class="flex-item yellow-item">
+                </canvas>
+                <canvas class="flex-item blue-item">
+                </canvas>
+            </div>
+            <div id="specificSix" >
+                <text style="font-size: 6px;">
+                    文本
+                </text>
+                <canvas class="flex-item blue-item">
+                </canvas>
+            </div>
+        </div>
+
+        <text class="sub-title">
+            特有样式 overflow scrollbar-color scrollbar-width overscroll-effect
+        </text>
+        <div id="specificSeven" >
+            <div id="specificEight" >
+                <canvas style="margin-left:10px;width: 80px; height: 10px; background-color: #0000ff;"></canvas>
+            </div>
+        </div>
+        <div id="specificNine">
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+        </div>
+        <div id="specificTen">
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+        </div>
+        <div id="specificEleven">
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+            <canvas class="flex-item red-item">
+            </canvas>
+            <canvas class="flex-item blue-item">
+            </canvas>
+            <canvas class="flex-item green-item">
+            </canvas>
+        </div>
+
+        <text class="sub-title">
+            特有样式 grid
+        </text>
+        <canvas id="specificTwelve">
+        </canvas>
+        <canvas id="specificThirteen">
+        </canvas>
+
+        <div style="width: 100%;flex-weight: 1;overflow: scroll;flex-direction: column;">
+            <text class="sub-title">
+                补充样式
+            </text>
+            <canvas id="addOne">
+            </canvas>
+            <canvas id="addTwo">
+            </canvas>
+            <canvas id="addThree">
+            </canvas>
+            <canvas id="addFour">
+            </canvas>
+            <canvas id="addFive">
+            </canvas>
+            <canvas id="addSix">
+            </canvas>
+            <canvas id="addSeven">
+            </canvas>
+        </div>
+
+
+    </div>
+</div>
+

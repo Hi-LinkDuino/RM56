@@ -1,0 +1,10 @@
+{
+    "version": "1.0.0",
+    "AppFreeze": {
+            "63_AppFreeze_00": {
+                "PNAME": "BasicParam.v_process",
+                "PID": "BasicParam.v_pid",
+                "UID": "BasicParam.v_uid"
+            }
+        }
+}

@@ -1,0 +1,4 @@
+root {
+    module = "test";
+    term1 = 1
+}

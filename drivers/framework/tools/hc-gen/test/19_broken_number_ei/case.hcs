@@ -1,0 +1,6 @@
+root {
+    module = "test";
+    term1 = "hello",
+    // test number miss prefix
+    term2 = 2f;
+}

@@ -1,0 +1,112 @@
+{
+  "app": {
+    "bundleName": "com.example.bmsaccesstoken1",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 5,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.bmsaccesstoken1",
+    "name": ".MyApplication1",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": ".MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "isVisible": "true",
+        "launchType": "standard",
+        "language": "C++",
+        "metaData": {
+            "customizeData": [
+                {
+                    "name": "originWidgetName",
+                    "value": "com.weather.testWidget"
+                }
+            ]
+        }
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ],
+    "definePermissions":[
+      {
+          "availableLevel":"normal",
+          "description":"ALPHA description",
+          "distributedSceneEnable":true,
+          "grantMode":"user_grant",
+          "label":"ALPHA label",
+          "name":"ohos.permission.ALPHA",
+          "provisionEnable":true
+      },
+      {
+          "availableLevel":"normal",
+          "description":"BETA description",
+          "distributedSceneEnable":true,
+          "grantMode":"user_grant",
+          "label":"BETA label",
+          "name":"ohos.permission.BETA",
+          "provisionEnable":true
+      }
+    ],
+    "reqPermissions":[
+      {
+          "name":"ohos.permission.ALPHA",
+          "reason":"use ohos.permission.ALPHA"
+      },
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+        "reason": "use ohos.permission.KEEP_BACKGROUND_RUNNING"
+      },
+      {
+        "name": "ohos.permission.LOCATION_IN_BACKGROUND",
+        "reason": "use ohos.permission.LOCATION_IN_BACKGROUND"
+      },
+      {
+        "name": "ohos.permission.USE_BLUETOOTH",
+        "reason": "use ohos.permission.USE_BLUETOOTH"
+      },
+      {
+        "name": "ohos.permission.SYSTEM_FLOAT_WINDOW",
+        "reason": "use ohos.permission.SYSTEM_FLOAT_WINDOW"
+      }
+    ]
+  }
+}

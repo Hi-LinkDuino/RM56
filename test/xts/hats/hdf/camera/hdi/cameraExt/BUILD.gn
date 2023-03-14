@@ -1,0 +1,114 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/camera/hal/camera.gni")
+import("//test/xts/tools/build/suite.gni")
+module_output_path = "hdf/camera"
+camera_path = "//drivers/peripheral/camera/hal"
+
+config("cameraTest_config") {
+  visibility = [ ":*" ]
+}
+
+ohos_moduletest_suite("HatsHdfCameraExtTest") {
+  testonly = true
+  module_out_path = module_output_path
+  sources = [
+    "../common/common.cpp",
+    "./src/flashlight_test.cpp",
+    "./src/offline_stream_test.cpp",
+    "./src/resolution_test.cpp",
+  ]
+
+  include_dirs = [
+    "//third_party/googletest/googletest/include/gtest",
+    "../include",
+    "$camera_path/../interfaces/include",
+    "$camera_path/../interfaces/hdi_ipc",
+    "$camera_path/../interfaces/hdi_ipc/server/include",
+    "$camera_path/../interfaces/hdi_ipc/utils/include",
+    "$camera_path/../interfaces/hdi_ipc/client/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/host/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/device/include",
+    "$camera_path/../interfaces/hdi_ipc/callback/operator/include",
+    "$camera_path/include",
+    "$camera_path/hdi_impl",
+    "$camera_path/hdi_impl/include",
+    "$camera_path/hdi_impl/include/camera_host",
+    "$camera_path/hdi_impl/include/camera_device",
+    "$camera_path/hdi_impl/include/stream_operator",
+    "$camera_path/hdi_impl/include/offline_stream_operator",
+    "$camera_path/device_manager/include/",
+    "$camera_path/device_manager/include/mpi",
+    "//base/startup/syspara_lite/adapter/native/syspara/include",
+    "$camera_path/utils/event",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata/include",
+
+    #producer
+    "//utils/native/base/include",
+    "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy/include",
+    "$camera_path/pipeline_core/utils",
+    "$camera_path/pipeline_core/include",
+    "$camera_path/pipeline_core/host_stream/include",
+    "$camera_path/pipeline_core/nodes/include",
+    "$camera_path/pipeline_core/nodes/src/node_base",
+    "$camera_path/pipeline_core/nodes/src/dummy_node",
+    "$camera_path/pipeline_core/pipeline_impl/src/strategy/config",
+    "$camera_path/pipeline_core/pipeline_impl/include",
+    "$camera_path/pipeline_core/pipeline_impl/src",
+    "$camera_path/pipeline_core/pipeline_impl/src/builder",
+    "$camera_path/pipeline_core/pipeline_impl/src/dispatcher",
+    "$camera_path/pipeline_core/pipeline_impl/src/parser",
+    "$camera_path/pipeline_core/pipeline_impl/src/strategy",
+    "$camera_path/pipeline_core/ipp/include",
+
+    # hcs parser
+    "//system/core/include/cutils",
+  ]
+
+  deps = [
+    "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+    "$camera_path/buffer_manager:camera_buffer_manager",
+    "$camera_path/device_manager:camera_device_manager",
+    "$camera_path/hdi_impl:camera_hdi_impl",
+    "$camera_path/pipeline_core:camera_pipeline_core",
+    "//foundation/multimedia/camera_standard/frameworks/native/metadata:metadata",
+    "//third_party/googletest:gmock",
+    "//third_party/googletest:gmock_main",
+    "//third_party/googletest:gtest",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [
+      "device_driver_framework:libhdf_utils",
+      "device_driver_framework:libhdi",
+      "graphic_standard:surface",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_single",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  external_deps += [
+    "ipc:ipc_single",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+  ]
+
+  public_configs = [ ":cameraTest_config" ]
+}

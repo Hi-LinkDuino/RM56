@@ -1,0 +1,18 @@
+{
+    "description": "Configuration for resourceschedule js api Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "300000",
+        "package": "ohos.acts.resourceschedule.deviceusagestatisticsjsunit.js.function",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsResourcescheduleDeviceUsageStatisticsJsunitTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

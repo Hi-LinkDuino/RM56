@@ -1,0 +1,301 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            swiper通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <swiper id="idProp">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <swiper id="classProp"
+                class="classProp">
+        </swiper>
+        <swiper id="classPropNone"
+                class="">
+        </swiper>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <swiper id="styleProp"
+                style="width:10%;height:20px;background-color:red">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <swiper id="refProp"
+                ref="refProp">
+        </swiper>
+        <swiper id="refPropNone"
+                ref="">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <swiper id="disabledPropTrue"
+                disabled="true">
+        </swiper>
+        <swiper id="disabledPropFalse"
+                disabled="false">
+        </swiper>
+        <swiper id="disabledPropNone"
+                disabled="">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <swiper id="focusablePropTrue"
+                focusable="true">
+        </swiper>
+        <swiper id="focusablePropFalse"
+                focusable="false">
+        </swiper>
+        <swiper id="focusablePropNone"
+                focusable="">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <swiper id="dataProp"
+                data-swiper="通用属性 -- data-*">
+        </swiper>
+        <swiper id="dataPropNone"
+                data-swiper="">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <swiper id="clickEffectPropSmall"
+                click-effect="spring-small">
+        </swiper>
+        <swiper id="clickEffectPropMedium"
+                click-effect="spring-medium">
+        </swiper>
+        <swiper id="clickEffectPropLarge"
+                click-effect="spring-large">
+        </swiper>
+        <swiper id="clickEffectPropNone"
+                click-effect="">
+        </swiper>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <swiper id="dirPropRtl"
+                dir="rtl">
+        </swiper>
+        <swiper id="dirPropAuto"
+                dir="auto">
+        </swiper>
+        <swiper id="dirPropLtr"
+                dir="ltr">
+        </swiper>
+        <swiper id="dirPropNone"
+                dir="">
+        </swiper>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <swiper id="forPropNull"
+                for="">
+        </swiper>
+        <swiper id="forPropOne"
+                for="{{listOne}}">
+        </swiper>
+        <swiper id="forPropThree"
+                for="{{listThree}}">
+        </swiper>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <swiper id="ifPropTrue"
+                if="true">
+        </swiper>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <swiper id="showPropTrue"
+                show="true">
+        </swiper>
+        <swiper id="showPropFalse"
+                show="false">
+        </swiper>
+        <swiper id="showPropNone"
+                show="">
+        </swiper>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            swiper特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- index
+        </text>
+        <swiper id="indexProp"
+                index="0">
+        </swiper>
+        <text class="sub-title">
+            特有属性 -- autoplay
+        </text>
+        <swiper id="autoplayPropTrue"
+                autoplay="true">
+        </swiper>
+        <swiper id="autoplayPropFalse"
+                autoplay="false">
+        </swiper>
+        <text class="sub-title">
+            特有属性 -- interval
+        </text>
+        <swiper id="intervalProp"
+                interval="2000">
+        </swiper>
+        <text class="sub-title">
+            特有属性 -- indicator
+        </text>
+        <swiper id="indicatorPropTrue"
+                indicator="true">
+        </swiper>
+        <swiper id="indicatorPropFalse"
+                indicator="false">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- digital
+        </text>
+        <swiper id="digitalPropTrue"
+                indicator="true" digital="true">
+        </swiper>
+        <swiper id="digitalPropFalse"
+                indicator="true" digital="false">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- indicatormask
+        </text>
+        <swiper id="indicatorMaskPropTrue"
+                indicatormask="true">
+        </swiper>
+        <swiper id="indicatorMaskPropFalse"
+                indicatormask="false">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- indicatordisabled
+        </text>
+        <swiper id="indicatorDisabledPropTrue"
+                indicatordisabled="true">
+        </swiper>
+        <swiper id="indicatorDisabledPropFalse"
+                indicatordisabled="false">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- loop
+        </text>
+        <swiper id="loopPropTrue"
+                loop="true">
+        </swiper>
+        <swiper id="loopPropFalse"
+                loop="false">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- duration
+        </text>
+        <swiper id="durationProp"
+                duration="3000">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- vertical
+        </text>
+        <swiper id="verticalPropTrue"
+                vertical="true">
+        </swiper>
+        <swiper id="verticalPropFalse"
+                vertical="false">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- cachedsize
+        </text>
+        <swiper id="cachedSizeProp"
+                cachedsize="-1">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- scrolleffect
+        </text>
+        <swiper id="scrollEffectPropFade"
+                scrolleffect="fade">
+        </swiper>
+        <swiper id="scrollEffectPropSpring"
+                scrolleffect="spring">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- displaymode
+        </text>
+        <swiper id="displayModePropStretch"
+                displaymode="stretch">
+        </swiper>
+        <swiper id="displayModePropAutoLinear"
+                displaymode="autoLinear">
+        </swiper>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <swiper class="propNewAdd"
+               tid="id">
+        </swiper>
+        <swiper class="propNewAdd"
+               tid="">
+        </swiper>
+
+        <div>
+            <swiper id="ifPropTrue"
+                   if="true">
+            </swiper>
+            <swiper class="propNewAdd"
+                   elif="true">
+            </swiper>
+            <swiper class="propNewAdd"
+                   elif="false">
+            </swiper>
+        </div>
+    </div>
+</div>

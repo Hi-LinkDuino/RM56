@@ -1,0 +1,139 @@
+{
+  "app": {
+    "bundleName": "com.example.third4",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0"
+    },
+    "apiVersion": {
+      "compatible": 4,
+      "target": 5,
+      "releaseType": "Beta1"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.third4",
+    "name": ".BmsThirdBundle4",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "name": "com.example.third4.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "label": "$string:app_name",
+        "type": "page",
+        "form": {
+          "formEntity": [
+            "homeScreen",
+            "searchbox"],
+          "defaultHeight": 100,
+          "defaultWidth": 200,
+          "minHeight": 50,
+          "minWidth": 100
+        },
+        "forms": [
+          {
+            "colorMode": "light",
+            "description": " JS4A Form",
+            "supportDimensions": [ "2*4", "4*4" ],
+            "type": "JS",
+            "jsComponentName": "JS_name4A",
+            "metaData": {
+              "customizeData": [
+                {
+                  "name": "originWidgetName4A",
+                  "value": "com.openharmony.weather.testWidget4A"
+                }
+              ]
+            },
+            "isDefault": true,
+            "deepLink": "ability://com.example.myapplication.fa/.MainAbility",
+            "defaultDimension": "1*2",
+            "name": "Form_JS4A",
+            "scheduledUpateTime": "21:55",
+            "updateEnabled": true,
+            "updateDuration": 1
+          },
+          {
+            "colorMode": "light",
+            "description": " JS4B Form",
+            "supportDimensions": [ "1*2", "2*2" , "2*4"],
+            "type": "JS",
+            "jsComponentName": "JS_name4B",
+            "metaData": {
+              "customizeData": [
+                {
+                  "name": "originWidgetName4B",
+                  "value": "com.openharmony.weather.testWidget4B"
+                }
+              ]
+            },
+            "isDefault": true,
+            "deepLink": "ability://com.example.myapplication.fa/.MainAbility",
+            "defaultDimension": "1*2",
+            "name": "Form_JS4B",
+            "scheduledUpateTime": "21:55",
+            "updateEnabled": true,
+            "updateDuration": 1
+          }
+        ],
+        "launchType": "standard"
+      }
+    ],
+    "shortcuts": [
+      {
+        "icon": "$media:icon",
+        "shortcutId": "id.third4A",
+        "label": "$string:app_name",
+        "intents": [
+          {
+            "targetClass":"com.example.third4A.MainAbility",
+            "targetBundle":"com.example.third4A"
+          }
+        ]
+      },
+      {
+        "icon": "$media:icon",
+        "shortcutId": "id.third4B",
+        "label": "$string:app_name",
+        "intents": [
+          {
+            "targetClass": "com.example.third4B.MainAbility",
+            "targetBundle": "com.example.third4B"
+          }
+        ]
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

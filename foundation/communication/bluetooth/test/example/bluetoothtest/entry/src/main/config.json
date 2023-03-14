@@ -1,0 +1,165 @@
+{
+  "app": {
+    "vendor": "samples",
+    "bundleName": "ohos.samples.bttest",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 8,
+      "target": 8
+   }
+  },
+  "deviceConfig": {},
+  "module": {
+    "mainAbility": ".MainAbility",
+    "deviceType": [
+      "default",
+      "tablet"
+    ],
+    "reqPermissions": [
+      {
+        "reason": "",
+        "name": "ohos.permission.DISCOVER_BLUETOOTH"
+      },
+      {
+        "reason": "",
+        "name": "ohos.permission.USE_BLUETOOTH"
+      },
+      {
+        "name": "ohos.permission.MANAGE_BLUETOOTH"
+      },
+      {
+        "name": "ohos.permission.LOCATION"
+      }
+    ],
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:MainAbility_desc",
+        "formsEnabled": false,
+        "label": "$string:MainAbility_label",
+        "type": "page",
+        "launchType": "singleton"
+      },
+      {
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility2",
+        "name": ".MainAbility2",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:MainAbility2_desc",
+        "formsEnabled": false,
+        "label": "$string:MainAbility2_label",
+        "type": "page",
+        "launchType": "singleton"
+      }
+    ],
+    "distro": {
+      "moduleType": "entry",
+      "installationFree": false,
+      "deliveryWithInstall": true,
+      "moduleName": "entry"
+    },
+    "package": "ohos.samples.bttest",
+    "srcPath": "",
+    "name": ".entry",
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/homePage",
+          "pages/manualApiTestPage",
+          "pages/manualSceneTest",
+          "pages/autoTest",
+          "pages/profile",
+          "pages/subManualApiTest/BrInterfaceTest",
+          "pages/subManualApiTest/bleTest",
+          "pages/subManualApiTest/gattTest",
+          "pages/subManualApiTest/sppTest",
+          "pages/subManualApiTest/profileTest",
+          "pages/subManualApiTest/subBrTest/deviceName",
+          "pages/subManualApiTest/subBrTest/setScanMode",
+          "pages/subManualApiTest/subBrTest/deviceFound",
+          "pages/subManualApiTest/subBrTest/profileConnState",
+          "pages/subManualApiTest/subBrTest/searchProfileConnStateById",
+          "pages/subManualApiTest/subBrTest/pairedDevices",
+          "pages/subManualApiTest/subGattTest/gattClient",
+          "pages/subManualApiTest/subGattTest/gattServer",
+          "pages/subManualApiTest/subSppTest/sppClientTest",
+          "pages/subManualApiTest/subSppTest/sppServerTest",
+          "pages/subAutoTest/brAutoTest",
+          "pages/subAutoTest/bleAutoTest",
+          "pages/subAutoTest/gattAutoTest",
+          "pages/subAutoTest/sppAutoTest",
+          "pages/subAutoTest/profileAutoTest",
+          "pages/subAutoTest/subGattAutoTest/gattClientAutoTest",
+          "pages/subAutoTest/subGattAutoTest/gattServerAutoTest",
+          "pages/subAutoTest/subSppAutoTest/sppClientAutoTest",
+          "pages/subAutoTest/subSppAutoTest/sppServerAutoTest",
+          "pages/subAutoTest/subProfileAutoTest/a2dpSourceAutoTest",
+          "pages/subAutoTest/subProfileAutoTest/handsFreeAudioGatewayAutoTest",
+          "pages/subAutoTest/subProfileAutoTest/hitHostAutoTest",
+          "pages/subAutoTest/subProfileAutoTest/panNetworkAutoTest",
+          "pages/subScenarioTest/brFoundScenarioTest",
+          "pages/subScenarioTest/bleFoundScenarioTest",
+          "pages/subScenarioTest/gattClientScenarioTest",
+          "pages/subScenarioTest/gattServerScenarioTest",
+          "pages/subScenarioTest/sppClientScenarioTest",
+          "pages/subScenarioTest/sppServerScenarioTest",
+          "pages/subProfileTest/a2dpSourceProfileTest",
+          "pages/subProfileTest/handsFreeAudioGatewayProfileTest",
+          "pages/subProfileTest/hidHostProfileTest",
+          "pages/subProfileTest/panNetworkProfileTest",
+          "pages/subBenchmarkTest/brBenchmarkTest",
+          "pages/subBenchmarkTest/bleBenchmarkTest",
+          "pages/subBenchmarkTest/gattClientVelocityBenchmarkTest",
+          "pages/subBenchmarkTest/gattServerVelocityBenchmarkTest",
+          "pages/subBenchmarkTest/sppClientVelocityBenchmarkTest",
+          "pages/subBenchmarkTest/sppServerVelocityBenchmarkTest",
+          "pages/subBenchmarkTest/sppClientBandWidthBenchmarkTest",
+          "pages/subBenchmarkTest/sppServerBandWidthBenchmarkTest"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      },
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index"
+        ],
+        "name": ".MainAbility2",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

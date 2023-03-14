@@ -1,0 +1,8 @@
+[
+    {
+        "name": "OH_LOG_Print"
+    },
+    {
+        "name": "OH_LOG_IsLoggable"
+    }
+]

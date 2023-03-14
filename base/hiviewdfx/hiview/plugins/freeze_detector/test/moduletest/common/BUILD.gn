@@ -1,0 +1,53 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/test.gni")
+module_output_path = "hiview/hiview/plugins/reliability"
+ohos_moduletest("FreezeDetectorPluginModuleTest") {
+  module_out_path = module_output_path
+
+  include_dirs = [
+    "../../unittest/common",
+    "$closed_source_base/components/logcomposer/include",
+    "$hiview_base_root/include",
+    "$hiview_root/include",
+  ]
+
+  sources = [ "freeze_detector_plugin_module_test.cpp" ]
+
+  configs = [
+    "../../..:freeze_detector_config",
+    "../..:freezedetectors_test_config",
+    "../../../../../../../plugin_management:hiview_plugin_management_config",
+    "../../../../../common/common_utils:hiview_reliability_common_utils_config",
+  ]
+
+  deps = [
+    "$closed_source_base/system:hiview_oal_system",
+    "$closed_source_utility:hiview_json_utility",
+    "$hiview_base:hiviewbase",
+    "$hiview_base:hiviewbase",
+    "$hiview_base_root/plugins/engine/engine_event_dispatcher:engine_event_dispatcher",
+    "$hiview_base_root/plugins/eventlogger:event_logger",
+    "$hiview_base_root/plugins/reliability/common/common_utils:hiview_reliability_common_utils",
+    "$hiview_root/plugin_management:hiview_plugin_management",
+    "../..:freezedetectors_test_source",
+    "//third_party/googletest:gtest_main",
+  ]
+}
+
+group("moduletest") {
+  testonly = true
+  deps = [ ":FreezeDetectorPluginModuleTest" ]
+}

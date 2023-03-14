@@ -1,0 +1,199 @@
+{
+  "type": "object",
+  "properties": {
+    "properties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ],
+          "syntax": {
+            "type": "array",
+            "description": "语法",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "支持<length>、<color>、<percentage> 、<line-width>、<line-style>、<repeat-style>、<time>、<transform-list>等内置类型单个或多个(||分割)"
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "version": {
+            "type": "array",
+            "description": "该属性的当前的版本",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "版本号例如:v3.0"
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "description": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "属性的描述文档"
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "restrictions": {
+            "type": "array",
+            "description": "语法限制",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "array",
+                  "description": "语法限制,单个或多个组合",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "enum",
+                      "length",
+                      "line-style",
+                      "color",
+                      "percentage",
+                      "image",
+                      "string",
+                      "repeat",
+                      "position",
+                      "identifier",
+                      "number",
+                      "time"
+                    ]
+                  }
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "values": {
+            "type": "array",
+            "description": "当restrictions字段存在enum时存在该字段,表示该属性对应的值的可选值",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "可选值"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        },
+        "required": ["name", "version", "description"]
+      }
+    },
+    "atDirectives": {
+      "type": "array",
+      "description": "指令列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "指令名称"
+          },
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ],
+          "version": {
+            "type": "array",
+            "description": "版本",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "版本号eg: v3.0"
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "description": {
+            "type": "array",
+            "description": "指令的描述",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        }
+      }
+    },
+    "pseudoClasses": {
+      "type": "array",
+      "description": "伪类列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "伪类名称"
+          },
+          "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Full",
+            "SystemCapability.ArkUI.ArkUI.Lite"
+          ],
+          "version": {
+            "type": "array",
+            "description": "版本",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "版本号eg: v3.0"
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "description": {
+            "type": "array",
+            "description": "伪类的描述",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["properties", "atDirectives", "pseudoClasses"]
+}

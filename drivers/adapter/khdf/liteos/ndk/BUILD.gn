@@ -1,0 +1,108 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, this list of
+#    conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, this list
+#    of conditions and the following disclaimer in the documentation and/or other materials
+#    provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors may be used
+#    to endorse or promote products derived from this software without specific prior written
+#    permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//build/lite/ndk/ndk.gni")
+
+group("hdf_api") {
+  deps = []
+  if (ohos_kernel_type == "liteos_a") {
+    deps += [ ":platform_notes" ]
+    deps += [ ":driver_framework_notes" ]
+    deps += [ ":hdi_display_notes" ]
+    deps += [ ":hdi_input_notes" ]
+    deps += [ ":hdi_audio_notes" ]
+    deps += [ ":driver_wlan_notes" ]
+    deps += [ ":osal_notes" ]
+    deps += [ ":hdi_codec_notes" ]
+    deps += [ ":hdi_format_notes" ]
+    deps += [ ":hdi_sensor_notes" ]
+    deps += [ ":hdi_wlan_notes" ]
+  }
+}
+
+ndk_lib("platform_notes") {
+  deps = []
+  head_files = [ "//drivers/framework/include/platform" ]
+}
+
+ndk_lib("driver_framework_notes") {
+  deps = []
+  head_files = [ "//drivers/framework/include/core" ]
+}
+
+ndk_lib("hdi_display_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/display/interfaces/include" ]
+}
+
+ndk_lib("hdi_input_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/input/interfaces/include" ]
+}
+
+ndk_lib("hdi_audio_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/audio/interfaces/include" ]
+}
+
+ndk_lib("driver_wlan_notes") {
+  deps = []
+  head_files = [
+    "//drivers/framework/include/wifi",
+    "//drivers/framework/include/net",
+    "//drivers/framework/model/network/wifi/platform/include",
+  ]
+}
+
+ndk_lib("osal_notes") {
+  deps = []
+  head_files = [
+    "//drivers/framework/include/osal",
+    "//drivers/framework/include/utils",
+  ]
+}
+
+ndk_lib("hdi_codec_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/codec/interfaces/include/" ]
+}
+
+ndk_lib("hdi_format_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/format/interfaces/include" ]
+}
+
+ndk_lib("hdi_sensor_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/sensor/interfaces/include" ]
+}
+
+ndk_lib("hdi_wlan_notes") {
+  deps = []
+  head_files = [ "//drivers/peripheral/wlan/interfaces/include" ]
+}

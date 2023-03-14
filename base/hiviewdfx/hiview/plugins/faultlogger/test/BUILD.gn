@@ -1,0 +1,76 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/hiviewdfx/hiview/hiview.gni")
+import("//build/test.gni")
+module_output_path = "hiviewdfx/faultlogger/"
+
+config("hiview_faultlogger_test_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    ".",
+    "$hiview_core",
+    "$hiview_faultlogger/service/",
+    "common",
+    "common/unittest",
+  ]
+
+  cflags_cc = [ "-DUNITTEST" ]
+}
+
+ohos_unittest("FaultloggerUnittest") {
+  module_out_path = module_output_path
+
+  configs = [ ":hiview_faultlogger_test_config" ]
+
+  sources = [
+    "$hiview_faultlogger/service/faultlog_database.cpp",
+    "$hiview_faultlogger/service/faultlog_formatter.cpp",
+    "$hiview_faultlogger/service/faultlog_manager.cpp",
+    "$hiview_faultlogger/service/faultlogger.cpp",
+    "common/unittest/faultlogger_unittest.cpp",
+  ]
+
+  deps = [
+    "$hiview_adapter/system_service:system_service",
+    "$hiview_adapter/utility:hiview_adapter_utility",
+    "$hiview_base:hiviewbase",
+    "$hiview_core:hiview_core",
+    "$hiview_plugin/faultlogger/common:faultlogger_common",
+    "$hiview_plugin/faultlogger/service:faultlogger_service_ability",
+    "//third_party/googletest:gtest_main",
+  ]
+
+  external_deps = [
+    "hilog_native:libhilog",
+    "ipc:ipc_core",
+    "samgr_standard:samgr_proxy",
+  ]
+}
+
+ohos_unittest("FaultloggerClientUnittest") {
+  module_out_path = module_output_path
+
+  configs = [ ":hiview_faultlogger_test_config" ]
+
+  sources = [
+    "common/faultlogger_client_test.cpp",
+    "common/unittest/faultlogger_client_unittest.cpp",
+  ]
+
+  deps = [
+    "$hiview_base:hiviewbase",
+    "$hiview_faultlogger:libfaultlogger",
+    "//third_party/googletest:gtest_main",
+  ]
+}

@@ -1,0 +1,25 @@
+{
+    "description": "Configuration for audioRecorder Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "1000000",
+        "package": "ohos.acts.multimedia.audio.audiorecorder",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "type": "ShellKit",
+            "run-command": [
+            ],
+            "teardown-command":[
+            ]
+        },
+        {
+            "test-file-name": [
+                "ActsAudioRecorderJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

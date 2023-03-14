@@ -1,0 +1,158 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos/notice/notice.gni")
+import("//build/templates/metadata/module_info.gni")
+
+template("ohos_copy") {
+  assert(defined(invoker.sources),
+         "sources must be defined for ${target_name}.")
+  assert(defined(invoker.outputs),
+         "outputs must be defined for ${target_name}.")
+
+  _is_test_target = defined(invoker.testonly) && invoker.testonly
+  _is_prebuilt = defined(invoker.prebuilt) && invoker.prebuilt
+  assert(_is_prebuilt != "")  # Mark as used
+
+  # module_info generation is bypassed for prebuilt static library
+  _bypass_module_info_generation =
+      defined(invoker.bypass_module_info_generation) &&
+      invoker.bypass_module_info_generation
+  _main_target_name = target_name
+  _target_label =
+      get_label_info(":${_main_target_name}", "label_with_toolchain")
+  assert(_target_label != "")  # Mark as used
+
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    _subsystem_name = invoker.subsystem_name
+    _part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    _part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      _part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    _subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+  } else if (defined(invoker.subsystem_name)) {
+    _subsystem_name = invoker.subsystem_name
+    _part_name = _subsystem_name
+  } else {
+    _subsystem_name = "common"
+    _part_name = _subsystem_name
+  }
+  assert(_subsystem_name != "")  # Mark as used
+  assert(_part_name != "")  # Mark as used
+
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+
+  if (!_is_test_target) {
+    _notice_target = "${_main_target_name}__notice"
+
+    # Prebuilt target has some lexing error character
+    _notice_target = string_replace(_notice_target, "@", "_")
+    _notice_target = string_replace(_notice_target, "+", "_")
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+    _deps += [ ":$_notice_target" ]
+  }
+
+  copy(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "testonly",
+                             "visibility",
+                             "public_configs",
+                             "sources",
+                             "outputs",
+                           ])
+    deps = _deps
+
+    if (!_bypass_module_info_generation) {
+      _install_module_info = {
+        module_def = _target_label
+        module_info_file =
+            rebase_path(get_label_info(_target_label, "target_out_dir"),
+                        root_build_dir) +
+            "/${_main_target_name}_module_info.json"
+        subsystem_name = _subsystem_name
+        part_name = _part_name
+        toolchain = current_toolchain
+        toolchain_out_dir = rebase_path(root_out_dir, root_build_dir)
+      }
+
+      metadata = {
+        install_modules = [ _install_module_info ]
+      }
+    }
+  }
+
+  if (!_bypass_module_info_generation) {
+    generate_module_info("${_main_target_name}_info") {
+      forward_variables_from(invoker,
+                             [
+                               "module_install_dir",
+                               "relative_install_dir",
+                               "module_source_dir",
+                               "module_install_name",
+                               "module_type",
+                               "install_enable",
+                             ])
+      module_name = _main_target_name
+      if (!defined(module_type)) {
+        module_type = "unknown"
+      }
+      if (!defined(module_source_dir)) {
+        module_source_dir = "${target_out_dir}"
+      }
+
+      if (_is_prebuilt) {
+        _sources = invoker.sources
+        module_source = _sources[0]
+      }
+      prebuilt = _is_prebuilt
+
+      if (!defined(install_enable)) {
+        install_enable = false
+      }
+
+      module_install_images = [ "system" ]
+      if (defined(invoker.install_images)) {
+        module_install_images = []
+        module_install_images += invoker.install_images
+      }
+
+      if (defined(invoker.symlink_target_name)) {
+        symlink_target_name = invoker.symlink_target_name
+      }
+
+      notice = "$target_out_dir/$_main_target_name.notice.txt"
+    }
+  }
+}

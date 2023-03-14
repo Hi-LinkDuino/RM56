@@ -1,0 +1,84 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("${root_build_dir}/build_configs/parts_list.gni")
+
+# build target type
+target_type = "${target_os}-${target_cpu}"
+dist_dir_name = "component_dist/${target_type}"
+
+# dist_build_out_dir = "${root_build_dir}/component_dist/${target_type}"
+dist_subsystem_info_filename = "dist_parts_info.json"
+
+# install packages archive dir define
+dist_install_packages_dir = "${dist_dir_name}/packages_to_install"
+dist_subsystem_info_file =
+    "//${dist_install_packages_dir}/${dist_subsystem_info_filename}"
+
+src_installed_info_file = "${root_build_dir}/src_installed_parts.json"
+binary_installed_info_file = "${root_build_dir}/binary_installed_parts.json"
+
+all_subsystem_info_file = "${root_build_dir}/all_parts_info.json"
+
+generated_file("generate_src_installed_info") {
+  deps = []
+  foreach(part_label, parts_list) {
+    deps += [ get_label_info(part_label, "label_with_toolchain") ]
+  }
+  outputs = [ src_installed_info_file ]
+  data_keys = [ "part_installed_info" ]
+  output_conversion = "json"
+}
+
+action_with_pydeps("gen_binary_installed_info") {
+  deps = [ ":generate_src_installed_info" ]
+  script = "//build/ohos/common/binary_install_info.py"
+  depfile = "$target_gen_dir/$target_name.d"
+  inputs = [ src_installed_info_file ]
+  outputs = [ binary_installed_info_file ]
+  args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--dist-parts-info-file",
+    rebase_path(dist_subsystem_info_file, root_build_dir),
+    "--parts-src-installed-info-file",
+    rebase_path(src_installed_info_file, root_build_dir),
+    "--binary-installed-info-file",
+    rebase_path(binary_installed_info_file, root_build_dir),
+  ]
+}
+
+action_with_pydeps("merge_all_parts") {
+  script = "//build/ohos/common/merge_all_subsystem.py"
+  deps = [
+    ":gen_binary_installed_info",
+    ":generate_src_installed_info",
+  ]
+  sources = [
+    binary_installed_info_file,
+    src_installed_info_file,
+  ]
+  outputs = [ all_subsystem_info_file ]
+  depfile = "$target_gen_dir/$target_name.d"
+  args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--src-install-info-file",
+    rebase_path(src_installed_info_file, root_build_dir),
+    "--binary-install-info-file",
+    rebase_path(binary_installed_info_file, root_build_dir),
+    "--all-subsystem-info-file",
+    rebase_path(all_subsystem_info_file, root_build_dir),
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "name": "animateTransform",
+  "version": [
+    {
+      "name": "v7.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": ""
+    }
+  ],
+  "attributes": [
+    {
+      "name": "type",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "translate"
+        },
+        {
+          "name": "scale"
+        },
+        {
+          "name": "rotate"
+        },
+        {
+          "name": "skewX"
+        },
+        {
+          "name": "skewY"
+        }
+      ]
+    },
+    {
+      "name": "attributeName",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "attributeType",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "begin",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "values",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "keyTimes",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "keySplines",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "from",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "dur",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "end",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "repeatCount",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "fill",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "freeze"
+        },
+        {
+          "name": "remove"
+        }
+      ]
+    },
+    {
+      "name": "calcMode",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "discrete"
+        },
+        {
+          "name": "linear"
+        },
+        {
+          "name": "paced"
+        },
+        {
+          "name": "spline"
+        }
+      ]
+    },
+    {
+      "name": "from",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "to",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": false,
+  "supportedSubComponentsRestriction": [],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

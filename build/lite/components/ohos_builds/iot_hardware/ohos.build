@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "iot_controller": {
+      "module_list": [
+        "//base/iot_hardware/peripheral:iothardware"
+      ]
+    }
+  },
+  "subsystem_name": "iot_hardware"
+}

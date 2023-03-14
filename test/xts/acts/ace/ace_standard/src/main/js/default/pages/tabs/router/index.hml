@@ -1,0 +1,436 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <!-- 通用样式 -->
+        <div class="style-container">
+        <text class="title">
+            通用样式
+        </text>
+        <text class="sub-title">
+            tabs通用样式1
+        </text>
+        <tabs class = "tabs style1"
+              index="0"
+              vertical="false"
+              onchange="change">
+        </tabs>
+
+        <text  class="sub-title">
+            tabs通用样式2
+        </text>
+        <tabs class = "tabs style2"
+              index="0"
+              vertical="false"
+              onchange="change">
+        </tabs>
+
+        <text  class="sub-title">
+            tabs通用样式3
+        </text>
+        <tabs class = "tabs style3"
+              index="0"
+              vertical="false"
+              onchange="change">
+        </tabs>
+
+        <text  class="sub-title">
+            tabs通用样式4
+        </text>
+        <tabs class = "tabs style4"
+              index="0"
+              vertical="false"
+              onchange="change">
+        </tabs>
+
+        <text  class="sub-title">
+            tabs通用样式5
+        </text>
+        <div class="contain1">
+            <tabs class = "tabs style5"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+            <tabs class = "tabs style6"
+                  index="0" vertical="false"
+                  onchange="change">
+            </tabs>
+        </div>
+        <text  class="sub-title">
+            tabs特有样式
+        </text>
+        <tabs class = "tabs style7"
+              index="0" vertical="false"
+              onchange="change">
+        </tabs>
+    </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <!-- 动画 -->
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                tabs动画样式1
+            </text>
+            <tabs class = "tabs style7 ani1"
+                  index="0"
+                  vertical="true"
+                  onchange="change">
+            </tabs>
+
+            <text class="sub-title">
+                tabs动画样式2
+            </text>
+            <tabs class = "tabs style7 ani2"
+                  index="0"
+                  vertical="true"
+                  onchange="change">
+            </tabs>
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                tabs通用属性1
+            </text>
+            <tabs id="prop1"
+                  disabled = "true"
+                  focusable ="true"
+                  data-name ="prop1"
+                  click-effect="spring-medium"
+                  dir ="rtl"
+                  class = "tabs style7"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs通用属性2
+            </text>
+            <tabs disabled = "false"
+                  focusable ="false"
+                  data-name ="prop2"
+                  click-effect="spring-large"
+                  dir ="ltr"
+                  class = "tabs style7 prop2"
+                  ref="prop2"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs通用属性3
+            </text>
+            <tabs style="background-color: seagreen;  margin: 5px;"
+                  class = "tabs style7"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs特有属性4
+            </text>
+            <tabs class = "tabs style7 prop4"
+                  index="1"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs特有属性5
+            </text>
+            <tabs class = "tabs style7 prop5"
+                  index="0"
+                  vertical="true"
+                  onchange="change">
+            </tabs>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                tabs通用事件1
+            </text>
+            <tabs class = "tabs tstyle event1"
+                  ontouchstart="touchStart"
+                  ontouchmove="touchMove"
+                  ontouchend="touchEnd"
+                  ontouchcancel="touchCancel"
+                  index="0" vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs通用事件2
+            </text>
+            <tabs class = "tabs tstyle event2"
+                  onclick="click"
+                  ondoubleclick="doubleClick"
+                  onlongpress="longPress"
+                  onfocus="focus"
+                  onblur="blur"
+                  onkey="key"
+                  onswipe="swipe"
+                  onattached="attached"
+                  ondetached="detached"
+                  index="0" vertical="false"
+                  onchange="change">
+            </tabs>
+            <text  class="sub-title">
+                tabs通用事件3
+            </text>
+            <tabs class = "tabs tstyle event3"
+                  ontouchstart="functionTest1"
+                  onpinchstart="pinchStart"
+                  onpinchupdate="pinchUpdate"
+                  onpinchend="pinchEnd"
+                  onpinchcancel="pinchCancel"
+                  ondragstart="dragStart"
+                  ondrag="drag"
+                  ondragend="dragEnd"
+                  ondragenter="dragEnter"
+                  ondragover="dragOver"
+                  ondragleave="dragLeave"
+                  ondrop="drop">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs特有事件1
+            </text>
+            <tabs class = "tabs tstyle event4"
+                  index="0" vertical="false"
+                  onchange="change">
+            </tabs>
+
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <!-- 通用方法 -->
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                tabs通用方法1
+            </text>
+            <tabs class = "tabs tstyle event1"
+                  id="function1"
+                  index="0"
+                  vertical="false"
+                  ontouchstart="functionTest1"
+                  onchange="change">
+            </tabs>
+
+            <text class="sub-title">
+                tabs通用方法2
+            </text>
+            <tabs class = "tabs tstyle event2"
+                  id="function2"
+                  index="0"
+                  vertical="false"
+                  ontouchstart="functionTest2"
+                  onchange="change">
+            </tabs>
+
+            <text class="sub-title">
+                tabs通用方法3
+            </text>
+            <tabs class = "tabs tstyle event3"
+                  index="0"
+                  vertical="false"
+                  ontouchstart="functionTest3"
+                  onchange="change">
+            </tabs>
+
+
+        </div>
+
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                tabs渐变样式1
+            </text>
+            <tabs class = "tabs gradient1"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs渐变样式2
+            </text>
+            <tabs class = "tabs gradient2"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs渐变样式3
+            </text>
+            <tabs class = "tabs gradient3"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+            <text  class="sub-title">
+                tabs渐变样式4
+            </text>
+            <tabs class = "tabs gradient4"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                tabs无障碍1
+            </text>
+            <tabs class = "tabs access1 event3"
+                  onaccessibility="onAccessibility"
+                  accessibilitygroup ="true"
+                  accessibilitytext="这是div"
+                  accessibilitydescription="点击此按键会弹出一个对话框"
+                  accessibilityimportance="no-hide-descendants"
+                  index="0"
+                  vertical="false"
+                  onchange="change">
+            </tabs>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <!-- 原子布局和多模输入 -->
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                tabs原子布局1
+            </text>
+            <div style="flex-direction: row;height: 50px;width: 100%;">
+                <tabs class = "tabs style7 event2"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+                <tabs class = "tabs style7 event1"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+                <tabs class = "tabs style7 event4"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+
+            </div>
+            <text class="sub-title">
+                tabs原子布局2
+            </text>
+            <div style="flex-direction: row;height: 50px;width: 100%;">
+                <tabs class = "tabs style7 event1"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+                <tabs class = "tabs style7 event2"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+                <tabs class = "tabs style7 event1"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+            </div>
+            <text class="sub-title">
+                tabs原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <tabs class = "tabs style7 event2"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+                <tabs class = "tabs style7 event4"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+                <tabs class = "tabs style7 event3"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    tabs多模输入1
+                </text>
+                <tabs class = "tabs style7 multimode1"
+                      voicelabel = "voice"
+                      subscriptflag="on" subscriptlabel="div" scenelabel="common"
+                      index="0"
+                      vertical="false"
+                      onchange="change">
+                </tabs>
+            </div>
+        </div>
+    </div>
+</div>

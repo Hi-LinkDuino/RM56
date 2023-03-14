@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "entry_MainAbility"
+    },
+    {
+      "name": "description_mainability",
+      "value": "ETS_Empty Ability"
+    },
+    {
+      "name":"string_hello",
+      "value":"Hello"
+    },
+    {
+      "name":"string_world",
+      "value":"World"
+    },
+    {
+      "name":"message_arrive",
+      "value":"We will arrive at %s."
+    }
+  ]
+}

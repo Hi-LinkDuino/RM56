@@ -1,0 +1,258 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/sa_profile/sa_profile.gni")
+import("//build/ohos_var.gni")
+import("//foundation/appexecfwk/standard/appexecfwk.gni")
+
+################################################################################
+
+config("wifi_manager_service_header") {
+  include_dirs = [
+    "//utils/native/base/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/ace/ace_engine/frameworks/base/utils",
+    "//foundation/ace/ace_engine/frameworks",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk/",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client/idl_interface",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_scan",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_ap",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/interfaces",
+    "//foundation/communication/wifi/utils/inc",
+    "${aafwk_path}/interfaces/innerkits/want/include",
+    "${aafwk_path}/interfaces/innerkits/want/include/ohos/aafwk/content",
+    "//foundation/aafwk/intent/interfaces/innerkits/base/include",
+    "//foundation/appexecfwk/adapter/interfaces/innerkits/appexecfwk_base/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
+    "//foundation/aafwk/standard/interfaces/innerkits/base/include",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base/include",
+    "//base/security/access_token/interfaces/innerkits/accesstoken/include",
+    "//foundation/communication/netmanager_base/services/netmanagernative/include/netsys",
+  ]
+}
+
+config("wifi_manager_service_config") {
+  visibility = [ "//:*" ]
+  include_dirs = [ ":wifi_fw_common_header" ]
+
+  cflags = [
+    "-std=c++17",
+    "-fno-rtti",
+  ]
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+
+  if (product_name == "rk3568") {
+    defines = [ "PRODUCT_RK" ]
+  }
+}
+
+ohos_source_set("wifi_scan_service_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "wifi_scan_callback_proxy.cpp",
+    "wifi_scan_death_recipient.cpp",
+    "wifi_scan_service_impl.cpp",
+    "wifi_scan_stub.cpp",
+  ]
+  configs = [
+    ":wifi_manager_service_config",
+    ":wifi_manager_service_header",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+}
+ohos_source_set("wifi_device_service_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "wifi_device_callback_proxy.cpp",
+    "wifi_device_death_recipient.cpp",
+    "wifi_device_service_impl.cpp",
+    "wifi_device_stub.cpp",
+    "wifi_protect.cpp",
+    "wifi_protect_manager.cpp",
+  ]
+  configs = [
+    ":wifi_manager_service_config",
+    ":wifi_manager_service_header",
+  ]
+
+  deps = [ ":wifi_p2p_service_impl" ]
+  external_deps = [ "ipc:ipc_core" ]
+}
+ohos_source_set("wifi_hotspot_service_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "wifi_hotspot_callback_proxy.cpp",
+    "wifi_hotspot_death_recipient.cpp",
+    "wifi_hotspot_service_impl.cpp",
+    "wifi_hotspot_stub.cpp",
+  ]
+  configs = [
+    ":wifi_manager_service_config",
+    ":wifi_manager_service_header",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+}
+ohos_source_set("wifi_p2p_service_impl") {
+  part_name = "wifi_standard"
+  sources = [
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/src/wifi_hid2d_msg.cpp",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/src/wifi_p2p_msg.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/if_config.cpp",
+    "wifi_hid2d_cfg.cpp",
+    "wifi_hid2d_service_utils.cpp",
+    "wifi_p2p_callback_proxy.cpp",
+    "wifi_p2p_death_recipient.cpp",
+    "wifi_p2p_service_impl.cpp",
+    "wifi_p2p_stub.cpp",
+  ]
+  configs = [
+    ":wifi_manager_service_config",
+    ":wifi_manager_service_header",
+  ]
+
+  deps = [ "//foundation/communication/netmanager_base/services/netmanagernative:netsys_native_manager" ]
+
+  external_deps = [
+    "ipc:ipc_core",
+    "netmanager_base:net_conn_manager_if",
+  ]
+}
+ohos_shared_library("wifi_manager_service") {
+  install_enable = true
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config/wifi_config_file_spec.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config/wifi_settings.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log/log_helper.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/base_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ip_tools.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ipv4_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ipv6_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/mac_address.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/network_interface.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils/wifi_common_event_helper.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils/wifi_global_func.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/wifi_permission_helper.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/wifi_permission_utils.cpp",
+    "wifi_auth_center.cpp",
+    "wifi_config_center.cpp",
+    "wifi_dumper.cpp",
+    "wifi_internal_event_dispatcher.cpp",
+    "wifi_manager.cpp",
+    "wifi_net_agent.cpp",
+    "wifi_service_manager.cpp",
+  ]
+
+  deps = [
+    "${aafwk_path}/interfaces/innerkits/base:base",
+    "${aafwk_path}/interfaces/innerkits/want:want",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/communication/netmanager_base/services/netmanagernative:netsys_native_manager",
+    "//foundation/communication/wifi/services/wifi_standard/etc/init:etc",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+    "//utils/native/base:utils",
+  ]
+
+  configs = [ ":wifi_manager_service_header" ]
+
+  external_deps = [
+    "access_token:libaccesstoken_sdk",
+    "ces_standard:cesfwk_innerkits",
+    "ipc:ipc_core",
+    "netmanager_base:net_conn_manager_if",
+  ]
+
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+ohos_shared_library("wifi_device_ability") {
+  install_enable = true
+  deps = [
+    ":wifi_device_service_impl",
+    ":wifi_manager_service",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+ohos_shared_library("wifi_scan_ability") {
+  install_enable = true
+  deps = [
+    ":wifi_manager_service",
+    ":wifi_scan_service_impl",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+ohos_shared_library("wifi_hotspot_ability") {
+  install_enable = true
+  deps = [
+    ":wifi_hotspot_service_impl",
+    ":wifi_manager_service",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+ohos_shared_library("wifi_p2p_ability") {
+  install_enable = true
+  deps = [
+    ":wifi_manager_service",
+    ":wifi_p2p_service_impl",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

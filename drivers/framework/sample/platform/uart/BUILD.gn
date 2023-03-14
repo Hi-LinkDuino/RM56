@@ -1,0 +1,14 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+#
+# HDF is dual licensed: you can use it either under the terms of
+# the GPL, or the BSD license, at your option.
+# See the LICENSE file in the root of this repository for complete details.
+
+import("//build/lite/config/component/lite_component.gni")
+
+lite_component("hello_uart_sample") {
+  features = [
+    "dev:hello_uart",
+    "dispatch:hello_uart_dispatch",
+  ]
+}

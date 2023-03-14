@@ -1,0 +1,89 @@
+{
+  "app": {
+    "bundleName": "com.open.harmony.acetestfive",
+    "vendor": "open",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 7,
+      "releaseType": "Release",
+      "target": 7
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.open.harmony.acetestfive",
+    "name": ".MyApplication",
+    "mainAbility": "com.open.harmony.acetestfive.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index",
+          "pages/checkbox",
+          "pages/enumsImage",
+          "pages/fillMode",
+          "pages/ohosMatrix4",
+          "pages/select",
+          "pages/colorGradient",
+          "pages/checkboxGroup",
+          "pages/edgeEffect",
+          "pages/slider",
+          "pages/backgroundAndSizeSetting",
+          "pages/border",
+          "pages/positionSetting",
+          "pages/shapeClipping",
+          "pages/transForm",
+          "pages/visibility",
+          "pages/enumsFlexAlign",
+          "pages/enumsVerticalAlign",
+          "pages/enumsHorizontalAlign"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

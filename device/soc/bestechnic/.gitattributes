@@ -1,0 +1,12 @@
+*.c			text eol=lf
+*.cc		text eol=lf
+*.cpp		text eol=lf
+*.h			text eol=lf
+*.mk		text eol=lf
+*.pl		text eol=lf
+*.S			text eol=lf
+*.s			text eol=lf
+*.sh		text eol=lf
+*.txt		text eol=lf
+Makefile	text eol=lf
+

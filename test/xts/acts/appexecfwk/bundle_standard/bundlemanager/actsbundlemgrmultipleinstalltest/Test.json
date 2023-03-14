@@ -1,0 +1,51 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "750000",
+        "package": "com.example.actsbundlemgrmultipleinstalltest",
+        "shell-timeout": "60000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsBundleMgrMultipleInstallTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "remount",
+                "mkdir -p /data/test/resource/bms/install_bundle"
+            ]
+        },
+        {
+            "type": "PushKit",
+            "push": [
+                "first_right.hap -> /data/test/resource/bms/install_bundle/first_right.hap",
+                "second_right.hap -> /data/test/resource/bms/install_bundle/second_right.hap",
+                "third_right.hap -> /data/test/resource/bms/install_bundle/third_right.hap",
+                "fourth_right.hap -> /data/test/resource/bms/install_bundle/fourth_right.hap",
+                "eighth_right.hap -> /data/test/resource/bms/install_bundle/eighth_right.hap",
+                "ninth_right.hap -> /data/test/resource/bms/install_bundle/ninth_right.hap",
+                "tenth_right.hap -> /data/test/resource/bms/install_bundle/tenth_right.hap",
+                "eleventh_right.hap -> /data/test/resource/bms/install_bundle/eleventh_right.hap",
+                "fifth_right.hap -> /data/test/resource/bms/install_bundle/fifth_right.hap",
+                "second_backup_right.hap -> /data/test/resource/bms/install_bundle/second_backup_right.hap",
+                "twelfth_right.hap -> /data/test/resource/bms/install_bundle/twelfth_right.hap",
+                "sixth_right.hap -> /data/test/resource/bms/install_bundle/sixth_right.hap",
+                "thirteenth_right.hap -> /data/test/resource/bms/install_bundle/thirteenth_right.hap",
+                "fourteenth_right.hap -> /data/test/resource/bms/install_bundle/fourteenth_right.hap",
+                "sixteenth_right.hap -> /data/test/resource/bms/install_bundle/sixteenth_right.hap"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "chmod 777 /data/test/resource/bms/install_bundle/*"
+            ]
+        }
+    ]
+}

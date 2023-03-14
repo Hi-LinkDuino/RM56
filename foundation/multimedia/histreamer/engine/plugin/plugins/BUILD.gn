@@ -1,0 +1,207 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import("//foundation/multimedia/histreamer/config.gni")
+
+if (!hst_is_lite_sys) {
+  ohos_kernel_type = ""
+}
+
+print("histreamer plugin: ffmpeg_adapter =",
+      multimedia_histreamer_enable_plugin_ffmpeg_adapter)
+print("histreamer plugin: hdi_adapter =",
+      multimedia_histreamer_enable_plugin_hdi_adapter)
+print("histreamer plugin: file_source =",
+      multimedia_histreamer_enable_plugin_file_source)
+print("histreamer plugin: file_fd_source =",
+      multimedia_histreamer_enable_plugin_file_fd_source)
+print("histreamer plugin: http_source =",
+      multimedia_histreamer_enable_plugin_http_source)
+print("histreamer plugin: stream_source =",
+      multimedia_histreamer_enable_plugin_stream_source)
+print("histreamer plugin: audio_server_sink =",
+      multimedia_histreamer_enable_plugin_audio_server_sink)
+print("histreamer plugin:lite_aac_decoder =",
+      multimedia_histreamer_enable_plugin_lite_aac_decoder)
+print("histreamer plugin:std_video_surface_sink =",
+      multimedia_histreamer_enable_plugin_std_video_surface_sink)
+print("histreamer plugin:std_video_capture =",
+      multimedia_histreamer_enable_plugin_std_video_capture)
+
+group("histreamer_plugin_store") {
+  deps = []
+  if (multimedia_histreamer_enable_plugin_ffmpeg_adapter) {
+    deps += [ "ffmpeg_adapter:plugin_ffmpeg_adapter" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_minimp3_adapter) {
+    deps += [ "minimp3_adapter:plugin_minimp3_adapter" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_smf_adapter) {
+    deps += [ "smf_adapter:plugin_smf_adapter" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_minimp4_demuxer) {
+    deps += [ "demuxer/minimp4_demuxer:plugin_minimp4_demuxer" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_aac_demuxer) {
+    deps += [ "demuxer/aac_demuxer:plugin_aac_demuxer" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_lite_aac_decoder) {
+    deps += [ "lite_aac_decoder:plugin_lite_aac_decoder_adapter" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_file_source) {
+    deps += [ "source/file_source:plugin_file_source" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_file_fd_source) {
+    deps += [ "source/file_source:plugin_file_fd_source" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_http_source) {
+    deps += [ "source/http_source:plugin_http_source" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_hdi_adapter) {
+    deps += [ "hdi_adapter:plugin_hdi_adapter" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_stream_source) {
+    deps += [ "source/stream_source:plugin_stream_source" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_http_lite_source) {
+    deps += [ "source/http_lite_source:plugin_http_lite_source" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_std_audio_capture) {
+    deps += [ "source/audio_capture:plugin_standard_audio_capture" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_audio_server_sink) {
+    deps += [ "sink/audio_server_sink:plugin_audio_server_sink" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_file_sink) {
+    deps += [ "sink/file_sink:plugin_file_sink" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_std_video_surface_sink) {
+    deps += [ "sink/video_surface_sink:plugin_standard_video_surface_sink" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_std_video_capture) {
+    deps += [ "source/video_capture:plugin_standard_video_capture" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_wav_demuxer) {
+    deps += [ "demuxer/wav_demuxer:plugin_wav_demuxer" ]
+  }
+
+  if (multimedia_histreamer_enable_plugin_avs3_audio_decoder) {
+    deps += [ "//foundation/multimedia/histreamer_plugins/codec/avs3_audio_decoder:plugin_avs3_audio_decoder" ]
+  }
+}
+
+config("gen_plugin_static_header_config") {
+  include_dirs = [ "${target_gen_dir}/include/" ]
+}
+
+action("gen_plugin_static_header") {
+  script = "//foundation/multimedia/histreamer/engine/plugin/plugins/plugin_config.py"
+
+  args = [
+    rebase_path("//foundation/multimedia/histreamer/engine/plugin/plugins",
+                root_build_dir),
+    rebase_path("${target_gen_dir}/include/", root_build_dir),
+  ]
+
+  if (ohos_kernel_type == "liteos_m") {
+    if (multimedia_histreamer_enable_plugin_ffmpeg_adapter) {
+      args += [
+        "FFmpegDemuxer",
+        "FFmpegAudioDecoders",
+      ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_wav_demuxer) {
+      args += [ "WavDemuxer" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_minimp3_adapter) {
+      args += [
+        "Minimp3Demuxer",
+        "Minimp3Decoder",
+      ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_smf_adapter) {
+      args += [
+        "SmfDemuxer",
+        "SmfDecoder",
+      ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_minimp4_demuxer) {
+      args += [ "MiniMP4Demuxer" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_lite_aac_decoder) {
+      args += [ "LiteAACDecoder" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_aac_demuxer) {
+      args += [ "AACDemuxer" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_file_source) {
+      args += [ "FileSource" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_file_fd_source) {
+      args += [ "FileFdSource" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_http_source) {
+      args += [ "HttpSource" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_hdi_adapter) {
+      args += [ "HdiAuSink" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_stream_source) {
+      args += [ "StreamSource" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_http_lite_source) {
+      args += [ "HttpLiteSource" ]
+    }
+
+    if (multimedia_histreamer_enable_plugin_file_sink) {
+      args += [
+        "FileFdSink",
+        "FilePathSink",
+      ]
+    }
+  }
+
+  outputs = [ "${target_gen_dir}/include/all_plugin_static.h" ]
+
+  public_configs = [ ":gen_plugin_static_header_config" ]
+}

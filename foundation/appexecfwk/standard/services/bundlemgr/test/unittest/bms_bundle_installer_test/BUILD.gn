@@ -1,0 +1,282 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("../../../../../appexecfwk.gni")
+import("../../../../../services/bundlemgr/appexecfwk_bundlemgr.gni")
+
+module_output_path = "bundle_framework/bundlemgrservice"
+
+ohos_unittest("BmsBundleInstallerTest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  include_dirs = [
+    "//third_party/jsoncpp/include",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+  ]
+  sources = [
+    "${services_path}/bundlemgr/src/account_helper.cpp",
+    "${services_path}/bundlemgr/src/bundle_clone_mgr.cpp",
+    "${services_path}/bundlemgr/src/bundle_data_mgr.cpp",
+    "${services_path}/bundlemgr/src/bundle_data_storage_database.cpp",
+    "${services_path}/bundlemgr/src/bundle_mgr_host_impl.cpp",
+    "${services_path}/bundlemgr/src/bundle_mgr_service.cpp",
+    "${services_path}/bundlemgr/src/bundle_mgr_service_event_handler.cpp",
+    "${services_path}/bundlemgr/src/bundle_scanner.cpp",
+    "${services_path}/bundlemgr/src/bundle_state_storage.cpp",
+    "${services_path}/bundlemgr/src/bundle_status_callback_death_recipient.cpp",
+    "${services_path}/bundlemgr/src/bundle_user_mgr_host_impl.cpp",
+    "${services_path}/bundlemgr/src/distributed_data_storage.cpp",
+    "${services_path}/bundlemgr/src/hidump_helper.cpp",
+    "${services_path}/bundlemgr/src/installd/installd_host_impl.cpp",
+    "${services_path}/bundlemgr/src/installd/installd_operator.cpp",
+    "${services_path}/bundlemgr/src/installd/installd_service.cpp",
+    "${services_path}/bundlemgr/src/kvstore_death_recipient_callback.cpp",
+    "${services_path}/bundlemgr/src/preinstall_data_storage.cpp",
+  ]
+
+  sources += [
+    "${services_path}/bundlemgr/test/mock/src/accesstoken_kit.cpp",
+    "${services_path}/bundlemgr/test/mock/src/mock_status_receiver.cpp",
+    "${services_path}/bundlemgr/test/mock/src/system_ability_helper.cpp",
+  ]
+
+  sources += bundle_install_sources
+
+  sources += [ "bms_bundle_installer_test.cpp" ]
+
+  configs = [
+    "${libs_path}/libeventhandler:libeventhandler_config",
+    "${services_path}/bundlemgr/test:bundlemgr_test_config",
+  ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = []
+
+  if (bundle_framework_graphics) {
+    include_dirs += [
+      "//foundation/multimedia/image_standard/interfaces/innerkits/include",
+    ]
+    deps += [ "//foundation/multimedia/image_standard/interfaces/innerkits:image_native" ]
+  }
+
+  deps += bundle_install_deps
+
+  external_deps = [
+    "ability_base:want",
+    "appverify:libhapverify",
+    "bundle_framework:appexecfwk_core",
+    "common_event_service:cesfwk_innerkits",
+    "distributeddatamgr:distributeddata_inner",
+    "eventhandler:libeventhandler",
+    "hitrace_native:hitrace_meter",
+    "init:libbegetutil",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+  ]
+
+  defines = []
+  if (configpolicy_enable) {
+    external_deps += [ "config_policy:configpolicy_util" ]
+    defines += [ "CONFIG_POLOCY_ENABLE" ]
+  }
+
+  if (build_selinux) {
+    external_deps += [ "selinux:libhap_restorecon" ]
+    cflags += [ "-DWITH_SELINUX" ]
+  }
+  if (account_enable) {
+    external_deps += [ "os_account:os_account_innerkits" ]
+    defines += [ "ACCOUNT_ENABLE" ]
+  }
+  if (bundle_framework_free_install) {
+    sources += aging
+    sources += free_install
+    include_dirs +=
+        [ "${aafwk_path}/frameworks/kits/appkit/native/app/include" ]
+    deps += [ "${aafwk_path}/frameworks/kits/appkit:appkit_native" ]
+    external_deps += [
+      "ability_runtime:ability_manager",
+      "ability_runtime:app_manager",
+      "battery_manager_native:batterysrv_client",
+      "device_usage_statistics:usagestatsinner",
+      "display_manager_native:displaymgr",
+      "power_manager_native:powermgr_client",
+    ]
+    defines += [ "BUNDLE_FRAMEWORK_FREE_INSTALL" ]
+  }
+  if (device_manager_enable) {
+    sources += [ "${services_path}/bundlemgr/src/bms_device_manager.cpp" ]
+    external_deps += [ "device_manager_base:devicemanagersdk" ]
+    defines += [ "DEVICE_MANAGER_ENABLE" ]
+  }
+  if (global_resmgr_enable) {
+    defines += [ "GLOBAL_RESMGR_ENABLE" ]
+    external_deps += [ "resource_management:global_resmgr" ]
+  }
+  if (hicollie_enable) {
+    external_deps += [ "hicollie_native:libhicollie" ]
+    defines += [ "HICOLLIE_ENABLE" ]
+  }
+
+  if (hisysevent_enable) {
+    sources += [ "${services_path}/bundlemgr/src/inner_event_report.cpp" ]
+    external_deps += [ "hisysevent_native:libhisysevent" ]
+    defines += [ "HISYSEVENT_ENABLE" ]
+  }
+
+  resource_config_file =
+      "${appexecfwk_path}/test/resource/bundlemgrservice/ohos_test.xml"
+}
+
+ohos_unittest("BmsMultipleBundleInstallerTest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  include_dirs = [
+    "//third_party/jsoncpp/include",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+  ]
+  sources = [
+    "${services_path}/bundlemgr/src/account_helper.cpp",
+    "${services_path}/bundlemgr/src/bundle_clone_mgr.cpp",
+    "${services_path}/bundlemgr/src/bundle_data_mgr.cpp",
+    "${services_path}/bundlemgr/src/bundle_data_storage_database.cpp",
+    "${services_path}/bundlemgr/src/bundle_mgr_host_impl.cpp",
+    "${services_path}/bundlemgr/src/bundle_mgr_service.cpp",
+    "${services_path}/bundlemgr/src/bundle_mgr_service_event_handler.cpp",
+    "${services_path}/bundlemgr/src/bundle_scanner.cpp",
+    "${services_path}/bundlemgr/src/bundle_state_storage.cpp",
+    "${services_path}/bundlemgr/src/bundle_status_callback_death_recipient.cpp",
+    "${services_path}/bundlemgr/src/bundle_user_mgr_host_impl.cpp",
+    "${services_path}/bundlemgr/src/distributed_data_storage.cpp",
+    "${services_path}/bundlemgr/src/hidump_helper.cpp",
+    "${services_path}/bundlemgr/src/installd/installd_host_impl.cpp",
+    "${services_path}/bundlemgr/src/installd/installd_operator.cpp",
+    "${services_path}/bundlemgr/src/installd/installd_service.cpp",
+    "${services_path}/bundlemgr/src/kvstore_death_recipient_callback.cpp",
+    "${services_path}/bundlemgr/src/preinstall_data_storage.cpp",
+  ]
+
+  sources += [
+    "${services_path}/bundlemgr/test/mock/src/accesstoken_kit.cpp",
+    "${services_path}/bundlemgr/test/mock/src/mock_status_receiver.cpp",
+    "${services_path}/bundlemgr/test/mock/src/system_ability_helper.cpp",
+  ]
+
+  sources += bundle_install_sources
+
+  sources += [ "bms_multiple_installer_test.cpp" ]
+
+  configs = [
+    "${libs_path}/libeventhandler:libeventhandler_config",
+    "${services_path}/bundlemgr/test:bundlemgr_test_config",
+  ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = []
+
+  if (bundle_framework_graphics) {
+    include_dirs += [
+      "//foundation/multimedia/image_standard/interfaces/innerkits/include",
+    ]
+    deps += [ "//foundation/multimedia/image_standard/interfaces/innerkits:image_native" ]
+  }
+
+  deps += bundle_install_deps
+
+  external_deps = [
+    "ability_base:want",
+    "appverify:libhapverify",
+    "bundle_framework:appexecfwk_core",
+    "common_event_service:cesfwk_innerkits",
+    "distributeddatamgr:distributeddata_inner",
+    "eventhandler:libeventhandler",
+    "hitrace_native:hitrace_meter",
+    "init:libbegetutil",
+    "safwk:system_ability_fwk",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+  ]
+
+  defines = []
+  if (configpolicy_enable) {
+    external_deps += [ "config_policy:configpolicy_util" ]
+    defines += [ "CONFIG_POLOCY_ENABLE" ]
+  }
+
+  if (build_selinux) {
+    external_deps += [ "selinux:libhap_restorecon" ]
+    cflags += [ "-DWITH_SELINUX" ]
+  }
+
+  if (account_enable) {
+    external_deps += [ "os_account:os_account_innerkits" ]
+    defines += [ "ACCOUNT_ENABLE" ]
+  }
+
+  if (bundle_framework_free_install) {
+    sources += aging
+    sources += free_install
+    include_dirs +=
+        [ "${aafwk_path}/frameworks/kits/appkit/native/app/include" ]
+    deps += [ "${aafwk_path}/frameworks/kits/appkit:appkit_native" ]
+    external_deps += [
+      "ability_runtime:ability_manager",
+      "ability_runtime:app_manager",
+      "battery_manager_native:batterysrv_client",
+      "device_usage_statistics:usagestatsinner",
+      "display_manager_native:displaymgr",
+      "power_manager_native:powermgr_client",
+    ]
+    defines += [ "BUNDLE_FRAMEWORK_FREE_INSTALL" ]
+  }
+
+  if (hicollie_enable) {
+    external_deps += [ "hicollie_native:libhicollie" ]
+    defines += [ "HICOLLIE_ENABLE" ]
+  }
+  if (global_resmgr_enable) {
+    defines += [ "GLOBAL_RESMGR_ENABLE" ]
+    external_deps += [ "resource_management:global_resmgr" ]
+  }
+  if (device_manager_enable) {
+    sources += [ "${services_path}/bundlemgr/src/bms_device_manager.cpp" ]
+    external_deps += [ "device_manager_base:devicemanagersdk" ]
+    defines += [ "DEVICE_MANAGER_ENABLE" ]
+  }
+
+  if (hisysevent_enable) {
+    sources += [ "${services_path}/bundlemgr/src/inner_event_report.cpp" ]
+    external_deps += [ "hisysevent_native:libhisysevent" ]
+    defines += [ "HISYSEVENT_ENABLE" ]
+  }
+
+  resource_config_file =
+      "${appexecfwk_path}/test/resource/bundlemgrservice/ohos_test.xml"
+}
+
+group("unittest") {
+  testonly = true
+
+  if (ability_runtime_enable) {
+    deps = [
+      ":BmsBundleInstallerTest",
+      ":BmsMultipleBundleInstallerTest",
+    ]
+  }
+}

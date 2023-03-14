@@ -1,0 +1,142 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/sanitizers/sanitizers.gni")
+import("//build/ohos_var.gni")
+
+print("root_out_dir=$root_out_dir")
+print("root_build_dir=$root_build_dir")
+print("root_gen_dir=$root_gen_dir")
+print("current_toolchain=$current_toolchain")
+print("host_toolchain=$host_toolchain")
+
+# load build configs and write load result to out_build_dir/build_configs
+build_loader_script = rebase_path("//build/loader/load.py")
+
+_platforms_config_file =
+    "${preloader_output_dir}/${product_name}/platforms.build"
+
+_subsystem_config_file =
+    "${preloader_output_dir}/${product_name}/subsystem_config.json"
+
+build_platform = ""
+
+arguments = [
+  "--subsystem-config-file",
+  rebase_path(_subsystem_config_file),
+  "--platforms-config-file",
+  rebase_path(_platforms_config_file),
+  "--source-root-dir",
+  rebase_path("//"),
+  "--gn-root-out-dir",
+  rebase_path(root_build_dir),
+  "--target-os",
+  target_os,
+  "--target-cpu",
+  target_cpu,
+]
+
+arguments += [
+  "--os-level",
+  os_level,
+]
+
+if (build_platform != "") {
+  arguments += [
+    "--build-platform-name",
+    build_platform,
+  ]
+}
+
+if (scalable_build) {
+  arguments += [ "--scalable-build" ]
+}
+
+if (build_example) {
+  arguments += [
+    "--example-subsystem-file",
+    rebase_path("//build/subsystem_config_example.json", "$root_out_dir"),
+  ]
+}
+if (build_xts) {
+  arguments += [ "--build-xts" ]
+}
+
+arguments += [
+  "--ignore-api-check",
+  "xts",
+  "common",
+  "developertest",
+]
+
+load_result = exec_script(build_loader_script, arguments, "string")
+
+if (load_result != "") {
+  print()
+  print(load_result)
+}
+
+print("build configs generation is complete.")
+
+# gn target defined
+if (product_name == "ohos-sdk") {
+  group("build_ohos_sdk") {
+    deps = [
+      "//build/ohos/ndk:ohos_ndk",
+      "//build/ohos/sdk:ohos_sdk",
+    ]
+  }
+} else {
+  group("make_all") {
+    deps = [
+      ":make_inner_kits",
+      ":packages",
+    ]
+    if (is_standard_system) {
+      # Lite system uses different packaging scheme, which is called in hb.
+      # So skip images for lite system since it's the mkimage
+      # action for standard system.
+      deps += [ ":images" ]
+    }
+  }
+
+  group("images") {
+    deps = [ "//build/ohos/images:make_images" ]
+  }
+
+  group("packages") {
+    deps = [ "//build/ohos/packages:make_packages" ]
+  }
+
+  group("make_inner_kits") {
+    deps = [ "$root_build_dir/build_configs:inner_kits" ]
+  }
+
+  group("build_all_test_pkg") {
+    testonly = true
+    deps = [
+      "$root_build_dir/build_configs:parts_test",
+      "//test/developertest:make_temp_test",
+    ]
+  }
+
+  group("make_test") {
+    testonly = true
+    deps = [ ":build_all_test_pkg" ]
+    deps += [ "//build/ohos/packages:package_testcase_mlf" ]
+    deps += [ "//build/ohos/packages:package_testcase" ]
+    if (archive_component) {
+      deps += [ "//build/ohos/testfwk:archive_testcase" ]
+    }
+  }
+}

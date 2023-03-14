@@ -1,0 +1,930 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos/notice/notice.gni")
+import("//build/ohos_var.gni")
+import("//build/templates/metadata/module_info.gni")
+
+template("ohos_executable") {
+  assert(!defined(invoker.output_dir),
+         "output_dir is not allowed to be defined.")
+
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "common"
+    part_name = subsystem_name
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  _ohos_test = false
+  if (defined(invoker.ohos_test) && invoker.ohos_test) {
+    output_dir = invoker.test_output_dir
+    _ohos_test = true
+  } else {
+    if (is_standard_system) {
+      output_dir = "${root_out_dir}/${subsystem_name}/${part_name}"
+    } else {
+      output_dir = "${root_out_dir}"
+    }
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker,
+                           [
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+  }
+
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (!_test_target) {
+    _main_target_name = target_name
+    _notice_target = "${_main_target_name}__notice"
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+  target_label = get_label_info(":${target_name}", "label_with_toolchain")
+  target_toolchain = get_label_info(target_label, "toolchain")
+  executable("${target_name}") {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "static_link",
+                             "external_deps",
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+                             "output_dir",
+                             "install_enable",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+
+                             # Sanitizer variables
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+    output_dir = output_dir
+
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+    configs += [ ":$_sanitize_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      configs += [ "//build/config/compiler:exceptions" ]
+      configs -= [ "//build/config/compiler:no_exceptions" ]
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+
+    if (defined(invoker.static_link) && invoker.static_link) {
+      no_default_deps = true
+      configs -= [ "//build/config:executable_config" ]
+      if (!defined(ldflags)) {
+        ldflags = []
+      }
+      ldflags += [ "-static" ]
+      if (is_ohos && use_musl) {
+        import("//build/config/ohos/musl.gni")
+        deps += [ "//third_party/musl:${musl_target_abi_name}_static_libs" ]
+      }
+    }
+
+    if (!defined(output_name)) {
+      output_name = target_name
+    }
+
+    if (defined(invoker.external_deps)) {
+      external_deps_script =
+          rebase_path("//build/templates/common/external_deps_handler.py")
+      external_deps_temp_file =
+          "$target_gen_dir/${part_name}__${target_name}_external_deps_temp.json"
+      arguments = [ "--external-deps" ]
+      arguments += invoker.external_deps
+      arguments += [
+        "--parts-src-flag-file",
+        rebase_path(parts_src_flag_file, root_build_dir),
+        "--external-deps-temp-file",
+        rebase_path(external_deps_temp_file, root_build_dir),
+        "--sdk-base-dir",
+        rebase_path("${innersdk_base_dir}", root_build_dir),
+        "--sdk-dir-name",
+        "${innersdk_dir_name}",
+        "--current-toolchain",
+        current_toolchain,
+      ]
+      if (is_use_sdk) {
+        arguments += [ "--use-sdk" ]
+      }
+      exec_script(external_deps_script, arguments)
+
+      external_deps_info = read_file(external_deps_temp_file, "json")
+      if (defined(external_deps_info.deps)) {
+        deps += external_deps_info.deps
+      }
+      if (defined(external_deps_info.libs)) {
+        libs += external_deps_info.libs
+      }
+      if (defined(external_deps_info.include_dirs)) {
+        include_dirs += external_deps_info.include_dirs
+      }
+    }
+
+    if (target_toolchain == "${current_toolchain}") {
+      install_module_info = {
+        module_def = target_label
+        part_name = part_name
+        module_info_file =
+            rebase_path(get_label_info(module_def, "target_out_dir"),
+                        root_build_dir) + "/${target_name}_module_info.json"
+        subsystem_name = subsystem_name
+        part_name = part_name
+        toolchain = current_toolchain
+        toolchain_out_dir = rebase_path(root_out_dir, root_build_dir)
+      }
+      metadata = {
+        install_modules = [ install_module_info ]
+      }
+    }
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+  }
+
+  if (!_ohos_test) {
+    ohos_module_name = target_name
+    generate_module_info("${ohos_module_name}_info") {
+      module_name = ohos_module_name
+      module_type = "bin"
+
+      module_source_dir = "$root_out_dir"
+      if (defined(output_dir)) {
+        module_source_dir = output_dir
+      }
+
+      module_install_name = ohos_module_name
+      if (defined(invoker.output_name)) {
+        module_install_name = invoker.output_name
+      }
+
+      module_install_images = [ "system" ]
+      if (defined(invoker.install_images)) {
+        module_install_images = []
+        module_install_images += invoker.install_images
+      }
+
+      module_output_extension = executable_extension
+      if (defined(invoker.output_extension)) {
+        module_output_extension = "." + invoker.output_extension
+      }
+
+      if (is_double_framework) {
+        install_enable = false
+      } else {
+        install_enable = true
+      }
+      if (defined(invoker.install_enable)) {
+        install_enable = invoker.install_enable
+      }
+
+      if (defined(invoker.module_install_dir)) {
+        module_install_dir = invoker.module_install_dir
+      }
+
+      if (defined(invoker.relative_install_dir)) {
+        relative_install_dir = invoker.relative_install_dir
+      }
+
+      if (defined(invoker.symlink_target_name)) {
+        symlink_target_name = invoker.symlink_target_name
+      }
+      notice = "$target_out_dir/$ohos_module_name.notice.txt"
+    }
+  }
+}
+
+# Defines a shared_library
+#
+# The shared_library template is used to generated so file.
+#
+# Parameters
+#
+#   subsystem_name (required)
+#   [string]
+#   configs (optional)
+#   [list]
+#   remove_cnofigs (optional)
+#   [list]
+#   version_script (optional)
+#   [string]
+template("ohos_shared_library") {
+  assert(!defined(invoker.output_dir),
+         "output_dir is not allowed to be defined.")
+
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "common"
+    part_name = subsystem_name
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  if (is_standard_system) {
+    output_dir = "${root_out_dir}/${subsystem_name}/${part_name}"
+  } else {
+    output_dir = "${root_out_dir}"
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker,
+                           [
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+  }
+
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (!_test_target) {
+    _notice_target = "${target_name}__notice"
+    _main_target_name = target_name
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+
+  target_label = get_label_info(":${target_name}", "label_with_toolchain")
+  target_toolchain = get_label_info(target_label, "toolchain")
+  shared_library("${target_name}") {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "no_default_deps",
+                             "external_deps",
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+                             "output_dir",
+                             "install_enable",
+                             "version_script",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+
+                             # Sanitizer variables
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+    output_dir = output_dir
+
+    if (!defined(inputs)) {
+      inputs = []
+    }
+
+    if (!defined(ldflags)) {
+      ldflags = []
+    }
+
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+
+    configs += [ ":$_sanitize_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      configs += [ "//build/config/compiler:exceptions" ]
+      configs -= [ "//build/config/compiler:no_exceptions" ]
+    }
+
+    if (!defined(output_name)) {
+      output_name = target_name
+    }
+
+    if (defined(invoker.no_default_deps)) {
+      no_default_deps = invoker.no_default_deps
+    }
+
+    if (defined(invoker.version_script)) {
+      _version_script = rebase_path(invoker.version_script, root_build_dir)
+      inputs += [ invoker.version_script ]
+      ldflags += [ "-Wl,--version-script=${_version_script}" ]
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+    if (defined(invoker.external_deps)) {
+      external_deps_script =
+          rebase_path("//build/templates/common/external_deps_handler.py")
+      external_deps_temp_file =
+          "$target_gen_dir/${part_name}__${target_name}_external_deps_temp.json"
+      arguments = [ "--external-deps" ]
+      arguments += invoker.external_deps
+      arguments += [
+        "--parts-src-flag-file",
+        rebase_path(parts_src_flag_file, root_build_dir),
+        "--external-deps-temp-file",
+        rebase_path(external_deps_temp_file, root_build_dir),
+        "--sdk-base-dir",
+        rebase_path("${innersdk_base_dir}", root_build_dir),
+        "--sdk-dir-name",
+        "${innersdk_dir_name}",
+        "--current-toolchain",
+        current_toolchain,
+      ]
+      if (is_use_sdk) {
+        arguments += [ "--use-sdk" ]
+      }
+
+      exec_script(external_deps_script, arguments, "string")
+
+      external_deps_info = read_file(external_deps_temp_file, "json")
+      if (defined(external_deps_info.deps)) {
+        deps += external_deps_info.deps
+      }
+      if (defined(external_deps_info.libs)) {
+        libs += external_deps_info.libs
+      }
+      if (defined(external_deps_info.include_dirs)) {
+        include_dirs += external_deps_info.include_dirs
+      }
+    }
+
+    #if (target_toolchain == "${current_toolchain}") {
+    install_module_info = {
+      module_def = target_label
+      module_info_file =
+          rebase_path(get_label_info(module_def, "target_out_dir"),
+                      root_build_dir) + "/${target_name}_module_info.json"
+      subsystem_name = subsystem_name
+      part_name = part_name
+      toolchain = current_toolchain
+      toolchain_out_dir = rebase_path(root_out_dir, root_build_dir)
+    }
+    metadata = {
+      install_modules = [ install_module_info ]
+    }
+
+    #}
+  }
+
+  if (target_toolchain == "${current_toolchain}") {
+    ohos_module_name = target_name
+    generate_module_info("${ohos_module_name}_info") {
+      module_name = ohos_module_name
+      module_type = "lib"
+      module_source_dir = "$root_out_dir"
+      if (defined(output_dir)) {
+        module_source_dir = output_dir
+      }
+
+      module_install_name = ohos_module_name
+      if (defined(invoker.output_name)) {
+        module_install_name = invoker.output_name
+      }
+
+      module_install_images = [ "system" ]
+      if (defined(invoker.install_images)) {
+        module_install_images = []
+        module_install_images += invoker.install_images
+      }
+
+      module_output_extension = shlib_extension
+      if (defined(invoker.output_extension)) {
+        module_output_extension = "." + invoker.output_extension
+      }
+
+      install_enable = true
+      if (defined(invoker.install_enable)) {
+        install_enable = invoker.install_enable
+      }
+
+      if (defined(invoker.module_install_dir)) {
+        module_install_dir = invoker.module_install_dir
+      }
+
+      if (defined(invoker.relative_install_dir)) {
+        relative_install_dir = invoker.relative_install_dir
+      }
+
+      if (defined(invoker.symlink_target_name)) {
+        symlink_target_name = invoker.symlink_target_name
+      }
+
+      if (defined(invoker.output_prefix_override)) {
+        output_prefix_override = invoker.output_prefix_override
+      }
+      notice = "$target_out_dir/$ohos_module_name.notice.txt"
+    }
+  }
+}
+
+template("ohos_static_library") {
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "common"
+    part_name = subsystem_name
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker,
+                           [
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+  }
+
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (!_test_target) {
+    _notice_target = "${target_name}__notice"
+    _main_target_name = target_name
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+      module_type = "static_library"
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+
+  static_library(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "no_default_deps",
+                             "external_deps",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+
+                             # Sanitizer variables
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+    if (is_standard_system) {
+      configs -= [ "//build/config/compiler:thin_archive" ]
+    }
+    configs += [ ":$_sanitize_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      configs += [ "//build/config/compiler:exceptions" ]
+      configs -= [ "//build/config/compiler:no_exceptions" ]
+    }
+
+    if (defined(invoker.no_default_deps)) {
+      no_default_deps = invoker.no_default_deps
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+    if (defined(invoker.external_deps)) {
+      external_deps_script =
+          rebase_path("//build/templates/common/external_deps_handler.py")
+      external_deps_temp_file =
+          "$target_gen_dir/${part_name}__${target_name}_external_deps_temp.json"
+      arguments = [ "--external-deps" ]
+      arguments += invoker.external_deps
+      arguments += [
+        "--parts-src-flag-file",
+        rebase_path(parts_src_flag_file, root_build_dir),
+        "--external-deps-temp-file",
+        rebase_path(external_deps_temp_file, root_build_dir),
+        "--sdk-base-dir",
+        rebase_path("${innersdk_base_dir}", root_build_dir),
+        "--sdk-dir-name",
+        "${innersdk_dir_name}",
+        "--current-toolchain",
+        current_toolchain,
+      ]
+      if (is_use_sdk) {
+        arguments += [ "--use-sdk" ]
+      }
+
+      exec_script(external_deps_script, arguments)
+
+      external_deps_info = read_file(external_deps_temp_file, "json")
+      if (defined(external_deps_info.deps)) {
+        deps += external_deps_info.deps
+      }
+      if (defined(external_deps_info.libs)) {
+        libs += external_deps_info.libs
+      }
+      if (defined(external_deps_info.include_dirs)) {
+        include_dirs += external_deps_info.include_dirs
+      }
+    }
+  }
+}
+
+template("ohos_source_set") {
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "common"
+    part_name = subsystem_name
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker,
+                           [
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+  }
+
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (!_test_target) {
+    _main_target_name = target_name
+    _notice_target = "${_main_target_name}__notice"
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+
+      module_type = "source_set"
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+
+  source_set(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "no_default_deps",
+                             "external_deps",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+
+                             # Sanitizer variables
+                             "cfi",
+                             "scs",
+                             "scudo",
+                             "ubsan",
+                             "boundary_sanitize",
+                             "integer_overflow_sanitize",
+                           ])
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+
+    configs += [ ":$_sanitize_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      configs += [ "//build/config/compiler:exceptions" ]
+      configs -= [ "//build/config/compiler:no_exceptions" ]
+    }
+
+    if (defined(invoker.no_default_deps)) {
+      no_default_deps = invoker.no_default_deps
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+    if (defined(invoker.external_deps)) {
+      external_deps_script =
+          rebase_path("//build/templates/common/external_deps_handler.py")
+      external_deps_temp_file =
+          "$target_gen_dir/${part_name}__${target_name}_external_deps_temp.json"
+      arguments = [ "--external-deps" ]
+      arguments += invoker.external_deps
+      arguments += [
+        "--parts-src-flag-file",
+        rebase_path(parts_src_flag_file, root_build_dir),
+        "--external-deps-temp-file",
+        rebase_path(external_deps_temp_file, root_build_dir),
+        "--sdk-base-dir",
+        rebase_path("${innersdk_base_dir}", root_build_dir),
+        "--sdk-dir-name",
+        "${innersdk_dir_name}",
+        "--current-toolchain",
+        current_toolchain,
+      ]
+      if (is_use_sdk) {
+        arguments += [ "--use-sdk" ]
+      }
+
+      exec_script(external_deps_script, arguments)
+
+      external_deps_info = read_file(external_deps_temp_file, "json")
+      if (defined(external_deps_info.deps)) {
+        deps += external_deps_info.deps
+      }
+      if (defined(external_deps_info.libs)) {
+        libs += external_deps_info.libs
+      }
+      if (defined(external_deps_info.include_dirs)) {
+        include_dirs += external_deps_info.include_dirs
+      }
+    }
+  }
+}

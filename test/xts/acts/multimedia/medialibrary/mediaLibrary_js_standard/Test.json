@@ -1,0 +1,69 @@
+{
+    "description": "Configuration for mediaLibrary Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "600000",
+        "package": "ohos.acts.multimedia.mediaLibrary",
+        "shell-timeout": "600000"
+    },
+    "kits": [
+        {
+            "type": "PushKit",
+            "pre-push": [
+            ],
+            "push": [
+                "./resource/medialibrary/01.jpg ->/storage/media/100/local/files",
+                "./resource/medialibrary/01.mp3 ->/storage/media/100/local/files",
+                "./resource/medialibrary/01.mp4 ->/storage/media/100/local/files",
+                "./resource/medialibrary/test.dat ->/storage/media/100/local/files",
+                "./resource/medialibrary/test2.dat ->/storage/media/100/local/files"
+            ]
+        },
+        {
+            "type": "ShellKit",
+            "run-command": [
+                "mkdir /storage/media/100/local/files/Pictures",
+                "cp /storage/media/100/local/files/01.jpg /storage/media/100/local/files/Pictures/",
+                "cp /storage/media/100/local/files/01.mp3 /storage/media/100/local/files/Pictures/",
+                "cp /storage/media/100/local/files/01.mp4 /storage/media/100/local/files/Pictures/",
+                "mkdir /storage/media/100/local/files/Pictures/weixin",
+                "cp /storage/media/100/local/files/01.jpg /storage/media/100/local/files/Pictures/weixin",
+                "cp /storage/media/100/local/files/01.mp3 /storage/media/100/local/files/Pictures/weixin",
+                "cp /storage/media/100/local/files/01.mp4 /storage/media/100/local/files/Pictures/weixin",
+                "mkdir /storage/media/100/local/files/Camera",
+                "cp /storage/media/100/local/files/01.jpg /storage/media/100/local/files/Camera/01.jpg",
+                "cp /storage/media/100/local/files/01.jpg /storage/media/100/local/files/Camera/02.jpg",
+                "cp /storage/media/100/local/files/01.mp3 /storage/media/100/local/files/Camera/01.mp3",
+                "cp /storage/media/100/local/files/01.mp3 /storage/media/100/local/files/Camera/02.mp3",
+                "cp /storage/media/100/local/files/01.mp4 /storage/media/100/local/files/Camera/01.mp4",
+                "cp /storage/media/100/local/files/01.mp4 /storage/media/100/local/files/Camera/02.mp4",
+                "mkdir /storage/media/100/local/files/Documents",
+                "cp /storage/media/100/local/files/test.dat /storage/media/100/local/files/Documents/test.dat",
+                "cp /storage/media/100/local/files/test2.dat /storage/media/100/local/files/Documents/test2.dat",
+                "mkdir /storage/media/100/local/files/Pictures/DeleteAlbumPro",
+                "cp /storage/media/100/local/files/01.jpg /storage/media/100/local/files/Pictures/DeleteAlbumPro",
+                "cp /storage/media/100/local/files/01.mp3 /storage/media/100/local/files/Pictures/DeleteAlbumPro",
+                "cp /storage/media/100/local/files/01.mp4 /storage/media/100/local/files/Pictures/DeleteAlbumPro",
+                "mkdir /storage/media/100/local/files/Pictures/DeleteAlbumCallback",
+                "cp /storage/media/100/local/files/01.jpg /storage/media/100/local/files/Pictures/DeleteAlbumCallback",
+                "cp /storage/media/100/local/files/01.mp3 /storage/media/100/local/files/Pictures/DeleteAlbumCallback",
+                "cp /storage/media/100/local/files/01.mp4 /storage/media/100/local/files/Pictures/DeleteAlbumCallback",
+                "chmod -R 777 /storage/media/100/local/files/*",
+                "chmod -R 777 /data/service/el2/100/hmdfs/account/files/*",
+                "killall com.ohos.medialibrary.MediaScannerAbilityA",
+                "aa start  -a MediaScannerAbility -b com.ohos.medialibrary.MediaScannerAbilityA"
+            ],
+            "teardown-command":[
+                "rm -rf /storage/media/100/local/files/*",
+				"rm -rf /data/accounts/account_0/appdata/com.ohos.medialibrary.MediaLibraryDataA/database/*"
+            ]
+        },
+        {
+            "test-file-name": [
+                "ActsMediaLibraryJsTest.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

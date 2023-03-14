@@ -1,0 +1,13 @@
+{
+    "description": "Config for hcpptest buildonly test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "driver": {
+        "type": "BuildOnlyTestLite",
+        "log_path": "open_posix_testsuite/ActsOpenPosixBuildOnlyTest"
+    }
+}

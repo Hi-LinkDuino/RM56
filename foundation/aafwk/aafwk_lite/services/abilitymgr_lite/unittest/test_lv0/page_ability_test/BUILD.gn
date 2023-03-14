@@ -1,0 +1,60 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/test.gni")
+
+unittest("ability_test_pageAbilityTest_lv0") {
+  output_extension = "bin"
+  output_dir = "$root_out_dir/test/unittest/PageAbilityTest_lv0"
+
+  ldflags = [ "-lstdc++" ]
+
+  sources = [
+    "../../utils/ability_test_helper.cpp",
+    "page_ability_test.cpp",
+  ]
+
+  include_dirs = [
+    "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+    "${aafwk_lite_path}/interfaces/kits/ability_lite",
+    "${aafwk_lite_path}/interfaces/kits/want_lite",
+    "${aafwk_lite_path}/frameworks/want_lite/include",
+    "${aafwk_lite_path}/services/abilitymgr_lite/include",
+    "${aafwk_lite_path}/services/abilitymgr_lite/unittest/util",
+    "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+    "${appexecfwk_lite_path}/utils/bundle_lite",
+    "${appexecfwk_lite_path}/interfaces/innerkits/bundlemgr_lite",
+    "${appexecfwk_lite_path}/frameworks/bundle_lite/include",
+    "${appexecfwk_lite_path}/kits/appkit_lite/appkit_utils/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/innerkits/samgr",
+    "//foundation/distributedschedule/samgr_lite/interfaces/innerkits/registry",
+    "//third_party/cJSON",
+    "//utils/native/lite/include",
+  ]
+
+  deps = [
+    "${aafwk_lite_path}/frameworks/abilitymgr_lite:aafwk_abilityManager_lite",
+    "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//build/lite/config/component/cJSON:cjson_shared",
+    "//foundation/communication/ipc_lite:liteipc_adapter",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+  ]
+
+  defines = [ "OHOS_APPEXECFWK_BMS_BUNDLEMANAGER" ]
+}
+
+group("ability_test_pageAbilityTest_group_lv0") {
+  deps = [ ":ability_test_pageAbilityTest_lv0" ]
+}

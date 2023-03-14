@@ -1,0 +1,28 @@
+{
+    "description": "Config for kernel_lite posix process api test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/kernel",
+                    "target": "/test_root/kernel_lite"
+                },{
+                    "source": "resource/kernel/process",
+                    "target": "/test_root/kernel/process"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/kernel_lite/ActsProcessApiTest.bin"
+    }
+}

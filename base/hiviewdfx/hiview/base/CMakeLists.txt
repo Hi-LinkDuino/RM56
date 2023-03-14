@@ -1,0 +1,43 @@
+set(hiview_base_headfiless
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/audit.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/defines.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/event_dispatch_queue.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/event_dispatcher.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/event_loop.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/event_source.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/event.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/hiview_global.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/logger.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/pipeline.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/plugin.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/plugin_factory.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/utility/include/string_util.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/i_logger.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/default_logger.h
+)
+set(hiview_base_sources
+    ${CMAKE_CURRENT_SOURCE_DIR}/audit.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/event.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/event_dispatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/event_dispatch_queue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/event_loop.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/event_source.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/event.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/hiview_global.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/pipeline.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/plugin.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/plugin_factory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/utility/string_util.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/default_logger.cpp
+)
+
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        ${hiview_base_sources}
+        ${hiview_base_headfiless}
+)
+target_include_directories(${PROJECT_NAME} PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/utility/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/log/include)

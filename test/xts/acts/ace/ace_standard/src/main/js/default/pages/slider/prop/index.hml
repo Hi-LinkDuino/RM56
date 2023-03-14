@@ -1,0 +1,293 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            slider通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <slider id="idProp">
+        </slider>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <slider id="classProp"
+             class="classProp">
+        </slider>
+        <slider id="classPropNone"
+             class="">
+        </slider>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <slider id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </slider>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <slider id="refProp"
+             ref="refProp">
+        </slider>
+        <slider id="refPropNone"
+             ref="">
+        </slider>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <slider id="disabledPropTrue"
+             disabled="true">
+        </slider>
+        <slider id="disabledPropFalse"
+             disabled="false">
+        </slider>
+        <slider id="disabledPropNone"
+             disabled="">
+        </slider>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <slider id="focusablePropTrue"
+             focusable="true">
+        </slider>
+        <slider id="focusablePropFalse"
+             focusable="false">
+        </slider>
+        <slider id="focusablePropNone"
+             focusable="">
+        </slider>
+
+        <text class="sub-title">
+            通用属性 -- data
+        </text>
+        <div>
+            <slider id="dataPropB"
+                   data-input="通用属性 -- data">
+            </slider>
+            <slider id="dataPropBNone"
+                   data-input="">
+            </slider>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <div>
+            <slider id="dataProp"
+                 data-slider="通用属性 -- data-*">
+            </slider>
+            <slider id="dataPropNone"
+                 data-slider="">
+            </slider>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <slider id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </slider>
+        <slider id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </slider>
+        <slider id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </slider>
+        <slider id="clickEffectPropNone"
+             click-effect="">
+        </slider>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <slider id="dirPropRtl"
+             dir="rtl">
+        </slider>
+        <slider id="dirPropAuto"
+             dir="auto">
+        </slider>
+        <slider id="dirPropLtr"
+             dir="ltr">
+        </slider>
+        <slider id="dirPropNone"
+             dir="">
+        </slider>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <slider id="forPropNull"
+             for="">
+        </slider>
+        <slider id="forPropOne"
+             for="{{listOne}}">
+        </slider>
+        <slider id="forPropThree"
+             for="{{listThree}}">
+        </slider>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <slider id="ifPropTrue"
+             if="true">
+        </slider>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <slider id="showPropTrue"
+             show="true">
+        </slider>
+        <slider id="showPropFalse"
+             show="false">
+        </slider>
+        <slider id="showPropNone"
+             show="">
+        </slider>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            slider特有属性
+        </text>
+        <text class="sub-title">
+            特有属性 -- min
+        </text>
+        <slider id="min"
+                min="2">
+        </slider>
+
+        <text class="sub-title">
+            特有属性 -- max
+        </text>
+        <slider id="max"
+                max="100">
+        </slider>
+        <slider id="maxNone"
+                max="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- step
+        </text>
+        <slider id="step"
+                step="2">
+        </slider>
+        <slider id="stepNone"
+                step="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- value
+        </text>
+        <slider id="value"
+               value="10">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- type
+        </text>
+        <slider id="typeContinuous"
+                type="continuous">
+        </slider>
+        <slider id="typeIntermittent"
+               type="intermittent">
+        </slider>
+        <slider id="typeNone"
+               type="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- minicon
+        </text>
+        <slider id="minicon"
+                minicon="../../../common/images/icon.png">
+        </slider>
+        <slider id="miniconNone"
+                minicon="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- maxicon
+        </text>
+        <slider id="maxicon"
+                maxicon="../../../common/images/icon.png">
+        </slider>
+        <slider id="maxiconNone"
+                maxicon="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- mode
+        </text>
+        <slider id="modeOutset"
+                mode="outset">
+        </slider>
+        <slider id="modeInset"
+                mode="inset">
+        </slider>
+        <slider id="modeNone"
+                mode="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- showsteps
+        </text>
+        <slider id="showstepsTrue"
+                showsteps="true">
+        </slider>
+        <slider id="showstepsFalse"
+                showsteps="false">
+        </slider>
+        <slider id="showstepsNone"
+                showsteps="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- showtips
+        </text>
+        <slider id="showtipsTrue"
+                showtips="true">
+        </slider>
+        <slider id="showtipsFalse"
+                showtips="false">
+        </slider>
+        <slider id="showtipsNone"
+                showtips="">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <slider for="{{array}}" tid="id" style="color: #679855; margin: 1px;"
+               id="showFor{{$item.id}}" value="{{$item.name }}">
+        </slider>
+        <text class="sub-title">
+            特有属性 -- if elif
+        </text>
+        <slider if="false" id="showIf">
+        </slider>
+        <slider elif="false" id="showElseIfTrue">
+        </slider>
+        <slider elif="true" id="showElseIfFalse">
+        </slider>
+        <slider else id="showElse">
+        </slider>
+    </div>
+</div>

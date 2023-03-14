@@ -1,0 +1,191 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            toolbar通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <toolbar id="idProp">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <toolbar id="classProp"
+                 class="classProp">
+        </toolbar>
+        <toolbar id="classPropNone"
+                 class="">
+        </toolbar>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <toolbar id="styleProp"
+                 style="width:10%;height:20px;background-color:red">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <toolbar id="refProp"
+                 ref="refProp">
+        </toolbar>
+        <toolbar id="refPropNone"
+                 ref="">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <toolbar id="disabledPropTrue"
+                 disabled="true">
+        </toolbar>
+        <toolbar id="disabledPropFalse"
+                 disabled="false">
+        </toolbar>
+        <toolbar id="disabledPropNone"
+                 disabled="">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <toolbar id="focusablePropTrue"
+                 focusable="true">
+        </toolbar>
+        <toolbar id="focusablePropFalse"
+                 focusable="false">
+        </toolbar>
+        <toolbar id="focusablePropNone"
+                 focusable="">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <toolbar id="dataProp"
+                 data-div="通用属性 -- data-*">
+        </toolbar>
+        <toolbar id="dataPropNone"
+                 data-div="">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <toolbar id="clickEffectPropSmall"
+                 click-effect="spring-small">
+        </toolbar>
+        <toolbar id="clickEffectPropMedium"
+                 click-effect="spring-medium">
+        </toolbar>
+        <toolbar id="clickEffectPropLarge"
+                 click-effect="spring-large">
+        </toolbar>
+        <toolbar id="clickEffectPropNone"
+                 click-effect="">
+        </toolbar>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <toolbar id="dirPropRtl"
+                 dir="rtl">
+        </toolbar>
+        <toolbar id="dirPropAuto"
+                 dir="auto">
+        </toolbar>
+        <toolbar id="dirPropLtr"
+                 dir="ltr">
+        </toolbar>
+        <toolbar id="dirPropNone"
+                 dir="">
+        </toolbar>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <toolbar id="forPropNull"
+                 for="">
+        </toolbar>
+        <toolbar id="forPropOne"
+                 for="{{listOne}}">
+        </toolbar>
+        <toolbar id="forPropThree"
+                 for="{{listThree}}">
+        </toolbar>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <toolbar id="ifPropTrue"
+                 if="true">
+        </toolbar>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <toolbar id="showPropTrue"
+                 show="true">
+        </toolbar>
+        <toolbar id="showPropFalse"
+                 show="false">
+        </toolbar>
+        <toolbar id="showPropNone"
+                 show="">
+        </toolbar>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            toolbar特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <toolbar if="false"></toolbar>
+        <toolbar id="elifPropTrue"
+                 class="specific-style color-grey"
+                 elif="true">
+        </toolbar>
+        <toolbar id="elifPropFalse"
+                 class="specific-style color-red"
+                 elif="false">
+        </toolbar>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <toolbar id="tidProp"
+                 class="specific-style color-red"
+                 tid="tid">
+        </toolbar>
+        <toolbar id="tidPropNone"
+                 class="specific-style color-grey"
+                 tid="">
+        </toolbar>
+
+    </div>
+</div>

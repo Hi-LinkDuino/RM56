@@ -1,0 +1,40 @@
+{
+    "name": "@ohos/startup_syspara_lite",
+    "description": "ohos lite parameter manager",
+    "homePage": "https://gitee.com/openharmony",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/startup_syspara_lite",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/startup/syspara_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "syspara_lite",
+        "subsystem": "startup",
+        "adapted_system_type": [
+            "small"
+        ],
+        "rom": "23KB",
+        "ram": "",
+        "deps": {
+            "components": [
+                "utils_base"
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/startup/syspara_lite/frameworks/parameter",
+                "//base/startup/syspara_lite/frameworks/token"
+            ],
+            "test": [
+                "//base/startup/syspara_lite/frameworks/unittest/parameter:unittest"
+            ]
+        }
+    }
+}

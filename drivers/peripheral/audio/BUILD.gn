@@ -1,0 +1,79 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/audio/audio.gni")
+
+if (defined(ohos_lite)) {
+  group("audio_test_entry") {
+    deps = [ "//drivers/peripheral/audio/test/systemtest:systemtest" ]
+  }
+} else {
+  group("audio_test_entry") {
+    testonly = true
+    deps = [
+      "//drivers/peripheral/audio/test/systemtest:systemtest",
+      "//drivers/peripheral/audio/test/unittest:audiotest",
+    ]
+  }
+}
+
+group("hdi_audio") {
+  deps = [ "hal/hdi_passthrough:hdi_audio" ]
+
+  if (defined(ohos_lite)) {
+    deps += [ "config/lite:hdf_audio_json" ]
+  } else {
+    if (!defined(enable_hdf_proxy_stub) || enable_hdf_proxy_stub == true) {
+      deps += [
+        "config/linux:hdf_audio_json",
+        "hal/hdi_binder/proxy:hdi_audio_client",
+        "hal/hdi_binder/server:hdi_audio_server",
+      ]
+    } else {
+      deps += [ "config/linux:hdf_audio_json" ]
+    }
+  }
+
+  if (enable_audio_device_mpi) {
+    deps += [
+      "//device/hisilicon/hardware/media/proprietary/hal/audio:hdi_audio_interface_lib_capture",
+      "//device/hisilicon/hardware/media/proprietary/hal/audio:hdi_audio_interface_lib_mpi",
+      "//device/hisilicon/hardware/media/proprietary/hal/audio:hdi_audio_interface_lib_render",
+    ]
+  } else {
+    deps += [
+      "supportlibs/adm_adapter:hdi_audio_interface_lib_capture",
+      "supportlibs/adm_adapter:hdi_audio_interface_lib_render",
+    ]
+  }
+  if (enable_audio_hal_notsupport_pathselect == false) {
+    deps += [ "hal/pathselect:hdi_audio_path_select" ]
+
+    if (defined(ohos_lite)) {
+      deps += [ "config/lite:hdf_audio_path_json" ]
+    } else {
+      deps += [ "config/linux:hdf_audio_path_json" ]
+    }
+  }
+}
+
+group("audio_sample_client") {
+  if (!defined(enable_hdf_proxy_stub) || enable_hdf_proxy_stub == true) {
+    deps = [
+      "sample:audio_sample_capture",
+      "sample:audio_sample_render",
+    ]
+  }
+}

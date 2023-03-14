@@ -1,0 +1,90 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack style="left:0px;top:0px;width:454px;height:454px;">
+  <list style="left:0px;top:0px;width:454px;height:454px;flex-direction:column">
+    <list-item style="width:454px;height:60px;">
+    </list-item>
+    <list-item style="width:454px;height:80px;">
+        <input type="button" style="margin-left:85px;width:130px;height:60px;" value="返回首页" onclick="backMain">
+        </input>
+        <input type="button" style="margin-left:20px;width:130px;height:60px;" value="返回上级" onclick="changePrev">
+        </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item class="titleContainerStyle">
+        <text class="titleTextStyle">
+        canvas属性接口2
+        </text>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas1" ref="canvas1" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="font=30px" onclick="font1Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas2" ref="canvas2" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="font=38px" onclick="font2Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas3" ref="canvas3" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="font=0px" onclick="font3Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas4" ref="canvas4" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="font=255px" onclick="font4Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas5" ref="canvas5" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="font=abcpx" onclick="font5Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas6" ref="canvas6" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="font=30px abcd" onclick="font6Func">
+      </input>
+    </list-item>
+    <list-item class="separatorContainerStyle">
+    </list-item>
+    <list-item style="width:454px;height:170px;">
+      <canvas id="canvas7" ref="canvas7" style="margin-left:45px;width:200px;height:150px;background-color:#ffff00">
+      </canvas>
+      <input type="button" style="margin-left:10px;width:180px;height:120px;" value="textAlign=abcd" onclick="font7Func">
+      </input>
+    </list-item>
+  </list>
+</stack>

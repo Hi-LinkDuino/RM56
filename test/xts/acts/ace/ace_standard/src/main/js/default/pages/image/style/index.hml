@@ -1,0 +1,154 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            image通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <image id="styleOne">
+        </image>
+        <image id="styleTwo">
+        </image>
+        <image id="styleThree">
+        </image>
+        <image id="styleFour">
+        </image>
+        <image id="styleFive">
+        </image>
+        <image id="styleSix">
+        </image>
+        <image id="styleSeven">
+        </image>
+        <image id="styleEight">
+        </image>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <image id="styleTen">
+            </image>
+            <image id="styleEleven">
+            </image>
+            <image id="styleTwelve">
+            </image>
+            <image id="styleThirteen">
+            </image>
+            <image id="styleFourteen">
+            </image>
+            <image id="styleFifteen">
+            </image>
+            <image id="styleSixteen">
+            </image>
+            <image id="styleSeventeen">
+            </image>
+            <image id="styleEighteen">
+            </image>
+            <image id="styleNineteen">
+            </image>
+            <image id="styleTwenty">
+            </image>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <image id="styleTwentyOne">
+            </image>
+            <image id="styleTwentyTwo">
+            </image>
+            <image id="styleTwentyThree">
+            </image>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <image id="styleTwentyFour">
+        </image>
+        <image id="styleTwentyFive">
+        </image>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <image id="styleTwentySix">
+        </image>
+        <image id="styleTwentySeven">
+        </image>
+        <image id="styleTwentyNine">
+        </image>
+        <image id="styleThirty">
+        </image>
+        <image id="styleThirtyOne">
+        </image>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <image id="styleThirtyTwo">
+        </image>
+
+        <text class="sub-title">
+            通用样式33 filter:blur() backdrop-filter:blur() window-filter:blur()
+        </text>
+        <image id="styleThirtyThree">
+        </image>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            image特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 color
+        </text>
+        <div id="specificOne">
+            <image id="addOne">
+            </image>
+            <image id="addTwo">
+            </image>
+            <image id="addThree">
+            </image>
+            <image id="addFour">
+            </image>
+            <image id="addFive">
+            </image>
+            <image id="addSix">
+            </image>
+            <image id="addSeven">
+            </image>
+            <image id="addSeven:disabled">
+            </image>
+            <image id="addSeven:active">
+            </image>
+            <image id="addSeven:focus">
+            </image>
+            <image id="addFive">
+            </image>
+            <image id="addFive">
+            </image>
+        </div>
+    </div>
+</div>
+

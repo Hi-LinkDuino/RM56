@@ -1,0 +1,39 @@
+#include "hdf_device_desc.h"  // Header file that describes the APIs provided by the HDF to the driver.
+#include "hdf_log.h"          // Header file that describes the log APIs provided by the HDF.
+
+#define HDF_LOG_TAG ${driver_lower_case}_driver   // Tag contained in logs. If no tag is not specified, the default HDF_TAG is used.
+
+// The driver service struct definition
+struct ITestDriverService {
+    struct IDeviceIoService ioService;       // The first member of the service structure must be a member of type IDeviceIoService
+};
+
+// The driver service interface must be bound to the HDF for you to use the service capability.
+static int32_t Hdf${driver_upper_camel_case}DriverBind(struct HdfDeviceObject *deviceObject) {
+    HDF_LOGI("${driver_lower_case} driver bind success");
+    return 0;
+}
+
+// Initialize the driver service.
+static int32_t Hdf${driver_upper_camel_case}DriverInit(struct HdfDeviceObject *deviceObject) {
+    HDF_LOGI("Hello world");
+    return 0;
+}
+
+// Release the driver resources.
+static void Hdf${driver_upper_camel_case}DriverRelease(struct HdfDeviceObject *deviceObject) {
+    HDF_LOGI("${driver_lower_case} driver Release success");
+    return;
+}
+
+// Define the object of the driver entry. The object must be a global variable of the HdfDriverEntry type (defined in hdf_device_desc.h).
+struct HdfDriverEntry g_${driver_lower_case}DriverEntry = {
+    .moduleVersion = 1,
+    .moduleName = "${driver_lower_case}_driver",
+    .Bind = Hdf${driver_upper_camel_case}DriverBind,
+    .Init = Hdf${driver_upper_camel_case}DriverInit,
+    .Release = Hdf${driver_upper_camel_case}DriverRelease,
+};
+
+// Call HDF_INIT to register the driver entry with the HDF framework. When loading the driver, call the Bind function and then the Init function. If the Init function fails to be called, the HDF will call Release to release the driver resource and exit.
+HDF_INIT(g_${driver_lower_case}DriverEntry);

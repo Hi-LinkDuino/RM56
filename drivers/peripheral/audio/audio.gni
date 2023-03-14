@@ -1,0 +1,35 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+  import("${ohos_product_adapter_dir}/audio/product.gni")
+} else {
+  import("//build/ohos.gni")
+  if (product_name == "ohos-arm64") {
+    enable_audio_alsa_mode = false
+    enable_audio_hal_notsupport_pathselect = false
+  } else {
+    import("//vendor/${product_company}/${product_name}/hals/audio/product.gni")
+  }
+}
+
+#If set flag is false, the ADM version will be built; if set flag is true, the MPI version will be built.
+enable_audio_device_mpi = false
+
+#If set flag is false, the printf log will be built; if set flag is true, the hdf log version will be built.
+enable_audio_hal_hdf_log = true
+
+# testcase build switch
+#If flag is true, the ADM_SO version testcase will be built; if set flag is false, the other version will be built.
+enable_audio_adm_so = false
+
+#If flag is true, the MPI_SO version testcase will be built; if set flag is false, the other version will be built.
+enable_audio_mpi_so = false
+
+#If flag is true, the ADM_SERVICE version testcase will be built; if set flag is false, the other version will be built.
+enable_audio_adm_service = true
+
+#If flag is true, the MPI_SERVICE version testcase will be built; if set flag is false, the other version will be built.
+enable_audio_mpi_service = false
+
+#If all above flag is set to false, it will build failure.so forbid setting all above flag to false.
+enable_coverage = false

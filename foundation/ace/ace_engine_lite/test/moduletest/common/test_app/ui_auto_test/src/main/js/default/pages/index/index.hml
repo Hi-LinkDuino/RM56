@@ -1,0 +1,87 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<list class="container">
+  <list-item style="height:40px;width:454px;">
+  </list-item>
+  <list-item class="titleContainerStyle">
+      <text class="titleTextStyle">
+        UI自动化测试
+      </text>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="canvas" onclick="changeCanvas"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="chart" onclick="changeChart"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="data-binding" onclick="changeDataBinding"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="directive" onclick="changeDirective"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="div" onclick="changeDiv"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="global" onclick="changeGlobal"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="image" onclick="changeImage"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="image-animator" onclick="changeImageAnimator"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="input" onclick="changeInput"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="lifecycle" onclick="changeLifecycle"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="list" onclick="changeList"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="listitem" onclick="changeListItem"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="picker_view" onclick="changePickerView"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="resource" onclick="changeResource"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="router" onclick="changeRouter"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="scroll" onclick="changeScroll"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="swiper" onclick="changeSwiper"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="switch" onclick="changeSwitch"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="arc" onclick="changeArc"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="style" onclick="changeStyle"/>
+  </list-item>
+  <list-item class="listItem">
+    <input type="button" class="buttonStyle" value="radioWidth" onclick="changeWidth"/>
+  </list-item>
+</list>

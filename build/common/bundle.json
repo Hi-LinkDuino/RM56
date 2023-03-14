@@ -1,0 +1,18 @@
+{
+  "component": {
+    "name": "common",
+    "description": "common component set",
+    "subsystem": "common",
+    "features": [
+      "common_feature_verify"
+    ],
+    "rom": "",
+    "ram": "",
+    "deps": {},
+    "build": {
+      "sub_component": [
+        "//build/common:common_packages"
+      ]
+    }
+  }
+}

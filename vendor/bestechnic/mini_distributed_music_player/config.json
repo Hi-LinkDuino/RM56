@@ -1,0 +1,270 @@
+{
+  "product_name": "mini_distributed_music_player",
+  "ohos_version": "OpenHarmony 2.3",
+  "type": "mini",
+  "version": "3.0",
+  "device_company": "fnlink",
+  "board": "v200zr",
+  "kernel_type": "liteos_m",
+  "kernel_version": "3.0.0",
+  "pack_burn": "true",
+  "bin_list": [
+    {
+      "elf_name": "wifiiot",
+      "bsp_target_name": "best2600w_liteos",
+      "signature": "false",
+      "burn_name": "rtos_main",
+      "enable": "true",
+      "force_link_libs": [
+        "bootstrap",
+        "abilityms",
+        "bundlems",
+        "example",
+        "wifi_test",
+        "rpc_test",
+        "mini_sa",
+        "devicemanager_native_js",
+        "devicemanagersdk_mini",
+        "devicemanagerservice_mini",
+        "devicemanagerutils_mini",
+        "dsoftbus_test",
+        "kernel"
+      ]
+    },
+    {
+      "elf_name": "wifiiot_mini",
+      "bsp_target_name": "best2600w_liteos_mini",
+      "signature": "false",
+      "burn_name": "rtos_mini",
+      "enable": "false",
+      "force_link_libs": [
+        "example"
+      ]
+    }
+  ],
+  "fs_list": [
+    {
+      "fs_name": "littlefs",
+      "signature": "false",
+      "block_size": "4096",
+      "fs_size": "4194304",
+      "fs_src": "data",
+      "burn_name": "littlefs",
+      "enable": "true"
+    }
+  ],
+  "bsp_bin_list": [
+    {
+      "bsp_bin_name": "best2600w_liteos_se",
+      "signature": "false",
+      "burn_name": "trustzone_main",
+      "enable": "false"
+    },
+    {
+      "bsp_bin_name": "best2600w_liteos_mini_se",
+      "signature": "false",
+      "burn_name": "trustzone_mini",
+      "enable": "false"
+    },
+    {
+      "bsp_bin_name": "ota_boot1",
+      "signature": "false",
+      "burn_name": "ota_boot1",
+      "enable": "true"
+    },
+    {
+      "bsp_bin_name": "ota_boot2a",
+      "signature": "false",
+      "burn_name": "ota_boot2a",
+      "remap_enable": "true",
+      "enable": "true"
+    }
+  ],
+  "subsystems": [
+    {
+      "subsystem": "kernel",
+      "components": [
+        {
+          "component": "liteos_m",
+          "features": [
+            "ohos_kernel_liteos_m_lwip_path = \"//device/soc/bestechnic/bes2600/liteos_m/components/net/lwip-2.1\""
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "startup",
+      "components": [
+        {
+          "component": "bootstrap_lite"
+        },
+        {
+          "component": "syspara_lite",
+          "features": [
+            "enable_ohos_startup_syspara_lite_use_posix_file_api = true"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "hiviewdfx",
+      "components": [
+        {
+          "component": "hilog_lite",
+          "optional": "true"
+        },
+        {
+          "component": "hievent_lite",
+          "optional": "true"
+        }
+      ]
+    },
+    {
+      "subsystem": "multimedia",
+      "components": [
+        {
+          "component": "histreamer",
+          "features": [
+            "multimedia_histreamer_enable_plugin_hdi_adapter = true",
+            "multimedia_histreamer_enable_plugin_minimp3_adapter = false",
+            "multimedia_histreamer_enable_plugin_smf_adapter = true",
+            "multimedia_histreamer_enable_plugin_ffmpeg_adapter = false",
+            "config_ohos_multimedia_histreamer_stack_size = 65536",
+            "config_ohos_multimedia_media_lite_player_path = \"//vendor/bestechnic/mini_distributed_music_player/distributed_player_lite\""
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "graphic",
+      "components": [
+        {
+          "component": "graphic_utils",
+          "features": [
+            "enable_ohos_graphic_utils_product_config = true"
+          ]
+        },
+        {
+          "component": "ui"
+        }
+      ]
+    },
+    {
+      "subsystem": "ace",
+      "components": [
+        {
+          "component": "ace_engine_lite",
+          "features": [
+            "enable_ohos_ace_engine_lite_product_config = true"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "aafwk",
+      "components": [
+        {
+          "component": "aafwk_lite",
+          "features": [
+            "enable_ohos_appexecfwk_feature_ability = true",
+            "config_ohos_aafwk_ams_task_size = 4096",
+            "config_ohos_aafwk_aafwk_lite_task_stack_size = 32768"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "appexecfwk",
+      "components": [
+        {
+          "component": "appexecfwk_lite"
+        }
+      ]
+    },
+    {
+      "subsystem": "global",
+      "components": [
+        {
+          "component": "resmgr_lite"
+        },
+        {
+          "component": "i18n_lite"
+        }
+      ]
+    },
+    {
+      "subsystem": "distributedschedule",
+      "components": [
+        {
+          "component": "samgr_lite",
+          "features": [
+            "config_ohos_distributedschedule_samgr_lite_shared_task_size = 4096",
+            "enable_ohos_distributedschedule_samgr_lite_rpc_mini = true"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "communication",
+      "components": [
+        {
+          "component": "wifi_lite",
+          "optional": "true"
+        },
+        {
+          "component": "dsoftbus",
+          "features": [
+            "softbus_adapter_config = \"//vendor/bestechnic/mini_distributed_music_player/dsoftbus_lite_config\""
+          ]
+        },
+        {
+          "component": "rpc",
+          "optional": "true"
+        }
+      ]
+    },
+    {
+      "subsystem": "utils",
+      "components": [
+        {
+          "component": "kv_store"
+        },
+        {
+          "component": "js_builtin"
+        },
+        {
+          "component": "timer_task"
+        },
+        {
+          "component": "kal_timer"
+        }
+      ]
+    },
+    {
+      "subsystem": "security",
+      "components": [
+        {
+          "component": "huks",
+          "features": [
+            "huks_use_lite_storage = true",
+            "huks_use_hardware_root_key = true",
+            "huks_config_file = \"hks_config_lite.h\"",
+            "huks_key_store_path = \"/data/\"",
+            "ohos_security_huks_mbedtls_porting_path = \"//device/soc/bestechnic/hals/mbedtls\""
+          ]
+        },
+        {
+          "component": "deviceauth_standard",
+          "features": [
+            "deviceauth_storage_path = \"/data/\"",
+            "deviceauth_hichain_thread_stack_size = 9472"
+          ]
+        }
+      ]
+    }
+  ],
+  "vendor_adapter_dir": "",
+  "product_adapter_dir": "//vendor/bestechnic/mini_distributed_music_player/hals",
+  "third_party_dir": "",
+  "flash_partition_dir": "fs"
+}

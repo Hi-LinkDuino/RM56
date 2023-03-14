@@ -1,0 +1,3 @@
+[compile exit status]:1
+[compile console output]:
+[Error] ./28_overwrite_with_diff_type_ei/case.hcs:7 overwrite different type with:./28_overwrite_with_diff_type_ei/case.hcs:4

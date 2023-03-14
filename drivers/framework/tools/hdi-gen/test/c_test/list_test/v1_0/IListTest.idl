@@ -1,0 +1,46 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+package test.c_test.list_test.v1_0;
+
+import test.c_test.types.v1_0.Types;
+
+interface IListTest {
+
+    BoolListTest([in] List<boolean> param1, [out] List<boolean> param2);
+
+    ByteListTest([in] List<byte> param1, [out] List<byte> param2);
+
+    ShortListTest([in] List<short> param1, [out] List<short> param2);
+
+    IntListTest([in] List<int> param1, [out] List<int> param2);
+
+    LongListTest([in] List<long> param1, [out] List<long> param2);
+
+    UCharListTest([in] List<unsigned char> param1, [out] List<unsigned char> param2);
+
+    UShortListTest([in] List<unsigned short> param1, [out] List<unsigned short> param2);
+
+    UIntListTest([in] List<unsigned int> param1, [out] List<unsigned int> param2);
+
+    ULongListTest([in] List<unsigned long> param1, [out] List<unsigned long> param2);
+
+    FloatListTest([in] List<float> param1, [out] List<float> param2);
+
+    DoubleListTest([in] List<double> param1, [out] List<double> param2);
+
+    StringListTest([in] List<String> param1, [out] List<String> param2);
+
+    FdListTest([in] List<FileDescriptor> param1, [out] List<FileDescriptor> param2);
+
+    EnumListTest([in] List<enum ESample> param1, [out] List<enum ESample> param2);
+
+    StructListTest([in] List<struct SSample> param1, [out] List<struct SSample> param2);
+
+    UnionListTest([in] List<union USample> param1, [out] List<union USample> param2);
+}

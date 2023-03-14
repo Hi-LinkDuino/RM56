@@ -1,0 +1,42 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+config("nativeapi_locale_simulator_config") {
+  cflags = [
+    "-D_INC_STRING_S",
+    "-D_INC_WCHAR_S",
+    "-D_SECIMP=//",
+    "-D_STDIO_S_DEFINED",
+    "-D_INC_STDIO_S",
+    "-D_INC_STDLIB_S",
+    "-D_INC_MEMORY_S",
+  ]
+}
+
+ohos_static_library("nativeapi_locale_simulator") {
+  sources = [ "src/locale_module.cpp" ]
+
+  include_dirs = [
+    "include",
+    "//base/global/resmgr_lite/interfaces/innerkits/include",
+    "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin/base",
+    "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin/jsi",
+    "//third_party/bounds_checking_function/include",
+    "//utils/native/lite/include",
+  ]
+  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+
+  configs = [ ":nativeapi_locale_simulator_config" ]
+}

@@ -1,0 +1,29 @@
+# path, mode(oct), uid, gid, cap
+# 支持data, data/*, data/1.txt方式进行路径匹配，优先匹配显示声明路径，如果找不到会尝试匹配*
+# cap 字符匹配能力仅支持L2
+# 目录未配置默认是 00755， 0， 0， 0
+# 文件未配置默认是 00644， 0， 0， 0
+
+# dir
+cache,                      00770,      1000,       2001,       0
+config,                     00555,      0,          0,          0
+data,                       00771,      1000,       1000,       0
+mnt,                        00755,      0,          1000,       0
+sbin,                       00750,      0,          2000,       0
+system/bin,                 00751,      0,          2000,       0
+vendor/bin,                 00751,      0,          2000,       0
+vendor,                     00755,      0,          2000,       0
+
+# file
+bin/*,                      00755,      0,          0,          0
+fstab.*                     00640,      0,          2000,       0
+init*,                      00750,      0,          2000,       0
+sbin/*,                     00750,      0,          2000,       0
+system/bin/*,               00755,      0,          2000,       0
+vendor/bin/*,               00755,      0,          2000,       0
+updater/bin/*,              00755,      0,          2000,       0
+updater/system/bin/*,       00755,      0,          2000,       0
+system/lib/ld-musl-arm.so.1,00755,      0,          2000,       0
+updater/lib/ld-musl-arm.so.1,00755,      0,          2000,       0
+system/lib/ld-musl-arm-asan.so.1,00755,      0,          2000,       0
+updater/lib/ld-musl-arm-asan.so.1,00755,      0,          2000,       0

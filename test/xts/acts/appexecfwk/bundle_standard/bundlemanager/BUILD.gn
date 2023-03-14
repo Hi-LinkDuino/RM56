@@ -1,0 +1,77 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/tools/build/suite.gni")
+
+group("bundlemanager") {
+  testonly = true
+  if (is_standard_system) {
+    deps = [
+      "actsbmsaccesstokentest:ActsBmsAccessTokenTest",
+      "actsbmsgetinfostest:ActsBmsGetInfosTest",
+      "actsbmshapmoduletest:ActsBmsHapModuleTest",
+      "actsbmsjstest:ActsBmsJsTest",
+      "actsbmsjsunpermissiontest:ActsBmsJsUnPermissionTest",
+      "actsbmsmetadatatest:ActsBmsMetaDataTest",
+      "actsbundlemanageretstest:ActsBundleManagerEtsTest",
+      "actsbundlemanagertest:ActsBundleManagerTest",
+      "actsbundlemanageruninstall:ActsBundleManagerUninstallTest",
+      "actsbundlemgrmultipleinstalltest:ActsBundleMgrMultipleInstallTest",
+      "sceneProject/bmsaccesstokenone:bmsAccessTokenTest1",
+      "sceneProject/bmsaccesstokenthree:bmsAccessTokenTest3",
+      "sceneProject/bmsaccesstokentwo:bmsAccessTokenTest2",
+      "sceneProject/bmseighthright:eighth_right",
+      "sceneProject/bmseleventhright:eleventh_right",
+      "sceneProject/bmsfifthright:fifth_right",
+      "sceneProject/bmsfirstrequestpermissions:FirstRequestPermissions",
+      "sceneProject/bmsfirstright:first_right",
+      "sceneProject/bmsfourteenthright:fourteenth_right",
+      "sceneProject/bmsfourthright:fourth_right",
+      "sceneProject/bmsgetinfosfifthscene:bmsThirdBundleTest5",
+      "sceneProject/bmsgetinfosfirstscene:bmsThirdBundleTest1",
+      "sceneProject/bmsgetinfosfirstsceneupdate:bmsThirdBundleTestA1",
+      "sceneProject/bmsgetinfosfourthscene:bmsThirdBundleTest4",
+      "sceneProject/bmsgetinfoshapc:bmsThirdBundleC",
+      "sceneProject/bmsgetinfosjsscene:bmsThirdBundleJs",
+      "sceneProject/bmsgetinfosscenesystem:bmsSystemBundleTest1",
+      "sceneProject/bmsgetinfosscenesystemfeature:bmsSystemBundleTest2Feature",
+      "sceneProject/bmsgetinfosscenesystemtwo:bmsSystemBundleTest2",
+      "sceneProject/bmsgetinfosscenesystemupdate:bmsSystemBundleTest2Update",
+      "sceneProject/bmsgetinfosscenevendor:bmsVendorBundleTest1",
+      "sceneProject/bmsgetinfossecondscene:bmsThirdBundleTest2",
+      "sceneProject/bmsgetinfossixthscene:bmsThirdBundleTest6",
+      "sceneProject/bmsgetinfosthirdscene:bmsThirdBundleTest3",
+      "sceneProject/bmsmainabilityfirstscene:bmsMainAbilityFirstScene",
+      "sceneProject/bmsmainabilitysecondscene:bmsMainAbilitySecondScene",
+      "sceneProject/bmsninthright:ninth_right",
+      "sceneProject/bmssceneeight:bmsJstest8",
+      "sceneProject/bmsscenefive:bmsJstest5",
+      "sceneProject/bmsscenefour:bmsJstest4",
+      "sceneProject/bmsscenenine:bmsJstest9",
+      "sceneProject/bmssceneone:bmsJstest1",
+      "sceneProject/bmssceneseven:bmsJstest7",
+      "sceneProject/bmsscenesix:bmsJstest6",
+      "sceneProject/bmsscenethree:bmsJstest3",
+      "sceneProject/bmsscenetwo:bmsJstest2",
+      "sceneProject/bmssecondbackupright:second_backup_right",
+      "sceneProject/bmssecondrequestpermissions:SecondRequestPermissions",
+      "sceneProject/bmssecondright:second_right",
+      "sceneProject/bmssixteenthright:sixteenth_right",
+      "sceneProject/bmssixthright:sixth_right",
+      "sceneProject/bmstenthright:tenth_right",
+      "sceneProject/bmsthirdright:third_right",
+      "sceneProject/bmsthirteenthright:thirteenth_right",
+      "sceneProject/bmstwelfthright:twelfth_right",
+    ]
+  }
+}

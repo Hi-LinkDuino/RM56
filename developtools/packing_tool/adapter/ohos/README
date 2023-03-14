@@ -1,0 +1,226 @@
+/*
+ * Copyright (c) 2019-2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+use commands for package hap or app.
+
+CONSTRAINT:
+1.When the app depends on a hap, you need to wait the hap has been packaged,
+  It can be controlled according to the return value of the command execution.
+2.If the same command appears many times in a command, take the last value that appears.
+  For example: --mode hap --mode app
+  the mode value is app.
+3.If there are several parameters in the same command, take the first value.
+  For example: --mode hap app
+  the mode value is hap.
+4.Path cannot start with '--', to avoid conflict with the instruction.
+5.Command must be lowercase(such as:--mode), and file's suffix is case insensitive,
+  but json's filename must be config.json and index's filename must be resources.index.
+6.Absolute paths is recommended.
+7.After package a hap, files under resources/ will put into assets/entry/resources/ directory,
+  files under lib/ will be putted into libs/ directory,
+  files under maple-so/ will be putted into maple/ directory,
+  file of resources.index will be putted into assets/entry/ directory.
+8.maple so input method have a tentative plan which can support two input methods.
+  If "maple-so-path" is valid, "maple-so-dir" will not be used.
+  The input method of "maple-so-path" will be discarded later.
+9.In app package mode, signature and certificate may be resource files later,
+  so parameters are reserved now.
+
+HAP USAGE:
+java -jar hmos_app_packing_tool.jar --mode <option> --json-path <option> --maple-so-path [option]
+--profile-path [option] --maple-so-dir [option] --dex-path [option] --lib-path [option] --assets-path [option]
+--resources-path [option] --shell-apk-path [option] --index-path [option] --out-path <option> --force [option]
+
+HAP MODE OPTIONS:
+  --mode               not null  must be hap.
+  --json-path          not null  config.json path.
+  --profile-path                 CAPABILITY.profile path.
+  --maple-so-path                maple-so/ path.
+  --maple-so-dir                 maple so path must end with .so, if has more than one so,
+                                 use comma(,) to separate.
+  --dex-path                     1.dex path must end with .dex, if has more than one dex,
+                                 use comma(,) to separate.
+                                 2.dex path also can be directory path.
+  --abc-path                     1.abc path must end with .abc, if has more than one abc,
+                                 use comma(,) to separate.
+                                 2.abc path also can be directory path.
+  --lib-path                     lib/ path.
+  --assets-path                  assets/ path.
+  --resources-path               resources path.
+  --shell-apk-path               1.shell apk path can end with .apk, if has more than one apk,
+                                 use comma(,) to separate.
+                                 2.shell apk path also can be directory path.
+  --index-path                   resources.index path.
+  --out-path           not null  target hap binary path,must end with .hap.
+  --force                        default false; if true, force delete destination
+                                 out file if exists.
+
+HAR USAGE:
+java -jar hmos_app_packing_tool.jar --mode <options> --json-path <option>
+--jar-path <option> --lib-path [option] --assets-path [option]
+--resources-path [option] --out-path <option> --force [option]
+OPTIONS:
+  --mode               not null  must be har.
+  --json-path          not null  config.json path.
+  --jar-path           not null  1.jar path must end with .jar,
+                                 if has more than one jar, use comma(,) to separate;
+                                 2.jar path also can be directory path.
+  --lib-path                     lib/ path.
+  --resources-path     not null  resources/ path.
+  --txt-path           not null  1.txt path must end with .txt,
+                                 if has more than one txt, use comma(,) to separate;
+                                 2.txt path also can be directory path.
+  --out-path           not null  target har binary path, must end with .har.
+  --force                        default false; if true, force delete destination
+                                 out file if exists.
+
+APP USAGE:
+java -jar hmos_app_packing_tool.jar --mode <option> --hap-path <option> --out-path <option>
+--pack-info-path <option> --signature-path [option] --certificate-path [option] --force [option]
+
+APP MODE OPTIONS:
+  --mode               not null  must be app.
+  --hap-path           not null  1.hap path can end with .hap, if has more than one hap,
+                                 use comma(,) to separate.
+                                 2.hap path also can be directory path.
+  --pack-info-path     not null  pack.info path.
+  --out-path           not null  target app binary path,must end with .app.
+  --force                        default false; if true, force delete destination
+                                 out file if exists.
+  --signature-path               signature file path.
+  --certificate-path             certificate file path.
+
+RETURN VALUE:
+In both modes, if package success return 0, fail return 1.
+
+EXAMPLES:
+package module1.hap
+ java -jar hmos_app_packing_tool.jar --mode hap --json-path example/config.json
+ --index-path example/resources.index --maple-so-path example/maple-so
+ --dex-path example/test1.dex,example/test2.dex --shell-apk-path example/test1.apk,example/test2.apk
+ --resources-path example/resources/ --lib-path example/lib/ --out-path example/out/module1.hap --force true
+
+ example/out/module1.hap
+ |   config.json,test1.dex,test2.dex,test1.apk,test2.apk
+ |----libs
+ |   |   test1.xml
+ |   |----lib
+ |   |   |   test2.xml
+ |----assets
+ |   |----entry
+ |   |   |   resources.index
+ |   |   |----resources
+ |   |   |   |   test3.xml
+ |----maple
+ |   |----arm64
+ |   |   |   test1.so,test2.so
+
+package module2.hap
+ java -jar hmos_app_packing_tool.jar --mode hap --json-path example/config.json
+ --out-path example/out/module2.hap --force true
+
+ example/out/module2.hap
+ |   config.json
+
+package demo.app
+ java -jar hmos_app_packing_tool.jar --mode app --hap-path example/out/module1.hap,example/out/module2.hap
+ --signature-path example/signature --certificate-path example/certificate
+ --pack-info-path example/pack.info --out-path example/out/demo.app --force true
+
+ example/out/demo.app
+ |   module1.hap
+ |   module2.hap
+ |   pack.info
+ |   signature
+ |   certificate
+
+
+-----------------------------------------------------------------------------------------------
+
+use commands for unpackage hap or app.
+
+CONSTRANIT:
+1.When the hap depends on a app, you need to wait the app has been unpackaged,
+  It can be controlled according to the return value of the command execution.
+2.If the same command appears many times in a command, take the last value that appears.
+  For example: --mode hap --mode app
+  the mode value is app.
+3.If there are several parameters in the same command, take the first value.
+  For example: --mode hap app
+  the mode value is hap.
+4.Path cannot start with '--', to avoid conflict with the instruction.
+5.Command must be lowercase(such as:--mode), and file's suffix is case insensitive.
+6.Absolute paths is recommended.
+7.Output path can be specified. The default output path is the path where the app or hap is located.
+8.After unpackage a hap, json file will be unzipped to the output path.
+  And after unpackage an app, all hap file will be unzipped to the output path.
+
+HAP USAGE:
+java -jar hmos_app_unpacking_tool.jar --mode <options> --hap-path <option>
+--out-path [option] --force [option] --unpackapk [option]
+
+HAP MODE OPTIONS:
+  --mode               not null  must be hap.
+  --hap-path           not null  hap path.
+  --out-path                     target hap unpackage path.
+  --force                        default false; if true, force delete destination
+                                 out file if exists.
+  --unpack-cut_entry             default false; if true, unpack the cut_entry.apk
+
+HAR USAGE:
+java -jar hmos_app_unpacking_tool.jar --mode <options> --har-path <option>
+--out-path [option] --force [option]
+OPTIONS:
+  --mode               not null  must be har.
+  --har-path           not null  har path.
+  --out-path           not null  target path of unzip.
+  --force                        default false; if true, force delete destination
+                                 out file if exists.
+
+APP USAGE:
+java -jar hmos_app_unpacking_tool.jar --mode <options> --app-path <option>
+--out-path [option] --force [option] --unpackapk [option]
+
+APP MODE OPTIONS:
+  --mode               not null  must be app.
+  --app-path           not null  app path.
+  --out-path                     target app unpackage path.
+  --force                        default false; if true, force delete destination
+                                 out file if exists.
+  --unpackapk                    default false; if true, unpack apk files from hap
+                                 in the app.
+
+RETURN VALUE:
+In both modes, if unpackage successfully return 0, fail return 1.
+
+EXAMPLES:
+unpackage demo.app
+ java -jar hmos_app_unpacking_tool.jar --mode app --app-path example/demo.app
+ --out-path example/out/ --force true
+
+unpackage test1.hap
+ java -jar hmos_app_unpacking_tool.jar --mode hap --hap-path example/out/module1.hap
+ --out-path example/out/TEST --force true
+
+unpackage test2.hap
+ java -jar hmos_app_unpacking_tool.jar --mode hap --hap-path example/out/module2.hap --force true
+
+ example/out
+ |   module1.hap
+ |   module2.hap
+ |----TEST
+ |   |   config.json
+ |----module2
+ |   |   config.json

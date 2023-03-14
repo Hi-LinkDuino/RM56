@@ -1,0 +1,25 @@
+{
+    "description": "Config for ai i18n test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/global",
+                    "target": "/test_root/global"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/global/ActsGlobalDateTimeTest.bin"
+    }
+}

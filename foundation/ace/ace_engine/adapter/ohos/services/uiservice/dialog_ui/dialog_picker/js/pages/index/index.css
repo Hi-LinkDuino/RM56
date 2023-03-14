@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    left: 0vp;
+    top: 0vp;
+    width: 100%;
+    height: 100%;
+}
+
+.sharePannel {
+    width:519vp;
+    background-color: #FAFAFA;
+}
+
+.share {
+    border-radius: 0vp 0vp 24vp 24vp;
+    background-color: #FAFAFA;
+    flex-direction: column;
+}
+
+.shareBack {
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.backImage {
+    width: 64vp;
+    height: 24vp;
+}
+
+.shareCard {
+    margin: 8vp 12vp 8vp 12vp; /* 上 右 下 左*/
+    background-color: #FFFFFF;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.shareInfo {
+    flex-direction: row;
+}
+
+.shareIcon {
+    width: 42vp;
+    height: 48vp;
+    background-color: #FFFFFFFF;
+}
+
+.shareText {
+    flex-direction: column;
+}
+
+.mainText {
+    font-family: sans-serif;
+    font-size: 14vp;
+    max-lines: 2;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 1);
+}
+
+.subText {
+    height: 14vp;
+    font-family: sans-serif;
+    font-size: 10vp;
+    color: rgba(0, 0, 0, 1);
+    max-lines: 1;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+.button1 {
+    width: 25vp;
+    height: 16vp;
+    font-size: 12vp;
+    font-family: sans-serif;
+    color: rgba(0, 125, 255, 1);
+}
+
+.button2 {
+    left: 24vp;
+    width: 25vp;
+    height: 16vp;
+    font-size: 12vp;
+    font-family: sans-serif;
+    color: rgba(0, 125, 255, 1);
+}
+
+.swiper {
+    indicator-size: 4vp;
+    indicator-top: 90%;
+}
+
+.shareAppSelect {
+    margin-left: 15vp;
+    margin-right: 15vp;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* icon + name */
+.shareApp {
+    margin-left: 15vp;
+    flex-direction: column;
+}
+
+.AppIcon {
+    height: 48vp;
+    width: 48vp;
+    margin: 8vp;
+    border-radius: 8vp;
+}
+
+.AppName {
+    width: 64vp;
+    height: 16vp;
+    font-size: 12vp;
+    text-align: center;
+    color:rgba(0, 0, 0, 1);
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="24px" viewBox="0 0 64 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>handle_up</title>
+    <desc>Created with Sketch.</desc>
+    <g id="handle_up" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.2" stroke-linecap="round">
+        <g id="BottomSheet/Handle/up" stroke="#18181A" stroke-width="4">
+            <path d="M17,9 L30.5854554,14.4083303 C31.5395508,14.7881529 32.6031802,14.7864788 33.5560752,14.4036547 L47.006419,9 L47.006419,9" id="路径" transform="translate(32.003210, 12.000000) scale(1, -1) translate(-32.003210, -12.000000) "></path>
+        </g>
+    </g>
+</svg>

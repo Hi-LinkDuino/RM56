@@ -1,0 +1,589 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+external_icu_include_dirs = [
+  "//third_party/icu/icu4c/source/common",
+  "//third_party/icu/icu4c/source/i18n",
+  "//third_party/icu/icu4c/source/ohos",
+  "//third_party/icu/icu4c/source",
+]
+
+flutter_icu_include_dirs = [
+  "$flutter_root/skia/third_party/externals/icu/source/common",
+  "$flutter_root/skia/third_party/externals/icu/source/i18n",
+  "$flutter_root/skia/third_party/externals/icu/source",
+  "$flutter_root/skia/third_party/icu",
+]
+
+template("icu_config") {
+  forward_variables_from(invoker, "*")
+
+  config(target_name) {
+    visibility = [ ":*" ]
+    if (defined(config.use_external_icu)) {
+      include_dirs = external_icu_include_dirs
+    } else {
+      include_dirs = flutter_icu_include_dirs
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  icu_config("icu_config_" + item.name) {
+    config = {
+    }
+    if (defined(item.config)) {
+      config = item.config
+    }
+  }
+}
+
+config("icu_compile_flags") {
+  cflags_cc = [
+    "-std=c++14",
+    "-fno-exceptions",
+    "-fvisibility-inlines-hidden",
+    "-Os",
+  ]
+
+  cflags = [
+    "-w",
+    "-fstrict-aliasing",
+    "-O3",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-gline-tables-only",
+    "-funwind-tables",
+    "-Wno-unused-parameter",
+    "-fvisibility=hidden",
+    "-Os",
+  ]
+  if (use_mingw_win) {
+    cflags_cc += [ "-DWINVER=0x0601" ]
+  }
+}
+
+template("ace_icu_make_data_assembly") {
+  forward_variables_from(invoker, "*")
+
+  action(target_name) {
+    script = "$flutter_root/skia/third_party/externals/icu/scripts/make_data_assembly.py"
+    if (platform == "windows" || platform == "mac") {
+      inputs =
+          [ "$flutter_root/skia/third_party/externals/icu/common/icudtl.dat" ]
+    } else {
+      inputs =
+          [ "$flutter_root/skia/third_party/externals/icu/flutter/icudtl.dat" ]
+    }
+    outputs = [ "$root_out_dir/ace_icu_$platform/icudtl_dat.S" ]
+    args = [
+      rebase_path(inputs[0], root_build_dir),
+      rebase_path(outputs[0], root_build_dir),
+    ]
+    if (platform == "mac") {
+      args += [ "--mac" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_icu_make_data_assembly("ace_icu_make_data_assembly_" + item.name) {
+    platform = item.name
+  }
+}
+
+template("ace_libicu") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    license_file = "$flutter_root/skia/third_party/externals/icu/LICENSE"
+    public_configs = [ ":icu_config_$platform" ]
+    configs = [ ":icu_compile_flags" ]
+    defines += invoker.defines
+    cflags_cc += invoker.cflags_cc
+
+    if (defined(config.use_external_icu)) {
+      if (config.use_external_icu == "static") {
+        deps = [
+          "//third_party/icu/icu4c:static_icui18n",
+          "//third_party/icu/icu4c:static_icuuc",
+        ]
+      } else if (config.use_external_icu == "shared") {
+        deps = [
+          "//third_party/icu/icu4c:shared_icui18n",
+          "//third_party/icu/icu4c:shared_icuuc",
+        ]
+      }
+    } else {
+      configs += [ "//build/config/compiler:rtti" ]
+      configs += [ "$ace_root/build:reduce_eh_frame_config" ]
+      defines += [
+        "U_COMMON_IMPLEMENTATION",
+        "U_STATIC_IMPLEMENTATION",
+        "U_ENABLE_DYLOAD=0",
+        "U_I18N_IMPLEMENTATION",
+        "U_USING_ICU_NAMESPACE=0",
+        "SK_USING_THIRD_PARTY_ICU",
+      ]
+
+      sources = [
+        "$flutter_root/skia/third_party/externals/icu/source/common/appendable.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/bmpset.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/brkeng.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/brkiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/bytesinkutil.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/bytestream.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/bytestrie.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/bytestriebuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/bytestrieiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/caniter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/characterproperties.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/chariter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/charstr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/cmemory.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/cstr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/cstring.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/cwchar.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/dictbe.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/dictionarydata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/dtintrv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/edits.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/errorcode.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/filteredbrk.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/filterednormalizer2.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/icudataver.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/icuplug.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/loadednormalizer2impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locavailable.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locbased.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locdispnames.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locdspnm.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locid.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/loclikely.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locmap.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locresdata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/locutil.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/messagepattern.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/normalizer2.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/normalizer2impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/normlzr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/parsepos.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/patternprops.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/pluralmap.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/propname.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/propsvec.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/punycode.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/putil.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbi.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbi_cache.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbidata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbinode.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbirb.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbiscan.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbisetb.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbistbl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/rbbitblb.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/resbund.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/resbund_cnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/resource.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ruleiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/schriter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/serv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/servlk.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/servlkf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/servls.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/servnotf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/servrbf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/servslkf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/sharedobject.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/simpleformatter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/static_unicode_sets.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/stringpiece.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/stringtriebuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uarrsort.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ubidi.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ubidi_props.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ubidiln.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ubiditransform.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ubidiwrt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ubrk.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucase.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucasemap.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucasemap_titlecase_brkiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucat.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uchar.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucharstrie.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucharstriebuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucharstrieiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uchriter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucln_cmn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucmndata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv2022.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_bld.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_cb.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_cnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_ct.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_err.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_ext.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_io.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_lmb.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_set.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_u16.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_u32.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_u7.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnv_u8.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvbocu.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvdisp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvhz.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvisci.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvlat1.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvmbcs.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvscsu.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucnvsel.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucol_swp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucptrie.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ucurr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/udata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/udatamem.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/udataswp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uenum.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uhash.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uhash_us.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uidna.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uinit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uinvchar.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ulist.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uloc.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uloc_keytype.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uloc_tag.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/umapfile.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/umath.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/umutablecptrie.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/umutex.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unames.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unifiedcache.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unifilt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unifunct.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uniset.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uniset_closure.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uniset_props.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unisetspan.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unistr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unistr_case.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unistr_case_locale.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unistr_cnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unistr_props.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unistr_titlecase_brkiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unorm.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/unormcmp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uobject.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uprops.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ures_cnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uresbund.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uresdata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/usc_impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uscript.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uscript_props.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uset.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uset_props.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/usetiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ushape.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/usprep.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustack.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustr_cnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustr_titlecase_brkiter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustr_wcs.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustrcase.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustrcase_locale.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustrenum.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustrfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustring.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/ustrtrns.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utext.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utf_impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/util.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/util_props.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utrace.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utrie.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utrie2.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utrie2_builder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utrie_swap.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uts46.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/utypes.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uvector.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uvectr32.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/uvectr64.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/common/wintz.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/alphaindex.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/anytrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/astro.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/basictz.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/bocsu.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/brktrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/buddhcal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/calendar.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/casetrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/cecal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/chnsecal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/choicfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/coleitr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/coll.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collation.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationbuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationcompare.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationdata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationdatabuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationdatareader.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationdatawriter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationfastlatin.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationfastlatinbuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationfcd.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationkeys.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationroot.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationrootelements.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationruleparser.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationsets.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationsettings.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationtailoring.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/collationweights.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/compactdecimalformat.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/coptccal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/cpdtrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csdetect.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csmatch.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csr2022.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csrecog.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csrmbcs.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csrsbcs.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csrucode.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/csrutf8.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/curramt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/currfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/currpinf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/currunit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dangical.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/datefmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dayperiodrules.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dcfmtsym.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/decContext.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/decNumber.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/decimfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion-bignum-dtoa.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion-bignum.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion-cached-powers.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion-diy-fp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion-fast-dtoa.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion-strtod.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/double-conversion.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dtfmtsym.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dtitvfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dtitvinf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dtptngen.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/dtrule.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/erarules.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/esctrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ethpccal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/fmtable.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/fmtable_cnv.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/format.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/fphdlimp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/fpositer.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/funcrepl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/gender.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/gregocal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/gregoimp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/hebrwcal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/indiancal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/inputext.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/islamcal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/japancal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/listformatter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/measfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/measunit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/measure.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/msgfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/name2uni.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/nfrs.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/nfrule.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/nfsubs.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/nortrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/nounit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/nultrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_affixutils.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_asformat.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_capi.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_compact.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_currencysymbols.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_decimalquantity.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_decimfmtprops.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_fluent.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_formatimpl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_grouping.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_integerwidth.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_longnames.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_mapper.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_modifiers.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_multiplier.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_notation.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_padding.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_patternmodifier.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_patternstring.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_rounding.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_scientific.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_skeletons.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_stringbuilder.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/number_utils.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_affixes.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_compositions.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_currency.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_decimal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_parsednumber.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_scientific.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_stringsegment.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_symbols.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numparse_validators.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numrange_fluent.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numrange_impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/numsys.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/olsontz.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/persncal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/plurfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/plurrule.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/quant.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/quantityformatter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbnf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbt_data.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbt_pars.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbt_rule.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbt_set.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rbtz.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/regexcmp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/regeximp.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/regexst.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/regextxt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/region.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/reldatefmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/reldtfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rematch.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/remtrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/repattrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/rulebasedcollator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/scientificnumberformatter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/scriptset.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/search.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/selfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/sharedbreakiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/simpletz.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/smpdtfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/smpdtfst.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/sortkey.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/standardplural.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/strmatch.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/strrepl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/stsearch.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/taiwncal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/timezone.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/titletrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tmunit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tmutamt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tmutfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tolowtrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/toupptrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/translit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/transreg.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tridpars.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tzfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tzgnames.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tznames.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tznames_impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tzrule.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/tztrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucal.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucln_in.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucol.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucol_res.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucol_sit.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucoleitr.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ucsdet.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/udat.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/udateintervalformat.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/udatpg.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ufieldpositer.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uitercollationiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ulistformatter.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ulocdata.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/umsg.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/unesctrn.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uni2name.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/unum.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/unumsys.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/upluralrules.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uregex.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uregexc.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uregion.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/usearch.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uspoof.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uspoof_build.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uspoof_conf.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/uspoof_impl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/utf16collationiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/utf8collationiterator.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/utmscale.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/utrans.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/vtzone.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/vzone.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/windtfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/winnmfmt.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/wintzimpl.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/zonemeta.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/zrule.cpp",
+        "$flutter_root/skia/third_party/externals/icu/source/i18n/ztrans.cpp",
+        "$root_out_dir/ace_icu_$platform/icudtl_dat.S",
+      ]
+
+      deps = [ ":ace_icu_make_data_assembly_$platform" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  ace_libicu("ace_libicu_" + item.name) {
+    platform = item.name
+    defines = []
+    cflags_cc = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+
+    if (defined(config.cflags_cc)) {
+      cflags_cc = config.cflags_cc
+    }
+  }
+}

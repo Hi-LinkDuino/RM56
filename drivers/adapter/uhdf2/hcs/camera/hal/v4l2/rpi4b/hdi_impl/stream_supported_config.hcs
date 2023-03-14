@@ -1,0 +1,58 @@
+root {
+    module="huawei,camera";
+    stream_supported_config {
+        match_attr = "stream_supported";
+        template supported {
+            operationMode = "NORMAL";
+            template streamInfo {
+                width = 1280;
+                height = 720;
+                format = 24;
+                dataspace = 1;
+                intent = 0;
+                tunneledMode = 1;
+                minFrameDuration = 1;
+            }
+            streamSupportType = "DYNAMIC_SUPPORTED";
+        }
+        supported_01 :: supported {
+            operationMode = "NORMAL";
+            streamInfo01 :: streamInfo {
+                width = 640;
+                height = 480;
+                format = 24;
+                dataspace = 1;
+                intent = 0;
+                tunneledMode = 1;
+                minFrameDuration = 33333;
+            }
+            streamSupportType = "NOT_SUPPORTED";
+        }
+        supported_02 :: supported {
+            operationMode = "NORMAL";
+            streamInfo01 :: streamInfo {
+                width = 1280;
+                height = 720;
+                format = 24;
+                dataspace = 1;
+                intent = 1;
+                tunneledMode = 1;
+                minFrameDuration = 33333;
+            }
+            streamSupportType = "NOT_SUPPORTED";
+        }
+        supported_03 :: supported {
+            operationMode = "NORMAL";
+            streamInfo01 :: streamInfo {
+                width = 1280;
+                height = 720;
+                format = 24;
+                dataspace = 1;
+                intent = 2;
+                tunneledMode = 1;
+                minFrameDuration = 33333;
+            }
+            streamSupportType = "NOT_SUPPORTED";
+        }
+    }
+}

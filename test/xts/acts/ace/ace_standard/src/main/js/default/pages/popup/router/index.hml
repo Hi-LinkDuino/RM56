@@ -1,0 +1,634 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <popup id="popup1"
+           class="style1"
+           target="text1"
+           placement="top"
+           style="mask-color:blue;"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup1">
+        <text class="text">popup-1</text>
+    </popup>
+
+    <popup id="popup2"
+           class="style2"
+           target="text2"
+           placement="left"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup2">
+        <text class="text">popup-2</text>
+    </popup>
+
+    <popup id="popup3"
+           class="style3"
+           target="text3"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup3">
+        <text class="text">popup-3</text>
+    </popup>
+
+    <popup id="popup4"
+           class="style4"
+           target="text4"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup4">
+        <text class="text">popup-4</text>
+    </popup>
+
+    <popup id="popup5"
+           class="style5"
+           target="text5"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup5">
+        <text class="text">popup-5</text>
+    </popup>
+
+    <popup id="popup6"
+           class="style6"
+           target="text6"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup6">
+        <text class="text">popup-6</text>
+    </popup>
+
+    <popup id="popup7"
+           class="style7"
+           target="text7"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopup7">
+        <text class="text">popup-7</text>
+    </popup>
+
+    <popup id="prop1"
+           class="prop1"
+           target="textPro1"
+           disabled = "true"
+           data-name ="prop1"
+           click-effect="spring-medium"
+           dir ="rtl"
+           onclick="hidepopuppro1">
+        <text class="text">popup-Pro1</text>
+    </popup>
+
+    <popup id="prop2"
+           class="prop2"
+           target="textPro2"
+           ref ="prop2"
+           disabled = "false"
+           data-name ="prop2"
+           click-effect="spring-large"
+           dir ="ltr"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro2">
+        <text class="text">popup-Pro2</text>
+    </popup>
+
+    <popup id="prop3"
+           style="color: #679855; stroke-width: 15px; line-cap: round; margin: 5px;"
+           target="textPro3"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="200px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro3">
+        <text class="text">popup-Pro3</text>
+    </popup>
+
+    <popup id="prop4"
+           class="prop4"
+           target="textPro4"
+           placement="left"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="-100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro4">
+        <text class="text">popup-Pro4</text>
+    </popup>
+
+    <popup id="prop5"
+           class="prop5"
+           target="textPro5"
+           placement="right"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="-200px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro5">
+        <text class="text">pop-up5</text>
+    </popup>
+
+    <popup id="prop6"
+           target="textPro6"
+           placement="top"
+           keepalive="true"
+           clickable="false"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro6">
+        <text class="text">pop-up6</text>
+    </popup>
+
+    <popup id="prop7"
+           target="textPro7"
+           placement="bottom"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro7">
+        <text class="text">pop-up7</text>
+    </popup>
+
+    <popup id="prop8"
+           target="textPro8"
+           placement="topLeft"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro8">
+        <text class="text">pop-up8</text>
+    </popup>
+
+    <popup id="prop9"
+           target="textPro9"
+           placement="topRight"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro9">
+        <text class="text">pop-up9</text>
+    </popup>
+
+    <popup id="prop10"
+           target="textPro10"
+           placement="bottomLeft"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro10">
+        <text class="text">pop-up10</text>
+    </popup>
+
+    <popup id="prop11"
+           target="textPro11"
+           placement="bottomRight"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopuppro11">
+        <text class="text">pop-up11</text>
+    </popup>
+
+    <popup id="popupani1"
+           class="ani1"
+           target="textani1"
+           placement="top"
+           keepalive="true"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupani1">
+        <text class="text">popupani-1</text>
+    </popup>
+
+    <popup id="popupani2"
+           class="ani2"
+           target="textani2"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupani2">
+        <text class="text">popupani-2</text>
+    </popup>
+
+    <popup id="gradient1"
+           class="gradient1"
+           target="gradient1"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupgra1">
+        <text class="text">popupgra-1</text>
+    </popup>
+
+    <popup id="gradient2"
+           class="gradient2"
+           target="gradient2"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupgra2">
+        <text class="text">popupgra-2</text>
+    </popup>
+
+    <popup id="gradient3"
+           class="gradient3"
+           target="gradient3"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupgra3">
+        <text class="text">popupgra-3</text>
+    </popup>
+
+    <popup id="gradient4"
+           class="gradient4"
+           target="gradient4"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupgra4">
+        <text class="text">popupgra-4</text>
+    </popup>
+
+    <popup id="access1"
+           class="access1"
+           target="access1"
+           accessibilitygroup ="true"
+           accessibilitytext="这是div"
+           accessibilitydescription="点击此按键会弹出一个对话框"
+           accessibilityimportance="no-hide-descendants"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupacc1">
+        <text class="text">popupacc-1</text>
+    </popup>
+
+    <popup id="mul"
+           class="mul"
+           target="mul"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupmul">
+        <text class="text">popupmul-1</text>
+    </popup>
+
+    <popup id="event1"
+           class="event1"
+           ontouchstart="touchStart"
+           ontouchmove="touchMove"
+           ontouchend="touchEnd"
+           ontouchcancel="touchCancel"
+           target="eventOne"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupEvent-1</text>
+    </popup>
+
+    <popup id="event2"
+           class="event2"
+           ondoubleclick="doubleClick"
+           onlongpress="longPress"
+           onfocus="focus"
+           onblur="blur"
+           onkey="key"
+           onswipe="swipe"
+           onattached="attached"
+           ondetached="detached"
+           target="eventTwo"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupEvent-2</text>
+    </popup>
+
+    <popup id="event3"
+           onpinchstart="pinchStart"
+           onpinchupdate="pinchUpdate"
+           onpinchend="pinchEnd"
+           onpinchcancel="pinchCancel"
+           ondragstart="dragStart"
+           ondrag="drag"
+           ondragend="dragEnd"
+           ondragenter="dragEnter"
+           ondragover="dragOver"
+           ondragleave="dragLeave"
+           ondrop="drop"
+           class="event3"
+           target="eventThree"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupEvent-3</text>
+    </popup>
+
+    <popup id="event4"
+           class="event4"
+           target="eventFour"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupEvent-4</text>
+    </popup>
+
+    <popup target="event1" onaccessibility="onAccessibility">
+    </popup>
+
+    <popup id="func1"
+           class="function1"
+           ontouchstart="functionTest1"
+           target="func1"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupFunc-1</text>
+    </popup>
+
+    <popup id="func2"
+           ontouchstart="functionTest2"
+           class="function2"
+           target="func2"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupFunc-2</text>
+    </popup>
+
+    <popup id="func3"
+           class="show hide"
+           target="func3"
+           ontouchstart="functionTest3"
+           placement="top"
+           keepalive="false"
+           clickable="true"
+           arrowoffset="100px"
+           onvisibilitychange="visibilitychange"
+           onclick="hidepopupe1">
+        <text class="text">popupFunc-3</text>
+    </popup>
+
+    <div class="sub-container">
+    <!-- 通用样式 -->
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+
+            <text id="text1" class="sub-title">
+                popup通用样式1
+            </text>
+
+            <text id="text2" class="sub-title">
+                popup通用样式2
+            </text>
+
+            <text id="text3" class="sub-title">
+                popup通用样式3
+            </text>
+
+            <text id="text4" class="sub-title">
+                popup通用样式4
+            </text>
+
+            <div class="contain1">
+                <text id="text4" class="sub-title">
+                    popup通用样式5
+                </text>
+                <text id="text4" class="sub-title">
+                    popup通用样式6
+                </text>
+            </div>
+
+            <text id="text7" class="sub-title">
+                popup特有样式
+            </text>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 动画样式 -->
+        <div class="ani-container">
+
+            <text class="title">
+                动画样式
+            </text>
+
+            <text id="textani1" class="sub-title">
+                popup动画样式1
+            </text>
+
+            <text id="textani2" class="sub-title">
+                popup动画样式2
+            </text>
+        </div>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text id="textPro1" class="sub-title">
+                popup通用属性1
+            </text>
+
+            <text id="textPro2" class="sub-title">
+                popup通用属性2
+            </text>
+
+            <text id="textPro3" class="sub-title">
+                popup通用属性3
+            </text>
+
+            <text id="textPro4" class="sub-title">
+                popup特有属性4
+            </text>
+
+            <text id="textPro5" class="sub-title">
+                popup特有属性5
+            </text>
+
+            <text id="textPro6" class="sub-title">
+                popup特有属性6
+            </text>
+
+            <text id="textPro7" class="sub-title">
+                popup特有属性7
+            </text>
+
+            <text id="textPro8" class="sub-title">
+                popup特有属性8
+            </text>
+
+            <text id="textPro9" class="sub-title">
+                popup特有属性9
+            </text>
+
+            <text id="textPro10" class="sub-title">
+                popup特有属性10
+            </text>
+
+            <text id="textPro11" class="sub-title">
+                popup特有属性11
+            </text>
+
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text id="eventOne" class="sub-title">
+                popup通用事件1
+            </text>
+
+            <text id="eventTwo" class="sub-title">
+                popup通用事件2
+            </text>
+
+            <text id="eventThree" class="sub-title">
+                popup通用事件3
+            </text>
+
+            <text id="eventFour" class="sub-title">
+                popup特有事件1
+            </text>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text id="func1" class="sub-title">
+                popup通用方法1
+            </text>
+
+            <text id="func2" class="sub-title">
+                popup通用方法2
+            </text>
+
+            <text id="func3" class="sub-title">
+                popup特有方法
+            </text>
+        </div>
+    <!-- 通用方法 -->
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text id="gradient1" class="sub-title">
+                popup渐变样式1
+            </text>
+
+            <text id="gradient2" class="sub-title">
+                popup渐变样式2
+            </text>
+
+            <text id="gradient3" class="sub-title">
+                popup渐变样式3
+            </text>
+
+            <text id="gradient4" class="sub-title">
+                popup渐变样式4
+            </text>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text id="access1" class="sub-title">
+                popup无障碍1
+            </text>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="multimode-container">
+            <text class="title">
+                多模输入
+            </text>
+            <text id="mul" class="sub-title">
+                popup多模输入1
+            </text>
+        </div>
+    </div>
+</div>

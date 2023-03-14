@@ -1,0 +1,55 @@
+<!--
+Copyright (c) 2021 Huawei Device Co., Ltd.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<stack class="container">
+  <text class="title">
+     text
+  </text>
+<div id="show" class="showBoxDiv">
+      <text  style="top:20px;
+                  left:100px;
+                  width:{{width}};
+                  height:{{height}};
+                  padding-left:{{padding}};
+                  border-radius:{{bordradius}};
+                  display:flex;
+                  color:#F00;
+                  margin-left:{{margin}};
+                 "
+      >
+      this is text
+      </text>
+</div>
+
+<div id="outline" class="outlineBox">
+  <input type="button" class="outlineBtn" value="wid+20" @click="onClickBtnWidthAdd"/>
+  <input type="button" class="outlineBtn" value="wid-20" @click="onClickBtnWidthSub"/>
+  <input type="button" class="outlineBtn" value="heit+5" @click="onClickBtnHeightAdd"/>
+  <input type="button" class="outlineBtn" value="heit-5" @click="onClickBtnHeightSub"/>
+  <input type="button" class="outlineBtn" value="pad+10" @click="onClickBtnPaddingAdd"/>
+  <input type="button" class="outlineBtn" value="pad-10" @click="onClickBtnPaddingSub"/>
+  <input type="button" class="outlineBtn" value="bdrd+1" @click="onClickBtnBoardRadiusAdd"/>
+  <input type="button" class="outlineBtn" value="bdrd-1" @click="onClickBtnBoardRadiusSub"/>
+  <input type="button" class="outlineBtn" value="bdwd+3" @click="onClickBtnBoardWidthAdd"/>
+  <input type="button" class="outlineBtn" value="bdwd-3" @click="onClickBtnBoardWidthSub"/>
+
+  <input type="button" class="outlineBtn" value="mrg+2" @click="onClickBtnMarginAdd"/>
+  <input type="button" class="outlineBtn" value="mrg-2" @click="onClickBtnMarginSub"/>
+
+  <input type="button" value="上一页" @click="changePrev"/>
+  <input type="button" value="首页" @click="backMain"/>
+</div>
+
+</stack>

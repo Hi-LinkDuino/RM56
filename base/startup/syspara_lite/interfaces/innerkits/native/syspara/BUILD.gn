@@ -1,0 +1,85 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+###############################################################################
+
+declare_args() {
+  paramapi_feature_watcher = true
+}
+
+config("syspara_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "//base/startup/syspara_lite/hals/parameter/include",
+    "include",
+    "//third_party/openssl/include/",
+  ]
+}
+
+config("syspara_public_config") {
+  include_dirs = [
+    "include",
+    "//base/startup/syspara_lite/adapter/native/syspara/include",
+  ]
+}
+
+ohos_shared_library("syspara") {
+  include_dirs = [
+    "include",
+    "//base/startup/init_lite/services/include/param",
+    "//base/startup/syspara_lite/adapter/native/syspara/include",
+  ]
+  sources = [
+    "//base/startup/syspara_lite/adapter/native/syspara/src/parameters.cpp",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/src/param_wrapper.cpp",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/src/parameter.c",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/src/sysversion.c",
+  ]
+  configs = [ ":syspara_config" ]
+  public_configs = [ ":syspara_public_config" ]
+  deps = [
+    "//base/startup/init_lite/services/param:param_client",
+    "//base/startup/syspara_lite/hals/parameter:sysparam_hal",
+    "//utils/native/base:utils",
+  ]
+  subsystem_name = "startup"
+  part_name = "startup_l2"
+  install_images = [
+    "system",
+    "updater",
+  ]
+}
+
+ohos_shared_library("syspara_watchagent") {
+  include_dirs = [
+    "include",
+    "//base/startup/init_lite/services/include/param",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+  ]
+  sources = [ "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/src/param_watchagent.cpp" ]
+  configs = [ ":syspara_config" ]
+  public_configs = [ ":syspara_public_config" ]
+  if (paramapi_feature_watcher) {
+    deps = [
+      "//base/startup/init_lite/services/param/watcher:param_watcheragent",
+      "//utils/native/base:utils",
+    ]
+  } else {
+    defines = [ "NO_PARAM_WATCHER" ]
+  }
+  subsystem_name = "startup"
+  part_name = "startup_l2"
+}

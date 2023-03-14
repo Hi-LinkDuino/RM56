@@ -1,0 +1,56 @@
+# Copyright (C) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos_var.gni")
+group("distributeddatatest") {
+  testonly = true
+  if (is_standard_system) {
+    deps = [
+      ":disDataProcess",
+      "distributed_kv_store:DctsdisDataTest",
+    ]
+  }
+}
+
+shared_library("disDataProcess") {
+  #module_out_path = module_output_path
+  #
+  sources = [ "./process_common/process_msg.cpp" ]
+
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "//foundation/distributeddatamgr/distributeddatamgr/frameworks/innerkitsimpl/distributeddatafwk/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/frameworks/innerkitsimpl/distributeddatafwk/src",
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/app_distributeddata/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter/include/permission",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter/include/account",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter/include",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter/include/broadcaster",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter/include/utils",
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/ include",
+    "../include",
+    "../../../../interfaces/innerkits/distributeddata",
+    "//third_party/json/single_include",
+    "//base/powermgr/power_manager/interfaces/innerkits/native/include",
+    "../../common",
+    "../common",
+  ]
+
+  deps = [
+    "//foundation/distributeddatamgr/distributeddatamgr/interfaces/innerkits/distributeddata:distributeddata_inner",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/adapter:distributeddata_adapter",
+    "//foundation/distributeddatamgr/distributeddatamgr/services/distributeddataservice/libs/distributeddb:distributeddb",
+    "//utils/native/base:utils",
+  ]
+}

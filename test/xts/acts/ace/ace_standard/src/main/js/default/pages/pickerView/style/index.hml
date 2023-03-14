@@ -1,0 +1,148 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            picker-view通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <picker-view type="text" id="styleOne">
+        </picker-view>
+        <picker-view id="styleTwo">
+        </picker-view>
+        <picker-view id="styleThree">
+        </picker-view>
+        <picker-view id="styleFour">
+        </picker-view>
+        <picker-view id="styleFive">
+        </picker-view>
+        <picker-view id="styleSix">
+        </picker-view>
+        <picker-view id="styleSeven">
+        </picker-view>
+        <picker-view id="styleEight">
+        </picker-view>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <picker-view id="styleTen">
+            </picker-view>
+            <picker-view id="styleEleven">
+            </picker-view>
+            <picker-view id="styleTwelve">
+            </picker-view>
+            <picker-view id="styleThirteen">
+            </picker-view>
+            <picker-view id="styleFourteen">
+            </picker-view>
+            <picker-view id="styleFifteen">
+            </picker-view>
+            <picker-view id="styleSixteen">
+            </picker-view>
+            <picker-view id="styleSeventeen">
+            </picker-view>
+            <picker-view id="styleEighteen">
+            </picker-view>
+            <picker-view id="styleNineteen">
+            </picker-view>
+            <picker-view id="styleTwenty">
+            </picker-view>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <picker-view id="styleTwentyOne">
+            </picker-view>
+            <picker-view id="styleTwentyTwo">
+            </picker-view>
+            <picker-view id="styleTwentyThree">
+            </picker-view>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <picker-view id="styleTwentyFour">
+        </picker-view>
+        <picker-view id="styleTwentyFive">
+        </picker-view>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <picker-view id="styleTwentySix">
+        </picker-view>
+        <picker-view id="styleTwentySeven">
+        </picker-view>
+        <picker-view id="styleTwentyNine">
+        </picker-view>
+        <picker-view id="styleThirty">
+        </picker-view>
+        <picker-view id="styleThirtyOne">
+        </picker-view>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <picker-view id="styleThirtyTwo">
+        </picker-view>
+    </div>
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            picker-view特有样式
+        </text>
+
+        <text class="sub-title">
+            特有样式 \n color,font-size,selected-color,selected-font-size,disappear-color,disappear-font-size,font-family
+        </text>
+        <picker-view id="specificOne" type="time"></picker-view>
+        <!--<text class="sub-title">
+            特有样式 -- allow-scale
+        </text>
+        <picker-view id="specificTwo" class="red-item">true</picker-view>
+        <picker-view id="specificThree" class="green-item">false</picker-view>
+        <text class="sub-title">
+            特有样式 -- font-style
+        </text>
+        <picker-view id="specificFour" class="yellow-item">normal</picker-view>
+        <picker-view id="specificFive" class="red-item">italic</picker-view>
+        <text class="sub-title">
+            特有样式 -- text-decoration，text-align
+        </text>
+        <picker-view id="specificSix" class="green-item">left,underline</picker-view>
+        <picker-view id="specificSeven" class="yellow-item">center,line-through</picker-view>
+        <picker-view id="specificEight" class="blue-item">right,none</picker-view>
+        <text class="sub-title">
+            特有样式 \n max-lines,text-overflow
+        </text>
+        <picker-view id="specificNine" class="green-item">clip方式裁剪文字</picker-view>
+        <picker-view id="specificTen" class="yellow-item">ellipsis方式裁剪文字</picker-view>
+        <text class="sub-title">
+            特有样式 \n min-font-size,max-font-size,font-size-step,prefer-font-sizes
+        </text>
+        <picker-view id="specificEleven" class="green-item">font</picker-view>-->
+    </div>
+</div>
+

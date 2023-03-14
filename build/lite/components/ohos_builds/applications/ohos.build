@@ -1,0 +1,39 @@
+{
+  "parts": {
+    "camera_sample_ai": {
+      "module_list": [
+        "//applications/sample/camera/ai:ai"
+      ]
+    },
+    "camera_sample_app": {
+      "module_list": [
+        "//applications/sample/camera/launcher:launcher_hap",
+        "//applications/sample/camera/cameraApp:cameraApp_hap",
+        "//applications/sample/camera/setting:setting_hap",
+        "//applications/sample/camera/gallery:gallery_hap",
+        "//applications/sample/camera/media:media_sample"
+      ]
+    },
+    "camera_sample_communication": {
+      "module_list": [
+        "//applications/sample/camera/communication:sample"
+      ]
+    },
+    "camera_screensaver_app": {
+      "module_list": [
+        "//applications/sample/camera/screensaver:screensaver_hap"
+      ]
+    },
+    "kit_framework": {
+      "module_list": [
+        "//applications/kit_framework:kit_framework"
+      ]
+    },
+    "wifi_iot_sample_app": {
+      "module_list": [
+        "//applications/sample/wifi-iot/app"
+      ]
+    }
+  },
+  "subsystem_name": "applications"
+}

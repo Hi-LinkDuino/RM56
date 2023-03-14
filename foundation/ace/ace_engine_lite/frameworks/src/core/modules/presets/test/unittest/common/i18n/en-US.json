@@ -1,0 +1,11 @@
+{
+    "test01": {
+        "value" : {}
+    },
+    "localization02" : {
+        "test" : "this is en-US"
+    },
+    "localization08" : {
+        "test1": "this is en-US.json"
+    }
+}

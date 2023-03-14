@@ -1,0 +1,43 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+assert(is_mingw)
+
+config("compiler") {
+  _target = [
+    "-target",
+    "x86_64-pc-windows-gnu",
+  ]
+
+  _mingw_flags = [
+    "-rtlib=compiler-rt",
+    "-stdlib=libc++",
+    "-lunwind",
+    "-lpthread",
+    "-Qunused-arguments",
+  ]
+
+  cflags = _target
+  asmflags = _target
+  ldflags = _target
+
+  cflags += _mingw_flags
+  asmflags += _mingw_flags
+  ldflags += _mingw_flags
+
+  cflags += [ "-fuse-ld=lld" ]
+
+  ldflags += [ "-fuse-ld=lld" ]
+
+  cflags += [ "-D__CUSTOM_SECURITY_LIBRARY" ]
+}

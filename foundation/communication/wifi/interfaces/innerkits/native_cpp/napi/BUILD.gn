@@ -1,0 +1,96 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+ohos_shared_library("wifi") {
+  install_enable = true
+  include_dirs = [
+    "//third_party/node/src",
+    "//native_engine",
+    "//utils/native/base/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/aafwk/standard/frameworks/kits/appkit/native/ability_runtime/context",
+    "//foundation/communication/wifi/utils/inc",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base/include",
+  ]
+
+  sources = [
+    "wifi_napi_device.cpp",
+    "wifi_napi_entry.cpp",
+    "wifi_napi_event.cpp",
+    "wifi_napi_hotspot.cpp",
+    "wifi_napi_p2p.cpp",
+    "wifi_napi_utils.cpp",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/aafwk/standard/frameworks/kits/appkit:app_context",
+    "//foundation/ace/napi:ace_napi",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard:wifi_sdk",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [ "ipc:ipc_core" ]
+
+  relative_install_dir = "module"
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+
+ohos_shared_library("wifi_native_js") {
+  install_enable = true
+  include_dirs = [
+    "//third_party/node/src",
+    "//native_engine",
+    "//utils/native/base/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/aafwk/standard/frameworks/kits/appkit/native/ability_runtime/context",
+    "//foundation/communication/wifi/utils/inc",
+    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base/include",
+  ]
+
+  sources = [
+    "wifi_napi_device.cpp",
+    "wifi_napi_entry.cpp",
+    "wifi_napi_event.cpp",
+    "wifi_napi_hotspot.cpp",
+    "wifi_napi_p2p.cpp",
+    "wifi_napi_utils.cpp",
+  ]
+  deps = [
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//foundation/aafwk/standard/frameworks/kits/appkit:app_context",
+    "//foundation/ace/napi:ace_napi",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard:wifi_sdk",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//utils/native/base:utils",
+  ]
+
+  defines = [ "ENABLE_NAPI_COMPATIBLE" ]
+
+  external_deps = [ "ipc:ipc_core" ]
+
+  relative_install_dir = "module"
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}

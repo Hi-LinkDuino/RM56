@@ -1,0 +1,18 @@
+{
+    "kits": [
+        {
+            "push": [
+                "HatsHdfAudioCaptureSceneTest->/data/local/tmp/HatsHdfAudioCaptureSceneTest"
+            ],
+            "type": "PushKit"
+        }
+    ],
+    "driver": {
+        "native-test-timeout": "120000",
+        "type": "CppTest",
+        "module-name": "HatsHdfAudioCaptureSceneTest",
+        "runtime-hint": "1s",
+        "native-test-device-path": "/data/local/tmp"
+    },
+    "description": "Configuration for HatsHdfAudioCaptureSceneTest Tests"
+}

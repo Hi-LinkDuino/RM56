@@ -1,0 +1,280 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+    <!-- 通用样式 -->
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+
+            <text class="sub-title">
+                label通用样式1
+            </text>
+            <label class="style1" id="style1" target="textId">label</label>
+
+            <text  class="sub-title">
+                label通用样式2
+            </text>
+            <label id="style2" class="style2" target="textId">label
+            </label>
+
+            <text  class="sub-title">
+                label通用样式3
+            </text>
+            <label id="style3" class="style3" target="textId">label
+            </label>
+
+            <text  class="sub-title">
+                label通用样式4
+            </text>
+            <label id="style4" class="style4" target="textId">label
+            </label>
+
+            <text  class="sub-title">
+                label通用样式5
+            </text>
+            <div class="contain1">
+                <label id="style5" class="style5" target="textId">label
+                </label>
+                <label id="style6" class="style6" target="textId">label
+                </label>
+            </div>
+
+            <text  class="sub-title">
+                label特有样式
+            </text>
+            <label id="style7" class="style7" target="textId">label
+            </label>
+        </div>
+
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+    <!-- 动画 -->
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+
+            <text class="sub-title">
+                label动画样式1
+            </text>
+            <label id="ani1" class="ani1">
+            </label>
+
+            <text class="sub-title">
+                label动画样式2
+            </text>
+            <label id="ani2" class="ani2">
+            </label>
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 通用属性 -->
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                label通用属性1
+            </text>
+            <label  id="prop1"
+                   class="prop1"
+                   disabled = "true"
+                   focusable ="true"
+                   data-name ="prop1"
+                   click-effect="spring-medium"
+                   dir ="rtl"
+                   target="textId">label
+            </label>
+
+            <text  class="sub-title">
+                label通用属性2
+            </text>
+            <label class="prop2"
+                   ref ="prop2"
+                   disabled = "false"
+                   focusable ="false"
+                   data-name ="prop2"
+                   click-effect="spring-large"
+                   dir ="ltr"
+                   target="textId">label
+            </label>
+
+            <text  class="sub-title">
+                label通用属性3
+            </text>
+            <label id="prop3" style="color: #679855; margin: 5px;width: 100%;height: 40px;" class="prop3" target="textId">label
+            </label>
+
+            <text  class="sub-title">
+                label特有属性4
+            </text>
+            <div class="row">
+                <label class="prop4" target="sex">性别：</label>
+                <input class="" id="sex" type="radio" name="group" value="group">男</input>
+            </div>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 通用事件 -->
+        <div class="event-container" >
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+    <!-- 渐变样式 -->
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+
+            <text class="sub-title">
+                label渐变样式1
+            </text>
+            <label id="gradient1" class="gradient1">
+                label
+            </label>
+
+            <text  class="sub-title">
+                label渐变样式2
+            </text>
+            <label id="gradient2" class="gradient2">
+                label
+            </label>
+
+            <text  class="sub-title">
+                label渐变样式3
+            </text>
+            <label id="gradient3" class="gradient3">
+                label
+            </label>
+
+            <text  class="sub-title">
+                label渐变样式4
+            </text>
+            <label id="gradient4" class="gradient4">label
+            </label>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+    <!-- 无障碍 -->
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                label无障碍1
+            </text>
+            <label class="access1" accessibilitygroup ="true"
+                 accessibilitytext="这是div"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants">
+            </label>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                label原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <div style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </div>
+                <div style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </div>
+                <div style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </div>
+                <div style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </div>
+                <div style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </div>
+                <div style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </div>
+            </div>
+            <text class="sub-title">
+                label原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <label style="height:20px;background-color: blue;flex-weight: 1;">
+                </label>
+                <label style="height:20px;background-color: black;flex-weight: 5;">
+                </label>
+                <label style="height:20px;background-color: yellow;flex-weight: 4;">
+                </label>
+                <label style="height:20px;background-color: red;flex-weight: 3;">
+                </label>
+                <label style="height:20px;background-color:pink;flex-weight: 7;">
+                </label>
+                <label style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </label>
+            </div>
+            <text class="sub-title">
+                label原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <label style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </label>
+                <label style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </label>
+                <label style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </label>
+                <label style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </label>
+                <label style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </label>
+                <label style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </label>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multimode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    label多模输入1
+                </text>
+                <label id="multiMode1"
+                      class="multiMode1"
+                      percent="10"
+                      voicelabel = "voice"
+                      subscriptflag="on"
+                      subscriptlabel="div"
+                      scenelabel="common">
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

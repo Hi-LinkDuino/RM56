@@ -1,0 +1,15 @@
+{
+  "message": {
+    "hello": "你好世界"
+  },
+  "strings": {
+    "btnCopy": "复制",
+    "btnPrint": "打印",
+    "uri": "网页地址: ",
+    "defaultName": "未知文件名称",
+    "fileSize": "文件大小",
+    "sameFile": "个同类文件",
+    "unSameFile": "个不同类文件",
+    "totalSize": "总大小"
+  }
+}

@@ -1,0 +1,79 @@
+# Copyright (c) 2021-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# build plugin interface
+import("//foundation/multimedia/histreamer/config.gni")
+config("histreamer_pipeline_config") {
+  include_dirs = [
+    "//foundation/multimedia/histreamer/engine/pipeline",
+    "//foundation/multimedia/histreamer/engine/pipeline/filters",
+    "//foundation/multimedia/histreamer/engine/pipeline/core",
+  ]
+}
+
+source_set("histreamer_pipeline") {
+  sources = [
+    "core/compatible_check.cpp",
+    "core/error_code.cpp",
+    "core/event.cpp",
+    "core/filter_base.cpp",
+    "core/media_sync_manager.cpp",
+    "core/pipeline_core.cpp",
+    "core/port.cpp",
+    "factory/filter_factory.cpp",
+    "filters/codec/async_mode.cpp",
+    "filters/codec/audio_decoder/audio_decoder_filter.cpp",
+    "filters/codec/audio_encoder/audio_encoder_filter.cpp",
+    "filters/codec/codec_filter_base.cpp",
+    "filters/codec/codec_filter_factory.cpp",
+    "filters/codec/codec_mode.cpp",
+    "filters/codec/sync_mode.cpp",
+    "filters/common/buffer_calibration/audio_buffer_calibration.cpp",
+    "filters/common/buffer_calibration/buffer_calibration.cpp",
+    "filters/common/dump_buffer.cpp",
+    "filters/common/plugin_settings.cpp",
+    "filters/common/plugin_utils.cpp",
+    "filters/demux/data_packer.cpp",
+    "filters/demux/demuxer_filter.cpp",
+    "filters/demux/type_finder.cpp",
+    "filters/muxer/muxer_filter.cpp",
+    "filters/sink/audio_sink/audio_sink_filter.cpp",
+    "filters/sink/media_synchronous_sink.cpp",
+    "filters/sink/output_sink/output_sink_filter.cpp",
+    "filters/source/audio_capture/audio_capture_filter.cpp",
+    "filters/source/media_source/media_source_filter.cpp",
+  ]
+  if (multimedia_histreamer_enable_video) {
+    sources += [
+      "filters/codec/video_decoder/video_decoder_filter.cpp",
+      "filters/sink/video_sink/video_sink_filter.cpp",
+    ]
+    if (multimedia_histreamer_enable_recorder) {
+      sources += [
+        "filters/codec/video_encoder/video_encoder_filter.cpp",
+        "filters/source/video_capture/video_capture_filter.cpp",
+      ]
+    }
+  }
+  public_configs = [
+    ":histreamer_pipeline_config",
+    "//foundation/multimedia/histreamer:histreamer_presets",
+  ]
+  public_deps = [
+    "//foundation/multimedia/histreamer/engine/foundation:histreamer_foundation",
+    "//foundation/multimedia/histreamer/engine/plugin:histreamer_plugin_core",
+    "//foundation/multimedia/histreamer/engine/plugin:histreamer_plugin_intf",
+    "//foundation/multimedia/histreamer/engine/utils:histreamer_utils",
+  ]
+}

@@ -1,0 +1,73 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+
+ace_frameworks_root = "//foundation/ace/ace_engine_lite/frameworks"
+ace_interface_root =
+    "//foundation/ace/ace_engine_lite/interfaces/innerkits/builtin"
+ace_target_root = "//foundation/ace/ace_engine_lite/frameworks/targets"
+
+lite_component("ace_module_manager_lite") {
+  features = [ ":ace_module_manager" ]
+}
+
+lite_library("ace_module_manager") {
+  if (ohos_kernel_type == "liteos_m") {
+    target_type = "static_library"
+  } else {
+    target_type = "shared_library"
+    cflags = [ "-Wall" ]
+    cflags_cc = cflags
+  }
+
+  include_dirs = [
+    "$ace_frameworks_root/common/log",
+    "$ace_frameworks_root/common/utils",
+    "$ace_frameworks_root/include/base",
+    "$ace_frameworks_root/native_engine/jsi",
+    "$ace_interface_root/base",
+    "$ace_interface_root/jsi",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits",
+    "//third_party/jerryscript/jerry-core/include",
+    "//third_party/bounds_checking_function/include",
+  ]
+  deps = [ "$ace_target_root" ]
+
+  sources = [ "$ace_frameworks_root/module_manager/module_manager.cpp" ]
+
+  public_deps = [
+    "$ace_frameworks_root/common:ace_common_lite",
+    "$ace_frameworks_root/native_engine:ace_native_engine_lite",
+    "//foundation/multimedia/media_lite/interfaces/kits/player_lite/js/builtin:audio_lite_api",
+    "//foundation/multimedia/audio_lite/interfaces/kits/js/builtin:audio_capture_lite_api",
+    "//utils/native/lite/js/builtin:ace_utils_kits",
+  ]
+
+  if (ohos_kernel_type == "liteos_m") {
+    public_deps += [
+      "//foundation/graphic/ui:ui",
+      "//third_party/bounds_checking_function:libsec_static",
+      "//third_party/jerryscript:jerry_engine",
+    ]
+  } else {
+    public_deps += [
+      "${appexecfwk_lite_path}/interfaces/kits/bundle_lite/js/builtin:capability_api",
+      "//base/powermgr/battery_lite/frameworks/js:ace_battery_kits",
+      "//base/security/huks/frameworks/crypto_lite/js/builtin:ace_kit_cipher",
+      "//foundation/communication/netstack/frameworks/js/builtin:http_lite_shared",
+      "//third_party/bounds_checking_function:libsec_shared",
+      "//third_party/jerryscript/jerry-core:jerry-core_shared",
+    ]
+  }
+}

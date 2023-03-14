@@ -1,0 +1,112 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+} else {
+  import("//build/ohos.gni")
+}
+
+global_sources = []
+if (defined(ohos_lite) && ohos_kernel_type == "liteos_a") {
+  global_sources += [
+    "src/global.cpp",
+    "src/hap_manager.cpp",
+    "src/hap_resource.cpp",
+    "src/locale_matcher.cpp",
+    "src/lock.cpp",
+    "src/res_config_impl.cpp",
+    "src/res_desc.cpp",
+    "src/res_locale.cpp",
+    "src/resource_manager_impl.cpp",
+    "src/utils/hap_parser.cpp",
+    "src/utils/string_utils.cpp",
+    "src/utils/utils.cpp",
+  ]
+} else {
+  global_sources += [
+    "src/global.c",
+    "src/global_utils.c",
+  ]
+}
+
+config("global_resmgr_config") {
+  include_dirs = [
+    "include",
+    "//base/global/resmgr_lite/interfaces/innerkits/include",
+    "//utils/native/lite/include",
+    "//third_party/bounds_checking_function/include",
+  ]
+
+  if (defined(ohos_lite) && ohos_kernel_type == "liteos_a") {
+    include_dirs += [
+      "//third_party/zlib",
+      "//third_party/zlib/contrib/minizip",
+      "//utils/native/lite/memory",
+      "//base/global/i18n_lite/interfaces/kits/i18n/include/",
+    ]
+  }
+}
+
+config("global_public_config") {
+  include_dirs = [
+    "//base/global/resmgr_lite/frameworks/resmgr_lite/include",
+    "//base/global/resmgr_lite/interfaces/innerkits/include",
+  ]
+}
+
+config("global_resmgr_mingw_config") {
+  cflags = [
+    "-D_INC_STRING_S",
+    "-D_INC_WCHAR_S",
+    "-D_SECIMP=//",
+    "-D_STDIO_S_DEFINED",
+    "-D_INC_STDIO_S",
+    "-D_INC_STDLIB_S",
+    "-D_INC_MEMORY_S",
+  ]
+}
+
+if (defined(ohos_lite)) {
+  if (ohos_kernel_type == "liteos_m") {
+    static_library("global_resmgr") {
+      sources = global_sources
+      public_configs = [ ":global_resmgr_config" ]
+      deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    }
+  } else {
+    shared_library("global_resmgr") {
+      sources = global_sources
+      configs += [ ":global_resmgr_config" ]
+      deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+      if (ohos_kernel_type == "liteos_a") {
+        public_deps = [
+          "//base/global/i18n_lite/frameworks/i18n:global_i18n",
+          "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+          "//build/lite/config/component/zlib:zlib_shared",
+        ]
+      }
+    }
+  }
+
+  lite_component("global_manager_lite") {
+    features = [ ":global_resmgr" ]
+  }
+} else {
+  ohos_static_library("global_resmgr_simulator") {
+    sources = global_sources
+    public_configs = [ ":global_public_config" ]
+    deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    configs = [ ":global_resmgr_mingw_config" ]
+  }
+}

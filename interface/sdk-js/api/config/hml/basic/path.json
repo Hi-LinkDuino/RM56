@@ -1,0 +1,213 @@
+{
+  "name": "path",
+  "version": [
+    {
+      "name": "v7.0"
+    }
+  ],
+  "syscap": [
+    "SystemCapability.ArkUI.ArkUI.Full"
+  ],
+  "description": [
+    {
+      "name": ""
+    }
+  ],
+  "attributes": [
+    {
+      "name": "fill",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "fill-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "fill-rule",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "nonzero"
+        },
+        {
+          "name": "evenodd"
+        }
+      ]
+    },
+    {
+      "name": "opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "color"
+    },
+    {
+      "name": "stroke-dasharray",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "stroke-dashoffset",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "stroke-linejoin",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "bevel"
+        },
+        {
+          "name": "miter"
+        },
+        {
+          "name": "round"
+        }
+      ]
+    },
+    {
+      "name": "stroke-linecap",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "enum",
+      "options": [
+        {
+          "name": "butt"
+        },
+        {
+          "name": "round"
+        },
+        {
+          "name": "square"
+        }
+      ]
+    },
+    {
+      "name": "stroke-miterlimit",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-opacity",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "number"
+    },
+    {
+      "name": "stroke-width",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "transform",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    },
+    {
+      "name": "d",
+      "required": false,
+      "description": [
+        {
+          "name": ""
+        }
+      ],
+      "type": "string"
+    }
+  ],
+  "events": [],
+  "supportedSubComponents": true,
+  "supportedSubComponentsRestriction": [
+    {
+      "name": "animate"
+    },
+    {
+      "name": "animateTransform"
+    },
+    {
+      "name": "animateMotion"
+    }
+  ],
+  "unSupportSubComponentsRestriction": [],
+  "parentComponentsRestriction": []
+}

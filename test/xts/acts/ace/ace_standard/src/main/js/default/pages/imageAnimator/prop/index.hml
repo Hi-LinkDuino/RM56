@@ -1,0 +1,274 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            img-animator通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <image-animator images="" duration="" id="idProp">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <image-animator images="" duration="" id="classProp"
+             class="classProp">
+        </image-animator>
+        <image-animator images="" duration="" id="classPropNone"
+             class="">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <image-animator images="" duration="" id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <image-animator images="" duration="" id="refProp"
+             ref="refProp">
+        </image-animator>
+        <image-animator images="" duration="" id="refPropNone"
+             ref="">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <image-animator images="" duration="" id="disabledPropTrue"
+             disabled="true">
+        </image-animator>
+        <image-animator images="" duration="" id="disabledPropFalse"
+             disabled="false">
+        </image-animator>
+        <image-animator images="" duration="" id="disabledPropNone"
+             disabled="">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <image-animator images="" duration="" id="focusablePropTrue"
+             focusable="true">
+        </image-animator>
+        <image-animator images="" duration="" id="focusablePropFalse"
+             focusable="false">
+        </image-animator>
+        <image-animator images="" duration="" id="focusablePropNone"
+             focusable="">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <image-animator images="" duration="" id="dataProp"
+             data-imageAnimator="通用属性 -- data-*">
+        </image-animator>
+        <image-animator images="" duration="" id="dataPropNone"
+             data-imageAnimator="">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <image-animator images="" duration="" id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </image-animator>
+        <image-animator images="" duration="" id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </image-animator>
+        <image-animator images="" duration="" id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </image-animator>
+        <image-animator images="" duration="" id="clickEffectPropNone"
+             click-effect="">
+        </image-animator>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <image-animator images="" duration="" id="dirPropRtl"
+             dir="rtl">
+        </image-animator>
+        <image-animator images="" duration="" id="dirPropAuto"
+             dir="auto">
+        </image-animator>
+        <image-animator images="" duration="" id="dirPropLtr"
+             dir="ltr">
+        </image-animator>
+        <image-animator images="" duration="" id="dirPropNone"
+             dir="">
+        </image-animator>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <image-animator images="" duration="" id="forPropNull"
+             for="">
+        </image-animator>
+        <image-animator images="" duration="" id="forPropOne"
+             for="{{listOne}}">
+        </image-animator>
+        <image-animator images="" duration="" id="forPropThree"
+             for="{{listThree}}">
+        </image-animator>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <image-animator images="" duration="" id="ifPropTrue"
+             if="true">
+        </image-animator>
+        <image-animator images="" duration="" id="ifPropFalse"
+             if="false">
+        </image-animator>
+        <image-animator images="" duration="" id="ifPropNone"
+             if="">
+        </image-animator>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <image-animator images="" duration="" id="showPropTrue"
+             show="true">
+        </image-animator>
+        <image-animator images="" duration="" id="showPropFalse"
+             show="false">
+        </image-animator>
+        <image-animator images="" duration="" id="showPropNone"
+             show="false">
+        </image-animator>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            imageAnimator特有属性-image
+        </text>
+        <image-animator images="" duration="" id="typeImageNull"
+                >
+        </image-animator>
+        <image-animator images="{{images}}" duration="3s" id="typeImage"
+                >
+        </image-animator>
+        <text class="title">
+            imageAnimator特有属性-duration
+        </text>
+        <image-animator images="" duration="" id="typeDurationNull"
+                >
+        </image-animator>
+        <image-animator images="" duration="3s" id="typeDuration3"
+                >
+        </image-animator>
+        <image-animator images="" duration="6s" id="typeDuration6"
+                >
+        </image-animator>
+        <text class="title">
+            imageAnimator特有属性-predecode
+        </text>
+
+        <image-animator images="" predecode="2" duration="" id="typePredecode2"
+                >
+        </image-animator>
+        <text class="title">
+            imageAnimator特有属性-iteration
+        </text>
+        <image-animator images="" duration="" iteration="infinite" id="typeIterationInfi"
+                >
+        </image-animator>
+        <image-animator images="" duration="" iteration="3" id="typeIteration3"
+                >
+        </image-animator>
+        <text class="title">
+            imageAnimator特有属性-reverse
+        </text>
+        <image-animator images="" duration="" reverse="" id="typeReverseNull"
+                >
+        </image-animator>
+        <image-animator images="" duration="" reverse="true" id="typeReverseTrue"
+                >
+        </image-animator>
+        <image-animator images="" duration="" reverse="false" id="typeReverseFalse"
+                >
+        </image-animator>
+        <text class="title">
+            imageAnimator特有属性-fixedsize
+        </text>
+        <image-animator images="" duration="" fixedsize="" id="typeFixedsizeNull"
+                >
+        </image-animator>
+        <image-animator images="" duration="" fixedsize="true" id="typeFixedsizeTrue"
+                >
+        </image-animator>
+        <image-animator images="" duration="" fixedsize="false" id="typeFixedsizeFalse"
+                >
+        </image-animator>
+        <text class="title">
+            imageAnimator特有属性-fillmode
+        </text>
+        <image-animator images="" duration="" fillmode="forwards" id="typeFillmodeNull"
+                >
+        </image-animator>
+        <image-animator images="" duration="" fillmode="forwards" id="typeFillmodeForwards"
+                >
+        </image-animator>
+        <image-animator images="" duration="" fillmode="none" id="typeFillmodeNone"
+                >
+        </image-animator>
+        <text class="sub-title">
+            特有属性 -- image-animator
+        </text>
+        <image-animator images="" duration="" class="propNewAdd"
+                image-animator="image-animator">
+        </image-animator>
+        <image-animator images="" duration="" class="propNewAdd"
+                image-animator="">
+        </image-animator>
+
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <image-animator images="" duration="" class="propNewAdd"
+                tid="id">
+        </image-animator>
+        <image-animator images="" duration="" class="propNewAdd"
+                tid="">
+        </image-animator>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <image-animator images="" duration="" class="propNewAdd"
+                 if="false">
+        </image-animator>
+        <image-animator images="" duration="" class="propNewAdd"
+                 elif="true">
+        </image-animator>
+        <image-animator images="" duration="" class="propNewAdd"
+                 elif="false">
+        </image-animator>
+        
+    </div>
+</div>

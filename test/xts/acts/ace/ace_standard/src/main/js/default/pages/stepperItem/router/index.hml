@@ -1,0 +1,286 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+            <text class="sub-title">
+                通用样式1
+            </text>
+            <stepper-item class="style1">
+            </stepper-item>
+            <text  class="sub-title">
+                通用样式2
+            </text>
+            <stepper-item class="style2">
+            </stepper-item>
+            <text class="sub-title">
+                通用样式3
+            </text>
+            <stepper-item class="style3">
+            </stepper-item>
+            <text  class="sub-title">
+                通用样式4
+            </text>
+            <stepper-item class="style4">
+            </stepper-item>
+            <text  class="sub-title">
+                通用样式5
+            </text>
+            <div class="contain1">
+                <stepper-item class="style5">
+                </stepper-item>
+                <stepper-item class="style6">
+                </stepper-item>
+            </div>
+            <text  class="sub-title">
+                特有样式
+            </text>
+            <div class="style7">
+                <stepper class="stepper-container">
+                    <stepper-item class="flex-item color-primary" >
+
+                        步骤
+
+                    </stepper-item>
+                </stepper>
+
+            </div>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                动画样式1
+            </text>
+            <stepper-item class="ani1" >
+            </stepper-item>
+            <text class="sub-title">
+                动画样式2
+            </text>
+            <stepper-item class="ani2" >
+            </stepper-item>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                通用属性1
+            </text>
+            <stepper-item id="prop1" class="prop1"
+                          disabled = "true" focusable ="true"
+                          data-name ="prop1" click-effect="spring-medium"
+                          dir ="rtl">
+            </stepper-item>
+            <text  class="sub-title">
+                通用属性2
+            </text>
+            <stepper-item class="prop2" ref ="prop2"
+                          disabled = "false" focusable ="false"
+                          data-name ="prop2" click-effect="spring-large"
+                          dir ="ltr">
+            </stepper-item>
+
+
+
+            <text  class="sub-title">
+                通用属性3
+            </text>
+            <stepper-item style="color: #679855; margin: 5px;" class="prop3">
+            </stepper-item>
+
+            <stepper class ="event4" >
+                <stepper-item label="{{label1}}"  style="height: 100%; width: 100%; background-color: red; margin-left: 10px;"></stepper-item>
+                <stepper-item label="{{label1}}"   style="height: 100%; width: 100%;background-color: red; margin-left: 10px;"></stepper-item>
+                <stepper-item label="{{label1}}"   style="height: 100%; width: 100%;background-color: red; margin-left: 10px;"></stepper-item>
+            </stepper>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                通用事件1
+            </text>
+            <stepper-item class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                          ontouchend="touchEnd" ontouchcancel="touchCancel">
+            </stepper-item>
+            <text  class="sub-title">
+                通用事件2
+            </text>
+            <stepper-item class ="event2" onclick="click" ondoubleclick="doubleClick"
+                          onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                          onswipe="swipe" onattached="attached" ondetached="detached">
+            </stepper-item>
+            <text  class="sub-title">
+                通用事件3
+            </text>
+            <stepper-item class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                          onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                          ondragstart="dragStart" ondrag="drag"
+                          ondragend="dragEnd" ondragenter="dragEnter"
+                          ondragover="dragOver" ondragleave="dragLeave"
+                          ondrop="drop"
+                          onaccessibility="onAccessibility">
+            </stepper-item>
+            <text  class="sub-title">
+                特有事件1
+            </text>
+            <stepper class ="event4" >
+                <stepper-item appear="appear" disappear="disappear" style="height: 100%; width: 100%; background-color: red; margin-left: 10px;"></stepper-item>
+                <stepper-item appear="appear" disappear="disappear"  style="height: 100%; width: 100%;background-color: red; margin-left: 10px;"></stepper-item>
+                <stepper-item appear="appear" disappear="disappear"  style="height: 100%; width: 100%;background-color: red; margin-left: 10px;"></stepper-item>
+            </stepper>
+
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                渐变样式1
+            </text>
+            <stepper-item class="gradient1">
+            </stepper-item>
+            <text  class="sub-title">
+                渐变样式2
+            </text>
+            <stepper-item class="gradient2">
+            </stepper-item>
+            <text  class="sub-title">
+                渐变样式3
+            </text>
+            <stepper-item class="gradient3">
+            </stepper-item>
+            <text  class="sub-title">
+                渐变样式4
+            </text>
+            <stepper-item class="gradient4">
+            </stepper-item>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="accessibility-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                无障碍1
+            </text>
+            <stepper-item class="accessibility1" accessibilitygroup ="true"
+                          accessibilitytext="这是div"
+                          accessibilitydescription="点击此按键会弹出一个对话框"
+                          accessibilityimportance="no-hide-descendants">
+            </stepper-item>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <stepper-item style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </stepper-item>
+                <stepper-item style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </stepper-item>
+                <stepper-item style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </stepper-item>
+                <stepper-item style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </stepper-item>
+                <stepper-item style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </stepper-item>
+                <stepper-item style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </stepper-item>
+            </div>
+            <text class="sub-title">
+                原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <stepper-item style="height:20px;background-color: blue;flex-weight: 1;">
+                </stepper-item>
+                <stepper-item style="height:20px;background-color: black;flex-weight: 5;">
+                </stepper-item>
+                <stepper-item style="height:20px;background-color: yellow;flex-weight: 4;">
+                </stepper-item>
+                <stepper-item style="height:20px;background-color: red;flex-weight: 3;">
+                </stepper-item>
+                <stepper-item style="height:20px;background-color:pink;flex-weight: 7;">
+                </stepper-item>
+                <stepper-item style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </stepper-item>
+            </div>
+            <text class="sub-title">
+                原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <stepper-item style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </stepper-item>
+                <stepper-item style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </stepper-item>
+                <stepper-item style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </stepper-item>
+                <stepper-item style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </stepper-item>
+                <stepper-item style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </stepper-item>
+                <stepper-item style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </stepper-item>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multiMode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    多模输入1
+                </text>
+                <stepper-item class="multiMode1" voicelabel = "voice"
+                              subscriptflag="on" subscriptlabel="div" scenelabel="common">
+                </stepper-item>
+            </div>
+        </div>
+    </div>
+</div>

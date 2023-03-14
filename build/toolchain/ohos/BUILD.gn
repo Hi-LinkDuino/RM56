@@ -1,0 +1,21 @@
+# Copyright 2013 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build/toolchain/ohos/ohos_toolchain.gni")
+
+ohos_clang_toolchain("ohos_clang_arm") {
+  sysroot = "${musl_sysroot}"
+  lib_dir = "usr/lib/arm-linux-ohos"
+  toolchain_args = {
+    current_cpu = "arm"
+  }
+}
+
+ohos_clang_toolchain("ohos_clang_arm64") {
+  sysroot = "${musl_sysroot}"
+  lib_dir = "usr/lib/aarch64-linux-ohos"
+  toolchain_args = {
+    current_cpu = "arm64"
+  }
+}

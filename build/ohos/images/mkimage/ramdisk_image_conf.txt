@@ -1,0 +1,2 @@
+--fs_type=cpio
+--dac_config ../../build/ohos/images/mkimage/dac.txt

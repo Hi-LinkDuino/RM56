@@ -1,0 +1,38 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+deviceauth_path = "//base/security/deviceauth"
+common_lib_path = "${deviceauth_path}/common_lib"
+deps_adapter_path = "${deviceauth_path}/deps_adapter"
+key_management_adapter_path =
+    "${deviceauth_path}/deps_adapter/key_management_adapter"
+os_adapter_path = "${deviceauth_path}/deps_adapter/os_adapter"
+
+innerkits_path = "${deviceauth_path}/interfaces/innerkits"
+frameworks_path = "${deviceauth_path}/frameworks"
+services_path = "${deviceauth_path}/services"
+
+declare_args() {
+  deviceauth_feature_config = "//base/security/deviceauth/default_config"
+  enable_soft_bus_channel = true
+}
+
+if (defined(ohos_lite)) {
+  if (ohos_kernel_type == "liteos_m") {
+    import("${deviceauth_feature_config}/mini/config.gni")
+  } else {
+    import("${deviceauth_feature_config}/small/config.gni")
+  }
+} else {
+  import("${deviceauth_feature_config}/standard/config.gni")
+}

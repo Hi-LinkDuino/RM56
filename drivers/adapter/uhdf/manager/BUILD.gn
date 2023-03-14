@@ -1,0 +1,73 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+HDF_FRAMEWORKS = "//drivers/framework"
+
+config("hdf_core_pub_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "$HDF_FRAMEWORKS/core/adapter/vnode/include",
+    "$HDF_FRAMEWORKS/core/adapter/syscall/include",
+    "$HDF_FRAMEWORKS/core/shared/include",
+    "$HDF_FRAMEWORKS/core/host/include",
+    "$HDF_FRAMEWORKS/core/manager/include",
+    "$HDF_FRAMEWORKS/include/core",
+    "$HDF_FRAMEWORKS/include/utils",
+    "$HDF_FRAMEWORKS/utils/include",
+    "$HDF_FRAMEWORKS/include/osal",
+    "$HDF_FRAMEWORKS/../adapter/uhdf/posix/include",
+    "//third_party/bounds_checking_function/include",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+  ]
+}
+
+ohos_shared_library("hdf_core") {
+  include_dirs = []
+
+  public_configs = [ ":hdf_core_pub_config" ]
+
+  sources = [
+    "$HDF_FRAMEWORKS/core/adapter/syscall/src/hdf_devmgr_adapter.c",
+    "$HDF_FRAMEWORKS/core/adapter/syscall/src/hdf_syscall_adapter.c",
+    "$HDF_FRAMEWORKS/core/shared/src/hdf_io_service.c",
+    "$HDF_FRAMEWORKS/core/shared/src/ioserstat_listener.c",
+    "$HDF_FRAMEWORKS/core/shared/src/service_status.c",
+    "$HDF_FRAMEWORKS/core/shared/src/svcmgr_ioservice.c",
+    "$HDF_FRAMEWORKS/utils/src/hdf_sbuf.c",
+    "$HDF_FRAMEWORKS/utils/src/hdf_sbuf_impl_raw.c",
+  ]
+
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+
+  defines = [ "__USER__" ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+    "-Wno-format",
+  ]
+
+  # install_images = [ "vendor" ]
+  subsystem_name = "hdf"
+  part_name = "device_driver_framework"
+}

@@ -1,0 +1,140 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+template("gcc_toolchain") {
+  toolchain(target_name) {
+    assert(defined(invoker.ar), "gcc toolchain must specify a \"ar\" value")
+    assert(defined(invoker.cc), "gcc toolchain must specify a \"cc\" value")
+    assert(defined(invoker.cxx), "gcc toolchain must specify a \"cxx\" value")
+    assert(defined(invoker.ld), "gcc toolchain must specify a \"ld\" value")
+
+    cc = invoker.cc
+    cxx = invoker.cxx
+    ar = invoker.ar
+    ld = invoker.ld
+
+    need_strip = false
+    if (defined(invoker.strip)) {
+      strip = invoker.strip
+      need_strip = true
+    }
+
+    if (defined(invoker.extra_ldflags) && invoker.extra_ldflags != "") {
+      extra_ldflags = " " + invoker.extra_ldflags
+    } else {
+      extra_ldflags = ""
+    }
+
+    tool("cc") {
+      command = "$cc {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
+      depsformat = "gcc"
+      description = "gcc cross compiler {{output}}"
+      outputs =
+          [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
+    }
+    tool("cxx") {
+      depfile = "{{output}}.d"
+      command = "$cxx {{defines}} {{include_dirs}} {{cflags_cc}} -c {{source}} -o {{output}}"
+      depsformat = "gcc"
+      description = "gcc CXX {{output}}"
+      outputs =
+          [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
+    }
+    tool("asm") {
+      depfile = "{{output}}.d"
+      command = "$cc {{defines}} {{include_dirs}} {{asmflags}} {{source}} -c -o {{output}}"
+      depsformat = "gcc"
+      description = "gcc cross compiler {{output}}"
+      outputs =
+          [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
+    }
+    tool("alink") {
+      outfile = "{{output_dir}}/{{target_output_name}}{{output_extension}}"
+      rspfile = "{{output}}.rsp"
+      rspfile_content = "{{inputs}}"
+      command = "$ar cr {{output}} @\"$rspfile\""
+
+      description = "AR {{output}}"
+      outputs = [ outfile ]
+
+      default_output_dir = "{{root_out_dir}}/libs"
+      default_output_extension = ".a"
+      output_prefix = "lib"
+    }
+    tool("solink") {
+      outfile = "{{output_dir}}/{{target_output_name}}{{output_extension}}"
+      unstripped_outfile = outfile
+
+      rspfile = "$outfile.rsp"
+      rspfile_content = "{{inputs}}"
+      command = ""
+      if (need_strip) {
+        unstripped_outfile = "{{output_dir}}/unstripped/usr/lib/{{target_output_name}}{{output_extension}}"
+      }
+      command +=
+          "$ld -shared {{ldflags}} $extra_ldflags " +
+          "-Wl,--start-group {{inputs}} {{libs}} -Wl,--end-group -o $unstripped_outfile"
+      if (need_strip) {
+        command += " && $strip \"$unstripped_outfile\" -o \"$outfile\""
+      }
+      description = "SOLINK $outfile"
+      outputs = [ outfile ]
+      if (unstripped_outfile != outfile) {
+        outputs += [ unstripped_outfile ]
+      }
+      default_output_dir = "{{root_out_dir}}"
+      default_output_extension = ".so"
+      output_prefix = "lib"
+    }
+    tool("link") {
+      outfile = "{{output_dir}}/bin/{{target_output_name}}{{output_extension}}"
+      unstripped_outfile = outfile
+
+      rspfile = "$outfile.rsp"
+      command = ""
+      if (need_strip) {
+        unstripped_outfile = "{{output_dir}}/unstripped/bin/{{target_output_name}}{{output_extension}}"
+      }
+      command +=
+          "$ld {{ldflags}} $extra_ldflags " +
+          "-Wl,--start-group {{inputs}} {{libs}} -Wl,--end-group -o $unstripped_outfile "
+      if (need_strip) {
+        command += " && $strip \"$unstripped_outfile\" -o \"$outfile\""
+      }
+
+      description = "LINK $outfile"
+      default_output_dir = "{{root_out_dir}}"
+      rspfile_content = "{{inputs}}"
+      outputs = [ outfile ]
+      if (unstripped_outfile != outfile) {
+        outputs += [ unstripped_outfile ]
+      }
+    }
+    tool("stamp") {
+      if (host_os == "win") {
+        command = "cmd /c type nul > \"{{output}}\""
+      } else {
+        command = "/usr/bin/touch {{output}}"
+      }
+      description = "STAMP {{output}}"
+    }
+    tool("copy") {
+      if (host_os == "win") {
+        command = "python $ohos_root_path/build/lite/copy_files.py --src_type=file --src={{source}} --dest_dir={{output}}"
+      } else if (host_os == "linux") {
+        command = "cp -afd {{source}} {{output}}"
+      }
+      description = "COPY {{source}} {{output}}"
+    }
+  }
+}

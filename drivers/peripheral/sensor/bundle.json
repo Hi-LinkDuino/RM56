@@ -1,0 +1,55 @@
+{
+  "name": "sensor_device_driver",
+  "description": "sensor device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "sensor_device_driver",
+    "subsystem": "hdf",
+    "syscap": [ "" ],
+    "adapter_system_type": ["standard", "small"],
+    "rom": "650KB",
+    "ram": "7600KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/sensor:sensor_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/sensor/test:hdf_test_sensor"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/sensor/hal:hdi_sensor",
+          "header": {
+            "header_files": [
+              "sensor_if.h",
+              "sensor_type.h"
+            ],
+            "header_base": "//drivers/peripheral/sensor/interfaces/include"
+          }
+        },
+        {
+          "name": "//drivers/interface/sensor/v1_0:libsensor_proxy_1.0",
+          "header": {
+            "header_files": [
+              "sensor_if.h",
+              "sensor_type.h"
+            ],
+            "header_base": "//drivers/peripheral/sensor/interfaces/include"
+          }
+        }
+      ]
+    }
+  }
+}

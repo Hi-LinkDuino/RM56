@@ -1,0 +1,49 @@
+import("//build/test.gni")
+
+ohos_unittest("main") {
+  module_out_path = "libc-test/src/api"
+
+  sources = [ "main.c" ]
+
+  configs = [ ":config_main" ]
+
+  output_name = "main"
+}
+
+config("config_main") {
+  include_dirs = [
+    ".",
+    "//third_party/musl/libc-test/src/common",
+  ]
+
+  cflags_c = [
+    "-pipe",
+    "-std=c99",
+    "-D_POSIX_C_SOURCE=200809L",
+    "-Wall",
+    "-Wno-unused-function",
+    "-Wno-missing-braces",
+    "-Wno-unused",
+    "-Wno-overflow",
+    "-Wno-unknown-pragmas",
+    "-fno-builtin",
+    "-frounding-math",
+    "-Werror=implicit-function-declaration",
+    "-Werror=implicit-int",
+    "-Werror=pointer-sign",
+    "-Werror=pointer-arith",
+    "-g",
+    "-D_FILE_OFFSET_BITS=64",
+    "-pedantic-errors",
+    "-Werror",
+    "-Wno-unused",
+    "-D_XOPEN_SOURCE=700",
+    "-c",
+    "-o",
+  ]
+
+  ldflags = [
+    "-g",
+    "-nostdlib",
+  ]
+}

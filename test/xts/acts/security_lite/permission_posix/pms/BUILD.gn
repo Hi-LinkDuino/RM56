@@ -1,0 +1,55 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hcpptest_suite("ActsPMSTest") {
+  suite_name = "acts"
+  sources = [
+    "src/ActsPMSCheckTest.cpp",
+    "src/ActsPMSDeleteTest.cpp",
+    "src/ActsPMSGrantRuntimeTest.cpp",
+    "src/ActsPMSGrantTest.cpp",
+    "src/ActsPMSLoadTest.cpp",
+    "src/ActsPMSRevokeTest.cpp",
+    "src/ActsPMSSaveTest.cpp",
+    "src/ActsPMSTest.h",
+    "src/ActsPMSUnloadTest.cpp",
+    "src/ActsPMSUpdatePermissionTest.cpp",
+  ]
+
+  include_dirs = [
+    "src",
+    "include",
+    "//utils/native/lite/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/communication/broadcast",
+    "//base/security/permission/interfaces/innerkits/permission_lite",
+    "//base/security/permission/interfaces/kits/permission_lite",
+    "//base/security/permission/services/permission_lite/pms_base/include",
+    "//base/security/permission/services/permission_lite/pms/include",
+    "//base/security/permission/services/permission_lite/ipc_auth/include",
+    "//third_party/bounds_checking_function/include/",
+  ]
+
+  deps = [
+    "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+    "//base/security/permission/services/permission_lite:permission_lite",
+    "//build/lite/config/component/cJSON:cjson_shared",
+    "//foundation/distributedschedule/samgr_lite/communication/broadcast",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+
+  cflags = [ "-Wno-error" ]
+}

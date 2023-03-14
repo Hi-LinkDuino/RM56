@@ -1,0 +1,11 @@
+{
+  "strings": {
+    "hello": "您好 1 js",
+    "world": "世界 1 js",
+    "page": "第二页 1",
+    "next": "下一页 1",
+    "back": "返回 1"
+  },
+  "Files": {
+  }
+}

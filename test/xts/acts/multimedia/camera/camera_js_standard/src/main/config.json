@@ -1,0 +1,101 @@
+{
+  "app": {
+    "bundleName": "com.open.harmony.multimedia.cameratest",
+    "vendor": "open",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 7,
+      "releaseType": "Release",
+      "target": 7
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.open.harmony.multimedia.cameratest",
+    "name": ".MyApplication",
+    "mainAbility": "com.open.harmony.multimedia.cameratest.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "visible": true,
+        "srcPath": "MainAbility",
+        "name": ".MainAbility",
+        "srcLanguage": "ets",
+        "icon": "$media:icon",
+        "description": "$string:description_mainability",
+        "formsEnabled": false,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.GRANT_SENSITIVE_PERMISSIONS",
+        "reason": "use ohos.permission.GRANT_SENSITIVE_PERMISSIONS"
+      },
+      {
+        "name": "ohos.permission.REVOKE_SENSITIVE_PERMISSIONS",
+        "reason": "use ohos.permission.REVOKE_SENSITIVE_PERMISSIONS"
+      },
+      {
+        "name": "ohos.permission.CAMERA",
+        "reason": "use ohos.permission.CAMERA"
+      },
+      {
+        "name": "ohos.permission.MICROPHONE",
+        "reason": "use ohos.permission.MICROPHONE"
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "reason": "use ohos.permission.MEDIA_LOCATION"
+      },
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "reason": "use ohos.permission.READ_MEDIA"
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "reason": "use ohos.permission.WRITE_MEDIA"
+      }
+    ],
+    "js": [
+      {
+        "mode": {
+          "syntax": "ets",
+          "type": "pageAbility"
+        },
+        "pages": [
+          "pages/index"
+        ],
+        "name": ".MainAbility",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": false
+        }
+      }
+    ]
+  }
+}

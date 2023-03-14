@@ -1,0 +1,37 @@
+{
+    "name": "@openharmony/developertest",
+    "version": "3.1.0",
+    "description": "developertest",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "scripts": {},  
+    "repository": "",
+    "dirs": {},
+    "component": {
+        "name": "developertest",
+	"subsystem": "developertest",
+      	"features" :[],
+        "adapted_system_type": [ "standard" ],
+      	"rom": "0KB",
+      	"ram": "0KB",
+      	"deps": {},
+	"build": {
+	  "sub_component": [
+            "//test/developertest/examples/app_info:app_info",
+            "//test/developertest/examples/detector:detector",
+            "//test/developertest/examples/calculator:calculator",
+            "//test/developertest/examples/calculator:calculator_static"
+          ],
+	  "inner_kits": [],
+	    "test": [
+	      "//test/developertest/examples/app_info/test:unittest",
+              "//test/developertest/examples/calculator/test:unittest",
+              "//test/developertest/examples/calculator/test:fuzztest",
+              "//test/developertest/examples/calculator/test:benchmarktest",
+              "//test/developertest/examples/detector/test:unittest",
+              "//test/developertest/examples/sleep/test:performance",
+              "//test/developertest/examples/distributedb/test:distributedtest"
+          ]
+  	}
+  }
+}

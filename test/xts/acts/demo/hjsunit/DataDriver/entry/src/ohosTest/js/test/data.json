@@ -1,0 +1,26 @@
+{
+  "suites": [{
+    "describe":["testSuite01"],
+    "params":{
+      "suiteParam01": "suiteParam"
+    }
+  },{
+    "describe":["testSuite01","testSpec02"],
+    "params":{
+      "suiteParam": "suiteParam"
+    }
+  },{
+    "describe":"testSuite01",
+    "stress": 8,
+    "items":[{
+      "it":"testSpec01",
+      "stress": 1,
+      "params":[{
+        "name":"tom"
+      }]
+    },{
+      "it":"testSpec02",
+      "stress": 2
+    }]
+  }]
+}

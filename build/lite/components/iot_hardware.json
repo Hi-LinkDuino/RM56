@@ -1,0 +1,28 @@
+{
+  "components": [
+    {
+      "component": "iot_controller",
+      "description": "Iot peripheral controller.",
+      "optional": "false",
+      "dirs": [
+        "base/iot_hardware/peripheral"
+      ],
+      "targets": [
+        "//base/iot_hardware/peripheral:iothardware"
+      ],
+      "output": [],
+      "rom": "",
+      "ram": "",
+      "adapted_kernel": [
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+
+        ],
+        "third_party": []
+      }
+    }
+  ]
+}

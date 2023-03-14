@@ -1,0 +1,55 @@
+{
+  "name": "@ohos/ace_engine_lite",
+  "description": "JS APP development frameworks.",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "pubiishAs": "code-segment",
+  "segment": {
+    "destPath": "foundation/ace/ace_engine_lite"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "ace_engine_lite",
+    "subsystem": "ace",
+    "syscap": [ "SystemCapability.Ace.AceEngineLite" ],
+    "feature": [],
+    "adapted_system_type": [ "mini","small" ],
+    "rom": "521KB",
+    "ram": "~82KB",
+    "deps": {
+      "third_party": [
+          "bounds_checking_function",
+          "cjson",
+          "freetype",
+          "jerryscript"
+      ],
+      "components": [
+         "appexecfwk_lite",
+         "huks",
+         "ui",
+         "syspara_lite",
+         "surface",
+         "i18n_lite",
+         "resmgr_lite",
+         "hilog",
+         "permission",
+         "ipc_lite",
+         "kal_timer",
+         "kv_store",
+         "timer_task",
+         "ace_common_lite",
+         "ace_native_engine_lite",
+         "ace_module_manager_lite"
+       ]
+    },
+    "build": {
+      "sub_component": [ 
+      "//foundation/ace/ace_engine_lite/test:unittest",
+      "//foundation/ace/ace_engine_lite/frameworks:jsfwk" 
+      ],
+      "inner_kits": [],
+      "test": []
+    }
+  }
+}

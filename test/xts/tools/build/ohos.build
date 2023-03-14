@@ -1,0 +1,51 @@
+{
+  "subsystem": "xts",
+"parts":{
+   "phone_tests": {
+      "variants": [
+        "phone"
+      ],
+      "module_list": [],
+      "inner_kits": [],
+      "system_kits": [],
+      "test_list": [
+        "//test/xts/acts:acts",
+        "//test/xts/hats:hats",
+        "//test/xts/dcts:dcts"
+      ]
+    },
+    "ivi_tests": {
+      "variants": [
+        "ivi"
+      ],
+      "module_list": [],
+      "inner_kits": [],
+      "system_kits": [],
+      "test_list": [
+        "//test/xts/acts:acts_ivi"
+      ]
+    },
+    "intellitv_tests": {
+      "variants": [
+        "intellitv"
+      ],
+      "module_list": [],
+      "inner_kits": [],
+      "system_kits": [],
+      "test_list": [
+        "//test/xts/acts:acts_intellitv"
+      ]
+    },
+    "wearable_tests": {
+      "variants": [
+        "wearable"
+      ],
+      "module_list": [],
+      "inner_kits": [],
+      "system_kits": [],
+      "test_list": [
+        "//test/xts/acts:acts_wearable" 
+      ]
+    }
+  }
+}

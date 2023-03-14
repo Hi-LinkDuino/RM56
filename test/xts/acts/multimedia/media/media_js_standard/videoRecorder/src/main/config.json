@@ -1,0 +1,104 @@
+{
+  "app": {
+    "apiVersion": {
+        "compatible": 6,
+        "releaseType": "Beta1",
+        "target": 7
+    },
+      "vendor": "acts",
+      "bundleName": "ohos.acts.multimedia.video.videorecorder",
+      "version": {
+          "code": 1000000,
+          "name": "1.0.0"
+      }
+  },
+  "deviceConfig": {
+      "default": {
+          "debug": true
+      }
+  },
+  "module": {
+      "abilities": [
+          {
+              "iconId": 16777218,
+              "skills": [
+                  {
+                      "entities": [
+                          "entity.system.home"
+                      ],
+                      "actions": [
+                          "action.system.home"
+                      ]
+                  }
+              ],
+              "descriptionId": 16777217,
+              "visible": true,
+              "labelId": 16777216,
+              "icon": "$media:icon",
+              "name": "ohos.acts.multimedia.video.videorecorder.MainAbility",
+              "description": "$string:mainability_description",
+              "label": "$string:entry_MainAbility",
+              "type": "page",
+              "homeAbility": true,
+              "launchType": "standard"
+          }
+      ],
+      "deviceType": [
+          "phone",
+          "tablet",
+          "tv",
+          "wearable"
+      ],
+      "reqPermissions": [
+        {
+          "name" : "ohos.permission.GRANT_SENSITIVE_PERMISSIONS",
+          "reason" : "use ohos.permission.GRANT_SENSITIVE_PERMISSIONS"
+        },
+        {
+          "name" : "ohos.permission.REVOKE_SENSITIVE_PERMISSIONS",
+          "reason" : "use ohos.permission.REVOKE_SENSITIVE_PERMISSIONS"
+        },
+        {
+          "name" : "ohos.permission.CAMERA",
+          "reason" : "use ohos.permission.CAMERA"
+        },
+        {
+          "name" : "ohos.permission.MICROPHONE",
+          "reason" : "use ohos.permission.MICROPHONE"
+        },
+        {
+          "name" : "ohos.permission.MEDIA_LOCATION",
+          "reason" : "use ohos.permission.MEDIA_LOCATION"
+        },
+        {
+          "name" : "ohos.permission.READ_MEDIA",
+          "reason" : "use ohos.permission.READ_MEDIA"
+        },
+        {
+          "name" : "ohos.permission.WRITE_MEDIA",
+          "reason" : "use ohos.permission.WRITE_MEDIA"
+        }
+      ],
+      "mainAbility": "ohos.acts.multimedia.video.videorecorder.MainAbility",
+      "distro": {
+          "moduleType": "entry",
+          "installationFree": false,
+          "deliveryWithInstall": true,
+          "moduleName": "entry"
+      },
+      "package": "ohos.acts.multimedia.video.videorecorder",
+      "name": ".MyApplication",
+      "js": [
+          {
+              "pages": [
+                  "pages/index/index"
+              ],
+              "name": "default",
+              "window": {
+                  "designWidth": 720,
+                  "autoDesignWidth": true
+              }
+          }
+      ]
+  }
+}

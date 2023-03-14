@@ -1,0 +1,51 @@
+#Copyright (c) 2021 Huawei Device Co., Ltd.
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
+import("//build/lite/config/test.gni")
+import("//foundation/ace/ace_engine_lite/test/ace_test_config.gni")
+
+unittest("js_frameworks_test_stylemgr") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [ "$ace_lite_root/test:test_common_config" ]
+  sources = [
+    "$ace_lite_root/frameworks/src/core/components/test/unittest/common/root_component_mock.cpp",
+    "$ace_lite_root/test/moduletest/common/base_test.cpp",
+    "common/stylemgr_tdd_test.cpp",
+  ]
+  deps = ace_test_deps
+}
+
+unittest("js_frameworks_test_condition_arbitrator") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [ "$ace_lite_root/test:test_common_config" ]
+  sources = [ "common/condition_arbitrator_test.cpp" ]
+  deps = ace_test_deps
+}
+
+unittest("js_frameworks_test_stylemgr_media_query") {
+  output_extension = "bin"
+  output_dir = test_output_root
+  configs = [ "$ace_lite_root/test:test_common_config" ]
+  sources = [ "common/stylemgr_media_query_tdd_test.cpp" ]
+  deps = ace_test_deps
+}
+
+group("stylemgr_unittest") {
+  deps = [
+    ":js_frameworks_test_condition_arbitrator",
+    ":js_frameworks_test_stylemgr",
+    ":js_frameworks_test_stylemgr_media_query",
+  ]
+}

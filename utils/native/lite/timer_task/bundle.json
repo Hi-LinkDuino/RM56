@@ -1,0 +1,36 @@
+{
+    "name": "@openharmony/timer_task",
+    "version": "3.1.0",
+    "description": "ace timer kits",
+    "publishAs": "code-segment",
+    "scripts": {
+        "install": "DEST_PATH=${DEP_BUNDLE_BASE}/utils/native/lite && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "dirs": [
+        "utils/native/lite/timer_task"
+    ],
+    "component": {
+        "name": "timer_task",
+	"subsystem": "utils",
+	"features" : [],
+	"adapted_system_type": [ "standard" ],
+	"rom": "",
+	"ram": "",
+	"deps": {
+            "thrid_party": [],
+	    "kernel_special": {},
+	    "board_special": {},
+	    "components": [
+		"utils_lite"
+	    ]
+	},
+	"build": {
+            "sub_component": [],
+	    "inner_kits": [],
+	    "test": []
+	}
+    }
+}

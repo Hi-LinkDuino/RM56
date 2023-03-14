@@ -1,0 +1,271 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/subsystem/aafwk/path.gni")
+
+# liteos c test template
+
+test_common_include_dirs = [ "//third_party/googletest/googletest/include" ]
+
+test_include_dirs = [
+  "//utils/native/lite/include",
+  "//third_party/bounds_checking_function/include",
+]
+
+template("_lite_testcase_resources") {
+  assert(defined(invoker.testcase_target_name))
+  assert(defined(invoker._output_dir))
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+  action(target_name) {
+    if (defined(invoker.testonly)) {
+      testonly = invoker.testonly
+    }
+    deps = _deps
+    inputs = []
+    script = "//build/lite/testfwk/lite_testcase_resource_copy.py"
+    output_file = "$target_out_dir/$target_name.json"
+    outputs = [ output_file ]
+    args = []
+    if (defined(invoker.resource_config_file)) {
+      args += [
+        "--resource-config-file",
+        rebase_path(invoker.resource_config_file, root_build_dir),
+      ]
+      inputs += [ invoker.resource_config_file ]
+    }
+    args += [
+      "--testcase-target-name",
+      invoker.testcase_target_name,
+      "--part-build-out-path",
+      rebase_path(root_out_dir, root_build_dir),
+      "--resource-output-path",
+      rebase_path(invoker._output_dir + "/resource", root_build_dir),
+      "--output-file",
+      rebase_path(output_file, root_build_dir),
+    ]
+  }
+}
+
+template("unittest") {
+  archive_dir_name = "test_info"
+  _output_dir = ""
+  if (defined(invoker.output_dir)) {
+    _output_dir = invoker.output_dir
+  } else {
+    _output_dir = "${root_out_dir}/${archive_dir_name}/unittest"
+  }
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+
+  # generate module list file in gn stage
+  # format like: unittest("componentName_test_xx")
+  list_tmp = string_split(target_name, "_test")
+  _part_name = list_tmp[0]
+  _module_list_file = string_join("",
+                                  [
+                                    root_out_dir,
+                                    "/${archive_dir_name}/module_list_files/",
+                                    _part_name,
+                                    "/",
+                                    _part_name,
+                                    "/",
+                                    target_name,
+                                    ".mlf",
+                                  ])
+  _sources_file_search_root_dir = string_join("",
+                                              [
+                                                root_out_dir,
+                                                "/${archive_dir_name}/gen",
+                                              ])
+  _sources = ""
+  foreach(s, invoker.sources) {
+    _sources += s + ","
+  }
+  _arguments = [
+    "--target",
+    target_name,
+    "--target_label",
+    get_label_info(target_name, "label_with_toolchain"),
+    "--source_dir",
+    rebase_path(get_label_info(target_name, "dir"), root_out_dir),
+    "--test_type",
+    "unittest",
+    "--output_dir",
+    rebase_path(_output_dir),
+    "--module_list_file",
+    rebase_path(_module_list_file),
+    "--sources_file_search_root_dir",
+    rebase_path(_sources_file_search_root_dir),
+    "--sources",
+    _sources,
+  ]
+  _gen_module_list_script = "//build/lite/testfwk/gen_module_list_files.py"
+  exec_script(_gen_module_list_script, _arguments)
+
+  # copy testcase resource
+  testcase_target_name = target_name
+  _lite_testcase_resources("${testcase_target_name}_resource_copy") {
+    if (defined(invoker.resource_config_file)) {
+      resource_config_file = invoker.resource_config_file
+    }
+    deps = _deps
+    testonly = true
+  }
+
+  executable(target_name) {
+    if (defined(invoker.output_dir)) {
+      output_dir = invoker.output_dir
+    }
+    if (defined(invoker.sources)) {
+      sources = invoker.sources
+    }
+    if (defined(invoker.include_dirs)) {
+      include_dirs = invoker.include_dirs
+    } else {
+      include_dirs = []
+    }
+    include_dirs += test_common_include_dirs
+    if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
+      include_dirs += test_include_dirs
+    }
+    if (defined(invoker.deps)) {
+      deps = invoker.deps
+    } else {
+      deps = []
+    }
+    if (defined(invoker.public_deps)) {
+      public_deps = invoker.public_deps
+    }
+    if (defined(invoker.defines)) {
+      defines = invoker.defines
+    }
+    if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
+      deps += [ "//test/developertest/third_party/lib/cpp:gtest_main" ]
+    }
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.output_extension)) {
+      output_extension = invoker.output_extension
+    }
+    cflags = [ "-Wno-error" ]
+    if (defined(invoker.cflags)) {
+      cflags += invoker.cflags
+    }
+    ldflags = []
+    if (defined(invoker.ldflags)) {
+      ldflags += invoker.ldflags
+    }
+    if (ohos_build_compiler != "clang") {
+      ldflags += [ "-lstdc++" ]
+    }
+    if (ohos_kernel_type == "linux") {
+      ldflags += [
+        "-lm",
+        "-pthread",
+      ]
+    }
+  }
+}
+
+template("moduletest") {
+  executable(target_name) {
+    output_dir = "${root_out_dir}/test/moduletest"
+    forward_variables_from(invoker, "*")
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+    include_dirs += test_common_include_dirs
+    if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
+      include_dirs += test_include_dirs
+    }
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
+      deps += [ "//test/developertest/third_party/lib/cpp:gtest_main" ]
+    }
+    if (!defined(configs)) {
+      configs = []
+    }
+    cflags = [ "-Wno-error" ]
+    ldflags = []
+    if (defined(invoker.ldflags)) {
+      ldflags += invoker.ldflags
+    }
+    if (ohos_build_compiler != "clang") {
+      ldflags += [ "-lstdc++" ]
+    }
+    if (ohos_kernel_type == "linux") {
+      ldflags += [
+        "-lm",
+        "-pthread",
+      ]
+    }
+  }
+}
+
+template("subsystem_test") {
+  assert(defined(invoker.test_components), "Test Components is required.")
+  group(target_name) {
+    deps = []
+    if (defined(invoker.test_components)) {
+      deps += invoker.test_components
+    }
+  }
+}
+
+template("fuzztest") {
+  executable(target_name) {
+    output_dir = "${root_out_dir}/test/fuzztest"
+    forward_variables_from(invoker, "*")
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+    include_dirs += test_common_include_dirs
+    include_dirs += [
+      "//test/tools/Secodefuzz/",
+      "//test/tools/Secodefuzz/common",
+    ]
+    if (ohos_kernel_type == "liteos_a") {
+      include_dirs += test_include_dirs
+    }
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (ohos_kernel_type == "liteos_a") {
+      deps += [
+        "//test/developertest/third_party/lib/cpp:gtest_main",
+        "//test/tools/Secodefuzz:secodefuzz",
+      ]
+    }
+    if (!defined(configs)) {
+      configs = []
+    }
+    cflags = [ "-Wno-error" ]
+    ldflags = []
+    if (defined(invoker.ldflags)) {
+      ldflags += invoker.ldflags
+    }
+    if (ohos_build_compiler != "clang") {
+      ldflags += [ "-lstdc++" ]
+    }
+    _fuzztest_output_dir = "$root_build_dir/fuzztest"
+    rebase_path(_fuzztest_output_dir, root_build_dir)
+  }
+}

@@ -1,0 +1,71 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("../../../../../appexecfwk.gni")
+import("../../../../../services/bundlemgr/appexecfwk_bundlemgr.gni")
+
+module_output_path = "bundle_framework/bundlemgrservice"
+
+ohos_unittest("BmsInstallDaemonTest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  include_dirs = [
+    "//third_party/jsoncpp/include",
+    "//base/startup/syspara_lite/interfaces/innerkits/native/syspara/include",
+  ]
+  sources = [
+    "${services_path}/bundlemgr/src/installd_death_recipient.cpp",
+    "${services_path}/bundlemgr/test/mock/src/accesstoken_kit.cpp",
+    "${services_path}/bundlemgr/test/mock/src/system_ability_helper.cpp",
+  ]
+
+  sources += install_daemon_sources
+
+  sources += [ "bms_install_daemon_test.cpp" ]
+
+  configs = [ "${services_path}/bundlemgr/test:bundlemgr_test_config" ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = [ "${services_path}/bundlemgr:bundle_parser" ]
+
+  external_deps = [
+    "ability_runtime:ability_manager",
+    "bundle_framework:appexecfwk_core",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+    "samgr_standard:samgr_proxy",
+    "startup_l2:syspara",
+  ]
+  defines = []
+  if (build_selinux) {
+    external_deps += [ "selinux:libhap_restorecon" ]
+    cflags += [ "-DWITH_SELINUX" ]
+  }
+  if (global_resmgr_enable) {
+    defines += [ "GLOBAL_RESMGR_ENABLE" ]
+    external_deps += [ "resource_management:global_resmgr" ]
+  }
+  resource_config_file =
+      "${appexecfwk_path}/test/resource/bundlemgrservice/ohos_test.xml"
+}
+
+group("unittest") {
+  testonly = true
+
+  if (ability_runtime_enable) {
+    deps = [ ":BmsInstallDaemonTest" ]
+  }
+}

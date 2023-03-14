@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thermal version="0.01" product="lya">
+
+    <base>
+        <item tag="sim_tz" value="1"/>
+    </base>
+
+    <polling>
+        <group name="actual" interval="5000">
+            <thermal_zone type="soc-thermal"/>
+            <thermal_zone type="gpu-thermal"/>
+        </group>
+        <group name="sim" interval="10000">
+            <thermal_node type="soc" path="data/sensor/soc/temp"/>
+            <thermal_node type="cpu" path="data/sensor/cpu/temp"/>
+            <thermal_node type="ap" path="data/sensor/ap/temp"/>
+            <thermal_node type="pa" path="data/sensor/pa/temp"/>
+            <thermal_node type="ambient" path="data/sensor/ambient/temp"/>
+            <thermal_node type="charger" path="data/sensor/charger/temp"/>
+            <thermal_node type="battery" path="data/sensor/battery/temp"/>
+            <thermal_node type="shell" path="data/sensor/shell/temp"/>
+        </group>
+    </polling>
+</thermal>

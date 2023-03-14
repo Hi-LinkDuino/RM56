@@ -1,0 +1,263 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            div通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <grid-col id="idProp">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <grid-col id="classProp"
+             class="classProp">
+        </grid-col>
+        <grid-col id="classPropNone"
+             class="">
+        </grid-col>
+
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <grid-col id="styleProp"
+             style="width:10%;height:20px;background-color:red">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <grid-col id="refProp"
+             ref="refProp">
+        </grid-col>
+        <grid-col id="refPropNone"
+             ref="">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <grid-col id="disabledPropTrue"
+             disabled="true">
+        </grid-col>
+        <grid-col id="disabledPropFalse"
+             disabled="false">
+        </grid-col>
+        <grid-col id="disabledPropNone"
+             disabled="">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <grid-col id="focusablePropTrue"
+             focusable="true">
+        </grid-col>
+        <grid-col id="focusablePropFalse"
+             focusable="false">
+        </grid-col>
+        <grid-col id="focusablePropNone"
+             focusable="">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <grid-col id="dataProp"
+             data-div="通用属性 -- data-*">
+        </grid-col>
+        <grid-col id="dataPropNone"
+             data-div="">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <grid-col id="clickEffectPropSmall"
+             click-effect="spring-small">
+        </grid-col>
+        <grid-col id="clickEffectPropMedium"
+             click-effect="spring-medium">
+        </grid-col>
+        <grid-col id="clickEffectPropLarge"
+             click-effect="spring-large">
+        </grid-col>
+        <grid-col id="clickEffectPropNone"
+             click-effect="">
+        </grid-col>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <grid-col id="dirPropRtl"
+             dir="rtl">
+        </grid-col>
+        <grid-col id="dirPropAuto"
+             dir="auto">
+        </grid-col>
+        <grid-col id="dirPropLtr"
+             dir="ltr">
+        </grid-col>
+        <grid-col id="dirPropNone"
+             dir="">
+        </grid-col>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <grid-col id="forPropNull"
+             for="">
+        </grid-col>
+        <grid-col id="forPropOne"
+             for="{{listOne}}">
+        </grid-col>
+        <grid-col id="forPropThree"
+             for="{{listThree}}">
+        </grid-col>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <grid-col id="ifPropTrue"
+             if="true">
+        </grid-col>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <grid-col id="showPropTrue"
+             show="true">
+        </grid-col>
+        <grid-col id="showPropFalse"
+             show="false">
+        </grid-col>
+        <grid-col id="showPropNone"
+             show="">
+        </grid-col>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            div特有属性
+        </text>
+        <text class="title">
+            grid-col特有属性 xs
+        </text>
+        <grid-col id="typeXsNull"
+                  xs="">
+        </grid-col>
+        <grid-col id="typeXs1"
+                  xs="1">
+        </grid-col>
+        <grid-col id="typeXsObject"
+                  xs="{{Object}}">
+        </grid-col>
+        <text class="title">
+            grid-col特有属性 sm
+        </text>
+        <grid-col id="typeSmNull"
+                  sm="">
+        </grid-col>
+        <grid-col id="typeSm1"
+                  sm="1">
+        </grid-col>
+        <grid-col id="typeSmObject"
+                  sm="{{Object}}">
+        </grid-col>
+        <text class="title">
+            grid-col特有属性 md
+        </text>
+        <grid-col id="typeMdNull"
+                  md="">
+        </grid-col>
+        <grid-col id="typeMd1"
+                  md="1">
+        </grid-col>
+        <grid-col id="typeMdObject"
+                  md="{{Object}}">
+        </grid-col>
+        <text class="title">
+            grid-col特有属性 lg
+        </text>
+        <grid-col id="typeLgNull"
+                  lg="">
+        </grid-col>
+        <grid-col id="typeLg1"
+                  lg="1">
+        </grid-col>
+        <grid-col id="typeLgObject"
+                  lg="{{Object}}">
+        </grid-col>
+        <text class="title">
+            特有属性 span
+        </text>
+        <grid-col id="typeSpan1"
+                  span="1">
+        </grid-col>
+        <grid-col id="typeSpan3"
+                  span="3">
+        </grid-col>
+        <text class="title">
+            特有属性 offset
+        </text>
+        <grid-col id="typeOffset1"
+                  offset="1">
+        </grid-col>
+        <grid-col id="typeOffset3"
+                  offset="3">
+        </grid-col>
+        <text class="sub-title">
+            特有属性 -- grid-col
+        </text>
+        <grid-col class="propNewAdd"
+                        grid-col="grid-col">
+        </grid-col>
+        <grid-col class="propNewAdd"
+                        grid-col="">
+        </grid-col>
+
+        <text class="sub-title">
+            特有属性 -- tid
+        </text>
+        <grid-col class="propNewAdd"
+                        tid="id">
+        </grid-col>
+        <grid-col class="propNewAdd"
+                        tid="">
+        </grid-col>
+
+        <text class="sub-title">
+            特有属性 -- elif
+        </text>
+        <grid-col class="propNewAdd"
+                if="false">
+        </grid-col>
+        <grid-col class="propNewAdd"
+                elif="true">
+        </grid-col>
+        <grid-col class="propNewAdd"
+                elif="false">
+        </grid-col>
+    </div>
+</div>

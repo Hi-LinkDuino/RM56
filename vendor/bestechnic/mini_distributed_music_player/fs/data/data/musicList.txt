@@ -1,0 +1,7 @@
+[
+    {
+        "name": "BBK",
+        "singer": "unknown singer",
+        "src": "/data/bbg.mp3"
+    }
+]

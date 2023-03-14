@@ -1,0 +1,72 @@
+<!--
+/*
+ * Copyright (c) 2020 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+<stack class="container">
+  <div class="container">
+    <div class="container-left">
+      <div class="container-title" onclick="back">
+        <div
+          style="width: 180px; height: 100px; align-items: center; margin-left: 39px;"
+        >
+          <image src="common/back.png" class="back-img"></image>
+          <text style="font-size: 38px; margin-left: 27px;">
+            时钟
+          </text>
+        </div>
+      </div>
+      <div
+        class="container-curTime"
+        style="margin-left: 20px; margin-top: 70px;"
+      >
+        <text style="font-size: 68px">{{ curTime }} </text>
+        <text style="font-size: 48px;">{{ curDay }} </text>
+      </div>
+    </div>
+    <div class="container-right">
+      <list style="height: 400px; align-items: center;" class="itemWidth">
+        <list-item
+          type="listItem"
+          for="{{ time }}"
+          style="width: 532px; height: 89px;"
+        >
+          <div class="itemDiv" onclick="switchToEditAlarm($idx)">
+            <text class="itemText" style="font-size: 38px; margin-left: 150px;"
+              >{{ time[$idx] }}
+            </text>
+            <text
+              class="itemText"
+              style="font-size: 22px; color: #a9a9a9; margin-left: 150px;"
+            >
+              {{ repeat[$idx] }}
+            </text>
+          </div>
+          <div class="itemDiv-right">
+            <switch
+              checked="{{ switchStatus[$idx] }}"
+              class="switchStyle"
+              onchange="switchChange($idx)"
+            ></switch>
+          </div>
+        </list-item>
+      </list>
+    </div>
+  </div>
+  <image
+    src="common/add_alarm.png"
+    style="left: 869px; top: 380px; width: 90px; height: 90px;"
+    onclick="addAlarm"
+  ></image>
+</stack>

@@ -1,0 +1,127 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+SUBSYSTEM_DIR = "//foundation/communication"
+module_output_path = "wifi_standard/sta_test"
+
+defines = []
+defines += [ "OHOS_WIFI_STA_TEST" ]
+
+config("module_private_config") {
+  visibility = [ ":*" ]
+  include_dirs = [
+    "//utils/native/base/include",
+    "$SUBSYSTEM_DIR/wifi/tests/wifi_standard/wifi_framework/wifi_manage/wifi_sta",
+  ]
+}
+
+ohos_unittest("wifi_sta_unittest") {
+  module_out_path = module_output_path
+  sources = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log/log_helper.c",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/http_request.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper/ip_tools.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/handler.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/internal_message.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/message_queue.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/state.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common/state_machine.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_auto_connect_service.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_interface.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_monitor.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_network_check.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_saved_device_appraisal.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_service.cpp",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/sta_state_machine.cpp",
+    "Mock/mock_dhcp_service.cpp",
+    "Mock/mock_if_config.cpp",
+    "Mock/mock_mac_address.cpp",
+    "Mock/mock_sta_auto_connect_service.cpp",
+    "Mock/mock_sta_network_check.cpp",
+    "Mock/mock_sta_state_machine.cpp",
+    "Mock/mock_wifi_chip_hal_interface.cpp",
+    "Mock/mock_wifi_manager.cpp",
+    "Mock/mock_wifi_settings.cpp",
+    "Mock/mock_wifi_sta_hal_interface.cpp",
+    "Mock/mock_wifi_supplicant_hal_interface.cpp",
+    "global_test.cpp",
+    "sta_auto_connect_service_test.cpp",
+    "sta_interface_test.cpp",
+    "sta_monitor_test.cpp",
+    "sta_network_check_test.cpp",
+    "sta_saved_device_appraisal_test.cpp",
+    "sta_service_test.cpp",
+    "sta_state_machine_test.cpp",
+    "wifi_sta_test.cpp",
+  ]
+
+  include_dirs = [
+    "./",
+    "./Mock",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta/net_conf",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/include",
+    "//foundation/communication/wifi/interfaces/innerkits/native_cpp/wifi_standard/interfaces",
+    "//foundation/communication/wifi/services/wifi_standard/interface",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/net_helper",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/log",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/config",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/common/utils",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/common",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client/idl_interface",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_ap",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_aware",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_scan",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_sta",
+    "//foundation/communication/wifi/services/wifi_standard/ipc_framework/cRPC/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/include",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service/interfaces",
+    "//third_party/googletest/googlemock/include",
+    "//third_party/googletest/googletest/include",
+    "//base/notification/ces_standard/cesfwk/kits/native/include",
+    "//utils/native/base/include",
+    "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits/include",
+    "//foundation/ace/ace_engine/frameworks/base/utils",
+    "//foundation/ace/ace_engine/frameworks",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk/",
+    "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content/",
+    "//foundation/aafwk/aafwk_lite/interfaces/kits/want_lite/",
+    "//foundation/communication/wifi/utils/inc",
+  ]
+
+  deps = [
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/dhcp_manage/mgr_service:dhcp_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage:wifi_manager_service",
+    "//foundation/communication/wifi/services/wifi_standard/wifi_framework/wifi_manage/idl_client:wifi_idl_client",
+    "//foundation/communication/wifi/utils/src:wifi_utils",
+    "//third_party/googletest:gmock_main",
+    "//utils/native/base:utils",
+  ]
+  external_deps = [
+    "hiviewdfx_hilog_native:libhilog",
+    "netmanager_base:net_conn_manager_if",
+  ]
+  part_name = "wifi_standard"
+  subsystem_name = "communication"
+}
+
+group("unittest") {
+  testonly = true
+  deps = [ ":wifi_sta_unittest" ]
+}

@@ -1,0 +1,66 @@
+{
+    "name": "@ohos/global_resmgr_lite",
+    "version": "",
+    "description": "Obtains resource information based on the device type and configuration",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache V2",
+    "repository": "https://gitee.com/openharmony/global_resmgr_lite",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "base"
+    ],
+    "keywords": [
+        "global",
+        "resmgr",
+        "lite"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/global/resmgr_lite"
+    },
+    "component": {
+        "name": "resmgr_lite",
+        "subsystem": "global",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+              "utils_base"
+            ],
+            "third_party": [
+              "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+              "//base/global/resmgr_lite/frameworks/resmgr_lite:global_resmgr"
+            ],
+            "inner_kits": [],
+            "test": [
+              "//base/global/resmgr_lite/frameworks/resmgr_lite/test:unittest"
+            ]
+        }
+    }
+}

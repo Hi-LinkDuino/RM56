@@ -1,0 +1,236 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            circle通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- fill
+        </text>
+        <svg width="100" height="25" >
+            <circle id ="fillProp" cx="50" cy="12" r="10" fill="red"></circle>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- fill-opacity
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg width="50px" height="25px">
+                <circle id ="fillOpacityPropOne" cx="30" cy="12" r="10" fill-opacity="0.5" fill="red"></circle>
+            </svg>
+            <svg width="50px" height="25px">
+                <circle id ="fillOpacityPropTwo" cx="30" cy="12" r="10" fill-opacity="1" fill="red"></circle>
+            </svg>
+            <svg width="50px" height="25px">
+                <circle id ="fillOpacityPropThree" cx="30" cy="12" r="10" fill-opacity="1.5" fill="red"></circle>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- fill-rule
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg width="50px" height="25px">
+                <circle id ="fillRulePropOne" cx="30" cy="12" r="10" fill-rule="evenodd" fill="red"></circle>
+            </svg>
+            <svg  width="50px" height="25px">
+                <circle id ="fillRulePropTwo" cx="30" cy="12" r="10" fill-rule="nonzero" fill="red"></circle>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- opacity
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg width="50px" height="25px">
+                <circle id ="opacityPropOne" cx="30" cy="12" r="10" fill="red" opacity="0.5"></circle>
+            </svg>
+            <svg width="50px" height="25px">
+                <circle id ="opacityPropTwo" cx="30" cy="12" r="10" fill="red" opacity="1"></circle>
+            </svg>
+            <svg width="50px" height="25px">
+                <circle id ="opacityPropThree" cx="30" cy="12" r="10" fill="red" opacity="1.5"></circle>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <circle id ="strokeProp" cx="30" cy="12" r="10" stroke = "red"></circle>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-dasharray
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <circle id ="strokeDashArrayProp" cx="30" cy="12" r="10" stroke = "red" stroke-dasharray="2 3"></circle>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-dashoffset
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <circle id ="strokeDashOffsetProp" cx="30" cy="12" r="10" stroke = "red" stroke-dashoffset="23"></circle>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-linejoin
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg  width="50px" height="25px" fill="white">
+                <circle id ="strokeDashOffsetProp" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-linejoin="bevel"></circle>
+            </svg>
+            <svg  width="50px" height="25px" fill="white">
+                <circle id ="strokeLineJoinPropTwo" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-linejoin="miter"></circle>
+            </svg>
+            <svg  width="50px" height="25px" fill="white">
+                <circle id ="strokeLineJoinPropThree" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-linejoin="round"></circle>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke-linecap
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg width="50px" height="25px" fill="white">
+                <circle id ="strokeLineCapPropOne" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-linecap="butt"></circle>
+            </svg>
+            <svg width="50px" height="25px" fill="white">
+                <circle id ="strokeLineCapPropTwo" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-linecap="round"></circle>
+            </svg>
+            <svg width="50px" height="25px" fill="white">
+                <circle id ="strokeLineCapPropThree" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-linecap="square"></circle>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke-miterlimit
+        </text>
+        <svg width="100px" height="25px" fill="white">
+            <circle id ="strokeMiterLimitProp" cx="30" cy="12" r="10"
+                    stroke = "red" stroke-miterlimit="10"></circle>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- stroke-opacity
+        </text>
+        <div style="height: 25px;width: 150px;">
+            <svg width="50px" height="25px" fill="white">
+                <circle id ="strokeOpacityPropOne" cx="30" cy="12" r="10"
+                        stroke = "red" stroke-opacity="0.5"></circle>
+            </svg>
+            <svg width="50px" height="25px" fill="white">
+                <circle id ="strokeOpacityPropTwo" cx="30" cy="12" r="10"
+                      stroke = "red" stroke-opacity="1"></circle>
+            </svg>
+            <svg width="50px" height="25px" fill="white">
+                <circle id ="strokeOpacityPropThree" cx="30" cy="12" r="10"
+                      stroke = "red" stroke-opacity="1.5"></circle>
+            </svg>
+        </div>
+
+        <text class="sub-title">
+            通用属性 -- stroke-width
+        </text>
+        <svg width="100px" height="30px" fill="white">
+            <circle id ="strokeWidthProp" cx="30" cy="14" r="10"
+                  stroke = "red" stroke-width="6"></circle>
+        </svg>
+
+        <text class="sub-title">
+            通用属性 -- transform
+        </text>
+        <svg width="100px" height="100px" fill="red">
+            <circle id ="transformProp" cx="50" cy="50" r="20"
+                    transform="translate(10,5) scale(0.5 1.3) rotate(20 40 90) skewX(10) skewY(-15)"></circle>
+        </svg>
+    </div>
+
+    <divider style="color: #000000; stroke-width: 2px;" vertical="true">
+    </divider>
+
+    <div class="prop-container">
+        <text class="title">
+            circle特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性-id
+        </text>
+        <svg width="100px" height="50px">
+            <circle id ="idProp" cx="50" cy="25" r="20" fill="red"></circle>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-cx
+        </text>
+        <svg  width="200px" height="50px">
+            <circle id ="cxPropOne" cx="50" cy="25" r="20" fill="red"></circle>
+            <circle id ="cxPropTwo" cx="50%" cy="25" r="20" fill="pink"></circle>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-cy
+        </text>
+        <svg  width="200px" height="50px">
+            <circle id ="cyPropOne" cx="50" cy="25" r="20" fill="red"></circle>
+            <circle id ="cyPropTwo" cx="100" cy="50%" r="20" fill="pink"></circle>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-r
+        </text>
+        <svg width="200px" height="50px">
+            <circle id ="rPropOne" cx="50" cy="25" r="20" fill="red" ></circle>
+            <circle id ="rPropTwo" cx="100" cy="25" r="20%" fill="pink"></circle>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-if
+        </text>
+        <svg width="100px" height="50px">
+            <circle id ="ifPropTrue" cx="50" cy="25" r="20" fill="red" if="true"></circle>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-show
+        </text>
+        <svg width="200px" height="50px">
+            <circle id ="showPropTrue" cx="50" cy="25" r="20" fill="red" show="true"></circle>
+            <circle id ="showPropFalse" cx="50" cy="25" r="20" fill="red" show="false"></circle>
+            <circle id ="showPropNone" cx="50" cy="25" r="20" fill="red" show=""></circle>
+        </svg>
+
+        <text class="sub-title">
+            特有属性-elif
+        </text>
+        <svg width="200px" height="50px" fill="red" >
+            <circle cx="50" cy="25" r="20"  if="false"></circle>
+            <circle id="elifPropTrue" cx="50" cy="25" r="20" elif="true"></circle>
+            <circle id="elifPropFalse" cx="50" cy="25" r="20" elif="false"></circle>
+        </svg>
+    </div>
+
+</div>

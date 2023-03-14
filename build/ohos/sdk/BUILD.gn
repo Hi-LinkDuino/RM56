@@ -1,0 +1,186 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos/build_var.gni")
+import("//build/ohos/sdk/sdk.gni")
+import("${build_configs_path}/platforms_list.gni")
+
+parse_script = "//build/ohos/sdk/parse_sdk_description.py"
+ohos_sdk_description_file = "//build/ohos/sdk/ohos_sdk_description_std.json"
+
+generated_sdk_modules_gni = "${generated_files_dir}/ohos_sdk_modules.gni"
+generated_sdk_types_file = "${generated_files_dir}/generated_sdk_types.txt"
+
+parse_args = [
+  "--sdk-description-file",
+  rebase_path(ohos_sdk_description_file, root_build_dir),
+  "--sdk-modules-gni",
+  rebase_path(generated_sdk_modules_gni, root_build_dir),
+  "--sdk-install-info-file",
+  rebase_path(generated_sdk_module_install_paths, root_build_dir),
+  "--sdk-types-file",
+  rebase_path(generated_sdk_types_file, root_build_dir),
+  "--base-platform",
+  "phone",
+  "--variant-to-product",
+  rebase_path("./variant_to_product.json", root_build_dir),
+  "--source-root-dir",
+  rebase_path("//", root_build_dir),
+]
+foreach(p, target_platform_list) {
+  parse_args += [
+    "--platforms",
+    p,
+  ]
+}
+
+exec_script(parse_script, parse_args)
+
+sdk_types = read_file(generated_sdk_types_file, "list lines")
+
+import("${generated_sdk_modules_gni}")
+
+generate_all_types_sdk_script = "//build/ohos/sdk/generate_all_types_sdk.py"
+generated_build_gn = "$generated_files_dir/BUILD.gn"
+generate_args = [
+  "--sdk-modules",
+  "ohos_sdk_modules",
+  "--output",
+  rebase_path(generated_build_gn, root_build_dir),
+  "--current-dir",
+  get_path_info(sdk_base_build_gn, "dir"),
+  "--generated-sdk-modules-gni",
+  generated_sdk_modules_gni,
+  "--type2displayname",
+  rebase_path("./type_to_display_name.json", root_build_dir),
+  "--api-version",
+  api_version,
+  "--release-type",
+  release_type,
+  "--meta-version",
+  meta_version,
+]
+
+foreach(os, sdk_systems) {
+  generate_args += [
+    "--sdk-systems",
+    os,
+  ]
+}
+
+foreach(sdk_type, sdk_types) {
+  generate_args += [
+    "--sdk-types",
+    sdk_type,
+  ]
+}
+
+exec_script(generate_all_types_sdk_script, generate_args)
+
+action_with_pydeps("generate_sdk_notice") {
+  deps = [ "${generated_files_dir}:generated_ohos_sdk" ]
+  inputs = []
+
+  script = "//build/ohos/notice/merge_notice_files.py"
+  depfile = "$target_gen_dir/$target_name.d"
+  _install_path = "${target_out_dir}/SDK_NOTICE_FILES/"
+
+  outputs = [
+    sdk_notice_txt,
+    sdk_notice_gz,
+  ]
+  args = [
+    "--image-name",
+    "sdk",
+    "--notice-root-dir",
+    rebase_path(sdk_notice_dir, root_build_dir),
+    "--output-notice-txt",
+    rebase_path(sdk_notice_txt, root_build_dir),
+    "--output-notice-gz",
+    rebase_path(sdk_notice_gz, root_build_dir),
+    "--notice-title",
+    "Notices for files contained in SDK in this directory:",
+    "--static-library-notice-dir",
+    rebase_path(static_libraries_notice_dir, root_build_dir),
+    "--target-cpu",
+    target_cpu,
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+  ]
+
+  foreach(type, sdk_types) {
+    foreach(os, sdk_systems) {
+      args += [
+        "--collected-notice-zipfile",
+        rebase_path("${sdk_notice_archive_dir}/${os}-${type}.zip",
+                    root_build_dir),
+      ]
+      inputs += [ "${sdk_notice_archive_dir}/${os}-${type}.zip" ]
+    }
+  }
+}
+
+action("verify_sdk_notice_file") {
+  deps = [ ":generate_sdk_notice" ]
+
+  script = "//build/core/build_scripts/verify_notice.sh"
+  _verify_result = "${target_out_dir}/sdk_notice_verify_result.out"
+
+  outputs = [ _verify_result ]
+
+  args = [
+    rebase_path(sdk_notice_txt, root_build_dir),
+    rebase_path(_verify_result, root_build_dir),
+    rebase_path("${product_output_dir}/ohos-sdk", root_build_dir),
+  ]
+}
+
+group("ohos_sdk_pre") {
+  deps = [
+    ":generate_sdk_notice",
+    ":verify_sdk_notice_file",
+    "${generated_files_dir}:generated_ohos_sdk",
+  ]
+}
+
+action_with_pydeps("add_notice_file") {
+  deps = [
+    ":generate_sdk_notice",
+    ":ohos_sdk_pre",
+  ]
+  script = "//build/ohos/sdk/add_notice_file.py"
+  _output = target_gen_dir + "/$target_name.stamp"
+  depfile = "$target_gen_dir/$target_name.d"
+  args = [
+    "--sdk-notice-file",
+    rebase_path(sdk_notice_txt, root_build_dir),
+    "--sdk-archive-dir",
+    rebase_path("${product_output_dir}/ohos-sdk", root_build_dir),
+    "--output",
+    rebase_path(_output, root_build_dir),
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--skip-pattern",
+    "native",
+  ]
+
+  inputs = [ sdk_notice_txt ]
+  outputs = [ _output ]
+}
+
+group("ohos_sdk") {
+  deps = [
+    ":add_notice_file",
+    ":ohos_sdk_pre",
+  ]
+}

@@ -1,0 +1,39 @@
+import("//build/test.gni")
+
+ohos_unittest("nativehook_test") {
+  module_out_path = "libc-test/src/nativehook"
+
+  sources = [
+    "print.c",
+    "runtest.c",
+  ]
+
+  configs = [ ":config_runtest" ]
+}
+
+config("config_runtest") {
+  include_dirs = [ "." ]
+
+  cflags_c = [
+    "-pipe",
+    "-std=c11",
+    "-D_POSIX_C_SOURCE=200809L",
+    "-Wall",
+    "-Wno-unused",
+    "-Wno-unused-function",
+    "-Wno-missing-braces",
+    "-Wno-overflow",
+    "-Wno-unknown-pragmas",
+    "-fno-builtin",
+    "-frounding-math",
+    "-Werror=implicit-function-declaration",
+    "-Werror=implicit-int",
+    "-Werror=pointer-sign",
+    "-Werror=pointer-arith",
+    "-Wno-error=unused-function",
+    "-g",
+    "-D_FILE_OFFSET_BITS=64",
+  ]
+
+  ldflags = [ "-nostdlib" ]
+}

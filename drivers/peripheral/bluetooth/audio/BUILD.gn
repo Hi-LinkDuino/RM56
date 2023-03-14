@@ -1,0 +1,24 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/audio/audio.gni")
+
+group("hdi_audio_bluetooth") {
+  deps = [
+    "hal/hdi_binder/proxy:audio_bluetooth_hdi_proxy_server",
+    "hal/hdi_binder/server:audio_bluetooth_hdi_adapter_server",
+    "hal/hdi_passthrough:hdi_audio_bluetooth",
+  ]
+}

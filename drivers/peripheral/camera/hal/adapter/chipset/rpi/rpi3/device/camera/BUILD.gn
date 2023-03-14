@@ -1,0 +1,103 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+import("//drivers/peripheral/camera/hal/camera.gni")
+import("$hdf_framework_path/tools/hc-gen/hc_gen.gni")
+
+hc_gen("build_camera_host_config") {
+  sources = [ rebase_path(
+          "$camera_product_name_path/hdf_config/uhdf/camera/hdi_impl/camera_host_config.hcs") ]
+}
+
+ohos_prebuilt_etc("camera_host_config.hcb") {
+  deps = [ ":build_camera_host_config" ]
+  hcs_outputs = get_target_outputs(":build_camera_host_config")
+  source = hcs_outputs[0]
+  relative_install_dir = "hdfconfig"
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+hc_gen_c("generate_source") {
+  sources = [
+    "$camera_product_name_path/hdf_config/uhdf/camera/pipeline_core/config.hcs",
+    "$camera_product_name_path/hdf_config/uhdf/camera/pipeline_core/params.hcs",
+  ]
+}
+
+action("copy_source") {
+  script = "/usr/bin/env"
+  outputs = [ "$target_out_dir/tmp.c" ]  # no use, just for gn complains
+  args = [
+    "cp",
+    "-f",
+  ]
+  args += rebase_path(get_target_outputs(":generate_source"))
+  args += [ rebase_path(
+          "$camera_path/pipeline_core/pipeline_impl/src/strategy/config/") ]
+  deps = [ ":generate_source" ]
+}
+
+ohos_prebuilt_etc("config.c") {
+  deps = [ ":copy_source" ]
+  source =
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy/config/config.c"
+  exec_script(
+      "/usr/bin/env",
+      [
+        "touch",
+        rebase_path(
+            "$camera_path/pipeline_core/pipeline_impl/src/strategy/config/config.c"),
+      ])
+}
+
+ohos_prebuilt_etc("params.c") {
+  deps = [ ":copy_source" ]
+  source =
+      "$camera_path/pipeline_core/pipeline_impl/src/strategy/config/params.c"
+  exec_script(
+      "/usr/bin/env",
+      [
+        "touch",
+        rebase_path(
+            "$camera_path/pipeline_core/pipeline_impl/src/strategy/config/params.c"),
+      ])
+}
+
+hc_gen("build_ipp_algo_config") {
+  sources = [ rebase_path(
+          "$camera_product_name_path/hdf_config/uhdf/camera/pipeline_core/ipp_algo_config.hcs") ]
+}
+
+ohos_prebuilt_etc("ipp_algo_config.hcb") {
+  deps = [ ":build_ipp_algo_config" ]
+  hcs_outputs = get_target_outputs(":build_ipp_algo_config")
+  source = hcs_outputs[0]
+  relative_install_dir = "hdfconfig"
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "camera_device_driver"
+}
+
+config("example_config") {
+  visibility = [ ":*" ]
+
+  cflags = [
+    "-Wno-error",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+  ]
+}
+
+group("chipset_build") {
+  public_deps = [
+    ":camera_host_config.hcb",
+    ":config.c",
+    ":ipp_algo_config.hcb",
+    ":params.c",
+    "$camera_device_name_path/camera/src/pipeline_core:camera_ipp_algo_example",
+    "//drivers/peripheral/camera/hal/adapter/platform/v4l2/src/driver_adapter:camera_v4l2_adapter",
+    "//drivers/peripheral/camera/hal/adapter/platform/v4l2/src/driver_adapter/main_test:v4l2_main",
+  ]
+}

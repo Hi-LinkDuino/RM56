@@ -1,0 +1,170 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+group("uhdf_utils_pkg") {
+  deps = [ ":libhdf_utils" ]
+}
+if (defined(ohos_lite)) {
+  config("libhdf_utils_pub_config") {
+    visibility = [ ":*" ]
+
+    include_dirs = [
+      "//utils/native/base/include",
+      "$hdf_framework_path/include",
+      "$hdf_framework_path/include/core",
+      "$hdf_framework_path/include/osal",
+      "$hdf_framework_path/include/utils",
+      "$hdf_framework_path/utils/include",
+      "$hdf_framework_path/core/adapter/syscall/include",
+      "$hdf_framework_path/core/adapter/vnode/include",
+      "$hdf_framework_path/core/shared/include",
+      "$hdf_framework_path/include/core/",
+      "$hdf_framework_path/core/common/include/host",
+      "$hdf_uhdf_path/osal/include",
+      "$hdf_uhdf_path/utils/include",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+    ]
+  }
+
+  ohos_shared_library("libhdf_utils") {
+    output_extension = "z.so"
+    public_configs = [ ":libhdf_utils_pub_config" ]
+    sources = [
+      "$hdf_framework_path/core/adapter/syscall/src/hdf_devmgr_adapter.c",
+      "$hdf_framework_path/core/adapter/syscall/src/hdf_syscall_adapter.c",
+      "$hdf_framework_path/core/shared/src/hdf_io_service.c",
+      "$hdf_framework_path/support/posix/src/osal_mem.c",
+      "$hdf_framework_path/support/posix/src/osal_mutex.c",
+      "$hdf_framework_path/support/posix/src/osal_sem.c",
+      "$hdf_framework_path/support/posix/src/osal_spinlock.c",
+      "$hdf_framework_path/support/posix/src/osal_thread.c",
+      "$hdf_framework_path/support/posix/src/osal_time.c",
+      "$hdf_framework_path/utils/src/hcs_parser/device_resource_if.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_blob_if.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_generate_tree.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_parser.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_tree_if.c",
+      "$hdf_framework_path/utils/src/hdf_cstring.c",
+      "$hdf_framework_path/utils/src/hdf_map.c",
+      "$hdf_framework_path/utils/src/hdf_message_looper.c",
+      "$hdf_framework_path/utils/src/hdf_message_task.c",
+      "$hdf_framework_path/utils/src/hdf_sbuf.c",
+      "$hdf_framework_path/utils/src/hdf_sbuf_impl_raw.c",
+      "$hdf_framework_path/utils/src/hdf_slist.c",
+      "$hdf_framework_path/utils/src/hdf_sref.c",
+      "$hdf_framework_path/utils/src/hdf_thread_ex.c",
+      "$hdf_framework_path/utils/src/osal_message.c",
+      "$hdf_framework_path/utils/src/osal_msg_queue.c",
+      "$hdf_uhdf_path/osal/src/osal_sysevent.c",
+      "$hdf_uhdf_path/utils/src/hcs_parser/hcs_blob_load.c",
+      "$hdf_uhdf_path/utils/src/hcs_parser/hcs_dm_parser.c",
+    ]
+
+    deps = [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared" ]
+
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+    ]
+    subsystem_name = "hdf"
+    part_name = "device_driver_framework"
+  }
+} else {
+  config("libhdf_utils_pub_config") {
+    visibility = [ ":*" ]
+
+    include_dirs = [
+      "//utils/native/base/include",
+      "$hdf_framework_path/include",
+      "$hdf_framework_path/include/core",
+      "$hdf_framework_path/include/osal",
+      "$hdf_framework_path/include/utils",
+      "$hdf_framework_path/utils/include",
+      "$hdf_framework_path/core/adapter/syscall/include",
+      "$hdf_framework_path/core/adapter/vnode/include",
+      "$hdf_framework_path/core/shared/include",
+      "$hdf_framework_path/include/core/",
+      "$hdf_uhdf_path/osal/include",
+      "$hdf_uhdf_path/utils/include",
+    ]
+    defines = [ "__OHOS_USER__" ]
+
+    if (is_standard_system) {
+      defines += [ "__OHOS_STANDARD_SYS__" ]
+    }
+  }
+
+  ohos_shared_library("libhdf_utils") {
+    public_configs = [ ":libhdf_utils_pub_config" ]
+    sources = [
+      "$hdf_framework_path/core/adapter/syscall/src/hdf_devmgr_adapter.c",
+      "$hdf_framework_path/core/adapter/syscall/src/hdf_syscall_adapter.c",
+      "$hdf_framework_path/core/shared/src/hdf_io_service.c",
+      "$hdf_framework_path/core/shared/src/ioserstat_listener.c",
+      "$hdf_framework_path/core/shared/src/service_status.c",
+      "$hdf_framework_path/core/shared/src/svcmgr_ioservice.c",
+      "$hdf_framework_path/support/posix/src/osal_mem.c",
+      "$hdf_framework_path/support/posix/src/osal_mutex.c",
+      "$hdf_framework_path/support/posix/src/osal_sem.c",
+      "$hdf_framework_path/support/posix/src/osal_spinlock.c",
+      "$hdf_framework_path/support/posix/src/osal_thread.c",
+      "$hdf_framework_path/support/posix/src/osal_time.c",
+      "$hdf_framework_path/utils/src/hcs_parser/device_resource_if.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_blob_if.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_generate_tree.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_parser.c",
+      "$hdf_framework_path/utils/src/hcs_parser/hcs_tree_if.c",
+      "$hdf_framework_path/utils/src/hdf_cstring.c",
+      "$hdf_framework_path/utils/src/hdf_map.c",
+      "$hdf_framework_path/utils/src/hdf_message_looper.c",
+      "$hdf_framework_path/utils/src/hdf_message_task.c",
+      "$hdf_framework_path/utils/src/hdf_sbuf.c",
+      "$hdf_framework_path/utils/src/hdf_sbuf_impl_raw.c",
+      "$hdf_framework_path/utils/src/hdf_slist.c",
+      "$hdf_framework_path/utils/src/hdf_sref.c",
+      "$hdf_framework_path/utils/src/hdf_thread_ex.c",
+      "$hdf_framework_path/utils/src/osal_message.c",
+      "$hdf_framework_path/utils/src/osal_msg_queue.c",
+      "$hdf_uhdf_path/osal/src/osal_sysevent.c",
+      "$hdf_uhdf_path/utils/src/hcs_parser/hcs_blob_load.c",
+      "$hdf_uhdf_path/utils/src/hcs_parser/hcs_dm_parser.c",
+      "$hdf_uhdf_path/utils/src/shared_mem.cpp",
+    ]
+
+    if (is_standard_system) {
+      external_deps = [
+        "hiviewdfx_hilog_native:libhilog",
+        "utils_base:utils",
+      ]
+    } else {
+      external_deps = [ "hilog:libhilog" ]
+    }
+
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+    ]
+
+    subsystem_name = "hdf"
+    part_name = "device_driver_framework"
+    install_images = [
+      chipset_base_dir,
+      "updater",
+    ]
+  }
+}

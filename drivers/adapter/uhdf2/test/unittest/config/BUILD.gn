@@ -1,0 +1,45 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+module_output_path = "hdf/config"
+ohos_unittest("hdf_adapter_uhdf_test_config") {
+  module_out_path = module_output_path
+  include_dirs = [ "//drivers/framework/test/unittest/include" ]
+
+  sources = [ "//drivers/framework/utils/src/hcs_parser/test/unittest/common/hdf_config_test.cpp" ]
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsigned-char",
+    "-fno-common",
+    "-fno-strict-aliasing",
+  ]
+  resource_config_file =
+      "//drivers/adapter/uhdf2/test/resource/config/ohos_test.xml"
+  deps = [
+    "$hdf_uhdf_path/utils:libhdf_utils",
+    "//drivers/adapter/build/test_common:libhdf_test_common",
+  ]
+  if (is_standard_system) {
+    external_deps = [
+      "hiviewdfx_hilog_native:libhilog",
+      "utils_base:utils",
+    ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+}

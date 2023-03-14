@@ -1,0 +1,644 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@import '../../../common/style.css';
+
+.container {
+    flex-direction:row;
+    width:100%;
+    height:100%;
+    padding: 1px;
+}
+
+.title{
+    width: 100%;
+    font-size: 18px;
+    margin: 2px;
+    padding: 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sub-title{
+    width: 100%;
+    font-size: 14px;
+    text-align: left;
+    margin: 2px;
+    padding: 2px;
+}
+
+.style-container{
+    flex-direction: column;
+    width: 50%;
+}
+
+#styleOne{
+    width: 150px;
+    height: 20px;
+    padding-top: 1px;
+    padding-left: 2px;
+    padding-right: 3px;
+    padding-bottom: 0.5px;
+    margin-left: 1px;
+    margin-top: 2px;
+    margin-right: 1.5px;
+    margin-bottom: 0.5px;
+    border-left-style: solid;
+    border-right-style: dashed;
+    border-top-style: dotted;
+    border-bottom-style: solid;
+    border-left-width: 1px;
+    border-right-width: 1.5px;
+    border-top-width: 2px;
+    border-bottom-width: 0.5px;
+    border-left-color: #ff0000;
+    border-right-color: #00ff00;
+    border-top-color: #0000ff;
+    border-bottom-color: #fff000;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 0px;
+    opacity: 0.5;
+    align-self:flex-end;
+}
+
+#styleTwo{
+    width: 150px;
+    height: 20px;
+    font-size:10px;
+    padding-start: 1px;
+    padding-end: 2px;
+    margin-start: 1px;
+    margin-end: 2px;
+    border-style: dotted;
+    border-width: 2px;
+    border-color:#0f00f0;
+    border-radius:5px;
+    opacity: 1.5;
+    align-self:flex-start;
+}
+
+#styleThree{
+    width: 50px;
+    height: 20px;
+    padding: 2px;
+    margin:1px;
+    border-left: 1px solid #ff0000;
+    border-right:  2px dashed #00ff00;
+    border-top:  1.5px dotted #0000ff;
+    border-bottom:  2.5px dotted #fff000;
+    opacity: 1;
+    align-self:baseline;
+}
+
+#styleFour{
+    width: 50px;
+    height: 20px;
+    align-self:center;
+    border: 2px solid #00ff00;
+}
+
+#styleFive{
+    width: 150px;
+    height: 40px;
+    border: 5px;
+    border-image-source: url('/common/images/image.png');
+    border-image-slice: 5px 10px 10px 5px;
+    border-image-width: 10px 5px 5px 10px;
+    border-image-outset: 10px 5px 10px 5px;
+    border-image-repeat: repeat;
+}
+
+#styleSix{
+    width: 100%;
+    height: 2%;
+    background-color: #ff0000;
+    padding-top: 1%;
+    padding-left: 2%;
+    padding-right: 3%;
+    padding-bottom: 0.5%;
+    margin-left: 1%;
+    margin-top: 2%;
+    margin-right: 1.5%;
+    margin-bottom: 0.5%;
+}
+
+#styleSeven{
+    width: 70%;
+    height: 1%;
+    padding-start: 1%;
+    padding-end: 2%;
+    margin-start: 1%;
+    margin-end: 2%;
+    background-color: #00ff00;
+}
+
+#styleEight{
+    width: 60%;
+    height: 1%;
+    margin: 1%;
+    padding: 2%;
+    background-color: #0000ff;
+}
+
+#styleNine{
+    width: 100%;
+    height: 40px;
+    display:flex;
+}
+
+#styleFive{
+    width: 100%;
+    height: 40px;
+    border: 5px;
+    border-image-source: url('/common/images/image.png');
+    border-image-slice: 5px 10px 10px 5px;
+    border-image-width: 10px 5px 5px 10px;
+    border-image-outset: 10px 5px 10px 5px;
+    border-image-repeat: repeat;
+}
+
+#styleTen{
+    width: 100%;
+    height: 400%;
+    display: none;
+    background-color: #ff0000;
+}
+
+#styleEleven{
+    height: 40%;
+    background-color: #00ff00;
+    flex:1 1 20px;
+    z-index:10;
+}
+
+#styleTwelve{
+    height: 50%;
+    background-color: #ff00ff;
+    flex-grow:2;
+    flex-shrink: 3;
+    flex-basis: 30px;
+    z-index:13;
+}
+
+#styleThirteen{
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00;
+    z-index:12;
+}
+
+#styleFourteen{
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: #0000ff;
+    z-index:3;
+}
+
+#styleFifteen{
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    width: 10px;
+    height: 10px;
+    background-color: #fff000;
+    z-index:5;
+    font-weight:800;
+}
+
+#styleSixteen{
+    position: absolute;
+    right: 10%;
+    bottom: 20%;
+    width: 10px;
+    height: 10px;
+    background-color: #00ffff;
+    z-index:15;
+    font-weight:900;
+}
+
+#styleSeventeen{
+    position: absolute;
+    start: 50px;
+    width: 10px;
+    height: 10px;
+    background-color: #ffff00;
+    z-index:7;
+}
+
+#styleEighteen{
+    position: absolute;
+    end: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: #00ffff;
+    z-index:4;
+}
+
+#styleNineteen{
+    position: absolute;
+    start: 20%;
+    width: 10px;
+    height: 10px;
+    background-color: #ffff00;
+    z-index:1;
+}
+
+#styleTwenty{
+    position: absolute;
+    end: 20%;
+    width: 10px;
+    height: 10px;
+    background-color: #00ffff;
+    z-index:17;
+}
+
+#styleTwentyOne{
+    height: 20px;
+    box-shadow: 2px 4px;
+    flex-weight: 1;
+    margin:5px;
+}
+
+#styleTwentyTwo{
+    flex-weight: 1;
+    height: 20px;
+    box-shadow: 2px 4px 6px 8px;
+    margin:5px;
+}
+
+#styleTwentyThree{
+    flex-weight: 1;
+    height: 20px;
+    box-shadow: 1px 2px 3px 4px #ff0000;
+    margin:5px;
+}
+
+#styleTwentyFour{
+    width: 150px;
+    height: 20px;
+    background-color: #00ffff;
+    clip-path:inset(2 23);
+    visibility: visible;
+}
+
+#styleTwentyFive{
+    width: 150px;
+    height: 20px;
+    background-color: #00ffff;
+    visibility: hidden;
+}
+
+#styleTwentySix{
+    width: 150px;
+    height: 20px;
+    background-color: #999999;
+}
+
+#styleTwentySeven{
+    width: 150px;
+    height: 20px;
+    background: linear-gradient(pink,#fff000);
+}
+
+#styleTwentyNine{
+    width: 150px;
+    height: 20px;
+    background-image:url('common/images/image.png');
+    background-size:contain;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+#styleThirty{
+    width: 150px;
+    height: 20px;
+    background-image:url('common/images/image.png');
+    background-size:50px 10px;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+}
+
+#styleThirtyOne{
+    width: 150px;
+    height: 20px;
+    background-image:url('common/images/image.png');
+    background-size:10% 20%;
+    background-repeat: repeat;
+    background-position: 30% 40%;
+    mask-image:linear-gradient(pink,#fff000);
+}
+
+#styleThirtyTwo{
+    width: 150px;
+    height: 20px;
+    background: linear-gradient(pink,#fff000);
+    clip-path: margin-box;
+    image-fill: #000fff;
+    mask-image: url('common/images/icon.png');
+    mask-size: cover;
+    mask-position: center;
+}
+
+.specific-container{
+    flex-direction: column;
+    flex-weight: 1;
+}
+
+#specificOne{
+    width: 70px;
+    height: 25px;
+    flex-direction: row;
+    flex-wrap:nowrap;
+}
+
+#specificTwo{
+    width: 100%;
+    height: 50px;
+    flex-direction: column;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+#specificThree{
+    width: 18%;
+    height: 48%;
+    border: 1px solid pink;
+    flex-direction: row;
+    justify-content:flex-end;
+    align-items: flex-end;
+    align-content: flex-end;
+    margin: 1%;
+}
+
+#specificFour{
+    width: 18%;
+    height: 48%;
+    border: 1px solid pink;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    align-items: center;
+    margin: 1%;
+}
+
+#specificFive{
+    width: 18%;
+    height: 48%;
+    border: 1px solid pink;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items:stretch;
+    align-content: space-between;
+    margin: 1%;
+}
+
+#specificSix{
+    width: 18%;
+    height: 48%;
+    border: 1px solid pink;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: baseline;
+    align-content: space-around;
+    margin: 1%;
+}
+
+#specificSeven{
+    width: 50px;
+    height: 10px;
+    background-color: #ff0000;
+    overflow: hidden;
+}
+
+#specificEight{
+    width: 70px;
+    height: 10px;
+    background-color: #00ff00;
+    overflow: visible;
+    margin-left: 10px;
+}
+
+#specificNine{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    overflow: scroll;
+    flex-direction: column;
+    scrollbar-color:#ff0000;
+    scrollbar-width:2px;
+    overscroll-effect:spring;
+}
+
+#specificTen{
+    width: 100%;
+    height: 10px;
+    margin-top: 10px;
+    overflow: scroll;
+    scrollbar-color:#ff0000;
+    scrollbar-width:2px;
+    overscroll-effect:fade;
+}
+
+#specificEleven{
+    width: 100%;
+    height: 10px;
+    margin-top: 10px;
+    overflow: scroll;
+    scrollbar-color:#ff0000;
+    scrollbar-width:2px;
+    overscroll-effect:none;
+}
+
+#specificTwelve{
+    width: 100%;
+    height: 30px;
+    display: grid;
+    background-color: #000fff;
+    grid-template-rows: 50px 100px 60px;
+    grid-rows-gap:10px;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-auto-flow:row;
+}
+
+#specificThirteen{
+    width: 100%;
+    height: 30px;
+    background-color: #fff000;
+    display: grid;
+    grid-template-columns: 50px 100px 60px;
+    grid-columns-gap:10px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-auto-flow:column;
+}
+
+.flex-item{
+    width: 40%;
+    height: 10px;
+}
+
+.red-item{
+    background-color: #ff0000;
+}
+
+.green-item{
+    background-color: #00ff00;
+}
+
+.blue-item{
+    background-color: #0000ff;
+}
+
+.yellow-item{
+    background-color: #fff000;
+}
+
+
+#addOne{
+    width: 10%;
+    height: 20px;
+    background-image:url('common/images/image.png');
+    background-size:cover;
+    align-self:stretch;
+    position:fixed;
+    transform: none;
+    animation-timing-function:cubic-bezier(0.4, 0.0, 0.4, 1.0);
+    shared-transition-effect:static;
+    shared-transition-name:ani;
+    shared-transition-timing-function:friction;
+    transition-enter:ani;
+    transition-exit: ani;
+    transition-duration:10;
+    transition-timing-function:friction;
+    clip-path:border-box;
+    display-index:1;
+    filter:blur(10px);
+    backdrop-filter:blur(10px);
+    window-filter:blur(10%);
+    align-items:center;
+    font-weight:lighter;
+    overflow:hidden;
+}
+
+#addTwo{
+    width: 100px;
+    height: 15px;
+    background-image:url('common/images/image.png');
+    background-size:auto;
+    position:relative;
+    transform: matrix(0.5,0.1,0.2,0.9,20,10);
+    animation-timing-function:steps(4);
+    shared-transition-effect:exchange;
+    clip-path:padding-box;
+    align-items:flex-end;
+    font-weight:normal;
+    overflow:visible;
+}
+
+#addThree{
+    width: 100px;
+    height: 15px;
+    background-color:#000000;
+    transform: matrix3d(1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2);
+    clip-path:content-box;
+    align-items:flex-start;
+    font-weight:bolder;
+}
+
+#addFour{
+    width: 100px;
+    height: 15px;
+    background-color:#000000;
+    transform: translate3d(1px,2px,1px) scale3d(1,2,1) rotate3d(10,10,10,10deg) skew(1deg,2deg) perspective(10px);
+    clip-path:circle(1);
+    align-items:baseline;
+    font-weight:medium;
+}
+
+#addFive{
+    width: 100px;
+    height: 15px;
+    background-color:#000000;
+    transform: translateY(1px) translateZ(10px)
+    scale(1,2) scaleZ(0.4)
+    rotateX(10deg) rotateY(10deg) rotateZ(10deg)
+    skewX(1deg) skewY(2deg);
+    clip-path:ellipse(1);
+    align-items:stretch;
+    font-weight:regular;
+}
+
+#addSix{
+    width: 100px;
+    height: 15px;
+    background-color:#000000;
+    transform: scaleX(1) scaleY(0.4);
+    clip-path:ellipse(1);
+    font-weight:300;
+}
+
+#addSeven{
+    width: 100px;
+    height: 15px;
+    background-color:#000000;
+    clip-path:path(1);
+    aspect-ratio:2;
+    font-weight:400;
+}
+
+#addSeven:disabled{
+    width: 100px;
+    height: 15px;
+    background-color:#ff0000;
+    font-weight:500;
+}
+
+#addSeven:active{
+    width: 100px;
+    height: 15px;
+    background-color:#ff0000;
+    font-weight:600;
+}
+
+#addSeven:focus{
+    width: 100px;
+    height: 15px;
+    background-color:#ff0000;
+    font-weight:700;
+}
+
+@font-face {
+    font-family: SimSunfont;
+    src: url('/common/simsun.ttf');
+}
+
+@media (device-type: tv) {
+    .addSeven {
+        width: 500px;
+        height: 500px;
+        background-color: #fa8072;
+    }
+}
+

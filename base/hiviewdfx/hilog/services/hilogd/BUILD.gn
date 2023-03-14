@@ -1,0 +1,54 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+config("hilogd_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [ "include" ]
+}
+
+ohos_executable("hilogd") {
+  sources = [
+    "cmd_executor.cpp",
+    "flow_control_init.cpp",
+    "kmsg_parser.cpp",
+    "log_buffer.cpp",
+    "log_collector.cpp",
+    "log_compress.cpp",
+    "log_kmsg.cpp",
+    "log_persister.cpp",
+    "log_persister_rotator.cpp",
+    "main.cpp",
+    "service_controller.cpp",
+  ]
+  configs = [ ":hilogd_config" ]
+  defines = [ "__RECV_MSG_WITH_UCRED_" ]
+  deps = [
+    "//base/hiviewdfx/hilog/adapter:libhilog_os_adapter",
+    "//base/hiviewdfx/hilog/frameworks/native:libhilog_socket_server",
+    "//base/hiviewdfx/hilog/frameworks/native:libhilogutil",
+    "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+    "//third_party/bounds_checking_function:libsec_shared",
+    "//third_party/zlib:libz",
+  ]
+
+  deps += [ "etc:hilogd_etc" ]
+
+  external_deps = [ "init:libbegetutil" ]
+
+  install_enable = true
+  part_name = "hilog_service"
+  subsystem_name = "hiviewdfx"
+}

@@ -1,0 +1,104 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+config("hdi_service_proxy_config") {
+  visibility = [ ":*" ]
+
+  cflags = [
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DGST_DISABLE_DEPRECATED",
+    "-DHAVE_CONFIG_H",
+    "-fno-strict-aliasing",
+    "-Wno-sign-compare",
+    "-Wno-builtin-requires-header",
+    "-Wno-implicit-function-declaration",
+    "-Wno-format",
+    "-Wno-int-conversion",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+    "-Wno-thread-safety-attributes",
+    "-Wno-inconsistent-missing-override",
+    "-fno-rtti",
+    "-fno-exceptions",
+    "-ffunction-sections",
+    "-fdata-sections",
+  ]
+
+  ldflags = [ "-Wl" ]
+}
+
+ohos_shared_library("audio_bluetooth_hdi_proxy_server") {
+  include_dirs = [
+    "//drivers/peripheral/bluetooth/audio/interfaces/include",
+    "//drivers/peripheral/bluetooth/audio/hal/hdi_passthrough/include",
+    "//drivers/peripheral/bluetooth/audio/hal/hdi_binder/proxy/include",
+    "//drivers/peripheral/bluetooth/audio/hal/hdi_binder/server/include",
+    "//third_party/cJSON",
+    "$hdf_framework_path/include/core",
+    "$hdf_framework_path/include/utils",
+    "$hdf_framework_path/include/osal",
+    "$hdf_framework_path/include",
+    "//third_party/bounds_checking_function/include",
+    "$hdf_framework_path/ability/sbuf/include",
+    "$hdf_framework_path/utils/include",
+    "$hdf_framework_path/ability/sbuf/include",
+    "$hdf_uhdf_path/osal/include",
+    "$hdf_framework_path/include",
+    "$hdf_framework_path/core/sec/include",
+    "$hdf_framework_path/core/shared/include",
+    "$hdf_framework_path/core/host/include",
+    "$hdf_framework_path/core/manager/include",
+    "$hdf_uhdf_path/include/devhost",
+    "$hdf_uhdf_path/devhost/include",
+    "$hdf_uhdf_path/devmgr/include",
+    "$hdf_uhdf_path/host/include",
+    "$hdf_uhdf_path/manager/include",
+    "$hdf_uhdf_path/include/host",
+  ]
+
+  sources = [
+    "//drivers/peripheral/bluetooth/audio/hal/hdi_passthrough/src/audio_adapter_info_common.cpp",
+    "//drivers/peripheral/bluetooth/audio/hal/hdi_passthrough/src/audio_common.cpp",
+    "//third_party/cJSON/cJSON.c",
+    "src/audio_proxy_adapter.cpp",
+    "src/audio_proxy_common.cpp",
+    "src/audio_proxy_manager.cpp",
+    "src/audio_proxy_render.cpp",
+  ]
+
+  deps = [
+    "$hdf_uhdf_path/hdi:libhdi",
+    "$hdf_uhdf_path/host:libhdf_host",
+    "$hdf_uhdf_path/ipc:libhdf_ipc_adapter",
+    "$hdf_uhdf_path/utils:libhdf_utils",
+    "//drivers/peripheral/bluetooth/audio/hal/hdi_passthrough:hdi_audio_bluetooth",
+    "//utils/native/base:utils",
+  ]
+
+  if (is_standard_system) {
+    external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  } else {
+    external_deps = [ "hilog:libhilog" ]
+  }
+
+  public_configs = [ ":hdi_service_proxy_config" ]
+
+  install_images = [ chipset_base_dir ]
+  subsystem_name = "hdf"
+  part_name = "bluetooth_device_driver"
+}

@@ -1,0 +1,144 @@
+{
+  "components": [
+    {
+      "component": "xts_acts",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xts/acts/build_lite"
+      ],
+      "targets": [
+        "//test/xts/acts/build_lite:acts"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "xts_xdevice"
+        ]
+      }
+    },
+    {
+      "component": "xts_tools",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xts/tools/lite"
+      ],
+      "targets": [
+        "//test/xts/tools/lite:tools"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "xts_hits",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xts/huawei_proprietary/hits/build_lite"
+      ],
+      "targets": [
+        "//test/xts/huawei_proprietary/hits/build_lite:hits"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "xts_xdevice"
+        ]
+      }
+    },
+    {
+      "component": "xts_ssts",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xts/huawei_proprietary/ssts/build_lite"
+      ],
+      "targets": [
+        "//test/xts/huawei_proprietary/ssts/build_lite:ssts"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "xts_xdevice"
+        ]
+      }
+    },
+    {
+      "component": "xts_ists",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xts/huawei_proprietary/ists"
+      ],
+      "targets": [
+        "//test/xts/huawei_proprietary/ists"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "xts_xdevice"
+        ]
+      }
+    },
+    {
+      "component": "xts_xdevice",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xdevice"
+      ],
+      "targets": [
+        "//test/xdevice:xdevice"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {}
+    }
+  ]
+}

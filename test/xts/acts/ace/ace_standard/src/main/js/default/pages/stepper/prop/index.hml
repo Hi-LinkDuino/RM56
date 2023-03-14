@@ -1,0 +1,205 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            stepper通用属性
+        </text>
+
+        <text class="sub-title">
+            通用属性 -- id
+        </text>
+        <stepper id="idProp">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- class
+        </text>
+        <stepper id="classProp"
+                 class="classProp">
+        </stepper>
+
+        <stepper id="classPropNone"
+                 class="">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- style
+        </text>
+        <stepper id="styleProp"
+                 style="width:10%;height:20px;background-color:red">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- ref
+        </text>
+        <stepper id="refProp"
+                 ref="refProp">
+        </stepper>
+        <stepper id="refPropNone"
+                 ref="">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- disabled
+        </text>
+        <stepper id="disabledPropTrue"
+                 disabled="true">
+        </stepper>
+        <stepper id="disabledPropFalse"
+                 disabled="false">
+        </stepper>
+        <stepper id="disabledPropNone"
+                 disabled="">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- focusable
+        </text>
+        <stepper id="focusablePropTrue"
+                 focusable="true">
+        </stepper>
+        <stepper id="focusablePropFalse"
+                 focusable="false">
+        </stepper>
+        <stepper id="focusablePropNone"
+                 focusable="">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- data-*
+        </text>
+        <stepper id="dataProp"
+                 data-div="通用属性 -- data-*">
+        </stepper>
+        <stepper id="dataPropNone"
+                 data-div="">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- click-effect
+        </text>
+        <stepper id="clickEffectPropSmall"
+                 click-effect="spring-small">
+        </stepper>
+        <stepper id="clickEffectPropMedium"
+                 click-effect="spring-medium">
+        </stepper>
+        <stepper id="clickEffectPropLarge"
+                 click-effect="spring-large">
+        </stepper>
+        <stepper id="clickEffectPropNone"
+                 click-effect="">
+        </stepper>
+
+        <text class="sub-title">
+            通用属性 -- dir
+        </text>
+        <stepper id="dirPropRtl"
+                 dir="rtl">
+        </stepper>
+        <stepper id="dirPropAuto"
+                 dir="auto">
+        </stepper>
+        <stepper id="dirPropLtr"
+                 dir="ltr">
+        </stepper>
+        <stepper id="dirPropNone"
+                 dir="">
+        </stepper>
+
+        <text class="sub-title">
+            渲染属性 -- for
+        </text>
+        <stepper id="forPropNull"
+                 for="">
+        </stepper>
+        <stepper id="forPropOne"
+                 for="{{listOne}}">
+        </stepper>
+        <stepper id="forPropThree"
+                 for="{{listThree}}">
+        </stepper>
+
+        <text class="sub-title">
+            渲染属性 -- if
+        </text>
+        <stepper id="ifPropTrue"
+                 if="true">
+        </stepper>
+
+        <text class="sub-title">
+            渲染属性 -- show
+        </text>
+        <stepper id="showPropTrue"
+                 show="true">
+        </stepper>
+        <stepper id="showPropFalse"
+                 show="false">
+        </stepper>
+        <stepper id="showPropNone"
+                 show="">
+        </stepper>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            stepper特有属性
+        </text>
+
+        <text class="sub-title">
+            特有属性属性 -- stepper
+        </text>
+        <stepper id="stepperPorp" stepper="stepper" class="specific-style color-grey">
+        </stepper>
+        <stepper id="stepperPorpNone" stepper="" class="specific-style color-blue">
+        </stepper>
+
+        <text class="sub-title">
+            特有属性属性 -- elif
+        </text>
+        <stepper if="false"></stepper>
+        <stepper id="elifPorpTrue" elif="true"  class="specific-style color-grey">
+        </stepper>
+        <stepper id="elifPorpFalse" elif="false" class="specific-style color-blue">
+        </stepper>
+
+        <text class="sub-title">
+            特有属性属性 -- tid
+        </text>
+        <stepper id="tidPorp" tid="tid"  class="specific-style color-grey">
+        </stepper>
+        <stepper id="tidPorpNone" tid="" class="specific-style color-blue">
+        </stepper>
+
+        <text class="sub-title">
+            特有属性属性 -- tid
+        </text>
+        <stepper id="tidPorp" tid="tid"  class="specific-style color-grey">
+        </stepper>
+        <stepper id="tidPorpNone" tid="" class="specific-style color-blue">
+        </stepper>
+
+        <text class="sub-title">
+            显示子组件属性 -- index
+        </text>
+        <stepper id="indexProp"
+                 index="1">
+        </stepper>
+    </div>
+</div>

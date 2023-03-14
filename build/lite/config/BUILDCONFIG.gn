@@ -1,0 +1,196 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/lite/ohos_var.gni")
+import("${device_path}/config.gni")
+
+if (target_os == "") {
+  target_os = "ohos"
+}
+
+if (target_cpu == "") {
+  target_cpu = board_cpu
+}
+
+target_arch_cflags = board_cflags
+if (board_arch != "") {
+  target_arch_cflags += [ "-march=$board_arch" ]
+}
+if (board_cpu != "") {
+  target_arch_cflags += [ "-mcpu=$board_cpu" ]
+}
+
+arch = "arm"
+if (ohos_kernel_type == "liteos_a") {
+  target_triple = "$arch-liteos-ohos"
+} else if (ohos_kernel_type == "linux") {
+  target_triple = "$arch-linux-ohos"
+}
+
+if (defined(board_configed_sysroot) && board_configed_sysroot != "") {
+  ohos_current_sysroot = board_configed_sysroot
+}
+
+# Only gcc available for liteos_m.
+if (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "linux") {
+  use_board_toolchain = true
+}
+
+toolchain_cmd_suffix = ""
+if (host_os == "win") {
+  toolchain_cmd_suffix = ".exe"
+}
+
+# enable ccache if ccache installed.
+if (ohos_build_enable_ccache) {
+  compile_prefix = "ccache "
+} else {
+  compile_prefix = ""
+}
+
+# Load board adapter dir from board config.
+if (board_adapter_dir != "") {
+  ohos_board_adapter_dir = board_adapter_dir
+  ohos_vendor_adapter_dir = board_adapter_dir
+}
+
+# Set current toolchain with to board configuration.
+if (board_toolchain != "" && use_board_toolchain) {
+  ohos_build_compiler = board_toolchain_type
+  if (board_toolchain_path != "") {
+    compile_prefix += "${board_toolchain_path}/${board_toolchain_prefix}"
+  } else {
+    compile_prefix += "${board_toolchain_prefix}"
+  }
+  set_default_toolchain("//build/lite/toolchain:${board_toolchain}")
+  if (board_toolchain_type == "gcc") {
+    ohos_current_cc_command = "${compile_prefix}gcc$toolchain_cmd_suffix"
+    ohos_current_cxx_command = "${compile_prefix}g++$toolchain_cmd_suffix"
+    ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
+    ohos_current_ld_command = ohos_current_cc_command
+    ohos_current_strip_command =
+        "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
+    default_target_configs = [ "//build/lite/config:gcc_opt" ]
+  } else if (board_toolchain_type == "clang") {
+    ohos_current_cc_command = "${compile_prefix}clang$toolchain_cmd_suffix"
+    ohos_current_cxx_command = "${compile_prefix}clang++$toolchain_cmd_suffix"
+    compile_prefix += "llvm-"
+    ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
+    ohos_current_ld_command = ohos_current_cc_command
+    ohos_current_strip_command =
+        "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
+    default_target_configs = [ "//build/lite/config:clang_opt" ]
+  }
+
+  # Overwrite ld cmd by customed cmd.
+  if (defined(board_customed_ld_cmd) && board_customed_ld_cmd != "") {
+    ohos_current_ld_command = board_customed_ld_cmd
+  }
+} else {
+  # OHOS default toolchain
+  ohos_build_compiler = "clang"
+  ohos_clang_toolchain_dir = rebase_path("${ohos_build_compiler_dir}/bin")
+  compile_prefix += "$ohos_clang_toolchain_dir/"
+  ohos_current_cc_command = "${compile_prefix}clang$toolchain_cmd_suffix"
+  ohos_current_cxx_command = "${compile_prefix}clang++$toolchain_cmd_suffix"
+  compile_prefix += "llvm-"
+  ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
+  ohos_current_ld_command = ohos_current_cxx_command
+  ohos_current_strip_command =
+      "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
+  set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
+  default_target_configs = [ "//build/lite/config:ohos_clang" ]
+  default_target_configs += [ "//build/lite/config:clang_opt" ]
+}
+
+default_target_configs += [
+  "//build/lite/config:board_config",
+  "//build/lite/config:cpu_arch",
+  "//build/lite/config:common",
+  "//build/lite/config:default_link_path",
+]
+
+if (ohos_build_type == "debug") {
+  default_target_configs += [ "//build/lite/config:debug" ]
+} else if (ohos_build_type == "release") {
+  default_target_configs += [ "//build/lite/config:release" ]
+}
+
+if (ohos_kernel_type == "liteos_a") {
+  default_target_configs +=
+      [ "//build/lite/config/kernel/liteos/cortex_a:default" ]
+}
+
+if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
+  default_target_configs += [
+    "//build/lite/config:security",
+    "//build/lite/config:exceptions",
+  ]
+} else if (ohos_kernel_type == "liteos_m") {
+  default_target_configs += [ "//build/lite/config:stack_protector" ]
+}
+
+default_target_configs += [
+  "//build/lite/config:language_c",
+  "//build/lite/config:language_cpp",
+  "//build/lite/config:kernel_macros",
+]
+
+default_shared_library_configs =
+    default_target_configs + [ "//build/lite/config:shared_library_config" ]
+default_static_library_configs = default_target_configs
+default_executable_configs = default_static_library_configs
+if (ohos_kernel_type != "liteos_m") {
+  default_static_library_configs += [ "//build/lite/config:static_pie_config" ]
+  default_executable_configs += [ "//build/lite/config:static_pie_config" ]
+  default_executable_configs += [ "//build/lite/config:pie_executable_config" ]
+}
+
+set_defaults("executable") {
+  configs = default_executable_configs
+  configs += [ "//build/lite/config:board_exe_ld_flags" ]
+}
+
+set_defaults("static_library") {
+  configs = default_static_library_configs
+}
+
+set_defaults("shared_library") {
+  configs = default_shared_library_configs
+}
+
+set_defaults("source_set") {
+  configs = default_target_configs
+}
+
+_target_type_list = [
+  "executable",
+  "static_library",
+  "shared_library",
+  "source_set",
+  "action",
+  "action_foreach",
+]
+
+foreach(_target_type, _target_type_list) {
+  template(_target_type) {
+    target(_target_type, target_name) {
+      forward_variables_from(invoker, "*", [ "no_default_deps" ])
+      if (!defined(deps)) {
+        deps = []
+      }
+      if (!defined(invoker.no_default_deps) || !invoker.no_default_deps) {
+        deps += [ "//build/lite:prebuilts" ]
+      }
+    }
+  }
+}

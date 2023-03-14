@@ -1,0 +1,7 @@
+<div class="container">
+    <text class="title">
+        {{ $t('strings.hello') }} {{ title }}
+    </text>
+    <canvas ref="canvas1" id="canvas1" style="width: 400px;height:200px;background-color:brown;"></canvas>
+    <canvas ref="canvas2" id="canvas2" style="width: 400px;height:200px;background-color:royalblue;"></canvas>
+</div>

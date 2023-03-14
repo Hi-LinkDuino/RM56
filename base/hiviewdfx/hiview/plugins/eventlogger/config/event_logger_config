@@ -1,0 +1,6 @@
+version="1.0"
+event id="" name="UI_BLOCK_6S" action="s,b,pb:0" interval="60"
+event id="" name="THREAD_BLOCK_6S" action="s,b,pb:0" interval="60"
+event id="" name="APPLICATION_BLOCK_INPUT" action="s" interval="60"
+event id="" name="SERVICE_BLOCK" action="b,s" interval="0"
+event id="" name="SERVICE_TIMEOUT" action="b,s" interval="0"

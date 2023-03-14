@@ -1,0 +1,183 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="prop-container">
+        <text class="title">
+            textPath通用属性
+        </text>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+    <div class="specific-container">
+        <text class="title">
+            textPath特有属性
+        </text>
+        <text class="sub-title">
+            标识属性 -- id
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="idProp" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            路径属性 -- path
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="pathProp" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="pathPropNone" path="">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            起始偏移量属性 -- startOffset
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="startOffsetPropLength" startOffset="30px" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="startOffsetPropPercentage" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="startOffsetPropNone" startOffset="" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体大小属性 -- font-size
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="fontSizeProp" font-size="20" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="fontSizePropNone" font-size="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体填充颜色属性 -- fill
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="fillProp" fill="red" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="fillPropNone" fill="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            动画的偏移属性 -- by
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="byProp" by="1" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="byPropNone" by="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体填充透明度属性 -- fill-opacity
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="fillOpacityProp" fill-opacity="0.5" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="fillOpacityPropNone" fill-opacity="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            元素的透明度属性 -- opacity
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="opacityProp" opacity="0.5" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="opacityPropNone" opacity="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体边框颜色属性 -- stroke
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="strokeProp" stroke="#ff00ff" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="strokePropNone" stroke="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体边框宽度属性 -- stroke-width
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="strokeWidthProp" stroke="#ff00ff" stroke-width="2" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="strokeWidthPropNone" stroke="#ff00ff" stroke-width="" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+
+        <text class="sub-title">
+            字体边框透明度属性 -- stroke-opacity
+        </text>
+        <svg class="svg-style">
+            <text>
+                <textPath id="strokeOpacityProp" stroke-opacity="0.4" stroke="#ff00ff" stroke-width="2" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+                <textPath id="strokeOpacityPropNone" stroke-opacity="" stroke="#ff00ff" stroke-width="2" startOffset="60%" path="M0,20 Q50,20 100,20">
+                    text
+                </textPath>
+            </text>
+        </svg>
+    </div>
+</div>

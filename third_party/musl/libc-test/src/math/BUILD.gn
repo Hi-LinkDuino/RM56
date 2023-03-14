@@ -1,0 +1,17 @@
+import("../../test_template.gni")
+import("test_src_math.gni")
+
+foreach(s, math_list) {
+  test_unittest(s) {
+    target_dir = "math"
+  }
+}
+
+group("math_test") {
+  testonly = true
+  deps = []
+
+  foreach(s, math_list) {
+    deps += [ ":${s}" ]
+  }
+}

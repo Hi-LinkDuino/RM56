@@ -1,0 +1,12 @@
+{
+    "string": [
+      {
+        "name": "entry_MainAbility",
+        "value": "MediaLibraryJSTestMain"
+      },
+      {
+        "name": "mainability_description",
+        "value": "MediaLibraryJSTestMain Ability"
+      }
+    ]
+  }

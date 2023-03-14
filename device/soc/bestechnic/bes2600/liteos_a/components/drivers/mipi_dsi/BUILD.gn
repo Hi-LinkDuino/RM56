@@ -1,0 +1,35 @@
+# Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//drivers/adapter/khdf/liteos_a/hdf.gni")
+import("//kernel/liteos_a/liteos.gni")
+
+BSP_PATH = "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp"
+
+hdf_driver("mipi_dsi") {
+  sources = [ "mipi_dsi.c" ]
+
+  include_dirs = [
+    "//drivers/framework/support/platform/include/mipi",
+    "${BSP_PATH}/platform/drivers/graphic",
+    "${BSP_PATH}/platform/drivers/graphic/lcdc",
+    "${BSP_PATH}/platform/cmsis/inc",
+    "${BSP_PATH}/include/rtos/liteos/liteos_a/kal/cmsis/",
+  ]
+
+  defines = [ "A7_DISPLAY" ]
+}
+
+config("public") {
+  include_dirs = [ "." ]
+}

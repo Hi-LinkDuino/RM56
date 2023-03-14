@@ -1,0 +1,62 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("camera.gni")
+
+if (defined(ohos_lite)) {
+  group("camera_hal") {
+    deps = [
+      "buffer_manager:camera_buffer_manager",
+      "device_manager:camera_device_manager",
+      "hdi_impl:camera_hdi_impl",
+      "init:ohos_camera_demo",
+      "pipeline_core:camera_pipeline_core",
+      "utils:camera_utils",
+    ]
+    deps += [ "${chipset_build_deps}" ]
+  }
+  group("camera_hal_lite_unittest") {
+    deps = []
+  }
+} else {
+  print("product_name : , ${product_name}")
+  group("camera_hal") {
+    if (is_standard_system) {
+      deps = [
+        "$camera_path/../interfaces/hdi_ipc/client:libcamera_client",
+        "buffer_manager:camera_buffer_manager",
+        "device_manager:camera_device_manager",
+        "hdi_impl:camera_hdi_impl",
+        "init:ohos_camera_demo",
+        "pipeline_core:camera_pipeline_core",
+        "utils:camera_utils",
+      ]
+
+      deps += [ "${chipset_build_deps}" ]
+    }
+  }
+
+  group("camera_hal_standard_unittest") {
+    if (is_standard_system) {
+      testonly = true
+      deps = [
+        "buffer_manager/test:camera_hal_buffer_manager_unittest",
+        "device_manager/test:camera_hal_device_manager_unittest",
+        "hdi_impl/test:camera_hal_hdi_impl_unittest",
+        "pipeline_core/test:camera_hal_pipeline_core_unittest",
+        "test/fuzz:camera_hal_fuzztest",
+        "test/mpi:camera_case_unittest",
+      ]
+    }
+  }
+}

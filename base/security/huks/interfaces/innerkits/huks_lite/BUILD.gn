@@ -1,0 +1,247 @@
+#
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import("//base/security/huks/build/config.gni")
+import("//build/ohos.gni")
+
+huks_sources = [
+  "../../../frameworks/huks_standard/main/common/src/hks_ability.c",
+  "../../../frameworks/huks_standard/main/common/src/hks_base_check.c",
+  "../../../frameworks/huks_standard/main/common/src/hks_check_paramset.c",
+  "../../../frameworks/huks_standard/main/common/src/hks_common_check.c",
+  "../../../frameworks/huks_standard/main/common/src/hks_crypto_adapter.c",
+  "../../../frameworks/huks_standard/main/common/src/hks_param.c",
+  "../../../frameworks/huks_standard/main/core/src/hks_local_engine.c",
+  "../../../frameworks/huks_standard/main/os_dependency/ipc/src/hks_client_service_passthrough.c",
+  "../../../frameworks/huks_standard/main/os_dependency/posix/hks_mem.c",
+  "../../../frameworks/huks_standard/main/os_dependency/sysinfo/src/hks_get_process_info_passthrough.c",
+  "../../../frameworks/huks_standard/main/os_dependency/sysinfo/src/hks_get_udid.c",
+  "../../../interfaces/innerkits/huks_standard/main/src/hks_api.c",
+  "../../../services/huks_standard/huks_engine/main/core/src/hks_auth.c",
+  "../../../services/huks_standard/huks_engine/main/core/src/hks_core_service.c",
+  "../../../services/huks_standard/huks_engine/main/core/src/hks_keyblob.c",
+  "../../../services/huks_standard/huks_engine/main/core/src/hks_rkc.c",
+  "../../../services/huks_standard/huks_engine/main/core/src/hks_rkc_rw.c",
+  "../../../services/huks_standard/huks_engine/main/core/src/hks_upgrade_key_info.c",
+  "../../../services/huks_standard/huks_service/main/core/src/hks_client_check.c",
+  "../../../services/huks_standard/huks_service/main/core/src/hks_client_service.c",
+  "../../../services/huks_standard/huks_service/main/core/src/hks_upgrade_storage_data.c",
+  "../../../utils/crypto_adapter/hks_client_service_adapter_lite.c",
+  "../../../utils/file_operator/hks_file_operator_lite.c",
+]
+
+if (huks_use_mbedtls == true) {
+  huks_mbedtls_engine_sources = [
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_crypto_ed25519.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_ability.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_aes.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_bn.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_common.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_ecc.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_ecdh.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_ecdsa.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_engine.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_hash.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_hmac.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_kdf.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_rsa.c",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/src/hks_mbedtls_x25519.c",
+  ]
+}
+
+if (huks_use_lite_storage == true) {
+  huks_storage_source = [
+    "../../../services/huks_standard/huks_service/main/core/src/hks_storage_adapter.c",
+    "../../../services/huks_standard/huks_service/main/core/src/hks_storage_lite.c",
+    "../../../services/huks_standard/huks_engine/main/core/src/hks_keyblob_lite.c",
+  ]
+} else {
+  huks_storage_source = [
+    "../../../services/huks_standard/huks_service/main/core/src/hks_storage.c",
+  ]
+}
+config("hilog_dir") {
+  include_dirs =
+      [ "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits/hilog/" ]
+}
+config("hilog_lite_dir") {
+  include_dirs =
+      [ "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite/" ]
+}
+
+config("mbedtls_engine") {
+  include_dirs =
+      [ "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/include" ]
+}
+
+config("soft_huks_config") {
+  include_dirs = [
+    "../../../frameworks/huks_standard/main/common/include",
+    "../../../frameworks/huks_standard/main/core/include",
+    "../../../frameworks/huks_standard/main/crypto_engine/mbedtls/include",
+    "../../../frameworks/huks_standard/main/os_dependency/ipc/include",
+    "../../../frameworks/huks_standard/main/os_dependency/sysinfo/include",
+    "../../../services/huks_standard/huks_engine/main/core/include",
+    "../../../services/huks_standard/huks_service/main/core/include",
+    "//utils/native/lite/memory/include/",
+    "//utils/native/lite/include/",
+    "//base/security/huks/services/huks_standard/huks_engine/main/core/include",
+    "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/idl/passthrough",
+    "//base/security/huks/utils/crypto_adapter",
+    "//base/security/huks/utils/file_operator",
+    "//base/security/huks/utils/list",
+    "//base/security/huks/utils/mutex",
+  ]
+
+  defines = [ "_FORTIFY_SOURCE = 2" ]
+
+  cflags = [
+    "-fvisibility=hidden",
+    "-Wall",
+    "-Werror",
+  ]
+
+  if (disable_authenticate == true) {
+    cflags += [ "-D_CUT_AUTHENTICATE_" ]
+  }
+
+  if (ohos_kernel_type != "liteos_m") {
+    cflags += [ "-flto" ]
+  }
+
+  if (huks_use_hardware_root_key == true) {
+    cflags += [ "-D_HARDWARE_ROOT_KEY_" ]
+  }
+
+  if (huks_use_lite_storage == true) {
+    cflags += [ "-D_STORAGE_LITE_" ]
+  } else {
+    if (ohos_kernel_type == "liteos_a") {
+      cflags += [ "-D_BSD_SOURCE" ]
+    } else {
+      cflags += [ "-D_DEFAULT_SOURCE" ]
+    }
+  }
+
+  if (ohos_kernel_type != "liteos_m" || huks_enable_log == true) {
+    cflags += [ "-D_HUKS_LOG_ENABLE_" ]
+  }
+
+  if (huks_config_file != "") {
+    print(huks_config_file)
+    cflags += [ "-DHKS_CONFIG_FILE=\"${huks_config_file}\"" ]
+  }
+
+  cflags += [ "-DHKS_CONFIG_KEY_STORE_PATH=\"${huks_key_store_path}\"" ]
+}
+
+config("public_huks_config") {
+  include_dirs = [ "../../../interfaces/innerkits/huks_standard/main/include" ]
+}
+
+config("get_dev_udid_config") {
+  cflags = [ "-DGET_DEV_UDID_ENABLE" ]
+  include_dirs = [ "//base/startup/syspara_lite/interfaces/kits" ]
+}
+
+#begin: add
+if (ohos_kernel_type == "liteos_m") {
+  ohos_static_library("huks_3.0_sdk") {
+    public_configs = [ ":public_huks_config" ]
+    configs = [ ":soft_huks_config" ]
+
+    sources = huks_sources
+    sources += huks_storage_source
+    sources += [ "hks_tmp_client.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/idl/passthrough/huks_access.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/idl/passthrough/huks_core_static_hal.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_engine/main/core/src/hks_core_interfaces.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_engine/main/core/src/hks_keynode.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_engine/main/core/src/hks_core_service_three_stage.c" ]
+    sources += [ "//base/security/huks/utils/list/hks_double_list.c" ]
+    sources += [ "//base/security/huks/utils/mutex/hks_mutex.c" ]
+
+    include_dirs = [
+      "//utils/native/base/include",
+      "//base/security/huks/frameworks/huks_standard/main/common/include",
+      "//base/security/huks/services/huks_standard/huks_engine/main/core/include",
+    ]
+
+    if (huks_use_mbedtls == true) {
+      sources += huks_mbedtls_engine_sources
+      deps = [ "//third_party/mbedtls" ]
+      configs += [ ":mbedtls_engine" ]
+    }
+
+    if (huks_enable_log == true) {
+      sources += [ "../../../frameworks/huks_standard/main/os_dependency/log/hks_log_lite.c" ]
+      configs += [ ":hilog_lite_dir" ]
+      deps += [ "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite" ]
+    }
+  }
+  #if (ohos_build_type == "debug") {
+  #  group("huks_3.0_test") {
+  #    deps = [ "//base/security/huks/test:huks_3.0_test" ]
+  #  }
+  #}
+} else {
+  ohos_shared_library("huks_3.0_sdk") {
+    public_configs = [ ":public_huks_config" ]
+    configs = [ ":soft_huks_config" ]
+    configs += [ ":get_dev_udid_config" ]
+    sources = huks_sources
+    sources += huks_storage_source
+    sources += [
+      "../../../frameworks/huks_standard/main/os_dependency/log/hks_log_lite.c",
+    ]
+
+    sources += [ "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/idl/passthrough/huks_access.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_service/main/os_dependency/idl/passthrough/huks_core_static_hal.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_engine/main/core/src/hks_core_interfaces.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_engine/main/core/src/hks_keynode.c" ]
+    sources += [ "//base/security/huks/services/huks_standard/huks_engine/main/core/src/hks_core_service_three_stage.c" ]
+    sources += [ "//base/security/huks/utils/list/hks_double_list.c" ]
+    sources += [ "//base/security/huks/utils/mutex/hks_mutex.c" ]
+
+    include_dirs = [
+      "//utils/native/base/include",
+      "//base/security/huks/frameworks/huks_standard/main/common/include",
+      "//base/security/huks/services/huks_standard/huks_engine/main/core/include",
+      "//frameworks/huks_standard/main/os_dependency/ipc/include",
+    ]
+
+    deps = [ "//base/startup/syspara_lite/frameworks/parameter/src:sysparam" ]
+
+    if (huks_use_mbedtls == true) {
+      sources += huks_mbedtls_engine_sources
+      deps += [
+        "//build/lite/config/component/openssl:openssl_shared",
+        "//third_party/mbedtls:mbedtls_shared",
+      ]
+      configs += [ ":mbedtls_engine" ]
+    }
+
+    configs += [ ":hilog_dir" ]
+    deps += [
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//third_party/bounds_checking_function:libsec_shared",
+    ]
+  }
+  if (ohos_build_type == "debug") {
+    group("huks_3.0_test") {
+      deps = [ "//base/security/huks/test:huks_3.0_test" ]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "@ohos/qrcodegen",
+    "description": "QR-Code-generator",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/qrcodegen"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE",
+    "component": {
+        "name": "thirdparty_qrcodegen",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

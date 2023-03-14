@@ -1,0 +1,37 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/tools/build/suite.gni")
+
+ohos_hap("bluetoothtest") {
+  hap_profile = "entry/src/main/config.json"
+  hap_name = "bluetoothtest"
+  subsystem_name = "communication"
+  final_hap_path = "$root_out_dir/common/common/${hap_name}.hap"
+  deps = [
+    ":bluetooth_resources",
+    ":bluetooth_ts_assets",
+  ]
+  certificate_profile = "signature/auto_ohos_default_com.ohos.bttest.p7b"
+}
+
+ohos_js_assets("bluetooth_ts_assets") {
+  source_dir = "entry/src/main/ets"
+  hap_profile = "entry/src/main/config.json"
+  ets2abc = true
+}
+
+ohos_resources("bluetooth_resources") {
+  sources = [ "entry/src/main/resources" ]
+  hap_profile = "entry/src/main/config.json"
+}

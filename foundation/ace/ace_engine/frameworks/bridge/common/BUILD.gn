@@ -1,0 +1,184 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+template("bridge_common") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+
+    configs = [ "$ace_root:ace_config" ]
+
+    sources = [
+      # dom
+      "dom/dom_badge.cpp",
+      "dom/dom_button.cpp",
+      "dom/dom_calendar.cpp",
+      "dom/dom_canvas.cpp",
+      "dom/dom_chart.cpp",
+      "dom/dom_clock.cpp",
+      "dom/dom_dialog.cpp",
+      "dom/dom_div.cpp",
+      "dom/dom_divider.cpp",
+      "dom/dom_document.cpp",
+      "dom/dom_form.cpp",
+      "dom/dom_grid_column.cpp",
+      "dom/dom_grid_container.cpp",
+      "dom/dom_grid_row.cpp",
+      "dom/dom_image.cpp",
+      "dom/dom_image_animator.cpp",
+      "dom/dom_input.cpp",
+      "dom/dom_label.cpp",
+      "dom/dom_list.cpp",
+      "dom/dom_list_item.cpp",
+      "dom/dom_list_item_group.cpp",
+      "dom/dom_marquee.cpp",
+      "dom/dom_navigation_bar.cpp",
+      "dom/dom_node.cpp",
+      "dom/dom_panel.cpp",
+      "dom/dom_picker_base.cpp",
+      "dom/dom_picker_view.cpp",
+      "dom/dom_progress.cpp",
+      "dom/dom_proxy.cpp",
+      "dom/dom_qrcode.cpp",
+      "dom/dom_refresh.cpp",
+      "dom/dom_search.cpp",
+      "dom/dom_slider.cpp",
+      "dom/dom_span.cpp",
+      "dom/dom_stack.cpp",
+      "dom/dom_svg.cpp",
+      "dom/dom_svg_animate.cpp",
+      "dom/dom_svg_animate_motion.cpp",
+      "dom/dom_svg_animate_transform.cpp",
+      "dom/dom_svg_base.cpp",
+      "dom/dom_svg_circle.cpp",
+      "dom/dom_svg_defs.cpp",
+      "dom/dom_svg_ellipse.cpp",
+      "dom/dom_svg_fe_colormatrix.cpp",
+      "dom/dom_svg_fe_composite.cpp",
+      "dom/dom_svg_fe_gaussianblur.cpp",
+      "dom/dom_svg_fe_offset.cpp",
+      "dom/dom_svg_filter.cpp",
+      "dom/dom_svg_g.cpp",
+      "dom/dom_svg_line.cpp",
+      "dom/dom_svg_mask.cpp",
+      "dom/dom_svg_path.cpp",
+      "dom/dom_svg_polygon.cpp",
+      "dom/dom_svg_polyline.cpp",
+      "dom/dom_svg_rect.cpp",
+      "dom/dom_svg_text.cpp",
+      "dom/dom_svg_text_path.cpp",
+      "dom/dom_svg_tspan.cpp",
+      "dom/dom_svg_use.cpp",
+      "dom/dom_swiper.cpp",
+      "dom/dom_switch.cpp",
+      "dom/dom_tab_bar.cpp",
+      "dom/dom_tab_content.cpp",
+      "dom/dom_tabs.cpp",
+      "dom/dom_text.cpp",
+      "dom/dom_textarea.cpp",
+      "dom/dom_toggle.cpp",
+      "dom/dom_type.cpp",
+      "dom/input/dom_button_util.cpp",
+      "dom/input/dom_checkbox_util.cpp",
+      "dom/input/dom_radio_util.cpp",
+      "dom/input/dom_textfield_util.cpp",
+
+      # manifest
+      "manifest/manifest_appinfo.cpp",
+      "manifest/manifest_parser.cpp",
+      "manifest/manifest_router.cpp",
+      "manifest/manifest_widget.cpp",
+      "manifest/manifest_window.cpp",
+
+      # media query
+      "media_query/media_query_info.cpp",
+      "media_query/media_queryer.cpp",
+
+      # plugin adapter
+      "plugin_adapter/plugin_bridge.cpp",
+
+      # utils
+      "utils/engine_helper.cpp",
+      "utils/source_map.cpp",
+      "utils/transform_convertor.cpp",
+      "utils/utils.cpp",
+    ]
+
+    # rich components needed by phone and TV. wearable like watch do not need them
+    if (defined(config.rich_components_support) &&
+        config.rich_components_support) {
+      sources += [
+        "dom/dom_camera.cpp",
+        "dom/dom_menu.cpp",
+        "dom/dom_navigation_menu.cpp",
+        "dom/dom_option.cpp",
+        "dom/dom_picker_dialog.cpp",
+        "dom/dom_piece.cpp",
+        "dom/dom_popup.cpp",
+        "dom/dom_rating.cpp",
+        "dom/dom_select.cpp",
+        "dom/dom_stepper.cpp",
+        "dom/dom_stepper_item.cpp",
+        "dom/dom_tool_bar.cpp",
+        "dom/dom_tool_bar_item.cpp",
+        "dom/dom_video.cpp",
+      ]
+    }
+
+    # xcomponent components supports phone, TV and wearable except PC Preview
+    if (defined(config.xcomponent_components_support) &&
+        config.xcomponent_components_support) {
+      sources += [ "dom/dom_xcomponent.cpp" ]
+    }
+
+    # advance components using web or native plugins
+    if (defined(config.advance_components_support) &&
+        config.advance_components_support) {
+      sources += [
+        "dom/dom_rich_text.cpp",
+        "dom/dom_web.cpp",
+      ]
+    }
+
+    if (defined(config.web_components_support) &&
+        config.web_components_support) {
+      sources += [
+        "dom/dom_rich_text.cpp",
+        "dom/dom_web.cpp",
+      ]
+    }
+
+    deps = [ "$ace_root/frameworks/core/components/theme:build_theme_code" ]
+  }
+}
+
+foreach(item, ace_platforms) {
+  bridge_common("bridge_common_" + item.name) {
+    defines = []
+    config = {
+    }
+
+    if (defined(item.config)) {
+      config = item.config
+    }
+
+    if (defined(config.defines)) {
+      defines = config.defines
+    }
+  }
+}

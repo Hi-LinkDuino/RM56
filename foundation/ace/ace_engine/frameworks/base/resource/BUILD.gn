@@ -1,0 +1,336 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+source_set("ace_resource") {
+  include_dirs = [ "//utils/native/base/include" ]
+
+  # add resource file here
+  sources = [
+    "ace_res_config.cpp",
+    "ace_res_key_parser.cpp",
+    "data_provider_manager.cpp",
+    "internal_resource.cpp",
+    "shared_image_manager.cpp",
+  ]
+  if (current_os == "mac" || current_os == "mingw") {
+    deps = [ ":binary_resource_mac_and_windows" ]
+    sources -= [ "internal_resource.cpp" ]
+    sources += [ "internal_resource_previewer.cpp" ]
+  } else {
+    deps = [ ":binary_resource" ]
+  }
+  configs += [ "$ace_root:ace_config" ]
+
+  if (current_os == "mingw") {
+    cflags_cc = [ "-std=c++17" ]
+  }
+}
+
+source_set("binary_resource") {
+  deps = [ ":objcopy_resource" ]
+  ace_resource_dir =
+      get_label_info(":binary_resource($current_toolchain)", "target_out_dir")
+  sources = [
+    "$ace_resource_dir/close.o",
+    "$ace_resource_dir/container_modal_window_close.o",
+    "$ace_resource_dir/container_modal_window_defocus_close.o",
+    "$ace_resource_dir/container_modal_window_defocus_maximize.o",
+    "$ace_resource_dir/container_modal_window_defocus_minimize.o",
+    "$ace_resource_dir/container_modal_window_defocus_recover.o",
+    "$ace_resource_dir/container_modal_window_defocus_split_left.o",
+    "$ace_resource_dir/container_modal_window_maximize.o",
+    "$ace_resource_dir/container_modal_window_minimize.o",
+    "$ace_resource_dir/container_modal_window_recover.o",
+    "$ace_resource_dir/container_modal_window_split_left.o",
+    "$ace_resource_dir/correct.o",
+    "$ace_resource_dir/down_arrow.o",
+    "$ace_resource_dir/entry.o",
+    "$ace_resource_dir/errorcode.o",
+    "$ace_resource_dir/exit_full_screen.o",
+    "$ace_resource_dir/fa_black_clock_widget_hour.o",
+    "$ace_resource_dir/fa_black_clock_widget_minute.o",
+    "$ace_resource_dir/fa_black_clock_widget_second.o",
+    "$ace_resource_dir/fa_clock_widget_hour.o",
+    "$ace_resource_dir/fa_clock_widget_minute.o",
+    "$ace_resource_dir/fa_clock_widget_second.o",
+    "$ace_resource_dir/full_screen.o",
+    "$ace_resource_dir/hide_password.o",
+    "$ace_resource_dir/ic_back.o",
+    "$ace_resource_dir/ic_more.o",
+    "$ace_resource_dir/ic_more_dark.o",
+    "$ace_resource_dir/ic_more_transparent.o",
+    "$ace_resource_dir/ic_public_drawer.o",
+    "$ace_resource_dir/indexer_arrow.o",
+    "$ace_resource_dir/indexletter_bar.o",
+    "$ace_resource_dir/left_arrow.o",
+    "$ace_resource_dir/pause.o",
+    "$ace_resource_dir/piece_delete.o",
+    "$ace_resource_dir/play.o",
+    "$ace_resource_dir/rate_star_big_off.o",
+    "$ace_resource_dir/rate_star_big_on.o",
+    "$ace_resource_dir/rate_star_small_off.o",
+    "$ace_resource_dir/rate_star_small_on.o",
+    "$ace_resource_dir/right_arrow.o",
+    "$ace_resource_dir/search.o",
+    "$ace_resource_dir/select_arrow_disabled.o",
+    "$ace_resource_dir/select_arrow_normal.o",
+    "$ace_resource_dir/semi_modal_bar_down.o",
+    "$ace_resource_dir/semi_modal_bar_middle.o",
+    "$ace_resource_dir/share.o",
+    "$ace_resource_dir/show_password.o",
+    "$ace_resource_dir/stepper_back_arrow.o",
+    "$ace_resource_dir/stepper_next_arrow.o",
+    "$ace_resource_dir/translate_c2e.o",
+    "$ace_resource_dir/tv_rate_star_big_off.o",
+    "$ace_resource_dir/tv_rate_star_big_on.o",
+    "$ace_resource_dir/tv_rate_star_small_off.o",
+    "$ace_resource_dir/tv_rate_star_small_on.o",
+    "$ace_resource_dir/up_arrow.o",
+    "$ace_resource_dir/watch_down_arrow.o",
+    "$ace_resource_dir/watch_up_arrow.o",
+    "$ace_resource_dir/wrong.o",
+  ]
+}
+
+source_set("binary_resource_mac_and_windows") {
+  deps = [ ":objcopy_resource_mac_and_windows" ]
+  ace_resource_dir =
+      get_label_info(":binary_resource($current_toolchain)", "target_out_dir")
+  sources = [
+    "$ace_resource_dir/close.c",
+    "$ace_resource_dir/container_modal_window_close.c",
+    "$ace_resource_dir/container_modal_window_defocus_close.c",
+    "$ace_resource_dir/container_modal_window_defocus_maximize.c",
+    "$ace_resource_dir/container_modal_window_defocus_minimize.c",
+    "$ace_resource_dir/container_modal_window_defocus_recover.c",
+    "$ace_resource_dir/container_modal_window_defocus_split_left.c",
+    "$ace_resource_dir/container_modal_window_maximize.c",
+    "$ace_resource_dir/container_modal_window_minimize.c",
+    "$ace_resource_dir/container_modal_window_recover.c",
+    "$ace_resource_dir/container_modal_window_split_left.c",
+    "$ace_resource_dir/correct.c",
+    "$ace_resource_dir/down_arrow.c",
+    "$ace_resource_dir/entry.c",
+    "$ace_resource_dir/errorcode.c",
+    "$ace_resource_dir/exit_full_screen.c",
+    "$ace_resource_dir/fa_black_clock_widget_hour.c",
+    "$ace_resource_dir/fa_black_clock_widget_minute.c",
+    "$ace_resource_dir/fa_black_clock_widget_second.c",
+    "$ace_resource_dir/fa_clock_widget_hour.c",
+    "$ace_resource_dir/fa_clock_widget_minute.c",
+    "$ace_resource_dir/fa_clock_widget_second.c",
+    "$ace_resource_dir/full_screen.c",
+    "$ace_resource_dir/hide_password.c",
+    "$ace_resource_dir/ic_back.c",
+    "$ace_resource_dir/ic_more.c",
+    "$ace_resource_dir/ic_more_dark.c",
+    "$ace_resource_dir/ic_more_transparent.c",
+    "$ace_resource_dir/ic_public_drawer.c",
+    "$ace_resource_dir/indexer_arrow.c",
+    "$ace_resource_dir/indexletter_bar.c",
+    "$ace_resource_dir/left_arrow.c",
+    "$ace_resource_dir/pause.c",
+    "$ace_resource_dir/piece_delete.c",
+    "$ace_resource_dir/play.c",
+    "$ace_resource_dir/rate_star_big_off.c",
+    "$ace_resource_dir/rate_star_big_on.c",
+    "$ace_resource_dir/rate_star_small_off.c",
+    "$ace_resource_dir/rate_star_small_on.c",
+    "$ace_resource_dir/right_arrow.c",
+    "$ace_resource_dir/search.c",
+    "$ace_resource_dir/select_arrow_disabled.c",
+    "$ace_resource_dir/select_arrow_normal.c",
+    "$ace_resource_dir/semi_modal_bar_down.c",
+    "$ace_resource_dir/semi_modal_bar_middle.c",
+    "$ace_resource_dir/share.c",
+    "$ace_resource_dir/show_password.c",
+    "$ace_resource_dir/stepper_back_arrow.c",
+    "$ace_resource_dir/stepper_next_arrow.c",
+    "$ace_resource_dir/translate_c2e.c",
+    "$ace_resource_dir/tv_rate_star_big_off.c",
+    "$ace_resource_dir/tv_rate_star_big_on.c",
+    "$ace_resource_dir/tv_rate_star_small_off.c",
+    "$ace_resource_dir/tv_rate_star_small_on.c",
+    "$ace_resource_dir/up_arrow.c",
+    "$ace_resource_dir/watch_down_arrow.c",
+    "$ace_resource_dir/watch_up_arrow.c",
+    "$ace_resource_dir/wrong.c",
+  ]
+}
+
+action_foreach("objcopy_resource") {
+  # add resource file here
+  sources = [
+    "binary/close.svg",
+    "binary/container_modal_window_close.svg",
+    "binary/container_modal_window_defocus_close.svg",
+    "binary/container_modal_window_defocus_maximize.svg",
+    "binary/container_modal_window_defocus_minimize.svg",
+    "binary/container_modal_window_defocus_recover.svg",
+    "binary/container_modal_window_defocus_split_left.svg",
+    "binary/container_modal_window_maximize.svg",
+    "binary/container_modal_window_minimize.svg",
+    "binary/container_modal_window_recover.svg",
+    "binary/container_modal_window_split_left.svg",
+    "binary/correct.svg",
+    "binary/down_arrow.svg",
+    "binary/exit_full_screen.svg",
+    "binary/fa_black_clock_widget_hour.png",
+    "binary/fa_black_clock_widget_minute.png",
+    "binary/fa_black_clock_widget_second.png",
+    "binary/fa_clock_widget_hour.png",
+    "binary/fa_clock_widget_minute.png",
+    "binary/fa_clock_widget_second.png",
+    "binary/full_screen.svg",
+    "binary/hide_password.svg",
+    "binary/i18n/entry.json",
+    "binary/i18n/errorcode.json",
+    "binary/ic_back.svg",
+    "binary/ic_more.svg",
+    "binary/ic_more_dark.svg",
+    "binary/ic_more_transparent.svg",
+    "binary/ic_public_drawer.svg",
+    "binary/indexer_arrow.png",
+    "binary/indexletter_bar.json",
+    "binary/left_arrow.svg",
+    "binary/pause.svg",
+    "binary/piece_delete.svg",
+    "binary/play.svg",
+    "binary/rate_star_big_off.svg",
+    "binary/rate_star_big_on.svg",
+    "binary/rate_star_small_off.svg",
+    "binary/rate_star_small_on.svg",
+    "binary/right_arrow.svg",
+    "binary/search.svg",
+    "binary/select_arrow_disabled.png",
+    "binary/select_arrow_normal.png",
+    "binary/semi_modal_bar_down.svg",
+    "binary/semi_modal_bar_middle.svg",
+    "binary/share.svg",
+    "binary/show_password.svg",
+    "binary/stepper_back_arrow.svg",
+    "binary/stepper_next_arrow.svg",
+    "binary/translate_c2e.svg",
+    "binary/tv_rate_star_big_off.svg",
+    "binary/tv_rate_star_big_on.svg",
+    "binary/tv_rate_star_small_off.svg",
+    "binary/tv_rate_star_small_on.svg",
+    "binary/up_arrow.svg",
+    "binary/watch_down_arrow.svg",
+    "binary/watch_up_arrow.svg",
+    "binary/wrong.svg",
+  ]
+
+  ace_resource_dir =
+      get_label_info(":binary_resource($current_toolchain)", "target_out_dir")
+
+  outputs = [ "$ace_resource_dir/{{source_name_part}}.o" ]
+
+  objcopy_tool = objcopy_default
+  script = "$flutter_root/engine/flutter/sky/tools/objcopy.py"
+  if (target_cpu == "x86_64") {
+    objcopy_tool = objcopy_x86_64
+  }
+
+  args = [
+    "--objcopy",
+    rebase_path("$objcopy_tool"),
+    "--input",
+    "{{source}}",
+    "--output",
+    rebase_path("$ace_resource_dir/") + "{{source_name_part}}.o",
+    "--arch",
+    current_cpu,
+  ]
+}
+
+action_foreach("objcopy_resource_mac_and_windows") {
+  # add resource file here
+  sources = [
+    "binary/close.svg",
+    "binary/container_modal_window_close.svg",
+    "binary/container_modal_window_defocus_close.svg",
+    "binary/container_modal_window_defocus_maximize.svg",
+    "binary/container_modal_window_defocus_minimize.svg",
+    "binary/container_modal_window_defocus_recover.svg",
+    "binary/container_modal_window_defocus_split_left.svg",
+    "binary/container_modal_window_maximize.svg",
+    "binary/container_modal_window_minimize.svg",
+    "binary/container_modal_window_recover.svg",
+    "binary/container_modal_window_split_left.svg",
+    "binary/correct.svg",
+    "binary/down_arrow.svg",
+    "binary/exit_full_screen.svg",
+    "binary/fa_black_clock_widget_hour.png",
+    "binary/fa_black_clock_widget_minute.png",
+    "binary/fa_black_clock_widget_second.png",
+    "binary/fa_clock_widget_hour.png",
+    "binary/fa_clock_widget_minute.png",
+    "binary/fa_clock_widget_second.png",
+    "binary/full_screen.svg",
+    "binary/hide_password.svg",
+    "binary/i18n/entry.json",
+    "binary/i18n/errorcode.json",
+    "binary/ic_back.svg",
+    "binary/ic_more.svg",
+    "binary/ic_more_dark.svg",
+    "binary/ic_more_transparent.svg",
+    "binary/ic_public_drawer.svg",
+    "binary/indexer_arrow.png",
+    "binary/indexletter_bar.json",
+    "binary/left_arrow.svg",
+    "binary/pause.svg",
+    "binary/piece_delete.svg",
+    "binary/play.svg",
+    "binary/rate_star_big_off.svg",
+    "binary/rate_star_big_on.svg",
+    "binary/rate_star_small_off.svg",
+    "binary/rate_star_small_on.svg",
+    "binary/right_arrow.svg",
+    "binary/search.svg",
+    "binary/select_arrow_disabled.png",
+    "binary/select_arrow_normal.png",
+    "binary/semi_modal_bar_down.svg",
+    "binary/semi_modal_bar_middle.svg",
+    "binary/share.svg",
+    "binary/show_password.svg",
+    "binary/stepper_back_arrow.svg",
+    "binary/stepper_next_arrow.svg",
+    "binary/translate_c2e.svg",
+    "binary/tv_rate_star_big_off.svg",
+    "binary/tv_rate_star_big_on.svg",
+    "binary/tv_rate_star_small_off.svg",
+    "binary/tv_rate_star_small_on.svg",
+    "binary/up_arrow.svg",
+    "binary/watch_down_arrow.svg",
+    "binary/watch_up_arrow.svg",
+    "binary/wrong.svg",
+  ]
+
+  ace_resource_dir =
+      get_label_info(":binary_resource($current_toolchain)", "target_out_dir")
+
+  outputs = [ "$ace_resource_dir/{{source_name_part}}.c" ]
+
+  script = "$ace_root/build/tools/build_resource_to_bytecode.py"
+  out_target = rebase_path("$ace_resource_dir/") + "{{source_name_part}}.c"
+
+  args = [
+    "--input",
+    "{{source}}",
+    "--output",
+    out_target,
+  ]
+}

@@ -1,0 +1,171 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                对象的属性
+            </text>
+            <text class="sub-title">
+                属性1
+            </text>
+            <canvas ref="canvas1" style="width: 100%; height: 30px;margin-top: 5px; ">
+            </canvas>
+            <text  class="sub-title">
+                属性2
+            </text>
+            <canvas ref="canvas2" style="width: 100%; height: 30px;margin-top: 5px; ">
+            </canvas>
+            <text  class="sub-title">
+                属性3
+            </text>
+            <canvas ref="canvas3" style="width: 100%; height: 20px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性4
+            </text>
+            <canvas ref="canvas4" style="width: 100%; height: 50px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性5
+            </text>
+            <canvas ref="canvas5" style="width: 100%; height: 40px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性6
+            </text>
+            <canvas ref="canvas6" style="width: 100%; height: 30px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性7
+            </text>
+            <canvas ref="canvas7" style="width: 100%; height: 80px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性8
+            </text>
+            <canvas ref="canvas8" style="width: 100%; height: 80px; background-color: #ffff00;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性9
+            </text>
+            <canvas ref="canvas9" style="width: 100%; height: 70px;margin-top: 5px;">
+            </canvas>
+        </div>
+    </div>
+
+    <divider style="color: #000000; stroke-width: 2px;" vertical="true">
+    </divider>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text  class="sub-title">
+                属性10
+            </text>
+            <canvas ref="canvas10" style="width: 100%; height: 90px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性11
+            </text>
+            <canvas ref="canvas11" style="width: 100%; height: 80px;margin-top: 5px;">
+            </canvas>
+            <text  class="sub-title">
+                属性12
+            </text>
+            <canvas ref="canvas12" style="width: 100%; height: 40px;margin-bottom: 10px;margin-top: 5px;">
+            </canvas>
+
+            <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+            </divider>
+
+            <text class="title">
+                对象的方法
+            </text>
+            <text class="sub-title">
+                方法1
+            </text>
+            <canvas style="width: 100%; height: 50px;margin-top: 5px;" ref="function1">
+            </canvas>
+            <text class="sub-title">
+                方法2
+            </text>
+            <canvas style="width: 100%; height: 30px;margin-top: 5px;" ref="function2">
+            </canvas>
+            <text class="sub-title">
+                方法3
+            </text>
+            <canvas style="width: 100%; height: 40px;margin-top: 5px;" ref="function3">
+            </canvas>
+            <text class="sub-title">
+                方法4
+            </text>
+            <canvas style="width: 100%; height: 70px;margin-top: 5px;" ref="function4"></canvas>
+            <text class="sub-title">
+                方法5
+            </text>
+            <canvas style="width: 100%; height: 50px;margin-top: 5px;" ref="function5"></canvas>
+        </div>
+    </div>
+
+    <divider style="color: #000000; stroke-width: 2px;" vertical="true">
+    </divider>
+
+    <div class="sub-container">
+        <div class="function-container">
+            <text class="sub-title">
+                方法6
+            </text>
+            <canvas style="width: 100%; height: 40px;margin-top: 5px;" ref="function6"></canvas>
+            <text class="sub-title">
+                方法7
+            </text>
+            <canvas style="width: 100%; height: 40px;margin-top: 5px;" ref="function7"></canvas>
+            <text class="sub-title">
+                方法8
+            </text>
+            <canvas style="width: 100%; height: 50px;margin-top: 5px;" ref="function8"></canvas>
+            <text class="sub-title">
+                方法9
+            </text>
+            <canvas style="width: 100%; height: 100px;background-color: #ffff00;margin-top: 5px;" ref="function9"></canvas>
+            <text class="sub-title">
+                方法10
+            </text>
+            <canvas style="width: 100%; height: 60px;margin-top: 5px;" ref="function10"></canvas>
+            <text class="sub-title">
+                方法11
+            </text>
+            <canvas style="width: 100%; height: 70px;margin-top: 5px;" ref="function11"></canvas>
+            <text class="sub-title">
+                方法12
+            </text>
+            <canvas style="width: 100%; height: 60px;margin-top: 5px;" ref="function12"></canvas>
+            <text class="sub-title">
+                方法13
+            </text>
+            <canvas style="width: 100%; height: 60px;margin-top: 5px;" ref="function13"></canvas>
+            <text class="sub-title">
+                方法14
+            </text>
+            <canvas style="width: 100%; height: 60px;margin-top: 5px;" ref="function14"></canvas>
+            <text class="sub-title">
+                方法15
+            </text>
+            <canvas style="width: 100%; height: 60px;margin-top: 5px;" ref="function15"></canvas>
+        </div>
+    </div>
+
+</div>

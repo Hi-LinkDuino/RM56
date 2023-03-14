@@ -1,0 +1,28 @@
+{
+    "description": "Config for kernel_lite test cases",
+    "environment": [
+        {
+            "type": "device",
+            "label": "ipcamera"
+        }
+    ],
+    "kits": [
+        {
+            "type": "MountKit",
+            "server": "NfsServer",
+            "mount": [
+                {
+                    "source": "testcases/kernel",
+                    "target": "/test_root/kernel_lite"
+                },{
+                    "source": "resource/kernel/dyload",
+                    "target": "/test_root/kernel/dyload"
+                }
+            ]
+        }
+    ],
+    "driver": {
+        "type": "CppTestLite",
+        "execute": "/test_root/kernel_lite/ActsDyloadTest.bin"
+    }
+}

@@ -1,0 +1,108 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos/build_var.gni")
+import("//build/ohos_var.gni")
+import("${build_configs_path}/platforms_list.gni")
+
+declare_args() {
+  sdk_notice_dir = "$root_build_dir/NOTICE_FILES/sdk"
+  sdk_notice_archive_dir = "$root_build_dir/NOTICE_FILES/sdk_archives"
+  ndk_notice_dir = "$root_build_dir/NOTICE_FILES/ndk"
+  static_libraries_notice_dir = "$root_build_dir/NOTICE_FILES/static"
+}
+
+declare_args() {
+  ndk_notice_txt = "$root_build_dir/NOTICE_FILES/ndk-final-notice/NOTICE.txt"
+  ndk_notice_gz = "$root_build_dir/NOTICE_FILES/ndk-final-notice/NOTICE.xml.gz"
+  sdk_notice_txt = "$root_build_dir/NOTICE_FILES/sdk-final-notice/NOTICE.txt"
+  sdk_notice_gz = "$root_build_dir/NOTICE_FILES/sdk-final-notice/NOTICE.xml.gz"
+}
+
+# Gen notice file
+# private template
+#
+template("collect_notice") {
+  assert(defined(invoker.module_source_dir), "module_source_dir is required.")
+  action_with_pydeps(target_name) {
+    forward_variables_from(invoker,
+                           [
+                             "module_name",
+                             "module_source_dir",
+                             "deps",
+                             "license_file",
+                             "testonly",
+                             "module_type",
+                             "outputs",
+
+                             # Some license file are generated in gn gen.
+                             # Such notices should not be used as sources.
+                             "license_as_sources",
+                           ])
+    script = rebase_path("//build/ohos/notice/collect_module_notice_file.py")
+    depfile = "${target_gen_dir}/$target_name.d"
+
+    if (!defined(outputs)) {
+      outputs = []
+      if (defined(module_type) &&
+          (module_type == "static_library" || module_type == "source_set")) {
+        _current_toolchain = get_label_info(current_toolchain, "name")
+
+        # Although static library and source set are not installed, their
+        # notice files still needs to be collected.
+        # We may collect a little more notice files than needed.
+        outputs += [ "${static_libraries_notice_dir}/$_current_toolchain/$module_name.a.txt" ]
+      } else {
+        if (defined(module_type) && module_type == "java_library" &&
+            defined(license_file) &&
+            get_path_info(license_file, "extension") == "zip") {
+          outputs = [ "$target_out_dir/$module_name.notice.zip" ]
+        } else {
+          outputs += [ "$target_out_dir/$module_name.notice.txt" ]
+        }
+      }
+    }
+
+    args = [
+      "--module-source-dir",
+      rebase_path(module_source_dir, root_build_dir),
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+
+      # use default Lisense for modules couldn't find lincese
+      "--default-license",
+      rebase_path("//build/ohos/notice/license", root_build_dir),
+    ]
+    foreach(o, outputs) {
+      args += [
+        "--output",
+        rebase_path(o, root_build_dir),
+      ]
+    }
+
+    if (defined(license_file)) {
+      _license_as_sources = true
+      if (defined(license_as_sources)) {
+        _license_as_sources = license_as_sources
+      }
+      if (_license_as_sources) {
+        inputs = [ license_file ]
+      }
+      args += [
+        "--license-file",
+        rebase_path(license_file, root_build_dir),
+      ]
+    }
+  }
+}

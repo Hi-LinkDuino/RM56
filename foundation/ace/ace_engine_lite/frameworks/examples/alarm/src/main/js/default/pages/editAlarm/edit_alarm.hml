@@ -1,0 +1,77 @@
+<!--
+/*
+ * Copyright (c) 2020 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+<div class="container">
+  <div class="container-left">
+    <div class="container-title">
+      <div style="width: 280px; height: 80px; align-items: center; margin-left: 39px;" onclick="back">
+        <image src="common/back.png" class="back-img"></image>
+        <text style="font-size: 38px; margin-left: 27px;">
+          编辑闹钟
+        </text>
+      </div>
+    </div>
+    <div class="container-content" style="margin-left: 80px; margin-top: 45px; align-items: center;">
+      <picker-view type="time" selected="{{dataWrapper.time}}" style="width: 250px; height: 160px;
+        font-size: 30px; selected-font-size: 42px; margin-left: 100px;" onchange="getSelectedTime"></picker-view>
+    </div>
+    <input type="button" class="button" style="margin-top: 40px; margin-left: 160px; color: #E42B2B;"
+        value="{{buttonInfo}}" onclick="remove"></input>
+  </div>
+  <div class="container-right">
+    <div class="container-title"></div>
+    <div class="container-content" style="width:470px; margin-left:10px; margin-top: 45px; border-width: 5px; flex-direction: column;">
+      <div class="divWeek">
+        <stack style="width: 400px; height: 150px;">
+          <image src="{{weekImgSrcList[0]}}" class="imgWeek" style="left: 60px; top: 35px"></image>
+          <text style="font-size: 38px; left: 80px; top: 45px" onclick="changeWeekSelected(0)">
+            日
+          </text>
+          <image src="{{weekImgSrcList[1]}}" class="imgWeek" style="left: 160px; top: 35px"></image>
+          <text style="font-size: 38px; left: 180px; top: 45px" onclick="changeWeekSelected(1)">
+            一
+          </text>
+          <image src="{{weekImgSrcList[2]}}" class="imgWeek" style="left: 260px; top: 35px"></image>
+          <text style="font-size: 38px; left: 280px; top: 45px" onclick="changeWeekSelected(2)">
+            二
+          </text>
+        </stack>
+      </div>
+      <div class="divWeek">
+        <stack style="width: 420px; height: 150px;">
+          <image src="{{weekImgSrcList[3]}}" class="imgWeek" style="left: 30px; top: 35px"></image>
+          <text style="font-size: 38px; left: 50px; top: 45px" onclick="changeWeekSelected(3)">
+            三
+          </text>
+          <image src="{{weekImgSrcList[4]}}" class="imgWeek" style="left: 130px; top: 35px"></image>
+          <text style="font-size: 38px; left: 150px; top: 45px" onclick="changeWeekSelected(4)">
+            四
+          </text>
+          <image src="{{weekImgSrcList[5]}}" class="imgWeek" style="left: 230px; top: 35px"></image>
+          <text style="font-size: 38px; left: 250px; top: 45px" onclick="changeWeekSelected(5)">
+            五
+          </text>
+          <image src="{{weekImgSrcList[6]}}" class="imgWeek" style="left: 330px; top: 35px"></image>
+          <text style="font-size: 38px; left: 350px; top: 45px" onclick="changeWeekSelected(6)">
+            六
+          </text>
+        </stack>
+      </div>
+    </div>
+    <input type="button" class="button" style="margin-top: 40px; margin-left: 80px;" value="确认"
+      onclick="submit"/>
+  </div>
+</div>

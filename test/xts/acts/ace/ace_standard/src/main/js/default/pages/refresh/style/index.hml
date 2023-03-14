@@ -1,0 +1,111 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="style-container">
+        <text class="title">
+            refresh通用样式
+        </text>
+
+        <text class="sub-title">
+            通用样式 1-8 \n width height padding margin border opacity align-self
+        </text>
+        <refresh id="styleOne">
+        </refresh>
+        <refresh id="styleTwo">
+        </refresh>
+        <refresh id="styleThree">
+        </refresh>
+        <refresh id="styleFour">
+        </refresh>
+        <refresh id="styleFive">
+        </refresh>
+        <refresh id="styleSix">
+        </refresh>
+        <refresh id="styleSeven">
+        </refresh>
+        <refresh id="styleEight">
+        </refresh>
+
+        <text class="sub-title">
+            通用样式9-20 \n display flex z-index position
+        </text>
+        <div id="styleNine">
+            <refresh id="styleTen">
+            </refresh>
+            <refresh id="styleEleven">
+            </refresh>
+            <refresh id="styleTwelve">
+            </refresh>
+            <refresh id="styleThirteen">
+            </refresh>
+            <refresh id="styleFourteen">
+            </refresh>
+            <refresh id="styleFifteen">
+            </refresh>
+            <refresh id="styleSixteen">
+            </refresh>
+            <refresh id="styleSeventeen">
+            </refresh>
+            <refresh id="styleEighteen">
+            </refresh>
+            <refresh id="styleNineteen">
+            </refresh>
+            <refresh id="styleTwenty">
+            </refresh>
+        </div>
+
+        <text class="sub-title">
+            通用样式21-23 box-shadow
+        </text>
+        <div style="width: 100%;flex-direction: row;">
+            <refresh id="styleTwentyOne">
+            </refresh>
+            <refresh id="styleTwentyTwo">
+            </refresh>
+            <refresh id="styleTwentyThree">
+            </refresh>
+        </div>
+
+        <text class="sub-title">
+            通用样式23-25 visibility clip-path
+        </text>
+        <refresh id="styleTwentyFour">
+        </refresh>
+        <refresh id="styleTwentyFive">
+        </refresh>
+
+        <text class="sub-title">
+            通用样式26-31 background
+        </text>
+        <refresh id="styleTwentySix">
+        </refresh>
+        <refresh id="styleTwentySeven">
+        </refresh>
+        <refresh id="styleTwentyNine">
+        </refresh>
+        <refresh id="styleThirty">
+        </refresh>
+        <refresh id="styleThirtyOne">
+        </refresh>
+
+        <text class="sub-title">
+            通用样式32 clip-path image-fill mask-image
+        </text>
+        <refresh id="styleThirtyTwo">
+        </refresh>
+    </div>
+</div>
+

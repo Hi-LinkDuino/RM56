@@ -1,0 +1,117 @@
+# Copyright (c) 2022-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: BUNDLE_MANAGER
+
+################################################################################
+#                                   FAULT EVENT                                #
+################################################################################
+BUNDLE_INSTALL_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: used to fault happened when bundle install}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: normal prebundle or freeInstall}
+  SCENE: {type: STRING, desc: boot reboot or createUser}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+BUNDLE_UNINSTALL_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: used to fault happened when bundle uninstall}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: normal prebundle or freeInstall}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+BUNDLE_UPDATE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: used to fault happened when bundle update}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: normal prebundle or freeInstall}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+PRE_BUNDLE_RECOVER_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: used to fault happened when prebundle recover}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: only prebundle}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+BUNDLE_STATE_CHANGE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: used to fault happened when state change}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  ABILITY_NAME: {type: STRING, desc: abilityName}
+  TYPE: {type: STRING, desc: application or ability}
+
+BUNDLE_CLEAN_CACHE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: used to fault happened when clean cache or clean data}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  CLEAN_TYPE: {type: STRING, desc: clean cache or clean data}
+
+################################################################################
+#                                 BEHAVIOR EVENT                               #
+################################################################################
+BOOT_SCAN_START:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: boot scan start}
+  TIME: {type: INT64, desc: time stamp}
+
+BOOT_SCAN_END:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: boot scan end}
+  TIME: {type: INT64, desc: time stamp}
+
+BUNDLE_INSTALL:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: bundle install}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: normal prebundle or freeInstall}
+  SCENE: {type: STRING, desc: boot reboot or createUser}
+
+BUNDLE_UNINSTALL:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: bundle uninstall}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: normal prebundle or freeInstall}
+
+BUNDLE_UPDATE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: bundle update}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: normal prebundle or freeInstall}
+
+PRE_BUNDLE_RECOVER:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: prebundle recover}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION: {type: UINT32, desc: versionCode}
+  INSTALL_TYPE: {type: STRING, desc: only prebundle}
+
+BUNDLE_STATE_CHANGE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: bundle or component disable or enable}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  ABILITY_NAME: {type: STRING, desc: abilityName}
+  TYPE: {type: STRING, desc: application or ability}
+  STATE: {type: STRING, desc: isEnable}
+
+BUNDLE_CLEAN_CACHE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: bundle clean cache}
+  USERID: {type: INT32, desc: userId}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  CLEAN_TYPE: {type: STRING, desc: clean cache or clean data}

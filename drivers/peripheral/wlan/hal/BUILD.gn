@@ -1,0 +1,96 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+if (defined(ohos_lite)) {
+  ohos_shared_library("wifi_hal") {
+    sources = [
+      "src/wifi_hal.c",
+      "src/wifi_hal_ap_feature.c",
+      "src/wifi_hal_base_feature.c",
+      "src/wifi_hal_cmd.c",
+      "src/wifi_hal_sta_feature.c",
+      "src/wifi_hal_util.c",
+    ]
+
+    include_dirs = [
+      "include",
+      "//drivers/peripheral/wlan/interfaces/include",
+      "//drivers/peripheral/wlan/client/include",
+      "//third_party/bounds_checking_function/include",
+      "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits",
+    ]
+
+    deps = [
+      "//drivers/adapter/uhdf/posix:hdf_posix_osal",
+      "//third_party/bounds_checking_function:libsec_shared",
+    ]
+    external_deps = [ "device_driver_framework:libhdf_utils" ]
+    defines = [ "__USER__" ]
+
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsigned-char",
+      "-fno-common",
+      "-fno-strict-aliasing",
+      "-Wno-format",
+      "-Wno-format-extra-args",
+    ]
+    subsystem_name = "hdf"
+    part_name = "wlan_device_driver"
+  }
+} else {
+  HAL_ROOT_DIR = "//drivers/peripheral/wlan"
+
+  ohos_shared_library("wifi_hal") {
+    sources = [
+      "$HAL_ROOT_DIR/hal/src/wifi_hal.c",
+      "$HAL_ROOT_DIR/hal/src/wifi_hal_ap_feature.c",
+      "$HAL_ROOT_DIR/hal/src/wifi_hal_base_feature.c",
+      "$HAL_ROOT_DIR/hal/src/wifi_hal_cmd.c",
+      "$HAL_ROOT_DIR/hal/src/wifi_hal_sta_feature.c",
+      "$HAL_ROOT_DIR/hal/src/wifi_hal_util.c",
+    ]
+    include_dirs = [
+      "$HAL_ROOT_DIR/hal/include",
+      "$HAL_ROOT_DIR/interfaces/include",
+      "//third_party/bounds_checking_function/include",
+      "//drivers/peripheral/wlan/client/include",
+    ]
+    deps = [ "//drivers/peripheral/wlan/client:wifi_driver_client" ]
+    defines = [ "__OHOS__USER__" ]
+    cflags = [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsigned-char",
+      "-fno-common",
+      "-fno-strict-aliasing",
+    ]
+    install_images = [ chipset_base_dir ]
+    subsystem_name = "hdf"
+    part_name = "wlan_device_driver"
+    if (is_standard_system) {
+      external_deps = [
+        "device_driver_framework:libhdf_utils",
+        "hiviewdfx_hilog_native:libhilog",
+        "utils_base:utils",
+      ]
+    } else {
+      external_deps = [ "hilog:libhilog" ]
+    }
+  }
+}

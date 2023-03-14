@@ -1,0 +1,67 @@
+Common:
+  BAUT_RATE: 1500000
+  BIN_DIR: ota_bin
+  COM: null
+  DLD_TOOLS_EXE: .\tools\dldtool.exe
+  DLD_VERBOSE_LOG: false
+  ERASE_WHOLE_FLASH: false
+  LOG_PRINT_DELAY_IN_MS: 100
+  LOG_SWITCH: true
+  MODE: WiFi 烧录工具
+  PIPE_BUFFER_SIZE: 2000000
+  PROGRAMMER: programmer2003.bin
+  PROGRESSBAR_SWITCH: false
+  REBOOT: false
+  REDIRECT_PIPE: true
+  SEC_BOOT_VER: 3
+  WAIT_PRESS_ENTER: true
+FILE_LIST:
+- BOOT1:
+    ADDR: null
+    FILE_NAME: ota_boot1.bin
+    SIZE: 65536
+    SWITCH: true
+- BOOT2A:
+    ADDR: 738263040
+    FILE_NAME: ota_boot2a.bin
+    MAGIC: true
+    SIZE: 65536
+    SWITCH: true
+- BOOT2B:
+    ADDR: 738328576
+    FILE_NAME: ota_boot2b.bin
+    MAGIC: true
+    SIZE: 65536
+    SWITCH: true
+- RTOS:
+    ADDR: 738721792
+    FILE_NAME: rtos_main.bin
+    MAGIC: true
+    SIZE: 11010048
+    SWITCH: true
+- RTOSMINI:
+    ADDR: 749731840
+    FILE_NAME: rtos_mini.bin
+    MAGIC: true
+    SIZE: 3735552
+    SWITCH: true
+- LITTLEFS:
+    ADDR: 753467392
+    FILE_NAME: littlefs.bin
+    SIZE: 851968
+    SWITCH: true
+- FACTORY:
+    ADDR: 754905088
+    FILE_NAME: factory.bin
+    SIZE: 4096
+    SWITCH: true
+- FACTORYBK:
+    ADDR: 754970624
+    FILE_NAME: factory.bin
+    SIZE: 4096
+    SWITCH: true
+- PUB_OTP:
+    ADDR: 0
+    FILE_NAME: pub_otp.bin
+    SIZE: 1024
+    SWITCH: true

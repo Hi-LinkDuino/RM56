@@ -1,0 +1,20 @@
+{
+    "description": "Configuration for hjunit demo Tests",
+    "driver": {
+        "type": "JSUnitTest",
+        "test-timeout": "120000",
+        "package": "com.example.formsoneandtwo",
+        "shell-timeout": "600000"
+    },
+    "kits": [
+        {
+            "test-file-name": [
+                "ActsFormsOneAndTwoTest.hap",
+                "ActsFormSystemTestServiceA.hap",
+                "ActsFormSystemTestServiceB.hap"
+            ],
+            "type": "AppInstallKit",
+            "cleanup-apps": true
+        }
+    ]
+}

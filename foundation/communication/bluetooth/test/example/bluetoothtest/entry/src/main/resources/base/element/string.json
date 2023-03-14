@@ -1,0 +1,306 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "form_FormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "form_FormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "MainAbility2_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility2_label",
+      "value": "label"
+    },    {
+      "name": "MainAbility3_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility3_label",
+      "value": "label"
+    },
+    {
+      "name": "PageAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "PageAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "DataAbility_desc",
+      "value": "hap sample empty provider"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "蓝牙专项测试"
+    },
+    {
+      "name": "api",
+      "value": "接口测试"
+    },
+    {
+      "name": "scenario",
+      "value": "场景测试"
+    },
+    {
+      "name": "autotest",
+      "value": "自动测试"
+    },
+    {
+      "name": "profile",
+      "value": "Profile测试"
+    },
+    {
+      "name": "testcase",
+      "value": "接口"
+    },
+    {
+      "name": "result",
+      "value": "结果"
+    },
+    {
+      "name": "benchmark",
+      "value": "性能测试"
+    },
+    {
+      "name": "test_title",
+      "value": "蓝牙测试"
+    },
+    {
+      "name": "api_test_title",
+      "value": "手动API测试"
+    },
+    {
+      "name": "manual_test_title",
+      "value": "手动场景化测试"
+    },
+    {
+      "name": "auto_test_title",
+      "value": "自动化测试"
+    },
+    {
+      "name": "conf_title",
+      "value": "配置信息"
+    },
+    {
+      "name": "spp_test_title",
+      "value": "SPP业务"
+    },
+    {
+      "name": "spp_client_test_title",
+      "value": "SPP_CLIENT业务"
+    },    {
+      "name": "spp_server_test_title",
+      "value": "SPP_SERVER业务"
+    },
+    {
+      "name": "profile_test_title",
+      "value": "Profile业务"
+    },
+    {
+      "name": "a2dp_sink_profile_test_title",
+      "value": "A2DP SINK Profile"
+    },
+    {
+      "name": "a2dp_sour_profile_test_title",
+      "value": "A2DP SOUR Profile"
+    },
+    {
+      "name": "avrcp_ct_profile_test_title",
+      "value": "AVRCP CT Profile"
+    },
+    {
+      "name": "avrcp_tg_profile_test_title",
+      "value": "AVRCP TG Profile"
+    },
+    {
+      "name": "hands_free_audio_gateway_profile_test_title",
+      "value": "HANDS FREE AUDIO GATEWAY Profile"
+    },
+    {
+      "name": "hands_free_unit_profile_test_title",
+      "value": "HANDS FREE UNIT Profile"
+    },
+    {
+      "name": "hid_host_profile_test_title",
+      "value": "HID HOST Profile"
+    },
+    {
+      "name": "pan_network_profile_test_title",
+      "value": "PAN NetWork Profile"
+    },
+    {
+      "name": "p_bap_clinet_profile_test_title",
+      "value": "Pbap CLIENT Profile"
+    },
+    {
+      "name": "p_bap_server_profile_test_title",
+      "value": "Pbap SERVER Profile"
+    },
+    {
+      "name": "br_test_title",
+      "value": "BR业务"
+    },
+    {
+      "name": "br_interface_test_title",
+      "value": "BR 接口测试"
+    },
+    {
+      "name": "ble_test_title",
+      "value": "BLE测试"
+    },
+    {
+      "name": "gatt_test_title",
+      "value": "GATT测试"
+    },
+    {
+      "name": "gatt_client_test_title",
+      "value": "GATT Client测试"
+    },
+    {
+      "name": "gatt_server_test_title",
+      "value": "GATT Server测试"
+    },
+    {
+      "name": "bt_switch_title",
+      "value": "蓝牙开关"
+    },
+    {
+      "name": "bt_scan_switch_title",
+      "value": "扫描开关"
+    },
+    {
+      "name": "bt_device_name_title",
+      "value": "设备名称"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "confirm",
+      "value": "确认"
+    },
+    {
+      "name": "version",
+      "value": "1.1.1"
+    },
+    {
+      "name": "bluetooth_device_name",
+      "value": "设备名称"
+    },
+    {
+      "name": "bluetooth_paired_devices",
+      "value": "已配对的设备"
+    },
+    {
+      "name": "more",
+      "value": "more"
+    },
+    {
+      "name": "put_away",
+      "value": "put away"
+    },
+    {
+      "name": "cancelPairing",
+      "value": "取消配对"
+    },
+    {
+      "name": "bluetooth_connect_failed",
+      "value": "连接失败"
+    },
+    {
+      "name": "bluetooth_connect_failed_msg",
+      "value": "无法与“%s”连接，可能原因如下：\n1.该设备蓝牙关闭，或不在通信范围内（10米）；\n2.该设备已经与其他设备连接，请断开后重试"
+    },
+    {
+      "name": "bluetooth_know_button",
+      "value": "知道了"
+    },
+    {
+      "name": "bluetooth_pair_button",
+      "value": "配对"
+    },
+    {
+      "name": "bluetooth_disconnect",
+      "value": "断开连接？"
+    },
+    {
+      "name": "bluetooth_disconnect_device",
+      "value": "此操作将会断开您与以下设备的连接：%s"
+    },
+    {
+      "name": "bluetoothContent",
+      "value": "使用蓝牙互联，热点共享和usb连接时，其他设备将看到此名称"
+    },
+    {
+      "name": "bluetooth_available_devices",
+      "value": "可用设备"
+    },
+    {
+      "name": "scanning",
+      "value": "正在搜索…"
+    },
+    {
+      "name": "bluetooth_pairing_request",
+      "value": "蓝牙配对请求"
+    },
+    {
+      "name": "bluetooth_address_error_msg",
+      "value": "该地址设备非法，可能存在风险。是否继续连接？"
+    },
+    {
+      "name": "pairing_failed_title",
+      "value": "配对失败"
+    },
+    {
+      "name": "pairing_failed_message",
+      "value": "配对码或要配对的设备配置错误。"
+    },
+    {
+      "name": "bluetooth_pairing_intelligent_device_hit",
+      "value": "“%s”要与您配对。请确认此配对码已在“%s”上直接显示，且不是手动输入的。"
+    },
+    {
+      "name": "bluetooth_pairing_media_device_hit",
+      "value": "要与以下设备配对："
+    },
+    {
+      "name": "bluetooth_state_pairing",
+      "value": "正在配对…"
+    },
+    {
+      "name": "bluetooth_state_connecting",
+      "value": "正在连接"
+    },
+    {
+      "name": "bluetooth_state_connected",
+      "value": "已连接"
+    },
+    {
+      "name": "bluetooth_state_disconnecting",
+      "value": "正在断开"
+    },
+    {
+      "name": "bluetooth_visible_to_nearby",
+      "value": "当前可被附近的蓝牙设备发现"
+    },
+    {
+      "name": "bluetooth_scan_mode_type",
+      "value": "设置扫描类型"
+    }
+  ]
+}

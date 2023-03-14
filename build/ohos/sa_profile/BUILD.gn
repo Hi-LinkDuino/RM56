@@ -1,0 +1,45 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos/build_var.gni")
+
+_sa_profile_info_file = "$root_out_dir/src_sa_infos_tmp.json"
+generated_file("generated_src_sa_profile") {
+  deps = [ "//build/ohos/common:generate_src_installed_info" ]
+
+  outputs = [ _sa_profile_info_file ]
+  data_keys = [ "sa_install_info" ]
+  output_conversion = "json"
+}
+
+action_with_pydeps("src_sa_infos_process") {
+  deps = [ ":generated_src_sa_profile" ]
+  script = "//build/ohos/sa_profile/src_sa_profile_process.py"
+  sa_profile_src_infos_file = "${product_output_dir}/src_sa_infos.json"
+
+  # variants-toolchain-file from //build/ohos/build_var.gni
+  sources = [ _sa_profile_info_file ]
+  outputs = [ sa_profile_src_infos_file ]
+  depfile = "$target_gen_dir/$target_name.d"
+  args = [
+    "--sa-profile-infos-file",
+    rebase_path(_sa_profile_info_file, root_build_dir),
+    "--variants-toolchain-file",
+    rebase_path(variants_toolchain_file, root_build_dir),
+    "--output-file",
+    rebase_path(sa_profile_src_infos_file, root_build_dir),
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+  ]
+}

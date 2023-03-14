@@ -1,0 +1,84 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("../../../../appexecfwk.gni")
+
+config("bms_system_test_config") {
+  defines = [
+    "APP_LOG_TAG = \"BmsMgrService\"",
+    "LOG_DOMAIN = 0xD00111F",
+  ]
+
+  configs = [
+    "${inner_api_path}/appexecfwk_core:bundlemgr_sdk_config",
+    "${inner_api_path}/appexecfwk_base:appexecfwk_base_sdk_config",
+  ]
+}
+
+ohos_source_set("bms_install_sst_source") {
+  testonly = true
+
+  sources = [
+    "${inner_api_path}/appexecfwk_base/src/ability_info.cpp",
+    "${inner_api_path}/appexecfwk_base/src/application_info.cpp",
+    "${inner_api_path}/appexecfwk_base/src/bundle_info.cpp",
+    "${inner_api_path}/appexecfwk_base/src/bundle_user_info.cpp",
+    "${inner_api_path}/appexecfwk_core/src/bundlemgr/bundle_installer_proxy.cpp",
+    "${inner_api_path}/appexecfwk_core/src/bundlemgr/bundle_mgr_proxy.cpp",
+    "${inner_api_path}/appexecfwk_core/src/bundlemgr/status_receiver_proxy.cpp",
+  ]
+
+  include_dirs = [ "//third_party/json/include" ]
+
+  public_configs = [ ":bms_system_test_config" ]
+
+  public_deps = [
+    "${common_path}:libappexecfwk_common",
+    "//third_party/googletest:gtest_main",
+  ]
+  cflags = []
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+  deps = [
+    "${services_path}/test/moduletest/utils:tool_common",
+    "//third_party/googletest:gtest_main",
+    "//utils/native/base:utils",
+  ]
+
+  external_deps = [
+    "ability_base:base",
+    "ability_base:want",
+    "bundle_framework:appexecfwk_core",
+    "hiviewdfx_hilog_native:libhilog",
+    "ipc:ipc_core",
+  ]
+
+  part_name = "bundle_framework"
+}
+
+group("systemtest_bms") {
+  testonly = true
+
+  deps = [
+    "acts_bms_kit_system_test:systemtest",
+    "bms_client_system_test:systemtest",
+    "bms_compatible_system_test:systemtest",
+    "bms_install_system_test:systemtest",
+    "bms_launcher_service_system_test:systemtest",
+    "bms_sandbox_app_system_test:systemtest",
+    "bms_search_system_test:systemtest",
+    "bms_uninstall_system_test:systemtest",
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "components": [
+    {
+      "component": "aafwk_lite",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "foundation/aafwk/aafwk_lite"
+      ],
+      "targets": [
+        "//foundation/aafwk/aafwk_lite/frameworks/ability_lite:aafwk_abilitykit_lite",
+        "//foundation/aafwk/aafwk_lite/frameworks/abilitymgr_lite:aafwk_abilityManager_lite",
+        "//foundation/aafwk/aafwk_lite/services/abilitymgr_lite:aafwk_services_lite"
+      ],
+      "rom": "300KB",
+      "ram": ">20KB",
+      "output": [
+        "libability.so",
+        "libabilitymanager.so"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [
+        "enable_ohos_appexecfwk_feature_ability = true"
+      ],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "cjson",
+          "freetype"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "appexecfwk_lite",
+          "kv_store",
+          "ui",
+          "surface",
+          "hilog",
+          "permission",
+          "ipc_lite",
+          "samgr_lite",
+          "appspawn_lite",
+          "wms"
+        ]
+      }
+    }
+  ]
+}

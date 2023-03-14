@@ -1,0 +1,102 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+} else {
+  import("//build/ohos.gni")
+}
+
+import("//foundation/distributedhardware/devicemanager/devicemanager.gni")
+
+if (defined(ohos_lite)) {
+} else {
+  ohos_shared_library("devicemanagerext_no_interaction_auth") {
+    include_dirs = [
+      "include",
+      "${common_path}/include",
+      "${ext_path}/pin_auth/include/ability",
+      "${services_path}/include/dependency/timer",
+      "${services_path}/include/config",
+      "${services_path}/include/adapter",
+      "${services_path}/include/authentication",
+      "${services_path}/include/ability",
+      "${services_path}/include/deviceinfo",
+      "${services_path}/include/devicestate",
+      "${services_path}/include/discovery",
+      "${services_path}/include/dependency/commonevent",
+      "${services_path}/include/dependency/hichain",
+      "${services_path}/include/dependency/softbus",
+      "${services_path}/include/dependency/timer",
+      "${services_path}/include/ipc",
+      "${services_path}/include/ipc/standard",
+      "${utils_path}/include",
+      "${utils_path}/include/ipc/standard",
+      "${services_path}/include",
+      "${innerkits_path}/native_cpp/include",
+      "${common_path}/include/ipc",
+      "${common_path}/include/ipc/model",
+      "${innerkits_path}/native_cpp/include",
+      "${innerkits_path}/native_cpp/include/ipc",
+      "${innerkits_path}/native_cpp/include/ipc/standard",
+      "//third_party/json/include",
+      "//utils/native/base/include",
+      "//utils/system/safwk/native/include",
+      "//base/notification/ces_standard/frameworks/core/include",
+      "//base/notification/ces_standard/interfaces/innerkits/native/include",
+      "//base/security/deviceauth/interfaces/innerkits",
+      "//base/startup/syspara_lite/interfaces/kits",
+      "//base/startup/syspara_lite/adapter/native/syspara/include",
+    ]
+
+    sources = [
+      "src/ability/standard/dm_ability_manager.cpp",
+      "src/no_interaction_auth.cpp",
+    ]
+
+    deps = [
+      "${innerkits_path}/native_cpp:devicemanagersdk",
+      "${utils_path}:devicemanagerutils",
+      "//base/security/deviceauth/services:deviceauth_sdk",
+      "//foundation/aafwk/standard/interfaces/innerkits/ability_manager:ability_manager",
+      "//foundation/aafwk/standard/interfaces/innerkits/want:want",
+      "//foundation/aafwk/standard/services/abilitymgr:abilityms",
+      "//foundation/distributedhardware/devicemanager/services/devicemanagerservice:devicemanagerservice",
+      "//utils/native/base:utils",
+    ]
+
+    external_deps = [
+      "bundle_framework:appexecfwk_base",
+      "bundle_framework:appexecfwk_core",
+      "ces_standard:cesfwk_core",
+      "ces_standard:cesfwk_innerkits",
+      "dsoftbus_standard:softbus_client",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_core",
+      "safwk:system_ability_fwk",
+      "samgr_standard:samgr_proxy",
+      "startup_l2:syspara",
+      "startup_l2:syspara_watchagent",
+    ]
+
+    defines = [
+      "HI_LOG_ENABLE",
+      "DH_LOG_TAG=\"devicemanagerext\"",
+      "LOG_DOMAIN=0xD004100",
+    ]
+
+    subsystem_name = "distributedhardware"
+
+    part_name = "device_manager_base"
+  }
+}

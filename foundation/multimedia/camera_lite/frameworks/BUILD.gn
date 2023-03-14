@@ -1,0 +1,108 @@
+# Copyright (c) 2020-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/lite/config/component/lite_component.gni")
+import("//foundation/multimedia/utils/lite/config.gni")
+
+shared_library("camera_lite") {
+  sources = [
+    "camera_ability.cpp",
+    "camera_client.cpp",
+    "camera_config.cpp",
+    "camera_impl.cpp",
+    "camera_info_impl.cpp",
+    "camera_kit.cpp",
+    "camera_manager.cpp",
+    "event_handler.cpp",
+    "frame_config.cpp",
+  ]
+
+  if (enable_media_passthrough_mode == true) {
+    sources += [
+      "../services/impl/src/camera_device.cpp",
+      "../services/impl/src/camera_service.cpp",
+      "passthrough/src/camera_device_client.cpp",
+      "passthrough/src/camera_service_client.cpp",
+    ]
+    include_dirs = [
+      "//drivers/peripheral/display/interfaces/include",
+      "//drivers/peripheral/codec/interfaces/include",
+      "//foundation/multimedia/camera_lite/frameworks/passthrough/include",
+      "//foundation/multimedia/utils/lite/hals",
+      "//drivers/peripheral/base",
+    ]
+
+    ldflags = [ "-lhdi_camera" ]
+    defines = [ "ENABLE_PASSTHROUGH_MODE" ]
+  } else {
+    sources += [
+      "binder/src/camera_device_client.cpp",
+      "binder/src/camera_service_client.cpp",
+    ]
+    include_dirs = [
+      "//foundation/multimedia/camera_lite/frameworks/binder/include",
+      "//utils/native/lite/include",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/communication/broadcast",
+      "//foundation/communication/ipc_lite/interfaces/kits",
+    ]
+    ldflags = []
+  }
+
+  include_dirs += [
+    "//foundation/multimedia/camera_lite/frameworks",
+    "//foundation/multimedia/camera_lite/interfaces/kits",
+    "//foundation/multimedia/camera_lite/services/impl/include",
+    "//foundation/multimedia/camera_lite/services/server/include",
+    "//foundation/multimedia/utils/lite/interfaces/kits",
+    "//base/security/permission/interfaces/kits/permission_lite",
+  ]
+
+  public_configs = [ ":camera_client_external_library_config" ]
+
+  ldflags += [
+    "-lstdc++",
+    "-lpthread",
+    "-L$ohos_root_path/$root_out_dir",
+  ]
+  if (board_name == "hispark_taurus" || board_name == "hispark_aries") {
+    ldflags += [
+      "-lcodec",
+      "-lhdi_videodisplayer",
+    ]
+  }
+
+  cflags = [ "-fPIC" ]
+  cflags += [ "-Wall" ]
+  cflags_cc = cflags
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//base/security/permission/services/permission_lite/pms_client:pms_client",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+  if (board_name == "hispark_taurus" || board_name == "hispark_aries") {
+    deps += [
+      "//device/soc/hisilicon/common/hal/media:hardware_media_sdk",
+      "//device/soc/hisilicon/common/hal/middleware:middleware_source_sdk",
+    ]
+  }
+  public_deps = [
+    "//foundation/graphic/surface:lite_surface",
+    "//foundation/multimedia/media_lite/frameworks/recorder_lite:recorder_lite",
+    "//foundation/multimedia/utils/lite:media_common",
+  ]
+}
+
+config("camera_client_external_library_config") {
+  include_dirs = [ "//foundation/multimedia/camera_lite/interfaces/kits" ]
+  include_dirs += [ "//foundation/multimedia/utils/lite/interfaces/kits" ]
+}

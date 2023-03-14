@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+ *
+ * HDF is dual licensed: you can use it either under the terms of
+ * the GPL, or the BSD license, at your option.
+ * See the LICENSE file in the root of this repository for complete details.
+ */
+
+#ifndef HDF_WIFI_TEST_H
+#define HDF_WIFI_TEST_H
+
+#include "hdf_base.h"
+#include "hdf_main_test.h"
+
+typedef enum {
+    /* flow control. */
+    WIFI_FLOW_CONTROL_INIT,
+    WIFI_FLOW_CONTROL_DEINIT,
+    WIFI_FLOW_CONTROL_GET_QUEUE_ID,
+    WIFI_FLOW_CONTROL_SEND_DATA,
+    WIFI_FLOW_CONTROL_END = 50,
+    /* netdevice. */
+    WIFI_NET_DEVICE_INIT = WIFI_FLOW_CONTROL_END,
+    WIFI_NET_DEVICE_DEINIT,
+    WIFI_NET_DEVICE_ADD,
+    WIFI_NET_DEVICE_DELETE,
+    WIFI_NET_DEVICE_GET,
+    WIFI_NET_DEVICE_GET_COUNT,
+    WIFI_NET_DEVICE_GET_CAP,
+    WIFI_NET_DEVICE_SET_ADDR,
+    WIFI_NET_DEVICE_SET_STATUS,
+    WIFI_NET_DEVICE_SET_LINK_STATUS,
+    WIFI_NET_DEVICE_RX,
+    WIFI_NET_DEVICE_DHCPC,
+    WIFI_NET_DEVICE_DHCPS,
+    WIFI_NET_DEVICE_END = 100,
+    /* netbuff */
+    WIFI_NET_BUF_TEST = WIFI_NET_DEVICE_END,
+    WIFI_NET_BUF_QUEUE_TEST,
+    WIFI_NET_BUFF_END = 150,
+    /* module */
+    WIFI_MODULE_CREATE_MODULE = WIFI_NET_BUFF_END,
+    WIFI_MODULE_DELETE_MODULE,
+    WIFI_MODULE_ADD_FEATURE,
+    WIFI_MODULE_DELETE_FEATURE,
+    WIFI_MODULE_END = 200,
+    /* message */
+    WIFI_MESSAGE_QUEUE_001 = WIFI_MODULE_END,
+    WIFI_MESSAGE_QUEUE_002,
+    WIFI_MESSAGE_QUEUE_003,
+    WIFI_MESSAGE_SINGLE_NODE_001,
+    WIFI_MESSAGE_SINGLE_NODE_002,
+    WIFI_MESSAGE_SINGLE_NODE_003,
+    WIFI_MESSAGE_SINGLE_NODE_004,
+    WIFI_MESSAGE_SINGLE_NODE_005,
+    WIFI_MESSAGE_END = 300,
+} HdfWiFiTestCaseCmd;
+
+int32_t HdfWifiEntry(HdfTestMsg *msg);
+
+#endif // HDF_WIFI_TEST_H

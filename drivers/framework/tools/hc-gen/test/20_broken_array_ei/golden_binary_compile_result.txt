@@ -1,0 +1,3 @@
+[compile exit status]:1
+[compile console output]:
+[Error] ./20_broken_array_ei/case.hcs:5:1: syntax error, except STRING or NUMBER in array

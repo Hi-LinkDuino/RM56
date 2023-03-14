@@ -1,0 +1,33 @@
+# Copyright (c) 2021 FnLink (hunan) Technologies CO., LIMITED.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (ohos_kernel_type == "liteos_m") {
+  import("//drivers/adapter/khdf/liteos_m/hdf_hcs.gni")
+  module_switch = defined(LOSCFG_SHIELD_V200ZR_EVB_T1)
+  macro_switch = defined(LOSCFG_DRIVERS_HDF_CONFIG_MACRO)
+  module_name = get_path_info(rebase_path("."), "name")
+  config("public") {
+    include_dirs = [ "$target_gen_dir" ]
+  }
+  if(bes_specific_chip == "best2003"){
+    hdf_driver(module_name) {
+        if(best2003_type == "AX4D") {
+            hcs_sources = [ "v200zr-evb-t1-AX4D.hcs" ]
+        } else if (best2003_type == "AX4F") {
+            hcs_sources = [ "v200zr-evb-t1-AX4F.hcs" ]
+        } else if (best2003_type == "GX6D") {
+            hcs_sources = [ "v200zr-evb-t1-GX6D.hcs" ]
+        }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+#  Copyright (c) 2022 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: KERNEL_VENDOR
+
+POWER_KEY:
+  __BASE: {type: FAULT, level: CRITICAL, desc: press powerkey}
+  MSG: {type: STRING, desc: POWER_KEY event message}
+
+LONG_PRESS:
+  __BASE: {type: FAULT, level: CRITICAL, desc: long press powerkey}
+  MSG: {type: STRING, desc: LONG_PRESS event message}
+
+SCREEN_OFF:
+  __BASE: {type: FAULT, level: CRITICAL, desc: check LCD off}
+  MSG: {type: STRING, desc: SCREEN_OFF event message}
+
+SCREEN_ON:
+  __BASE: {type: FAULT, level: CRITICAL, desc: check LCD on}
+  MSG: {type: STRING, desc: SCREEN_ON event message}
+
+HUNGTASK:
+  __BASE: {type: FAULT, level: CRITICAL, desc: process D_state and panic}
+  MSG: {type: STRING, desc: HUNGTASK event message}
+
+PANIC:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Panic}
+  MSG: {type: STRING, desc: PANIC event message}

@@ -1,0 +1,47 @@
+{
+    "name": "@ohos/distributed_bundle_framework",
+    "description": "分布式包管理服务",
+    "version": "3.1",
+    "license": "Apache 2.0",
+    "segment": {
+        "destPath": "foundation/bundlemanager/bundle_framework/distributed_bundle_framework"
+    },
+    "component": {
+        "name": "distributed_bundle_framework",
+        "subsystem": "appexecfwk",
+        "syscap": [
+            "SystemCapability.BundleManager.DistributedBundleFramework"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "100KB",
+        "ram": "100KB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "bundle_framework",
+                "distributeddatamgr",
+                "hiviewdfx_hilog_native",
+                "ipc",
+                "napi",
+                "resource_management",
+                "safwk",
+                "samgr_standard",
+                "utils_base"
+            ],
+            "third_party": [
+                "libjpeg",
+                "libpng"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//foundation/bundlemanager/bundle_framework/distributed_bundle_framework:jsapi_target",
+                "//foundation/bundlemanager/bundle_framework/distributed_bundle_framework:dbms_target"
+            ],
+            "test": []
+        }
+    }
+}

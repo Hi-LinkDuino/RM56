@@ -1,0 +1,777 @@
+/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container {
+  flex-direction:row;
+  width:100%;
+  height:100%;
+}
+
+.title{
+  width: 100%;
+  font-size: 18px;
+  margin: 2px;
+  padding: 2px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sub-title{
+  width: 100%;
+  font-size: 14px;
+  text-align: left;
+  margin: 2px;
+  padding: 2px;
+}
+
+.prop-container{
+  flex-direction: column;
+  flex-weight: 1;
+}
+
+#idProp {
+  flex-weight: 1;
+  background-color:#f00000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+.classProp {
+  flex-weight: 1;
+  background-color:#0f0000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#classPropNone {
+  flex-weight: 1;
+  background-color:#0000e0;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#refProp {
+  flex-weight: 1;
+  background-color:#00f000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#refPropNone {
+  flex-weight: 1;
+  background-color:#00000e;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#disabledPropTrue {
+  flex-weight: 1;
+  background-color:#000f00;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#disabledPropFalse {
+  flex-weight: 1;
+  background-color:#0000f0;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#disabledPropNone {
+  flex-weight: 1;
+  background-color:#d00000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#focusablePropTrue {
+  flex-weight: 1;
+  background-color:#00000f;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#focusablePropFalse {
+  flex-weight: 1;
+  background-color:#ff0000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#focusablePropNone {
+  flex-weight: 1;
+  background-color:#0d0000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dataProp {
+  flex-weight: 1;
+  background-color:#0ff000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dataPropNone {
+  flex-weight: 1;
+  background-color:#00d000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#clickEffectPropSmall {
+  height: 15px;
+  background-color:#00ff00;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#clickEffectPropMedium {
+  height: 15px;
+  background-color:#000ff0;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#clickEffectPropLarge {
+  height: 15px;
+  background-color:#fff000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#clickEffectPropNone{
+  height: 15px;
+  background-color:#000d00;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dirPropRtl {
+  flex-weight: 1;
+  background-color:#0fff00;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dirPropAuto {
+  flex-weight: 1;
+  background-color:#00fff0;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dirPropLtr {
+  flex-weight: 1;
+  background-color:#000fff;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dirPropNone {
+  flex-weight: 1;
+  background-color:#0000d0;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#forPropNull {
+  flex-weight: 1;
+  background-color:#ffff00;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#forPropOne {
+  flex-weight: 1;
+  background-color:#00e000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#forPropThree {
+  flex-weight: 1;
+  background-color:#000e00;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#ifPropTrue {
+  flex-weight: 1;
+  background-color:#0ffff0;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#ifPropFalse {
+  flex-weight: 1;
+  background-color:#00ffff;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#ifPropNone {
+  flex-weight: 1;
+  background-color:#00000d;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#showPropTrue {
+  flex-weight: 1;
+  background-color:#e00000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#showPropFalse {
+  flex-weight: 1;
+  background-color:#0e0000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#showPropNone {
+  flex-weight: 1;
+  background-color:#c00000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+.specific-container{
+  flex-direction: column;
+  flex-weight: 1;
+}
+#scrollPageTrue{
+  flex-weight: 1;
+  background-color:red;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrollPageFalse{
+  flex-weight: 1;
+  background-color:skyblue;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrollPageNone{
+  flex-weight: 1;
+  background-color:violet;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#cachedcount{
+  flex-weight: 1;
+  background-color:red;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrollbarOff{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrollbarAuto{
+  flex-weight: 1;
+  background-color:red;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrollbarOn{
+  flex-weight: 1;
+  background-color:gray;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrollbarNone{
+  flex-weight: 1;
+  background-color:magenta;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrolleffectSpring{
+  flex-weight: 1;
+  background-color:gray;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrolleffectFade{
+  flex-weight: 1;
+  background-color:red;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrolleffectNo{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#scrolleffectNone{
+  flex-weight: 1;
+  background-color:maroon;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerTrue{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerFalse{
+  flex-weight: 1;
+  background-color:red;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerArray{
+  flex-weight: 1;
+  background-color:salmon;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerNone{
+  flex-weight: 1;
+  background-color:khaki;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexercircleTrue{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexercircleFalse{
+  flex-weight: 1;
+  background-color:saddlebrown;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexercircleNone{
+  flex-weight: 1;
+  background-color:firebrick;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexermultiTrue{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexermultiFalse{
+  flex-weight: 1;
+  background-color:violet;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexermultiNone{
+  flex-weight: 1;
+  background-color:mediumslateblue;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerbubbleTrue{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerbubbleFalse{
+  flex-weight: 1;
+  background-color:chartreuse;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#indexerbubbleNone{
+  flex-weight: 1;
+  background-color:lightcoral;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dividerTrue{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dividerFalse{
+  flex-weight: 1;
+  background-color:black;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#dividerNone{
+  flex-weight: 1;
+  background-color:mediumblue;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#shapemodeDefault{
+  flex-weight: 1;
+  background-color:yellow;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#shapemodeRect{
+  flex-weight: 1;
+  background-color:black;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#shapemodeRound{
+  flex-weight: 1;
+  background-color:salmon;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#shapemodeNone{
+  flex-weight: 1;
+  background-color:blueviolet;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#updateeffectTrue{
+  flex-weight: 1;
+  background-color:salmon;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#updateeffectFalse{
+  flex-weight: 1;
+  background-color:black;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#updateeffectNone{
+  flex-weight: 1;
+  background-color:maroon;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#chainanimationTrue{
+  flex-weight: 1;
+  background-color:bisque;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#chainanimationFalse{
+  flex-weight: 1;
+  background-color:black;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#chainanimationNone{
+  flex-weight: 1;
+  background-color:bisque;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#initialindex{
+  flex-weight: 1;
+  background-color:black;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#initialoffset{
+  flex-weight: 1;
+  background-color:lightcoral;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#selected{
+  flex-weight: 1;
+  background-color:mediumaquamarine;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+#selectedNone{
+  flex-weight: 1;
+  background-color:lavenderblush;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}
+
+.propNewAdd{
+  height: 15px;
+  margin-bottom: 3px;
+  background-color:#c00000;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-start: 10px;
+  padding-end: 10px;
+}

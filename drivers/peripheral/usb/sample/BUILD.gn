@@ -1,0 +1,27 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//drivers/adapter/uhdf2/uhdf.gni")
+
+group("hdf_ddk_sample_usb") {
+  deps = [
+    "//drivers/peripheral/usb/sample/device/linux:usb_dev_test",
+    "//drivers/peripheral/usb/sample/host:libusb_pnp_sample_driver",
+    "//drivers/peripheral/usb/sample/host:usbhost_ddk_test",
+    "//drivers/peripheral/usb/sample/host:usbhost_nosdk_speed_test",
+    "//drivers/peripheral/usb/sample/host:usbhost_pnp_test",
+    "//drivers/peripheral/usb/sample/host:usbhost_sdkapi_speed_test",
+    "//drivers/peripheral/usb/sample/host:usbhost_sdkraw_speed_test",
+  ]
+}

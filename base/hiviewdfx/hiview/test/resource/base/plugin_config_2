@@ -1,0 +1,10 @@
+plugins:5
+CommPlugin[]:0 static
+EngineEventSource[]:0 static
+EngineEventVerify[]:0 static
+EventDataBase[]:0 static
+EventSerialize[]:0 static
+pipelines:1
+EnginePipeline:EngineEventVerify EventDataBase EventSerialize 
+pipelinegroups:1
+EngineEventSource:EnginePipeline 

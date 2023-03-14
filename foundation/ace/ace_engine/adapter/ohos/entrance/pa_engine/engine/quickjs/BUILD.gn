@@ -1,0 +1,151 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+
+template("js_pa_engine_qjs") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+
+    configs = [ "$ace_root:ace_config" ]
+
+    include_dirs = [
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability/include",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb/include",
+      "//foundation/aafwk/standard/services/common/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/context",
+      "//foundation/aafwk/standard/frameworks/kits/ability/native/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
+      "//foundation/aafwk/standard/interfaces/innerkits/ability_manager/include",
+      "//foundation/aafwk/standard/services/abilitymgr/include",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/inner/napi_common",
+      "//foundation/aafwk/standard/services/common/include",
+      "//foundation/ace/ace_engine/adapter/ohos/entrance/pa_engine/engine/common",
+    ]
+    deps = [
+      "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
+      "//foundation/aafwk/standard/frameworks/kits/appkit:appkit_native",
+      "//foundation/aafwk/standard/interfaces/innerkits/base:base",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/inner/napi_common:napi_common",
+      "//foundation/ace/napi:ace_napi",
+      "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+      "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+      "//foundation/graphic/standard:libwmclient",
+      "//utils/native/base:utils",
+    ]
+    external_deps = [
+      "ability_base:want",
+      "ability_base:zuri",
+      "bundle_framework:appexecfwk_base",
+      "bundle_framework:appexecfwk_core",
+      "eventhandler:libeventhandler",
+      "form_runtime:form_manager",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_core",
+      "ipc_js:rpc",
+      "napi:ace_napi",
+      "native_appdatamgr:native_dataability",
+      "native_appdatamgr:native_rdb",
+      "samgr_standard:samgr_proxy",
+    ]
+
+    public_deps =
+        [ "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr" ]
+
+    sources = [
+      "$ace_root/adapter/ohos/entrance/pa_engine/engine/common/js_backend_timer_module.cpp",
+      "qjs_pa_engine.cpp",
+      "qjs_pa_engine_loader.cpp",
+    ]
+
+    if (target_cpu == "arm64") {
+      defines += [ "_ARM64_" ]
+    } else if (target_cpu == "arm") {
+      defines += [ "_ARM_" ]
+    }
+
+    if (use_js_debug) {
+      deps += [ "//third_party/quickjs:qjs_debugger" ]
+      defines += [ "ENABLE_JS_DEBUG" ]
+      configs += [ "//third_party/quickjs:qjs_debug_config" ]
+    } else {
+      deps += [ "//third_party/quickjs:qjs" ]
+    }
+
+    if (defined(config.use_build_in_js_engine) &&
+        config.use_build_in_js_engine) {
+      defines += [ "BUILT_IN_JS_ENGINE" ]
+      deps += [ "$ace_root/frameworks/bridge/js_frontend/engine/quickjs/intl:intl_qjs_static" ]
+    } else {
+      deps += [
+        "$ace_root/frameworks/bridge/js_frontend/engine/quickjs/intl:intl_qjs",
+      ]
+
+      sources += [
+        "$ace_root/frameworks/bridge/js_frontend/engine/quickjs/qjs_group_js_bridge.cpp",
+        "$ace_root/frameworks/bridge/js_frontend/engine/quickjs/qjs_utils.cpp",
+      ]
+    }
+
+    if (use_js_debug) {
+      deps += [ "//foundation/ace/napi:ace_napi_quickjs_debug" ]
+    } else {
+      deps += [ "//foundation/ace/napi:ace_napi_quickjs" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  engine_config = {
+  }
+  engine_config = item.config
+  support_engines = []
+  support_engines = engine_config.js_engines
+  foreach(engine, support_engines) {
+    if (engine.engine_name == "qjs") {
+      js_pa_engine_qjs("js_pa_engine_bridge_qjs_$platform") {
+        defines = engine.engine_defines
+        use_js_debug = false
+        config = {
+        }
+
+        if (defined(item.config)) {
+          config = item.config
+        }
+        if (defined(config.defines)) {
+          defines += config.defines
+        }
+      }
+
+      js_pa_engine_qjs("js_pa_engine_bridge_qjs_debug_$platform") {
+        defines = engine.engine_defines
+        use_js_debug = true
+        config = {
+        }
+
+        if (defined(item.config)) {
+          config = item.config
+        }
+        if (defined(config.defines)) {
+          defines += config.defines
+        }
+      }
+    }
+  }
+}

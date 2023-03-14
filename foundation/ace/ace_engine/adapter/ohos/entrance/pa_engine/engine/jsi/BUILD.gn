@@ -1,0 +1,142 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//ark/ts2abc/ts2panda/ts2abc_config.gni")
+import("//build/ohos.gni")
+import("//foundation/ace/ace_engine/ace_config.gni")
+import("//foundation/ace/ace_engine/build/ace_gen_obj.gni")
+
+base_output_path = get_label_info(":gen_abc_proxyclass", "target_out_dir")
+abcproxyclass_obj_path = base_output_path + "/abc_pamgmt_class.o"
+
+ts2abc_gen_abc("gen_paMgmt_abc") {
+  extra_visibility = [ ":*" ]  # Only targets in this file can depend on this.
+  src_js = rebase_path(
+          "//foundation/ace/ace_engine/adapter/ohos/entrance/pa_engine/engine/jsi/paMgmt.js")
+  dst_file = rebase_path(base_output_path + "/paMgmt.abc")
+
+  in_puts = [ "//foundation/ace/ace_engine/adapter/ohos/entrance/pa_engine/engine/jsi/paMgmt.js" ]
+  out_puts = [ base_output_path + "/paMgmt.abc" ]
+}
+
+gen_obj("abc_proxyclass") {
+  input = base_output_path + "/paMgmt.abc"
+  if (use_mac) {
+    abcproxyclass_obj_path = base_output_path + "/abc_pamgmt_class.c"
+  }
+  output = abcproxyclass_obj_path
+  snapshot_dep = [ ":gen_paMgmt_abc" ]
+}
+
+template("js_pa_engine_ark") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    part_name = ace_engine_part
+    defines += invoker.defines
+
+    configs = [
+      "$ace_root:ace_config",
+      "$ark_runtime_path/libpandabase:arkbase_public_config",
+      "//ark/js_runtime:ark_jsruntime_public_config",
+    ]
+
+    include_dirs = [
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_dataability/include",
+      "//foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/native_rdb/include",
+      "//foundation/aafwk/standard/services/common/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/context",
+      "//foundation/aafwk/standard/frameworks/kits/ability/native/include",
+      "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
+      "//foundation/aafwk/standard/interfaces/innerkits/ability_manager/include",
+      "//foundation/aafwk/standard/services/abilitymgr/include",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/inner/napi_common",
+      "//foundation/aafwk/standard/services/common/include",
+      "//foundation/ace/ace_engine/adapter/ohos/entrance/pa_engine/engine/common",
+    ]
+    deps = [
+      "//ark/js_runtime:libark_jsruntime",
+      "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
+      "//foundation/aafwk/standard/frameworks/kits/appkit:appkit_native",
+      "//foundation/aafwk/standard/interfaces/innerkits/base:base",
+      "//foundation/aafwk/standard/interfaces/kits/napi/aafwk/inner/napi_common:napi_common",
+      "//foundation/ace/napi:ace_napi",
+      "//foundation/ace/napi:ace_napi_ark",
+      "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+      "//foundation/distributedschedule/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+      "//foundation/graphic/standard:libwmclient",
+      "//utils/native/base:utils",
+    ]
+    external_deps = [
+      "ability_base:want",
+      "ability_base:zuri",
+      "bundle_framework:appexecfwk_base",
+      "bundle_framework:appexecfwk_core",
+      "eventhandler:libeventhandler",
+      "form_runtime:form_manager",
+      "hiviewdfx_hilog_native:libhilog",
+      "ipc:ipc_core",
+      "ipc_js:rpc",
+      "napi:ace_napi",
+      "native_appdatamgr:native_dataability",
+      "native_appdatamgr:native_rdb",
+    ]
+
+    public_deps =
+        [ "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr" ]
+
+    sources = [
+      "$ace_root/adapter/ohos/entrance/pa_engine/engine/common/js_backend_timer_module.cpp",
+      "$ace_root/frameworks/bridge/js_frontend/engine/jsi/ark_js_runtime.cpp",
+      "$ace_root/frameworks/bridge/js_frontend/engine/jsi/ark_js_value.cpp",
+      "$ace_root/frameworks/bridge/js_frontend/engine/jsi/jsi_base_utils.cpp",
+      "jsi_pa_engine.cpp",
+      "jsi_pa_engine_loader.cpp",
+      "jsi_pa_utils.cpp",
+    ]
+
+    deps += [ ":gen_obj_src_abc_proxyclass" ]
+
+    if (target_cpu == "arm64") {
+      defines += [ "APP_USE_ARM64" ]
+    } else if (target_cpu == "arm") {
+      defines += [ "APP_USE_ARM" ]
+    }
+  }
+}
+
+foreach(item, ace_platforms) {
+  platform = item.name
+  engine_config = {
+  }
+  engine_config = item.config
+  support_engines = []
+  support_engines = engine_config.js_engines
+  foreach(engine, support_engines) {
+    if (engine.engine_name == "ark") {
+      js_pa_engine_ark("js_pa_engine_bridge_ark_$platform") {
+        defines = engine.engine_defines
+        config = {
+        }
+
+        if (defined(item.config)) {
+          config = item.config
+        }
+        if (defined(config.defines)) {
+          defines += config.defines
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,155 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/lite/config/component/lite_component.gni")
+
+config("bundle_config") {
+  defines = [ "OHOS_APPEXECFWK_BMS_BUNDLEMANAGER" ]
+  cflags_cc = [ "-std=c++14" ]
+}
+
+if (ohos_kernel_type == "liteos_m") {
+  static_library("bundlems") {
+    sources = [
+      "src/bundle_map.cpp",
+      "src/bundle_mgr_service.cpp",
+      "src/bundle_mgr_slite_feature.cpp",
+      "src/bundle_util.cpp",
+      "src/gt_bundle_extractor.cpp",
+      "src/gt_bundle_installer.cpp",
+      "src/gt_bundle_manager_service.cpp",
+      "src/gt_bundle_parser.cpp",
+      "src/gt_extractor_util.cpp",
+    ]
+    deps = [
+      "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static",
+      "//foundation/ace/ace_engine_lite/frameworks:ace_lite",
+      "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    ]
+
+    include_dirs = [
+      "${appexecfwk_lite_path}/services/bundlemgr_lite/include",
+      "${appexecfwk_lite_path}/interfaces/innerkits/bundlemgr_lite/slite",
+      "${appexecfwk_lite_path}/interfaces/innerkits/bundlemgr_lite",
+      "${appexecfwk_lite_path}/interfaces/kits/bundle_lite/slite",
+      "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+      "${appexecfwk_lite_path}/utils/bundle_lite",
+      "${appexecfwk_lite_path}/frameworks/bundle_lite/include",
+      "//base/startup/syspara_lite/interfaces/kits/",
+      "${aafwk_lite_path}/interfaces/kits/ability_lite/slite",
+      "${aafwk_lite_path}/services/abilitymgr_lite/include",
+      "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+      "${aafwk_lite_path}/interfaces/kits/ability_lite",
+      "${aafwk_lite_path}/interfaces/kits/want_lite",
+      "${aafwk_lite_path}/frameworks/want_lite/include",
+      "//base/global/resmgr_lite/interfaces/innerkits/include",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+      "//third_party/jerryscript/jerry-core/api",
+      "//third_party/jerryscript/jerry-core/include",
+      "//third_party/cJSON",
+      "//third_party/zlib",
+      "//third_party/zlib/contrib/minizip",
+      "//base/security/permission/interfaces/kits/permission_lite",
+      "//base/security/permission/services/permission_lite/pms/include",
+      "//base/security/appverify/interfaces/innerkits/appverify_lite/include",
+      "//third_party/bounds_checking_function/include",
+      "//utils/native/lite/include",
+      "//utils/native/lite/memory/include",
+      "include",
+    ]
+  }
+  lite_component("appexecfwk_services_lite") {
+    features = [ ":bundlems" ]
+  }
+} else {
+  shared_library("bundlems") {
+    configs -= [ "//build/lite/config:language_cpp" ]
+    configs += [ ":bundle_config" ]
+
+    cflags = [
+      "-Wall",
+      "-Wno-format",
+      "-Wno-format-extra-args",
+    ]
+    cflags_cc = cflags
+
+    sources = [
+      "src/bundle_daemon_client.cpp",
+      "src/bundle_extractor.cpp",
+      "src/bundle_info_creator.cpp",
+      "src/bundle_inner_feature.cpp",
+      "src/bundle_installer.cpp",
+      "src/bundle_manager_service.cpp",
+      "src/bundle_map.cpp",
+      "src/bundle_ms_feature.cpp",
+      "src/bundle_ms_host.cpp",
+      "src/bundle_parser.cpp",
+      "src/bundle_res_transform.cpp",
+      "src/bundle_util.cpp",
+      "src/extractor_util.cpp",
+      "src/hap_sign_verify.cpp",
+      "src/zip_file.cpp",
+    ]
+    include_dirs = [
+      "//base/global/resmgr_lite/interfaces/innerkits/include",
+      "${aafwk_lite_path}/services/abilitymgr_lite/include",
+      "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+      "${aafwk_lite_path}/interfaces/kits/ability_lite",
+      "${aafwk_lite_path}/interfaces/kits/want_lite",
+      "${aafwk_lite_path}/frameworks/want_lite/include",
+      "${appexecfwk_lite_path}/interfaces/innerkits/bundlemgr_lite",
+      "${appexecfwk_lite_path}/frameworks/bundle_lite/include",
+      "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+      "${appexecfwk_lite_path}/utils/bundle_lite",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+      "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+      "//third_party/cJSON",
+      "//third_party/zlib",
+      "//third_party/zlib/contrib/minizip",
+      "//base/security/permission/interfaces/kits/permission_lite",
+      "//base/security/permission/services/permission_lite/pms/include",
+      "//base/security/appverify/interfaces/innerkits/appverify_lite/include",
+      "//third_party/bounds_checking_function/include",
+      "//utils/native/lite/include",
+      "//utils/native/lite/memory",
+      "include",
+    ]
+
+    public_deps = [
+      "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+      "//base/global/resmgr_lite/frameworks/resmgr_lite:global_resmgr",
+      "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+      "//base/security/appverify/interfaces/innerkits/appverify_lite:verify",
+      "//build/lite/config/component/cJSON:cjson_shared",
+      "//build/lite/config/component/zlib:zlib_shared",
+      "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    ]
+  }
+  lite_component("appexecfwk_services_lite") {
+    features = [
+      ":bundlems",
+      "tools:bm",
+      "bundle_daemon:bundle_daemon",
+    ]
+  }
+}
+
+generate_notice_file("appexecfwk_services_lite_notice_file") {
+  module_name = "appexecfwk_services_lite"
+  module_source_dir_list = [
+    "//third_party/cJSON",
+    "//third_party/zlib",
+    "//third_party/bounds_checking_function",
+  ]
+}

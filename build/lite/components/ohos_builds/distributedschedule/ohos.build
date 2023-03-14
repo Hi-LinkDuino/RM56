@@ -1,0 +1,23 @@
+{
+  "parts": {
+    "dmsfwk_lite": {
+      "module_list": [
+        "//foundation/distributedschedule/dmsfwk_lite:dtbschedmgr"
+      ],
+      "test_list": [
+        "//foundation/distributedschedule/dmsfwk_lite/moduletest/dtbschedmgr_lite:distributed_schedule_test_dms_door"
+      ]
+    },
+    "safwk_lite": {
+      "module_list": [
+        "//foundation/distributedschedule/safwk_lite"
+      ]
+    },
+    "samgr_lite": {
+      "module_list": [
+        "//foundation/distributedschedule/samgr_lite:samgr"
+      ]
+    }
+  },
+  "subsystem_name": "distributedschedule"
+}

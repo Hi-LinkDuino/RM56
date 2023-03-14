@@ -1,0 +1,55 @@
+{
+  "name": "light_device_driver",
+  "description": "light device driver",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "component": {
+    "name": "light_device_driver",
+    "subsystem": "hdf",
+    "syscap": [""],
+    "adapter_system_type": ["standard"],
+    "rom": "675KB",
+    "ram": "7400KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "device_driver_framework",
+        "hiviewdfx_hilog_native",
+        "utils_base"
+      ],
+      "third_part": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/misc/light:light_entry"
+      ],
+      "test": [
+        "//drivers/peripheral/misc/light/test:hdf_test_light"
+      ],
+      "inner_kits": [
+        {
+          "name": "//drivers/peripheral/misc/light/hal:hdi_light",
+          "header": {
+            "header_files": [
+              "light_if.h",
+              "light_type.h"
+            ],
+            "header_base": "//drivers/peripheral/misc/light/interfaces/include"
+          }
+        },
+        {
+          "name": "//drivers/interface/light/v1_0:liblight_proxy_1.0",
+          "header": {
+            "header_files": [
+              "light_if.h",
+              "light_type.h"
+            ],
+            "header_base": "//drivers/peripheral/misc/light/interfaces/include"
+          }
+        }
+      ]
+    }
+  }
+}

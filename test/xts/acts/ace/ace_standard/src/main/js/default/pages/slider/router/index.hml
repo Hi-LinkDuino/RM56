@@ -1,0 +1,349 @@
+<!--/**
+ * Copyright (c) 2022 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+
+<div class="container">
+    <div class="sub-container">
+        <div class="style-container">
+            <text class="title">
+                通用样式
+            </text>
+            <text class="sub-title">
+                slider通用样式1
+            </text>
+            <slider class="style1" id="style1">
+            </slider>
+            <text  class="sub-title">
+                slider通用样式2
+            </text>
+            <slider class="style2" id="style2">
+            </slider>
+            <text class="sub-title">
+                slider通用样式3
+            </text>
+            <slider class="style3" id="style3">
+            </slider>
+            <text  class="sub-title">
+                slider通用样式4
+            </text>
+            <slider class="style4" id="style4">
+            </slider>
+            <text  class="sub-title">
+                slider通用样式5
+            </text>
+            <div class="contain1">
+                <slider class="style5" id="style5">
+                </slider>
+                <slider class="style6" id="style6">
+                </slider>
+            </div>
+            <text  class="sub-title">
+                slider特有样式1
+            </text>
+            <div class="style7" id="style7">
+                <slider class="flex-item color-red">
+                </slider>
+                <slider class="flex-item color-black">
+                </slider>
+            </div>
+            <text  class="sub-title">
+                slider特有样式2
+            </text>
+            <div class="style8" id="style8">
+                <slider class="flex-item1 color-selected1">
+                </slider>
+                <slider class="flex-item2 color-selected2">
+                </slider>
+            </div>
+            <text  class="sub-title">
+                slider特有样式3
+            </text>
+            <div class="style9" id="style9">
+                <slider class="flex-item1 color-block1"></slider>
+                <slider class="flex-item1 color-block2"></slider>
+            </div>
+        </div>
+        <divider style="color: #000000; stroke-width: 2px;" vertical="false">
+        </divider>
+        <div class="ani-container">
+            <text class="title">
+                动画样式
+            </text>
+            <text class="sub-title">
+                slider动画样式1
+            </text>
+            <slider class="ani1" >
+            </slider>
+            <text class="sub-title">
+                slider动画样式2
+            </text>
+            <slider class="ani2" >
+            </slider>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="prop-container">
+            <text class="title">
+                通用属性
+            </text>
+            <text class="sub-title">
+                slider通用属性1
+            </text>
+            <slider id="prop1" class="prop1"
+                 disabled = "true" focusable ="true"
+                 data-name ="prop1" click-effect="spring-medium"
+                 dir ="rtl">
+            </slider>
+            <text  class="sub-title">
+                slider通用属性2
+            </text>
+            <slider class="prop2" ref ="prop2" id="prop2"
+                    disabled = "false" focusable ="false"
+                    data-name ="prop2" click-effect="spring-large"
+                    dir ="ltr">
+            </slider>
+            <text  class="sub-title">
+                slider通用属性3
+            </text>
+            <slider style="color: #679855; margin: 5px;" class="prop3" id="prop3">
+            </slider>
+            <text  class="sub-title">
+                slider特有属性1
+            </text>
+            <slider class="prop4" id="prop4"
+                    min="2"
+                    max="100"
+                    step="5"
+                    value="10"
+                   autofocus="true"
+                   selectedstart="0"
+                   selectedend="10"
+                   softkeyboardenabled="false">
+            </slider>
+            <text  class="sub-title">
+                slider特有属性2
+            </text>
+            <div>
+                <slider class="prop5" id="prop5"
+                        type="continuous"
+                        minicon="../../../common/images/icon.png"
+                        maxicon="../../../common/images/icon.png">
+                </slider>
+                <div style="margin: 1px;">
+                    <slider if="false" class="prop2" ref ="prop2" style="background-color: rebeccapurple;">
+                    </slider>
+                    <slider elif="true" class="prop2" ref ="prop2" style="background-color: black;">
+                    </slider>
+                    <slider elif="false" class="prop2" ref ="prop2" style="background-color: blue;">
+                    </slider>
+                    <slider else class="prop2" ref ="prop2" style="background-color: yellow;">
+                    </slider>
+                </div>
+            </div>
+            <text  class="sub-title">
+                slider特有属性3
+            </text>
+            <slider class="prop6" id="prop6"
+                    mode="inset"
+                    showsteps="true"
+                    showtips="true">
+            </slider>
+            <div>
+                <slider for="{{array}}" tid="id" style="color: #679855; margin: 1px;" class="prop3"
+                        value="{{$item.name }}">
+                </slider>
+            </div>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="event-container" >
+            <text class="title">
+                通用事件
+            </text>
+            <text  class="sub-title">
+                slider通用事件1
+            </text>
+            <slider class ="event1" ontouchstart="touchStart" ontouchmove="touchMove"
+                 ontouchend="touchEnd" ontouchcancel="touchCancel">
+            </slider>
+            <text  class="sub-title">
+                slider通用事件2
+            </text>
+            <slider class ="event2" onclick="click" ondoubleclick="doubleClick"
+                 onlongpress="longPress" onfocus="focus" onblur="blur" onkey="key"
+                 onswipe="swipe" onattached="attached" ondetached="detached">
+            </slider>
+            <text  class="sub-title">
+                slider通用事件3
+            </text>
+            <slider class ="event3" onpinchstart="pinchStart" onpinchupdate="pinchUpdate"
+                 onpinchend="pinchEnd" onpinchcancel="pinchCancel"
+                 ondragstart="dragStart" ondrag="drag"
+                 ondragend="dragEnd" ondragenter="dragEnter"
+                 ondragover="dragOver" ondragleave="dragLeave"
+                 ondrop="drop">
+            </slider>
+            <text  class="sub-title">
+                slider特有事件1
+            </text>
+            <slider class ="event4"
+                   onchange="change"
+                    onaccessibility="onAccessibility">
+            </slider>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="function-container">
+            <text class="title">
+                通用方法
+            </text>
+            <text class="sub-title">
+                slider通用方法1
+            </text>
+            <slider id="function1" class="function1" ontouchstart="functionTest1">
+            </slider>
+            <text class="sub-title">
+                slider通用方法2
+            </text>
+            <slider id="function2" class="function2" ontouchstart="functionTest2">
+            </slider>
+            <text class="sub-title">
+                slider通用方法3
+            </text>
+            <slider id="function3" class="function3" ontouchstart="functionTest3">
+            </slider>
+        </div>
+    </div>
+
+    <div style="background-color: #000000; width: 2px; height: 100%;">
+    </div>
+
+    <div class="sub-container">
+        <div class="gradient-container">
+            <text class="title">
+                渐变样式
+            </text>
+            <text class="sub-title">
+                slider渐变样式1
+            </text>
+            <slider class="gradient1">
+            </slider>
+            <text  class="sub-title">
+                slider渐变样式2
+            </text>
+            <slider class="gradient2">
+            </slider>
+            <text  class="sub-title">
+                slider渐变样式3
+            </text>
+            <slider class="gradient3">
+            </slider>
+            <text  class="sub-title">
+                slider渐变样式4
+            </text>
+            <slider class="gradient4">
+            </slider>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="access-container">
+            <text class="title">
+                无障碍
+            </text>
+            <text class="sub-title">
+                slider无障碍1
+            </text>
+            <slider class="access1" accessibilitygroup ="true"
+                 accessibilitytext="这是slider"
+                 accessibilitydescription="点击此按键会弹出一个对话框"
+                 accessibilityimportance="no-hide-descendants">
+            </slider>
+        </div>
+        <div style="background-color: #000000; width: 100%; height: 2px;">
+        </div>
+        <div class="atom-container">
+            <text class="title">
+                原子布局
+            </text>
+            <text class="sub-title">
+                slider原子布局1
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <slider style="width:20px;height:20px;background-color: blue;display-index: 1;">
+                </slider>
+                <slider style="width:30px; height:20px;background-color: black;display-index: 5;">
+                </slider>
+                <slider style="width:40px; height:20px;background-color: yellow;display-index: 4;">
+                </slider>
+                <slider style="width:10px; height:20px;background-color: red;display-index: 3;">
+                </slider>
+                <slider style="width:25px; height:20px;background-color:pink;display-index: 7;">
+                </slider>
+                <slider style="width:15px; height:20px;background-color: palegoldenrod;display-index: 2;">
+                </slider>
+            </div>
+            <text class="sub-title">
+                slider原子布局2
+            </text>
+            <div style="flex-direction: row;height: 30px;width: 100%;">
+                <slider style="height:20px;background-color: blue;flex-weight: 1;">
+                </slider>
+                <slider style="height:20px;background-color: black;flex-weight: 5;">
+                </slider>
+                <slider style="height:20px;background-color: yellow;flex-weight: 4;">
+                </slider>
+                <slider style="height:20px;background-color: red;flex-weight: 3;">
+                </slider>
+                <slider style="height:20px;background-color:pink;flex-weight: 7;">
+                </slider>
+                <slider style="height:20px;background-color: palegoldenrod;flex-weight: 2;">
+                </slider>
+            </div>
+            <text class="sub-title">
+                slider原子布局3
+            </text>
+            <div style="flex-direction: row;height:60px;width: 100%;">
+                <slider style="width:30px;background-color: blue;aspect-ratio: 0.6;">
+                </slider>
+                <slider style="width:30px;background-color: black;aspect-ratio:0.5;">
+                </slider>
+                <slider style="width:30px;background-color: yellow;aspect-ratio: 1.5;">
+                </slider>
+                <slider style="width:30px;background-color: red;aspect-ratio: 1.3;">
+                </slider>
+                <slider style="width:30px;background-color:pink;aspect-ratio: 1;">
+                </slider>
+                <slider style="width:30px;background-color: palegoldenrod;aspect-ratio:2;">
+                </slider>
+            </div>
+            <div style="background-color: #000000; width: 100%; height: 2px;">
+            </div>
+            <div class="multiMode-container">
+                <text class="title">
+                    多模输入
+                </text>
+                <text class="sub-title">
+                    slider多模输入1
+                </text>
+                <slider class="multiMode1" voicelabel = "voice"
+                     subscriptflag="on" subscriptlabel="slider" scenelabel="common">
+                </slider>
+            </div>
+        </div>
+    </div>
+</div>

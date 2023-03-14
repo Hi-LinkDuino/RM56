@@ -1,0 +1,58 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//test/xts/tools/lite/build/suite_lite.gni")
+
+hcpptest_suite("ActsDMSTest") {
+  suite_name = "acts"
+  sources = [
+    "src/MsgParserFuncTest.cpp",
+    "src/MsgParserLenFuncTest.cpp",
+    "src/utils/DMSTestBase.cpp",
+    "src/utils/dms_packet.cpp",
+  ]
+
+  include_dirs = [
+    "src",
+    "src/utils",
+    "//utils/native/lite/include",
+    "//third_party/bounds_checking_function/include",
+    "//foundation/communication/ipc_lite/interfaces/kits",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//foundation/distributedschedule/dmsfwk_lite/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/innerkits",
+
+    "${aafwk_lite_path}/interfaces/innerkits/abilitymgr_lite",
+    "${aafwk_lite_path}/interfaces/kits/ability_lite",
+    "${aafwk_lite_path}/interfaces/kits/want_lite",
+    "${aafwk_lite_path}/services/abilitymgr_lite/include",
+    "${appexecfwk_lite_path}/interfaces/kits/bundle_lite",
+    "${appexecfwk_lite_path}/utils/bundle_lite",
+    "${appexecfwk_lite_path}/interfaces/innerkits/bundlemgr_lite",
+  ]
+  deps = [
+    "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle",
+    "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+    "//foundation/distributedschedule/dmsfwk_lite:dtbschedmgr",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+  cflags = [ "-Wno-error" ]
+
+  ldflags = [
+    "-lstdc++",
+    "-lm",
+    "-lpthread",
+  ]
+}

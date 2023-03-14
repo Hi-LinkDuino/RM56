@@ -1,0 +1,52 @@
+{
+  "parts": {
+    "dvkit_sample": {
+      "module_list": [
+        "//vendor/hisi/camera/dvkit_product/sample/ohos3518ev300:dvkit_hilink_media_sdk"
+      ]
+    },
+    "hardware": {
+      "module_list": [
+        "//device/soc/hisilicon/common/hal/media:hardware_media_sdk"
+      ]
+    },
+    "hi3516dv300_adapter": {
+      "module_list": []
+    },
+    "hi3516dv300_sdk": {
+      "module_list": []
+    },
+    "hi3516dv300_uboot": {
+      "module_list": []
+    },
+    "hi3518ev300_adapter": {
+      "module_list": []
+    },
+    "hi3518ev300_sdk": {
+      "module_list": []
+    },
+    "hi3518ev300_uboot": {
+      "module_list": []
+    },
+    "hi3861_adapter": {
+      "module_list": []
+    },
+    "hi3861_sdk": {
+      "module_list": [
+        "//device/soc/hisilicon/hi3861v100/sdk_liteos:wifiiot_sdk"
+      ]
+    },
+    "middleware": {
+      "module_list": [
+        "//device/soc/hisilicon/common/hal/middleware:middleware_source_sdk"
+      ]
+    },
+    "oem_iotlink": {
+      "module_list": [
+        "//vendor/huawei/wifi-iot/hals/utils/sys_param:hal_sysparam",
+        "//vendor/huawei/wifi-iot/hals/utils/token:hal_token_static"
+      ]
+    }
+  },
+  "subsystem_name": "vendor"
+}

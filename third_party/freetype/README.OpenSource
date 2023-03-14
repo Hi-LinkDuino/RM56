@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "freetype",
+        "License"               : "The FreeType Project License",
+        "License File"          : "docs/LICENSE.TXT",
+        "Version Number"        : "2.10.4",
+        "Owner"                 : "ouyangyueling@huawei.com",
+        "Upstream URL"          : "https://download.savannah.gnu.org/releases/freetype/",
+        "Description"           : "FreeType is a freely available software library to render fonts."
+    }
+]

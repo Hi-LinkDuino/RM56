@@ -1,0 +1,54 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/config/test.gni")
+
+if (ohos_kernel_type == "liteos_a") {
+  unittest("ResmgrTest") {
+    output_extension = "bin"
+
+    sources = [
+      "unittest/lite/common/global_test.cpp",
+      "unittest/lite/common/hap_manager_test.cpp",
+      "unittest/lite/common/hap_parser_test.cpp",
+      "unittest/lite/common/hap_resource_test.cpp",
+      "unittest/lite/common/locale_info_test.cpp",
+      "unittest/lite/common/res_config_impl_test.cpp",
+      "unittest/lite/common/res_config_test.cpp",
+      "unittest/lite/common/res_desc_test.cpp",
+      "unittest/lite/common/resource_manager_performance_test.cpp",
+      "unittest/lite/common/resource_manager_test.cpp",
+      "unittest/lite/common/string_utils_test.cpp",
+      "unittest/lite/common/test_common.cpp",
+    ]
+
+    include_dirs = [
+      "unittest/lite/common",
+      "//base/global/resmgr_lite/frameworks/resmgr_lite/include",
+      "//base/global/resmgr_lite/interfaces/innerkits/include",
+      "//base/global/i18n_lite/interfaces/kits/i18n/include/",
+    ]
+
+    deps = [ "//base/global/resmgr_lite/frameworks/resmgr_lite:global_resmgr" ]
+    output_dir = "$root_out_dir/test/unittest/global"
+  }
+
+  group("unittest") {
+    deps = [ ":ResmgrTest" ]
+  }
+} else {
+  group("unittest") {
+    deps = []
+  }
+}
