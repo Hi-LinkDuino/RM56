@@ -1,0 +1,15 @@
+include $(srctree)/config/sdk-a7-mcu.mk
+
+#T=a7_dsp
+A7_UART=4
+KERNEL=LITEOS_A
+A7_CMSIS_TEST_CASE=0
+
+LITTLEFS_ENABLE=0
+A7_LITTLEFS_TEST=0
+LFS_ON_RAM=0
+
+export DSP_TFLM_ENABLE=0
+ifeq ($(DSP_TFLM_ENABLE),1)
+KBUILD_CPPFLAGS += -DDSP_TFLM_ENABLE
+endif

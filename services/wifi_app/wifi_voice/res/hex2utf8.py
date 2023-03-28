@@ -1,0 +1,23 @@
+#!/usr/bin/python
+# coding: utf-8
+
+
+import sys
+print('目前系统的编码为：',sys.getdefaultencoding())
+
+b = bytearray([0x2e,0x2a,0xe7,0xa9,0xba,0xe9,0x97,0xb2,0xe6,0xa8,0xa1,0xe5,0xbc,0x8f,0x2e,0x2a,0x00])
+
+print(type(b))
+print(b)
+
+b2 = bytes(b)
+print(type(b2))
+print(b2)
+
+b3 = b2.decode('utf-8')
+
+print(type(b3))
+print(b3)
+
+
+

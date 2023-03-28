@@ -1,0 +1,49 @@
+BES_KEY:
+  RSA_DIR_2048: 'rsa2048_sign'
+  RSA_DIR_3072: 'rsa3072_sign'
+  IN_KEY_DIR_2048: 'rsa2048_key'
+  IN_KEY_DIR_3072: 'rsa3072_key'
+  PUB_KEY_NAME: 'pub.pem'
+  PRI_KEY_NAME: 'pri.pem'
+  EXTRACT_CMD:
+                ~ 'java'
+                ~ '-cp'
+                ~ 'bcprov-jdk15on-152.jar:'
+                ~ 'DumpPublicKey'
+  SIGN_CMD_2048: 'best_sign'
+  SIGN_CMD_3072: 'best_sign_v4'
+  SIGN_DIR:   'bes_sign_tool'
+  SIGN_FILE_DIR: '../../prebuild'
+  PUB_GEN_CMD_NAME_16M_FLASH: '--otp --sec-key --no-romkey pri.pem 0 0x1000 1024 0x1000 0'
+  PUB_GEN_CMD_NAME_32M_FLASH: '--otp --sec-key --no-romkey pri.pem 0 0x2000 1024 0x1000 0'
+  RELEASE_BIN_DIR: '../release_bin'
+  PACK_FILE_NAME_BEST2001: 'write_flash_gui_best2001.tar.gz'
+  PACK_FILE_NAME_BEST2003_16M_FLASH: 'write_flash_gui_best2600w_16m_flash.tar.gz'
+  PACK_FILE_NAME_BEST2003_32M_FLASH: 'write_flash_gui_best2600w_32m_flash.tar.gz'
+  GUI_BIN_DIR: '../write_flash_gui/ota_bin'
+  GUI_TOOLS_DIR: '../write_flash_gui'
+  PROGRAMMER_NAME_BEST2001: 'programmer2001.bin'
+  PROGRAMMER_NAME_BEST2003: 'programmer2003.bin'
+  GUI_CFG_YAML_DIR: '../write_flash_gui/dld_cfg'
+  GUI_CFG_YAML_FILE: 'bes_dld_cfg.yaml'
+  PRO_CFG_YAML_FILE: 'bes_dld_cfg_best2600w.yaml'
+PUB_OTP:
+  OUTKEY_DIR: 'out_key'
+  OUTKEY_NAME: 'outkey.bin'
+  PUB_OTP_FILE_NAME: 'pub_otp.bin'
+SIGN_FILE_OUT_LIST:
+  ~ BIN_FILE1:
+      REN_BIN_NAME: 'ota_rtos.bin'
+      BINARY_DIR: '../../../../out/best2600w_aiot'
+      FILE_NAME: 'best2600w_aiot.bin'
+      SWITCH: OFF
+SIGN_FILE_LIST:
+  ~ BIN_FILE1:
+      REN_BIN_NAME: 'ota_boot1.bin'
+      SWITCH: OFF
+  ~ BIN_FILE2:
+      REN_BIN_NAME: 'ota_boot2a.bin'
+      SWITCH: OFF
+  ~ BIN_FILE3:
+      REN_BIN_NAME: 'programmer2003.bin'
+      SWITCH: OFF

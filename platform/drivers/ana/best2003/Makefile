@@ -1,0 +1,143 @@
+cur_dir := $(dir $(lastword $(MAKEFILE_LIST)))
+
+obj-y := $(patsubst $(cur_dir)%,%,$(wildcard $(cur_dir)*.c $(cur_dir)*.S))
+obj-y := $(obj-y:.c=.o)
+obj-y := $(obj-y:.S=.o)
+
+ifeq ($(CODEC_HIGH_QUALITY),1)
+VCODEC_VOLT ?= 1.8V
+else
+VCODEC_VOLT ?= 1.8V
+endif
+
+CFLAGS_mipiphy_$(CHIP).o += -Iplatform/drivers/graphic
+
+ifneq ($(filter-out 1.6V 1.7V 1.8V 1.9V 1.95V,$(VCODEC_VOLT)),)
+$(error Invalid VCODEC_VOLT=$(VCODEC_VOLT))
+endif
+
+ifneq ($(VCODEC_VOLT),)
+ANA_CFG_FLAGS += -DVCODEC_VOLT=$(subst V,,$(VCODEC_VOLT))
+PMU_CFG_FLAGS += -DVCODEC_VOLT=$(subst V,,$(VCODEC_VOLT))
+ifneq ($(filter 1.6V 1.7V 1.8V 1.9V 1.95V,$(VCODEC_VOLT)),)
+VCODEC_OFF ?= 1
+ifeq ($(VHPPA_VOLT),)
+VHPPA_VOLT := $(VCODEC_VOLT)
+endif
+ifneq ($(VCODEC_VOLT),$(VHPPA_VOLT))
+$(error Incompatible VCODEC_VOLT=$(VCODEC_VOLT) with VHPPA_VOLT=$(VHPPA_VOLT))
+endif
+endif
+endif
+
+ifeq ($(VCODEC_OFF),1)
+PMU_CFG_FLAGS += -DVCODEC_OFF
+endif
+
+ifeq ($(VHPPA2VCODEC),1)
+PMU_CFG_FLAGS += -DVHPPA2VCODEC
+endif
+
+ifeq ($(HPPA_LDO_ON),1)
+PMU_CFG_FLAGS += -DHPPA_LDO_ON
+endif
+
+VHPPA_VOLT ?= 1.8V
+ifneq ($(filter-out 1.6V 1.7V 1.8V 1.9V 1.95V,$(VHPPA_VOLT)),)
+$(error Invalid VHPPA_VOLT=$(VHPPA_VOLT))
+endif
+ifneq ($(VHPPA_VOLT),)
+PMU_CFG_FLAGS += -DVHPPA_VOLT=$(subst V,,$(VHPPA_VOLT))
+endif
+
+HIGH_VCORE ?= 0
+ifeq ($(HIGH_VCORE),1)
+PMU_CFG_FLAGS += -DHIGH_VCORE
+endif
+
+VANA_VOLT ?= 1.4V
+ifneq ($(filter-out 1.2V 1.3V 1.35V 1.4V 1.5V 1.6V 1.7V 1.8V,$(VANA_VOLT)),)
+$(error Invalid VANA_VOLT=$(VANA_VOLT))
+endif
+ifneq ($(VANA_VOLT),)
+VANA_STEM := $(subst .,P,$(VANA_VOLT))
+PMU_CFG_FLAGS += -DVANA_$(VANA_STEM)
+endif
+
+ifeq ($(PMU_IRQ_UNIFIED),1)
+PMU_CFG_FLAGS += -DPMU_IRQ_UNIFIED
+endif
+
+ifeq ($(PSRAM_ENABLE),1)
+PMU_CFG_FLAGS += -DPSRAM_ENABLE
+endif
+ifeq ($(PSRAMUHS_ENABLE),1)
+PMU_CFG_FLAGS += -DPSRAMUHS_ENABLE
+endif
+ifeq ($(DSP_ENABLE),1)
+PMU_CFG_FLAGS += -DDSP_ENABLE
+endif
+
+LOW_POWER_ADC ?= 1
+ifeq ($(LOW_POWER_ADC),1)
+ANA_CFG_FLAGS += -DLOW_POWER_ADC
+endif
+
+ifeq ($(DAC_DRE_GAIN_DC_UPDATE),1)
+ANA_CFG_FLAGS += -DDAC_DRE_GAIN_DC_UPDATE
+endif
+
+ifeq ($(PSRAMULS_MODE),1)
+PSRAMUHS_CFG_FLAGS += -DPSRAMULS_MODE
+endif
+
+ifeq ($(PSRAMUHS_DEBUG),1)
+PSRAMUHS_CFG_FLAGS += -DPSRAMUHS_DEBUG
+endif
+
+ifeq ($(PSRAMUHS_WINDOW_TEST),1)
+PSRAMUHS_CFG_FLAGS += -DPSRAMUHS_WINDOW_TEST
+endif
+
+ifeq ($(BEST2003_VCORE_0_95V),1)
+PSRAMUHS_CFG_FLAGS += -DBEST2003_VCORE_0_95V
+endif
+
+PSRAMUHS_CFG_FLAGS +=-DPSRAMUHS_SPEED=$(PSRAMUHS_SPEED)
+
+ifeq ($(PSRAM_INIT_CHECK),1)
+PMU_CFG_FLAGS += -DPSRAM_INIT_CHECK
+endif
+
+ifneq ($(MCU_HIGH_PERFORMANCE_MODE), 0)
+PMU_CFG_FLAGS += -DMCU_HIGH_PERFORMANCE_MODE_$(MCU_HIGH_PERFORMANCE_MODE)
+endif
+
+PLL_CFG_FLAGS +=-DPSRAMUHS_SPEED=$(PSRAMUHS_SPEED)
+
+PMU_CFG_FLAGS +=-DPSRAMUHS_SPEED=$(PSRAMUHS_SPEED)
+
+PMU_CFG_FLAGS +=-DA7_DSP_SPEED=$(A7_DSP_SPEED)
+
+PMU_CFG_FLAGS +=-DPSRAM_SPEED=$(PSRAM_SPEED)
+
+ifeq ($(PMU_FORCE_LP_MODE),1)
+PMU_CFG_FLAGS += -DPMU_FORCE_LP_MODE
+PMU_DCDC_ULP_MODE ?= 1
+endif
+ifeq ($(PMU_DCDC_ULP_MODE),1)
+PMU_CFG_FLAGS += -DPMU_DCDC_ULP_MODE
+endif
+
+PMU_CFG_FLAGS +=-Iplatform/drivers/wifi/$(CHIP) -Inet/wifi
+
+CFLAGS_pll_$(CHIP).o += $(PLL_CFG_FLAGS)
+
+CFLAGS_pmu_$(CHIP).o += $(PMU_CFG_FLAGS)
+
+CFLAGS_analog_$(CHIP).o += $(ANA_CFG_FLAGS)
+
+CFLAGS_usbphy_$(CHIP).o += $(USBPHY_CFG_FLAGS)
+
+CFLAGS_psramuhsphy_$(CHIP).o += $(PSRAMUHS_CFG_FLAGS)
+

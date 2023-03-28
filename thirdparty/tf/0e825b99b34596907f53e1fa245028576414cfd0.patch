@@ -1,0 +1,131 @@
+diff --git a/tensorflow/lite/micro/testing/micro_test.h b/tensorflow/lite/micro/testing/micro_test.h
+index 229dfa6..241fc30 100644
+--- a/tensorflow/lite/micro/testing/micro_test.h
++++ b/tensorflow/lite/micro/testing/micro_test.h
+@@ -86,7 +86,7 @@ inline void InitializeTest() { InitializeTarget(); }
+   bool did_test_fail;               \
+   }                                 \
+                                     \
+-  int main(int argc, char** argv) { \
++  extern "C" int tf_main(int argc, char** argv) { \
+     micro_test::tests_passed = 0;   \
+     micro_test::tests_failed = 0;   \
+     tflite::InitializeTest();
+diff --git a/tensorflow/lite/micro/tools/make/Makefile b/tensorflow/lite/micro/tools/make/Makefile
+index e25b3bc..4206dc3 100644
+--- a/tensorflow/lite/micro/tools/make/Makefile
++++ b/tensorflow/lite/micro/tools/make/Makefile
+@@ -127,7 +127,6 @@ endif
+ 
+ CC_WARNINGS := \
+   -Wsign-compare \
+-  -Wdouble-promotion \
+   -Wshadow \
+   -Wunused-variable \
+   -Wunused-function \
+@@ -233,7 +232,7 @@ endif
+ 
+ # This library is the main target for this makefile. It will contain a minimal
+ # runtime that can be linked in to other programs.
+-MICROLITE_LIB_NAME := libtensorflow-microlite.a
++MICROLITE_LIB_NAME := lib-$(TARGET_ARCH)-tensorflow-microlite.a
+ 
+ # Where compiled objects are stored.
+ GENDIR := $(MAKEFILE_DIR)/gen/$(TARGET)_$(TARGET_ARCH)_$(BUILD_TYPE)/
+diff --git a/tensorflow/lite/micro/tools/make/helper_functions.inc b/tensorflow/lite/micro/tools/make/helper_functions.inc
+index 2325aa1..ff8d535 100644
+--- a/tensorflow/lite/micro/tools/make/helper_functions.inc
++++ b/tensorflow/lite/micro/tools/make/helper_functions.inc
+@@ -52,6 +52,10 @@ $$(patsubst %.S,%.o,$$(patsubst %.cc,%.o,$$(patsubst %.c,%.o,$$($(1)_LOCAL_SRCS)
+ $(1)_BINARY := $$(BINDIR)$(1)
+ $$($(1)_BINARY): $$($(1)_LOCAL_OBJS) $$(MICROLITE_LIB_PATH)
+ 	@mkdir -p $$(dir $$@)
++	@mkdir -p lib
++	cp -rf $$(MICROLITE_LIB_PATH) $$(BINDIR)$$(MICROLITE_LIB_NAME)
++	$$(AR) $$(ARFLAGS) $$(BINDIR)$$(MICROLITE_LIB_NAME) $$($(1)_LOCAL_OBJS)
++	cp -rf $$(BINDIR)$$(MICROLITE_LIB_NAME) lib/$$(MICROLITE_LIB_NAME) 
+ 	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) \
+ 	-o $$($(1)_BINARY) $$($(1)_LOCAL_OBJS) \
+ 	$$(MICROLITE_LIB_PATH) $$(LDFLAGS) $$(MICROLITE_LIBS)
+diff --git a/tensorflow/lite/micro/tools/make/pigweed_download.sh b/tensorflow/lite/micro/tools/make/pigweed_download.sh
+index 2a294b3..6c85317 100755
+--- a/tensorflow/lite/micro/tools/make/pigweed_download.sh
++++ b/tensorflow/lite/micro/tools/make/pigweed_download.sh
+@@ -48,7 +48,7 @@ DOWNLOADED_PIGWEED_PATH=${DOWNLOADS_DIR}/pigweed
+ if [ -d ${DOWNLOADED_PIGWEED_PATH} ]; then
+   echo >&2 "${DOWNLOADED_PIGWEED_PATH} already exists, skipping the download."
+ else
+-  git clone https://pigweed.googlesource.com/pigweed/pigweed ${DOWNLOADED_PIGWEED_PATH} >&2
++  git clone https://github.com/google/pigweed  ${DOWNLOADED_PIGWEED_PATH} >&2
+   pushd ${DOWNLOADED_PIGWEED_PATH} > /dev/null
+ 
+   git checkout 47268dff45019863e20438ca3746c6c62df6ef09 >&2
+diff --git a/tensorflow/lite/micro/tools/make/targets/cortex_m_generic_makefile.inc b/tensorflow/lite/micro/tools/make/targets/cortex_m_generic_makefile.inc
+index 761d926..4dddd74 100644
+--- a/tensorflow/lite/micro/tools/make/targets/cortex_m_generic_makefile.inc
++++ b/tensorflow/lite/micro/tools/make/targets/cortex_m_generic_makefile.inc
+@@ -39,7 +39,7 @@ else ifeq ($(TARGET_ARCH), cortex-m3)
+ else ifeq ($(TARGET_ARCH), cortex-m33)
+   CORE=M33
+   ARM_LDFLAGS := -Wl,--cpu=Cortex-M33
+-  TARGET_SPECIFIC_FLAGS += -D__DSP_PRESENT=1 -D__FPU_PRESENT=1 -D__VTOR_PRESENT=1 -D__FPU_USED=1
++  TARGET_SPECIFIC_FLAGS += -D__DSP_PRESENT=1 -D__FPU_PRESENT=1 -D__VTOR_PRESENT=1 -D__FPU_USED=1 -mthumb 
+   FLOAT=hard
+ 
+ else ifeq ($(TARGET_ARCH), cortex-m33+nodsp)
+@@ -90,7 +90,14 @@ else ifeq ($(TARGET_ARCH), cortex-m7+fp)
+   ARM_LDFLAGS := -Wl,--cpu=Cortex-M7
+   FLOAT=hard
+   GCC_TARGET_ARCH := cortex-m7
+-
++  
++else ifeq ($(TARGET_ARCH), cortex-a7)
++  CORE=A7
++  ARM_LDFLAGS := -Wl,--cpu=Cortex-a7
++  TARGET_SPECIFIC_FLAGS += -D__DSP_PRESENT=1 -D__FPU_PRESENT=1 -D__VTOR_PRESENT=1 -D__FPU_USED=1
++  FLOAT=hard
++  GCC_TARGET_ARCH := cortex-a7
++ 
+ else ifeq ($(TARGET_ARCH), project_generation)
+  # None of the parameters matter since we are not going to build any code.
+ else
+@@ -129,13 +136,13 @@ ifeq ($(TOOLCHAIN), armclang)
+ 
+ else ifeq ($(TOOLCHAIN), gcc)
+   TARGET_DEFAULT_TOOLCHAIN_ROOT := ${TENSORFLOW_ROOT}$(MAKEFILE_DIR)/downloads/gcc_embedded/bin/
+-  TARGET_TOOLCHAIN_ROOT := $(TARGET_DEFAULT_TOOLCHAIN_ROOT)
+-  ifeq ($(TARGET_TOOLCHAIN_ROOT), $(TARGET_DEFAULT_TOOLCHAIN_ROOT))
+-    DOWNLOAD_RESULT := $(shell $(MAKEFILE_DIR)/arm_gcc_download.sh ${MAKEFILE_DIR}/downloads)
+-    ifneq ($(DOWNLOAD_RESULT), SUCCESS)
+-      $(error Something went wrong with the GCC download: $(DOWNLOAD_RESULT))
+-    endif
+-  endif
++  TARGET_TOOLCHAIN_ROOT := 
++  #ifeq ($(TARGET_TOOLCHAIN_ROOT), $(TARGET_DEFAULT_TOOLCHAIN_ROOT))
++  #  DOWNLOAD_RESULT := $(shell $(MAKEFILE_DIR)/arm_gcc_download.sh ${MAKEFILE_DIR}/downloads)
++  #  ifneq ($(DOWNLOAD_RESULT), SUCCESS)
++  #    $(error Something went wrong with the GCC download: $(DOWNLOAD_RESULT))
++  #  endif
++  #endif
+ 
+   TARGET_TOOLCHAIN_PREFIX := arm-none-eabi-
+ 
+@@ -144,6 +151,10 @@ else ifeq ($(TOOLCHAIN), gcc)
+     FLAGS_GCC += -mfpu=fpv4-sp-d16
+   else ifeq ($(TARGET_ARCH), cortex-m7)
+     FLAGS_GCC += -mfpu=fpv4-sp-d16
++  else ifeq ($(TARGET_ARCH), cortex-m33)
++    FLAGS_GCC += -mfpu=fpv5-sp-d16  
++  else ifeq ($(TARGET_ARCH), cortex-a7)
++    FLAGS_GCC += -mfpu=neon-vfpv4 -marm -mfloat-abi=hard --specs=nano.specs  -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -fsigned-char -fno-aggressive-loop-optimizations -fno-isolate-erroneous-paths-dereference -fsingle-precision-constant  -fno-omit-frame-pointer -fstack-protector-strong  -Wlogical-op -Wimplicit-fallthrough -Wno-trigraphs -fno-strict-aliasing -fno-tree-loop-distribute-patterns 
+   else
+     FLAGS_GCC += -mfpu=auto
+   endif
+@@ -156,7 +167,6 @@ endif
+ 
+ PLATFORM_FLAGS = \
+   -DTF_LITE_MCU_DEBUG_LOG \
+-  -mthumb \
+   -mfloat-abi=$(FLOAT) \
+   -funsigned-char \
+   -mlittle-endian \

@@ -1,0 +1,1 @@
+obj-y += core/ draw/ extra/ font/ hal/ misc/ widgets/

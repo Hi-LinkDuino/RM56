@@ -1,0 +1,71 @@
+#ifndef __LFS_ADAPT_H__
+#define __LFS_ADAPT_H__
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+int lfs_device_open(void);
+int lfs_device_close(void);
+int lfs_test(void);
+struct lfs_config *lfs_get_config(void);
+
+#ifdef LFS_ON_FLASH
+#include "lfs_adapt_flash.h"
+#define lfs_block_device_open lfs_flash_open
+#define lfs_block_device_close lfs_flash_close
+#define lfs_block_device_read lfs_flash_read
+#define lfs_block_device_prog lfs_flash_prog
+#define lfs_block_device_erase lfs_flash_erase
+#define lfs_block_device_sync lfs_flash_sync
+#define lfs_block_device_get_read_size lfs_flash_get_read_size
+#define lfs_block_device_get_prog_size lfs_flash_get_prog_size
+#define lfs_block_device_get_block_size lfs_flash_get_block_size
+#define lfs_block_device_get_block_count lfs_flash_get_block_count
+#define lfs_block_device_get_block_cycles lfs_flash_get_block_cycles
+#define lfs_block_device_get_cache_size lfs_flash_get_cache_size
+#define lfs_block_device_get_lookahead_size lfs_flash_get_lookahead_size
+#define lfs_block_device_test lfs_flash_test
+#endif
+
+#ifdef LFS_ON_SD_CARD
+#include "lfs_adapt_sd_card.h"
+#define lfs_block_device_open lfs_sd_card_open
+#define lfs_block_device_close lfs_sd_card_close
+#define lfs_block_device_read lfs_sd_card_read
+#define lfs_block_device_prog lfs_sd_card_prog
+#define lfs_block_device_erase lfs_sd_card_erase
+#define lfs_block_device_sync lfs_sd_card_sync
+#define lfs_block_device_get_read_size lfs_sd_card_get_read_size
+#define lfs_block_device_get_prog_size lfs_sd_card_get_prog_size
+#define lfs_block_device_get_block_size lfs_sd_card_get_block_size
+#define lfs_block_device_get_block_count lfs_sd_card_get_block_count
+#define lfs_block_device_get_block_cycles lfs_sd_card_get_block_cycles
+#define lfs_block_device_get_cache_size lfs_sd_card_get_cache_size
+#define lfs_block_device_get_lookahead_size lfs_sd_card_get_lookahead_size
+#define lfs_block_device_test lsf_sd_card_test
+#endif
+
+#ifdef LFS_ON_RAM
+#include "lfs_adapt_ram.h"
+#define lfs_block_device_open lfs_ram_open
+#define lfs_block_device_close lfs_ram_close
+#define lfs_block_device_read lfs_ram_read
+#define lfs_block_device_prog lfs_ram_prog
+#define lfs_block_device_erase lfs_ram_erase
+#define lfs_block_device_sync lfs_ram_sync
+#define lfs_block_device_get_read_size lfs_ram_get_read_size
+#define lfs_block_device_get_prog_size lfs_ram_get_prog_size
+#define lfs_block_device_get_block_size lfs_ram_get_block_size
+#define lfs_block_device_get_block_count lfs_ram_get_block_count
+#define lfs_block_device_get_block_cycles lfs_ram_get_block_cycles
+#define lfs_block_device_get_cache_size lfs_ram_get_cache_size
+#define lfs_block_device_get_lookahead_size lfs_ram_get_lookahead_size
+#define lfs_block_device_test lfs_ram_test
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __LFS_ADAPT_H__ */
