@@ -287,6 +287,7 @@ void btdrv_rf_init_ext(void);
 
 void btdrv_hci_bridge_start(void);
 void ble_nosignal_start(void);
+void ble_set_nosignal_test_via_uart0(void);
 void ble_nosignal_close(void);
 void ble_nosignal_uart_bridge_loop(void);
 void btdrv_set_bdr_ble_txpower(uint8_t div, uint8_t power_level);

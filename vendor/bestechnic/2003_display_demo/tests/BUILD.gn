@@ -13,7 +13,7 @@
 
 declare_args() {
   bes_fs_test = true
-  bes_histreamer_test = false
+  bes_histreamer_test = true
   bes_ui_test = false
   bes_ability_test = true
   bes_wifi_test = true
