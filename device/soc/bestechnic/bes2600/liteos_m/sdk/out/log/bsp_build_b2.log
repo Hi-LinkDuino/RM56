@@ -1,3 +1,0 @@
-make: *** No rule to make target 'all'.  Stop.
-make T=ota_boot2a all lst LFS_SIZE=3145728 LCD_SUPPORT=a064 BEST2003_TYPE=AX4D -j8 DEV=1
-MAKE RESULT: 0

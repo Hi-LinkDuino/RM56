@@ -73,7 +73,7 @@
       "fs_name": "littlefs_GX6D",
       "signature": "false",
       "block_size": "4096",
-      "fs_size": "4194304",
+      "fs_size": "0",
       "fs_src": "data",
       "burn_name": "littlefs",
       "enable": "true"

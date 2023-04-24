@@ -1,4 +1,0 @@
-make: *** No rule to make target 'lib'.  Stop.
-make T=best2600w_liteos LFS_SIZE=3145728 LCD_SUPPORT=a064 BEST2003_TYPE=AX4D -j8 DEV=1 lib
-MAKE RESULT: 0
-[ERROR] /home/alvin/work/aos-2600/device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/tools/../out/best2600w_liteos/.buildinfo not exists.

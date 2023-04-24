@@ -1,0 +1,141 @@
+CHIP		?= best2003
+ifdef DEV
+include $(srctree)/config/bfd_build/$(CHIP).mk
+endif
+
+DEBUG		?= 1
+
+FPGA		?= 0
+
+DEBUG_PORT	?= 1
+
+FLASH_CHIP	?= ALL
+
+NOSTD		?= 1
+
+LARGE_RAM ?= 1
+
+WATCHER_DOG ?= 0
+
+export ALLOW_WARNING ?= 1
+
+export TRACE_BAUD_RATE ?= 1500000
+
+export TRACE_CRLF ?= 1
+
+export POWER_MODE   ?= DIG_DCDC
+
+#export FLASH_PROTECTION ?= 1
+
+export CALIB_SLOW_TIMER := 1
+
+export MCU_HIGH_PERFORMANCE_MODE ?= 320
+
+FLASH_SIZE ?= 0x1000000
+export FLASH_SECURITY_REGISTER ?= 1
+export FLASH_UNIQUE_ID ?= 1
+export OTA_CODE_OFFSET ?= 0x10000
+KBUILD_CPPFLAGS += -DBUILD_BOOT2A=1
+
+export TZ_SUPPORT ?= 0
+ifeq ($(TZ_SUPPORT),1)
+KBUILD_CFLAGS += -DTZ_SUPPORT
+endif
+
+export REMAP_SUPPORT ?= 0
+ifeq ($(REMAP_SUPPORT),0)
+export TZ_A_CODE_OFFSET ?= 0x40000
+ifneq (TZ_A_CODE_OFFSET,)
+KBUILD_CFLAGS += -DTZ_A_CODE_OFFSET=$(TZ_A_CODE_OFFSET)
+endif
+
+export TZ_B_CODE_OFFSET ?= 0x78000
+ifneq (TZ_B_CODE_OFFSET,)
+KBUILD_CFLAGS += -DTZ_B_CODE_OFFSET=$(TZ_B_CODE_OFFSET)
+endif
+
+export BOOTINFO_OFFSET ?= 0x30000
+ifneq (BOOTINFO_OFFSET,)
+KBUILD_CFLAGS += -DOTA_BOOT_INFO_OFFSET=$(BOOTINFO_OFFSET)
+endif
+
+else ifeq ($(REMAP_SUPPORT),1)
+KBUILD_CFLAGS += -DREMAP_SUPPORT
+export TZ_A_CODE_OFFSET ?= 0x40000
+ifneq (TZ_A_CODE_OFFSET,)
+KBUILD_CFLAGS += -DTZ_A_CODE_OFFSET=$(TZ_A_CODE_OFFSET)
+endif
+
+export TZ_B_CODE_OFFSET ?= 0x78000
+ifneq (TZ_B_CODE_OFFSET,)
+KBUILD_CFLAGS += -DTZ_B_CODE_OFFSET=$(TZ_B_CODE_OFFSET)
+endif
+
+export RTOS_A_CODE_OFFSET ?= 0xC0000
+ifneq (RTOS_A_CODE_OFFSET,)
+KBUILD_CFLAGS += -DRTOS_A_CODE_OFFSET=$(RTOS_A_CODE_OFFSET)
+endif
+
+export RTOS_B_CODE_OFFSET ?= 0x6C0000
+ifneq (RTOS_B_CODE_OFFSET,)
+KBUILD_CFLAGS += -DRTOS_B_CODE_OFFSET=$(RTOS_B_CODE_OFFSET)
+endif
+
+export BOOTINFO_OFFSET ?= 0x30000
+ifneq (BOOTINFO_OFFSET,)
+KBUILD_CFLAGS += -DOTA_BOOT_INFO_OFFSET=$(BOOTINFO_OFFSET)
+endif
+
+else ifeq ($(REMAP_SUPPORT),2)
+KBUILD_CFLAGS += -DREMAP_SUPPORT
+export TZ_A_CODE_OFFSET ?= 0x40000
+ifneq (TZ_A_CODE_OFFSET,)
+KBUILD_CFLAGS += -DTZ_A_CODE_OFFSET=$(TZ_A_CODE_OFFSET)
+endif
+
+export TZ_B_CODE_OFFSET ?= 0x78000
+ifneq (TZ_B_CODE_OFFSET,)
+KBUILD_CFLAGS += -DTZ_B_CODE_OFFSET=$(TZ_B_CODE_OFFSET)
+endif
+
+export RTOS_A_CODE_OFFSET ?= 0xC0000
+ifneq (RTOS_A_CODE_OFFSET,)
+KBUILD_CFLAGS += -DRTOS_A_CODE_OFFSET=$(RTOS_A_CODE_OFFSET)
+endif
+
+export RTOS_B_CODE_OFFSET ?= 0xCC0000
+ifneq (RTOS_B_CODE_OFFSET,)
+KBUILD_CFLAGS += -DRTOS_B_CODE_OFFSET=$(RTOS_B_CODE_OFFSET)
+endif
+
+export BOOTINFO_OFFSET ?= 0x30000
+ifneq (BOOTINFO_OFFSET,)
+KBUILD_CFLAGS += -DOTA_BOOT_INFO_OFFSET=$(BOOTINFO_OFFSET)
+endif
+endif
+
+export TRACE_RX_ENABLE ?= 0
+ifeq ($(TRACE_RX_ENABLE),1)
+KBUILD_CFLAGS += -DTRACE_RX_ENABLE
+endif
+
+KBUILD_CFLAGS += -DCALIB_SLOW_TIMER
+
+init-y		:=
+core-y		:= tests/ota_boot_secboot/ platform/cmsis/ platform/hal/ services/transq_msg/ \
+	platform/drivers/norflash/  platform/drivers/ana/
+
+KBUILD_CPPFLAGS += -Iplatform/cmsis/inc -Iplatform/hal -Iplatform/drivers/ana
+
+LDS_FILE	:= best1000.lds
+
+KBUILD_CPPFLAGS +=
+
+KBUILD_CFLAGS +=
+
+LIB_LDFLAGS += -lstdc++ -lsupc++
+
+#CFLAGS_IMAGE += -u _printf_float -u _scanf_float
+
+#LDFLAGS_IMAGE += --wrap main
+
