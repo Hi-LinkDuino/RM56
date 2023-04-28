@@ -43,7 +43,7 @@ void AppEntry(void)
 {
     UiMain();
 #if defined(HISTREAMER_TEST)
-    AudioPlayerStart();
+    // AudioPlayerStart();
 #endif
 }
 

@@ -20,8 +20,13 @@
 
 using namespace OHOS::Media;
 
-//#define HTTP_PLAY_OPEN
+#define HTTP_PLAY_OPEN
 
+#ifdef HTTP_PLAY_OPEN
+#define LOG_TAG "AUD"
+#include "log.h"
+#include "bwifi_interface.h"
+#endif
 std::string GetMusicUri()
 {
 #ifdef HTTP_PLAY_OPEN
@@ -35,7 +40,12 @@ std::string GetMusicUri()
 static void AudioPlayerTask(void *unused)
 {
 #ifdef HTTP_PLAY_OPEN
-    sleep(80);//need delay to send cmd to connect wifi first,AT+WSCONN=BES_SZguest,OPQrst12300456
+    while(bwifi_get_current_status() != BWIFI_STATUS_GOT_IP){
+        HILOG_INFO(HILOG_MODULE_APP, "%s WIFI NOT connected, pls run: AT+WSCONN=<ssid>,<passwd> and wait ...\r\n", __func__);
+        osDelay(100);
+    }
+    osDelay(500);
+    HILOG_INFO(HILOG_MODULE_APP, "%s CONNECTED and ready to play...\r\n", __func__);
 #endif
     auto player = OHOS::Media::CreateHiPlayer();
     player->Init();
@@ -44,8 +54,9 @@ static void AudioPlayerTask(void *unused)
     player->SetLoop(true);
     player->Prepare();
     player->Play();
+    // player->SetVolume(100.0, 100.0);
     while (1) {
-        sleep(1);
+        osDelay(100);
     }
 }
 

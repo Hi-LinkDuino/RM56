@@ -101,15 +101,16 @@ endif
 
 ifeq ($(MMC_DISK_FATFS),1)
 obj-y += mmc_disk/
-subdir-ccflags += DSDMMC_DET_GPIO=SDMMC_DET_GPIO
+subdir-ccflags-y += DSDMMC_DET_GPIO=SDMMC_DET_GPIO
 endif
 
 ifeq ($(NET_LIBCURL_SUPPORT),1)
 obj-y += http_media/
+subdir-ccflags-y += -DHISTREAMER_LITE_MANAGER_EN
 else
 ifeq ($(HISTREAMER_HTTP_HLS_EN), 1)
 obj-y += http_media/
-subdir-ccflags += DHISTREAMER_LITE_MANAGER_EN
+subdir-ccflags-y += -DHISTREAMER_LITE_MANAGER_EN
 endif
 endif
 

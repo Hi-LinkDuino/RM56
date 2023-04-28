@@ -155,7 +155,7 @@
             "multimedia_histreamer_enable_plugin_minimp3_adapter = true",
             "multimedia_histreamer_enable_plugin_smf_adapter = false",
             "multimedia_histreamer_enable_plugin_ffmpeg_adapter = false",
-            "multimedia_histreamer_enable_plugin_http_lite_source = false",
+            "multimedia_histreamer_enable_plugin_http_lite_source = true",
             "multimedia_histreamer_enable_plugin_minimp4_demuxer = false",
             "multimedia_histreamer_enable_plugin_lite_aac_decoder = false",
             "multimedia_histreamer_enable_plugin_aac_demuxer = false",

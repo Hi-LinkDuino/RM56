@@ -37,6 +37,7 @@ typedef struct {
     int buffer_size;
     int priority;
     char cert_file[1024];
+	int not_verify_cert;
 } http_attr_t;
 
 

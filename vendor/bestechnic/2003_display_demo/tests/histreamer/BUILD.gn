@@ -40,6 +40,7 @@ static_library("histreamer_test") {
     "//foundation/multimedia/audio_lite/test/unittest",
     "//foundation/multimedia/utils/lite/interfaces/kits",
     "//device/soc/bestechnic/bes2600/liteos_m/components/multimedia/app/include/",
+    "//device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/net/wifi/",
   ]
 
   public_configs = [ ":include" ]

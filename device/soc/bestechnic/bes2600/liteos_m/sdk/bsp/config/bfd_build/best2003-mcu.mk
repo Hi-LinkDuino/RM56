@@ -75,11 +75,12 @@ export NET_LWIP_SUPPORT=0
 # [1] from vendor/.../product/config.sh
 ######################################################
 export LIBC_INIT_AFTER_OS_INIT=1
-export LPLAYER_FRAMEWORK_EN=1
+export LPLAYER_FRAMEWORK_EN=0
 export NET_LIBCURL_SUPPORT=1
 export NET_MBEDTLS_SUPPORT=1
 export HTTP_MEDIA_SUPPORT_HTTPS=1
-export MP3_CODEC_MINIMP3_DISENABLE=0
+export MP3_CODEC_MINIMP3_DISENABLE=1
+export HISTREAMER_HTTP_HLS_EN=1
 export HISTREAMER_RENDER_SUPPORT=1
 
 
