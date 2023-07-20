@@ -32,7 +32,8 @@ ListAdapter::ListAdapter()
       tailNode_(nullptr),
       itemsCount_(0),
       listItemsCount_(0),
-      uiListContentParam_()
+      uiListContentParam_(),
+      isOpen_(false)
 {
 }
 
@@ -41,6 +42,11 @@ ListAdapter::~ListAdapter()
     if (listItems_) {
         delete[] listItems_;
         listItems_ = nullptr;
+    }
+    if(views_.size() > 0) {
+        views_.clear();
+        std::vector<UIView*> views_;
+        views_.swap(views_);
     }
 
     ViewNativePair *currentNode = headNode_;
@@ -200,9 +206,15 @@ UIView *ListAdapter::GetView(UIView *inView, int16_t index)
     // or else just get it from native Element.
     if (inView != nullptr) {
         // this function will check whether the inView is For type UIView, if it is, delete it, or else do nothing.
-        DeleteItem(inView);
+        if(!isOpen_){
+            DeleteItem(inView);
+        }
     }
-
+    if(isOpen_){
+        if((views_.size() > 0)  && (views_.size() > index)) {
+            return views_.at(index);
+        }
+    }
     bool isFor = false;
     JSValue element = GetElement(listItemsIndex, index, isFor);
     if (jerry_value_is_undefined(element)) {
@@ -220,6 +232,9 @@ UIView *ListAdapter::GetView(UIView *inView, int16_t index)
 
     if (isFor) {
         InsertItem(element, newView);
+    }
+    if(isOpen_){
+        views_.push_back(newView);
     }
     return newView;
 }

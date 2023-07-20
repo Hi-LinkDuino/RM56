@@ -13,7 +13,11 @@
 
 import("//kernel/liteos_m/liteos.gni")
 
-module_switch = defined(LOSCFG_HALS_COMMUCATION_WIFI_LITE)
+if (product_conf.wifi_test == "true") {
+  module_switch = true
+} else {
+  module_switch = false
+}
 
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {

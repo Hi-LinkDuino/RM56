@@ -7,8 +7,8 @@
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  *              DrawImage({tempx,tempy},path_,paint_,gsize[idj]);
- *                 
- *                 //DrawCircle({tempx,tempy}, (mItem[idx].wHight/2),paint_); 
+ *
+ *                 //DrawCircle({tempx,tempy}, (mItem[idx].wHight/2),paint_);
  *
  *               //DrawRect({tempx,tempy},mItem[idx].wHight,mItem[idx].wWidth,paint_);
  *
@@ -18,26 +18,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @addtogroup UI_Components
- * @{
- *
- * @brief Defines UI components such as buttons, texts, images, lists, and progress bars.
- *
- * @since 1.0
- * @version 1.0
- */
-
-/**
- * @file ui_bes_menu.h
- *
- * @brief Declares an bes menu.
- *
- * @since 1.0
- * @version 1.0
- */
-
 #ifndef GRAPHIC_LITE_UI_BES_MENU_H
 #define GRAPHIC_LITE_UI_BES_MENU_H
 
@@ -45,6 +25,7 @@
 #include "components/ui_canvas.h"
 #include "components/ui_view.h"
 #include "components/ui_view_group.h"
+#include "components/ui_extend_image_view.h"
 
 #include "events/cancel_event.h"
 #include "events/click_event.h"
@@ -54,7 +35,8 @@
 #include "events/press_event.h"
 #include "events/release_event.h"
 
-#define SCREEN_WIDTH 464
+
+// #define SCREEN_WIDTH 466
 #define SCREEN_HALF_WIDTH (SCREEN_WIDTH/2)
 #define SCREEN_QUARTER_WIDTH (SCREEN_WIDTH/4)
 
@@ -124,9 +106,8 @@ namespace OHOS {
     0.173648,0.190809,0.207912,0.224951,0.241922,0.258819,0.275637,0.292372,0.309017,0.325568,0.34202,0.358368,0.374607,0.390731, 0.406737, 0.422618, 0.438371, 0.45399, 0.469472, 0.48481, 0.5,
     0.515038,0.529919,0.544639,0.559193, 0.573576, 0.587785, 0.601815, 0.615661, 0.62932, 0.642788, 0.656059, 0.669131, 0.681998, 0.694658, 0.707107, 0.71934, 0.731354, 0.743145, 0.75471, 0.766044, 0.777146, 0.788011, 0.798636, 0.809017, 0.819152, 0.829038, 0.838671, 0.848048, 0.857167,0.866025,0.87462,0.882948,0.891007,0.898794,0.906308,0.913545,0.920505,0.927184,0.93358,0.939693,
     0.945519,0.951057,0.956305,0.961262,0.965926,0.970296,0.97437,0.978148,0.981627,0.984808,0.987688,0.990268,0.992546,0.994522,0.996195,0.997564,0.99863,0.999391,0.999848, 1,};
-  
 
-  
+
 
 /**
  * @brief Provides information about the images.
@@ -147,7 +128,8 @@ struct MenuItemInfo {
     /** Image type */
     ImageType imageType;
 
-    char* path;
+    const char* textInfo;
+    const char* path;
 };
 
 /**
@@ -161,59 +143,61 @@ class UIBesMenu : public UICanvas {
 private:
 
     static  const uint16_t  MENU_SHOW_MAX=19;
-    static  const uint16_t  POS_DG=5; 
+    static  const uint16_t  POS_DG=5;
     static  const uint16_t  MENU_CENTER_INDEX =9;
 
     const  int16_t gpos[POS_DG][MENU_SHOW_MAX][2]={
-	{
-	{PPST40-2*PP40+PP40,PPST40-2*PP40Y}, {PPST40-PP40+PP40,PPST40-2*PP40Y}, {PPST40+PP40,PPST40-2*PP40Y}, {PPST40-2*PP40+PP40/2,PPST40-PP40Y}, 
-	{PPST40-PP40+PP40/2,PPST40-PP40Y}, {PPST40+PP40/2,PPST40-PP40Y}, {PPST40+PP40+PP40/2,PPST40-PP40Y},{PPST40-2*PP40,PPST40}, 
-	{PPST40-PP40,PPST40}, {PPST40,PPST40}, {PPST40+PP40,PPST40},{PPST40+2*PP40,PPST40},{PPST40-2*PP40+PP40/2,PPST40+PP40Y}, 
-	{PPST40-PP40+PP40/2,PPST40+PP40Y}, {PPST40+PP40/2,PPST40+PP40Y},{PPST40+PP40+PP40/2,PPST40+PP40Y},{PPST40-2*PP40+PP40,PPST40+2*PP40Y}, 
-	{PPST40-PP40+PP40,PPST40+2*PP40Y}, {PPST40+PP40,PPST40+2*PP40Y},},  
     {
-	{PPST50-2*PP50+PP50,PPST50-2*PP50Y}, {PPST50-PP50+PP50,PPST50-2*PP50Y}, {PPST50+PP50,PPST50-2*PP50Y}, {PPST50-2*PP50+PP50/2,PPST50-PP50Y}, 
-	{PPST50-PP50+PP50/2,PPST50-PP50Y}, {PPST50+PP50/2,PPST50-PP50Y},{PPST50+PP50+PP50/2,PPST50-PP50Y},{PPST50-2*PP50,PPST50}, 
-	{PPST50-PP50,PPST50}, {PPST50,PPST50},{PPST50+PP50,PPST50},{PPST50+2*PP50,PPST50},{PPST50-2*PP50+PP50/2,PPST50+PP50Y}, 
-	{PPST50-PP50+PP50/2,PPST50+PP50Y}, {PPST50+PP50/2,PPST50+PP50Y},{PPST50+PP50+PP50/2,PPST50+PP50Y},{PPST50-2*PP50+PP50,PPST50+2*PP50Y}, 
-	{PPST50-PP50+PP50,PPST50+2*PP50Y},  {PPST50+PP50,PPST50+2*PP50Y}, },  
-    {{PPST60-2*PP60+PP60,PPST60-2*PP60Y}, {PPST60-PP60+PP60,PPST60-2*PP60Y}, {PPST60+PP60,PPST60-2*PP60Y},{PPST60-2*PP60+PP60/2,PPST60-PP60Y}, 
-	{
-    PPST60-PP60+PP60/2,PPST60-PP60Y}, {PPST60+PP60/2,PPST60-PP60Y},{PPST60+PP60+PP60/2,PPST60-PP60Y},{PPST60-2*PP60,PPST60}, {PPST60-PP60,PPST60}, 
-    {PPST60,PPST60},{PPST60+PP60,PPST60},{PPST60+2*PP60,PPST60},{PPST60-2*PP60+PP60/2,PPST60+PP60Y}, 
-	{PPST60-PP60+PP60/2,PPST60+PP60Y}, {PPST60+PP60/2,PPST60+PP60Y},{PPST60+PP60+PP60/2,PPST60+PP60Y},{PPST60-2*PP60+PP60,PPST60+2*PP60Y}, 
-	{PPST60-PP60+PP60,PPST60+2*PP60Y}, {PPST60+PP60,PPST60+2*PP60Y},},
+    {PPST40-2*PP40+PP40,PPST40-2*PP40Y}, {PPST40-PP40+PP40,PPST40-2*PP40Y}, {PPST40+PP40,PPST40-2*PP40Y}, {PPST40-2*PP40+PP40/2,PPST40-PP40Y},
+    {PPST40-PP40+PP40/2,PPST40-PP40Y}, {PPST40+PP40/2,PPST40-PP40Y}, {PPST40+PP40+PP40/2,PPST40-PP40Y},{PPST40-2*PP40,PPST40},
+    {PPST40-PP40,PPST40}, {PPST40,PPST40}, {PPST40+PP40,PPST40},{PPST40+2*PP40,PPST40},{PPST40-2*PP40+PP40/2,PPST40+PP40Y},
+    {PPST40-PP40+PP40/2,PPST40+PP40Y}, {PPST40+PP40/2,PPST40+PP40Y},{PPST40+PP40+PP40/2,PPST40+PP40Y},{PPST40-2*PP40+PP40,PPST40+2*PP40Y},
+    {PPST40-PP40+PP40,PPST40+2*PP40Y}, {PPST40+PP40,PPST40+2*PP40Y},},
     {
-    {PPST70-2*PP70+PP70,PPST70-2*PP70Y}, {PPST70-PP70+PP70,PPST70-2*PP70Y}, {PPST70+PP70,PPST70-2*PP70Y},{PPST70-2*PP70+PP70/2,PPST70-PP70Y}, 
-	{PPST70-PP70+PP70/2,PPST70-PP70Y}, {PPST70+PP70/2,PPST70-PP70Y},{PPST70+PP70+PP70/2,PPST70-PP70Y},{PPST70-2*PP70,PPST70}, {PPST70-PP70,PPST70}, 
-    {PPST70,PPST70},{PPST70+PP70,PPST70},{PPST70+2*PP70,PPST70},{PPST70-2*PP70+PP70/2,PPST70+PP70Y}, {PPST70-PP70+PP70/2,PPST70+PP70Y}, 
-    {PPST70+PP70/2,PPST70+PP70Y}, {PPST70+PP70+PP70/2,PPST70+PP70Y},{PPST70-2*PP70+PP70,PPST70+2*PP70Y}, {PPST70-PP70+PP70,PPST70+2*PP70Y}, 
+    {PPST50-2*PP50+PP50,PPST50-2*PP50Y}, {PPST50-PP50+PP50,PPST50-2*PP50Y}, {PPST50+PP50,PPST50-2*PP50Y}, {PPST50-2*PP50+PP50/2,PPST50-PP50Y},
+    {PPST50-PP50+PP50/2,PPST50-PP50Y}, {PPST50+PP50/2,PPST50-PP50Y},{PPST50+PP50+PP50/2,PPST50-PP50Y},{PPST50-2*PP50,PPST50},
+    {PPST50-PP50,PPST50}, {PPST50,PPST50},{PPST50+PP50,PPST50},{PPST50+2*PP50,PPST50},{PPST50-2*PP50+PP50/2,PPST50+PP50Y},
+    {PPST50-PP50+PP50/2,PPST50+PP50Y}, {PPST50+PP50/2,PPST50+PP50Y},{PPST50+PP50+PP50/2,PPST50+PP50Y},{PPST50-2*PP50+PP50,PPST50+2*PP50Y},
+    {PPST50-PP50+PP50,PPST50+2*PP50Y},  {PPST50+PP50,PPST50+2*PP50Y}, },
+    {{PPST60-2*PP60+PP60,PPST60-2*PP60Y}, {PPST60-PP60+PP60,PPST60-2*PP60Y}, {PPST60+PP60,PPST60-2*PP60Y},{PPST60-2*PP60+PP60/2,PPST60-PP60Y},
+    {
+    PPST60-PP60+PP60/2,PPST60-PP60Y}, {PPST60+PP60/2,PPST60-PP60Y},{PPST60+PP60+PP60/2,PPST60-PP60Y},{PPST60-2*PP60,PPST60}, {PPST60-PP60,PPST60},
+    {PPST60,PPST60},{PPST60+PP60,PPST60},{PPST60+2*PP60,PPST60},{PPST60-2*PP60+PP60/2,PPST60+PP60Y},
+    {PPST60-PP60+PP60/2,PPST60+PP60Y}, {PPST60+PP60/2,PPST60+PP60Y},{PPST60+PP60+PP60/2,PPST60+PP60Y},{PPST60-2*PP60+PP60,PPST60+2*PP60Y},
+    {PPST60-PP60+PP60,PPST60+2*PP60Y}, {PPST60+PP60,PPST60+2*PP60Y},},
+    {
+    {PPST70-2*PP70+PP70,PPST70-2*PP70Y}, {PPST70-PP70+PP70,PPST70-2*PP70Y}, {PPST70+PP70,PPST70-2*PP70Y},{PPST70-2*PP70+PP70/2,PPST70-PP70Y},
+    {PPST70-PP70+PP70/2,PPST70-PP70Y}, {PPST70+PP70/2,PPST70-PP70Y},{PPST70+PP70+PP70/2,PPST70-PP70Y},{PPST70-2*PP70,PPST70}, {PPST70-PP70,PPST70},
+    {PPST70,PPST70},{PPST70+PP70,PPST70},{PPST70+2*PP70,PPST70},{PPST70-2*PP70+PP70/2,PPST70+PP70Y}, {PPST70-PP70+PP70/2,PPST70+PP70Y},
+    {PPST70+PP70/2,PPST70+PP70Y}, {PPST70+PP70+PP70/2,PPST70+PP70Y},{PPST70-2*PP70+PP70,PPST70+2*PP70Y}, {PPST70-PP70+PP70,PPST70+2*PP70Y},
     {PPST70+PP70,PPST70+2*PP70Y}, },
     {
-	{PPST80-2*PP80+PP80,PPST80-2*PP80Y}, {PPST80-PP80+PP80,PPST80-2*PP80Y}, {PPST80+PP80,PPST80-2*PP80Y},{PPST80-2*PP80+PP80/2,PPST80-PP80Y}, 
-	{PPST80-PP80+PP80/2,PPST80-PP80Y}, {PPST80+PP80/2,PPST80-PP80Y}, {PPST80+PP80+PP80/2,PPST80-PP80Y},{PPST80-2*PP80,PPST80}, {PPST80-PP80,PPST80}, 
-    {PPST80,PPST80},{PPST80+PP80,PPST80},{PPST80+2*PP80,PPST80},{PPST80-2*PP80+PP80/2,PPST80+PP80Y}, {PPST80-PP80+PP80/2,PPST80+PP80Y}, 
-    {PPST80+PP80/2,PPST80+PP80Y},{PPST80+PP80+PP80/2,PPST80+PP80Y},{PPST80-2*PP80+PP80,PPST80+2*PP80Y}, {PPST80-PP80+PP80,PPST80+2*PP80Y}, 
+    {PPST80-2*PP80+PP80,PPST80-2*PP80Y}, {PPST80-PP80+PP80,PPST80-2*PP80Y}, {PPST80+PP80,PPST80-2*PP80Y},{PPST80-2*PP80+PP80/2,PPST80-PP80Y},
+    {PPST80-PP80+PP80/2,PPST80-PP80Y}, {PPST80+PP80/2,PPST80-PP80Y}, {PPST80+PP80+PP80/2,PPST80-PP80Y},{PPST80-2*PP80,PPST80}, {PPST80-PP80,PPST80},
+    {PPST80,PPST80},{PPST80+PP80,PPST80},{PPST80+2*PP80,PPST80},{PPST80-2*PP80+PP80/2,PPST80+PP80Y}, {PPST80-PP80+PP80/2,PPST80+PP80Y},
+    {PPST80+PP80/2,PPST80+PP80Y},{PPST80+PP80+PP80/2,PPST80+PP80Y},{PPST80-2*PP80+PP80,PPST80+2*PP80Y}, {PPST80-PP80+PP80,PPST80+2*PP80Y},
     {PPST80+PP80,PPST80+2*PP80Y},},
     };
 
-   const  uint8_t gRsize[POS_DG+1]={
-	0,1,2,3,4,5
-    	};
-  
-    const  uint8_t gsize[8]={
-	16,32,48,64,80,96
-    	};
+
+    const  uint8_t gsize[POS_DG+1]={
+    30,50,60,70,80,100
+        };
+
+//    static  const uint16_t  SIZE=14;
+//    const  uint8_t gsize[SIZE+1]={
+//      20, 25, 30, 35, 40,45,50,55,60,65,70,75,80,85,90
+//    };
 
     const  uint8_t gposMax[POS_DG]={
-	227,207,131,90
-    	};
+    180,160,120,80
+        };
 
 
     struct menuItem_date_t{
         int16_t ang;
         int32_t x;
-        int32_t y;	
+        int32_t y;
         uint16_t wWidth;
         uint16_t wHight;
     };
@@ -238,23 +222,55 @@ private:
     void initBesMenuData();
 
     bool CheckInsideCircle(int16_t x,int16_t y,int16_t iSize);
-    
-    uint16_t CheckInside(uint16_t x,uint16_t y,const uint16_t mMaxIndex);
+
+    int16_t CheckInside(uint16_t x,uint16_t y,const uint16_t mMaxIndex);
+
+    void SensdrawImageCmd(const Point& startPoint,int16_t width,DrawCmd cmd);
 
     int32_t mTouchX;
     int32_t mTouchY;
 
     char *path_;
     MenuItemInfo *frames_;
-protected:  
 
-    uint8_t getCalLenght(int16_t length); 
+    DrawCmd cmds_[19];
 
 public:
-    UIBesMenu();  
+    class OnMenuItemClickListener : public HeapBase{
+        public:
+            virtual ~OnMenuItemClickListener(){}
+            virtual void OnUserClickIndex(uint8_t index,const ClickEvent &event)=0;
+    };
+
+    /**
+     * @brief Obtains the listener set for item click events.
+     *
+     * @return Returns the item click event listener.
+     * @since 1.0
+     * @version 1.0
+     */
+    OnMenuItemClickListener*& GetOnItemClickListener()
+    {
+        return itemClickListener_;
+    }
+
+    /**
+     * @brief Sets the listener that contains a callback to be invoked upon a item click event.
+     *
+     * @param onSwipeListener Indicates the listener to set.
+     * @since 1.0
+     * @version 1.0
+     */
+    void SetOnItemClickListener(OnMenuItemClickListener* itemClickListener)
+    {
+        itemClickListener_ = itemClickListener;
+    }
+
+    UIBesMenu();
     ~UIBesMenu();
     //real init
     void onPaint(bool isRepaint);
+
 
     bool touchDown(uint16_t x,uint16_t y);
     bool touchMove(uint16_t x, uint16_t y);
@@ -267,6 +283,10 @@ public:
 
     void setFrames( const MenuItemInfo frames[]);
     void resetMoveData();
+
+    void DrawImage1(const Point& startPoint, const char* image, const Paint& paint, int16_t width, int16_t height);
+
+    int8_t CalculateClickPos(const Point& point);
 
     /**
      * @fn void OnDragEvent(const DragEvent& event) override
@@ -281,6 +301,12 @@ public:
 
     bool OnDragStartEvent(const DragEvent& event) override;
 
+    bool OnClickEvent(const ClickEvent& event) override;
+
+    protected:
+
+    uint8_t getCalLenght(int16_t length);
+    OnMenuItemClickListener* itemClickListener_;
 
 };
 

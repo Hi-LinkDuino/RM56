@@ -193,7 +193,7 @@ void DescriptorUtils::ReleaseElement(JSValue element)
         HILOG_WARN(HILOG_MODULE_ACE, "delete native view pointer from native element failed.");
     }
 
-    if (component->GetComponentName() != K_LIST) {
+    if (component->GetComponentName() != K_LIST && component->GetComponentName() != K_BES_FISHEYE_MENU) {
         JSValue descriptors = component->GetDescriptors();
         if (!JSUndefined::Is(descriptors)) {
             ReleaseDescriptorOrElements(descriptors);

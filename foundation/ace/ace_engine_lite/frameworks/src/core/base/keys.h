@@ -61,9 +61,16 @@ enum {
     KEYWORD(BES_HAND_HEIGHT,besHandHeight)//clock-hand attr
     KEYWORD(BES_MENU,bes-menu) // tag name
     KEYWORD(BES_DRAG_VIEW,bes-drag) // tag name
+    KEYWORD(BES_LIST_MENU_VIEW,bes-list-menu) // tag name
     KEYWORD(BES_SLIDE,bes-slide) // tag name
+    KEYWORD(BES_BUTTON, bes-button) // the type in bes-button
+    KEYWORD(BES, bes) // the type in bes-button
+    KEYWORD(BES_PRESS_COLOR, besPressColor) // private style bes-button
+    KEYWORD(BES_PRESS_IMAGE, besPressImage) // private style bes-button
     KEYWORD(BES_DRAWER_LAYOUT,bes-drawer-layout) // tag name
     KEYWORD(BES_FISHEYE_MENU,bes-fisheye-menu) // tag name
+    KEYWORD(BES_FRAGEMNT,bes-fragment) // tag name
+    KEYWORD(BES_PATH,besPath) // tag name 
     KEYWORD(BLOCK_COLOR, blockColor)
     KEYWORD(BORDER_BOTTOM_COLOR, borderBottomColor) // common style border bottom color
     KEYWORD(BORDER_LEFT_COLOR, borderLeftColor) // common style border left color
@@ -343,7 +350,7 @@ enum {
     KEYWORD(BES_SCROLLBAR_ANIM, besScrollbarAnim)  // layout style 字段名称，滚动条动画
     KEYWORD(BES_SCROLLBAR_AUTO_HIDE, besScrollbarAutoHide)  // layout style 字段名称，滚动条动画
     KEYWORD(BES_SCROLLBAR_LEN_FACTOR, besScrollbarLenFactor)  // layout style 字段名称，滚动条长度因子
-
+    KEYWORD(BES_TYPE, besType)//private style qrcode
     // Reused by the struct end
 // clang-format on
 #ifdef KEYWORDS_ENUM_DEFINE

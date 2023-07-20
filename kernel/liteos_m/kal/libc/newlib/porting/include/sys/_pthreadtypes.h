@@ -76,6 +76,9 @@ typedef struct {
     size_t stacksize;
 } pthread_attr_t;
 
+typedef struct { union { int __i[sizeof(long)==8?14:8]; volatile int __vi[sizeof(long)==8?14:8]; void *__p[sizeof(long)==8?7:8]; } __u; } pthread_rwlock_t;
+typedef struct { unsigned __attr[2]; } pthread_rwlockattr_t;
+
 #include "los_list.h"
 typedef struct { unsigned type; } pthread_mutexattr_t;
 typedef struct { unsigned int magic; unsigned int handle; pthread_mutexattr_t stAttr;} pthread_mutex_t;

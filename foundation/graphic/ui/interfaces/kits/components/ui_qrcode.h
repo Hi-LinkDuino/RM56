@@ -106,6 +106,14 @@ public:
      * @version 1.0
      */
     void SetHeight(int16_t height) override;
+    /**
+     * @brief Sets the QR code range.
+     *
+     * @param codeType Indicates the range to set.
+     * @since 1.0
+     * @version 1.0
+     */
+    void SetQrcodeRange(uint8_t codeType);
 
 private:
     void ReMeasure() override;
@@ -124,6 +132,7 @@ private:
     ColorType backgroundColor_;
     ColorType qrColor_;
     char* qrcodeVal_;
+    uint8_t codeType_;
 };
 } // namespace OHOS
 #endif // GRAPHIC_LITE_UI_QRCODE_H

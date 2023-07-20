@@ -246,6 +246,8 @@ uint8_t DrawUtils::GetByteSizeByColorMode(uint8_t colorMode)
             return 2; // 2: 2 Byte
         case L8:
             return 1; // 1: 1 Byte
+        case ETC2:
+            return 1;
         default:
             return 0;
     }

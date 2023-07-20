@@ -48,6 +48,7 @@ void bt_set_ble_local_address(uint8_t* bleAddr);
 bool app_bt_current_is_besbt_thread(void);
 void * bt_get_init_stack_thread_id(void);
 bool bt_thread_running(void);
+void * get_bes_bt_main_thread_id(void);
 #ifdef __cplusplus
 }
 #endif

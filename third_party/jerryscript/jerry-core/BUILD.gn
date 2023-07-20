@@ -215,7 +215,7 @@ jerry_core_includes = [
 ]
 
 jerry_core_defines = [
-  "JERRY_GLOBAL_HEAP_SIZE = (128)",
+  "JERRY_GLOBAL_HEAP_SIZE = (512)",
   "JERRY_ERROR_MESSAGES = 1",
   "JERRY_LINE_INFO = 1",
   "JERRY_FUNCTION_NAME",

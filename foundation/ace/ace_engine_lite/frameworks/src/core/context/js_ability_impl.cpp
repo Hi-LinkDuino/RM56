@@ -29,6 +29,15 @@
 
 namespace OHOS {
 namespace ACELite {
+
+/**
+ * @author yongxianglai@bestechnic.com
+ * @brief 清理自定义 module
+ */
+void ClearBesModule()
+{
+}
+
 void JSAbilityImpl::InitEnvironment(const char * const abilityPath, const char * const bundleName, uint16_t token)
 {
     if ((abilityPath == nullptr) || strlen(abilityPath) == 0 || (bundleName == nullptr) || strlen(bundleName) == 0) {
@@ -94,6 +103,10 @@ void JSAbilityImpl::CleanUp()
         router_ = nullptr;
     }
     TimersModule::Clear();
+
+    //yongxianglai@bestechnic.com: 清理自定义 module
+    ClearBesModule();
+
     LocalModule::Clear();
     if (appContext_) {
         appContext_->ClearContext();

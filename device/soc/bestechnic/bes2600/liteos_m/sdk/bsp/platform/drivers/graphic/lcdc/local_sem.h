@@ -44,7 +44,7 @@ static __inline int lcdc_sem_timewait(volatile int *sem, uint32_t us)
 #define lcdc_sem_trywait    sem_trywait
 #define lcdc_sem_reset      sem_reset
 #define lcdc_sem_get_value  sem_getvalue
-#elif defined(KERNEL_LITEOS_M) || defined(KERNEL_LITEOS_A)
+#elif defined(KERNEL_LITEOS_M) || defined(KERNEL_LITEOS_A) || defined(KERNEL_FREERTOS)
 #include "graphic_conf.h"
 #include "semaphore.h"
 #ifdef CONFIG_FB_SYNC

@@ -133,5 +133,28 @@ void LazyLoadManager::RemoveLazyWatcher(jerry_value_t nativeElement)
         node = node->next_;
     }
 }
+
+void LazyLoadManager::RemoveLazyWatcher(const UIView* const pageRootView)
+{
+    if (lazyWatchersList_.IsEmpty()) return;
+
+    ListNode<LazyLoadWatcher *> *node = lazyWatchersList_.Begin();
+    while (node != lazyWatchersList_.End()) {
+        if (node->data_ == nullptr) {
+            node = lazyWatchersList_.Remove(node);
+            continue;
+        }
+
+        Component *component = ComponentUtils::GetComponentFromBindingObject(node->data_->GetNativeElement());
+        if (component == nullptr || component->IsBindViewTree(pageRootView)) {
+            // found, remove the node
+            delete node->data_;
+            node->data_ = nullptr;
+            node = lazyWatchersList_.Remove(node);
+            continue;
+        }
+        node = node->next_;
+    }
+}
 } // namespace ACELite
 } // namespace OHOS

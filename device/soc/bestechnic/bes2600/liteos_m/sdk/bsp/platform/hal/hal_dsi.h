@@ -166,6 +166,8 @@ void hal_dsi_reset(uint16_t h_res);
  */
 void hal_dsi_send_cmd(uint8_t cmd);
 
+void hal_dsi_send_hscmd(uint8_t cmd);
+
 /**
  * @brief hal_dsi_read_cmd - read data by lp mode
  *
@@ -272,6 +274,10 @@ void hal_dsi_te_gpio_irq_register(HAL_DSI_TE_GPIO_IRQ_HANDLER hdlr);
 void hal_dsi_te_gpio_irq_enable(void);
 
 void hal_dsi_te_gpio_irq_disable(void);
+
+void hal_dsi_start_hs_clock(void);
+
+void hal_dsi_stop_hs_clock(void);
 
 #ifdef __cplusplus
 }

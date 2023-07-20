@@ -19,6 +19,7 @@
 #include "component.h"
 #include "non_copyable.h"
 #include "ui_bes_menu.h"
+#include "event_util.h"
 
 namespace OHOS {
 namespace ACELite {
@@ -32,22 +33,46 @@ public:
 protected:
     bool CreateNativeViews() override;
     void ReleaseNativeViews() override;
-   
     UIView *GetComponentRootView() const override;
     bool SetPrivateAttribute(uint16_t attrKeyId, jerry_value_t attrValue) override;
-    
     void PostUpdate(uint16_t attrKeyId) override;
     bool RegisterPrivateEventListener(uint16_t eventTypeId, jerry_value_t funcValue, bool isStopPropagation) override;
-   
+
+    void OnVisibilityChanged(bool isVisible) override;
 
 private:
+    class ItemClickListener : public UIBesMenu::OnMenuItemClickListener{
+        public:
+            ACE_DISALLOW_COPY_AND_MOVE(ItemClickListener);
+            explicit ItemClickListener(jerry_value_t vm,jerry_value_t fn,bool isStopPropagation) 
+            : vm_(jerry_acquire_value(vm)),
+            menu_(nullptr),
+            fn_(jerry_acquire_value(fn)) {}
+            ItemClickListener() = delete;
+            ~ItemClickListener()
+            {
+                jerry_release_value(fn_);
+                jerry_release_value(vm_);
+            }
+            void OnUserClickIndex(uint8_t index,const ClickEvent &event) override;
+            void SetMenu(UIBesMenu *besMenu){
+                menu_ = besMenu;
+            }
+        private:
+            jerry_value_t vm_;
+            jerry_value_t fn_;
+            bool isStopPropagation_;
+            UIBesMenu* menu_;
+
+    };
     void ReleaseFrame();
     bool ParseToFrames(jerry_value_t value);
-    
     UIBesMenu *besMenu_;
 
     MenuItemInfo *frames_;
     uint8_t framesSize_;
+
+    ItemClickListener *itemClickListener_;
 
 };
 

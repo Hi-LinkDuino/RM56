@@ -20,7 +20,9 @@ hdf_driver(module_name) {
     sources += [ "spi_wm.c" ]
   }
 
-  include_dirs = [ "." ]
+  include_dirs = [
+    "//device/soc/bestechnic/bes2600/liteos_m/components/drivers/peripheral/display/hal/panel",
+  ]
   if (defined(LOSCFG_SHIELD_V200ZR_EVB_T1) &&
       defined(LOSCFG_DRIVERS_HDF_CONFIG_MACRO)) {
     deps = [ "//device/board/fnlink/shields" ]

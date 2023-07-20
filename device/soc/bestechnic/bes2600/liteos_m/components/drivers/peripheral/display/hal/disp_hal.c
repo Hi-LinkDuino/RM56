@@ -17,6 +17,10 @@
 #include "lcd_abs_if.h"
 #include "mipi_dsi_core.h"
 #include "mipi_dsi.h"
+#ifdef CONFIG_DISPLAY_ST7789H2
+#include "spi_core.h"
+#include "spi_bes.h"
+#endif
 
 int32_t DispInit(uint32_t devId)
 {
@@ -115,6 +119,44 @@ int32_t DispSetBacklight(uint32_t devId, uint32_t level)
     return HDF_SUCCESS;
 }
 
+#ifdef CONFIG_DISPLAY_ST7789H2
+
+#define HDF_SPI_SERVICE "HDF_PLATFORM_SPI_1"
+
+static struct SpiService *GetDispService()
+{
+    static struct SpiService *service = NULL;
+    if (service == NULL) {
+        struct SpiCntlr *spiCntlr = (struct SpiCntlr *)DevSvcManagerClntGetService(HDF_SPI_SERVICE);
+        if (spiCntlr == NULL) {
+            HDF_LOGE("failed to get service %s", HDF_SPI_SERVICE);
+            return NULL;
+        }
+        struct SpiDevice *ptr = spiCntlr->priv;
+        service = (struct SpiService *)ptr->priv;
+    }
+    return service;
+}
+
+void *DispMmap(uint32_t size)
+{
+    struct SpiService *service = GetDispService();
+    if (service == NULL || service->mmap == NULL) {
+        return NULL;
+    }
+    return service->mmap(size);
+}
+
+void DispFlush(void)
+{
+    struct SpiService *service = GetDispService();
+    if (service == NULL || service->flush == NULL) {
+        return;
+    }
+    service->flush();
+}
+
+#else
 #define HDF_MIPI_DSI_SERVICE "HDF_PLATFORM_MIPI_DSI"
 
 static struct MipiDsiService *GetDispService()
@@ -148,3 +190,4 @@ void DispFlush(void)
     }
     service->flush();
 }
+#endif

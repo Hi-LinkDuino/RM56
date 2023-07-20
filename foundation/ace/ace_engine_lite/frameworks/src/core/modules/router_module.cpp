@@ -24,6 +24,8 @@ namespace ACELite {
 void InitRouterModule(JSIValue exports)
 {
     JSI::SetModuleAPI(exports, "replace", RouterModule::Replace);
+    JSI::SetModuleAPI(exports, "push", RouterModule::Push);
+    JSI::SetModuleAPI(exports, "back", RouterModule::Back);
 }
 
 JSIValue RouterModule::Replace(const JSIValue thisVal, const JSIValue* args, uint8_t argsNum)
@@ -50,5 +52,65 @@ JSIValue RouterModule::Replace(const JSIValue thisVal, const JSIValue* args, uin
     jerry_value_t replaceResult = router->Replace(object);
     return AS_JSI_VALUE(replaceResult);
 }
+
+JSIValue RouterModule::Push(const JSIValue thisVal, const JSIValue* args, uint8_t argsNum)
+{
+
+    if(argsNum != 1 || args == nullptr){
+        HILOG_ERROR(HILOG_MODULE_ACE, "Puah args invalid, args num %d", argsNum);
+        return AS_JSI_VALUE(jerry_create_error(JERRY_ERROR_TYPE, 
+            reinterpret_cast<const jerry_char_t *>("params should only be one object")));
+    }
+
+    jerry_value_t object = AS_JERRY_VALUE(args[0]);
+
+    JsAppContext* appContext = JsAppContext::GetInstance();
+    const JSAbilityImpl* topJsAbilityImpl = appContext->GetTopJSAbilityImpl();
+    if(topJsAbilityImpl == nullptr){
+        HILOG_ERROR(HILOG_MODULE_ACE, "topJsAbilityImpl is null.");
+        return AS_JSI_VALUE(UNDEFINED);
+    }
+
+    Router* router = const_cast<Router *>(topJsAbilityImpl->GetRouter());
+    if(router == nullptr){
+        HILOG_ERROR(HILOG_MODULE_ACE, "router is null");
+        return AS_JSI_VALUE(UNDEFINED);
+    }
+
+    jerry_value_t pushResult = router->Push(object);
+
+    return AS_JSI_VALUE(pushResult);
+
+}
+
+JSIValue RouterModule::Back(const JSIValue thisVal, const JSIValue* args, uint8_t argsNum)
+{
+
+    JsAppContext* appContext = JsAppContext::GetInstance();
+
+    const JSAbilityImpl* topJsAbilityImpl = appContext->GetTopJSAbilityImpl();
+    if(topJsAbilityImpl == nullptr){
+        HILOG_ERROR(HILOG_MODULE_ACE, "topJsAbilityImpl is null.");
+        return AS_JSI_VALUE(UNDEFINED);
+    }
+
+    Router* router = const_cast<Router *>(topJsAbilityImpl->GetRouter());
+    if(router == nullptr){
+        HILOG_ERROR(HILOG_MODULE_ACE, "router is null");
+        return AS_JSI_VALUE(UNDEFINED);
+    }
+
+    jerry_value_t object = jerry_create_undefined();
+
+
+    if(argsNum == 1){
+        object = AS_JERRY_VALUE(args[0]);
+    }
+
+    jerry_value_t backResult = router->Back(object);
+
+    return AS_JSI_VALUE(backResult);
+}
+
 } // namespace ACELite
 } // namespace OHOS

@@ -33,11 +33,13 @@ protected:
     bool CreateNativeViews() override;
     void ReleaseNativeViews() override;
     UIView *GetComponentRootView() const override;
+    bool SetPrivateAttribute(uint16_t attrKeyId, jerry_value_t attrValue) override;
     bool ApplyPrivateStyle(const AppStyleItem* style) override;
     bool RegisterPrivateEventListener(uint16_t eventTypeId, JSValue funcValue, bool isStopPropagation) override;
     bool ProcessChildren() override;
     void OnViewAttached() override;
     bool UpdateForView() override;
+    void PostUpdate(uint16_t attrKeyId) override;
 
 private:
     UIList list_;

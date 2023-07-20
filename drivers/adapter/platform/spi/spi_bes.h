@@ -17,6 +17,7 @@
 #endif
 #include "osal_mutex.h"
 #include "osal_sem.h"
+#include "hdf_device_desc.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,10 +66,30 @@ struct SPI_CTX_OBJ_T {
     int (*SpiClose)(uint32_t cs);
 };
 
+#define BUF_NUM 2
+
+enum BUF_STATE {
+    IDLE,
+    READY,
+    BUSY,
+};
+
 struct SpiDevice {
     uint32_t spiId;
     struct SpiResource resource;
     struct HAL_SPI_CFG_T spiDevCfg;
+    uint32_t buffers[BUF_NUM];
+    uint32_t buf_size;
+    volatile uint8_t buf_idx;
+    volatile uint8_t free_chan;
+    volatile enum BUF_STATE buf_state;
+    void *priv;
+};
+
+struct SpiService {
+    struct IDeviceIoService service;
+    void *(*mmap)(uint32_t size);
+    void (*flush)(void);
 };
 
 #ifdef __cplusplus

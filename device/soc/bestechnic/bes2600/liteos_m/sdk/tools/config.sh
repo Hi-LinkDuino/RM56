@@ -24,6 +24,13 @@ NET_LWIP_SUPPORT=0      \
 "
 # == area config liteos main bin end   == #
 
+# == area config liteos mini bin begin == #
+OPT_SOC_MINI=" \
+NET_LWIP_EXTERN=2       \
+NET_LWIP_SUPPORT=0      \
+"
+# == area config liteos mini bin end   == #
+
 # == area config liteos cp bin begin == #
 OPT_SOC_CP=" \
 "

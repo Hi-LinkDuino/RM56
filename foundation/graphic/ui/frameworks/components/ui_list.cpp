@@ -26,6 +26,7 @@ UIList::Recycle::~Recycle()
         if (node->data_) {
             UIView* deleteView = node->data_;
             if (deleteView != nullptr) {
+                adapter_->RemoveItem(deleteView);
                 delete deleteView;
                 deleteView = nullptr;
                 node->data_ = nullptr;
@@ -103,24 +104,59 @@ UIView* UIList::Recycle::GetView(int16_t index)
     return retView;
 }
 
+void UIList::Reload()
+{
+    recycle_.Reload();
+}
+
+void UIList::Recycle::Reload()
+{
+     uint16_t index = (adapter_->GetCount() / 6);
+     while (index < adapter_->GetCount()) {
+                UIView* view = GetView(index);
+                if (view == nullptr) {
+                    break;
+                }
+                listView_->PushBack(view);
+                index++;
+            } 
+}
+
 void UIList::Recycle::FillActiveView()
 {
     uint16_t index = listView_->GetStartIndex();
     if (listView_->GetDirection() == UIList::VERTICAL) {
         int16_t childBottom = 0;
-        while ((index < adapter_->GetCount()) && (childBottom < listView_->GetHeight())) {
-            UIView* view = GetView(index);
-            if (view == nullptr) {
-                break;
+        if(isOpen_){
+            while ((index < (adapter_->GetCount() / 6)) || (childBottom < listView_->GetHeight())) {
+                UIView* view = GetView(index);
+                if (view == nullptr) {
+                    break;
+                }
+                listView_->PushBack(view);
+                if (listView_->childrenTail_) {
+                    childBottom =
+                        listView_->childrenTail_->GetY() + listView_->childrenTail_->GetRelativeRect().GetHeight();
+                } else {
+                    break;
+                }
+                index++;
+            } 
+        }else{
+            while ((index < adapter_->GetCount()) && (childBottom < listView_->GetHeight())) {
+                UIView* view = GetView(index);
+                if (view == nullptr) {
+                    break;
+                }
+                listView_->PushBack(view);
+                if (listView_->childrenTail_) {
+                    childBottom =
+                        listView_->childrenTail_->GetY() + listView_->childrenTail_->GetRelativeRect().GetHeight();
+                } else {
+                    break;
+                }
+                index++;
             }
-            listView_->PushBack(view);
-            if (listView_->childrenTail_) {
-                childBottom =
-                    listView_->childrenTail_->GetY() + listView_->childrenTail_->GetRelativeRect().GetHeight();
-            } else {
-                break;
-            }
-            index++;
         }
     } else {
         int16_t childRight = 0;
@@ -162,7 +198,8 @@ UIList::UIList(uint8_t direction)
       selectPosition_(0),
       onSelectedIndex_(0),
       recycle_(this),
-      scrollListener_(nullptr)
+      scrollListener_(nullptr),
+      isOpen_(false)
 {
 #if ENABLE_ROTATE_INPUT
     rotateFactor_ = DEFAULT_LIST_ROTATE_FACTOR;
@@ -184,6 +221,10 @@ UIList::~UIList()
     while (view != nullptr) {
         UIView* tmp = view->GetNextSibling();
         UIViewGroup::Remove(view);
+        if(recycle_.adapter_->GetAdapterType()==LIST_MENU_TYPE)
+        {
+            recycle_.adapter_->RemoveItem(view);
+        }
         delete view;
         view = tmp;
     }

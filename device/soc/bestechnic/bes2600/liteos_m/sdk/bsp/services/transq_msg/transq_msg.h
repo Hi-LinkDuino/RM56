@@ -18,6 +18,7 @@
 #define __TRANSQ_MSG_H__
 
 #include "hal_transq.h"
+#include "hal_location.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,11 +52,6 @@ typedef enum {
     TRANSQ_MSG_TYPE_NUM,
 }TRANSQ_MSG_TYPE_T;
 
-struct TRANSQ_MSG_TRACE {
-    unsigned int addr;
-    unsigned int len;
-};
-
 struct TRANSQ_MSG_AF_CONFIG_T {
     unsigned int bits;
     unsigned int sample_rate;
@@ -79,24 +75,35 @@ struct TRANSQ_MSG_AF_BUF {
 };
 
 union TRANSQ_MSG {
-    struct TRANSQ_MSG_TRACE trace;
     struct TRANSQ_MSG_AF_CONFIG_T stream_cfg;
     struct TRANSQ_MSG_AF_BUF stream_buf;
 };
 
-typedef struct {
+#if (SYNC_ALIGN_SIZE > 4)
+#define TRANSQ_MSG_INTER_BUF_LEN 256
+#else
+#define TRANSQ_MSG_INTER_BUF_LEN 0
+#endif
+
+typedef struct ALIGNED(SYNC_ALIGN_SIZE)
+{
+    unsigned int crc;
     TRANSQ_MSG_TYPE_T type;
     enum HAL_TRANSQ_PRI_T pri;
     unsigned int id;
     union TRANSQ_MSG msg;
     void *user_data;
     unsigned int user_data_len;
+    unsigned int user_data_buf_len;
+    uint8_t buf[TRANSQ_MSG_INTER_BUF_LEN];
     unsigned char sync;
+    int rand;
 } TRANSQ_MSG_T;
 
 #ifndef RTOS
 #define transq_msg_tx_wait_done(p) \
 do{ \
+    (p)->sync = 1; \
     transq_tx_done = 0; \
     if(transq_msg_tx(p) == 1) { \
         while (!transq_tx_done) { \
@@ -108,6 +115,7 @@ do{ \
 #else
 #define transq_msg_tx_wait_done(p) \
 do{ \
+    (p)->sync = 1; \
     if (transq_tx_sem != NULL) \
         transq_msg_register((p)->type, set_transq_tx_done, true); \
     if(transq_msg_tx(p) == 1) { \

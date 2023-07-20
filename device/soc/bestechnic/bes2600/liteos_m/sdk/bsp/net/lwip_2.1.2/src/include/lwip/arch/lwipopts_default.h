@@ -218,8 +218,9 @@ a lot of data that needs to be copied, this should be set high. */
  * TCP_SHORT_RTO: The baseline of RTO is 1 (500ms).
  * If not defined, the baseline of RTO is 3 (1500ms) according to VJ's algorithm.
  */
+#ifndef TCP_SHORT_RTO_DISABLE
 #define TCP_SHORT_RTO
-
+#endif
 
 #define IP_REASS_MAX_PBUFS              3
 #define IP_REASSEMBLY                   1
@@ -370,8 +371,8 @@ The STM32F107 allows computing and verifying the IP, UDP, TCP and ICMP checksums
 #define ARP_QUEUEING                    1
 
 #if defined(LWIP_FULLDUPLEX_SUPPORT)
-//#define LWIP_NETCONN_FULLDUPLEX 1
-#define LWIP_NETCONN_SEM_PER_THREAD 1
+#define LWIP_NETCONN_FULLDUPLEX 1
+//#define LWIP_NETCONN_SEM_PER_THREAD 1
 #endif
 
 //#define LWIP_PROVIDE_ERRNO 1

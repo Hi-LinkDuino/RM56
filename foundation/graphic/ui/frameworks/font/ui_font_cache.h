@@ -27,7 +27,7 @@ public:
     struct ListHead {
         ListHead* prev;
         ListHead* next;
-    };
+    } __attribute__((aligned(16)));
     struct Bitmap {
         ListHead hashHead;
         ListHead lruHead;

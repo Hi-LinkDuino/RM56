@@ -55,6 +55,7 @@ if (product_path != "") {
     emmc_fs_support = product_conf.emmc_fs_support
   }
 
+  lte_support = product_conf.lte_support
   lcd_support = product_conf.lcd_support
 
   bfd_build = product_conf.bfd_build
@@ -186,6 +187,11 @@ if(bfd_build == "true" && bfd_use_bsp_flags_for_oh == "true") {
   else{
     board_cflags += [ "-DFS_ROOT=\"/data/\"" ]
   }  
+}
+
+if(lte_support == "true")
+{
+  board_cflags += [ "-DIMS_LTE" ]
 }
 
 board_cxx_flags = board_cflags

@@ -93,7 +93,7 @@ inline std::string HstGetFileName(std::string file)
 // Control the MEDIA_LOG_D.
 // If MEDIA_LOG_D is needed, #define MEDIA_LOG_DEBUG 1 at the beginning of the cpp file.
 #ifndef MEDIA_LOG_DEBUG
-#define MEDIA_LOG_DEBUG 0
+#define MEDIA_LOG_DEBUG 1
 #endif
 
 #if !MEDIA_LOG_DEBUG

@@ -37,6 +37,11 @@
 
 #include "components/ui_view.h"
 
+enum ListAdapterType{
+    LIST_TYPE = 0,
+    LIST_MENU_TYPE
+};
+
 namespace OHOS {
 /**
  * @brief Defines the base class for adapters. You can derive <b>AbstractAdapter</b> based on actual requirements
@@ -115,6 +120,13 @@ public:
         DeleteView(view);
         return height;
     }
+
+    virtual ListAdapterType GetAdapterType()
+    {
+        return  LIST_TYPE;
+    }
+
+    virtual void RemoveItem(UIView* view){}
 };
 } // namespace OHOS
 #endif // GRAPHIC_LITE_ABSTRACT_ADAPTER_H

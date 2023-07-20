@@ -20,6 +20,9 @@
 #include "lazy_load_watcher.h"
 #include "non_copyable.h"
 
+#include "ui_view.h"
+#include "component.h"
+
 namespace OHOS {
 namespace ACELite {
 /**
@@ -57,6 +60,12 @@ public:
     void RemoveLazyWatcher(jerry_value_t nativeElement);
 
     /**
+     * @brief 移除由外部指定匹配条件的 watcher
+     * @param pageRootView 指定的页面根 view，匹配在此 view 层级中的 watcher
+     */
+    void RemoveLazyWatcher(const UIView* const pageRootView);
+
+    /**
      * @brief Render watcher at next TE task
      */
     void RenderLazyLoadWatcher();
@@ -69,6 +78,11 @@ public:
     LazyLoadState GetState() const
     {
         return state_;
+    }
+
+    bool IsWatcherEmpty()
+    {
+        return lazyWatchersList_.Size() == 0;
     }
 private:
     void RenderSingleLazyWatcher(const LazyLoadWatcher &watcher) const;

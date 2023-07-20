@@ -171,6 +171,7 @@ int factory_section_xtal_fcap_set(unsigned int xtal_fcap);
 uint8_t* factory_section_get_bt_address(void);
 int factory_section_set_bt_address(uint8_t* btAddr);
 uint8_t* factory_section_get_ble_address(void);
+int factory_section_set_ble_address(uint8_t* bleAddr);
 uint8_t* factory_section_get_bt_name(void);
 uint8_t* factory_section_get_ble_name(void);
 uint32_t factory_section_get_version(void);

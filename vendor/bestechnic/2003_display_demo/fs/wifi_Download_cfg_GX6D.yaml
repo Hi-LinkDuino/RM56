@@ -60,16 +60,16 @@ FILE_LIST:
     REMAP_BOTH_SWITCH: true
     REMAP_SWITCH: true
     MAGIC: true
-    SIZE: 6291456
+    SIZE: 8388608
     SWITCH: true
 - RTOSMINI:
-    ADDR: 745013248
+    ADDR: 747110400
     FILE_NAME: rtos_mini.bin
     MAGIC: true
-    SIZE: 6291456
+    SIZE: 8388608
     SWITCH: false
 - LITTLEFS:
-    ADDR: 751304704
+    ADDR: 755499008
     FILE_NAME: littlefs_GX6D.bin
     REMAP_BOTH_SWITCH: true
     REMAP_SWITCH: true

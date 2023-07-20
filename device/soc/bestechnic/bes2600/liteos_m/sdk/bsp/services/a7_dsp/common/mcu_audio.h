@@ -61,10 +61,6 @@ extern "C" {
 #define _MULTI_RECORD_DUMP_POINT        1
 #endif
 
-#if !defined(DSP_RAM_SHARE_SIZE)
-#define A7_ALLOC_TRANSQ_BUF
-#endif
-
 #ifdef __ARM_ARCH_ISA_ARM
 #ifdef RTOS
 #define A7_RECORD_DIRECT_CB // mic irq to cb directly

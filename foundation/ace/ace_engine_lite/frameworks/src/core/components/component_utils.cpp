@@ -46,7 +46,7 @@ void ComponentUtils::ReleaseComponents(Component *rootComponent)
         return;
     }
     // for list component, release all the list items first
-    if (rootComponent->GetComponentName() != K_LIST) {
+    if (rootComponent->GetComponentName() != K_LIST && rootComponent->GetComponentName() != K_BES_FISHEYE_MENU) {
         JSValue descriptors = rootComponent->GetDescriptors();
         if (!JSUndefined::Is(descriptors)) {
             DescriptorUtils::ReleaseDescriptorOrElements(descriptors);
@@ -71,6 +71,11 @@ uint16_t ComponentUtils::GetComponentType(jerry_value_t options)
         return 0;
     }
     jerry_value_t attrsPropValue = jerryx_get_property_str(options, ATTR_ATTRS);
+
+    if (IS_UNDEFINED(attrsPropValue)) {
+        return 0;
+    }
+    
     // create component according to attribute type
     const char * const attrType = "type";
     jerry_value_t typeValHandler = jerryx_get_property_str(attrsPropValue, attrType);

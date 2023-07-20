@@ -102,6 +102,12 @@ root {
                     priority = 100;
                     moduleName = "HDF_PANEL_ICNA3311";
                     deviceMatchAttr = "icna3311_config";
+                }
+                panel_st7789h2 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "HDF_PANEL_ST7789H2";
+                    deviceMatchAttr = "st7789h2_config";
                 }*/
                 panel_a064 :: deviceNode {
                     policy = 0;

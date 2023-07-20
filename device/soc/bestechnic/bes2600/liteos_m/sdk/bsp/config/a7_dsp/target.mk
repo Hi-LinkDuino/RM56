@@ -15,6 +15,13 @@ FLASH_CHIP	?= ALL
 
 PSRAM_ENABLE ?= 1
 
+export H264_TEST ?=0
+
+export SPEECH_ALGO_ON_A7 ?= 0
+ifeq ($(SPEECH_ALGO_ON_A7), 1)
+KBUILD_CPPFLAGS += -DSPEECH_ALGO_ON_A7
+endif
+
 ifeq ($(MSPEECH_APP_ENABLE), 1)
 KBUILD_CPPFLAGS += -DMSPEECH_APP_ENABLE
 endif
@@ -132,6 +139,10 @@ export CALIB_SLOW_TIMER := 1
 
 include $(NUTTX_CFG_FILE)
 
+ifeq ($(CONFIG_ARCH_CHIP_BES2001A7),y)
+export CHIP := best2001
+endif
+
 ifeq ($(CONFIG_BES_MTDSDMMC),y)
 export CHIP_HAS_SDMMC := 1
 export SDMMC_DMA_DESC_CNT := 100
@@ -201,7 +212,6 @@ DSP_USE_GPDMA ?= 1
 else ifeq ($(A7_UART),2)
 DEBUG_PORT ?= 2
 DSP_USE_GPDMA ?= 1
-KBUILD_CPPFLAGS += -DUART_PRINTF_ID=1
 else ifeq ($(A7_UART),3)
 DEBUG_PORT ?= 3
 DSP_USE_GPDMA ?= 1
@@ -212,7 +222,7 @@ endif
 KBUILD_CPPFLAGS += -DA7_UART=$(A7_UART)
 endif
 
-export A7_SRAM ?= 2
+export A7_SRAM ?= 0
 # a7 sram mode:
 # 0: none, sync flags, stack/ttb use PSRAM, no sram is used
 # 1: solo, sync flags, stack/ttb use PSRAM, reserve 512K sram heap
@@ -303,22 +313,41 @@ ifeq ($(DIGMIC_EN),1)
 KBUILD_CFLAGS += -D__DIGMIC_USED__
 endif
 
+export CSI_DSI_CONFIG ?= 0
+ifeq ($(CSI_DSI_CONFIG),1)
+export CHIP_ROLE_DSP ?= 1
+include $(srctree)/config/_default_cfg_src_/csi_dsi_cfg.mk
+endif
+
 init-y		:=
 core-y		:= platform/cmsis/ platform/hal/ services/a7_dsp/ services/transq_msg/ utils/hwtimer_list/ utils/kfifo/
+
+core-y      += platform/drivers/ana/
+ifeq ($(CSI_TEST), 1)
+core-y += tests/hwtest/csi_test/
+endif
+ifeq ($(H264_TEST), 1)
+export H264_WRITE_FATFS ?= 0
+export H264_STERAM_A7_TO_M33 ?= 0
+export H264_STARTCODE_4BYTES ?= 1
+export CSI_ENCODER_320_240 ?= 1
+export CSI_ENCODER_640_480 ?= 0
+
+core-y += net/ims/webrtc/modules/video_coding/codecs/h264/src/
+endif
 
 core-y		+= services/a7_dsp/prj/$(A7_PROJECT)/
 
 ifeq ($(KERNEL), NUTTX)
-core-y		+= utils/bes_kv/
+core-y		+= utils/bes_kv/ utils/crc32/
 ifeq ($(CONFIG_LCD),y)
 export CHIP_HAS_LCDC := 1
 #export CHIP_HAS_DMA2D := 1
 core-y      += platform/drivers/graphic/
-core-y      += platform/drivers/ana/
 endif
 else
 ifeq ($(RTOS), 1)
-core-y		+= services/sys_time/ utils/bes_kv/
+core-y		+= services/sys_time/ utils/bes_kv/ utils/crc32/
 endif
 endif
 
@@ -355,30 +384,15 @@ export SMF ?= 1
 core-y += utils/heap/
 endif
 
-export A7_DISPLAY ?= 1
+export A7_DISPLAY ?= 0
 ifeq ($(A7_DISPLAY), 1)
 export CHIP_HAS_LCDC ?= 1
-core-y += platform/drivers/graphic/ platform/drivers/ana/
+core-y += platform/drivers/graphic/
 KBUILD_CPPFLAGS += -DA7_DISPLAY -DBOARD_NAME=a7_dsp
+KBUILD_CPPFLAGS += -DCONFIG_DSI_2LANE_MODE
 export DISPLAY_V2 ?= 1
 ifeq ($(DISPLAY_V2),1)
 KBUILD_CPPFLAGS += -DDISPLAY_V2
-endif
-export CSI_DSI_LOOP ?= 0
-ifeq ($(CSI_DSI_LOOP) ,1)
-KBUILD_CFLAGS += -DI2C0_IOMUX_INDEX=0
-KBUILD_CFLAGS += -DCLKOUT_IOMUX_INDEX=34
-KBUILD_CFLAGS += -DLCD_CSI_DMA_MODE
-export CSI_TEST ?= 0
-ifeq ($(CSI_TEST) ,1)
-KBUILD_CFLAGS += -DCSI_TEST
-endif
-export DSI_TEST ?= 0
-ifeq ($(DSI_TEST) ,1)
-KBUILD_CFLAGS += -DDSI_TEST
-endif
-KBUILD_CFLAGS += -DCONFIG_DSI_2LANE_MODE=1
-KBUILD_CFLAGS += -DCSI_DSI_LOOP
 endif
 
 export A7_LVGL_TEST ?= 0
@@ -399,7 +413,7 @@ KBUILD_CPPFLAGS += -DCONFIG_DISPLAY_ICNA3311
 else
 KBUILD_CPPFLAGS += -DCONFIG_DISPLAY_A064 -DI2C1_IOMUX_INDEX=06
 endif
-endif
+endif  # A7_DISPLAY
 
 ifeq ($(MBW_TEST), 1)
 core-y += tests/mbw_test/
@@ -425,7 +439,11 @@ export PSRAMUHS_AP325608A := 1
 export PSRAMUHS_SIZE := 0x2000000-$(PSRAMUHS_NC_SIZE)
 export A7_DSP_SPEED ?= 1200
 else
+ifeq ($(CHIP),best2003)
 export A7_DSP_SPEED ?= 900
+else
+export A7_DSP_SPEED ?= 1000
+endif
 endif
 
 export DSP_USE_PSRAM ?= 0

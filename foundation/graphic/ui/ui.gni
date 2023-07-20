@@ -127,4 +127,7 @@ graphic_ui_sources += [
   "$GRAPHIC_UI_PATH/frameworks/components/bestechnic/ui_bes_arc_scroll_bar.cpp",
   "$GRAPHIC_UI_PATH/frameworks/components/bestechnic/ui_bes_box_scroll_bar.cpp",
   "$GRAPHIC_UI_PATH/frameworks/components/bestechnic/ui_bes_list.cpp",
+  "$GRAPHIC_UI_PATH/frameworks/components/bestechnic/ui_duckweed.cpp",
+  "$GRAPHIC_UI_PATH/frameworks/components/bestechnic/duckweed_manager.cpp",
+  "$GRAPHIC_UI_PATH/frameworks/core/bestechnic/frame_event_manager.cpp",
 ]

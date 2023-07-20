@@ -136,6 +136,32 @@ obj-y += aud_param.o
 obj-y += a7_dump.o
 obj-y += a7_cmd.o
 obj-y += pcm_audio.o
+
+ifeq ($(SPEECH_ALGO_ON_A7),1)
+obj-y += speech_algo_alexa.o
+
+SPEECH_LIB_NAME := mm_speech
+speech-y :=
+speech-y += ../../multimedia/speech/src/process/common/
+speech-y += ../../multimedia/speech/src/process/speech_2mic_ns6/
+speech-y += ../../multimedia/speech/src/process/mmse_snr/
+speech-y += ../../multimedia/speech/src/process/speech_dc_filter/
+speech-y += ../../multimedia/speech/src/process/ec2_float/
+speech-y += ../../multimedia/speech/src/process/ns3/
+speech-y += ../../multimedia/speech/src/process/agc/
+speech-y += ../../multimedia/speech/src/process/compexp/
+speech-y += ../../multimedia/speech/src/process/vad/
+speech-y += ../../multimedia/speech/src/process/speech_process_lib/
+speech-y += ../../multimedia/speech/src/process/speech_eq/
+speech-y += ../../multimedia/speech/src/process/ns_and_ec/
+speech-y += ../../../utils/heap/
+speech-y += ../../../platform/cmsis/DSP_Lib/
+speech-y += ../../../platform/cmsis/NN_Lib/
+
+$(SPEECH_LIB_NAME)-y := $(speech-y)
+obj-y += $(SPEECH_LIB_NAME).a
+endif
+
 ifeq ($(RTOS),1)
 #obj-y += my_a7_test.o
 obj-y += heart_beat.o
@@ -225,6 +251,19 @@ ccflags-y += -Iservices/wifi_app/mmc_disk/ \
              -Iservices/a7_dsp/os/test/sdmmc
 endif
 
+ifeq ($(CSI_TEST),1)
+ccflags-y += -DCSI_TEST \
+             -Itests/hwtest/csi_test
+endif
+
+ifeq ($(H264_TEST),1)
+ccflags-y += -DH264_TEST
+endif
+
+ifeq ($(CORE_MSG_DEBUG),1)
+ccflags-y += -DCORE_MSG_DEBUG
+endif
+
 ccflags-y += \
              -Iservices/audioflinger \
              -Iservices/transq_msg \
@@ -237,8 +276,19 @@ ccflags-y += \
              -Iapps/common \
              -Iapps/mic \
              -Iservices/bt_app \
-             -Iservices/a7_dsp/common/codec
+             -Iservices/a7_dsp/common/codec \
+             -Iservices/multimedia/speech/inc \
+             -Iservices/multimedia/speech/src/process/inc \
+             -Iutils/heap \
+             -Iservices/audio_dump/include\
+             -Iplatform/hal
 
 ifeq ($(VOICE_DETECTOR_EN),1)
 ccflags-y += -Iservices/wifi_app/hw_vad/
 endif
+
+subdir-ccflags-y += -DAUDIO_DEBUG -Iservices/multimedia/speech/inc -Iutils/heap/ -Iinclude/cmsis_dsp/ \
+            -DFIXED_POINT=1 -Iservices/multimedia/speech/src/process/inc/ \
+            -Iplatform/cmsis/inc/ca/ \
+            -Iservices/multimedia/speech/src/process/vad_rnn/ \
+            -Iservices/audio_dump/include

@@ -29,7 +29,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined(PROGRAMMER) && !defined(NO_SIMPLE_TASK_SWITCH)
+#if defined(PROGRAMMER) && !defined(NO_SIMPLE_TASK_SWITCH) && !defined(FLASH_TEST)
 #define SIMPLE_TASK_SWITCH
 #endif
 

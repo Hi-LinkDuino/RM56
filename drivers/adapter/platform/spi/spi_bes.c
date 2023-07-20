@@ -19,6 +19,10 @@
 #else
 #include "device_resource_if.h"
 #endif
+#ifdef CONFIG_DISPLAY_ST7789H2
+#include "hal_location.h"
+#include "st7789h2.h"
+#endif
 
 #define SPI_DMA_MAX 4095
 #define DEC_NUM 10
@@ -33,6 +37,25 @@
 #define MAX_SPI_SPEED 26000000
 static void Spi0DmaIrq(int error);
 static void Spi1DmaIrq(int error);
+
+#ifdef CONFIG_DISPLAY_ST7789H2
+#ifndef PSRAMUHS_SIZE
+#define PSRAMUHS_SIZE 0x800000
+#endif
+#define BUFSIZE_MAX 240*240*2   //240*240*2
+static struct SpiDevice spiDevice = {
+    .buffers = {
+        PSRAMUHS_BASE + PSRAMUHS_SIZE - BUFSIZE_MAX,
+#if (BUF_NUM == 2)
+        PSRAMUHS_BASE + PSRAMUHS_SIZE - BUFSIZE_MAX * 2,
+#endif
+    },
+    .buf_size = BUFSIZE_MAX,
+    .buf_idx = 0,
+    .free_chan = 0,
+    .buf_state = IDLE,
+};
+#endif
 
 static struct SPI_CTX_OBJ_T spiCtx[MAX_SPI_NUMBER] = {
     {
@@ -456,6 +479,7 @@ static int32_t GetSpiDeviceResource(struct SpiDevice *spiDevice, const char *dev
     if (result != HDF_SUCCESS) {
         HDF_LOGE("resourceNode %s is NULL\r\n", deviceMatchAttr);
     }
+    spiDevice->spiId = resource->num;
     return result;
 }
 #else
@@ -553,7 +577,6 @@ static int32_t GetSpiDeviceResource(struct SpiDevice *spiDevice, const struct De
 int32_t AttachSpiDevice(struct SpiCntlr *spiCntlr, struct HdfDeviceObject *device)
 {
     int32_t ret;
-    struct SpiDevice *spiDevice = NULL;
 #ifdef LOSCFG_DRIVERS_HDF_CONFIG_MACRO
     if (spiCntlr == NULL || device == NULL) {
 #else
@@ -563,6 +586,18 @@ int32_t AttachSpiDevice(struct SpiCntlr *spiCntlr, struct HdfDeviceObject *devic
         return HDF_ERR_INVALID_PARAM;
     }
 
+#ifdef CONFIG_DISPLAY_ST7789H2
+#ifdef LOSCFG_DRIVERS_HDF_CONFIG_MACRO
+    ret = GetSpiDeviceResource(&spiDevice, device->deviceMatchAttr);
+#else
+    ret = GetSpiDeviceResource(&spiDevice, device->property);
+#endif
+
+    spiCntlr->priv = &spiDevice;
+    spiCntlr->busNum = spiDevice.spiId;
+    return InitSpiDevice(&spiDevice);
+#else
+    struct SpiDevice *spiDevice = NULL;
     spiDevice = (struct SpiDevice *)OsalMemAlloc(sizeof(struct SpiDevice));
     if (spiDevice == NULL) {
         HDF_LOGE("%s: OsalMemAlloc spiDevice error\r\n", __func__);
@@ -581,7 +616,64 @@ int32_t AttachSpiDevice(struct SpiCntlr *spiCntlr, struct HdfDeviceObject *devic
     spiCntlr->priv = spiDevice;
     spiCntlr->busNum = spiDevice->spiId;
     return InitSpiDevice(spiDevice);
+#endif
 }
+
+#ifdef CONFIG_DISPLAY_ST7789H2
+void *SpiDevMmap(uint32_t size)
+{
+    static uint8_t last_buf = 0;
+    if (size > BUFSIZE_MAX) {
+        HDF_LOGE("%s: invalid size 0x%x", __func__, size);
+        return NULL;
+    }
+    spiDevice.buf_size = size;
+#if 0
+#if (BUF_NUM < 3)
+    // ensure the buffers are exchanged
+    uint32_t cnt = 0;
+    while (spiDevice.buf_state == READY) {
+        if (cnt++ > 100) {
+            HDF_LOGW("READY -> BUSY error, chan %d, cur_buf %d", spiDevice.free_chan, spiDevice.buf_idx);
+            break;
+        }
+        osDelay(1);
+    }
+#endif
+#endif
+    if (last_buf != spiDevice.buf_idx) {
+        memset((void *)(spiDevice.buffers[spiDevice.buf_idx]), 0, spiDevice.buf_size);
+        last_buf = spiDevice.buf_idx;
+    }
+    return (void *)(spiDevice.buffers[spiDevice.buf_idx]);
+}
+
+static SRAM_BSS_LOC uint16_t __attribute__((aligned(4))) lcd_buf_temp[WIDTH*HEIGHT*2];
+
+void SpiDevFlush(void)
+{
+    uint32_t cnt = 0;
+    hal_cache_sync(HAL_CACHE_ID_D_CACHE, (uint32_t)spiDevice.buffers[spiDevice.buf_idx], spiDevice.buf_size);
+    while (spiDevice.buf_state != IDLE) {
+        if (cnt++ > 100) {
+            HDF_LOGW("!IDLE, stat %d, cur_buf %d", spiDevice.buf_state, spiDevice.buf_idx);
+            break;
+        }
+        osDelay(1);
+    }
+    uint32_t irqflags = int_lock();
+    for (uint32_t i=0; i<WIDTH*HEIGHT*2; i++) {
+        lcd_buf_temp[i] = 0x100 | *(uint8_t *)(spiDevice.buffers[spiDevice.buf_idx]+i); // bit1 is high(data)
+    }
+    lcd_set_startaddr(0, WIDTH-1, 0, HEIGHT-1);
+    hal_spilcd_send(lcd_buf_temp, sizeof(lcd_buf_temp));
+
+    spiDevice.buf_state = READY;
+    spiDevice.buf_idx = (spiDevice.buf_idx + 1) % BUF_NUM;
+    int_unlock(irqflags);
+}
+#endif
+
 /* SPI Method */
 static int32_t SpiDevGetCfg(struct SpiCntlr *spiCntlr, struct SpiCfg *spiCfg);
 static int32_t SpiDevSetCfg(struct SpiCntlr *spiCntlr, struct SpiCfg *spiCfg);
@@ -656,6 +748,16 @@ static int32_t SpiDriverInit(struct HdfDeviceObject *device)
     }
 
     spiCntlr->method = &g_SpiCntlrMethod; // register callback
+
+#ifdef CONFIG_DISPLAY_ST7789H2
+    static struct SpiService spiService = {
+        .flush = SpiDevFlush,
+        .mmap = SpiDevMmap,
+    };
+
+    struct SpiDevice *ptr = spiCntlr->priv;
+    ptr->priv = &spiService;
+#endif
 
     return ret;
 }

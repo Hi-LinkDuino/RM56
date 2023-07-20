@@ -1,8 +1,10 @@
 
-#define BOOT_INFO_A_ADDR                 (OTA_BOOT_INFO_OFFSET)
+//#define BOOT_INFO_A_ADDR                 (OTA_BOOT_INFO_OFFSET)
 #define BOOT_INFO_A_B_SIZE               0x6000
-#define BOOT_INFO_B_ADDR                 (BOOT_INFO_A_ADDR + BOOT_INFO_A_B_SIZE)
+//#define BOOT_INFO_B_ADDR                 (BOOT_INFO_A_ADDR + BOOT_INFO_A_B_SIZE)
 
+#define FLASH_32M_ID                0x19
+#define FLASH_16M_ID                0x18
 #define OTA_BOOT_INFO_HEAD_LEN      (4 + 4)
 #define OTA_BOOT_INFO_BODY_LEN      20
 #define RD_DATA_LEN_MAX             200
@@ -101,6 +103,7 @@ typedef enum {
       ERR_SWEXCEPTION  = -3,
 }err_enum;
 
+int ota_get_bootinfo_addr(void);
 int ota_get_bootinfo(MiscDataInfo *info, bootinfo_block block, bootinfo_zone zone);
 bootinfo_zone ota_get_bootinfo_zone_num(bootinfo_block block);
 bootinfo_block ota_get_valid_bootinfo_block(void);

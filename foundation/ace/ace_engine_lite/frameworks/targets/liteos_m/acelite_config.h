@@ -219,6 +219,10 @@
 #define FEATURE_MODULE_DEVICE 0
 #endif
 
+#ifndef FEATURE_MODULE_LTE
+#define FEATURE_MODULE_LTE 0
+#endif
+
 #ifndef FEATURE_SUPPORT_HTTP
 #define FEATURE_SUPPORT_HTTP 0
 #endif

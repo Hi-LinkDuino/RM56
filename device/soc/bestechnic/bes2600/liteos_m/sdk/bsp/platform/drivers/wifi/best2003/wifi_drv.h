@@ -258,7 +258,7 @@ typedef int (*HOOK_FUNC_T)(void *);
 #define  FORMULA_POWERLEVEL_OFFSET_EN               (1<<19)
 #define  LMAC_LOW_POWER_MODE_ANA                    (1<<20)
 #define  LMAC_MASK_TRANSQ_INSCANNING                (1<<21)
-
+#define  LMAC_COEX_PROTECT_BT_TXRX                  (1<<22)
 
 #define  LMAC_SLEEP                                 (1<<24)
 #define  LMAC_COEX_TDD_PS_EN                        (1<<25)

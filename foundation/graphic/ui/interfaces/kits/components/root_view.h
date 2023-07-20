@@ -52,6 +52,14 @@
 #include "gfx_utils/vector.h"
 #endif
 
+#if (BES_FEATURE_DUCKWEED == 1)
+#include "components/bestechnic/ui_duckweed.h"
+#include "components/bestechnic/duckweed_manager.h"
+#include "hal_tick.h"
+#endif //BES_FEATURE_DUCKWEED
+
+#include "graphic_config.h"
+
 namespace OHOS {
 #if ENABLE_WINDOW
 class Window;
@@ -292,6 +300,50 @@ public:
      */
     void RestoreDrawContext();
 
+    /**
+     * @brief 重写基类函数
+     * 在绘制完成之后，继续绘制可能存在的 duckweed 消息
+     */
+    virtual void OnPostDraw(BufferInfo& gfxDstBuffer, const Rect& invalidatedArea) override;
+
+#if (BES_FEATURE_DUCKWEED == 1)
+    /**
+     * @brief 添加一个 duckweed 消息
+     * @param content 文本内容（支持富文本）
+     * @param option 配置
+     * @param rect 刷新区域
+     * 
+     * @return unsigned duckweed 的 id，返回 0 时表示添加失败
+     */
+    unsigned int AddDuckweed(SpannableString* content, const DuckweedOption& option);
+
+    /**
+     * @brief 移除指定的 duckweed 消息
+     * @param id 被移除的 duckweed 消息 id
+     */
+    void RemoveDuckweed(unsigned int id);
+
+    /**
+     * @brief 更新指定 id 的 duckweed
+     * @param duckweed 目标 duckweed 
+     * @param param 更新的数据
+     */
+    void UpdateDuckweed(UIDuckweed* duckweed, DuckweedParam& param);
+
+    /** @brief 移除所有的 duckweed 消息 */
+    void ClearDuckweed();
+#endif // BES_FEATURE_DUCKWEED
+
+#if (BES_FRATURE_PAGE_TRANSITION == 1)
+    void SetPageTransitionState(bool b) {
+        isPageTransition_ = b;
+    }
+
+    bool IsPageTransitionNow() {
+        return isPageTransition_;
+    }
+#endif
+
 private:
     friend class RenderManager;
     friend class UIViewGroup;
@@ -352,6 +404,66 @@ private:
     };
     DrawContext dc_;
     DrawContext bakDc_;
+
+#if (BES_FEATURE_DUCKWEED == 1)
+    /** 
+     * @author yongxianglai@bestechnic.com
+     * @brief duckweed 任务功能实现
+     */
+    class GlobalDuckweedTask final : public DuckweedTask {
+    private:
+        friend class RootView;
+
+        GlobalDuckweedTask() = delete;
+
+        GlobalDuckweedTask(unsigned int id, UIDuckweed* target): DuckweedTask(id, target->GetOption().duration),
+            target_(target), startTime_(0)
+        {
+        }
+
+        ~GlobalDuckweedTask()
+        {
+            startTime_ = 0;
+            if (target_ != nullptr) {
+                delete target_;
+                target_ = nullptr;
+            }
+        };
+
+        /** 
+         * @brief 任务的每一帧到来，都将执行一次此函数 
+         */
+        virtual void Callback();
+
+        /**
+         * @brief 任务核心逻辑
+         * @param elapse 任务已经执行的时长，单位为毫秒
+         */
+        void Perform(unsigned int elapse);
+
+        /** @brief 任务开始执行的时间，单位为毫秒 */
+        unsigned int startTime_;
+
+        /** @brief 任务绑定的 duckweed 消息 */
+        UIDuckweed *target_ = nullptr;
+    };
+
+    /**
+     * @brief 生成一个唯一的 duckweed 消息 id
+     * @return duckweed 消息 id 
+     */
+    unsigned int GenerateDuckweedId();
+
+    unsigned int duckweedIdCounter_ = 0;
+
+    /** @brief 当前被显示的 duckweed */
+    UIDuckweed *curDuckweed_ = nullptr;
+#endif //BES_FEATURE_DUCKWEED
+
+#if (BES_FRATURE_PAGE_TRANSITION == 1)
+    /** @brief 是否正处于页面转场过程 */
+    bool isPageTransition_ = false;
+#endif
 };
 } // namespace OHOS
 #endif // GRAPHIC_LITE_ROOT_VIEW_H

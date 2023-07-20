@@ -506,10 +506,6 @@ static constexpr const char* DEFAULT_DUMP_DOM_TREE_PATH = "/storage/dump_dom_tre
 static constexpr uint8_t DEFAULT_TASK_PERIOD = 16;
 /* Window manager execution period. The default value is <b>16</b> ms. */
 static constexpr uint8_t WMS_MAIN_TASK_PERIOD = 16;
-/* Maximum number of cached images. The default value is <b>5</b>. */
-#ifndef IMG_CACHE_SIZE
-#define IMG_CACHE_SIZE                                  5
-#endif
 static constexpr uint8_t INDEV_READ_PERIOD = 10; /* Input event read cycle. The default value is <b>10</b> ms. */
 /* Drag distance threshold of a drag event. The default value is <b>10px</b>. */
 static constexpr uint8_t INDEV_DRAG_LIMIT = 10;
@@ -559,5 +555,47 @@ static constexpr uint8_t ABSTRACT_ROTATE_THROW_THRESHOLD = 4;
 static constexpr uint8_t SCROLLVIEW_ROTATE_THROW_THRESHOLD = 4;
 static constexpr uint8_t PICKERVIEW_ROTATE_THROW_THRESHOLD = 4;
 static constexpr uint8_t LIST_ROTATE_THROW_THRESHOLD = 4;
+
+//图片缓存数量上限为 255
+#ifndef IMG_CACHE_SIZE
+#define IMG_CACHE_SIZE 255
+#endif
+
+//bestechnic
+//图片预加载宏开关
+#ifndef BES_IMG_PRELOAD_ENABLE
+#define BES_IMG_PRELOAD_ENABLE 0
+#endif //BES_IMG_PRELOAD_ENABLE
+
+//图片预加载清单文件所在目录（在存储中）的路径
+#ifndef BES_IMG_PRELOAD_DIR
+#define BES_IMG_PRELOAD_DIR "watch"
+#endif //BES_IMG_PRELOAD_DIR
+
+//开机即加载的图片资源清单文件名称
+#ifndef BES_IMG_PRELOAD_MANIFEST_BOOT
+#define BES_IMG_PRELOAD_MANIFEST_BOOT "preload_boot"
+#endif //BES_IMG_PRELOAD_MANIFEST_BOOT
+
+//闲时加载的图片资源清单文件名称
+#ifndef BES_IMG_PRELOAD_MANIFEST_IDLE
+#define BES_IMG_PRELOAD_MANIFEST_IDLE "preload_idle"
+#endif //PRELOAD_IDLE_NAME
+
+//预加载清单文件的体积上限，单位为 byte
+#ifndef BES_IMG_PRELOAD_MANIFEST_SIZE_LIMIT
+#define BES_IMG_PRELOAD_MANIFEST_SIZE_LIMIT 4096
+#endif //BES_IMG_PRELOAD_MANIFEST_SIZE_LIMIT
+
+//IO 性能评估记录的可使用次数。当为 0 时，意味着记录已过期
+#ifndef BES_IMG_PRELOAD_EVALUATE_EXPIRED
+#define BES_IMG_PRELOAD_EVALUATE_EXPIRED 30
+#endif //BES_IMG_PRELOAD_EVALUATE_EXPIRED
+
+//页面转场动画
+#ifndef BES_FRATURE_PAGE_TRANSITION
+#define BES_FRATURE_PAGE_TRANSITION 0
+#endif
+////
 } // namespace OHOS
 #endif // GRAPHIC_LITE_GRAPHIC_CONFIG_H

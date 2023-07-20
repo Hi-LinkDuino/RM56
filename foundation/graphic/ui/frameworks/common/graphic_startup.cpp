@@ -42,6 +42,14 @@
 #include "securec.h"
 
 namespace OHOS {
+//yongxianglai@bestecnic.com
+void BesInit()
+{
+#if (BES_FEATURE_DUCKWEED == 1)
+    DuckweedManager::GetInstance()->Init();
+#endif //BES_FEATURE_DUCKWEED
+}
+
 void GraphicStartUp::InitFontEngine(uintptr_t cacheMemAddr,
                                     uint32_t cacheMemLen,
                                     const char* dPath,
@@ -126,7 +134,6 @@ void GraphicStartUp::Init()
 {
     TaskManager::GetInstance()->SetTaskRun(true);
     DEBUG_PERFORMANCE_TASK_INIT();
-
     if (INDEV_READ_PERIOD > 0) {
         InputDeviceManager::GetInstance()->Init();
     }
@@ -135,7 +142,11 @@ void GraphicStartUp::Init()
     StyleDefault::Init();
     RenderManager::GetInstance().Init();
 
+#if (BES_IMG_PRELOAD_ENABLE == 1)
+#else
     CacheManager::GetInstance().Init(IMG_CACHE_SIZE);
+#endif //BES_IMG_PRELOAD_ENABLE
+
 #ifdef VERSION_STANDARD
     OHOSInputDevice* input = new OHOSInputDevice();
     if (input == nullptr) {
@@ -151,5 +162,8 @@ void GraphicStartUp::Init()
 #if ENABLE_GFX_ENGINES
     GfxEngines::GetInstance()->InitDriver();
 #endif
+
+    //yongxianglai@bestechnic.com: 初始化自定义管理器
+    BesInit();
 }
 } // namespace OHOS

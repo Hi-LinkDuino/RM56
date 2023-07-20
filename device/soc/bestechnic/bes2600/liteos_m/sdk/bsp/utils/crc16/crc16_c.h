@@ -25,7 +25,7 @@ extern "C" {
 #endif
 
 unsigned short _crc16(unsigned short crc, const unsigned char *buffer, unsigned int len);
-int crc16ccitt(int crc, unsigned char * bytes, int start, int len);
+int crc16ccitt_c(int crc, unsigned char * bytes, int start, int len);
 #ifdef __cplusplus
 }
 #endif

@@ -104,6 +104,7 @@ constexpr uint32_t TEXT_BLUE_COLOR_MASK = 0x0000ff;
 constexpr int RED_COLOR_START_BIT = 16;
 constexpr int GREEN_COLOR_START_BIT = 8;
 constexpr char ATTR_SRC[] = "src"; // image-animator
+constexpr char ATTR_TITLE[] = "title"; //bes-menu-list
 #if (FEATURE_COMPONENT_ANALOG_CLOCK == 1)
 constexpr char CLOCK_HAND_IS_IMAGE[] = "isImage";
 constexpr char COMMON_STYLE_OPACITY[] = "opacity";
@@ -362,6 +363,33 @@ struct JSPageSpecific : public MemoryHeap {
 };
 
 #endif // JS_PAGE_SPECIFIC
+
+#if (BES_FRATURE_PAGE_TRANSITION == 1)
+/** @brief 页面路由字段：页面转场配置 */
+constexpr const char BES_FIELD_PAGE_TRANSITION[] = "besTransition";
+/** @brief 页面转场字段：预置动画 */
+constexpr const char BES_FIELD_PRESET_ANIM[] = "animator";
+/** @brief 页面转场字段：转场强调（层级关系），被强调的转场动作将位于顶层 */
+constexpr const char BES_FIELD_ANIM_PERFER[] = "perfer";
+/** @brief 页面转场类型字段：入场 */
+constexpr const char BES_FIELD_ENTER[] = "enter";
+/** @brief 页面转场类型字段：退场 */
+constexpr const char BES_FIELD_EXIT[] = "exit";
+/** @brief 页面转场动画字段：动画名称 */
+constexpr const char BES_FIELD_ANIM_NAME[] = "animName";
+/** @brief 页面转场动画字段：动画数值列表 */
+constexpr const char BES_FIELD_ANIM_VALUES[] = "animValues";
+/** @brief 页面转场动画字段：动画持续时间 */
+constexpr const char BES_FIELD_ANIM_DURATION[] = "animDuration";
+/** @brief 页面转场动画字段：动画时间插值器 */
+constexpr const char BES_FIELD_ANIM_INTERPOLATION[] = "animInterpolation";
+/** @brief 页面转场动画字段：动画淡入淡出类型 */
+constexpr const char BES_FIELD_ANIM_FADE[] = "animFade";
+/** @brief 页面转场动画字段：动画基准点（中心） */
+constexpr const char BES_FIELD_ANIM_PIVOT[] = "animPivot";
+/** @brief 页面转场动画字段：动画开始的延迟时长 */
+constexpr const char BES_FIELD_ANIM_DELAY[] = "animDelay";
+#endif
 } // namespace ACELite
 } // namespace OHOS
 #endif // OHOS_ACELITE_JS_FWK_COMMON_H

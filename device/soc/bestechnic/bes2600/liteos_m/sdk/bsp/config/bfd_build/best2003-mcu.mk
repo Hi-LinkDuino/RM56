@@ -74,6 +74,7 @@ export NET_LWIP_SUPPORT=0
 ######################################################
 # [1] from vendor/.../product/config.sh
 ######################################################
+# export OTA_CODE_OFFSET=0x80000
 export LIBC_INIT_AFTER_OS_INIT=1
 export LPLAYER_FRAMEWORK_EN=0
 export NET_LIBCURL_SUPPORT=1
@@ -82,6 +83,8 @@ export HTTP_MEDIA_SUPPORT_HTTPS=1
 export MP3_CODEC_MINIMP3_DISENABLE=1
 export HISTREAMER_HTTP_HLS_EN=1
 export HISTREAMER_RENDER_SUPPORT=1
+# export CONFIG_DISPLAY_A064=1
+export NET_MUSIC_SUPPORT=1
 
 
 ######################################################
@@ -94,6 +97,8 @@ else ifeq ($(LCD_SUPPORT), a064)
 KBUILD_CPPFLAGS += -DCONFIG_DISPLAY_A064 -DI2C1_IOMUX_INDEX=06 -DCONFIG_DSI_2LANE_MODE
 else ifeq ($(LCD_SUPPORT), nt38350)
 KBUILD_CPPFLAGS += -DCONFIG_DISPLAY_NT38350
+else ifeq ($(LCD_SUPPORT), st7789h2)
+KBUILD_CPPFLAGS += -DCONFIG_DISPLAY_ST7789H2
 endif
 
 

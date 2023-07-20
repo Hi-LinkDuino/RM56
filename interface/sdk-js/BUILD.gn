@@ -200,12 +200,15 @@ ohos_copy("system_api") {
   sources = [
     "api/@system.app.d.ts",
     "api/@system.bluetooth.d.ts",
+    "api/@system.alipay.d.ts",
+    "api/@system.ota.d.ts",
     "api/@system.cipher.d.ts",
     "api/@system.configuration.d.ts",
     "api/@system.file.d.ts",
     "api/@system.mediaquery.d.ts",
     "api/@system.prompt.d.ts",
     "api/@system.router.d.ts",
+    "api/@system.lte.d.ts",
   ]
   outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
   module_source_dir = target_out_dir + "/$target_name"

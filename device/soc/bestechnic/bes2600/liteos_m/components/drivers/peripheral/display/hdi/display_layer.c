@@ -40,7 +40,11 @@ static struct LayerPrivate *GetLayerInstance(void)
     static struct LayerPrivate layerPriv = {
         .width = DISP_WIDTH,
         .height = DISP_HEIGHT,
+        #ifdef CONFIG_DISPLAY_ST7789H2
+        .pixFmt = PIXEL_FMT_RGB_565,
+        #else
         .pixFmt = PIXEL_FMT_RGBA_8888,
+        #endif
     };
     return &layerPriv;
 }

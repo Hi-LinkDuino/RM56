@@ -36,7 +36,7 @@ typedef struct Ns3State_ Ns3State;
 #define CONSTRUCT_FUNC_NAME(p, c, m)            CONSTRUCT_FUNC_NAME_A(p, c, m)
 
 #ifndef NS3_IMPL
-#define NS3_IMPL fixed
+#define NS3_IMPL float
 #endif
 
 #define ns3_create CONSTRUCT_FUNC_NAME(ns3, NS3_IMPL, init)

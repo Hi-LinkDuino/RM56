@@ -32,6 +32,7 @@ constexpr char ATTR_DIRECTION_UP[] = "up";
 constexpr char ATTR_DIRECTION_DOWN[] = "down";
 const char *EventUtil::EVENT_CLICK = "click";
 const char *EventUtil::EVENT_DELETE = "delete";
+constexpr char ATTR_PERSONAL_PARAMETER[] = "personal";
 const char *EventUtil::EVENT_LONGPRESS = "longpress";
 const char *EventUtil::EVENT_SWIPE = "swipe";
 const char *EventUtil::EVENT_TOUCH = "touch";
@@ -81,6 +82,15 @@ JSValue EventUtil::CreateEvent(const char *type, UIView &view, const Event &even
     JSObject::SetNumber(arg, ATTR_GLOBAL_Y, point.y);
     return arg;
 }
+
+JSValue EventUtil::CreatePersonalEvent(UIView &view, const ClickEvent &event,uint8_t index){
+    JSValue arg = EventUtil::CreateEvent(EVENT_CLICK, view, event);
+
+    JSObject::SetNumber(arg, ATTR_PERSONAL_PARAMETER, index);
+
+    return arg;
+}
+
 JSValue EventUtil::CreateSwipeEvent(UIView &view, const DragEvent &event)
 {
     // create a JAVASCRIPT plain object that is used as the input parameter of

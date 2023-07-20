@@ -228,6 +228,7 @@ public:
      */
     void SetAdapter(AbstractAdapter* adapter);
 
+    void Reload();
     /**
      * @brief Moves the position of all child views.
      *
@@ -418,6 +419,15 @@ public:
     static constexpr int8_t NULL_SELECT_INDEX = -1;
 
     UIView* onSelectedView_;
+    void SetOpenSave(bool open)
+    {
+        isOpen_ = open;
+        recycle_.SetOpenSave(open);
+    }
+    bool GetOpenSave()
+    {
+        return isOpen_;
+    }
 
 protected:
     static constexpr int16_t RECALCULATE_DRAG_DISTANCE = 10;
@@ -435,6 +445,7 @@ private:
         explicit Recycle(UIList* list) : adapter_(nullptr), listView_(list), hasInitialiszed_(false) {}
         virtual ~Recycle();
         void InitRecycle();
+        void Reload();
         UIView* GetView(int16_t index);
         void SetAdapter(AbstractAdapter* adapter)
         {
@@ -462,6 +473,11 @@ private:
             scrapView_.Clear();
         }
 
+        void SetOpenSave(bool open)
+        {
+            isOpen_ = open;
+        }
+
         Rect32 GetAdapterItemsReletiveRect();
         void MoveAdapterItemsRelativeRect(int16_t x, int16_t y);
         void MeasureAdapterRelativeRect();
@@ -475,6 +491,7 @@ private:
         UIList* listView_;
         Rect32 adapterRelativeRect_;
         bool hasInitialiszed_;
+        bool isOpen_;
     };
 
     void PushBack(UIView* view);
@@ -506,6 +523,7 @@ private:
     int16_t onSelectedIndex_;
     Recycle recycle_;
     ListScrollListener* scrollListener_;
+    bool isOpen_;
 };
 } // namespace OHOS
 #endif // GRAPHIC_LITE_UI_LIST_H

@@ -36,6 +36,10 @@ ifeq ($(NET_MBEDTLS_SUPPORT),1)
 obj-y += mbedtls_client/
 endif
 
+ifeq ($(IPCAM_SUPPORT),1)
+obj-y += ipcam/
+endif
+
 ifeq ($(NET_MUSIC_SUPPORT), 1)
 obj-y += net_music/
 
@@ -69,7 +73,9 @@ obj-y += $(LIB_NAME).a
 endif
 
 ifeq ($(NUTTX_BUILD),1)
+ifneq ($(CHIP),best2001)
 obj-y += wifi/$(CHIP)/wifi_power_cfg.o
+endif
 endif
 
 ifeq ($(NET_NGHTTP2_CLIENT_SUPPORT),1)
@@ -153,13 +159,6 @@ endif
 
 ifeq ($(IPSEC_SUPPORT),1)
 obj-y += ipsec/
-ifeq ($(NET_LWIP_SUPPORT),1)
-subdir-ccflags-y += -DIPSEC_LWIP=1
-endif
-
-ifeq ($(NUTTX_BUILD),1)
-subdir-ccflags-y += -DIPSEC_NUTTX=1
-endif
 endif
 
 subdir-ccflags-y +=\
@@ -180,6 +179,13 @@ subdir-ccflags-y +=\
 			-Iutils/heap/ \
 
 ifeq ($(NET_LWIP_SUPPORT),1)
+subdir-ccflags-y += -I$(LWIP_ROOT)/src/include
+ifneq ($(LIBC_ADAPT_EN),1)
+subdir-ccflags-y += -I$(LWIP_ROOT)/src/include/$(POSIX_PATH)
+endif # !LIBC_ADAPT_EN
+endif
+
+ifeq ($(NET_LWIP_EXTERN),2)
 subdir-ccflags-y += -I$(LWIP_ROOT)/src/include
 ifneq ($(LIBC_ADAPT_EN),1)
 subdir-ccflags-y += -I$(LWIP_ROOT)/src/include/$(POSIX_PATH)
@@ -213,7 +219,6 @@ subdir-ccflags-y += -DWIFI_BT_COEXIST_EPTA_ENABLE
 subdir-ccflags-y += -DCW1260_DETECTION_LOGIC
 subdir-ccflags-y += -DP2P_MULTIVIF
 #subdir-ccflags-y += -DCUSTOM_FEATURE
-#subdir-ccflags-y += -DKEY_FRAME_SW_RETRY
 ifeq ($(WIFI_DRV_KEY_FRAME_FILTER),1)
 subdir-ccflags-y += -DKEY_FRAME_FILTER
 endif
@@ -257,3 +262,4 @@ ifneq ($(ALLOW_WARNING),1)
 KBUILD_CPPFLAGS += -Werror
 KBUILD_CFLAGS += -Werror
 endif
+KBUILD_CFLAGS += -Wno-implicit-fallthrough

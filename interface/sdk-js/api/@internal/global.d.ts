@@ -99,3 +99,34 @@ export declare function clearTimeout(timeoutID?: number): void;
  * @since 8
  */
 export declare function canIUse(syscap: string): boolean;
+
+/**
+ * @author yongxianglai@bestechnic.com
+ * 
+ * 显示一个 duckweed 消息。
+ * option 对象字段如下：
+ *   duation: number     //持续时间，单位为毫秒。例：2000
+ *   side: string         //显示的屏幕位置，可取值为 'top'|'center'|'bottom'。例：'center'
+ *   background: color   // 仅支持十六进制表示的颜色值字符串，支持 alpha 通道。例：'#ff123456'
+ *   textColor: color    //仅支持十六进制表示的颜色值字符串，支持 alpha 通道。例：'#ff123456'
+ *   textSize: size      //字体字号大小，单位为 pixel，不小于 12。例： 30
+ *   fadeInOut: array    //淡入 & 淡出时长，仅支持包含两个元素的数组。元素数值类型为整数，单位为毫秒。例：[1000, 2000]
+ *   padding: size       //内容的边距大小，单位为 pixel
+ * 
+ * @syscap SystemCapability.ArkUI.ArkUI.Lite
+ * @param content 文本内容
+ * @param option 样式配置
+ * @returns duckweed 消息的唯一识别 id
+ */
+export declare function showDuckweed(content: string, option?: object): number;
+
+/**
+ * @author yongxianglai@bestechnic.com
+ * 
+ * 清除指定的 duckweed 消息。当 id 参数缺省时，视为清除所有的 duckweed 消息。
+ * 
+ * @syscap SystemCapability.ArkUI.ArkUI.Lite
+ * @param id 目标 duckweed 消息的唯一识别 id
+ * @returns duckweed 消息的唯一识别 id
+ */
+export declare function hideDuckweed(id?: number): void;

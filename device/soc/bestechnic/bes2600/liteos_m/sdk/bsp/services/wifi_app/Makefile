@@ -48,6 +48,11 @@ obj-y += wifi_unit_test/test_socket/
 subdir-ccflags-y += -Iservices/wifi_app/wifi_unit_test/test_socket/
 endif
 
+ifeq ($(BWIFI_UNIT_TEST),1)
+obj-y += wifi_unit_test/test_bwifi_interface/
+subdir-ccflags-y += -Iservices/wifi_app/wifi_unit_test/test_bwifi_interface/
+endif
+
 ifeq ($(WIFI_VOICE_SUPPORT),1)
 obj-y += wifi_voice/
 endif
@@ -92,6 +97,10 @@ endif
 
 ifeq ($(ALIOS_THINGS_RELEASE), 1)
 obj-y += audio_dec/
+endif
+
+ifeq ($(BES_AIRKISS_SUPPORT), 1)
+obj-y += bes_airkiss/
 endif
 
 ifeq ($(LITTLEFS_ENABLE),1)

@@ -72,6 +72,9 @@
 #elif defined(CONFIG_DISPLAY_ICNA3311)
 #define BOARD_LCDC_WIDTH               280
 #define BOARD_LCDC_HEIGHT              456
+#elif defined(CONFIG_DISPLAY_ST7789H2)
+#define BOARD_LCDC_WIDTH               240
+#define BOARD_LCDC_HEIGHT              240
 #else
 #define BOARD_LCDC_WIDTH               454
 #define BOARD_LCDC_HEIGHT              454

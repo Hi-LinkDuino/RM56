@@ -726,6 +726,15 @@ struct bwifi_hal_ops {
 	 * Returns: 0 - success, other - failure
 	 */
     int (*str_cmd)(uint8_t type, uint8_t *cmd_buf, uint8_t *rsp_buf, uint32_t rsp_size);
+
+    /**
+     * dat_cmd - send data command to wifi subsystem
+     * @tx_buf: pointer of the data buffer to be sent.
+     * @tx_len: length of the data to be sent.
+     * Returns: 0 - success, other - failure
+     */
+    int (*dat_cmd)(uint8_t *tx_buf, uint16_t tx_len);
+
 };
 
 extern struct bwifi_hal_ops whops;

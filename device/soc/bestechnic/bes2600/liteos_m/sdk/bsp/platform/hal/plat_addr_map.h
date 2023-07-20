@@ -106,6 +106,9 @@ extern "C" {
 #define PSRAM_C_TO_NC(d)                        ((d) - PSRAM_BASE + PSRAM_NC_BASE)
 #define PSRAM_NC_TO_C(d)                        ((d) - PSRAM_NC_BASE + PSRAM_BASE)
 
+#define PSRAMUHS_C_TO_NC(a)                     ((a) - PSRAMUHS_BASE + PSRAMUHS_NC_BASE)
+#define PSRAMUHS_NC_TO_C(a)                     ((a) - PSRAMUHS_NC_BASE + PSRAMUHS_BASE)
+
 #define BUILD_INFO_MAGIC                        0xBE57341D
 
 #if (RAM_BASE & (0x400 - 1))

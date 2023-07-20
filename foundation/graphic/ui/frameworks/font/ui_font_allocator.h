@@ -20,13 +20,13 @@
 
 namespace OHOS {
 class UIFontAllocator {
-    static constexpr uint8_t UI_FONT_MEM_ALIGNMENT = 4;
+    static constexpr uint8_t UI_FONT_MEM_ALIGNMENT = 64;
 
     struct Chunk {
         uint32_t next;
         uint32_t prev;
         bool used;
-    };
+    } __attribute__((aligned(64)));
 
 public:
     UIFontAllocator();

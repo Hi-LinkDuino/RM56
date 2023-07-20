@@ -50,7 +50,8 @@ private:
     char *qrcodeValue_;
     ColorType qrcodeBackGroundColor_;
     ColorType qrcodeColor_;
-
+    uint8_t codeType_;
+    
     static constexpr uint16_t QRCODE_VAL_MAX = 256;
 };
 } // namespace ACELite

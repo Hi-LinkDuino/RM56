@@ -42,8 +42,28 @@ extern "C" {
 }
 #endif
 
+//yongxianglai@bestechnic.com
+#if (BES_FEATURE_DUCKWEED == 1)
+#include "bestechnic/duckweed_module.h"
+#endif //BES_FEATURE_DUCKWEED
+
 namespace OHOS {
 namespace ACELite {
+
+/**
+ * @author yongxianglai@bestechnic.com
+ * @date 2023年2月22日
+ * @brief  加载一些自定义的 module
+ */
+void LoadBesModules()
+{
+    HILOG_INFO(HILOG_MODULE_ACE, "Load bestechnic modules.");
+
+#if (BES_FEATURE_DUCKWEED == 1)
+    ProxyDuckweedModule::Load();
+#endif //BES_FEATURE_DUCKWEED
+}
+
 JsAppEnvironment::JsAppEnvironment()
 {
     SetEngineSnapshotMode(snapshotMode_);
@@ -83,6 +103,10 @@ void JsAppEnvironment::InitJsFramework() const
     AsyncTaskManager::GetInstance().Init();
     LoadAceBuiltInModules();
     ProductAdapter::LoadExtraPresetModules();
+
+    //yongxianglai@bestechnic: 加载自定义 module
+    LoadBesModules();
+
     LoadFramework();
     LocalModule::Load();
     SystemInfo::GetInstance().Initialize();

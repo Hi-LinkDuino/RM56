@@ -10,10 +10,6 @@ else
 VCODEC_VOLT ?= 1.8V
 endif
 
-ifeq ($(WIFI_POWERSAVE),1)
-VCODEC_VOLT := 2.2V
-endif
-
 CFLAGS_mipiphy_$(CHIP).o += -Iplatform/drivers/graphic
 
 ifneq ($(filter-out 1.6V 1.7V 1.8V 1.9V 1.95V 2.0V 2.1V 2.2V 2.3V,$(VCODEC_VOLT)),)
@@ -104,6 +100,7 @@ PSRAMUHS_CFG_FLAGS += -DPSRAMULS_MODE
 endif
 
 ifeq ($(BEST2003_QFN),1)
+PMU_CFG_FLAGS += -DBEST2003_QFN
 PSRAMUHS_CFG_FLAGS += -DBEST2003_QFN
 endif
 

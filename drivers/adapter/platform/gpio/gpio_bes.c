@@ -22,7 +22,9 @@
 #define HDF_LOG_TAG GPIO_BES
 
 #ifndef LOSCFG_SOC_SERIES_BES2600
+#ifndef CONFIG_DISPLAY_SH8601Z
 #define GPIO_SIM_BUTTON
+#endif
 #endif
 
 #ifdef GPIO_SIM_BUTTON

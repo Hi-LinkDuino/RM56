@@ -37,6 +37,13 @@ root {
                 rst_pin = 3;
                 te_pin = 21;
                 vci_pin = 2;
+            }
+            st7789h2_config {
+                match_attr = "st7789h2_config";
+                // EVB_V3: RST - GPIO21, TE - GPIO03, LED_EN - GPIO26
+                rst_pin = 21;
+                te_pin = 3;
+                led_pin = 26;
             }*/
             a064_config {
                 match_attr = "a064_config";

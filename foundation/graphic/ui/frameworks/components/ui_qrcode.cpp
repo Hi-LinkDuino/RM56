@@ -21,7 +21,7 @@
 using qrcodegen::QrCode;
 namespace OHOS {
 UIQrcode::UIQrcode()
-    : width_(0), needDraw_(false), backgroundColor_(Color::White()), qrColor_(Color::Black()), qrcodeVal_(nullptr)
+    : width_(0), needDraw_(false), backgroundColor_(Color::White()), qrColor_(Color::Black()), qrcodeVal_(nullptr),codeType_(1)
 {
     style_ = &(StyleDefault::GetBackgroundTransparentStyle());
     imageInfo_ = {{0}};
@@ -80,6 +80,9 @@ void UIQrcode::SetHeight(int16_t height)
         RefreshQrcode();
     }
 }
+void UIQrcode::SetQrcodeRange(uint8_t codeType){
+    codeType_ = codeType;
+}
 
 void UIQrcode::ReMeasure()
 {
@@ -91,7 +94,26 @@ void UIQrcode::ReMeasure()
         GRAPHIC_LOGE("UIQrcode::ReMeasure qrcodeVal_ is null!\n");
         return;
     }
-    QrCode qr = QrCode::encodeText(qrcodeVal_, QrCode::Ecc::LOW);
+    QrCode::Ecc ecc = QrCode::Ecc::MEDIUM;
+    switch (codeType_)
+    {
+    case 0:
+        ecc = QrCode::Ecc::LOW;
+        break;
+    case 1:
+        ecc = QrCode::Ecc::MEDIUM;
+        break;
+    case 2:
+        ecc = QrCode::Ecc::QUARTILE;
+        break;
+    case 3:
+        ecc = QrCode::Ecc::HIGH;
+        break;
+    default:
+        ecc = QrCode::Ecc::MEDIUM;
+        break;
+    }
+    QrCode qr = QrCode::encodeText(qrcodeVal_, ecc);
     SetImageInfo(qr);
     SetSrc(&imageInfo_);
 }

@@ -731,6 +731,22 @@ public:
     static ColorType GetColorFromRGBA(uint8_t r8, uint8_t g8, uint8_t b8, uint8_t alpha);
 
     /**
+     * @brief Converts color data into the current format.
+     *
+     * The color data definition varies according to the color depth.
+     *
+     * @param color Indicates the color data, which is defined by {@link ColorType}.
+     * @return Returns the current ColorType.
+     * @since 1.0
+     * @version 1.0
+     */
+    static ColorType Color32ToColorType(Color32 color);
+
+    static ColorType Color24ToColorType(Color24 color);
+
+    static ColorType Color16ToColorType(Color16 color);
+
+    /**
      * @brief Converts color data into the RGBA8888 format.
      *
      * The color data definition varies according to the color depth.

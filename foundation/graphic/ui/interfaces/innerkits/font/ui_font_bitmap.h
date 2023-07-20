@@ -65,7 +65,7 @@ private:
 #endif
     void CloseFontFd();
     void BitmapCacheInit();
-    static constexpr uint32_t FONT_BITMAP_CACHE_SIZE = 0x64000;
+    static constexpr uint32_t FONT_BITMAP_CACHE_SIZE = 0xFF000;
     static constexpr uint8_t FONT_ID_MAX = 0xFF;
     static constexpr uint8_t TTF_NAME_LEN_MAX = 128;
     GlyphsManager dynamicFont_;

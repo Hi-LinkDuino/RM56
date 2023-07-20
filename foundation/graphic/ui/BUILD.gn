@@ -279,6 +279,22 @@ lite_library("ui") {
     "frameworks/components/bestechnic/ui_bes_arc_scroll_bar.cpp",
     "frameworks/components/bestechnic/ui_bes_box_scroll_bar.cpp",
     "frameworks/components/bestechnic/ui_bes_list.cpp",
+    "frameworks/components/bestechnic/ui_duckweed.cpp",
+    "frameworks/components/bestechnic/duckweed_manager.cpp",
+    "frameworks/core/bestechnic/frame_event_manager.cpp",
+  ]
+
+  # yongxianglai@bestechnic.com: 可以在这里定义模块的宏, 启用 / 禁用某些功能
+  # 用法示例：
+  # #if (XXX == 1)
+  #   //代码
+  # #else
+  #   //代码
+  # #endif
+  defines = [
+    # Duckweed(浮动消息)功能宏开关,
+    # ！必须同步修改 工程/foundation/ace/ace_engine_lite/BUILD.gn 中的同名宏
+    "BES_FEATURE_DUCKWEED=1",
   ]
   if(bfd_dev_mode == "prod"){
     sources -= [

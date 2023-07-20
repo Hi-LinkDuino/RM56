@@ -168,7 +168,7 @@ extern "C" {
 
 //low power function
 #ifndef WIFI_RF_LOWER_POWER_MODE
-#define WIFI_RF_LOWER_POWER_MODE     0 //wifi rf low power mode
+#define WIFI_RF_LOWER_POWER_MODE     0 //0:normal power 2g&5g; 1:waiting add; 2:i lower power 2g&5g(rfpll,vco1.4v);
 #endif
 
 //debug log macro
@@ -188,7 +188,7 @@ extern "C" {
 
 #define WIFI_BBPL_TEMPERT_V2_DEBUG   0 //bbpl temperature compensation calibration v2 debug
 
-#define WIFI_IQ_TEMPERT_V1_DEBUG     1 //iq temperature compensation calibration v1 debug
+#define WIFI_IQ_TEMPERT_V1_DEBUG     0 //iq temperature compensation calibration v1 debug
 
 #define WIFI_DC_IQ_LINE_FIT_DEBUG    0 //dc iq line fit debug
 

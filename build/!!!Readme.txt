@@ -8,3 +8,7 @@ multimedia-src: http://172.16.40.40/c/bes-aos/multimedia-src/+/61114
 2700BPµ•flash±‡“Î£∫./build/compile.sh -b 1600 -m -p -f
 2700BPÀ´flash±‡“Î£∫./build/compile.sh -b 1600 -m -P -f
 2700iBP±‡“Î£∫./build/compile.sh -b 1502x -m -f
+2600WM-${best2003_type} compile£∫./build/compile.sh -b 2003 -w ${best2003_type} ${FORCE}
+2600WM-GX6D: ./build/compile.sh -b 2003 -w GX6D -f
+2600WM-AX4D: ./build/compile.sh -b 2003 -w AX4D -f
+2600WM-AX4F: ./build/compile.sh -b 2003 -w AX4F -f

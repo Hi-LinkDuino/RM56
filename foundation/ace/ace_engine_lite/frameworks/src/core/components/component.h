@@ -27,6 +27,8 @@
 #include "string_util.h"
 #include "cJSON.h"
 
+#include "graphic_config.h"
+
 namespace OHOS {
 namespace ACELite {
 enum DimensionType : uint8_t {
@@ -211,8 +213,24 @@ public:
         AnimationsNode() : transitionImpl(nullptr), next(nullptr){}
     };
 
-    static void HandlerAnimations();
-    static void ReleaseAnimations();
+        /**
+     * @brief 执行（重新启动）指定的组件动画。当未指定 view 层级时（nullptr），视为执行所有动画
+     * @param pageRootView 指定一个顶级 view，只会清理此 view 层级中的对应动画
+     */
+    static void HandlerAnimations(const UIView* const pageRootView = nullptr);
+
+    /**
+     * @brief 清理指定的 view 层级中的组件动画。当未指定 view 层级时（nullptr），视为清理所有动画
+     * @param pageRootView 指定一个顶级 view，只会清理此 view 层级中的对应动画
+     */
+    static void ReleaseAnimations(const UIView* const pageRootView = nullptr);
+
+    /**
+     * @brief 停止指定的 view 层级中的组件动画。当未指定 view 层级时（nullptr），视为停止所有动画
+     * @param pageRootView 
+     */
+    static void StopAnimations(const UIView* const pageRootView = nullptr);
+
     /**
      * @brief GetDimension return the dimension data, only width, height, margin, top and left are supported
      * @param keyNameId the key ID for representing which dimension data is wanted
@@ -238,6 +256,29 @@ public:
     bool AdaptBoxSizing(uint16_t attrKeyId = K_UNKNOWN) const;
     void AlignDimensions(const ConstrainedParameter &param);
     void EnableTransmitSwipe();
+
+    /**
+     * @brief 绑定的 view 是否位于指定的 view 层级中
+     * @param root view 层级根
+     */
+    bool IsBindViewTree(const UIView* const root) {
+        UIView* peek = GetComponentRootView();
+        while (peek != nullptr) { // && peek != RootView::GetInstance()
+            if (peek == root) {
+                return true;
+            }
+            peek = peek->GetParent();
+        }
+        return false;
+    }
+
+    /**
+     * @brief 对应的 view 是否匹配指定的 viewId
+     * @param viewId 
+     */
+    bool IsBindView(const char* viewId) {
+        return viewId_ == viewId;
+    }
 
 protected:
     void SetComponentName(uint16_t name)

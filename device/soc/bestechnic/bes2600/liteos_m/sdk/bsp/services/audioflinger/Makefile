@@ -135,6 +135,10 @@ ifeq ($(AUDIO_ANC_FB_MC),1)
 CFLAGS_audioflinger.o += -DAF_DEVICE_MC
 endif
 
+ifeq ($(AUDIO_PROCESS_IN_CP),1)
+CFLAGS_audioflinger.o += -DAUDIO_PROCESS_IN_CP
+endif
+
 #-------------------------------
 # End
 #-------------------------------

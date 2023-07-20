@@ -49,6 +49,9 @@ if (product_path != "") {
   bes_specific_chip = product_conf.bes_specific_chip
   emmc_fs_support = product_conf.emmc_fs_support
   lcd_support = product_conf.lcd_support
+  boot_logo_support = product_conf.boot_logo_support
+  alipay_support = product_conf.alipay_support
+  ota_support = product_conf.ota_support
 }
 
 
@@ -97,13 +100,11 @@ board_cflags = [
   "-mthumb-interwork",
   "-DPLAYER_TOOL",
   "-DCHIP_BEST1502X",
-  "-DOS_HEAP_SIZE=0x400000",
   "-DCHIP_HAS_UART=3",
   "-DRTOS",
   "-DDEBUG=1",
   "-DCMSIS_OS_VER=2",
   "-DOS_HWI_MAX_NUM=96",
-  "-DCONFIG_DISPLAY_RM69330",
   "-DLFS_MAX_OPEN_DIRS=32",
   "-DMBEDTLS_CMSIS_FILE=\"rtos/liteos/liteos_m/kal/cmsis/cmsis_os.h\"",
   "-DLOSCFG_BASE_CORE_HILOG",
@@ -111,12 +112,45 @@ board_cflags = [
   # "-Dasm=__asm__",
 ]
 
+if (product_conf.psram_size >= 16777216){
+  board_cflags += [ "-DOS_HEAP_SIZE=0xD00000" ]
+}
+else{
+  board_cflags += [ "-DOS_HEAP_SIZE=0x500000" ]
+}
+
 if(emmc_fs_support == "true") {
   board_cflags += [ "-DFS_ROOT=\"/emmc/\"" ]
 }
 else{
   board_cflags += [ "-DFS_ROOT=\"/data/\"" ]
 }
+
+if(lcd_support == "sh8601z") {
+  board_cflags += [
+    "-DCONFIG_DISPLAY_SH8601Z",
+    "-D_SENSOR_CLIENT_RPC",
+  ]
+}
+else {
+  board_cflags += [ "-DCONFIG_DISPLAY_RM69330" ]
+}
+
+if(boot_logo_support == "true")
+{
+  board_cflags += [ "-DENABLE_BOOT_LOGO" ]
+}
+
+if(alipay_support == "true")
+{
+  board_cflags += [ "-DALIPAY_ENABLE" ]
+}
+
+if(ota_support == "true")
+{
+  board_cflags += [ "-DWATCH_OTA" ]
+}
+
 flash_size = 16
 }
 

@@ -22,14 +22,6 @@
 #include "../draw/draw_utils.h"
 #include "gfx_utils/graphic_log.h"
 
-#ifndef ALIGN_WIDTH_NUM
-#define ALIGN_WIDTH_NUM 16
-#endif
-
-#ifndef ALIGN_ADDRESS_NUM
-#define ALIGN_ADDRESS_NUM 64
-#endif
-
 namespace OHOS {
 FileImgDecoder& FileImgDecoder::GetInstance()
 {
@@ -108,12 +100,6 @@ RetCode FileImgDecoder::ReadLine(ImgResDsc& dsc, const Point& start, int16_t len
     return RetCode::FAIL;
 }
 
-inline void PixelPremnitiply(uint8_t& r,uint8_t& g,uint8_t& b,uint8_t& a){
-    r = static_cast<uint8_t>((r*a)/OPA_OPAQUE);
-    g = static_cast<uint8_t>((g*a)/OPA_OPAQUE);
-    b = static_cast<uint8_t>((b*a)/OPA_OPAQUE);
-}
-
 RetCode FileImgDecoder::ReadToCache(ImgResDsc& dsc)
 {
     struct stat info;
@@ -139,9 +125,11 @@ RetCode FileImgDecoder::ReadToCache(ImgResDsc& dsc)
             readSuccess = ImageLoad::GetImageInfo(dsc.fd, pxCount, dsc.imgInfo);
         } else {
             dsc.imgInfo.dataSize = pxCount;
-            dsc.imgInfo.data = reinterpret_cast<uint8_t*>(ImageCacheMalloc(dsc.imgInfo));
+            dsc.imgInfo.data = reinterpret_cast<uint8_t*>(ImageCacheMalloc(dsc.imgInfo, ALIGN_ADDRESS_NUM));
             if (dsc.imgInfo.data == nullptr) {
-                return RetCode::OK;
+                //2023年4月12日：已经失败了，应该真实地反映到外部
+                //return RetCode::OK;
+                return RetCode::FAIL;
             }
             uint8_t* tmp = const_cast<uint8_t*>(dsc.imgInfo.data);
             readSuccess = (static_cast<int32_t>(pxCount) == read(dsc.fd, reinterpret_cast<void*>(tmp), pxCount));
@@ -158,58 +146,18 @@ RetCode FileImgDecoder::ReadToCache(ImgResDsc& dsc)
                     memcpy(clut,clutIndex,clutCount);
                     dsc.imgInfo.userData = clut;
                 }
-
-                uint16_t tempWidth = imageWidth % ALIGN_WIDTH_NUM;
-                uint16_t alignWidth = tempWidth == 0 ? imageWidth : imageWidth - tempWidth + ALIGN_WIDTH_NUM;
-                uint8_t *srcStartAddr = tmp;
-
-                uint8_t srcByteSize = DrawUtils::GetByteSizeByColorMode(dsc.imgInfo.header.colorMode);
-                dsc.imgInfo.dataSize = alignWidth * imageHeight * srcByteSize;
-                uint8_t *alignedSrcAddr = reinterpret_cast<uint8_t*>(ImageCacheMalloc(dsc.imgInfo, ALIGN_ADDRESS_NUM));
-                if ((((uint32_t)(srcStartAddr)) % ALIGN_ADDRESS_NUM != 0) || imageWidth != alignWidth)
-                {
-                    memset(alignedSrcAddr, 0, dsc.imgInfo.dataSize);
-                    uint8_t *ptr = alignedSrcAddr;
-                    uint8_t *origin_ptr = srcStartAddr;
-                    uint32_t stride = alignWidth * srcByteSize;
-                    uint32_t origin_stride = imageWidth * srcByteSize;
-                    for (int i = 0; i < imageHeight; i++)
-                    {
-                        memcpy(ptr, origin_ptr, origin_stride);
-                        ptr += stride;
-                        origin_ptr += origin_stride;
-                    }
-                }
-                else
-                {
-                    memcpy(alignedSrcAddr,srcStartAddr,dsc.imgInfo.dataSize);
-                }
-                ImageCacheFree(dsc.imgInfo);
-                dsc.imgInfo.data = alignedSrcAddr;
             }
         }
-        if(readSuccess&&dsc.imgInfo.header.colorMode==ARGB8888){
-           uint8_t srcByteSize = DrawUtils::GetByteSizeByColorMode(dsc.imgInfo.header.colorMode);
-           int imgWidth = dsc.imgInfo.header.width;
-           int imgHeight = dsc.imgInfo.header.height;
-           uint8_t *srcTmp = const_cast<uint8_t *>(dsc.imgInfo.data);
-           for (int16_t row = 0; row < imgHeight; ++row) {
-               for (int16_t col = 0; col < imgWidth*srcByteSize; col+=srcByteSize) {
-                   uint8_t& r = srcTmp[row*imgWidth*srcByteSize+col];
-                   uint8_t& g = srcTmp[row*imgWidth*srcByteSize+col+1];
-                   uint8_t& b = srcTmp[row*imgWidth*srcByteSize+col+2];
-                   uint8_t& a = srcTmp[row*imgWidth*srcByteSize+col+3];
-                   PixelPremnitiply(r,g,b,a);
-               }
-            }
-        }
+
         if (!readSuccess) {
-            ImageCacheFree(dsc.imgInfo);
+            ImageCacheFreeAlignment(dsc.imgInfo);
             dsc.imgInfo.data = nullptr;
             dsc.imgInfo.dataSize = 0;
             close(dsc.fd);
             dsc.fd = -1;
-            return RetCode::OK;
+            //2023年4月12日：已经失败了，应该真实地反映到外部
+            //return RetCode::OK;
+            return RetCode::FAIL;
         }
         dsc.inCache_ = true;
         close(dsc.fd);

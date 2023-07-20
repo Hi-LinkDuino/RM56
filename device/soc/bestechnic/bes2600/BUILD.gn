@@ -131,7 +131,9 @@ if (ohos_kernel_type == "liteos_m") {
           ]
         }
         ldflags += [ "-lbsp${bsp_target_name}" ]
+        ldflags += [ "-Wl,-T" + rebase_path("liteos_m/sdk/bsp/out/${bsp_target_name}/_best2001.lds") ]
         ldflags += [ "-Wl,--no-whole-archive" ]
+        print("ldflags :", ldflags)
 
         libs = [
           "c",

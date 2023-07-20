@@ -50,6 +50,7 @@ if (product_path != "") {
   emmc_fs_support = product_conf.emmc_fs_support
   lcd_support = product_conf.lcd_support
   bluetooth_ble_walkie_talkie = product_conf.bluetooth_ble_walkie_talkie
+  ota_support = product_conf.ota_support
 }
 
 
@@ -67,7 +68,7 @@ board_cflags = [
   "-mthumb-interwork",
   "-DPLAYER_TOOL",
   "-DCHIP_BEST1600",
-  "-DOS_HEAP_SIZE=0x400000",
+  "-DOS_HEAP_SIZE=0xD00000",
   "-DCHIP_HAS_UART=3",
   "-DRTOS",
   "-DDEBUG=1",
@@ -100,6 +101,11 @@ else {
 
 if(bluetooth_ble_walkie_talkie == "true") {
   board_cflags += [ "-DBLE_WALKIE_TALKIE" ]
+}
+
+if(ota_support == "true")
+{
+  board_cflags += [ "-DWATCH_OTA" ]
 }
 
 flash_size = 16

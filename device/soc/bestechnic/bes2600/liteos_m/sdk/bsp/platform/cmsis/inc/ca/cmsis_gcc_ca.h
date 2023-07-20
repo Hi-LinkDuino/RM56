@@ -105,9 +105,144 @@
 #ifndef   __ALIGNED
   #define __ALIGNED(x)                           __attribute__((aligned(x)))
 #endif
+#ifndef   __RESTRICT
+  #define __RESTRICT                             __restrict
+#endif
 #ifndef   __COMPILER_BARRIER
   #define __COMPILER_BARRIER()                   __ASM volatile("":::"memory")
 #endif
+
+
+__STATIC_FORCEINLINE uint32_t __QADD8(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("qadd8 %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE uint32_t __QSUB8(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("qsub8 %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE uint32_t __SHADD16(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("shadd16 %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+
+__STATIC_FORCEINLINE uint32_t __SMUSD  (uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM volatile ("smusd %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+__STATIC_FORCEINLINE uint32_t __SMUSDX (uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM volatile ("smusdx %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+__STATIC_FORCEINLINE uint32_t __SMLSDX (uint32_t op1, uint32_t op2, uint32_t op3)
+{
+  uint32_t result;
+
+  __ASM volatile ("smlsdx %0, %1, %2, %3" : "=r" (result) : "r" (op1), "r" (op2), "r" (op3) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE uint32_t __QASX(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("qasx %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+__STATIC_FORCEINLINE uint32_t __SHASX(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("shasx %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE uint32_t __SHSUB16(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("shsub16 %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+__STATIC_FORCEINLINE uint32_t __QSAX(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("qsax %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+__STATIC_FORCEINLINE uint32_t __SHSAX(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM ("shsax %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE uint32_t __SADD16(uint32_t op1, uint32_t op2)
+{
+  uint32_t result;
+
+  __ASM volatile ("sadd16 %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE int32_t __SXTAB16(uint32_t op1, uint32_t op2)
+{
+  int32_t result;
+
+  __ASM ("sxtab16 %0, %1, %2" : "=r" (result) : "r" (op1), "r" (op2) );
+  return(result);
+}
+
+
+__STATIC_FORCEINLINE int32_t __SXTB16_RORn(uint32_t op1, uint32_t rotate)
+{
+  int32_t result;
+
+  __ASM ("sxtb16 %0, %1, ROR %2" : "=r" (result) : "r" (op1), "i" (rotate) );
+
+  return result;
+}
+
+
+__STATIC_FORCEINLINE uint32_t __SXTB16(uint32_t op1)
+{
+  uint32_t result;
+
+  __ASM ("sxtb16 %0, %1" : "=r" (result) : "r" (op1));
+  return(result);
+}
 
 
 __STATIC_FORCEINLINE uint32_t __QSUB16(uint32_t op1, uint32_t op2)
@@ -170,6 +305,10 @@ __STATIC_FORCEINLINE uint32_t __SMUAD  (uint32_t op1, uint32_t op2)
 
 #define __PKHBT(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0x0000FFFFUL) |  \
                                            ((((uint32_t)(ARG2)) << (ARG3)) & 0xFFFF0000UL)  )
+
+#define __PKHTB(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0xFFFF0000UL) |  \
+                                           ((((uint32_t)(ARG2)) >> (ARG3)) & 0x0000FFFFUL)  )
+
 
 __STATIC_FORCEINLINE uint32_t __SMLAD (uint32_t op1, uint32_t op2, uint32_t op3)
 {

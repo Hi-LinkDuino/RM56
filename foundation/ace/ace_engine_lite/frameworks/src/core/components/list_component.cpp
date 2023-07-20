@@ -64,6 +64,18 @@ UIView *ListComponent::GetComponentRootView() const
     return const_cast<UIList *>(&list_);
 }
 
+bool ListComponent::SetPrivateAttribute(uint16_t attrKeyId, jerry_value_t attrValue)
+{
+    switch (attrKeyId) {
+        case K_TYPE:
+            list_.SetOpenSave(true);
+            adapter_.SetOpenSave(true);
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool ListComponent::ApplyPrivateStyle(const AppStyleItem *style)
 {
     uint16_t stylePropNameId = GetStylePropNameId(style);
@@ -148,6 +160,11 @@ void ListComponent::OnViewAttached()
         list_.SetAdapter(&adapter_);
         hasSetAdaptor_ = true;
     }
+}
+
+void ListComponent::PostUpdate(uint16_t attrKeyId)
+{
+    list_.Reload();
 }
 
 bool ListComponent::UpdateForView()

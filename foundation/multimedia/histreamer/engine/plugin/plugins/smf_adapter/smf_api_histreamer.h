@@ -5,15 +5,18 @@
 #include "smf_inc/smf_demuxer_wav.h"
 #include "smf_inc/smf_demuxer_mp4.h"
 #include "smf_inc/smf_demuxer_ogg.h"
+#include "smf_inc/smf_demuxer_sbc.h"
 
 #include "smf_inc/smf_codec_mp3.h"
 #include "smf_inc/smf_codec_pcm.h"
+#include "smf_inc/smf_codec_sbc.h"
 
 #define KEY_MP3 "mp3"
 #define KEY_WAV "wav"
 #define KEY_PCM "pcm"
 #define KEY_MP4 "mp4"
 #define KEY_M4A "m4a"
+#define KEY_SBC "sbc"
 
 #define SMF_FS_CALLBACK_REGISTER_IOFILE
 

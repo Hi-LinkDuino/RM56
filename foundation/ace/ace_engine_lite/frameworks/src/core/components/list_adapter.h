@@ -20,7 +20,7 @@
 #include "component.h"
 #include "js_fwk_common.h"
 #include "non_copyable.h"
-
+#include<vector>
 namespace OHOS {
 namespace ACELite {
 struct ListItemValue : public MemoryHeap {
@@ -70,6 +70,14 @@ public:
     {
         direction_ = direction;
     }
+    void SetOpenSave(bool open)
+    {
+        isOpen_ = open;
+    }
+    bool GetOpenSave()
+    {
+        return isOpen_;
+    }
 
 private:
     bool GenerateListItems(const JSValue descriptors, int16_t size);
@@ -87,6 +95,8 @@ private:
     // the content area
     ConstrainedParameter uiListContentParam_;
     uint8_t direction_ = UIList::VERTICAL;
+    std::vector<UIView*> views_;
+    bool isOpen_;
 };
 } // namespace ACELite
 } // namespace OHOS

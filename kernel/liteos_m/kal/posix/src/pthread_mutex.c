@@ -432,3 +432,27 @@ int pthread_mutex_unlock(pthread_mutex_t *mutex)
     return MapError(ret);
 }
 
+int pthread_rwlock_destroy(pthread_rwlock_t *rw)
+{
+    return 0;
+}
+
+int pthread_rwlock_wrlock(pthread_rwlock_t *rw)
+{
+    return 0;
+}
+
+int pthread_rwlock_unlock(pthread_rwlock_t *rw)
+{
+    return 0;
+}
+
+int pthread_rwlock_init(pthread_rwlock_t *rw, const pthread_rwlockattr_t *attr)
+{
+    return 0;
+}
+
+int pthread_rwlock_rdlock(pthread_rwlock_t *rw)
+{
+    return 0;
+}

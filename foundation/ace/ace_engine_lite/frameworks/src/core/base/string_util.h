@@ -35,6 +35,7 @@ public:
     static std::string TrimStr(const std::string& str, char cTrim = ' ');
     static void Str2map(const std::string& item, std::map<std::string, float>& kv);
     static void SplitStr(const std::string& str, const std::string& sep, std::map<std::string, float>& out, bool needTrim = true);
+    static bool ComparePath(const char* path, const char* otherPath);
 };
 } // namespace ACELite
 } // namespace OHOS

@@ -262,6 +262,10 @@ LITE_OS_SEC_TEXT UINT32 LOS_SemPend(UINT32 semHandle, UINT32 timeout)
         goto ERROR_SEM_PEND;
     }
 
+    if (semPended->semCount > 0) {
+        semPended->semCount--;
+    }
+
     LOS_IntRestore(intSave);
     return LOS_OK;
 
@@ -298,6 +302,9 @@ LITE_OS_SEC_TEXT UINT32 LOS_SemPost(UINT32 semHandle)
         LOS_IntRestore(intSave);
         OS_RETURN_ERROR(LOS_ERRNO_SEM_OVERFLOW);
     }
+
+    semPosted->semCount++;
+
     if (!LOS_ListEmpty(&semPosted->semList)) {
         resumedTask = OS_TCB_FROM_PENDLIST(LOS_DL_LIST_FIRST(&(semPosted->semList)));
         resumedTask->taskSem = NULL;
@@ -307,7 +314,6 @@ LITE_OS_SEC_TEXT UINT32 LOS_SemPost(UINT32 semHandle)
         OsHookCall(LOS_HOOK_TYPE_SEM_POST, semPosted, resumedTask);
         LOS_Schedule();
     } else {
-        semPosted->semCount++;
         LOS_IntRestore(intSave);
         OsHookCall(LOS_HOOK_TYPE_SEM_POST, semPosted, resumedTask);
     }

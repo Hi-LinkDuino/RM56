@@ -16,7 +16,7 @@ declare_args() {
   bes_histreamer_test = true
   bes_ui_test = false
   bes_ability_test = true
-  bes_wifi_test = true
+  bes_wifi_test = product_conf.wifi_test
   bes_rpc_test = false
   bes_dsoftbus_test = false
   bes_ota_test = true
@@ -54,7 +54,7 @@ static_library("example") {
     include_dirs += [ "ability" ]
   }
 
-  if (bes_wifi_test) {
+  if (bes_wifi_test == "true") {
     deps += [ "wifi:wifi_test" ]
     defines += [ "WIFI_TEST" ]
   }

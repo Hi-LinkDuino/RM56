@@ -266,7 +266,7 @@ struct GlyphHeader {
     uint32_t glyphLen;    // GLYPH_G_LEN_OFFSET
 };
 
-enum TextStyle : uint8_t {
+enum TextStyle : uint32_t {
     TEXT_STYLE_NORMAL = 0,  // default value
     TEXT_STYLE_ITALIC,       // text style italic
     TEXT_STYLE_BOLD,        // text style bold

@@ -26,24 +26,25 @@ flash_size=""
 flash_config=""
 rel_flash_config=""
 romfs_config=""
-bootinfo_config=""
+boot1_config=""
+boot2a_config=""
 
 # flash_size and flash_config depend on 2003 chip type: AX4D or AX4F or GX6D
 if [ "x${best2003_type}" == "xAX4D" ]; then
     flash_size="16"
     flash_config=" PSRAM_XCCELA_MODE=0 PSRAMUHS_AP325608A=0 PSRAMULS_MODE=0 RF_TX_CONTROL_IO=16 FLASH_SIZE=0x1000000 "
-    boot1_config=" REMAP_SUPPORT=1 BOOTINFO_OFFSET=0xFD0000 "
-    boot2a_config=" REMAP_SUPPORT=1 RTOS_A_CODE_OFFSET=0x80000 RTOS_B_CODE_OFFSET=0x680000 BOOTINFO_OFFSET=0xFD0000 "
+    boot1_config=" REMAP_SUPPORT=0 BOOTINFO_OFFSET=0xFD0000 "
+    boot2a_config=" REMAP_SUPPORT=0 RTOS_A_CODE_OFFSET=0x80000 RTOS_B_CODE_OFFSET=0x780000 BOOTINFO_OFFSET=0xFD0000 "
 elif [ "x${best2003_type}" == "xAX4F" ]; then
     flash_size="16"
     flash_config=" ALT_BOOT_FLASH=1 PSRAMUHS_AP325608A=1 RF_TX_CONTROL_IO=100 FLASH_SIZE=0x1000000 "
-    boot1_config=" REMAP_SUPPORT=1 BOOTINFO_OFFSET=0xFD0000 "
-    boot2a_config=" REMAP_SUPPORT=1 RTOS_A_CODE_OFFSET=0x80000 RTOS_B_CODE_OFFSET=0x680000 BOOTINFO_OFFSET=0xFD0000 "
+    boot1_config=" REMAP_SUPPORT=0 BOOTINFO_OFFSET=0xFD0000 "
+    boot2a_config=" REMAP_SUPPORT=0 RTOS_A_CODE_OFFSET=0x80000 RTOS_B_CODE_OFFSET=0x780000 BOOTINFO_OFFSET=0xFD0000 "
 elif [ "x${best2003_type}" == "xGX6D" ]; then
     flash_size="32"
     flash_config=" PSRAM_XCCELA_MODE=1 RF_TX_CONTROL_IO=100 FLASH_SIZE=0x2000000 "
     boot1_config=" REMAP_SUPPORT=1 BOOTINFO_OFFSET=0x1FC0000 "
-    boot2a_config=" REMAP_SUPPORT=1 RTOS_A_CODE_OFFSET=0x80000 RTOS_B_CODE_OFFSET=0x680000 BOOTINFO_OFFSET=0x1FC0000 "
+    boot2a_config=" REMAP_SUPPORT=1 RTOS_A_CODE_OFFSET=0x80000 RTOS_B_CODE_OFFSET=0x880000 BOOTINFO_OFFSET=0x1FC0000 "
 fi
 
 MAKEFILE="./bsp/platform/main/Makefile"
@@ -118,6 +119,25 @@ if [ -f ${product_path}/config.sh ]; then
     source ${product_path}/config.sh
 fi
 
+# handle liteos mini parameters in config.sh begin
+temp_basic_opts=""
+temp_extra_opts=""
+for VENDOR_OPT in ${OPT_LITEOS_MINI}
+do
+    pre_handle_opt ${VENDOR_OPT} OPT_SOC_MINI
+    temp_basic_opts="${temp_cmd}"
+    echo "temp_basic_opts:${temp_basic_opts}"
+    temp_extra_opts+=" ${temp_extra_cmd} "
+done
+echo -e "OPT_LITEOS_MINI temp_extra_opts:${temp_extra_opts}"
+
+OPT_LITEOS_MINI=" ${temp_basic_opts} ${temp_extra_opts}"
+# handle liteos mini parameters in config.sh end
+
+echo -e "↑↑↑↑↑↑↑↑↑↑ Please check LiteOS [mini] bin config above ↑↑↑↑↑↑↑↑↑↑\n"
+echo -e "\n↓↓↓↓↓↓↓↓↓↓ Please check LiteOS [main] bin config below ↓↓↓↓↓↓↓↓↓↓"
+
+# handle liteos main parameters in config.sh begin
 temp_basic_opts=""
 temp_extra_opts=""
 for VENDOR_OPT in ${OPT_LITEOS_MAIN}
@@ -127,34 +147,37 @@ do
     echo "temp_basic_opts:${temp_basic_opts}"
     temp_extra_opts+=" ${temp_extra_cmd} "
 done
-echo "temp_extra_opts:${temp_extra_opts}"
+echo -e "OPT_LITEOS_MAIN temp_extra_opts:${temp_extra_opts}"
 
 OPT_LITEOS_MAIN=" ${temp_basic_opts} ${temp_extra_opts}"
+# handle liteos main parameters in config.sh end
 
-if [ "x${build_trustzone}" == "xtrue" ]; then
-    if [ "x${build_mini_sys}" == "xtrue" ]; then
-        pre_handle_opt ARM_CMNS=1 OPT_LITEOS_MINI
-        OPT_LITEOS_MINI="${temp_cmd} ${temp_extra_cmd}"
-        pre_handle_opt TZ_MINI_OFFSET=0x56000 OPT_LITEOS_BOOT2A
-        OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
-    fi
-    pre_handle_opt ARM_CMNS=1 OPT_LITEOS_MAIN
-    OPT_LITEOS_MAIN="${temp_cmd} ${temp_extra_cmd} "
-    pre_handle_opt TZ_MAIN_OFFSET=0x30000 OPT_LITEOS_BOOT2A
-    OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
-else
-    if [ "x${build_mini_sys}" == "xtrue" ]; then
-        pre_handle_opt ARM_CMNS=0 OPT_LITEOS_MINI
-        OPT_LITEOS_MINI="${temp_cmd} ${temp_extra_cmd} "
-        pre_handle_opt TZ_MINI_OFFSET=0xB00000 OPT_LITEOS_BOOT2A
-        OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
-    fi
-    pre_handle_opt ARM_CMNS=0 OPT_LITEOS_MAIN
-    OPT_LITEOS_MAIN="${temp_cmd} ${temp_extra_cmd} "
-    pre_handle_opt TZ_MAIN_OFFSET=0x80000 OPT_LITEOS_BOOT2A
-    OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
-fi
+# if [ "x${build_trustzone}" == "xtrue" ]; then
+#     if [ "x${build_mini_sys}" == "xtrue" ]; then
+#         pre_handle_opt ARM_CMNS=1 OPT_LITEOS_MINI
+#         OPT_LITEOS_MINI="${temp_cmd} ${temp_extra_cmd}"
+#         pre_handle_opt TZ_B_CODE_OFFSET=0x56000 OPT_LITEOS_BOOT2A
+#         OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
+#     fi
+#     pre_handle_opt ARM_CMNS=1 OPT_LITEOS_MAIN
+#     OPT_LITEOS_MAIN="${temp_cmd} ${temp_extra_cmd} "
+#     pre_handle_opt TZ_A_CODE_OFFSET=0x30000 OPT_LITEOS_BOOT2A
+#     OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
+# else
+#     if [ "x${build_mini_sys}" == "xtrue" ]; then
+#         pre_handle_opt ARM_CMNS=0 OPT_LITEOS_MINI
+#         OPT_LITEOS_MINI="${temp_cmd} ${temp_extra_cmd} "
+#         pre_handle_opt TZ_B_CODE_OFFSET=0x880000 OPT_LITEOS_BOOT2A
+#         OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
+#     fi
+#     pre_handle_opt ARM_CMNS=0 OPT_LITEOS_MAIN
+#     OPT_LITEOS_MAIN="${temp_cmd} ${temp_extra_cmd} "
+#     pre_handle_opt TZ_A_CODE_OFFSET=0x80000 OPT_LITEOS_BOOT2A
+#     OPT_LITEOS_BOOT2A="${temp_cmd} ${temp_extra_cmd} "
+# fi
 
+printf "[OPT_LITEOS_MINI]: ${OPT_LITEOS_MINI} \n"
+printf "[OPT_LITEOS_MAIN]: ${OPT_LITEOS_MAIN} \n"
 
 cd bsp
 [ -d out ] || mkdir out

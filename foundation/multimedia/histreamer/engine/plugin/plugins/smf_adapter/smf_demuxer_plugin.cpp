@@ -48,6 +48,7 @@ size_t SmfIORead(void *ptr, size_t size, size_t n, void *stream)
 
     int rtv = 0;
     auto ioContext = static_cast<IOContext *>(stream);
+    MEDIA_LOG_E("dataSource=0x%p", ioContext->dataSource);
     size_t read_size = size * n;
     MEDIA_LOG_D("SmfIORead want_read_size %d", read_size);
     if (ioContext && ioContext->dataSource)
@@ -168,7 +169,7 @@ Status RegisterPlugin(const std::shared_ptr<Register> &reg);
 
 static bool smf_demuxer_plugin_inited = false;
 
-#define SMF_SUPPORTED_DEMUXER_KEY_COUNT_MAX 2
+#define SMF_SUPPORTED_DEMUXER_KEY_COUNT_MAX 3
 
 static const char *smf_supported_demuxer_key[SMF_SUPPORTED_DEMUXER_KEY_COUNT_MAX+1] = {NULL};
 
@@ -299,12 +300,14 @@ Status SmfDemuxerPlugin::SetDataSource(const std::shared_ptr<DataSource> &source
 {
     MEDIA_LOG_D("SetDataSource called.");
     ioContext_.dataSource = source;
+    MEDIA_LOG_E("dataSource=0x%p", ioContext_.dataSource);
     return Status::OK;
 }
 
 Status SmfDemuxerPlugin::GetMediaInfo(MediaInfo &mediaInfo)
 {
     MEDIA_LOG_D("GetMediaInfo called.");
+    MEDIA_LOG_E("dataSource=0x%p", ioContext_.dataSource);
     memset(&smf_demuxer_param, 0, sizeof(smf_demuxer_param));
     smf_demuxer_param.packed = true;
 #ifndef SMF_FS_CALLBACK_REGISTER_IOFILE
@@ -356,6 +359,11 @@ Status SmfDemuxerPlugin::GetMediaInfo(MediaInfo &mediaInfo)
         {
             mediaInfo.tracks[0].Insert<Tag::MIME>(MEDIA_MIME_AUDIO_WAV);
             mediaInfo.tracks[0].Insert<Tag::AUDIO_SAMPLE_PER_FRAME>(8192);
+        }
+        if (!strcmp("sbc", (const char *)&smf_demuxer_param.media->codec))
+        {
+            mediaInfo.tracks[0].Insert<Tag::MIME>(MEDIA_MIME_AUDIO_SBC);
+            //mediaInfo.tracks[0].Insert<Tag::AUDIO_SAMPLE_PER_FRAME>(8192);
         }
         return Status::OK;
     }
@@ -477,6 +485,7 @@ static void smf_demuxer_plugin_init(void)
 
     smf_mp3_demuxer_register();
     smf_wav_demuxer_register();
+    smf_sbc_demuxer_register();
     // TODO: add more format support. SMF_SUPPORTED_DEMUXER_KEY_COUNT_MAX need +1.
     
     smf_demuxer_plugin_inited = true;

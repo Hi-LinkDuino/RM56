@@ -280,6 +280,15 @@ executable("liteos") {
     "-Wl,-Map=$liteos_name.map",
   ]
 
+  if(bfd_dev_mode == "prod"){
+    ldflags += [ "-Wl,-T" + rebase_path("../../device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/prebuild/${bes_specific_chip}_best2001.lds") ]
+  }else{
+    if(bes_specific_chip == "best2003") {
+      ldflags += [ "-Wl,-T" + rebase_path("../../device/soc/bestechnic/bes2600/liteos_m/sdk/bsp/out/best2600w_liteos/_best2001.lds") ]
+      libs = [ "bspbest2600w_liteos" ]
+    }
+  }
+
   output_dir = target_out_dir
 
   if (liteos_kernel_only) {

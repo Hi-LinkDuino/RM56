@@ -10,6 +10,7 @@ extern "C" {
 typedef struct {
     int32_t     bypass;
     int32_t     wnr_enable;
+    int32_t     denoise_level;
 	int32_t     denoise_dB;
 } Speech2MicNs6Config;
 

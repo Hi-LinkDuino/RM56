@@ -18,10 +18,18 @@
 #include "acelite_config.h"
 #include "lazy_load_manager.h"
 #include "stylemgr/app_style_manager.h"
+#include <list>
 
 namespace OHOS {
 namespace ACELite {
 class JSAbilityImpl;
+
+struct StyleManageInfo: public MemoryHeap{
+    AppStyleManager* manager;
+    char * jsPath;
+};
+
+
 /**
  * @brief Global App context.
  */
@@ -77,6 +85,13 @@ public:
     {
         return currentJsPath_;
     }
+    
+    void SetTempJsPath(const char * jsPath)
+    {
+        styleManage_ = nullptr;
+        tempJsPath_ = jsPath;
+    }
+
     /**
      * @brief return current bundle name
      */
@@ -102,22 +117,9 @@ public:
     int32_t GetTargetApi() const;
     void SetTargetApi(int32_t targetApi);
 
-    const AppStyleManager *GetStyleManager()
-    {
-        if (styleManage_ == nullptr) {
-            styleManage_ = new AppStyleManager();
-            styleManage_->Prepare();
-        }
-        return styleManage_;
-    }
+    const AppStyleManager *GetStyleManager();
 
-    void ReleaseStyles()
-    {
-        if (styleManage_) {
-            delete styleManage_;
-            styleManage_ = nullptr;
-        }
-    }
+    void ReleaseStyles(const char * jsPath);
 
     /*
      * @brief: clear app env.
@@ -139,6 +141,23 @@ public:
             lazyLoadManager_ = nullptr;
         }
     }
+
+    /**
+     * @brief 移除指定的数据监听器
+     * @param pageRootView 指定页面的根 view
+     */
+    void RemovePageWatchers(const UIView* const pageRootView = nullptr)
+    {
+        if (lazyLoadManager_ == nullptr) return;
+
+        lazyLoadManager_->RemoveLazyWatcher(pageRootView);
+
+        if (pageRootView == nullptr || lazyLoadManager_->IsWatcherEmpty()) {
+            ReleaseLazyLoadManager();
+            return;
+        }
+    }
+
     char *GetResourcePath(const char *uri) const;
 
     uint16_t GetCurrentAbilityToken() const
@@ -169,7 +188,9 @@ private:
     char *currentBundleName_ = nullptr;
     char *currentAbilityPath_ = nullptr;
     char *currentJsPath_ = nullptr;
+    const char *tempJsPath_ = nullptr; // for fragment
     JSAbilityImpl *topJSAbilityImpl_ = nullptr;
+    std::list<StyleManageInfo*> *styleList_ = nullptr;
     AppStyleManager *styleManage_ = nullptr;
     LazyLoadManager *lazyLoadManager_ = nullptr;
     // record current running ability's uuid && ability path, will be release during app-cleanup

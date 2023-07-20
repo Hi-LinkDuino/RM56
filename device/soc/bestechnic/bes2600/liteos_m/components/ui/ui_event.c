@@ -29,6 +29,40 @@ JSUI_BT_DEVICE_LIST jsui_bt_device_list;
 //extern "C" int register_ui_bt_event_msg_send_func(UI_BT_EVENT_MSG_SEND_FUNC p_func);
 //extern "C" void reflesh_bt_source_search_result(const void* bt_name);
 
+#ifdef IMS_LTE
+extern int tmtc_volte_init(void);
+extern int tmtc_volte_reg(void);
+extern int tmtc_voip_call(char *pcUri);
+extern int tmtc_volte_answer(void);
+extern int tmtc_volte_term(void);
+
+void jsUI_VolteInitReg()
+{
+    tmtc_volte_init();
+    tmtc_volte_reg();
+}
+
+void jsUI_VolteCallkey(char *phone_num)
+{
+    tmtc_voip_call(phone_num);
+}
+
+void jsUI_VolteAnswer()
+{
+    tmtc_volte_answer();
+}
+
+void jsUI_VolteTerm()
+{
+    tmtc_volte_term();
+}
+
+void jsUI_CallIn(void)
+{
+    jsUI_SendMsgToEventManager_MulPara(LTE_TO_UI_MSG_CALL_IN_EVENT, NULL, 0);
+}
+#endif
+
 void mcu_notify_bth_incoming_response(uint8_t answer)
 {
 
@@ -182,19 +216,22 @@ static void jsUI_EventManagerTask(void *arg)
                     reflesh_bt_source_search_result(jsui_bt_device_list.index[jsui_bt_device_list.device_num - 1].bt_name);
                 }
                 break;
-            
+            case LTE_TO_UI_MSG_CALL_IN_EVENT:
+                jsUI_LteNotifyIncomingCallUi(1);
+                break;
+
             case UI_TO_BT_MSG_SEARCH_START_EVENT:
                 memset(&jsui_bt_device_list, 0, sizeof(JSUI_BT_DEVICE_LIST));
-                sys_request_bth_bt_device_search();
+                // sys_request_bth_bt_device_search();
                 break;
 
             case UI_TO_BT_MSG_CONNECT_DEVICE_EVENT:
                 jsUI_BtConnectDeviceByName(&msg.msg_data);
                 break;
-            
+
             default:
                 break;
-            } 
+            }
         }
     }
 }
@@ -216,7 +253,12 @@ static void jsUI_EventManagerInit(void)
 void jsUI_EventInit(void)
 {
     jsUI_EventManagerInit();
-    register_ui_bt_event_msg_send_func(jsUI_SendMsgToEventManager);
+#ifdef IMS_LTE
+    Mtc_CallCbSetIncoming(jsUI_CallIn);
+#endif
+    // register_ui_bt_event_msg_send_func(jsUI_SendMsgToEventManager);
     HILOG_INFO(HILOG_MODULE_APP, "HILOG_INFO %s\r\n", __func__);
 }
-// APP_FEATURE_INIT(jsUI_EventInit);
+#ifdef IMS_LTE
+APP_FEATURE_INIT(jsUI_EventInit);
+#endif

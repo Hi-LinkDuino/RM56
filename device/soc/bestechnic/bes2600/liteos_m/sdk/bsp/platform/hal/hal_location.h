@@ -165,18 +165,29 @@ extern "C" {
 #endif // !__GNUC__ || ROM_BUILD || PROGRAMMER
 
 #if defined(__GNUC__) && defined(__ARM_ARCH_ISA_ARM)
-#if (defined(DSP_RAM_SIZE) && (DSP_RAM_SIZE > 0)) || (defined(PSRAMUHS_NC_SIZE) &&(PSRAMUHS_NC_SIZE >0))
-#define SYNC_FLAGS_LOC                  HAL_SEC_LOC(.sync_flags)
-#define SYNC_FLAGS_DEF(n)               HAL_SEC_DEF(.sync_flags, n)
+#if (defined(DSP_RAM_SIZE) && (DSP_RAM_SIZE > 0)) \
+    || (defined(PSRAMUHS_NC_SIZE) &&(PSRAMUHS_NC_SIZE >0)) \
+    || (defined(SRAM_NC_SIZE) &&(SRAM_NC_SIZE >0))
+#define SYNC_ALIGN_SIZE                  4
+#define SYNC_FLAGS_LOC                   HAL_SEC_LOC(.sync_flags) ALIGNED(SYNC_ALIGN_SIZE)
+#define SYNC_FLAGS_DEF(n)                HAL_SEC_DEF(.sync_flags, n)
 #else
-#define SYNC_FLAGS_LOC
+#define SYNC_ALIGN_SIZE                  64
+#define SYNC_FLAGS_LOC                   ALIGNED(SYNC_ALIGN_SIZE)
 #define SYNC_FLAGS_DEF(n)
 #endif
 #define SYNC_FLAGS_LOC2                  HAL_SEC_LOC(.sync_flags)
 #define SYNC_FLAGS_DEF2(n)               HAL_SEC_DEF(.sync_flags, n)
 #else
-#define SYNC_FLAGS_LOC			HAL_SEC_LOC(.sram_bss)
-#define SYNC_FLAGS_DEF(n)		HAL_SEC_DEF(.sram_bss, n)
+#if (defined(DSP_RAM_SIZE) && (DSP_RAM_SIZE > 0)) \
+    || (defined(PSRAMUHS_NC_SIZE) &&(PSRAMUHS_NC_SIZE >0)) \
+    || (defined(SRAM_NC_SIZE) &&(SRAM_NC_SIZE >0))
+#define SYNC_ALIGN_SIZE                  4
+#else
+#define SYNC_ALIGN_SIZE                  64
+#endif
+#define SYNC_FLAGS_LOC                   HAL_SEC_LOC(.sram_bss) ALIGNED(SYNC_ALIGN_SIZE)
+#define SYNC_FLAGS_DEF(n)                HAL_SEC_DEF(.sram_bss, n)
 #define SYNC_FLAGS_LOC2                  HAL_SEC_LOC(.sram_bss)
 #define SYNC_FLAGS_DEF2(n)               HAL_SEC_DEF(.sram_bss, n)
 #endif

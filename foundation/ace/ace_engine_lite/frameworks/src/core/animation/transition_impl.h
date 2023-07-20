@@ -166,6 +166,31 @@ public:
     static bool IsEndWith(const char* src, const char *end);
     void Stop() const;
 
+    /**
+     * @brief 是否与指定的 view 层级绑定
+     * @param root view 层级根
+     */
+    bool IsBindViewTree(const UIView* const root) const
+    {
+        UIView* peek = view_;
+        while (peek != nullptr) {
+            if (peek == root) {
+                return true;
+            }
+            peek = peek->GetParent();
+        }
+        return false;
+    }
+
+    /**
+     * @brief 是否与指定的 view 绑定
+     * @param view
+     */
+    bool IsBindView(const UIView* const view) const
+    {
+        return view_ == view;
+    }
+
 private:
     void Callback(UIView* view) override;
     bool RepeatAnimator();

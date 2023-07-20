@@ -629,6 +629,14 @@ static inline int bwifi_send_data_buf(uint8_t devnum, uint8_t **tx_buf, uint16_t
  */
 int bwifi_str_cmd(uint8_t type, uint8_t *cmd_buf, uint8_t *rsp_buf, uint32_t rsp_size);
 
+/**
+ * bwifi_dat_cmd - send data command to wifi subsystem
+ * @tx_buf: pointer of the data buffer to be sent.
+ * @tx_len: length of the data to be sent.
+ * Returns: 0 - success, other - failure
+ */
+int bwifi_dat_cmd(uint8_t *tx_buf, uint16_t tx_len);
+
 /*
  * bwifi_autoip_enable - set autoip enable
  * @flag: autoip enable flag, 0 - disable(false), other - enable(true)

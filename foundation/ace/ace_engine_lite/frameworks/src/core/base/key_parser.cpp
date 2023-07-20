@@ -118,6 +118,9 @@ uint16_t ParsePrivateKeyId(const char *s, const size_t len)
     if (!strcmp(s, "bes-rectangle")) { // 字段值
         return K_BES_RECTANGLE;
     }
+    if(!strcmp(s,"besType")){
+        return K_BES_TYPE;
+    }
     return K_UNKNOWN;
 }
 
@@ -252,6 +255,9 @@ uint16_t KeyParser::ParseKeyId(const char *s, const size_t len)
             if(!strcmp(s,"es-drag")){
                 return K_BES_DRAG_VIEW;
             }
+            if(!strcmp(s,"es-list-menu")){
+                return K_BES_LIST_MENU_VIEW;
+            }
             if(!strcmp(s,"es-slide")){
                 return K_BES_SLIDE;
             }
@@ -261,6 +267,23 @@ uint16_t KeyParser::ParseKeyId(const char *s, const size_t len)
             if (!strcmp(s,"es-fisheye-menu")){
                 return K_BES_FISHEYE_MENU;
             }
+            if (!strcmp(s, "es")) {
+                return K_BES;
+            }
+            if (!strcmp(s, "esPressColor")) {
+                return K_BES_PRESS_COLOR;
+            }
+            if(!strcmp(s,"esPressImage")){
+                return K_BES_PRESS_IMAGE;
+            }
+            if (!strcmp(s,"es-fragment"))
+            {
+                return K_BES_FRAGEMNT;
+            }
+            if (!strcmp(s,"esPath"))
+            {
+                return K_BES_PATH;
+            }         
             break;
         case 'c':
 #if (FEATURE_COMPONENT_CAMERA == 1)

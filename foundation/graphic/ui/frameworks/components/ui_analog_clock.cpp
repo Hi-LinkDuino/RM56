@@ -46,6 +46,7 @@ void UIAnalogClock::SetHandImage(HandType type, const UIImageView& img, Point po
     hand->preAngle_ = 0;
     hand->nextAngle_ = 0;
     hand->drawtype_ = DrawType::DRAW_IMAGE;
+    hand->imageView_ = &img;
 
     if (img.GetSrcType() == IMG_SRC_FILE) {
         CacheEntry entry;
@@ -272,9 +273,25 @@ void UIAnalogClock::DrawHandImage(BufferInfo& gfxDstBuffer,
                                   const Rect& invalidatedArea,
                                   Hand& hand)
 {
+    if(hand.imageView_ == nullptr){
+        return;
+    }
+
+    if (hand.imageView_->GetSrcType() == IMG_SRC_FILE) {
+        CacheEntry entry;
+        RetCode ret = CacheManager::GetInstance().Open(hand.imageView_->GetPath(), *style_, entry);
+        if (ret != RetCode::OK) {
+            return;
+        }
+        hand.imageInfo_ = entry.GetImageInfo();
+    } else {
+        hand.imageInfo_ = *(hand.imageView_->GetImageInfo());
+    }
+
     if (hand.imageInfo_.data == nullptr) {
         return;
     }
+
     uint8_t pxSize = DrawUtils::GetPxSizeByColorMode(hand.imageInfo_.header.colorMode);
     TransformDataInfo imageTranDataInfo = {hand.imageInfo_.header, hand.imageInfo_.data, pxSize, BlurLevel::LEVEL0,
                                            TransformAlgorithm::BILINEAR,hand.imageInfo_.userData};

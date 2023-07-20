@@ -26,6 +26,8 @@
 #include "window/window.h"
 #endif
 
+#include "graphic_config.h"
+
 namespace OHOS {
 void PointerInputDevice::DispatchEvent(const DeviceData& data)
 {
@@ -45,6 +47,7 @@ void PointerInputDevice::DispatchEvent(const DeviceData& data)
         GRAPHIC_LOGE("No valid rootview to dispatch input event!\n");
         return;
     }
+
     // invalid touchable and draggable view will be reset to nullptr
     if ((touchableView_ != nullptr) && !RootView::FindSubView(*rootView, touchableView_)) {
         touchableView_ = nullptr;
@@ -58,6 +61,17 @@ void PointerInputDevice::DispatchEvent(const DeviceData& data)
         dragStep_ = { 0, 0 };
         isDragging_ = false;
     }
+
+#if (BES_FRATURE_PAGE_TRANSITION == 1)
+    RootView *rootViewClone = static_cast<RootView*>(rootView);
+    if (rootViewClone->IsPageTransitionNow()) {
+        touchableView_ = nullptr;
+        draggableView_ = nullptr;
+        dragLastPos_ = lastPos_;
+        lastPos_ = curPos_;
+        return;
+    }
+#endif
 
     if (data.state == STATE_PRESS) {
         DispatchPressEvent(rootView);

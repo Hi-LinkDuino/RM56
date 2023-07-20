@@ -1,0 +1,58 @@
+/*
+ * Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef OHOS_ACELITE_FRAGMENT_COMPONENT_H
+#define OHOS_ACELITE_FRAGMENT_COMPONENT_H
+#include "component.h"
+#include "flex_layout.h"
+#include "non_copyable.h"
+#include "fragment/js_fragment_state_machine.h"
+
+namespace OHOS {
+namespace ACELite {
+class FragmentComponent final : public Component {
+public:
+
+    ACE_DISALLOW_COPY_AND_MOVE(FragmentComponent);
+    FragmentComponent() = delete;
+    FragmentComponent(jerry_value_t options, jerry_value_t children, AppStyleManager* styleManager);
+    ~FragmentComponent() override;
+
+    void LoadFragment(char *path);
+
+protected:
+    bool SetPrivateAttribute(uint16_t attrKeyId, jerry_value_t attrValue) override;
+    UIView *GetComponentRootView() const override;
+    bool ProcessChildren() override;
+    void PostUpdate(uint16_t attrKeyId) override;
+    void AttachView(const Component *child) override;
+    void LayoutChildren() override;
+
+    void DetachFragment();
+
+    void AttachPageMachine();
+    void DetachPageMachine();
+
+private:
+    FlexLayout nativeView_;
+    FragmentStateMachine *fragmentSM_;
+    Component *rootComponent_;
+    char *fragmentPath_;
+    char *tempPath_;
+};
+} // namespace ACELite
+} // namespace OHOS
+
+#endif // OHOS_ACELITE_FRAGMENT_COMPONENT_H

@@ -59,10 +59,8 @@ int hal_mcu2cp_opened_cp(enum HAL_MCU2CP_ID_T id);
 int hal_mcu2cp_local_irq_pending_mcu(enum HAL_MCU2CP_ID_T id);
 int hal_mcu2cp_local_irq_pending_cp(enum HAL_MCU2CP_ID_T id);
 
-void hal_mcu2cp_poll_tx_irq_mcu(enum HAL_MCU2CP_ID_T id);
-void hal_mcu2cp_poll_tx_irq_cp(enum HAL_MCU2CP_ID_T id);
-void hal_mcu2cp_irq_ack_mcu(enum HAL_MCU2CP_ID_T id);
-void hal_mcu2cp_irq_ack_cp(enum HAL_MCU2CP_ID_T id);
+int hal_mcu2cp_force_flush_pending_mcu(enum HAL_MCU2CP_ID_T id);
+int hal_mcu2cp_force_flush_pending_cp(enum HAL_MCU2CP_ID_T id);
 
 const struct HAL_MCU2CP_MSG_T ** hal_mcu2cp_get_send_msg_list_cp(void);
 const struct HAL_MCU2CP_MSG_T ** hal_mcu2cp_get_send_msg_list_mcu(void);

@@ -47,21 +47,6 @@ __extension__ \
 struct irq_masked_address {uint32_t pc; uint32_t lr;};
 extern struct irq_masked_address irq_masked_addr;
 
-#if defined(__NuttX__) && defined(CONFIG_SMP)
-extern uint32_t int_lock(void);
-extern void int_unlock(uint32_t pri);
-
-__STATIC_FORCEINLINE uint32_t int_lock_global(void)
-{
-    return int_lock();
-}
-__STATIC_FORCEINLINE void int_unlock_global(uint32_t pri)
-{
-    int_unlock(pri);
-}
-
-#else
-
 __STATIC_FORCEINLINE uint32_t int_lock_global(void)
 {
 #ifdef __ARM_ARCH_ISA_ARM
@@ -71,32 +56,73 @@ __STATIC_FORCEINLINE uint32_t int_lock_global(void)
         cpsr |= IRQ_LOCK_MASK;
         __set_CPSR(cpsr);
     }
+#if defined(__NuttX__)
+    extern int32_t global_int_locked[];
+    global_int_locked[get_cpu_id()]++;
+#endif
     return st;
 #else
-	uint32_t pri = __get_PRIMASK();
-	if ((pri & 0x1) == 0) {
-		__disable_irq();
-	}
-	return pri;
+    uint32_t pri = __get_PRIMASK();
+    if ((pri & 0x1) == 0) {
+        __disable_irq();
+    }
+    return pri;
 #endif
 }
 
 __STATIC_FORCEINLINE void int_unlock_global(uint32_t pri)
 {
 #ifdef __ARM_ARCH_ISA_ARM
+#if defined(__NuttX__)
+    extern int32_t global_int_locked[];
+    global_int_locked[get_cpu_id()]--;
+#endif
     if (pri != IRQ_LOCK_MASK) {
         uint32_t cpsr = __get_CPSR();
         cpsr = (cpsr & ~IRQ_LOCK_MASK) | pri;
         __set_CPSR(cpsr);
     }
 #else
-	if ((pri & 0x1) == 0) {
-		__enable_irq();
-	}
+    if ((pri & 0x1) == 0) {
+        __enable_irq();
+    }
 #endif
 }
 
+__STATIC_FORCEINLINE int in_int_locked(void)
+{
+    uint32_t mask;
+
+#ifdef __ARM_ARCH_ISA_ARM
+#if defined(__NuttX__)
+    extern int32_t global_int_locked[];
+    return (global_int_locked[get_cpu_id()] > 0);
+#else
+    mask = __get_CPSR();
+    if ((mask & IRQ_LOCK_MASK) == IRQ_LOCK_MASK) {
+        return true;
+    }
 #endif
+#else
+    mask = __get_PRIMASK();
+    if (mask & 0x1) {
+        return true;
+    }
+#endif
+
+#ifdef INT_LOCK_EXCEPTION
+#ifdef __ARM_ARCH_ISA_ARM
+    mask = GIC_GetInterfacePriorityMask();
+#else
+    mask = __get_BASEPRI();
+#endif
+    if (mask == ((IRQ_PRIORITY_HIGHPLUS << (8 - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL)) {
+        return true;
+    }
+#endif
+
+    return false;
+}
 
 #if defined(__NuttX__) || defined(KERNEL_LITEOS_A) ||\
      (defined(__ARM_ARCH_ISA_ARM) && (defined(KERNEL_RHINO) || defined(KERNEL_RTT)))
@@ -149,16 +175,6 @@ __STATIC_FORCEINLINE void int_unlock_local(uint32_t pri)
 {
     int_unlock(pri);
 }
-
-__STATIC_FORCEINLINE uint32_t int_lock_smp_com(void)
-{
-    return int_lock();
-}
-__STATIC_FORCEINLINE void int_unlock_smp_com(uint32_t pri)
-{
-    int_unlock(pri);
-}
-
 
 #endif
 #ifdef KERNEL_NUTTX

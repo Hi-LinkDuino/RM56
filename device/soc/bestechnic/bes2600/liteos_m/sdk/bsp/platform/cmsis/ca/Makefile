@@ -14,6 +14,9 @@ endif
 ifneq ($(PSRAMUHS_SIZE),)
 CFLAGS_mmu_ARMCA.o += -DPSRAMUHS_SIZE=$(PSRAMUHS_SIZE)
 endif
+ifeq ($(A7_DISPLAY),1)
+CFLAGS_mmu_ARMCA.o += -DA7_DISPLAY
+endif
 
 ifeq ($(CHIP_HAS_PSRAMUHS),1)
 CFLAGS_system_ARMCA.o += -DCHIP_HAS_PSRAMUHS

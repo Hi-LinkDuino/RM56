@@ -104,6 +104,10 @@ ifeq ($(APP_RNN_VAD),1)
 obj-y += app_rnn_vad/
 endif
 
+ifeq ($(XF_CHATGPT_TEST),1)
+obj-y += xf_main_demo/
+endif
+
 subdir-ccflags-y += -Iapps/apptester \
 					-Iapps/audioplayers \
 					-Iapps/anc/inc \

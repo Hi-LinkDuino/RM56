@@ -21,4 +21,8 @@ obj-y += os/test/pcm_audio_instance/
 endif
 endif
 
+ifeq ($(H264_TEST),1)
+KBUILD_CPPFLAGS += -DH264_TEST
+endif
+
 subdir-ccflags-y += -Iplatform/cmsis/inc/ca

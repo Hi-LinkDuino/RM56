@@ -50,6 +50,8 @@
 
 #define XT25Q08B_TOTAL_SIZE (1*1024*1024)
 
+#define W25Q128JW_TOTAL_SIZE (16*1024*1024)
+
 #define W25Q128JV_TOTAL_SIZE (16*1024*1024)
 
 /* device cmd */

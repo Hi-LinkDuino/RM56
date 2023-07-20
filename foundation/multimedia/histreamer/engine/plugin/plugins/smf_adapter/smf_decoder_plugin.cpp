@@ -255,6 +255,7 @@ using namespace OHOS::Media::Plugin;
 typedef enum {
     SMF_HISTREAMER_DECODER_MP3,
     SMF_HISTREAMER_DECODER_PCM,
+    SMF_HISTREAMER_DECODER_SBC,
 
     SMF_HISTREAMER_DECODER_UNKNOWN_BTU,
 } smf_histreamer_decoder_t;
@@ -276,6 +277,7 @@ static void smf_decoder_plugin_init(void)
 
     smf_mp3_decoder_register();
     smf_pcm_decoder_register();
+    smf_sbc_decoder_register();
     // TODO: add more decoder support. smf_histreamer_decoder_t need modify.
 
     smf_decoder_plugin_inited = true;
@@ -355,6 +357,14 @@ void UpdateInCaps(smf_histreamer_decoder_t shd, CodecPluginDef &definition)
         capBuilder.SetAudioChannelLayoutList(channelLayoutValues);
         definition.inCaps.push_back(capBuilder.Build());
         break;
+    case SMF_HISTREAMER_DECODER_SBC:
+        capBuilder.SetMime(OHOS::Media::MEDIA_MIME_AUDIO_SBC);
+        values = {8000, 16000, 22050, 44100, 48000, 32000};
+        capBuilder.SetAudioSampleRateList(values);
+        channelLayoutValues = {AudioChannelLayout::MONO, AudioChannelLayout::STEREO};
+        capBuilder.SetAudioChannelLayoutList(channelLayoutValues);
+        definition.inCaps.push_back(capBuilder.Build());
+        break;
     default:
         MEDIA_LOG_E("%d not support update incaps", shd);
         break;
@@ -368,6 +378,9 @@ static smf_histreamer_decoder_t smf_key_to_histreamer_doecer_type(const char *ke
 
     if (!strcmp(key, KEY_PCM))
         return SMF_HISTREAMER_DECODER_PCM;
+
+    if(!strcmp(key, KEY_SBC))
+        return SMF_HISTREAMER_DECODER_SBC;
 
     return SMF_HISTREAMER_DECODER_UNKNOWN_BTU;
 }

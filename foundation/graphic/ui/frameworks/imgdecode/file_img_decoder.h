@@ -16,6 +16,14 @@
 #ifndef GRAPHIC_LITE_FILE_IMG_DECODER_H
 #define GRAPHIC_LITE_FILE_IMG_DECODER_H
 
+#ifndef ALIGN_WIDTH_NUM
+#define ALIGN_WIDTH_NUM 16
+#endif
+
+#ifndef ALIGN_ADDRESS_NUM
+#define ALIGN_ADDRESS_NUM 64
+#endif
+
 #include "draw/draw_image.h"
 #include "draw/draw_utils.h"
 
@@ -61,7 +69,9 @@ private:
 
     bool IsImgValidMode(uint8_t colorMode)
     {
-        if ((colorMode == RGB565) || (colorMode == RGB888) || (colorMode == ARGB8888) || (colorMode == L8)) {
+        if ((colorMode == RGB565) || (colorMode == RGB888) ||
+            (colorMode == ARGB8888) || (colorMode == L8) || 
+            (colorMode == ETC2) || (colorMode == GIF) || (colorMode == JPEG)) {
             return true;
         } else {
             return false;

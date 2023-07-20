@@ -80,6 +80,12 @@ enum ota_link {
     OTA_LINK_MAX
 };
 
+enum ota_write_flag {
+    OTA_WRITE_BOOT2 = 1,
+    OTA_WRITE_RTOS  = 2,
+    OTA_WRITE_MAX   = 3
+};
+
 #define BOOT_INFO_A_B_SIZE         0x4000
 #define SECURE_CHECK_MAX_TIME      3
 #define EXCEPTION_REBOOT_COUNT_MAX 3

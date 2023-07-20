@@ -52,6 +52,56 @@ ColorType Color::GetColorFromRGBA(uint8_t r8, uint8_t g8, uint8_t b8, uint8_t al
     return rColor;
 }
 
+ColorType Color::Color32ToColorType(Color32 color)
+{
+    ColorType ret;
+#if COLOR_DEPTH == 16
+    ret.red = color.red >> 3;
+    ret.green = color.green >> 2;
+    ret.blue = color.blue >> 3;
+#elif COLOR_DEPTH == 24
+    ret.red = color.red;
+    ret.green = color.green;
+    ret.blue = color.blue;
+    ret.alpha = 0xFF;
+#elif COLOR_DEPTH == 32
+    ret = color;
+#endif
+    return ret;
+}
+
+ColorType Color::Color24ToColorType(Color24 color)
+{
+    ColorType ret;
+#if COLOR_DEPTH == 16
+    ret.red = color.red >> 3;
+    ret.green = color.green >> 2;
+    ret.blue = color.blue >> 3;
+#elif (COLOR_DEPTH == 24||COLOR_DEPTH == 32)
+    ret.red = color.red;
+    ret.green = color.green;
+    ret.blue = color.blue;
+    ret.alpha = 0xFF;
+#endif
+    return ret;
+}
+
+ColorType Color::Color16ToColorType(Color16 color)
+{
+    ColorType ret;
+#if COLOR_DEPTH == 16
+    ret.red = color.red;
+    ret.green = color.green;
+    ret.blue = color.blue;
+#elif (COLOR_DEPTH == 24||COLOR_DEPTH == 32)
+    ret.red = color.red << 3;     /* (2^8 - 1)/(2^5 - 1) = 255/31 = 8 */
+    ret.green = color.green << 2; /* (2^8 - 1)/(2^6 - 1) = 255/63 = 4 */
+    ret.blue = color.blue << 3;   /* (2^8 - 1)/(2^5 - 1) = 255/31 = 8 */
+    ret.alpha = 0xFF;
+#endif
+    return ret;
+}
+
 uint32_t Color::ColorTo32(ColorType color)
 {
 #if COLOR_DEPTH == 16

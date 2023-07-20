@@ -58,7 +58,8 @@ Style::Style()
       lineColor_(Color::GetColorFromRGB(0x20, 0x20, 0x20)),
       lineOpa_(OPA_OPAQUE),
       lineCap_(CapType::CAP_NONE),
-      lineWidth_(2) // 2 : default line width
+      lineWidth_(2), // 2 : default line width
+      useRadiuRepLineWidth(false)
 {
 }
 

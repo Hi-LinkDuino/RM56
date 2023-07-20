@@ -16,4 +16,7 @@ import("//kernel/liteos_m/liteos.gni")
 module_name = get_path_info(rebase_path("."), "name")
 module_group(module_name) {
   modules = [ "communication/wifi_lite/wifiservice" ]
+  if (defined(LOSCFG_SOC_SERIES_BES2600)){
+    modules += [ "lte" ]
+  }
 }

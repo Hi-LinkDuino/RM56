@@ -1285,7 +1285,8 @@ public:
 
     void DrawImage(const Point& startPoint, const char* image, const Paint& paint, int16_t width, int16_t height);
 
-    void DrawImage(const Point& startPoint, const char* image, const Paint& paint, int16_t width,bool rePaint,int16_t index);
+
+
 #endif
     /**
      * @brief Defines the font style.
@@ -1512,7 +1513,7 @@ protected:
     struct TextParam : public HeapBase {
         const char* text;
         Point position;
-        ColorType fontColor;
+        Color32 fontColor;
         uint8_t fontOpa;
         FontStyle fontStyle;
         Text* textComment;
@@ -1536,9 +1537,7 @@ protected:
         void (*DrawGraphics)(BufferInfo&, void*, const Paint&, const Rect&, const Rect&, const Style&);
         void (*DeleteParam)(void*);
     };
-
-    DrawCmd cmds_[19];
-
+    
     Point startPoint_;
     UICanvasVertices* vertices_;
     List<DrawCmd> drawCmdList_;

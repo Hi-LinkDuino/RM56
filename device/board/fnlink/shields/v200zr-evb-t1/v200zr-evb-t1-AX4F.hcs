@@ -37,6 +37,23 @@ root {
                 rxDMA = true;
             }
         }
+        spi_config {
+            spi1 {
+                match_attr = "spi1_config";
+                busNum = 1;
+                speed = 48000000;
+                spiClkPin = 10;
+                spiMosiPin = 15;
+                spiMisoPin = 14;
+                spiCsPin = 11;
+                csNum = 0;
+                mode = 0;
+                slave = false;
+                spiCsSoft = 0;
+                dataSize = 9;
+                transmode = 1;
+            }
+        }
     }
     display {
         panel_config {
@@ -52,6 +69,13 @@ root {
                 rst_pin = 3;
                 te_pin = 21;
                 vci_pin = 2;
+            }
+            st7789h2_config {
+                match_attr = "st7789h2_config";
+                // AX4F: RST - GPIO021, TE - GPIO3, LED_EN - GPIO26
+                rst_pin = 21;
+                te_pin = 3;
+                led_pin = 26;
             }*/
             a064_config {
                 match_attr = "a064_config";
@@ -87,7 +111,7 @@ root {
                 mount_points = ["/data"];
                 partitions = [10];
                 block_size = [4096];
-                block_count = [768];
+                block_count = [1024];
             }
         }
         storage_config {
@@ -96,8 +120,8 @@ root {
                 partitions = [10];
                 owner = [0];
                 description = ["littlefs"];
-                start_addr = [0xC80000];
-                length = [0x300000];
+                start_addr = [0xB80000];
+                length = [0x400000];
                 options = [3];
             }
         }

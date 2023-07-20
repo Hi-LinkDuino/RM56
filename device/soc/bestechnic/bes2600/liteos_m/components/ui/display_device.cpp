@@ -37,7 +37,11 @@ BufferInfo *DisplayDevice::GetFBBufferInfo()
     static BufferInfo bufferInfo;
     LiteSurfaceData *surfaceData = GetDevSurfaceData();
     bufferInfo.rect = {0, 0, HORIZONTAL_RESOLUTION - 1, VERTICAL_RESOLUTION - 1};
+    #ifdef CONFIG_DISPLAY_ST7789H2
+    bufferInfo.mode = RGB565;
+    #else
     bufferInfo.mode = ARGB8888;
+    #endif
     bufferInfo.color = 0x44;
     bufferInfo.phyAddr = surfaceData->phyAddr;
     bufferInfo.virAddr = surfaceData->virAddr;

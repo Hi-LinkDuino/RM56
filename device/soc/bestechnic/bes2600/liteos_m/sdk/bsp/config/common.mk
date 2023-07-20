@@ -2732,6 +2732,14 @@ ifeq ($(FREE_TWS_PAIRING_ENABLED),1)
 KBUILD_CPPFLAGS += -DFREE_TWS_PAIRING_ENABLED
 endif
 
+ifeq ($(AMR_WB_CODE_IN_SRAM),1)
+KBUILD_CPPFLAGS += -DAMR_WB_CODE_IN_SRAM
+endif
+
+ifeq ($(AMR_NB_CODE_IN_SRAM),1)
+KBUILD_CPPFLAGS += -DAMR_NB_CODE_IN_SRAM
+endif
+
 ifeq ($(VOICE_TX_AEC),1)
 export VOICE_TX_AEC
 KBUILD_CPPFLAGS += -DVOICE_TX_AEC
@@ -4256,12 +4264,19 @@ $(error PSRAMUHS_DUAL_8BIT conflicts with PSRAMUHS_DUAL_SWITCH)
 endif
 endif
 export PSRAMUHS_SIZE ?= 0x800000
+KBUILD_CPPFLAGS += -DPSRAMUHS_SIZE=$(PSRAMUHS_SIZE)
 endif
 
 export PSRAM_ALWAYS_SLEEP ?= 0
 ifeq ($(PSRAM_ALWAYS_SLEEP),1)
 KBUILD_CPPFLAGS += -DPSRAM_ALWAYS_SLEEP
 endif
+
+export PSRAMUHS_ALWAYS_SLEEP ?= 0
+ifeq ($(PSRAMUHS_ALWAYS_SLEEP),1)
+KBUILD_CPPFLAGS += -DPSRAMUHS_ALWAYS_SLEEP
+endif
+
 # NOTE: This size cannot be changed so that audio section address is fixed.
 #       This rule can be removed once audio tool can set audio section address dynamically.
 FACTORY_SECTION_SIZE ?= 0x1000

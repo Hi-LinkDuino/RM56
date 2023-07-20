@@ -38,6 +38,7 @@ extern struct netif if_wifi;
 static u8   _mac_addr[ETH_ALEN];
 
 WifiErrorCode RegisterWifiEvent(WifiEvent *event);
+static WifiErrorCode HalHmosGetNidDeviceConfigs(WifiDeviceConfig *result, int nid);
 
 typedef enum {
     HMOS_ON_WIFI_CONNECTION_CHANGED     = 0,
@@ -45,6 +46,7 @@ typedef enum {
     HMOS_ON_HOTSPOT_STATE_CHANGED       = 2,
     HMOS_ON_HOTSPOT_STA_JOIN_CHANGED    = 3,
     HMOS_ON_HOTSPOT_STA_LEAVE_CHANGED   = 4,
+    HMOS_ON_WIFI_MAC_CRASH_RECONNECT    = 5,
     HMOS_ON_WIFI_CB_ID_MAX
 } HalHmosWifiCallId;
 
@@ -122,6 +124,7 @@ osMutexDef(HalHmosWifiMutex);
 
 static void HalHmosStaEventConnect(WIFI_USER_EVT_ID evt_id, void *arg);
 static void HalHmosStaEventDisconn(WIFI_USER_EVT_ID evt_id, void *arg);
+static void HalHmosStaEventMacReset(WIFI_USER_EVT_ID evt_id, void *arg);
 static void HalHmosApEventEnabled(WIFI_USER_EVT_ID evt_id, void *arg);
 static void HalHmosApEventDisabled(WIFI_USER_EVT_ID evt_id, void *arg);
 static void HalHmosApEventStaJoin(WIFI_USER_EVT_ID evt_id, void *arg);
@@ -192,6 +195,33 @@ static void WifiConnectionChangedHandler(int state, WifiLinkedInfo *info)
     }
 }
 
+static int WifiMacResetReconnectHandler()
+{
+    /* start reconnect AP */
+    int ret                                 = ERROR_WIFI_UNKNOWN;
+    WifiLinkedInfo *info                    = &(g_HalHmosWifiInfo.info);
+    HalHmosWifiConfig *hmos_config_info     = &(g_HalHmosWifiInfo.hmos_config_info);
+    WifiDeviceConfig result;
+
+    if (WIFI_SUCCESS == HalHmosGetNidDeviceConfigs(&result, hmos_config_info->networkId)) {
+        hmos_printf("%s %d ssid=%s,psk=%s,wepid=%d ,hidder=0\n\r",
+                    __func__, __LINE__, result.ssid, result.preSharedKey,
+                    result.securityType == WIFI_SEC_TYPE_WEP ? 1 : 0);
+        hmos_printf("bssid=0x%02x:0x%02x:0x%02x:0x%02x:0x%02x:0x%02x\n\r",
+                    result.bssid[0], result.bssid[1], result.bssid[2],
+                    result.bssid[3], result.bssid[4], result.bssid[5]);
+
+        memset(info, 0, sizeof(WifiLinkedInfo));
+        memcpy(info->bssid, result.bssid, WIFI_MAC_LEN);
+        strcpy(info->ssid, result.ssid);
+        info->rssi = bwifi_get_current_rssi();
+
+        ret = bwifi_connect_to_ssid(info->ssid, result.preSharedKey,
+                                                    result.securityType == WIFI_SEC_TYPE_WEP ? 1 : 0,
+                                                    g_HalHmosWifiInfo.hidden, info->bssid);
+    }
+    return ret;
+}
 static void HalHmosWifiEventCall(HalHmosEventInfo *event, WifiEvent *hmos_fun_cb)
 {
 
@@ -255,7 +285,15 @@ static void HalHmosWifiEventThread(void const *argument)
                 }
                 g_HalHmosWifiInfo.scan_state = SCAN_DONE;
                 event.event_info.wifi_scan_sate_changed.size = hmos_config_info->scan_size;
+            }  else if (cmd->cmd_id == HMOS_ON_WIFI_MAC_CRASH_RECONNECT) {
+
+                int ret = ERROR_WIFI_UNKNOWN;
+                ret = WifiMacResetReconnectHandler();
+                if (ret != WIFI_SUCCESS) {
+                    hmos_printf("%s: WiFi mac reset failed\n", __func__);
+                }
             }
+
             for (i = 0; i < WIFI_MAX_EVENT_SIZE; i++) {
                 if (g_HalHmosEvent[i] != NULL)
                     HalHmosWifiEventCall(&event, g_HalHmosEvent[i]);
@@ -290,6 +328,7 @@ WifiErrorCode HalHmosWifiEventInit(void)
     bwifi_reg_user_evt_handler(WIFI_USER_EVT_AP_DISABLED, HalHmosApEventDisabled);
     bwifi_reg_user_evt_handler(WIFI_USER_EVT_AP_STA_CONNECTED, HalHmosApEventStaJoin);
     bwifi_reg_user_evt_handler(WIFI_USER_EVT_AP_STA_DISCONNECTED, HalHmosApEventStaLeave);
+    bwifi_reg_user_evt_handler(WIFI_USER_EVT_MAC_RESET_REQUEST, HalHmosStaEventMacReset);
 
     g_HalHmosWifiInfo.hmos_event_thread_init = true;
     return WIFI_SUCCESS;
@@ -483,6 +522,47 @@ static void HalHmosApEventStaLeave(WIFI_USER_EVT_ID evt_id, void *arg)
             for (i = 0; i < WIFI_MAX_EVENT_SIZE; i++) {
                 if (g_HalHmosEvent[i] != NULL)
                     HalHmosWifiEventCall(&event, g_HalHmosEvent[i]);
+            }
+        }
+    }
+}
+
+static void HalHmosStaEventMacReset(WIFI_USER_EVT_ID evt_id, void *arg)
+{
+    hmos_printf("F:%s L:%d event:%d\n", __func__, __LINE__, evt_id);
+    struct netif *p_netif = &if_wifi;
+    int ret, wifi_reset = 0;
+
+    wifi_reset = *(int *)arg;
+    if (g_HalHmosWifiInfo.info.connState == WIFI_CONNECTED) {
+        if (p_netif == NULL)
+            return 1;
+        /* clear IP address in case that dhcp_stop not do it */
+        netifapi_netif_set_addr(p_netif, IP4_ADDR_ANY4, IP4_ADDR_ANY4, IP4_ADDR_ANY4);
+        dns_setserver(0, IP4_ADDR_ANY);
+        netif_set_link_down(p_netif);
+        netif_set_down(p_netif);
+        if (_station_static_ip == false) {
+            osTimerStop(_dhcp_timer_id);
+            dhcp_stop(p_netif);
+        }
+    }
+
+    if (wifi_reset == UMAC_CRASH) {
+        int reason = 0x03;
+        HalHmosStaEventDisconn(WIFI_USER_EVT_DISCONNECTED, &reason);
+    } else {
+        BWIFI_HAL_API_CALL(disconnect);
+    }
+
+    ret = bwifi_reset();
+
+    bwifi_change_current_status(BWIFI_STATUS_IDLE);
+
+    if (!ret) {
+        if (evt_id == WIFI_USER_EVT_MAC_RESET_REQUEST) {
+            if (HalHmosSendEvent(HMOS_ON_WIFI_MAC_CRASH_RECONNECT, NULL) != 0) {
+                hmos_printf("%s, send event error\n", __func__);
             }
         }
     }

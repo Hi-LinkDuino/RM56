@@ -82,6 +82,17 @@ enum FLASH_SIZE_TYPE_T {
     FLASH_32M,
 };
 
+enum CHIP_MODEL_T {
+    CHIP_MODEL_2003F,
+    CHIP_MODEL_2003G,
+    CHIP_MODEL_2003H,
+    CHIP_MODEL_2003I,
+    /* add new 2003 ver here */
+
+    CHIP_MODEL_2006,
+    /* add new 2006 ver here*/
+};
+
 #define MAX_VMIC_CH_NUM                 2
 
 union SECURITY_VALUE_T {
@@ -213,6 +224,8 @@ int pmu_get_efuse_wifi_cali(uint8_t *pa_pad_cap_m, uint8_t *pa_driver_a);
 int pmu_set_efuse_wifi_cali(uint8_t pa_pad_cap_m, uint8_t pa_driver_a);
 
 void pmu_wf_tx_config(uint8_t band);
+
+enum CHIP_MODEL_T pmu_get_chip_model(void);
 
 #ifdef __cplusplus
 }

@@ -238,6 +238,7 @@ void UICanvas::DrawRect(const Point& startPoint, int16_t height, int16_t width, 
         LineTo({startPoint.x, static_cast<int16_t>(startPoint.y + height)});
         ClosePath();
         FillPath(paint);
+
         DrawPath(paint);
     }
     Invalidate();
@@ -505,76 +506,6 @@ void UICanvas::DrawImage(const Point& startPoint, const char* image,
 
         Invalidate();
         SetStartPosition(startPoint);
-    }
-
-    Invalidate();
-    SetStartPosition(startPoint);
-}
-
-void UICanvas::DrawImage(const Point& startPoint, const char* image,
-                         const Paint& paint, int16_t width,bool rePaint,int16_t index)
-{
-    int16_t height=width;
-    if (image == nullptr) {
-        return;
-    }
-    if(rePaint){
-        DrawCmd cmd=(cmds_[index]);
-        UIExtendImageView* image1 = static_cast<UIExtendImageView*>(cmds_[index].param);
-
-        image1->SetCanvas(this);
-        image1->SetPosition(startPoint.x, startPoint.y);
-
-        float scaleX = 1.0;
-        float scaleY = 1.0;
-        if (width > 0 && image1->GetWidth() > 0) {
-            scaleX = (float)width / (float)image1->GetWidth();
-        }
-        if (height > 0 && image1->GetHeight() > 0) {
-            scaleY = (float)height / (float)image1->GetHeight();
-        }
-
-        cmd.paint = paint;
-        cmd.paint.Scale(scaleX, scaleY);
-        cmd.param = image1;
-        cmd.DeleteParam = DeleteImageView;
-        cmd.DrawGraphics = DoDrawImage;
-        drawCmdList_.PushBack(cmd);
-
-        Invalidate();
-        SetStartPosition(startPoint);
-
-    }else {
-        if (static_cast<uint8_t>(paint.GetStyle()) & Paint::PaintStyle::FILL_STYLE) {
-            UIExtendImageView* imageView = new UIExtendImageView();
-            if (imageView == nullptr) {
-                GRAPHIC_LOGE("new UIImageView fail");
-                return;
-            }
-            imageView->SetCanvas(this);
-            imageView->SetPosition(startPoint.x, startPoint.y);
-            imageView->SetSrc(image);
-            float scaleX = 1.0;
-            float scaleY = 1.0;
-            if (width > 0 && imageView->GetWidth() > 0) {
-                scaleX = (float)width / (float)imageView->GetWidth();
-            }
-            if (height > 0 && imageView->GetHeight() > 0) {
-                scaleY = (float)height / (float)imageView->GetHeight();
-            }
-            DrawCmd cmd;
-            cmd.paint = paint;
-            cmd.paint.Scale(scaleX, scaleY);
-            cmd.param = imageView;
-            cmd.DeleteParam = DeleteImageView;
-            cmd.DrawGraphics = DoDrawImage;
-            drawCmdList_.PushBack(cmd);
-
-            cmds_[index] = cmd;
-
-            Invalidate();
-            SetStartPosition(startPoint);
-        }
     }
 
     Invalidate();
@@ -1330,7 +1261,7 @@ void UICanvas::StrokeText(const char* text, const Point& point, const FontStyle&
         textParam->text = text;
         textParam->fontStyle = fontStyle;
         textParam->fontOpa = paint.GetOpacity();
-        textParam->fontColor = paint.GetFillColor();
+        textParam->fontColor.full = Color::ColorTo32(paint.GetFillColor());
         textParam->position = point;
         DrawCmd cmd;
         cmd.param = textParam;
@@ -1409,9 +1340,9 @@ void UICanvas::DoDrawText(BufferInfo& gfxDstBuffer,
     GetAbsolutePosition(textParam->position, rect, style, start);
     textRect.SetPosition(start.x, start.y);
     Style drawStyle = style;
-    drawStyle.textColor_ = textParam->fontColor;
-    drawStyle.lineColor_ = textParam->fontColor;
-    drawStyle.bgColor_ = textParam->fontColor;
+    drawStyle.textColor_ = Color::Color32ToColorType(textParam->fontColor);
+    drawStyle.lineColor_ = Color::Color32ToColorType(textParam->fontColor);
+    drawStyle.bgColor_ =  Color::Color32ToColorType(textParam->fontColor);
     drawStyle.SetStyle(STYLE_LETTER_SPACE, textParam->fontStyle.letterSpace);
     text->ReMeasureTextSize(textRect, drawStyle);
     if (text->GetTextSize().x == 0 || text->GetTextSize().y == 0) {
@@ -1489,11 +1420,11 @@ void UICanvas::BuildGradientColor(const Paint &paint, FillGradientLut &gradientC
     for (; count < paint.getStopAndColor().Size(); count++) {
         ColorType stopColor = iter->data_.color;
         Rgba8T sRgba8;
-        uint8_t stopColorAlpha = 0xff;
+        uint8_t paintAlpha = 0xff;
         #if COLOR_DEPTH==32
-        stopColorAlpha = stopColor.alpha;
+        paintAlpha = stopColor.alpha;
         #endif
-        ChangeColor(sRgba8, stopColor, stopColorAlpha * paint.GetGlobalAlpha());
+        ChangeColor(sRgba8, stopColor, paintAlpha * paint.GetGlobalAlpha());
         gradientColorMode.AddColor(iter->data_.stop, sRgba8);
         iter = iter->next_;
     }

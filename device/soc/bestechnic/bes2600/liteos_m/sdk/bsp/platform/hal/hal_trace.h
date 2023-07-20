@@ -220,9 +220,10 @@ extern "C" {
 #undef ASSERT
 #undef DEBUGASSERT
 #include "syslog.h"
-void _assert(FAR const char *filename, int linenum) noreturn_function;
-#define ASSERT(cond, str, ...)      { if (!(cond)) { syslog(LOG_EMERG,str,##__VA_ARGS__); _assert(__FUNCTION__,__LINE__); } }
-#define DEBUGASSERT(cond)           { if (!(cond)) { _assert(__FUNCTION__,__LINE__);  } }
+void _assert(FAR const char *filename, int linenum,
+             FAR const char *msg, FAR void *regs);
+#define ASSERT(cond, str, ...)      { if (!(cond)) { syslog(LOG_EMERG,str,##__VA_ARGS__); _assert(__FUNCTION__,__LINE__, #cond, NULL); } }
+#define DEBUGASSERT(cond)           { if (!(cond)) { _assert(__FUNCTION__,__LINE__, #cond, NULL);  } }
 #endif
 
 #if (defined(DEBUG) || defined(REL_TRACE_ENABLE))

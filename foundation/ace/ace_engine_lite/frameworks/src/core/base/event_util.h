@@ -18,6 +18,7 @@
 
 #include "non_copyable.h"
 #include "ui_view.h"
+#include "ui_bes_menu.h"
 #include "wrapper/js.h"
 
 namespace OHOS {
@@ -53,6 +54,11 @@ public:
      * @brief Invoke the callback function of event.
      */
     static void InvokeCallback(JSValue vm, JSValue callback, JSValue event, const void *context = nullptr);
+
+    /**
+     * @brief Create User personal click by parameter.
+     */
+    static JSValue CreatePersonalEvent(UIView &view, const ClickEvent &event,uint8_t index);
 
     static const char *EVENT_CLICK;
     static const char *EVENT_DELETE;

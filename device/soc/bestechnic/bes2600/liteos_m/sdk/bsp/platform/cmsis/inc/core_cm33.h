@@ -258,7 +258,7 @@
     #define __VTOR_PRESENT             1U
     #warning "__VTOR_PRESENT not defined in device header file; using default!"
   #endif
-  
+
   #ifndef __NVIC_PRIO_BITS
     #define __NVIC_PRIO_BITS          3U
     #warning "__NVIC_PRIO_BITS not defined in device header file; using default!"
@@ -2275,7 +2275,7 @@ typedef struct
   \defgroup CMSIS_Core_FunctionInterface Functions and Instructions Reference
 */
 
-
+#define NVIC_USER_IRQ_OFFSET          16
 
 /* ##########################   NVIC functions  #################################### */
 /**
@@ -2284,6 +2284,11 @@ typedef struct
   \brief    Functions that manage interrupts and exceptions via the NVIC.
   @{
  */
+
+#ifdef __NuttX__
+#define CMSIS_NVIC_VIRTUAL
+#define CMSIS_NVIC_VIRTUAL_HEADER_FILE "cmsis_nvic_virtual_nuttx.h"
+#endif
 
 #ifdef CMSIS_NVIC_VIRTUAL
   #ifndef CMSIS_NVIC_VIRTUAL_HEADER_FILE
@@ -2309,23 +2314,16 @@ typedef struct
   #include CMSIS_VECTAB_VIRTUAL_HEADER_FILE
 #else
 #ifdef KERNEL_NUTTX
-typedef int (*xcpt_t)(int irq, void *context, void *arg);
-uint32_t get_cpu_id(void);
-__STATIC_FORCEINLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority);
-__STATIC_FORCEINLINE void __NVIC_SetVector(IRQn_Type IRQn, uint32_t vector);
-void nuttx_irq_attach(IRQn_Type IRQn, xcpt_t isr, uint32_t arg);
-int up_irq_handler(int irq, FAR void *context, FAR void *arg);
-uint8_t nuttx_irq_check(IRQn_Type IRQn, uint8_t isEnable);
 __STATIC_FORCEINLINE void tmp_irq_setPriority(IRQn_Type IRQn, uint32_t pri)
 {
-    #if defined(CONFIG_SMP) || (RAMCP_SIZE == 0)
-    __NVIC_SetPriority(IRQn, 5);
-    #else
+#if defined(CONFIG_SMP) || (RAMCP_SIZE == 0)
+    NXIC_SetPriority(IRQn+NVIC_USER_IRQ_OFFSET, 5);
+#else
     if (get_cpu_id() == 1)
         __NVIC_SetPriority(IRQn,pri);
     else
         __NVIC_SetPriority(IRQn, 5);
-    #endif
+#endif
 }
 
 __STATIC_FORCEINLINE void tmp_irq_SetVector(IRQn_Type IRQn, uint32_t vector)
@@ -2341,8 +2339,8 @@ __STATIC_FORCEINLINE void tmp_irq_SetVector(IRQn_Type IRQn, uint32_t vector)
 }
 
   #define NVIC_SetVector              tmp_irq_SetVector
-  #define NVIC_EnableIRQ(a)           do { if (nuttx_irq_check(a,1)) __NVIC_EnableIRQ(a);}while (0)
-  #define NVIC_DisableIRQ(a)          do { if (nuttx_irq_check(a,0)) __NVIC_DisableIRQ(a);}while (0)
+  #define NVIC_EnableIRQ(a)           NXIC_EnableIRQ(a+NVIC_USER_IRQ_OFFSET)
+  #define NVIC_DisableIRQ(a)          NXIC_DisableIRQ(a+NVIC_USER_IRQ_OFFSET)
   #define NVIC_SetPriority(a,b)       tmp_irq_setPriority(a,b)
 #else
   #define NVIC_SetVector              __NVIC_SetVector
@@ -2352,9 +2350,6 @@ __STATIC_FORCEINLINE void tmp_irq_SetVector(IRQn_Type IRQn, uint32_t vector)
 #endif
   #define NVIC_GetVector              __NVIC_GetVector
 #endif  /* (CMSIS_VECTAB_VIRTUAL) */
-
-#define NVIC_USER_IRQ_OFFSET          16
-
 
 /* Special LR values for Secure/Non-Secure call handling and exception handling                                               */
 

@@ -36,6 +36,7 @@
 #define UI_ANALOG_CLOCK_H
 
 #include "components/ui_abstract_clock.h"
+#include "components/ui_image_view.h"
 
 namespace OHOS {
 class UIImageView;
@@ -111,7 +112,8 @@ public:
               width_(0),
               height_(0),
               opacity_(0),
-              drawtype_(DrawType::DRAW_IMAGE)
+              drawtype_(DrawType::DRAW_IMAGE),
+              imageView_(nullptr)
         {
         }
 
@@ -188,6 +190,9 @@ public:
          * @brief Represents the drawing type of this clock hand.
          */
         DrawType drawtype_;
+
+        const UIImageView * imageView_;
+
     };
 
     /**

@@ -1475,6 +1475,13 @@ public:
     void SetOpaScale(uint8_t opaScale)
     {
         opaScale_ = opaScale;
+
+        //all the opacity changed.
+        float rate = (float)opaScale / OPA_OPAQUE;
+        SetStyle(STYLE_BACKGROUND_OPA, static_cast<int64_t>(GetStyle(STYLE_BACKGROUND_OPA) * rate));
+        SetStyle(STYLE_IMAGE_OPA, static_cast<int64_t>(GetStyle(STYLE_IMAGE_OPA) * rate));
+        SetStyle(STYLE_LINE_OPA, static_cast<int64_t>(GetStyle(STYLE_LINE_OPA) * rate));
+        SetStyle(STYLE_TEXT_OPA, static_cast<int64_t>(GetStyle(STYLE_TEXT_OPA) * rate));
     }
 
     /**

@@ -82,8 +82,10 @@
 /* to disable POP3 */
 #define CURL_DISABLE_POP3 1
 
+#ifndef XF_CHATGPT_TEST
 /* to disable proxies */
 #define CURL_DISABLE_PROXY 1
+#endif
 
 /* to disable RTSP */
 #define CURL_DISABLE_RTSP 1

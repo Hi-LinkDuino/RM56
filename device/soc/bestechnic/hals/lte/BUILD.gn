@@ -1,0 +1,35 @@
+# Copyright (c) 2021 Bestechnic (Shanghai) Co., Ltd. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//kernel/liteos_m/liteos.gni")
+
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name) {
+  sources = [
+    "//third_party/musl/porting/liteos_m/kernel/src/exit/assert.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/stderr.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/stdin.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/stdout.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/__stdio_close.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/__stdio_seek.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/__stdio_write.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/__stdio_read.c",
+    "//third_party/musl/porting/liteos_m/kernel/src/stdio/__stdout_write.c",
+  ]
+
+  include_dirs = [
+  "//third_party/musl/porting/liteos_m/kernel/src/internal",
+  "//third_party/musl/porting/liteos_m/kernel/src/include",
+  "//third_party/musl/porting/liteos_m/kernel/include",
+  ]
+}

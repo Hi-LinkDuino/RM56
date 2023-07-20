@@ -117,4 +117,15 @@ lite_library("ace_lite") {
       "$ACE_LITE_PATH/src/core/components/horizon_progress_component.cpp"
     ]
   }
+  #可以在这里定义模块的宏，启用 / 禁用某些功能
+  # 用法：
+  # #if (XXX == 1)
+  #   //代码
+  # #endif
+  defines += [
+    # Duckweed（浮动消息）功能宏开关，
+    # ！必须同步修改 /foundation/graphic/ui/BUILD.gn 中的同名宏
+    "BES_FEATURE_DUCKWEED=1",
+    "ALIPAY_ENABLE = 0"
+  ]
 }

@@ -98,6 +98,12 @@ enum ColorMode : uint8_t {
     TSC6,
     /** TSC6A color mode */
     TSC6A,
+    /** etc2 */
+    ETC2,
+    /** JPEG */
+    JPEG,
+    /** GIF */
+    GIF,
     /** unknown color mode */
     UNKNOWN,
 };

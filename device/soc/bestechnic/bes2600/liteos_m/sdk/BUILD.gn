@@ -63,14 +63,10 @@ build_ext_component("build_sdk_into_lib") {
       if (bsp_bin.bsp_target_name == "best2600w_liteos_mini") {
         build_mini = bsp_bin.enable
       }
-    }    
-    print("build_sdk_into_lib: ./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}")
-    if (romfs_enable == "true" ) {
-      command = "./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}"
-    } else {
-      command = "./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}"
     }
+    command = "./tools/build_lib_into_hmos_out.sh ${build_tz} ${build_mini} ${ohos_build_type} ${product_path} ${best2003_type} ${romfs_enable}"
   }
+  print("bsp build command:", command)
 }
 
 foreach(bin_file, bin_list) {
@@ -130,13 +126,12 @@ config("public") {
     "bsp/net/wifi",
     "bsp/platform/hal/best2003",
   ]
-  if(bfd_dev_mode == "prod"){
-    ldflags = [ "-Wl,-T" + rebase_path("bsp/prebuild/${bes_specific_chip}_best2001.lds") ]
-  }else{
-    ldflags = [ "-Wl,-T" + rebase_path("bsp/out/best2600w_liteos/_best2001.lds") ]
-  }
+  # if(bfd_dev_mode == "prod"){
+  #   ldflags = [ "-Wl,-T" + rebase_path("bsp/prebuild/${bes_specific_chip}_best2001.lds") ]
+  # }else{
+  #   ldflags = [ "-Wl,-T" + rebase_path("bsp/out/best2600w_liteos/_best2001.lds") ]
+  # }
   # libs = [
-  #   "bspbest2600w_liteos",
   #   "c",
   #   "m",
   #   "stdc++",

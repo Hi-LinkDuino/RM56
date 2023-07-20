@@ -210,6 +210,7 @@ public:
     uint8_t lineOpa_;
     uint8_t lineCap_;
     int16_t lineWidth_;
+    bool useRadiuRepLineWidth;
 };
 
 /**

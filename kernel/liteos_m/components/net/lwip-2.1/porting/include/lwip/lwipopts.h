@@ -226,8 +226,9 @@
 
 #define MEMP_MEM_MALLOC                 1
 
-#undef LWIP_IPV6
+#ifndef LWIP_IPV6
 #define LWIP_IPV6                       0
+#endif
 
 #undef LWIP_SOCKET_SELECT
 #define LWIP_SOCKET_SELECT              1

@@ -56,20 +56,20 @@ GTAGS
 *.pch
 
 # Libraries
-*.lib
-*.a
+#*.lib
+#*.a
 *.la
 *.lai
 *.pyd
 
 # Shared objects (inc. Windows DLLs)
-*.dll
+#*.dll
 *.so
 *.so.*
 *.dylib
 
 # Executables
-*.exe
+#*.exe
 *.out
 *.app
 *.elf

@@ -22,6 +22,13 @@
 #include "device_resource_if.h"
 #endif
 
+/*
+ * look at device/soc/bestechnic/bes2600/liteos_m/sdk/tools/build_lib_into_hmos_out.sh
+ * GX6D:      REMAP_SUPPORT=1 BOOTINFO_OFFSET=0x1FC0000 RTOS_A/B_SIZE: 0x800000(8MB)
+ * AX4D/AX4F: REMAP_SUPPORT=0 BOOTINFO_OFFSET=0xFD0000  RTOS_MAIN_SIZE: 0x700000(7MB) RTOS_MINI_SIZE: 0x400000(4MB)
+ */
+#define RTOS_MINI_SUPPORT 1
+
 /* Logic partition on flash devices */
 hal_logic_partition_t g_halPartitions[] = {
     [HAL_PARTITION_BOOTLOADER] = {
@@ -114,10 +121,14 @@ hal_logic_partition_t g_halPartitions[] = {
         .partition_length = OTA_CODE_SIZE, //8064KB
 #elif (FLASH_SIZE == 0x2000000)
         .partition_start_addr = 0x80000,
-        .partition_length = 0x600000, //6MB
+        .partition_length = 0x800000, //8MB
 #elif (FLASH_SIZE == 0x1000000)
         .partition_start_addr = 0x80000,
+#if (RTOS_MINI_SUPPORT == 0)
         .partition_length = 0x600000, //6MB
+#elif (RTOS_MINI_SUPPORT == 1)
+        .partition_length = 0x700000, //7MB
+#endif
 #endif
         .partition_options = PAR_OPT_READ_EN | PAR_OPT_WRITE_EN,
     },
@@ -129,11 +140,16 @@ hal_logic_partition_t g_halPartitions[] = {
         .partition_start_addr = FW_MINI_CODE_OFFSET,
         .partition_length = FW_MINI_CODE_SIZE, //3072KB
 #elif (FLASH_SIZE == 0x2000000)
-        .partition_start_addr = 0x680000,
-        .partition_length = 0x600000, //6MB
+        .partition_start_addr = 0x880000,
+        .partition_length = 0x800000, //8MB
 #elif (FLASH_SIZE == 0x1000000)
+#if (RTOS_MINI_SUPPORT == 0)
         .partition_start_addr = 0x680000,
         .partition_length = 0x600000, //6MB
+#elif (RTOS_MINI_SUPPORT == 1)
+        .partition_start_addr = 0x780000,
+        .partition_length = 0x400000, //4MB
+#endif
 #endif
         .partition_options = PAR_OPT_READ_EN | PAR_OPT_WRITE_EN,
     },
@@ -144,11 +160,16 @@ hal_logic_partition_t g_halPartitions[] = {
         .partition_start_addr = LFS_FLASH_BASE_ADDR,
         .partition_length = LFS_SIZE,
 #elif (FLASH_SIZE == 0x2000000)
-        .partition_start_addr = 0xC80000,
+        .partition_start_addr = 0x1080000,
         .partition_length = 0x400000, //4MB
 #elif (FLASH_SIZE == 0x1000000)
+#if (RTOS_MINI_SUPPORT == 0)
         .partition_start_addr = 0xC80000,
         .partition_length = 0x300000, //3MB
+#elif (RTOS_MINI_SUPPORT == 1)
+        .partition_start_addr = 0xB80000,
+        .partition_length = 0x400000, //3MB
+#endif
 #endif
         .partition_options = PAR_OPT_READ_EN | PAR_OPT_WRITE_EN,
     },
@@ -186,9 +207,16 @@ hal_logic_partition_t g_halPartitions[] = {
 #elif (FLASH_SIZE == 0x1000000)
     [HAL_PARTITION_DATA] = {
         .partition_owner = HAL_FLASH_EMBEDDED,
-        .partition_description = "data",
-        .partition_start_addr = 0xF90000,
-        .partition_length = 0x40000, //256KB
+        .partition_description = "system_mini",
+        .partition_start_addr = 0x780000,
+        .partition_length = 0x400000, //4MB
+        .partition_options = PAR_OPT_READ_EN | PAR_OPT_WRITE_EN,
+    },
+    [HAL_PARTITION_RESOURCE] = {
+        .partition_owner = HAL_FLASH_EMBEDDED,
+        .partition_description = "littlefs",
+        .partition_start_addr = 0xB80000,
+        .partition_length = 0x400000, //4MB
         .partition_options = PAR_OPT_READ_EN | PAR_OPT_WRITE_EN,
     },
     [HAL_PARTITION_MISC] = {

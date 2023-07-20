@@ -38,6 +38,7 @@ const char* const MEDIA_MIME_AUDIO_WMA = "audio/x-ms-wma";
 const char* const MEDIA_MIME_AUDIO_AMR_NB = "audio/3gpp";
 const char* const MEDIA_MIME_AUDIO_AMR_WB = "audio/amr-wb";
 const char* const MEDIA_MIME_AUDIO_AVS3DA = "audio/avs-3da";
+const char* const MEDIA_MIME_AUDIO_SBC = "audio/sbc";
 
 const char* const MEDIA_MIME_VIDEO_RAW = "video/raw";
 const char* const MEDIA_MIME_VIDEO_H264 = "video/h264";

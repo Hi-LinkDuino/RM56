@@ -20,6 +20,7 @@ OPUS_CODEC_SUPPORT=0\
 
 # == area config liteos main bin begin == #
 OPT_LITEOS_MAIN="              \
+OTA_CODE_OFFSET=0x80000        \
 LIBC_INIT_AFTER_OS_INIT=1      \
 LPLAYER_FRAMEWORK_EN=0         \
 NET_LIBCURL_SUPPORT=1          \
@@ -29,12 +30,27 @@ MP3_CODEC_MINIMP3_DISENABLE=1  \
 HISTREAMER_HTTP_HLS_EN=1    \
 HISTREAMER_RENDER_SUPPORT=1    \
 CONFIG_DISPLAY_A064=1          \
+NET_MUSIC_SUPPORT=0            \
 "
 # == area config liteos main bin end   == #
 
+# == area config liteos mini bin begin == #
+OPT_LITEOS_MINI="              \
+OTA_CODE_OFFSET=0x780000       \
+LIBC_INIT_AFTER_OS_INIT=1      \
+LPLAYER_FRAMEWORK_EN=0         \
+NET_LIBCURL_SUPPORT=1          \
+HTTP_MEDIA_SUPPORT_HTTPS=0     \
+MP3_CODEC_MINIMP3_DISENABLE=1  \
+HISTREAMER_RENDER_SUPPORT=1    \
+AT_CMD=1                       \
+USE_EXT_CONSOLE=0              \
+CONFIG_DISPLAY_A064=1          \
+"
+# == area config liteos mini bin end   == #
+
 # == area config liteos cp bin begin == #
 OPT_LITEOS_CP=" \
-CP_OS_HEAP_SIZE=0x50000 \
 "
 # == area config liteos cp bin end   == #
 

@@ -26,7 +26,14 @@ extern void InitSampleModule(JSIValue exports);
 #endif
 extern void InitRouterModule(JSIValue exports);
 extern void InitAppModule(JSIValue exports);
+#if(ALIPAY_ENABLE == 1)
+extern void InitALiPayModule(JSIValue exports);
+#endif
+#if(FEATURE_MODULE_LTE == 1)
+extern void InitLteModule(JSIValue exports);
+#endif
 extern void InitBlutetoothModule(JSIValue exports);
+extern void InitOtaModule(JSIValue exports);
 #if (FEATURE_SUPPORT_HTTP == 1)
 extern void InitFetchModule(JSIValue exports);
 #endif // FEATURE_SUPPORT_HTTP
@@ -88,7 +95,14 @@ const Module OHOS_MODULES[] = {
     {"sample", InitSampleModule},
 #endif
     {"app", InitAppModule},
+    #if(ALIPAY_ENABLE == 1)
+    {"alipay", InitALiPayModule},
+    #endif
+#if(FEATURE_MODULE_LTE == 1)
+    {"lte", InitLteModule},
+#endif
     {"bluetooth", InitBlutetoothModule},
+    {"ota", InitOtaModule},
 #if (FEATURE_SUPPORT_HTTP == 1)
     {"fetch", InitFetchModule},
 #endif // FEATURE_SUPPORT_HTTP

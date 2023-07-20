@@ -34,6 +34,7 @@ public:
 
 protected:
 
+    void ReleaseNativeViews() override;
     UIView *GetComponentRootView() const override;
     bool ProcessChildren() override;
     void OnViewAttached() override;

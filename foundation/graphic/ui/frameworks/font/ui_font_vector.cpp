@@ -658,16 +658,40 @@ void UIFontVector::SetFace(FaceInfo& faceInfo, uint32_t unicode, TextStyle textS
     if (faceInfo.face->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
         pixSize = 0x04; // 4 Byte
     }
-    uint32_t bitmapSize = faceInfo.face->glyph->bitmap.width * faceInfo.face->glyph->bitmap.rows * pixSize;
-    uint8_t* bitmap = bitmapCache_->GetSpace(faceInfo.key, unicode, bitmapSize + sizeof(Metric), textStyle);
-    if (bitmap != nullptr) {
-        if (memcpy_s(bitmap, sizeof(Metric), &f, sizeof(Metric)) != EOK) {
-            return;
+    #if ENABLE_HARDWARE_ACCELERATION
+        uint32_t originBitmapWidth = faceInfo.face->glyph->bitmap.width;
+        uint32_t modBitmapWidth = originBitmapWidth % 16;
+        uint32_t originBitmapHeight = faceInfo.face->glyph->bitmap.rows;
+        uint32_t bitmapWidth = modBitmapWidth==0 ? originBitmapWidth : originBitmapWidth + 16 - modBitmapWidth;
+        uint32_t bitmapSize = bitmapWidth * originBitmapHeight * pixSize;
+
+        uint8_t* bitmap = bitmapCache_->GetSpace(faceInfo.key, unicode, bitmapSize + sizeof(Metric), textStyle);
+        if (bitmap != nullptr) {
+            if (memcpy_s(bitmap, sizeof(Metric), &f, sizeof(Metric)) != EOK) {
+                return;
+            }
+            uint8_t *fontMap = faceInfo.face->glyph->bitmap.buffer;
+            for(uint32_t i = 0; i < originBitmapHeight; i++)
+            {
+                if (memcpy_s(bitmap + sizeof(Metric) + i * bitmapWidth, originBitmapWidth, fontMap, originBitmapWidth) != EOK) {
+                    return;
+                }
+                fontMap += originBitmapWidth;
+            }
         }
-        if (memcpy_s(bitmap + sizeof(Metric), bitmapSize, faceInfo.face->glyph->bitmap.buffer, bitmapSize) != EOK) {
-            return;
+       
+    #else
+        uint32_t bitmapSize = faceInfo.face->glyph->bitmap.width * faceInfo.face->glyph->bitmap.rows * pixSize;
+        uint8_t* bitmap = bitmapCache_->GetSpace(faceInfo.key, unicode, bitmapSize + sizeof(Metric), textStyle);
+        if (bitmap != nullptr) {
+            if (memcpy_s(bitmap, sizeof(Metric), &f, sizeof(Metric)) != EOK) {
+                return;
+            }
+            if (memcpy_s(bitmap + sizeof(Metric), bitmapSize, faceInfo.face->glyph->bitmap.buffer, bitmapSize) != EOK) {
+                return;
+            }
         }
-    }
+    #endif
 }
 #endif
 

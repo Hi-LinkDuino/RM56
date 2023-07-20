@@ -19,7 +19,9 @@
 
 #if (FEATURE_COMPONENT_ANALOG_CLOCK == 1)
 #include "analog_clock_component.h"
+#include "bes_button_component.h"
 #include "bes_slide_component.h"
+#include "bes_menu_list_component.h"
 #include "bes_menu_component.h"
 #include "bes_drag_view_component.h"
 #include "clock_hand_component.h"
@@ -64,7 +66,7 @@
 #include "text_component.h"
 #include "video_component.h"
 #include "fisheye_menu_component.h"
-
+#include "fragment_component.h"
 #include "bestechnic/bes_list_component.h"
 
 namespace OHOS {
@@ -100,6 +102,9 @@ public:
                 break;
             case K_BES_DRAG_VIEW:
                 component = new BesDragViewComponent(options, children, styleManager);
+                break;
+            case K_BES_LIST_MENU_VIEW:
+                component = new BesMenuListComponent(options, children, styleManager);
                 break;
             case K_BES_MENU:
                 component = new BesMenuComponent(options, children, styleManager);
@@ -182,7 +187,9 @@ public:
                     component = new InputCheckboxComponent(options, children, styleManager);
                 } else if (id == K_RADIO) {
                     component = new InputRadioComponent(options, children, styleManager);
-                } else {
+                } else if(id == K_BES){
+                    component = new BesButtonComponent(options, children, styleManager);
+                }else {
                     // default type is input button
                     component = new InputButtonComponent(options, children, styleManager);
                 }
@@ -228,7 +235,7 @@ private:
      */
     static Component* CreatePrivateComponent(uint16_t componentNameId, jerry_value_t options, jerry_value_t children, AppStyleManager* styleManager)
     {
-        Component* component;
+        Component* component = nullptr;
         switch (componentNameId) {
             case K_BES_LIST: {
                 component = new BesListComponent(options, children, styleManager);
@@ -240,6 +247,18 @@ private:
                     component = new BesListComponent(options, children, styleManager);
                     break;
                 }
+            }
+            case K_DIV: {
+                uint16_t id = ComponentUtils::GetComponentType(options);
+                if(id == K_BES_FRAGEMNT){
+                    component = new FragmentComponent(options, children, styleManager);
+                } else if(id == K_BES_FISHEYE_MENU){
+                    component = new FisheyeMenuComponent(options, children, styleManager);
+                } else if(id == K_BES_DRAWER_LAYOUT){
+                    component = new DrawerLayoutComponent(options, children, styleManager);
+                }
+                break;
+
             }
             default: {
                 component = nullptr;

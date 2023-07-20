@@ -24,12 +24,15 @@ hdf_driver("hal_display") {
     "panel/a064.c",
     "panel/icna3311.c",
     "panel/rm69330.c",
+    "panel/st7789h2.c",
   ]
   include_dirs = [
     "//drivers/peripheral/display/interfaces/include",
     "//drivers/peripheral/display/hal",
     "//drivers/peripheral/base",
     "//drivers/framework/support/platform/include/mipi",
+    "//drivers/framework/support/platform/include/spi",
+    "//drivers/adapter/platform/spi",
   ]
   if (defined(LOSCFG_DRIVERS_HDF_CONFIG_MACRO)) {
     deps = [ "//device/board/fnlink/shields" ]

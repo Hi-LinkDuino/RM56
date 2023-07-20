@@ -171,5 +171,34 @@ void StringUtil::SplitStr(const std::string& str, const std::string& sep, std::m
         Str2map(std::move(strPart), out);
     }
 }
+
+bool StringUtil::ComparePath(const char* path, const char* otherPath)
+{
+    if (path == nullptr || otherPath == nullptr){
+        return false;
+    }
+    
+    int pathLen = strlen(path);
+    int otherPathLen = strlen(otherPath); 
+
+    //suffix .bc or .js
+    if(pathLen <= 3 || otherPathLen <= 3){
+        return false;
+    }
+
+    int pathIndex = path[0] == '/' ? 1 : 0;
+    int otherPathIndex = otherPath[0] == '/' ? 1:0;
+
+    while(pathIndex < pathLen && otherPathIndex < otherPathLen - 3){
+        if(path[pathIndex] != otherPath[otherPathIndex]){
+            return false;
+        }
+        pathIndex++;
+        otherPathIndex++;
+    }
+
+    return true;
+}
+
 } // namespace ACELite
 } // namespace OHOS

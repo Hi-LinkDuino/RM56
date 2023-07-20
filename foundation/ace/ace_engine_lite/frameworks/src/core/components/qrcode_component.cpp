@@ -27,7 +27,7 @@ namespace OHOS {
 namespace ACELite {
 QrcodeComponent::QrcodeComponent(jerry_value_t options, jerry_value_t children, AppStyleManager *manager)
     : Component(options, children, manager), qrcodeValue_(nullptr), qrcodeBackGroundColor_(Color::White()),
-      qrcodeColor_(Color::Black())
+      qrcodeColor_(Color::Black()),codeType_(1)
 {
     SetComponentName(K_QRCODE);
 }
@@ -44,6 +44,11 @@ bool QrcodeComponent::SetPrivateAttribute(uint16_t attrKeyId, jerry_value_t attr
         case K_VALUE: {
             ACE_FREE(qrcodeValue_);
             qrcodeValue_ = MallocStringOf(attrValue);
+            break;
+        }
+        case K_BES_TYPE: {
+            codeType_ = IntegerOf(attrValue);
+            qrcode_.SetQrcodeRange(codeType_);
             break;
         }
         default: {

@@ -87,7 +87,7 @@ root {
                 mount_points = ["/data"];
                 partitions = [10];
                 block_size = [4096];
-                block_count = [768];
+                block_count = [1024];
             }
         }
         storage_config {
@@ -96,8 +96,8 @@ root {
                 partitions = [10];
                 owner = [0];
                 description = ["littlefs"];
-                start_addr = [0xC80000];
-                length = [0x300000];
+                start_addr = [0xB80000];
+                length = [0x400000];
                 options = [3];
             }
         }

@@ -139,6 +139,10 @@ typedef struct {
     uint8_t status;                           /**< 1 low_pwer mode, 0 active mode */
 } BWIFI_EVENT_LOW_POWER_T;
 
+typedef struct {
+    uint8_t channel;                          /**< current work channel for re-config_dpd */
+} BWIFI_EVENT_WORK_CHANNEL_NOTIFY_T;
+
 typedef union {
     BWIFI_EVENT_STAMODE_SCANDONE_T            scan_done;          /**< station scan (APs) done */
     BWIFI_EVENT_STAMODE_CONNECTING_T          connecting;         /**< station is connecting to AP */
@@ -150,6 +154,7 @@ typedef union {
     BWIFI_EVENT_SAPMODE_STA_CONNECTED_T       sta_connected;      /**< a station connected to soft-AP */
     BWIFI_EVENT_SAPMODE_STA_DISCONNECTED_T    sta_disconnected;   /**< a station disconnected to soft-AP */
     //BWIFI_EVENT_SAPMODE_PROBEREQRECVED_T      ap_probereqrecved;  /**< soft-AP received probe request packet */
+    BWIFI_EVENT_WORK_CHANNEL_NOTIFY_T         notify_channel;     /**< notify channel change for re-config_dpd **/
     BWIFI_EVENT_COEX_MODE_T                   coex_mode;          /**< wifi/bt coex mode */
     BWIFI_EVENT_LMAC_FATAL_ERROR_T            fatal_err;          /**< LMAC fatal error */
     BWIFI_EVENT_LOW_POWER_T                   lower_power;        /**< low_power status */
@@ -168,7 +173,8 @@ typedef enum {
     EVENT_SAPMODE_STA_CONNECTED               = 9,  /**< a station connected to soft-AP */
     EVENT_SAPMODE_STA_DISCONNECTED            = 10, /**< a station disconnected to soft-AP */
     //EVENT_SAPMODE_PROBEREQRECVED            = 11, /**< soft-AP received probe request packet */
-    EVENT_COEX_MODE_CHANGE                          = 12, /**< switch wifi/bt coex mode between fdd and tdd */
+    EVENT_COEX_MODE_CHANGE                    = 12, /**< switch wifi/bt coex mode between fdd and tdd */
+    EVENT_WORK_CHANNEL_NOTIFY                 = 13, /**< notify channel change for re-config_dpd **/
 
     EVENT_LMAC_FATAL_ERROR                    = 20, /**< lower mac got a fatal error */
     EVENT_UMAC_CRASH                          = 21, /**< upper mac (cp) got crashed */

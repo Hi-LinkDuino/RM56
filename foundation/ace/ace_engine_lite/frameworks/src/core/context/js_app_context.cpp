@@ -261,6 +261,8 @@ void JsAppContext::SetCurrentJsPath(const char * const jsPath)
         currentJsPath_ = nullptr;
     }
 
+    styleManage_ = nullptr;
+
     if (jsPath != nullptr) {
         size_t jsPathLen = strlen(jsPath);
         if ((jsPathLen > 0) && (jsPathLen < PATH_LENGTH_MAX)) {
@@ -279,6 +281,91 @@ void JsAppContext::SetCurrentJsPath(const char * const jsPath)
     }
 }
 
+ const AppStyleManager * JsAppContext::GetStyleManager()
+ {
+    if(currentJsPath_ == nullptr && tempJsPath_ == nullptr){
+        return nullptr;
+    }
+
+    if(styleManage_ != nullptr){
+        return styleManage_;
+    }
+
+    const char * curPath = tempJsPath_ == nullptr? currentJsPath_ : tempJsPath_;
+
+    if(styleList_ == nullptr){
+        styleList_ = new std::list<StyleManageInfo*>();
+    }else{
+        auto it = styleList_->begin();
+        while(it != styleList_->end()){
+            if(StringUtil::ComparePath(curPath,(*it)->jsPath)){
+                styleManage_ =  (*it)->manager;
+                break;
+            }   
+            it++;
+        }
+        if(styleManage_ != nullptr){
+            return styleManage_;
+        }
+    }
+    
+    size_t pathLen = strlen(curPath);
+    char* jsPath = static_cast<char *>(ace_malloc(pathLen + 1));
+    if (jsPath == nullptr){
+        return nullptr;
+    }
+    
+    if(memcpy_s(jsPath, pathLen, curPath, pathLen) != 0){
+        ace_free(jsPath);
+        return nullptr;
+    }
+    jsPath[pathLen] = '\0';
+
+    StyleManageInfo *info = new StyleManageInfo();
+
+    info->jsPath = jsPath;
+    styleManage_ = new AppStyleManager();
+    styleManage_->Prepare();
+    info->manager = styleManage_;
+        
+    styleList_->push_back(info);
+
+    return styleManage_;
+
+ }
+
+
+ void JsAppContext::ReleaseStyles(const char * jsPath)
+ {
+
+    styleManage_ = nullptr;
+
+    if(jsPath == nullptr || styleList_ == nullptr){
+        return;
+    }
+
+    HILOG_INFO(HILOG_MODULE_ACE, "JsAppContext::ReleaseStyles size:%d jsPath: %s", styleList_->size(), jsPath);
+
+    StyleManageInfo *target = nullptr;
+    auto it = styleList_->begin();
+    while(it != styleList_->end()){
+        if(StringUtil::ComparePath(jsPath,(*it)->jsPath)){
+            target = *it;
+            break;
+        }   
+        it++;
+    }
+
+    if(target != nullptr){
+        styleList_->remove(target);
+        ace_free(target->jsPath);
+        delete target->manager;
+        delete target;
+        target = nullptr;
+    }
+
+ }
+
 void JsAppContext::ReleaseAbilityInfo()
 {
     if (currentBundleName_) {
@@ -294,6 +381,22 @@ void JsAppContext::ReleaseAbilityInfo()
     if (currentJsPath_) {
         ace_free(currentJsPath_);
         currentJsPath_ = nullptr;
+    }
+
+    if (styleList_) {
+        while(!styleList_->empty()){
+            StyleManageInfo* info = styleList_->back();
+            styleList_->pop_back();
+            ace_free(info->jsPath);
+            delete info->manager;
+            delete info;
+        }
+
+        delete styleList_;
+    }
+
+    if(styleManage_){
+        styleManage_ = nullptr;
     }
 }
 

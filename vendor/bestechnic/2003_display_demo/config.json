@@ -11,6 +11,8 @@
   "romfs_enable": "false",
   "bes_specific_chip":"best2003",
   "best2003_type": "GX6D",
+  "wifi_test": "true",
+  "lte_support": "false",
   "lcd_support": "a064",
   "bfd_build": "true",
   "bfd_dist_gui": "false",
@@ -46,7 +48,15 @@
       "burn_name": "rtos_mini",
       "enable": "false",
       "force_link_libs": [
-        "example"
+        "bootstrap",
+        "abilityms",
+        "bundlems",
+        "example",
+        "kernel",
+        "ability_test",
+        "fs_test",
+        "wifi_test",
+        "ota_test"
       ]
     }
   ],
@@ -55,7 +65,7 @@
       "fs_name": "littlefs_AX4D",
       "signature": "false",
       "block_size": "4096",
-      "fs_size": "3145728",
+      "fs_size": "4194304",
       "fs_src": "data",
       "burn_name": "littlefs",
       "enable": "true"
@@ -64,7 +74,7 @@
       "fs_name": "littlefs_AX4F",
       "signature": "false",
       "block_size": "4096",
-      "fs_size": "3145728",
+      "fs_size": "4194304",
       "fs_src": "data",
       "burn_name": "littlefs",
       "enable": "true"
@@ -155,7 +165,7 @@
             "multimedia_histreamer_enable_plugin_minimp3_adapter = true",
             "multimedia_histreamer_enable_plugin_smf_adapter = false",
             "multimedia_histreamer_enable_plugin_ffmpeg_adapter = false",
-            "multimedia_histreamer_enable_plugin_http_lite_source = true",
+            "multimedia_histreamer_enable_plugin_http_lite_source = false",
             "multimedia_histreamer_enable_plugin_minimp4_demuxer = false",
             "multimedia_histreamer_enable_plugin_lite_aac_decoder = false",
             "multimedia_histreamer_enable_plugin_aac_demuxer = false",

@@ -14,6 +14,71 @@
  */
 
 /**
+ * @author yongxianglai@bestechnic.com
+ * @syscap SystemCapability.ArkUI.ArkUI.Lite
+ * 转场动画参数字段
+ */
+export interface BesTransitionAnimOptions {
+  /** 动画名称 */
+  animName?: "translateX" | "translateY" | "opacity" | "scale";
+
+  /** 动画数据，数据数量和定义由 animName 字段决定 */
+  animValues: [number, number, number, number];
+
+  /** 动画持续时长，单位为毫秒 */
+  animDuration?: number;
+
+  /** 动画（时间曲线）插值器 */
+  animInterpolation?: "linear" | "ease_in" | "ease_out" | "ease_in_out";
+
+  /** 动画淡入淡出类型 */
+  animFade?: "fade-in" | "fade_out" | "none";
+
+  /** 动画基准位置 */
+  animPivot?: "center" | "left_center" | "right_center" | "top_center" | "bottom_center" | "left_top" | "right_top" | "left_bottom" | "right_bottom";
+
+  /** 动画执行的延时时长，单位为毫秒 */
+  animDelay?: number;
+}
+
+/**
+ * @author yongxianglai@bestechnic.com
+ * @syscap SystemCapability.ArkUI.ArkUI.Lite
+ * 页面转场动画字段
+ */
+export interface BesTransitionOptions {
+  /** 预置的转场方案。当存在此字段，其他字段都将被忽略 */
+  animator?: "dealer" | "fade" 
+    | "translate-forward" | "translate-backward" | "translate-fall" | "translate-rise"
+    | "zoom-in" | "zoom-out" 
+    | "stuff" | "overflow" 
+    | "scene-x" | "scene-y"
+    | "crt-on" | "crt-off" 
+    | "expand-lt" | "expand-rt" | "expand-lb"| "expand-rb"
+    | "shrink-lt" | "shrink-rt" | "shrink-lb" | "shrink-rb"
+    | "occupied-lr" | "occupied-rl" | "occupied-tb" | "occupied-bt"
+    | "expulsion-lr" | "expulsion-rl";
+
+  /** 转场动作强调。被强调的转场动作将置于最顶层，以防止被其他动作遮挡 */
+  perfer?: "enter" | "exit";
+
+  /** 入场 & 退场动画名称 */
+  animName?: "translateX" | "translateY" | "opacity" | "scale";
+
+  /** 页面转场时长，单位为毫秒，取值范围为 [100, 60000] */
+  animDuration?: number;
+
+  /** 入场 & 退场动画的时间（时间曲线）估值器 */
+  animInterpolation?: "ease_in" | "ease_out" | "ease_in_out";
+
+  /** 页面的入场动画字段 */
+  enter?: BesTransitionAnimOptions;
+
+  /** 页面的退场动画字段 */
+  exit?: BesTransitionAnimOptions;
+}
+
+/**
  * Defines the option of router.
  * @syscap SystemCapability.ArkUI.ArkUI.Lite
  * @since 3
@@ -39,6 +104,14 @@ export interface RouterOptions {
    * @since 3
    */
   params?: Object;
+
+  /**
+   * @date 2023年2月15日
+   * @syscap SystemCapability.ArkUI.ArkUI.Lite
+   *
+   * 页面转场参数，可作用于当前页面和目标页面
+   */
+  besTransition?: BesTransitionOptions;
 }
 
 /**
