@@ -260,6 +260,8 @@ else
 export RAMCP_SIZE := 0
 export RAMCPX_SIZE := 0
 endif
+export FACTORY_SECTION_SIZE ?= 0x20000
+export FACTORY_SECTOR_OFFSET ?= 0xF000
 
 export OSTICK_USE_FAST_TIMER ?= 1
 export FAST_TIMER_COMPENSATE ?= 1
@@ -269,8 +271,7 @@ KBUILD_CPPFLAGS += -DOS_HEAP_LINK_NAME=m_aucSysMem0 -DOS_WRAP_MALLOC
 LDFLAGS_IMAGE += \
              --wrap _malloc_r --wrap _calloc_r --wrap _realloc_r \
              --wrap _reallocf_r --wrap _free_r
-export FACTORY_SECTION_SIZE ?= 0x20000
-export FACTORY_SECTOR_OFFSET ?= 0xF000
+
 endif
 
 ifeq ($(KERNEL), FREERTOS)
