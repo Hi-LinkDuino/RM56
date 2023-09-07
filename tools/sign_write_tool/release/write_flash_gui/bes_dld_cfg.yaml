@@ -46,7 +46,7 @@ FILE_LIST:
     SIZE: 3670016
     SWITCH: true
 - FACTORY:
-    ADDR: 771743744
+    ADDR: 771682304
     FILE_NAME: factory.bin
     SIZE: 4096
     SWITCH: true
