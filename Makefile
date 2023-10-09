@@ -1380,6 +1380,11 @@ else
 	@echo AUD_SECTION_OFFSET=$(AUD_SECTION_OFFSET)>> $(out_build_info)
 	@echo RESERVED_SECTION_OFFSET=$(RESERVED_SECTION_OFFSET)>> $(out_build_info)
 	@echo FACTORY_SECTION_OFFSET=$(FACTORY_SECTION_OFFSET)>> $(out_build_info)
+ifdef FACTORY_SECTOR_OFFSET
+	@echo FACTORY_SECTOR_OFFSET=$(FACTORY_SECTOR_OFFSET)>> $(out_build_info)
+else
+	@echo FACTORY_SECTOR_OFFSET=0>> $(out_build_info)
+endif
 
 endif
 	@echo SECURE_BOOT=$(SECURE_BOOT)>> $(out_build_info)
@@ -1395,7 +1400,11 @@ endif
 ifdef LFS_FLASH_TOTAL_SIZE
 	@echo LFS_FLASH_TOTAL_SIZE=$(LFS_FLASH_TOTAL_SIZE)>> $(out_build_info)
 endif
+ifdef LFS_SIZE
+	@echo LFS_SIZE=$(LFS_SIZE)>> $(out_build_info)
 endif
+endif
+
 ifdef OTA_CODE_OFFSET
 	@echo OTA_CODE_OFFSET=$(OTA_CODE_OFFSET)>> $(out_build_info)
 endif

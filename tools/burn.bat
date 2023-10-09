@@ -33,8 +33,8 @@ if not exist %buildinfo% (
   exit
 )
 
-rem set progRate=1500000
-set progRate=3000000
+set progRate=1500000
+rem set progRate=3000000
 
 @echo Read buildinfo...
 @echo =====================================
@@ -66,8 +66,10 @@ echo fwAddr=%fwAddr%
 
 set /a boot2Addr=%FLASH_BASE% + %BOOT1_SIZE%
 set /a fsaddr=%FLASH_BASE% + %LFS_FLASH_BASE_ADDR%
-set /a factoryAddr=%FLASH_BASE% + %RESERVED_SECTION_OFFSET%
-set /a factory2Addr=%FLASH_BASE% + %FACTORY_SECTION_OFFSET%
+@REM set /a factoryAddr=%FLASH_BASE% + %RESERVED_SECTION_OFFSET%
+@REM set /a factory2Addr=%FLASH_BASE% + %FACTORY_SECTION_OFFSET%
+set /a factoryAddr=%FLASH_BASE% + %FACTORY_SECTION_OFFSET% + %FACTORY_SECTOR_OFFSET%
+set /a factory2Addr=%FLASH_BASE% + %FACTORY_SECTION_OFFSET% + %FACTORY_SECTION_SIZE%/2 + %FACTORY_SECTOR_OFFSET%
 echo boot2Addr=%boot2Addr%
 echo fsaddr=%fsaddr%
 echo factoryAddr=%factoryAddr%

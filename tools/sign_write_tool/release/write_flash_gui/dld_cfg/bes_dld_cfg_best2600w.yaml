@@ -40,13 +40,10 @@ FILE_LIST:
 - LITTLEFS:
     ADDR: 763592704
     FILE_NAME: littlefs.bin
-    REMAP_BOTH_SWITCH: true
-    REMAP_SWITCH: true
-    MAGIC: false
-    SIZE: 3670016
+    SIZE: 8011776
     SWITCH: true
 - FACTORY:
-    ADDR: 771743744
+    ADDR: 771682304
     FILE_NAME: factory.bin
     SIZE: 4096
     SWITCH: true
